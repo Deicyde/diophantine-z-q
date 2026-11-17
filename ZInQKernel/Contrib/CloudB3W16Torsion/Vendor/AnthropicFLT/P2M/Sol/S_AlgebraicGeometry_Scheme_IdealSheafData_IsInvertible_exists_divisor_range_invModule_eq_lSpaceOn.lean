@@ -51,7 +51,7 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul germToFunctionField
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul presheaf Hom.comp_app Hom mapPresheaf_app Hom.id_app restrict_map isSheaf restrict map_smul IsInvertible toUnitSection ofUnitSection ofUnitSection_toUnitSection ofUnitSection_injective ofUnitSection_map coeff zeroSchemeIdeal IsInvertible.exists_restrict_iso IsInvertible.exists_divisor_range_eq_lSpaceOn IsInvertible.coeffIdeal_le_and_ideal_zeroSchemeIdeal_eq)
 namespace RatSec
-open AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq
+open _root_.AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 
@@ -342,7 +342,7 @@ open AlgebraicGeometry.Scheme.IdealSheafData
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 open CategoryTheory.MonoidalCategory
-open AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq
+open _root_.AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq
 open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_invModule_eq_lSpaceOn.AlgebraicGeometry.Scheme.Modules
 open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_invModule_eq_lSpaceOn.AlgebraicGeometry.Scheme.Modules.RatSec
 open AlgebraicCurve
@@ -474,7 +474,7 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul germToFunctionField
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul presheaf Hom.comp_app Hom mapPresheaf_app Hom.id_app restrict_map isSheaf restrict map_smul IsInvertible toUnitSection ofUnitSection ofUnitSection_toUnitSection ofUnitSection_injective ofUnitSection_map coeff zeroSchemeIdeal IsInvertible.exists_restrict_iso IsInvertible.exists_divisor_range_eq_lSpaceOn IsInvertible.coeffIdeal_le_and_ideal_zeroSchemeIdeal_eq)
 namespace RatSec
-open AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq
+open _root_.AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 open CategoryTheory.MonoidalCategory
@@ -543,7 +543,7 @@ end AlgebraicGeometry.Scheme.Modules.RatSec
 
 namespace AlgebraicGeometry p2m_export "AlgebraicGeometry" "Scheme.Modules.Hom.app_smul Scheme.germToFunctionField SmoothOfRelativeDimension Scheme.Hom Scheme.germToFunctionField_injective Scheme.Opens.ι_appIso Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf QuasiCompact Spec IsIntegral Scheme.Modules.mapPresheaf_app Scheme Scheme.Hom.appIso Scheme.Opens.topIso_hom Scheme.Hom.preimage_mono IsSeparated IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.image_mono Scheme.Hom.opensFunctor Scheme.Opens.opensRange_ι Scheme.IdealSheafData Scheme.Modules.IsInvertible Scheme.Modules.toUnitSection Scheme.Modules.zeroSchemeIdeal Scheme.Modules.IsInvertible.exists_restrict_iso Scheme.IdealSheafData.IsInvertible Scheme.Modules.IsInvertible.exists_divisor_range_eq_lSpaceOn Scheme.Modules.IsInvertible.coeffIdeal_le_and_ideal_zeroSchemeIdeal_eq" namespace Scheme p2m_export "AlgebraicGeometry.Scheme" "Modules.Hom.app_smul germToFunctionField ringCatSheaf Hom.id_app Hom germToFunctionField_injective Γ Opens.ι_appIso topIso_hom Modules.Hom Hom.image_preimage_eq_opensRange_inf topIso Modules.mapPresheaf_app Hom.appIso functionField Opens.topIso_hom Hom.preimage_mono affineBasicOpen affineOpens Hom.comp_app isBasis_affineOpens Modules Opens Hom.image_mono Hom.opensFunctor Opens.opensRange_ι restrict IdealSheafData Modules.IsInvertible Modules.toUnitSection Modules.zeroSchemeIdeal Modules.IsInvertible.exists_restrict_iso IdealSheafData.IsInvertible Modules.IsInvertible.exists_divisor_range_eq_lSpaceOn Modules.IsInvertible.coeffIdeal_le_and_ideal_zeroSchemeIdeal_eq" namespace IdealSheafData p2m_export "AlgebraicGeometry.Scheme.IdealSheafData" "map map_id ideal map_comp map_ideal module moduleι invModule invModuleSection IsInvertible range_moduleIota_app_and_injective IsInvertible.isInvertible_invModule" namespace IsInvertible p2m_export "AlgebraicGeometry.Scheme.IdealSheafData.IsInvertible" "isInvertible_invModule zeroSchemeIdeal_invModuleSection" end AlgebraicGeometry.Scheme.IdealSheafData.IsInvertible
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData AlgebraicGeometry.Scheme.IdealSheafData.IsInvertible in
-open AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq in open _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_invModule_eq_lSpaceOn.AlgebraicGeometry.Scheme.Modules AlgebraicGeometry.Scheme.Modules.RatSec AlgebraicGeometry.Scheme.IdealSheafData.PresMod AlgebraicCurve _root_.CategoryTheory.MonoidalCategory in
+open _root_.AlgebraicGeometry.Scheme.Modules hiding restrict_smul_eq in open _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_invModule_eq_lSpaceOn.AlgebraicGeometry.Scheme.Modules AlgebraicGeometry.Scheme.Modules.RatSec AlgebraicGeometry.Scheme.IdealSheafData.PresMod AlgebraicCurve _root_.CategoryTheory.MonoidalCategory in
 
 theorem AlgebraicGeometry.Scheme.IdealSheafData.IsInvertible.exists_divisor_range_invModule_eq_lSpaceOn'
     {K : Type u} [Field K] {X : Scheme.{u}} (x : X ⟶ Spec (CommRingCat.of K))
