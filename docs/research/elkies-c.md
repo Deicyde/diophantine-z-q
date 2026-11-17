@@ -93,7 +93,26 @@ All for `K24 = ℚ(s6)` (`ShimuraGlue.Ray.K24`, `s6 = √−6` in `ℚ(ζ₂₄)
 
 ## 4. Discharges and fold
 
-* `#discharges` (`scratch/elkies-c/Discharges.lean`, output `scratch/elkies-c/discharges.txt`): DISCHARGES_PLACEHOLDER
+* `#discharges` (`scratch/elkies-c/Discharges.lean`, output `scratch/elkies-c/discharges.txt`): VERIFIED, after `lake build +ZInQKernel.OneProof.Main
+  +ZInQKernel.OneProof.Discharges` (16047 jobs, success):
+
+  ```
+  DISCHARGES [OpenResearchLeaves40.elkiesX6StarEvery] by ElkiesC.elkiesX6StarEvery_of_one
+    still assumes: [ElkiesC.ElkiesX6StarOneIdeal, X6ALIdeal.X6CoarseModuliIdeal,
+   RayClassCFT.ShimuraMainThmIDeligneY3AbU, BPAnalytic.Uniformization.UniformizationLeafAll,
+   ZInQ.HomLattice.GAGAMorphism, AvSplit.MumfordTorsionAlgClosed]
+    axioms: [propext, Classical.choice, Quot.sound]
+  DISCHARGES [OpenResearchLeaves40.elkiesX6StarEvery] by ElkiesC.elkiesX6StarEvery_of_one_twist
+    still assumes: [ElkiesC.ElkiesX6StarOneIdeal, GRX6AbPrint.X6CoarseModuli,
+   RayClassCFT.ShimuraMainThmIDeligneY3AbU, BPAnalytic.Uniformization.UniformizationLeafAll,
+   ZInQ.HomLattice.GAGAMorphism, AvSplit.MumfordTorsionAlgClosed]
+    axioms: [propext, Classical.choice, Quot.sound]
+  #discharges: 36 open hypotheses, 12253 theorems checked, 33 discharge one
+  ```
+
+  `X6CoarseModuli`, `ShimuraMainThmIDeligneY3AbU` are open fields of the same bundle; the last three are proved in
+  the tree (`uniformizationLeafAll_proof`, `GAGAMorphism.gagaMorphism_proof`,
+  `CloudB3W16Torsion.mumfordTorsionAlgClosed_proof`), so the only new hypothesis is `ElkiesX6StarOneIdeal`.
 * **Autofold spec** `scratch/elkies-c/autofold.json` (against the current main, top `TailZ65`): field
   `elkiesX6StarEvery` → leaf `elkiesX6StarOneIdeal` (kind `consequence`, flag "pending review ...; consequence step
   left: `ℚ(X/W) = ℚ(X)^W`"), proof
@@ -107,7 +126,9 @@ All for `K24 = ℚ(s6)` (`ShimuraGlue.Ray.K24`, `s6 = √−6` in `ℚ(ζ₂₄)
   Dry run (VERIFIED): `strict count: 15/16 on 31 -> 15/16 on 31; strictest 15/16 -> 15/16`. Count-neutral: the new
   leaf replaces a GLUE row by a GLUE row (consequence, pending review), since step (a) remains. What changes is the
   content of the row: of the three consequence steps x6-coarse listed (a), (b), (c), only (a) is left.
-  FOLDCHECK_PLACEHOLDER
+  The generated module (`scratch/elkies-c/FoldDryRun.lean`: `OpenResearchLeaves41`, `sixContactMin_of_open59`)
+  compiles, and `#print axioms HDec.HSyn.sixContactMin_of_open59` gives the standard three
+  (`scratch/elkies-c/foldcheck.txt`). VERIFIED.
 
 ## 5. Leaf and glue table, with ratings
 
@@ -118,6 +139,7 @@ All for `K24 = ℚ(s6)` (`ShimuraGlue.Ray.K24`, `s6 = √−6` in `ℚ(ζ₂₄)
 
 ## 6. Status of the checks
 
+* `#discharges` and the fold module: §4 (VERIFIED).
 * `ElkiesC/ClassNumber24.lean` and `ElkiesX6StarCM.lean` compile (`lake build ZInQKernel.Contrib.OneProof.ElkiesX6StarCM`,
   13037 jobs, success). VERIFIED.
 * `#print axioms` on all 89 declarations of the two files: `[propext, Classical.choice, Quot.sound]`

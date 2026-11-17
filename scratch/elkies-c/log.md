@@ -20,3 +20,7 @@ Base: wip/x6-coarse 0dc0c1fa, merged origin/main (5c7d9ba7) as 63d3efec.
 - ElkiesX6StarCM.lean compiles (lake env lean, no errors) — VERIFIED 2026-11-17 (after fixes: Pi0X6 is HDec.Pi0X6 in LPrefix; End not commutative so no ring on End)
 - Axioms.lean: all 89 declarations of the two files print [propext, Classical.choice, Quot.sound] — VERIFIED (axioms.txt)
 - autofold dry run (scratch/elkies-c/autofold.json): strict count: 15/16 on 31 -> 15/16 on 31; strictest 15/16 -> 15/16 (new leaf flagged pending review, counts GLUE as the field it replaces) — VERIFIED
+- lake build +Main +Discharges: 16047 jobs, success. #discharges: elkiesX6StarEvery discharged by
+  ElkiesC.elkiesX6StarEvery_of_one(_twist), still assumes ElkiesX6StarOneIdeal + coarse leaf + shimuraMain + 3 textbook
+  fields (proved in tree); standard axioms (discharges.txt) — VERIFIED
+- FoldDryRun.lean (autofold --dry-run, line 1 stripped) compiles; sixContactMin_of_open59 standard axioms (foldcheck.txt) — VERIFIED
