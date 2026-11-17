@@ -1,36 +1,34 @@
-# Mumford group law over a locally noetherian base
+# Mumford group law over a connected locally noetherian base
 
-This contribution is being developed for the exact open statement
-`ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw`.
+This contribution proves the current statement
+`DictModels.MumfordConn.MumfordGroupLawConn` in
+`ZInQKernel/Contrib/OneProof/MumfordGroupLawConnProof.lean`.
 
-**Status: proof development only. No open hypothesis is discharged by this file.**
+The construction first proves the unconditional group law over any locally
+noetherian base, then applies the repository's `conn_of_field`. No projectivity
+or additional mathematical assumption is introduced.
 
-## Planned mathematical route
+## Proof
 
-The starting sources are the proved deformation and algebraization material in
-[Anthropic's Fermat project](https://github.com/anthropics/fermats-last-theorem)
-at revision `6e837e75355538c7f80bab5b956861e86c4eacc2`.
+The proved deformation, completion, descent and affine group-law machinery is
+ported from [Anthropic's Fermat project](https://github.com/anthropics/fermats-last-theorem)
+at `6e837e75355538c7f80bab5b956861e86c4eacc2`.
+Its projectivity-dependent algebraization step is replaced by a proved graph
+algebraization theorem for proper schemes. The unique affine-local group laws
+are glued as scheme morphisms over the base, including nonreduced bases.
 
-The projective-base proof is not sufficient for the requested statement. The
-proper, smooth family in the statement need not be projective, including over a
-nonreduced base. The intended route therefore replaces projective morphism
-algebraization with graph algebraization for proper schemes, using finite-cover
-existence, formal closed-immersion recognition, and formal isomorphism recognition.
-The remaining deformation, descent, localization, uniqueness, and gluing steps
-are then transported to the original objects and hypotheses.
+## Verification
 
-All ported proof sources will retain their applicable licenses and attribution.
-Existing repository modules and dependency pins are not changed. New supporting
-modules belong in this directory, and the eventual exact closing theorem will
-belong in `ZInQKernel/Contrib/OneProof/MumfordGroupLawConnProof.lean`.
+- All 756 contributed Lean modules were rebuilt from source independently.
+- The exact current closing type and the canonical discharge check pass.
+- The closing theorem has no remaining assumptions and uses exactly
+  `propext`, `Classical.choice`, and `Quot.sound`.
+- Current-main coexistence, source policy, provenance and public hygiene pass.
+- Existing repository modules and dependency pins are unchanged.
 
-## Acceptance checks still required
+The independent rebuild used a 24 GB Lean heap for modules that exceeded a
+smaller 7.5 GB cap. Source compatibility changes and preserved upstream credits
+are recorded in the vendor notices and manifest.
 
-- Compile the complete supporting import cone from source on the pinned toolchain.
-- Prove the exact statement with no additional mathematical assumptions.
-- Run the prescribed discharge check against the newest main.
-- Check that the closing theorem uses only `propext`, `Classical.choice`, and
-  `Quot.sound`, and that no contributed source contains build-time code.
-- Independently review the final source, statement, and provenance.
-
-This is an AI-assisted contribution. Private evidence bundle available to the maintainer.
+This is AI-assisted work. Private evidence bundle available to the maintainer.
+No land or fold is performed by this contribution.
