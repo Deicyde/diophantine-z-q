@@ -1,0 +1,28 @@
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves57 →
+  HDec.HSyn.OpenTextbookLeaves18 →
+    HDec.HSyn.OpenAddedLeaves27 →
+      ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine →
+        ZInQ.Manuscript.PoleS12.Lemma54 →
+          ZInQ.Manuscript.PoleS12.BCDTThmA → ZInQ.Manuscript.PoleS12.KolyvaginThm1 → ZInQ.FrozenTarget
+ZInQ.Manuscript.PoleS12.kummerSelmerM : ZInQ.Manuscript.PoleS12.KummerSelmerM
+def ZInQ.Manuscript.PoleS12.KummerSelmerM : Prop :=
+∀ (ℓ : ℕ),
+  0 < ℓ →
+    Squarefree ℓ →
+      Nat.card ↥(ZInQ.Manuscript.SelmerTwoPower.selmerAt (ZInQ.Manuscript.curve ↑ℓ) 1) =
+        (ZInQ.Manuscript.PoleRC.SelM ℓ).ncard
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleS12.kummerSelmerM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleRC.kummerSelmerM_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel.OneProof.Main: 1 declarations scanned, 0 with nonstandard axioms; names with placeDivisorSum: []
+ZInQKernel.Contrib.OneProof.PoleS12.Leaves: 11 declarations scanned, 0 with nonstandard axioms; names with placeDivisorSum: []
+ZInQKernel.Hypotheses.PoleManuscript: 10 declarations scanned, 0 with nonstandard axioms; names with placeDivisorSum: []
+ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_WeierstrassCurve_GenusOnePic0: 45 declarations scanned, 0 with nonstandard axioms; names with placeDivisorSum: [WeierstrassCurve.Affine.placeDivisorSum]
+ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong: 394 declarations scanned, 0 with nonstandard axioms; names with placeDivisorSum: []
+ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.P2M.Sol.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem: 144 declarations scanned, 0 with nonstandard axioms; names with placeDivisorSum: []

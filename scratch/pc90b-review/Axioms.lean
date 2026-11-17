@@ -29,8 +29,8 @@ elab "#scan_modules" : command => do
   let std : List Name := [`propext, `Classical.choice, `Quot.sound]
   for m in mods do
     let some idx := env.getModuleIdx? m | logInfo m!"module not found {m}"
-    let mut n := 0
-    let mut bad := 0
+    let mut n : Nat := 0
+    let mut bad : Nat := 0
     let mut placeHits : Array Name := #[]
     for (c, ci) in env.constants.map₁.toList do
       if env.getModuleIdxFor? c == some idx then

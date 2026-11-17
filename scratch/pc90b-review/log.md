@@ -37,3 +37,13 @@
 ## (2) forbidden tokens: VERIFIED
 - sorry/admit/axiom/native_decide/implemented_by/extern/unsafe outside comments: 0 in each of the 6 changed .lean files;
   0 added lines with these tokens; 0 in KummerSelmerMProof.lean and PoleCompletenessFromRCGenuineFinal.lean.
+
+## (1) Build: VERIFIED
+- lake build ZInQKernel.OneProof.Main ZInQKernel.MainGreenTao: success, 16151 jobs, 0 errors.
+- plus Leaves, PoleManuscript, PoleCompletenessFromRCGenuineFinal, 3 AnthropicFLT modules: success, 16151 jobs.
+- 12 modules importing/being the 3 changed AnthropicFLT modules: success, 9317 jobs.
+
+## (2)-(3) Axioms / hKum: VERIFIED (Axioms-output.txt)
+- frozenTarget, MainGreenTao headline, kummerSelmerM, kummerSelmerM_proof, ..._final: [propext, Classical.choice, Quot.sound].
+- #scan_modules: 1+11+10+45+394+144 declarations of the 6 changed modules, 0 nonstandard.
+- head frozenTarget type = base type minus hKum; kummerSelmerM : ZInQ.Manuscript.PoleS12.KummerSelmerM (same constant).
