@@ -5,7 +5,7 @@ import re
 CMD = re.compile(r"^(theorem|lemma|def|abbrev|structure|class|instance|inductive|/--|/-!|/-|@\[|end\b|namespace|section|"
                  r"noncomputable|open|variable|set_option|#|private|protected|attribute|local|universe|example|macro|"
                  r"syntax|notation|scoped|omit|include|export|initialize|elab|run_cmd|mutual)")
-CTX = re.compile(r"^(open|variable|set_option|local notation|local infix|local prefix|local postfix|local macro|"
+CTX = re.compile(r"^(open|variable|set_option|attribute \[-instance\]|local notation|local infix|local prefix|local postfix|local macro|"
                  r"attribute \[local|universe|omit|include|local instance|local attribute|scoped\[)")
 _files = {}
 

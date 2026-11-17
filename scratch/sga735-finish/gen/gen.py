@@ -88,11 +88,15 @@ for l in open(TAINT):
     if short in SKIP or short in MAPPED:
         continue
     if len(parts) > 1 and parts[-2] in bad:
-        continue  # projections / constructors come with the structures
+        f0 = mod2file(mod)
+        if not find_decl(f0, parts[-2] + "." + short):
+            continue  # projections / constructors come with the structures
+        items.append((f0, parts[-2] + "." + short, None, parts, name))
+        continue
     k = ("structure",) if short in bad else None
-    items.append((mod2file(mod), short, k, parts))
+    items.append((mod2file(mod), short, k, parts, name))
 
-ren = {s: newname(s) for (_, s, _, _) in items}
+ren = {s.split(".")[-1]: newname(s.split(".")[-1]) for (_, s, _, _, _) in items}
 ren.update(MAPPED)
 ren["sga7_IX_3_5_ForwardGeom"] = "sga7_IX_3_5_ForwardUnipAC"
 
@@ -108,7 +112,7 @@ EDITS = {
 }
 
 uniq = {}
-for f, s, k, parts in items:
+for f, s, k, parts, full in items:
     if (f, s) in uniq:
         continue
     hits = find_decl(f, s) if k is None else find_decl(f, s, k)
@@ -118,12 +122,14 @@ for f, s, k, parts in items:
         hits = find_decl(f, dn)
     if len(hits) != 1:
         raise SystemExit(f"{s} in {f}: {len(hits)} hits")
-    uniq[(f, s)] = (rank[f], hits[0], f, dn, k, s)
+    uniq[(f, s)] = (rank[f], hits[0], f, dn, k, s.split('.')[-1], full)
 
 used = set()
 blocks = []
-for _, _, f, dn, k, s in sorted(uniq.values()):
+for _, _, f, dn, k, s, full in sorted(uniq.values()):
     txt = emit(f, dn, ren, (), k, 0)
+    if full.startswith("HDec.") and not re.search(r"^namespace HDec(\.|\s|$)", txt, re.M):
+        txt = "namespace HDec\n" + txt + "end HDec\n"
     txt = R6PAT.sub(NIL + "RaynaudCriterionNFNil", txt)
     txt = re.sub(r"^(\s+)sga7_IX_3_5_ForwardUnipAC : (_root_\.)?UnipotentForward\.SGA7_IX_3_5_ForwardGeom\s*$",
                  r"\1sga7_IX_3_5_ForwardUnipAC : " + NIL + "SGA7_IX_3_5_ForwardUnipAC", txt, flags=re.M)
@@ -153,5 +159,5 @@ hdr = open(os.path.join(os.path.dirname(__file__), "header.lean")).read()
 tail = """
 #print axioms HDec.HSyn.sixContactMin_of_open49
 """
-open(sys.argv[1], "w").write(hdr + "\nset_option maxHeartbeats 1000000\n\n" + "\n".join(blocks) + tail)
+open(sys.argv[1], "w").write(hdr + "\nset_option maxHeartbeats 1000000\nset_option synthInstance.maxHeartbeats 200000\n\n" + "\n".join(blocks) + tail)
 print(len(blocks), "blocks")

@@ -1,0 +1,407 @@
+scratch/sga735-finish/FoldCheck.lean:29:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.LeafQM.AV`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:32:5: warning: Ambiguous namespace `ObjBridge`: it is interpreted as `_root_.HDec.ObjBridge` because this `open` occurs inside `namespace HDec.LeafQM.AV`, while `_root_.ObjBridge` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ObjBridge`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:64:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:64:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:64:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:64:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:64:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:66:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:78:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:79:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:333:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.HSyn.LinkedTate`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:367:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:408:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:448:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:491:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:492:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:498:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:499:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:611:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:625:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:659:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:673:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:674:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:706:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:746:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:784:5: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:784:17: warning: Ambiguous namespace `GlueC10`: it is interpreted as `_root_.HDec.GlueC10` because this `open` occurs inside `namespace HDec`, while `_root_.GlueC10` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueC10`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:784:25: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:788:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:809:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:832:5: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:832:17: warning: Ambiguous namespace `GlueC10`: it is interpreted as `_root_.HDec.GlueC10` because this `open` occurs inside `namespace HDec`, while `_root_.GlueC10` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueC10`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:832:25: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:836:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:850:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:859:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:847:5: warning: Variable name `hU3` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hU3
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/sga735-finish/FoldCheck.lean:883:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:908:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:963:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:1218:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1218:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1218:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1218:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1218:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1220:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1237:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/sga735-finish/FoldCheck.lean:1253:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1253:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1253:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1253:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1253:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1255:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1275:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1275:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1275:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1275:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1275:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1277:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1277:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1277:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1277:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1277:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1279:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1300:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1300:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1300:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1300:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1300:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1302:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1302:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1302:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1302:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1302:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1304:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1304:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1304:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1304:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1304:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1306:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1326:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1326:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1326:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1326:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1326:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1328:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1328:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1328:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1328:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1328:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1330:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1330:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1330:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1330:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1330:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1332:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1352:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1352:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1352:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1352:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1352:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1354:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1354:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1354:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1354:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1354:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1356:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1356:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1356:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1356:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/sga735-finish/FoldCheck.lean:1356:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+'HDec.HSyn.sixContactMin_of_open49' depends on axioms: [propext, Classical.choice, Quot.sound]

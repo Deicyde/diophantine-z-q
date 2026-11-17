@@ -12,11 +12,15 @@ r6-typed constant is copied verbatim up to the renaming `X ↦ X_nl` / `XNL`, wi
 `ZInQKernel/Contrib/OneProof/SGA7IX35UnipReaders.lean`. -/
 
 set_option maxHeartbeats 1000000
+set_option synthInstance.maxHeartbeats 200000
 
 section
 -- copied from ZInQKernel/OneProof/H/LPrefix.lean:4249 (QML3.goodReduction)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section LeafQMSec
 noncomputable section
 namespace LeafQM
@@ -52,6 +56,9 @@ section
 -- copied from ZInQKernel/OneProof/H/TailC.lean:5947 (good_of_QML3)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_a75_kernelfield
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
@@ -83,6 +90,9 @@ section
 -- copied from ZInQKernel/OneProof/H/TailD.lean:35 (ResearchLeaves3)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_z80_leaves3
 noncomputable section
 namespace HSyn
@@ -126,15 +136,35 @@ structure ResearchLeaves3NL : Prop where
   r18 : ZInQ.LeafPush2.R18_Javanpeykar
   /-- R19-R21 over def-faltings' `stableFaltingsHeight`. Its value is `⊤` (no metrized model) or
   the stable Faltings height in Faltings' normalization, so R19-R21 are true for the definition;
-  they say something only together with `h5` (`StableHeightFinite`), which is where a defect of
+  they say something only together with `h5_nl` (`StableHeightFinite`), which is where a defect of
   the definition would surface, as a false leaf (rv-leaves48, `RvLeaves48D`). -/
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
   r21 : ZInQ.DefFaltings.R21_Bost
   /-- R22, Pazuki's upper half, over all uniformizations and period matrices (leaf-push2). -/
   r22 : ZInQ.LeafPush2.R22_Pazuki
   /-- H5's finiteness half (rv-blueprints F2): the stable height is finite (g0-assemble2: the
-  other half, `NeronModelMinimal`, is proved by h5-glue, `ZInQ.H5Glue.neronModelMinimal`). -/
+  other half, `NeronModelMinimal`, is proved by h5_nl-glue, `ZInQ.H5Glue.neronModelMinimal`). -/
   h5fin : ZInQ.DefFaltings.StableHeightFinite
+end HSyn
+end
+end G0A2_z80_leaves3
+end HDec
+end
+
+section
+-- copied from ZInQKernel/OneProof/H/TailD.lean:85 (ResearchLeaves3.h5)
+namespace HDec
+set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
+section G0A2_z80_leaves3
+noncomputable section
+namespace HSyn
+open scoped MatrixGroups ModularForm
+/-- H5 from its finiteness half and h5_nl-glue's `NeronModelMinimal`. -/
+theorem ResearchLeaves3NL.h5_nl (r : ResearchLeaves3NL) : LeafAdopt.H5 :=
+  ⟨r.h5fin, ZInQ.H5Glue.neronModelMinimal⟩
 end HSyn
 end
 end G0A2_z80_leaves3
@@ -145,12 +175,15 @@ section
 -- copied from ZInQKernel/OneProof/H/TailD.lean:115 (reverseIsogeny_of_leaves3)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_z80_leaves3
 noncomputable section
 namespace HSyn.G0RevIsog
 theorem reverseIsogeny_of_leaves3_nl (r : HSyn.ResearchLeaves3NL) (hDimF : G0Split.DimFinite) :
     G0Split.ReverseIsogeny :=
-  reverseIsogeny_of_exists (isogenyReverseExists_of_r19 r.r19 r.h5.1 hDimF)
+  reverseIsogeny_of_exists (isogenyReverseExists_of_r19 r.r19 r.h5_nl.1 hDimF)
 end HSyn.G0RevIsog
 end
 end G0A2_z80_leaves3
@@ -161,6 +194,9 @@ section
 -- copied from ZInQKernel/OneProof/H/TailD.lean:533 (r1r2fpFull_of)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_z90_bundle3
 noncomputable section
 namespace HSyn
@@ -184,6 +220,9 @@ open _root_.ZInQ.Contrib (AbVarBC.G0FibreSimple.MulIsogeny AbVarBC.MulRigidity.C
 open _root_.ZInQ.Contrib.AbVarBC.MulRigidity (CotangentMulN KerUnitOpen KerUnitOpenOfCotangentSurj MulEtale MulUnramified O0 QuasiFiniteEndSurjective charZero_residueField cotangentMap diagonal_isPullback diffKer formallyUnramified_of_kerUnit isIsogenyMor_of_lqf_of_isOpenMap isOpenImmersion_of_section isProper_left kerUnit kerUnitOpen_of_cotangent kerUnitOpen_of_mulEtale locallyQuasiFinite_of_formallyUnramified map_origin mulIsogeny_of_cotangent mulIsogeny_of_kerUnitOpen mulIsogeny_of_mulEtale mulIsogeny_of_mulUnramified mulIsogeny_of_mulUnramified' mulUnramified_of_kerUnitOpen mulUnramified_of_mulEtale ne_of_specializes_of_lqf origin quasiFiniteEndSurjective stalkEndo surjective_of_lqf_self) -- op-dedupe
 open _root_.ZInQ.Contrib.AbVarBC.G0FibreSimple (MulIsogeny) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_b20_fold
 noncomputable section
 namespace HSyn
@@ -227,7 +266,7 @@ structure OpenResearchLeaves2NL : Prop where
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
   r21 : ZInQ.DefFaltings.R21_Bost
   r22 : ZInQ.LeafPush2.R22_Pazuki
-  /-- H5's finiteness half (its `NeronModelMinimal` half is proved, h5-glue). -/
+  /-- H5's finiteness half (its `NeronModelMinimal` half is proved, h5_nl-glue). -/
   h5fin : ZInQ.DefFaltings.StableHeightFinite
 end HSyn
 end
@@ -244,6 +283,9 @@ open _root_.ZInQ.Contrib (AbVarBC.G0FibreSimple.MulIsogeny AbVarBC.MulRigidity.C
 open _root_.ZInQ.Contrib.AbVarBC.MulRigidity (CotangentMulN KerUnitOpen KerUnitOpenOfCotangentSurj MulEtale MulUnramified O0 QuasiFiniteEndSurjective charZero_residueField cotangentMap diagonal_isPullback diffKer formallyUnramified_of_kerUnit isIsogenyMor_of_lqf_of_isOpenMap isOpenImmersion_of_section isProper_left kerUnit kerUnitOpen_of_cotangent kerUnitOpen_of_mulEtale locallyQuasiFinite_of_formallyUnramified map_origin mulIsogeny_of_cotangent mulIsogeny_of_kerUnitOpen mulIsogeny_of_mulEtale mulIsogeny_of_mulUnramified mulIsogeny_of_mulUnramified' mulUnramified_of_kerUnitOpen mulUnramified_of_mulEtale ne_of_specializes_of_lqf origin quasiFiniteEndSurjective stalkEndo surjective_of_lqf_self) -- op-dedupe
 open _root_.ZInQ.Contrib.AbVarBC.G0FibreSimple (MulIsogeny) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_b20_fold
 noncomputable section
 namespace HSyn
@@ -280,6 +322,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c70_linkedtate
 section LinkedTateSec
 noncomputable section
@@ -311,6 +356,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 noncomputable section
@@ -349,6 +397,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 noncomputable section
@@ -386,6 +437,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 noncomputable section
@@ -546,6 +600,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 noncomputable section
@@ -591,6 +648,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 noncomputable section
@@ -635,6 +695,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 noncomputable section
@@ -672,6 +735,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 noncomputable section
@@ -695,7 +761,7 @@ theorem localGlue_of_descent_nl (hR6 : _root_.SGA735Nil.RaynaudCriterionNFNil)
     (hD : p ≤ 5 → DescentPts A L) (hB : p = 2 → BetaTwist2 (p := p) β L) :
     LocalGlue (p := p) Tm a β L :=
   localGlue_of_leaves_nl hR6 hTors hpℓ h7 hC hK
-    (fun h5 => tateWildKE_of_descent_nl hR6 hTors hC (hD h5) (Ne.symm hpℓ) hB) hB
+    (fun h5_nl => tateWildKE_of_descent_nl hR6 hTors hC (hD h5_nl) (Ne.symm hpℓ) hB) hB
 end DescentSec
 end G15Ram
 end
@@ -709,6 +775,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 open CategoryTheory.MonObj
@@ -754,6 +823,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 open CategoryTheory.MonObj
@@ -778,15 +850,15 @@ theorem linkedTateLocalD_of_tateBridge35_nl (hR6 : _root_.SGA735Nil.RaynaudCrite
   letI : NumberField L' := numberField_of_fd L'
   have hdim := dim_bc_of_g7Data hD
   have hrk := hRk Y Φ π u P hctx L A ε N χ β L' hLL' hD
-  obtain ⟨aQ, βQ, j5, j3, Tm5, c5, ε5, u5, Tm3, c3, ε3, u3, h5, h3, hF, ιC, hC⟩ :=
+  obtain ⟨aQ, βQ, j5, j3, Tm5, c5, ε5, u5, Tm3, c3, ε3, u3, h5_nl, h3, hF, ιC, hC⟩ :=
     hB u P L A ε N χ β L' hLL' hD hdim hrk
-  have hCl5 := g7Clauses_of_transport hD hLD βQ j5 ιC hC h5.2.2.2.2.1
+  have hCl5 := g7Clauses_of_transport hD hLD βQ j5 ιC hC h5_nl.2.2.2.2.1
   have hCl3 := g7Clauses_of_transport hD hLD βQ j3 ιC hC h3.2.2.2.2.1
-  refine ⟨aQ, βQ, j5, j3, Tm5, c5, ε5, u5, Tm3, c3, ε3, u3, h5, h3, hF,
+  refine ⟨aQ, βQ, j5, j3, Tm5, c5, ε5, u5, Tm3, c3, ε3, u3, h5_nl, h3, hF,
     fun r5 r3 h85 h83 => ⟨fun p hp hp5 => ?_, ?_⟩⟩
   · haveI : Fact p.Prime := ⟨hp⟩
     exact G15Ram.localData_of_g7 h85 hCl5
-      (localGlue_at_nl hR6 hTors (fun h2 => by subst h2; exact hU5) hp5 hD βQ j5 ιC hC h5 hCl5)
+      (localGlue_at_nl hR6 hTors (fun h2 => by subst h2; exact hU5) hp5 hD βQ j5 ιC hC h5_nl hCl5)
   · exact G15Ram.localData_of_g7 h83 hCl3
       (localGlue_at_nl hR6 hTors (fun h2 => absurd h2 (by norm_num)) (by norm_num) hD βQ j3 ιC hC
         h3 hCl3)
@@ -801,6 +873,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 namespace LTLocal
@@ -823,6 +898,9 @@ section
 namespace HDec
 open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self) -- op-dedupe
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_c85_ltlocal
 noncomputable section
 namespace LTLocal
@@ -848,6 +926,9 @@ section
 -- copied from ZInQKernel/OneProof/H/TailI.lean:53 (modelG3G6_of_leaves3)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_d90_fold3
 noncomputable section
 namespace HSyn
@@ -869,6 +950,9 @@ section
 -- copied from ZInQKernel/OneProof/H/TailM.lean:433 (raynaudCriterion_ofK5)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_e40_kernelfields
 noncomputable section
 namespace HSyn
@@ -888,6 +972,9 @@ section
 -- copied from ZInQKernel/OneProof/H/TailN.lean:66 (OpenResearchLeaves5)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_e90_fold5
 noncomputable section
 namespace HSyn
@@ -925,7 +1012,7 @@ structure OpenResearchLeaves5NL : Prop where
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
   r21 : ZInQ.DefFaltings.R21_Bost
   r22 : ZInQ.LeafPush2.R22_Pazuki
-  /-- H5's finiteness half (its `NeronModelMinimal` half is proved, h5-glue). -/
+  /-- H5's finiteness half (its `NeronModelMinimal` half is proved, h5_nl-glue). -/
   h5fin : ZInQ.DefFaltings.StableHeightFinite
 end HSyn
 end
@@ -937,6 +1024,9 @@ section
 -- copied from ZInQKernel/OneProof/H/TailN.lean:99 (researchLeaves2_of_open5)
 namespace HDec
 set_option maxHeartbeats 1000000
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
 section G0A2_e90_fold5
 noncomputable section
 namespace HSyn
@@ -1193,9 +1283,9 @@ open G0ModField
 `ConjMapsNoCM`. -/
 theorem kernelFieldExists_of_leaves_FS5_hf_nl (hHFF : _root_.ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteC)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : _root_.SGA735Nil.RaynaudCriterionNFNil)
-    (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
+    (hTors : PkgI2.TorsionStructure.{0}) (h5_nl : G0FibreSimple.FibreComTrivial)
     (hMaps : ConjMapsNoCM) : KernelFieldExists :=
-  kernelFieldExists_of_leaves_hf_nl hHFF hNOS hRay hTors (conjMapsOnHomField_of h5 hMaps)
+  kernelFieldExists_of_leaves_hf_nl hHFF hNOS hRay hTors (conjMapsOnHomField_of h5_nl hMaps)
 end G0ModField.KernelField
 end G0A2_a75_kernelfield
 end HDec
@@ -1219,9 +1309,9 @@ open G0ModField
 (FS5, g0-fibresimple), `ConjIsogMaps` (geometric) and `EndEqOOnHomField` (NoCM consequence). -/
 theorem kernelFieldExists_of_split_hf_nl (hHFF : _root_.ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteC)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : _root_.SGA735Nil.RaynaudCriterionNFNil)
-    (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
+    (hTors : PkgI2.TorsionStructure.{0}) (h5_nl : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) (hE : EndEqOOnHomField) : KernelFieldExists :=
-  kernelFieldExists_of_leaves_FS5_hf_nl hHFF hNOS hRay hTors h5 (conjMapsNoCM_of hTors hG hE)
+  kernelFieldExists_of_leaves_FS5_hf_nl hHFF hNOS hRay hTors h5_nl (conjMapsNoCM_of hTors hG hE)
 end G0ModField.KernelField
 end G0A2_a75_kernelfield
 end HDec
@@ -1245,9 +1335,9 @@ open G0ModField
 `FibreComTrivial`, `ConjIsogMaps`, `EndEqOFibre`, `EndTransport`. -/
 theorem kernelFieldExists_of_split_hf_nl' (hHFF : _root_.ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteC)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : _root_.SGA735Nil.RaynaudCriterionNFNil)
-    (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
+    (hTors : PkgI2.TorsionStructure.{0}) (h5_nl : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) (ha : EndEqOFibre) (hb : EndTransport) : KernelFieldExists :=
-  kernelFieldExists_of_split_hf_nl hHFF hNOS hRay hTors h5 hG (endEqOOnHomField_of ha hb)
+  kernelFieldExists_of_split_hf_nl hHFF hNOS hRay hTors h5_nl hG (endEqOOnHomField_of ha hb)
 end G0ModField.KernelField
 end G0A2_a75_kernelfield
 end HDec
@@ -1275,9 +1365,9 @@ namespace G0ModField.KernelField
 theorem kernelFieldExists_of_split_hf_nl'' (hHFF : _root_.ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteC)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : _root_.SGA735Nil.RaynaudCriterionNFNil)
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
-    (h5 : G0FibreSimple.FibreComTrivial) (hmax : OMaximal) (hb : EndTransport)
+    (h5_nl : G0FibreSimple.FibreComTrivial) (hmax : OMaximal) (hb : EndTransport)
     (hG : ConjIsogMaps) : KernelFieldExists :=
-  kernelFieldExists_of_split_hf_nl' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of_hf hYu hHFF hmax) hb
+  kernelFieldExists_of_split_hf_nl' hHFF hNOS hRay hTors h5_nl hG (endEqOFibre_of_hf hYu hHFF hmax) hb
 end G0ModField.KernelField
 end EndEqOSec
 end G0A2_a75_kernelfield
@@ -1303,13 +1393,13 @@ open CategoryTheory AlgebraicGeometry G0Split
   (`NeronMappingAbelianScheme`); `AbsFrob`, `SmoothGeomConnIntegral`, `FExtendGen` are proved there;
 * `FibreSimple` (derived below) and `QMEndRank` (lt-goodred, from T6 and T27).
 lg-kerwild's every-`ℓ` theorem `exists_localGlue_of_tateModuleFree` (rv-fast's CONCERN) is not used. -/
-theorem linkedTateLocal_of_leaves3_hf_nl (hR6 : _root_.SGA735Nil.RaynaudCriterionNFNil) (h5 : PkgI2.TorsionStructure.{0})
+theorem linkedTateLocal_of_leaves3_hf_nl (hR6 : _root_.SGA735Nil.RaynaudCriterionNFNil) (h5_nl : PkgI2.TorsionStructure.{0})
     (hT : PkgI3.TateModuleFree) (hsp : FrobPiecesNeron.AbVarSpreadsOut)
     (hc : FrobPiecesNeron.ProperSmoothGenConnected) (hRed : PkgI2.ReductionTorsionBijective.{0})
     (hN : PkgI2.NeronMappingAbelianScheme.{0}) (hFS : G0Split.FibreSimple)
     (h6 : _root_.ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteC) (hYu : QMLattice.YuB6Alg) : G0AssembleMod.LinkedTateLocal :=
   LTLocal.linkedTateLocal_of_tateBridge35_nl hR6
-    (ObjBridge.torsionStructure_iff.mpr h5) (@UnramRootsTask.unramRoots_all 2 _ 5 _)
+    (ObjBridge.torsionStructure_iff.mpr h5_nl) (@UnramRootsTask.unramRoots_all 2 _ 5 _)
     (@UnramRootsTask.unramRoots_all 2 _ 3 _)
     (FrobPiecesGood.tateBridge35_of_neron_nmp hT hsp hc hRed hN) hFS (qmEndRank_of_leaves3_hf h6 hYu)
 end HSyn
@@ -3722,7 +3812,7 @@ theorem glueOutputs_of_leaves3_hf_pz_nl (r : ResearchLeaves3NL) (t : TextbookLea
     (h20 : R20Lower) : GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
   obtain ⟨hDimF, hDim, hSimp, hPMH, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
   have hBelyi : X1BelyiOnModel := x1BelyiOnModel_of_belyiX1 t.belyiX1
-  have hAdd : HeightAdditivity := heightAdditivity_of_h5neron t.t41 r.h5.2 hPMH
+  have hAdd : HeightAdditivity := heightAdditivity_of_h5neron t.t41 r.h5_nl.2 hPMH
   have hR18 : R18_JavanpeykarConcrete := r18Concrete_of r.r18 hCopies
   have hR22 : R22_PazukiConcrete := r22Concrete_of r.r22 hCopies
   -- A4: the moduli data and an object over every value
@@ -3735,7 +3825,7 @@ theorem glueOutputs_of_leaves3_hf_pz_nl (r : ResearchLeaves3NL) (t : TextbookLea
   have hFib : FibreOver Y Φ π u L A := ⟨emb, y, P, hP, hy, hiso⟩
   have hA2 : A.dim = 2 := model_dim hDim emb A P.A hiso P.surface
   -- H5: the stable height of `A` is real
-  have hfin := r.h5.1
+  have hfin := r.h5_nl.1
   have hx : ZInQ.DefFaltings.stableFaltingsHeight A = ZInQ.DefFaltings.faltingsHeight A :=
     (ZInQ.DefFaltings.faltingsHeight_coe hfin A).symm
   -- G19: the theta point (missing piece 9, `ThetaPointOfFibre`) and Pazuki (R22)
