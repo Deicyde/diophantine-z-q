@@ -104,5 +104,21 @@ class ResolutionTests(unittest.TestCase):
                     resolve.capture_lake_environment(self.root,self.prefix,self.packages,{},'expected')
                 run.assert_not_called()
 
+    def test_controlled_environment_is_used_and_rechecked_after_lookup(self):
+        from kernel_build_controls import prepare_controls
+        controls = self.root.parent/'controls'
+        environment, _ = prepare_controls(self.root, controls, environ={})
+        def mutate(*args, **kwargs):
+            self.assertEqual(kwargs['env'], environment)
+            (controls/'lake-config.toml').write_text('[cache]')
+            return SimpleNamespace(returncode=0, stdout=json.dumps(self.env).encode())
+        with patch.object(resolve, 'project_layout'), \
+                patch.object(resolve, 'checked_packages'), \
+                patch.object(resolve, 'toolchain_inputs', return_value={'summary': 'expected'}), \
+                patch.object(resolve.subprocess, 'run', side_effect=mutate):
+            with self.assertRaisesRegex(ValueError, 'empty Lake'):
+                resolve.capture_lake_environment(self.root, self.prefix, self.packages, {}, 'expected',
+                                                 environ=environment, controls=controls)
+
 
 if __name__=='__main__':unittest.main()

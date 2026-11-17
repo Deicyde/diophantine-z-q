@@ -113,6 +113,25 @@ class EnvironmentTests(unittest.TestCase):
             (project/'driver.py').write_text('print(2)')
             self.assertNotEqual(first, env.collect_environment(*args, driver_paths=['driver.py'], environ={})[0])
 
+    def test_verified_controls_are_portable_without_erasing_effective_settings(self):
+        from kernel_build_controls import prepare_controls
+        project = self.root/'project'; project.mkdir()
+        (project/'driver.py').write_text('print(1)')
+        args = (project, self.prefix, [['lake', 'build', 'Project']], {'Project': 'Project.lean'})
+        first_dir, second_dir = self.root/'controls-a', self.root/'controls-b'
+        first_env, _ = prepare_controls(project, first_dir, environ={})
+        second_env, _ = prepare_controls(project, second_dir, environ={})
+        with patch.object(env, 'package_environment', return_value={'configuration': {}, 'packages': {}}):
+            first, _ = env.collect_environment(*args, driver_paths=['driver.py'],
+                                               environ=first_env, controls=first_dir)
+            second, _ = env.collect_environment(*args, driver_paths=['driver.py'],
+                                                environ=second_env, controls=second_dir)
+            self.assertEqual(first, second)
+            second_env['LAKE_ARTIFACT_CACHE'] = 'true'
+            with self.assertRaisesRegex(ValueError, 'cache controls'):
+                env.collect_environment(*args, driver_paths=['driver.py'],
+                                         environ=second_env, controls=second_dir)
+
 
 if __name__ == '__main__':
     unittest.main()

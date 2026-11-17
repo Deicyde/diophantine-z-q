@@ -58,15 +58,20 @@ def checked_packages(root, expected_packages, expected_dependencies, *, git_exec
 
 
 def capture_lake_environment(root, prefix, expected_packages, expected_dependencies,
-                             expected_toolchain, *, git_executable='git', python=sys.executable):
+                             expected_toolchain, *, git_executable='git', python=sys.executable,
+                             environ=None, controls=None):
     root, prefix = Path(root).absolute(), Path(prefix).absolute()
+    environ = dict(os.environ if environ is None else environ)
     no_links(root); no_links(prefix)
-    require(not any(os.environ.get(k) for k in FORBIDDEN_ENV),
+    require(not any(environ.get(k) for k in FORBIDDEN_ENV),
             'Lake environment lookup must run without credentials')
-    require(os.environ.get('LAKE_OVERRIDE_LEAN') in (None, '', '0', 'false')
-            and not os.environ.get('LEAN_GITHASH') and not os.environ.get('LD_PRELOAD')
-            and not os.environ.get('DYLD_INSERT_LIBRARIES'),
+    require(environ.get('LAKE_OVERRIDE_LEAN') in (None, '', '0', 'false')
+            and not environ.get('LEAN_GITHASH') and not environ.get('LD_PRELOAD')
+            and not environ.get('DYLD_INSERT_LIBRARIES'),
             'Unsupported compiler/runtime override; do not query or reuse')
+    if controls is not None:
+        from kernel_build_controls import verify_controls
+        verify_controls(root, controls, environ)
     project_layout(root)
     checked_packages(root, expected_packages, expected_dependencies, git_executable=git_executable)
     require(toolchain_inputs(prefix)['summary'] == expected_toolchain,
@@ -75,7 +80,7 @@ def capture_lake_environment(root, prefix, expected_packages, expected_dependenc
     # Isolated Python ignores project/site modules and PYTHON* startup settings.
     script = 'import json,os;print(json.dumps({k:os.environ.get(k) for k in '+repr(SEARCH_KEYS)+'}))'
     process = subprocess.run([str(lake), 'env', str(python), '-I', '-S', '-c', script],
-                             cwd=root, capture_output=True, timeout=120, check=False)
+                             cwd=root, env=environ, capture_output=True, timeout=120, check=False)
     require(process.returncode == 0 and len(process.stdout) < 1024*1024,
             'Lake search environment could not be observed')
     value = unique_json(process.stdout)
@@ -84,6 +89,8 @@ def capture_lake_environment(root, prefix, expected_packages, expected_dependenc
             'Malformed Lake search environment')
     validate_toolchain_selection(prefix, value)
     checked_packages(root, expected_packages, expected_dependencies, git_executable=git_executable)
+    if controls is not None:
+        verify_controls(root, controls, environ)
     return value
 
 

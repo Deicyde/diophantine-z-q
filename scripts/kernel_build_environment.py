@@ -149,7 +149,7 @@ def dependency_inputs(root, packages):
 
 
 def collect_environment(root, prefix, build_commands, source_resolution, *,
-                        driver_paths, git_executable='git', environ=None):
+                        driver_paths, git_executable='git', environ=None, controls=None):
     """Collect portable facts; caller binds resolution to actual compiler lookup.
 
     Keep the detailed records in an artifact. Only their complete hashes enter
@@ -169,6 +169,15 @@ def collect_environment(root, prefix, build_commands, source_resolution, *,
     compiler = toolchain_inputs(prefix)
     dependencies, dependency_files = dependency_inputs(root, packages)
     drivers = {path: file_record(Path(root), path)[0] for path in driver_paths}
+    overrides = {key: environ.get(key) for key in BUILD_ENVIRONMENT_KEYS}
+    controls_record = None
+    if controls is not None:
+        from kernel_build_controls import verify_controls
+        controls_record = verify_controls(root, controls, environ)
+        # The fresh directory differs on every runner. Substitute only these
+        # two verified paths; all effective settings and file bytes stay bound.
+        overrides['LAKE_CONFIG'] = '@verified-controls/lake-config.toml'
+        overrides['LAKE_CACHE_DIR'] = '@verified-controls/cache'
     environment = {
         'schema': 'kernel-build-environment/v1', 'packages': packages,
         'dependency_inputs': dependencies, 'toolchain': compiler['summary'],
@@ -176,7 +185,9 @@ def collect_environment(root, prefix, build_commands, source_resolution, *,
         'platform': {'system': platform.system(), 'machine': platform.machine(),
                      'libc': list(platform.libc_ver()), 'runner_image': environ.get('ImageOS'),
                      'runner_image_version': environ.get('ImageVersion')},
-        'environment_overrides': {key: environ.get(key) for key in BUILD_ENVIRONMENT_KEYS},
+        'environment_overrides': overrides,
     }
+    if controls_record is not None:
+        environment['lake_controls'] = controls_record
     return environment, {'toolchain_files': compiler['files'], 'builtins': compiler['builtins'],
                          'dependency_files': dependency_files}
