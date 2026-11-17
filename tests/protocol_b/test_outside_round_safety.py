@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlsplit
 
 import test_gate as tg
@@ -180,6 +180,27 @@ class MergeHistory(unittest.TestCase):
 
 
 class RoundSerialization(unittest.TestCase):
+    def test_wake_does_not_route_while_an_explicit_command_is_running_or_pending(self):
+        for status in ('queued', 'in_progress', 'requested', 'waiting', 'pending'):
+            with self.subTest(status=status), patch.dict(os.environ, {'GITHUB_RUN_ID': '7'}), \
+                    patch.object(gate, 'action_pages', side_effect=lambda gh, path, key: (
+                        [{'id': 88, 'status': status}] if path.endswith('&status='+status) else [])), \
+                    patch.object(gate, 'outside_app_id') as select_app, \
+                    patch.object(gate, 'request') as provider:
+                self.assertIsNone(gate.outside_wake_candidate(Mock(), 'main', {}))
+                select_app.assert_not_called()
+                provider.assert_not_called()
+
+    def test_active_review_check_is_not_eligible_for_a_second_wake(self):
+        check = {'id': 202, 'name': gate.CHECK, 'head_sha': HEAD,
+                 'app': {'id': APP_ID}, 'status': 'in_progress',
+                 'output': {'text': json.dumps({'schema': 'protocol-b-decisions/v1',
+                                               'number': 20, 'head': HEAD})}}
+        with patch.object(gate, 'head_checks', return_value=[check]), \
+                patch.object(gate, 'request') as provider:
+            self.assertFalse(gate.outside_retry_allowed(Mock(), candidate(), APP_ID, NOW))
+            provider.assert_not_called()
+
     def test_all_routed_events_lock_review_and_publication_by_pr(self):
         job = tg.workflow.split('  run_reviewers:\n', 1)[1].split('  cleanup_kernel_refs:\n', 1)[0]
         lock = job.split('    concurrency:\n', 1)[1].split('    needs:', 1)[0]
