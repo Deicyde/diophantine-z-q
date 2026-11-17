@@ -194,7 +194,7 @@ H-200		T09Pic.PicZeroAbVar	3691994d4,f96b7323d,8342c2eb7	yes
 H-201		T09Pic.PhiAmpleIsogeny	3691994d4,f96b7323d,8342c2eb7	yes
 H-202		T09Pic.WeilPairingMumford	3691994d4,f96b7323d,8342c2eb7	yes
 H-203		ReductB.SemistablePersistsSHcp	f96b7323d,8342c2eb7	yes
-H-204	gonzalezRotgerProp56X6	GRCountX6.GonzalezRotgerProp56X6	f96b7323d,8342c2eb7	yes
+H-204		GRCountX6.GonzalezRotgerProp56X6	f96b7323d,8342c2eb7	yes
 H-205		GapSHPair.NeronBaseChangeStrictHenselization	f96b7323d,8342c2eb7	yes
 H-206		HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted	f96b7323d	no
 H-207		SGA7PersistsNF.SGA7_IX_3_3_SH	8342c2eb7	yes

@@ -1,5 +1,5 @@
 #!/bin/bash
-# fold34-eichler: the per-field checks, one Lean process at a time. Usage: scratch/fold33-pic/checks.sh TAG
+# fold34-eichler: the per-field checks, one Lean process at a time. Usage: scratch/fold34-eichler/checks.sh TAG
 set -u
 cd "$(git rev-parse --show-toplevel)"
 export PATH="$HOME/bin:$HOME/.elan/bin:$PATH"
