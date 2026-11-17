@@ -44,8 +44,7 @@ section TensorInv
 
 variable (p : ℕ) [Fact p.Prime]
 variable {E L : Type*} [Field E] [Field L] [Algebra ℚ_[p] E] [Algebra ℚ_[p] L] [Algebra E L]
-  [IsScalarTower ℚ_[p] E L] [FiniteDimensional ℚ_[p] E] [FiniteDimensional ℚ_[p] L]
-  {d n : ℕ} (b : Basis (Fin d) E L)
+  [IsScalarTower ℚ_[p] E L] {d n : ℕ} (b : Basis (Fin d) E L)
 variable {ρE : GQp p →* GL (Fin n) E} {ρL : GQp p →* GL (Fin n) L}
 variable {A : Type*} [AddCommGroup A] [Module ℚ_[p] A] (act : GQp p → A →ₗ[ℚ_[p]] A)
 
@@ -55,7 +54,6 @@ theorem psi_map (hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E L) (�
     psi p b ℚ_[p] A (TensorProduct.map (act σ) (vAct p ρL σ) y) j =
       TensorProduct.map (act σ) (vAct p ρE σ) (psi p b ℚ_[p] A y j) := by
   induction y using TensorProduct.inductionOn with
-  | zero => simp
   | tmul a v => simp [psi_tmul, phiE_symm_equivariant hρ]
   | add x y hx hy => simp only [map_add, Pi.add_apply, hx, hy]
 
@@ -97,6 +95,7 @@ def tensorInvEquiv (hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E L)
     exact congrFun ((psi p b ℚ_[p] A).apply_symm_apply
       (fun j => (f j : A ⊗[ℚ_[p]] (Fin n → E)))) j
 
+include b in
 theorem finrank_tensorInv (hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E L) (ρE σ) = ρL σ)
     (H : Subgroup (GQp p)) :
     finrank ℚ_[p] (tensorInv p act H ρL) = d * finrank ℚ_[p] (tensorInv p act H ρE) := by
@@ -114,12 +113,14 @@ variable {E L : Type*} [Field E] [Field L] [Algebra ℚ_[p] E] [Algebra ℚ_[p] 
   {d n : ℕ} (b : Basis (Fin d) E L)
 variable {ρE : GQp p →* GL (Fin n) E} {ρL : GQp p →* GL (Fin n) L}
 
+omit [FiniteDimensional ℚ_[p] E] [FiniteDimensional ℚ_[p] L] in
+include b in
 /-- pb-fix2's finrank form `htMultU = dim_{ℚ_p} (ℂ_p(w) ⊗ V)^G / [· : ℚ_p]` is the same on `E` and on `L`:
 numerator and denominator are both multiplied by `d = [L : E]`. -/
 theorem htMultU_eq_of_basis (hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E L) (ρE σ) = ρL σ)
     (w : ℤ) : htMultU p ρL w = htMultU p ρE w := by
-  haveI : Module.Free ℚ_[p] E := Module.Free.of_divisionRing _ _
-  haveI : Module.Free E L := Module.Free.of_divisionRing _ _
+  have : Module.Free ℚ_[p] E := Module.Free.of_divisionRing _ _
+  have : Module.Free E L := Module.Free.of_divisionRing _ _
   have hd : 0 < d := Fin.pos_iff_nonempty.2 b.index_nonempty
   have hL : finrank ℚ_[p] L = finrank ℚ_[p] E * d := by
     rw [← Module.finrank_mul_finrank ℚ_[p] E L, Module.finrank_eq_card_basis b, Fintype.card_fin]
@@ -127,6 +128,7 @@ theorem htMultU_eq_of_basis (hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebr
   rw [finrank_tensorInv p b (htLin p w) hρ ⊤, hL, mul_comm (finrank ℚ_[p] E) d,
     Nat.mul_div_mul_left _ _ hd]
 
+include b in
 /-- **The printed Hodge–Tate multiplicity does not see the coefficient field**: for `E ⊆ L` and the model
 `ρ_L = ρ_E ⊗_E L`, `dim_L (L^n ⊗_{ℚ_p} ℂ_p(w))^{G_{ℚ_p}} = dim_E (E^n ⊗_{ℚ_p} ℂ_p(w))^{G_{ℚ_p}}` for every `w`
 (on-the-spot: neither the manuscript nor a cited source states this; standard). -/
@@ -149,9 +151,10 @@ theorem htMultE_eq_of_le {E L : IntermediateField ℚ_[p] (PadicAlgCl p)} (hEL :
       Matrix.GeneralLinearGroup.map (algebraMap L (PadicAlgCl p)) (ρL σ)) (w : ℤ) :
     htMultE p ρE w = htMultE p ρL w := by
   letI : Algebra E L := (IntermediateField.inclusion hEL).toRingHom.toAlgebra
-  haveI : IsScalarTower ℚ_[p] E L := IsScalarTower.of_algebraMap_eq (fun c => rfl)
-  haveI : FiniteDimensional ℚ_[p] E := FiniteDimensional.left ℚ_[p] E L
-  haveI : FiniteDimensional E L := FiniteDimensional.right ℚ_[p] E L
+  have : IsScalarTower ℚ_[p] E L := IsScalarTower.of_algebraMap_eq (fun c => rfl)
+  have : FiniteDimensional ℚ_[p] E := FiniteDimensional.left ℚ_[p] E L
+  have : FiniteDimensional E L := FiniteDimensional.right ℚ_[p] E L
+  have : Module.Free E L := Module.Free.of_divisionRing E L
   have hρ' : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E L) (ρE σ) = ρL σ := by
     intro σ
     apply Matrix.GeneralLinearGroup.ext
