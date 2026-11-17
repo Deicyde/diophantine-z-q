@@ -91,7 +91,10 @@ class ScopeOverride(unittest.TestCase):
                 app.prior(pair)
                 command = comment('/protocol-b override '+HEAD+' scope-1-1-astra Accept explicitly incomplete coverage', 'collaborator')
                 gh.comments = [report_comment(e) for e in pair.values()]+[command]
-                overrides = gate.history(gh, gh.pr)[2]
+                # A report comment alone cannot authenticate an overrideable scope.
+                self.assertFalse(gate.history(gh, gh.pr)[2])
+                known = {ident: {'objection': 'App-recorded item'} for ident in gate.override_findings(pair, HEAD)}
+                overrides = gate.history(gh, gh.pr, known)[2]
                 self.assertEqual(bool(overrides), permission == 'admin')
                 event = {'issue': {'number': 1}, 'comment': command, 'sender': {'login': 'collaborator'}}
                 with patch.object(gate, 'model_turn', side_effect=AssertionError('No model allowed')):

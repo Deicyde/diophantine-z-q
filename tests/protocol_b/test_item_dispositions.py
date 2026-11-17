@@ -259,5 +259,141 @@ class OriginReviewerClosure(unittest.TestCase):
         self.assertIn(self.ident,gate.historical_obligations([(5,old),(6,current),(7,later)],copy.deepcopy(current)))
 
 
+class ReviewRoundOneRegressions(unittest.TestCase):
+    def test_access_reference_follows_its_finding_when_ids_swap(self):
+        identity={'run':'7','attempt':'1','reviewer':'astra'}
+        first=report(report='Short',decision='changes_requested',findings=[
+            {'id':'F1','kind':'error','objection':'A substantive denominator error.'},
+            {'id':'F2','kind':'source_access','objection':'The cited source could not be opened.'}],
+            source_checks=[{'source_id':'S','location':'Theorem 1','outcome':'unavailable',
+                           'detail':'The external source is unavailable to this reviewer.'}],
+            access_limitations=[{'finding_id':'F2','source_ids':['S'],
+                                 'detail':'Only access to the cited source is missing.'}])
+        second=copy.deepcopy(first);second['report']=report()['report']
+        second['findings'][0]['id']='F2';second['findings'][1]['id']='F1'
+        second['access_limitations'][0]['finding_id']='F1'
+        aliases=gate.delivered_finding_aliases([first,second],identity)
+        normalized=gate.normalize_delivered_finding_ids(second,aliases,identity)
+        gate.validate_review(normalized,set(),{})
+        self.assertEqual(normalized['access_limitations'][0]['finding_id'],'F2')
+        pair={'astra':envelope(run='7',review=normalized),
+              'fable':envelope('fable',run='7',review=report(source_checks=[{
+                  'source_id':'S','location':'Theorem 1','outcome':'verified',
+                  'detail':'Read the printed source and its application without objection.'}]))}
+        self.assertEqual([x['finding'] for x in gate.qualified_access_findings(pair)],['7-1-astra-F2'])
+        with self.assertRaisesRegex(ValueError,'Uncovered findings: 7-1-astra-F1'):
+            gate.overridden_decision(pair,{'7-1-astra-F2':{'reason':'Owner accepted access only'}},HEAD)
+
+    def test_invented_scope_id_rejects_entire_multi_item_override(self):
+        gh,app,event=MultiItemOverrides().setup_case(ids=[
+            '1-1-astra-F1','1-1-astra-F2','scope-999999-1-fable'])
+        provider=Mock(side_effect=AssertionError('No model call for override'))
+        with patch.object(gate,'model_turn',side_effect=AssertionError('No provider request')):
+            _,app,errors,state=run_pipeline(gh,app,event=event,provider=provider)
+        provider.assert_not_called()
+        self.assertTrue(errors)
+        self.assertEqual(app.final['conclusion'],'failure')
+        self.assertFalse(state.get('overrides'))
+        self.assertTrue(any('scope-999999-1-fable' in p.get('body','')
+            and p['body'].startswith('This override was ignored.') for p in gh.posts))
+
+
+    def test_swapped_access_reference_survives_both_provider_delivery_paths(self):
+        for family in gate.MODELS:
+            with self.subTest(family=family):
+                first=report(report='Short',decision='changes_requested',findings=[
+                    {'id':'F1','kind':'error','objection':'A denominator can vanish.'},
+                    {'id':'F2','kind':'source_access','objection':'The source is unavailable.'}],
+                    source_checks=[{'source_id':'S','location':'Theorem 1','outcome':'unavailable',
+                                    'detail':'The source could not be opened.'}],
+                    access_limitations=[{'finding_id':'F2','source_ids':['S'],'detail':'Only source access is missing; no mathematical objection.'}])
+                second=copy.deepcopy(first);second['report']=report()['report']
+                second['findings'][0]['id']='F2';second['findings'][1]['id']='F1'
+                second['access_limitations'][0]['finding_id']='F1'
+                (_,app,_,state),_,count,_=delivery_fixtures.DeliveredClosure().fixture(family,
+                    response(family,[first],'one'),[response(family,[second],'two')])
+                self.assertEqual(count,2)
+                self.assertTrue(state['reports'][family]['complete'])
+                value=state['reports'][family]['review']
+                self.assertEqual(value['access_limitations'][0]['finding_id'],'F2')
+                self.assertEqual(value['findings'][0]['kind'],'error')
+                self.assertEqual(value['findings'][0]['id'],'F1')
+                self.assertEqual(app.final['conclusion'],'failure')
+                self.assertEqual(second['access_limitations'][0]['finding_id'],'F1')
+
+    def test_full_local_and_reworded_access_ids_follow_the_current_content(self):
+        identity={'run':'7','attempt':'1','reviewer':'astra'}
+        old=report(findings=[{'id':'F1','kind':'source_access','objection':'Earlier source access.'}])
+        for raw,ref in [('F1','F1'),('7-1-astra-F1','F1'),('F1','7-1-astra-F1'),
+                        ('7-1-astra-F1','7-1-astra-F1')]:
+            with self.subTest(raw=raw,ref=ref):
+                value=report(decision='changes_requested',findings=[{
+                    'id':raw,'kind':'source_access','objection':'A different source is unavailable.'}],
+                    source_checks=[{'source_id':'S','location':'T1','outcome':'unavailable','detail':'This precise source could not be opened by the reviewer.'}],
+                    access_limitations=[{'finding_id':ref,'source_ids':['S'],'detail':'Only source access is missing; no mathematical objection.'}])
+                aliases=gate.delivered_finding_aliases([old,value],identity)
+                normalized=gate.normalize_delivered_finding_ids(value,aliases,identity)
+                self.assertEqual(normalized['access_limitations'][0]['finding_id'],normalized['findings'][0]['id'])
+                self.assertNotEqual(normalized['findings'][0]['id'],'F1')
+                gate.validate_review(normalized,set(),{})
+
+    def test_ambiguous_access_reference_rejected_without_losing_objections(self):
+        identity={'run':'7','attempt':'1','reviewer':'astra'}
+        value=report(findings=[{'id':'F1','objection':'First substantive error.'},
+                              {'id':'F1','objection':'Second substantive error.'}],
+                     access_limitations=[{'finding_id':'F1','source_ids':['S'],'detail':'Ambiguous.'}])
+        aliases=gate.delivered_finding_aliases([value],identity)
+        with self.assertRaisesRegex(ValueError,'ambiguous access finding reference'):
+            gate.normalize_delivered_finding_ids(value,aliases,identity)
+        saved=gate.delivered_obligations([value],identity,{})
+        self.assertEqual(len(saved['findings']),2)
+        self.assertIn('First substantive error',str(saved))
+        self.assertIn('Second substantive error',str(saved))
+
+    def test_prior_access_reference_stays_bound_to_the_known_pending_item(self):
+        identity={'run':'7','attempt':'1','reviewer':'astra'}
+        first=report(findings=[{'id':'F1','objection':'First objection.'}])
+        second=report(findings=[{'id':'F1','objection':'Different objection.'}],
+            prior_findings=[{'id':'7-1-astra-F1','resolution':'unresolved','reason':'Still open.'}],
+            access_limitations=[{'finding_id':'7-1-astra-F1','source_ids':['S'],'detail':'Prior source.'}])
+        aliases=gate.delivered_finding_aliases([first,second],identity)
+        with self.assertRaisesRegex(ValueError,'Ambiguous prior finding reference'):
+            gate.normalize_delivered_finding_ids(second,aliases,identity)
+        # Both a fresh reused ID and an old full ID in this payload are ambiguous.
+        with self.assertRaisesRegex(ValueError,'ambiguous access finding reference'):
+            gate.normalize_delivered_finding_ids(second,aliases,identity,{'7-1-astra-F1'})
+        second['findings']=[]
+        value=gate.normalize_delivered_finding_ids(second,aliases,identity,{'7-1-astra-F1'})
+        self.assertEqual(value['prior_findings'][0]['id'],'7-1-astra-F1')
+        self.assertEqual(value['access_limitations'][0]['finding_id'],'7-1-astra-F1')
+
+    def test_real_app_only_scope_is_overridable_without_a_report_comment(self):
+        gh,app,event=MultiItemOverrides().setup_case(ids=['1-1-astra-F1','1-1-astra-F2','scope-1-1-fable'])
+        pair=json.loads(app.checks[5]['output']['text'])['reports']
+        pair['fable']['review']=report(decision='changes_requested',scope_complete=False,
+                                      not_reviewed=['One source remains unread.'])
+        app.prior(pair)
+        gh.comments=[event['comment']]
+        provider=Mock(side_effect=AssertionError('No model for an override'))
+        with patch.object(gate,'model_turn',side_effect=AssertionError('No provider request')):
+            _,app,errors,state=run_pipeline(gh,app,event=event,provider=provider)
+        provider.assert_not_called()
+        self.assertEqual(errors,[])
+        self.assertEqual(app.final['conclusion'],'success')
+        self.assertEqual(set(state['overrides']),{'1-1-astra-F1','1-1-astra-F2','scope-1-1-fable'})
+
+    def test_scope_from_a_report_comment_without_app_record_is_not_recognized(self):
+        gh,app,event=MultiItemOverrides().setup_case(ids=['1-1-astra-F1','1-1-astra-F2','scope-999999-1-fable'])
+        gh.comments.insert(0,report_comment(envelope('fable',run='999999',review=report(
+            decision='changes_requested',scope_complete=False,not_reviewed=['Not in an App record.']))))
+        provider=Mock(side_effect=AssertionError('No model for an override'))
+        with patch.object(gate,'model_turn',side_effect=AssertionError('No provider request')):
+            _,app,errors,state=run_pipeline(gh,app,event=event,provider=provider)
+        provider.assert_not_called()
+        self.assertTrue(errors)
+        self.assertEqual(app.final['conclusion'],'failure')
+        self.assertFalse(state.get('overrides'))
+
+
 if __name__=='__main__':
     unittest.main()

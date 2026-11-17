@@ -1381,8 +1381,12 @@ jobs:
                       raise ValueError('Merge reports do not bind this head and policy')
               spend = review_spend_history(gh, gh, pr, state['name'], state['policy_ref'])
               pending = reconcile_obligations(gh, pr, reports, spend['candidates'])
-              discussion, prior, overrides, _ = history(gh, pr, {
-                  ident: {'objection': item['reason'], **item} for ident, item in pending.items()})
+              known = {ident: {'objection': item['reason'], **item} for ident, item in pending.items()}
+              # The successful App record can contain scope items whose original
+              # report comment was never posted. Keep that authority on merge recheck.
+              for ident in override_findings(reports, pr['head']['sha']):
+                  known.setdefault(ident, {'objection': 'Item recorded in the accepted App check.'})
+              discussion, prior, overrides, _ = history(gh, pr, known)
               if state.get('overrides'):
                   # Only the original admin acceptance may cover incomplete scope. A
                   # later merge command cannot silently extend it to new discussion.
@@ -2384,7 +2388,7 @@ jobs:
                       key = delivered_content_key(finding)
                       group = groups.setdefault(key, {'ids': [], 'fallback': 'unvalidated-' + key[:24]})
                       group['ids'].append((raw_id, local_id))
-              by_id, by_content, used = {}, {}, set()
+              references, by_content, used = {}, {}, set()
               for key, group in groups.items():
                   valid = [local for _, local in group['ids']
                            if re.fullmatch(r'[A-Za-z0-9_-]{1,40}', local) and local not in used]
@@ -2396,44 +2400,72 @@ jobs:
                   used.add(canonical)
                   by_content[key] = canonical
                   for ident in [group['fallback']] + [i for pair in group['ids'] for i in pair]:
-                      # A reused raw ID with different content is not an alias.
-                      if ident in by_id and by_id[ident] != canonical:
-                          by_id[ident] = ident
-                      else:
-                          by_id[ident] = canonical
-              return {'by_id': by_id, 'by_content': by_content}
+                      references.setdefault(ident, set()).add(canonical)
+              # A raw ID reused for different content has no global alias.
+              return {'by_id': {ident: next(iter(targets)) for ident, targets in references.items() if len(targets) == 1},
+                      'ambiguous_ids': sorted(ident for ident, targets in references.items() if len(targets) != 1),
+                      'by_content': by_content}
 
 
-          def normalize_delivered_finding_ids(value, aliases, identity):
+          def normalize_delivered_finding_ids(value, aliases, identity, known_prior=(), *, references=True):
               value = json.loads(json.dumps(value))
               if not isinstance(value, dict):
                   return value
+              prefix = finding_id(identity, '')
+              fresh, prior = {}, {}
               findings = value.get('findings')
               if isinstance(findings, list):
                   seen, normalized = set(), []
                   for finding in findings:
                       if isinstance(finding, dict):
                           ident = str(finding.get('id', ''))
-                          finding['id'] = aliases['by_content'].get(delivered_content_key(finding),
+                          canonical = aliases['by_content'].get(delivered_content_key(finding),
                               aliases['by_id'].get(ident, ident))
+                          local = ident[len(prefix):] if ident.startswith(prefix) else ident
+                          for ref in {ident, local, prefix + local}:
+                              fresh.setdefault(ref, set()).add(canonical)
+                          finding['id'] = canonical
                       encoded = json.dumps(finding, sort_keys=True, ensure_ascii=False)
                       if encoded not in seen:
                           normalized.append(finding)
                           seen.add(encoded)
                   value['findings'] = normalized
               if isinstance(value.get('prior_findings'), list):
-                  prefix = finding_id(identity, '')
                   for item in value['prior_findings']:
-                      if isinstance(item, dict) and isinstance(item.get('id'), str) and item['id'].startswith(prefix):
-                          old = item['id'][len(prefix):]
-                          item['id'] = prefix + aliases['by_id'].get(old, old)
+                      if not isinstance(item, dict) or not isinstance(item.get('id'), str):
+                          continue
+                      ident = item['id']
+                      # Actual pending obligations use canonical full IDs. A later
+                      # delivery reusing a local ID cannot rename that old obligation.
+                      if ident not in known_prior and ident.startswith(prefix):
+                          local = ident[len(prefix):]
+                          if local in aliases.get('ambiguous_ids', []):
+                              if references:
+                                  raise ValueError('Ambiguous prior finding reference: ' + ident)
+                          else:
+                              item['id'] = prefix + aliases['by_id'].get(local, local)
+                      prior[ident] = item['id']
+              if references and isinstance(value.get('access_limitations'), list):
+                  for item in value['access_limitations']:
+                      if not isinstance(item, dict) or not isinstance(item.get('finding_id'), str):
+                          continue
+                      ident = item['finding_id']
+                      targets = {prefix + local for local in fresh.get(ident, ())}
+                      if ident in prior:
+                          targets.add(prior[ident])
+                      if len(targets) != 1:
+                          raise ValueError('Missing or ambiguous access finding reference: ' + ident)
+                      target = next(iter(targets))
+                      # A fresh access reference follows this delivery's content,
+                      # not the global raw-ID alias from an earlier delivery.
+                      item['finding_id'] = prior[ident] if ident in prior else target[len(prefix):]
               return value
 
           def delivered_obligations(payloads, identity, known_prior):
               """Failed submissions add objections; only a validated final can close them."""
               findings, dispositions = {}, {}
               aliases = delivered_finding_aliases(payloads, identity)
-              payloads = [normalize_delivered_finding_ids(value, aliases, identity) for value in payloads]
+              payloads = [normalize_delivered_finding_ids(value, aliases, identity, known_prior, references=False) for value in payloads]
               for attempt, value in enumerate(payloads):
                   if not isinstance(value, dict) or not isinstance(value.get('findings'), list):
                       continue
@@ -2799,7 +2831,7 @@ jobs:
                               identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'], 'reviewer': self.family}
                               aliases = delivered_finding_aliases(self.pending_payloads(), identity)
                               record(self.family+'-finding-aliases.json', aliases)
-                              value = normalize_delivered_finding_ids(value, aliases, identity)
+                              value = normalize_delivered_finding_ids(value, aliases, identity, self.prior)
                               value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now,
                                                       retained_findings=self.retained_pending_findings(value))
                               if (not self.history_read or not self.reads) and not (self.finish_now and value['decision'] == 'changes_requested'):
@@ -2907,9 +2939,10 @@ jobs:
                   return None
               return match[1], list(dict.fromkeys(match[2].split(','))), match[3].strip()
 
-          def unknown_override_ids(ids, prior):
-              return [ident for ident in ids if ident not in prior
-                      and not re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", ident)]
+          def unknown_override_ids(ids, prior, recorded_scope_ids=()):
+              return [ident for ident in ids if ident not in prior or
+                      (re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", ident)
+                       and ident not in recorded_scope_ids)]
 
 
           def history(gh, pr, known=None):
@@ -2958,10 +2991,9 @@ jobs:
                   command = parse_override_command(comment["body"])
                   if command and command[0] == pr["head"]["sha"]:
                       head, ids, reason = command
-                      # Scope IDs may be supplied by the authenticated App record
-                      # rather than a published report comment. Final application
-                      # still intersects this list with that record's actual items.
-                      if unknown_override_ids(ids, prior):
+                      # Scope IDs need the actual App-recorded set supplied by the
+                      # caller. A scope-shaped name or a report comment is not enough.
+                      if unknown_override_ids(ids, prior, known or {}):
                           continue
                       login = comment["user"]["login"]
                       if administrator(gh, comment["user"]) and unedited_override_comment(gh, comment):
@@ -4111,7 +4143,7 @@ jobs:
                   discussion, prior, overrides, _ = history(gh, pr, known)
                   if override_command:
                       parsed = parse_override_command(command)
-                      unknown = unknown_override_ids(parsed[1], prior) if parsed else []
+                      unknown = unknown_override_ids(parsed[1], prior, known) if parsed else []
                       if unknown:
                           message = ('This override was ignored. Comment '+str(event['comment']['id'])+
                                      ' contains unrecognised finding IDs: '+', '.join(unknown)+
