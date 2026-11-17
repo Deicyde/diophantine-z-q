@@ -1,0 +1,223 @@
+/-
+NEW EDITION CANDIDATE 002 (H5 lane4 a940f2af, 2026-11-17, lead request 07:23Z). NOT a recovery: no recorded port
+SHA exists for this module (lead 2026-11-17T06:06Z). Generated deterministically from the pinned
+upstream file by the documented lane4 port transform, as reproduced by the located C5 conformance
+pair (Thm/S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_of_iso), numeric options
+omitted. SOURCE ONLY, UNCOMPILED. Native HELD.
+
+Vendored, unmodified in substance, from the Fermat's Last Theorem Lean development.
+
+  Source project : https://github.com/anthropics/fermats-last-theorem
+  Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
+  Source file    : P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.lean
+  Source sha256  : 662d19f71ec2ca5c23a5a4502d254bf6195086f2e1320ae3d120c7e11a639e8b
+  Retrieved      : pinned read-only clone ~/flt-src (6e837e75), byte-for-byte
+  Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
+  Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
+
+NOTICE OF MODIFICATION (Apache-2.0 §4(b)). This file has been changed from the original
+(H5 lane4 port to Lean 4.35.0 / Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679).
+Mechanical changes; no statement, hypothesis, definition or proof term was weakened or omitted:
+  * 1 `_root_.` reference(s)/declaration head(s) to source-specific names qualified with `ZInQ.Contrib.CloudW03NeronSurj.FLT`.
+  * 8 `p2m_*` command/tactic occurrence(s) renamed to the H76 `w03_*` / lane4 `r2nos_*` port commands.
+  * 7 `r2nos_namespace_dual` shim line(s) after source `namespace` commands (Mathlib names of the same source namespace stay visible, as in the unprefixed original).
+  * 4 `r2nos_open_dual`/`r2nos_open_scoped_dual` shim line(s) after source `open` commands (completes each opened namespace by its other half where the port splits one source root namespace between Mathlib root and the prefix).
+  * 1 import of the lane4 Mathlib-db584 compatibility module `ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal` added (as in every located lane4 port copy).
+  * 3 internal `import`(s) retargeted to `ZInQKernel.Contrib.CloudR2NOS.Source.*` / `ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.*` (published W03 duals bound, see ledger) / port utilities.
+  * 2 scope(s) the source leaves open at EOF closed explicitly so the port namespace can be closed (no-op in the original).
+  * file-level `set_option`s inserted after the port namespace: autoImplicit false; backward.isDefEq.respectTransparency.types false; backward.isDefEq.respectTransparency.instanceSearchTypes false (non-numeric, as in the located C5 conformance copies). NO maxHeartbeats/synthInstance option (numeric options omitted).
+  * `import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt` added (port commands) and `open ZInQ.Contrib.CloudW03NeronSurj.FLT` inserted so the source's generalized field notation resolves the isolated declarations exactly as in the unprefixed original.
+  * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
+-/
+
+import Mathlib
+import ZInQKernel.Contrib.CloudR2NOS.Source.Definitions.Def_AlgebraicGeometry_RelativePicardFunctor
+import ZInQKernel.Contrib.CloudR2NOS.Source.Definitions.Def_AlgebraicGeometry_ModulesSectionsTensor
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal
+import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt
+
+namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+open ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency.types false
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit
+r2nos_namespace_dual
+
+universe u
+
+w03_open "CategoryTheory CategoryTheory.MonoidalCategory AlgebraicGeometry P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry"
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+
+w03_open "CategoryTheory CategoryTheory.MonoidalCategory CategoryTheory.Limits CategoryTheory.MonoidalCategory.Limits"
+
+noncomputable section
+
+namespace PresheafOfModules
+r2nos_namespace_dual
+w03_export "PresheafOfModules" "presheaf sections pullback naturality_apply pushforward map map_comp_apply Hom unit free restriction obj InternalHom.map_id_apply"
+w03_open "PresheafOfModules"
+
+namespace FrameBridge
+r2nos_namespace_dual
+
+open Opposite
+r2nos_open_dual "Opposite"
+
+variable {C : Type u} [Category.{u} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
+  (F : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat))
+
+structure TrivializationBelow (X₀ : Cᵒᵖ) where
+
+  gen : ∀ {Y : Cᵒᵖ} (_ : X₀ ⟶ Y), F.obj Y
+  compat : ∀ {Y Z : Cᵒᵖ} (f : X₀ ⟶ Y) (g : Y ⟶ Z), F.map g (gen f) = gen (f ≫ g)
+  bij : ∀ {Y : Cᵒᵖ} (f : X₀ ⟶ Y), Function.Bijective (fun a : R.obj Y => a • gen f)
+
+end FrameBridge
+
+end PresheafOfModules
+
+namespace AlgebraicGeometry
+r2nos_namespace_dual
+w03_export "AlgebraicGeometry" "Scheme.Modules.pullback Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsFrameOn"
+namespace Scheme
+r2nos_namespace_dual
+w03_export "AlgebraicGeometry.Scheme" "ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules Opens grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.IsFrameOn"
+namespace Modules
+r2nos_namespace_dual
+w03_export "AlgebraicGeometry.Scheme.Modules" "pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback map_smul IsInvertible IsFrameOn"
+w03_open "AlgebraicGeometry.Scheme.Modules AlgebraicGeometry.Scheme AlgebraicGeometry"
+
+namespace FrameBridge
+r2nos_namespace_dual
+
+open TopologicalSpace Opposite PresheafOfModules.FrameBridge
+r2nos_open_dual "TopologicalSpace Opposite PresheafOfModules.FrameBridge"
+
+variable {X : Scheme.{u}}
+
+variable (U : X.Opens)
+
+noncomputable def restrictRingCatSheafHom : (U : Scheme.{u}).ringCatSheaf ⟶
+    (U.ι.opensFunctor.sheafPushforwardContinuous RingCat.{u}
+      (Opens.grothendieckTopology (U : Scheme.{u})) (Opens.grothendieckTopology X)).obj
+        X.ringCatSheaf :=
+  ⟨𝟙 _⟩
+
+noncomputable def restrictFunctor' : X.Modules ⥤ (U : Scheme.{u}).Modules :=
+  SheafOfModules.pushforward (restrictRingCatSheafHom U)
+
+lemma restrictFunctor'_eq : restrictFunctor' U = Modules.restrictFunctor U.ι := by
+  dsimp only [restrictFunctor', Modules.restrictFunctor, restrictRingCatSheafHom]
+  congr 2
+  ext V : 2
+  change 𝟙 _ = (forget₂ CommRingCat RingCat).map (U.ι.appIso V.unop).inv
+  rw [Scheme.Opens.ι_appIso]
+  rfl
+
+noncomputable def restrictFunctor'IsoPullback : restrictFunctor' U ≅ Modules.pullback U.ι :=
+  eqToIso (restrictFunctor'_eq U) ≪≫ restrictFunctorIsoPullback U.ι
+
+variable {U} (L : X.Modules)
+
+lemma image_preimage_of_le {V : X.Opens} (h : V ≤ U) : U.ι ''ᵁ (U.ι ⁻¹ᵁ V) = V := by
+  rw [Scheme.Hom.image_preimage_eq_opensRange_inf, Scheme.Opens.opensRange_ι]
+  exact inf_eq_right.mpr h
+
+section
+
+variable (e : (restrictFunctor' U).obj L ≅ SheafOfModules.unit (U : Scheme.{u}).ringCatSheaf)
+
+noncomputable def gen₀ (W : (U : Scheme.{u}).Opens) : L.val.obj (op (U.ι ''ᵁ W)) :=
+  (e.inv.val.app (op W)).hom (1 : Γ(U, W))
+
+lemma gen₀_spec (W : (U : Scheme.{u}).Opens) (b : Γ(X, U.ι ''ᵁ W)) :
+    (e.inv.val.app (op W)).hom b = b • gen₀ L e W := by
+  have := (e.inv.val.app (op W)).hom.map_smul b (1 : Γ(U, W))
+  rw [smul_eq_mul, mul_one] at this
+  exact this
+
+lemma gen₀_bijective (W : (U : Scheme.{u}).Opens) :
+    Function.Bijective (fun b : Γ(X, U.ι ''ᵁ W) => b • gen₀ L e W) := by
+  have h : Function.Bijective ((e.inv.val.app (op W)).hom) := by
+    refine Function.bijective_iff_has_inverse.2 ⟨(e.hom.val.app (op W)).hom, fun b => ?_, fun m => ?_⟩
+    · exact congr($(e.inv_hom_id).val.app (op W) |>.hom b)
+    · exact congr($(e.hom_inv_id).val.app (op W) |>.hom m)
+  exact (funext (gen₀_spec L e W) ▸ h :)
+
+lemma gen₀_map {W W' : (U : Scheme.{u}).Opens} (i : W' ⟶ W) :
+    L.val.map (U.ι.opensFunctor.map i).op (gen₀ L e W) = gen₀ L e W' := by
+  have := PresheafOfModules.naturality_apply e.inv.val i.op (1 : Γ(U, W))
+
+  rw [show ((SheafOfModules.unit (U : Scheme.{u}).ringCatSheaf).val.map i.op) (1 : Γ(U, W)) =
+    (1 : Γ(U, W')) from ((U : Scheme.{u}).presheaf.map i.op).hom.map_one] at this
+  exact this.symm
+
+omit e in
+
+lemma bijective_smul_map_eqToHom {A B : X.Opens} (q : A = B) (t : L.val.obj (op A))
+    (h : Function.Bijective (fun b : Γ(X, A) => b • t)) :
+    Function.Bijective (fun a : Γ(X, B) => a • L.val.map (eqToHom q.symm : B ⟶ A).op t) := by
+  subst q
+  have e1 : L.val.map (eqToHom (rfl : A = A) : A ⟶ A).op t = t := by
+    rw [eqToHom_refl, op_id]
+    exact PresheafOfModules.InternalHom.map_id_apply (R := X.sheaf.obj) L.val _ _
+  simpa only [e1] using h
+
+noncomputable def trivializationBelow : TrivializationBelow L.val (op U) where
+  gen {Y} f := L.val.map (eqToHom (image_preimage_of_le (U := U) f.unop.le).symm :
+      Y.unop ⟶ U.ι ''ᵁ (U.ι ⁻¹ᵁ Y.unop)).op (gen₀ L e (U.ι ⁻¹ᵁ Y.unop))
+  compat {Y Z} f g := by
+    have hle : U.ι ⁻¹ᵁ Z.unop ≤ U.ι ⁻¹ᵁ Y.unop := fun x hx => g.unop.le hx
+    dsimp only
+    rw [← gen₀_map L e (homOfLE hle)]
+    erw [← PresheafOfModules.map_comp_apply, ← PresheafOfModules.map_comp_apply]
+    exact congrFun (congrArg
+      (fun φ : (op (U.ι ''ᵁ (U.ι ⁻¹ᵁ Y.unop)) ⟶ Z) =>
+        ((L.val.map φ).hom : L.val.obj (op (U.ι ''ᵁ (U.ι ⁻¹ᵁ Y.unop))) → L.val.obj Z))
+      (Subsingleton.elim _ _)) _
+  bij {Y} f := bijective_smul_map_eqToHom L (image_preimage_of_le (U := U) f.unop.le) _
+    (gen₀_bijective L e _)
+
+end
+
+end FrameBridge
+
+open FrameBridge in
+r2nos_open_dual "FrameBridge" in
+
+theorem exists_isFrameOn_of_pullback_iso_unit {X : Scheme.{u}} {M : X.Modules} (U : X.Opens)
+    (eU : (Modules.pullback U.ι).obj M ≅ SheafOfModules.unit (U : Scheme.{u}).ringCatSheaf) :
+    ∃ s : Γ(M, U), IsFrameOn s U := by
+  let e : (restrictFunctor' U).obj M ≅ SheafOfModules.unit (U : Scheme.{u}).ringCatSheaf :=
+    (restrictFunctor'IsoPullback U).app M ≪≫ eU
+  let D := trivializationBelow M e
+  refine ⟨D.gen (𝟙 (Opposite.op U)), ?_⟩
+  intro W hWU _
+  have hc : M.presheaf.map (homOfLE hWU).op (D.gen (𝟙 (Opposite.op U))) = D.gen (homOfLE hWU).op := by
+    have h := D.compat (𝟙 (Opposite.op U)) (homOfLE hWU).op
+    rw [Category.id_comp] at h
+    exact h
+  simp only [hc]
+  exact D.bij (homOfLE hWU).op
+
+end AlgebraicGeometry.Scheme.Modules
+
+end
+
+open _root_.AlgebraicGeometry _root_.ZInQ.Contrib.CloudW03NeronSurj.FLT.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry in
+r2nos_open_dual "_root_.AlgebraicGeometry _root_.ZInQ.Contrib.CloudW03NeronSurj.FLT.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry" in
+theorem solution {X : Scheme.{u}} {M : X.Modules} (U : X.Opens)
+    (eU : (Scheme.Modules.pullback U.ι).obj M ≅ SheafOfModules.unit (U : Scheme.{u}).ringCatSheaf) :
+    ∃ s : Γ(M, U), Scheme.Modules.IsFrameOn s U :=
+  AlgebraicGeometry.Scheme.Modules.exists_isFrameOn_of_pullback_iso_unit U eU
+end S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit
+end P2MW
+
+end ZInQ.Contrib.CloudW03NeronSurj.FLT
