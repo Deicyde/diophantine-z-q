@@ -23,6 +23,8 @@ BCCGM 2017 Eq. (6.2)), `CMjDegree`, `CMPotentialGood` (classical; uncited in the
 Glue: `CMHomFieldSplit` (matrix units on A8's model), `ReducedCMPeriod` (on-the-spot),
 `HeightAdditivityUpper`. Reused: `R19_GaudronRemond`, `R20Lower`.
 
+**Base.** wip/leaf-fold33b d67ea55f, merged with be9a6ba4 (top `sixContactMin_of_open72`, TailZ79); dry runs regenerated there (generators in `scratch/cm-branch/gen/`, replay steps in the report §6).
+
 **Remains.** (1) Lead: do the fold in place (edits listed in docs/research/cm-branch.md §6; GLUE +3, needs
 `--allow-rise`), then PruneScan; (2) prove the three glue Props; (3) re-source R2 to drop the `X₆` fields.
 Report: docs/research/cm-branch.md.
