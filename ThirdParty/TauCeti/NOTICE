@@ -129,6 +129,15 @@ Repository: https://github.com/TauCetiProject/TauCeti
   Selmer groups of the etale algebra, finiteness of class groups and units of the factor rings,
   and fg_point_of_numberField, after M. Stoll's EllipticCurves; list in
   scratch/selmer-2infty/vendor-mw.txt).
+- Commit 0642eae29e0a59ef798d04de325386445906e755 (2026-11-16, Tau Ceti main, on Lean v4.36.0-rc2): the
+  modules backported by the Z-in-Q task selmer-2infty for the comparison of the cohomological and the
+  explicit 2-Selmer groups (GaloisCohomology.Selmer.EtaleTwoDescent and the declarations it needs), under
+  Backport/Main0642/ (list and kinds in scratch/selmer-2infty/backport/modules.tsv; the generator and its
+  state in the same directory). The 4 modules new since commit 5a01f5fe are copied whole; for the other 11
+  modules the Backport/Main0642/ file at the commit-0642eae2 path holds the declarations of that version
+  which the vendored commit-5a01f5fe version (and, for FieldTheory/Galois/AbsoluteGaloisGroup/Norm, the task
+  ring-class Backport/ file) lacks. The 7 commit-5a01f5fe modules this needs that were not vendored are
+  vendored unmodified (scratch/selmer-2infty/vendor-bp5a01.txt).
 
 Location in this repository
 ---------------------------
@@ -181,6 +190,16 @@ Each such file carries, directly under its provenance line, a line
 modifications are distributed under the same license. At the time of writing these
 are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
+- AlgebraicGeometry/EllipticCurve/GaloisCohomology/EtaleTwoDescent.lean (task selmer-2infty: `@[expose]` on
+  explicitFactorEquiv, explicitFactor, factorCohomologicalMap, cohomologicalMap and factorTorsionCharacter, whose
+  bodies the Backport/Main0642/ proofs unfold)
+- Backport/Main0642/AlgebraicGeometry/EllipticCurve/GaloisCohomology/TwoDescent.lean (task selmer-2infty: a
+  private lemma proved by unfolding removed; two proofs adapted to the commit-5a01f5fe signatures)
+- Backport/Main0642/AlgebraicGeometry/EllipticCurve/MordellWeil/LocalCondition.lean (task selmer-2infty: the
+  commutative-ring section stated over fields, as the vendored module is; two lemmas used only by vendored
+  declarations removed)
+- Backport/Main0642/FieldTheory/GaloisCohomology/Units/CoeffMap.lean (task selmer-2infty: one argument adapted
+  to the commit-5a01f5fe signature)
 - AlgebraicGeometry/EllipticCurve/MordellWeil/XSubT.lean (task selmer-2infty: imports the Backport/
   copy of Algebra.Group.MapMulMulEqOne)
 - AlgebraicGeometry/EllipticCurve/Projective/Prime.lean

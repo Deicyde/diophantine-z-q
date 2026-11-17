@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.EtaleTwoDescent), Apache-2.0.
+-- Modified for the Z-in-Q kernel: `@[expose]` added to definitions whose bodies the Backport/Main0642 modules unfold (task selmer-2infty): `explicitFactorEquiv`, `explicitFactor`, `factorCohomologicalMap`, `cohomologicalMap`, `factorTorsionCharacter`.
 module
 
 public import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.Restriction
@@ -120,6 +121,7 @@ theorem factorRoot_polynomialY (p : W.toAffine.f.Factors) :
 
 /-- The square classes of the étale algebra are the product of the square classes of its field
 factors. -/
+@[expose]
 noncomputable def explicitFactorEquiv :
     W.toAffine.M ≃* ((p : W.toAffine.f.Factors) → powerClassQuotient (𝕃 p)ˣ 2) :=
   (AdjoinRoot.modPowEquivPiFactors W.toAffine.f_ne_zero W.toAffine.squarefree_f 2).trans
@@ -128,6 +130,7 @@ noncomputable def explicitFactorEquiv :
 
 /-- Projection of an étale-algebra square class to the power classes of one irreducible factor:
 the component at `p` of `explicitFactorEquiv`. -/
+@[expose]
 noncomputable def explicitFactor (p : W.toAffine.f.Factors) :
     W.toAffine.M →* powerClassQuotient (𝕃 p)ˣ 2 :=
   (Pi.evalMonoidHom _ p).comp (explicitFactorEquiv W).toMonoidHom
@@ -237,6 +240,7 @@ theorem explicitFactor_μ₀_eq_twoDescentUnit (p : W.toAffine.f.Factors)
 
 /-- The Weil-pairing character associated to the universal root point of a factor of the
 `2`-division cubic. -/
+@[expose]
 def factorTorsionCharacter (p : W.toAffine.f.Factors) (h2 : IsUnit ((2 : ℕ) : K)) :
     (W.baseChange (𝕃 p)).TorsionCoeff 2 →+[AbsoluteGaloisGroup (𝕃 p)]
       KummerCoeff (𝕃 p) 2 :=
@@ -254,6 +258,7 @@ theorem factorTorsionCharacter_def (p : W.toAffine.f.Factors) (h2 : IsUnit ((2 :
   (rfl)
 
 /-- Restriction to a factor field followed by the Weil-pairing character of its universal root. -/
+@[expose]
 noncomputable def factorCohomologicalMap (p : W.toAffine.f.Factors)
     (τ : SeparableClosure K →ₐ[K] SeparableClosure (𝕃 p))
     (h2 : IsUnit ((2 : ℕ) : K)) :
@@ -328,6 +333,7 @@ is the `2`-division cubic. Its component at an irreducible factor `p` of `f` is
 `factorCohomologicalMap`, read in the square classes of `K[X] ⧸ (p)` through the Kummer
 isomorphism. The restriction to `K[X] ⧸ (p)` uses a fixed embedding of separable closures;
 `TauCeti.TwoDescent.kummerIso_explicitFactor_cohomologicalMap` holds for every embedding. -/
+@[expose]
 noncomputable def cohomologicalMap (h2 : IsUnit ((2 : ℕ) : K)) :
     Multiplicative (H1 (AbsoluteGaloisGroup K) (W.TorsionCoeff 2)) →* W.toAffine.M :=
   (explicitFactorEquiv W).symm.toMonoidHom.comp <| MonoidHom.pi fun p ↦

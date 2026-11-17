@@ -1,0 +1,75 @@
+{
+ "S": [
+  "TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/EtaleTwoDescent/Basic.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/WeilPairing/Basic.lean",
+  "TauCeti/FieldTheory/GaloisCohomology/Kummer.lean",
+  "TauCeti/FieldTheory/Galois/AbsoluteGaloisGroup/Norm.lean",
+  "TauCeti/FieldTheory/GaloisCohomology/Units/CoeffMap.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/Coefficients.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/TwoDescent.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/MordellWeil/LocalCondition.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/Affine/Point/TwoTorsion.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/MordellWeil/XSubT.lean",
+  "TauCeti/GroupTheory/SpecificGroups/KleinFour.lean"
+ ],
+ "W": [
+  "TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/EtaleTwoDescent/NormKernel.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/Selmer/EtaleTwoDescent.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/Affine/Point/Collinear.lean",
+  "TauCeti/AlgebraicGeometry/EllipticCurve/Affine/Formula/AddPolynomial.lean"
+ ],
+ "O": {
+  "TauCeti/FieldTheory/GaloisCohomology/Units/CoeffMap.lean": [
+   "ZInQKernel/Contrib/TauCeti/FieldTheory/GaloisCohomology/Kummer.lean"
+  ]
+ },
+ "P": {
+  "TauCeti/FieldTheory/GaloisCohomology/Units/CoeffMap.lean": [
+   [
+    "(unitsCoeffMapSymm_coe_baseUnitsEquivInvariants K L σ (.ofMul b))",
+    "(unitsCoeffMapSymm_coe_baseUnitsEquivInvariants K L σ b)"
+   ]
+  ],
+  "TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/TwoDescent.lean": [
+   [
+    "/-- The definition of `twoTorsionCharacter`, through the subgroup `{O, T}` of `E(Kˢ)[2]`. -/\nprivate theorem twoTorsionCharacter_apply [W.IsElliptic] (h2 : IsUnit ((2 : ℕ) : K))\n    (S : W.TorsionCoeff 2) :\n    W.twoTorsionCharacter hT hψ h2 S =\n      if S ∈ AddSubgroup.zmultiples (W.twoTorsionCoeff hT hψ) then 0 else mu2NegOne :=\n  (rfl)\n",
+    ""
+   ],
+   [
+    "  rw [twoTorsionCharacter_eq_weilPairing, weilPairingCoeff_apply, twoTorsionCoeff]",
+    "  have hT2 : W.twoTorsionCoeff hT hψ =\n      W.baseTorsionCoeff 2 ⟨some e t hT, Affine.Point.some_mem_torsionBy_two hT hψ⟩ :=\n    Subtype.ext ((W.coe_twoTorsionCoeff hT hψ).trans (W.coe_baseTorsionCoeff ⟨some e t hT, Affine.Point.some_mem_torsionBy_two hT hψ⟩).symm)\n  rw [twoTorsionCharacter_eq_weilPairing, weilPairingCoeff_apply, hT2]"
+   ],
+   [
+    "Affine.Point.xCoord_add_sub hT' hψ' hQ' (by rwa [hc']) hS",
+    "Affine.Point.xCoord_add_sub hT' hψ' hQ' hy (by rwa [hc']) hS"
+   ]
+  ],
+  "TauCeti/AlgebraicGeometry/EllipticCurve/MordellWeil/LocalCondition.lean": [
+   [
+    "variable {R : Type*} [CommRing R] (W : Affine R)\n",
+    "variable {R : Type*} [Field R] (W : Affine R)\n"
+   ],
+   [
+    "variable (S : Type*) [CommRing S] [Algebra R S]\n",
+    "variable (S : Type*) [Field S] [Algebra R S]\n"
+   ],
+   [
+    "/-- Base change of the cubic quotient algebra along an isomorphism of commutative rings is\nbijective. -/\nlemma bijective_mapA_of_bijective_algebraMap (h : Function.Bijective (algebraMap R S)) :\n    Function.Bijective (W.mapA S) :=\n  (AdjoinRoot.mapRingEquiv (RingEquiv.ofBijective (algebraMap R S) h)\n    W.f (W⁄S).toAffine.f (by rw [W.baseChange_f]; exact Associated.refl _)).bijective\n\n",
+    ""
+   ],
+   [
+    "/-- Base change along an isomorphism of commutative rings is bijective on square classes. -/\nlemma localRes_bijective_of_bijective_algebraMap (h : Function.Bijective (algebraMap R S)) :\n    Function.Bijective (W.localRes S) := by\n  let e := MulEquiv.ofBijective (Units.map (W.mapA S).toMonoidHom)\n    (Units.map_bijective (W.bijective_mapA_of_bijective_algebraMap S h))\n  have he : W.localRes S = (QuotientGroup.congrRangePowMonoidHom e 2).toMonoidHom := by\n    refine MonoidHom.ext fun m ↦ ?_\n    obtain ⟨u, rfl⟩ := QuotientGroup.mk_surjective m\n    simp [e]\n  rw [he]\n  exact (QuotientGroup.congrRangePowMonoidHom e 2).bijective\n",
+    ""
+   ]
+  ]
+ },
+ "X": {
+  "ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/EtaleTwoDescent.lean": [
+   "explicitFactorEquiv",
+   "explicitFactor",
+   "factorCohomologicalMap",
+   "cohomologicalMap",
+   "factorTorsionCharacter"
+  ]
+ }
+}
