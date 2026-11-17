@@ -5,7 +5,7 @@
 # overlay VARIANT_DIR/lib (first on LEAN_PATH); unpatched modules are compiled from the worktree's sources.
 V=$1
 START=${2:-1}
-cd ~/dzq-wt/group-law-dvr; export PATH="$HOME/bin:$HOME/.elan/bin:$PATH"
+cd "$(git rev-parse --show-toplevel)"; export PATH="$HOME/bin:$HOME/.elan/bin:$PATH"
 LP=$(lake env printenv LEAN_PATH)
 export LEAN_PATH=$V/lib:$LP
 mkdir -p $V/logs

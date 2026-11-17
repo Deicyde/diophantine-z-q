@@ -11,7 +11,7 @@
   (NeronExt.isNeronModelOver_of_grpObj, NeronExtAb.lean) takes `[GrpObj X]`; its Weil-extension step
   `RelativeGroupLaw.exists_opens_diagonal_difference_extension` uses the target's group law. In
   NeronGoodModelIso, F has no group law (constructing it is the point of MumfordGroupLawDVR). So (1) is circular. VERIFIED (read).
-- Build: copied (reflink) ~/dzq-wt/group-law-dvr/.lake/build and lean/.lake/build (same base commit 3ab4d8eb).
+- Build: copied (reflink) the group-law-dvr worktree/.lake/build and lean/.lake/build (same base commit 3ab4d8eb).
 
 ## Plan (purity-free route, all tools located; VERIFIED by reading statements)
 NeronGoodModelIso for an arbitrary smooth separated N follows from the case where N carries a group law with

@@ -1,4 +1,4 @@
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ23.lean	2026-11-16 15:13:07.352290476 -0800
+--- a/ZInQKernel/OneProof/H/TailZ23.lean	2026-11-16 15:13:07.352290476 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ23.lean	2026-11-16 15:32:16.926814729 -0800
 @@ -1,5 +1,6 @@
  import ZInQKernel.OneProof.H.TailZ22
@@ -43,7 +43,7 @@
        r.gonzalezRotgerCountX6Ab
  
  /-- **G0 with only the open leaves and the open glue** (leaf-fold14, reduct fold; no `sorry`, standard axioms).
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ25.lean	2026-11-16 15:13:07.354355439 -0800
+--- a/ZInQKernel/OneProof/H/TailZ25.lean	2026-11-16 15:13:07.354355439 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ25.lean	2026-11-16 15:32:16.926916963 -0800
 @@ -54,7 +54,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -54,7 +54,7 @@
    /-- c-to-printed, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §1.2 Prop. 4 (over a Dedekind
    domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
    locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 15:13:07.354481038 -0800
+--- a/ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 15:13:07.354481038 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 15:32:16.926966948 -0800
 @@ -49,7 +49,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -65,7 +65,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ27.lean	2026-11-16 15:12:33.042991773 -0800
+--- a/ZInQKernel/OneProof/H/TailZ27.lean	2026-11-16 15:12:33.042991773 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ27.lean	2026-11-16 15:32:16.927010825 -0800
 @@ -42,7 +42,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -76,7 +76,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ28.lean	2026-11-16 15:12:33.042991773 -0800
+--- a/ZInQKernel/OneProof/H/TailZ28.lean	2026-11-16 15:12:33.042991773 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ28.lean	2026-11-16 15:32:16.927050685 -0800
 @@ -42,7 +42,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -87,7 +87,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ29.lean	2026-11-16 15:12:33.042991773 -0800
+--- a/ZInQKernel/OneProof/H/TailZ29.lean	2026-11-16 15:12:33.042991773 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ29.lean	2026-11-16 15:32:16.927102342 -0800
 @@ -42,7 +42,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -98,7 +98,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ33.lean	2026-11-16 15:12:33.043991782 -0800
+--- a/ZInQKernel/OneProof/H/TailZ33.lean	2026-11-16 15:12:33.043991782 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ33.lean	2026-11-16 15:32:16.927143123 -0800
 @@ -41,7 +41,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -109,7 +109,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 15:13:07.354872218 -0800
+--- a/ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 15:13:07.354872218 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 15:32:16.927183675 -0800
 @@ -39,7 +39,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -130,7 +130,7 @@
  
  end HSyn
  
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ35.lean	2026-11-16 15:12:33.043991782 -0800
+--- a/ZInQKernel/OneProof/H/TailZ35.lean	2026-11-16 15:12:33.043991782 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ35.lean	2026-11-16 15:32:16.927225538 -0800
 @@ -36,7 +36,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -141,7 +141,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ36.lean	2026-11-16 15:12:33.044991791 -0800
+--- a/ZInQKernel/OneProof/H/TailZ36.lean	2026-11-16 15:12:33.044991791 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ36.lean	2026-11-16 15:32:16.927273710 -0800
 @@ -36,7 +36,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -152,7 +152,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ37.lean	2026-11-16 15:12:33.044991791 -0800
+--- a/ZInQKernel/OneProof/H/TailZ37.lean	2026-11-16 15:12:33.044991791 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ37.lean	2026-11-16 15:32:16.927314422 -0800
 @@ -36,7 +36,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -163,7 +163,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ38.lean	2026-11-16 15:12:33.044991791 -0800
+--- a/ZInQKernel/OneProof/H/TailZ38.lean	2026-11-16 15:12:33.044991791 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ38.lean	2026-11-16 15:32:16.927356105 -0800
 @@ -35,7 +35,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -174,7 +174,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ41.lean	2026-11-16 15:12:33.044991791 -0800
+--- a/ZInQKernel/OneProof/H/TailZ41.lean	2026-11-16 15:12:33.044991791 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ41.lean	2026-11-16 15:32:16.927396355 -0800
 @@ -35,7 +35,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -185,7 +185,7 @@
    /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
    number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
    sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ44.lean	2026-11-16 15:13:07.355269027 -0800
+--- a/ZInQKernel/OneProof/H/TailZ44.lean	2026-11-16 15:13:07.355269027 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ44.lean	2026-11-16 15:32:16.927437697 -0800
 @@ -42,7 +42,7 @@
    `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
@@ -196,7 +196,7 @@
    /-- x6-glue, printed form (on abelian schemes): González–Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12 (read by
    the locator audit), residue fields of CM points, on one canonical coarse witness `X₆`. -/
    gonzalezRotgerX6Ab : QMSplit.Moduli.GonzalezRotgerX6Ab
---- /home/jackmccarthy/dzq-wt/group-law-dvr/./ZInQKernel/OneProof/H/TailZ45.lean	2026-11-16 15:13:07.355416319 -0800
+--- a/ZInQKernel/OneProof/H/TailZ45.lean	2026-11-16 15:13:07.355416319 -0800
 +++ ./ZInQKernel/OneProof/H/TailZ45.lean	2026-11-16 15:32:16.927481033 -0800
 @@ -54,8 +54,8 @@
    sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre

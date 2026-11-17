@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: compile.sh FROM TO  (1-based indices into /tmp/gl_down.txt)
-cd ~/dzq-wt/group-law; export PATH="$HOME/bin:$HOME/.elan/bin:$PATH"
+cd "$(git rev-parse --show-toplevel)"; export PATH="$HOME/bin:$HOME/.elan/bin:$PATH"
 LP=$(lake env printenv LEAN_PATH)
 export LEAN_PATH=/tmp/glfold/lib:$LP
 i=0

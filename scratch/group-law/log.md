@@ -1,6 +1,6 @@
 # group-law results log
 
-Base 0caafe66 (wip/group-law). Build tree copied from ~/dzq-wt/gaga-serre (base + Contrib files only);
+Base 0caafe66 (wip/group-law). Build tree copied from the gaga-serre worktree (base + Contrib files only);
 `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.MumfordRigidity`
 replayed 13698 jobs, frozenTarget standard axioms (VERIFIED, 11-16 12:31).
 

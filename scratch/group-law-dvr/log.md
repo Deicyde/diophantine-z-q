@@ -1,7 +1,7 @@
 # group-law-dvr results log
 
 Base wip/group-law 680165b2, merged origin/main c1e4ed1b (merge 27a3b989, no conflicts). Build tree copied
-(cp --reflink) from ~/dzq-wt/leaf-fold33b (25415c1c, TailZ45 built), then `lake build` of Main, Discharges and
+(cp --reflink) from the leaf-fold33b worktree (25415c1c, TailZ45 built), then `lake build` of Main, Discharges and
 MumfordGroupLawRed.
 
 ## Field on the merged tree (VERIFIED, read)

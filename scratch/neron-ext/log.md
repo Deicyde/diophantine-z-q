@@ -1,6 +1,6 @@
 # neron-ext results log
 
-Base: origin/main 0caafe66 (w80). Build copied (reflink) from ~/dzq-wt/homfree-proof (base 0caafe66, only a new Contrib file).
+Base: origin/main 0caafe66 (w80). Build copied (reflink) from the homfree-proof worktree (base 0caafe66, only a new Contrib file).
 
 ## Statement (VERIFIED, read)
 `ZInQ.Contrib.NeronC.NeronSchemeExtensionExists` (ZInQKernel/Contrib/NeronC/NeronGroup.lean:82): for every field K,
