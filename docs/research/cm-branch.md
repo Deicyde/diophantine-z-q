@@ -166,6 +166,24 @@ Glue:
 * `HeightAdditivityUpper`: `h_F(A × Z) ≤ h_F(A) + h_F(Z)` (the half of additivity the chain did not
   need; the chain's `HeightAdditivity` is `≥`).
 
+### 4.1 Proposed rows (for the integrator; not edited here)
+
+kinds.tsv (bundle `research` unless the fold puts them elsewhere):
+
+| field | kind | flag | strict / strictest |
+|---|---|---|---|
+| `fowlerProp27` | published | unread here (read by the upstream audit, AUDIT.md item 1, printed pp. 615-616); stated over orders via `h(Δ) = #Pic(𝒪_Δ)` | LEAF / LEAF once read |
+| `cmHeight62` | consequence | reading risk: exact display of (6.2) unread here (audit item 2, pp. 13-14); good-reduction case, `≤` half | GLUE until reviewed |
+| `cmjDegree` | published | uncited in the manuscript (L586-587); locator UNVERIFIED (Cox Thm 11.1; audit: Fowler §2.1) | GLUE until a locator is read |
+| `cmPotentialGood` | published | uncited in the manuscript (L596-597); locator UNVERIFIED (Serre–Tate 1968 §6; audit: [cmheight] p. 15) | GLUE until a locator is read |
+| `cmHomFieldSplit` | glue | L582-586 | GLUE |
+| `reducedCMPeriod` | glue | L598-599, on-the-spot | GLUE |
+| `heightAdditivityUpper` | glue | L621 | GLUE |
+
+locators.md rows: Fowler 2026 Prop. 2.7 (Math. Proc. Cambridge Philos. Soc. 180, 607-641, printed pp. 615-616,
+DOI 10.1017/S0305004125101825, as the audit read it); Barquero-Sanchez–Cadwallader–Cannon–Genao–Masri 2017,
+Res. Number Theory 3 art. 13, §6 Eq. (6.2), pp. 13-14 (author copy linked in AUDIT.md item 2).
+
 ## 5. The localization of the non-CM chain (done)
 
 Every use of FS5 and of `FibreSimple` on the chain's path to `ModularConstituent` is at the fibre context
