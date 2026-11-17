@@ -54,3 +54,24 @@ render_open count at base: 35 open (29 H, strictest 11/18, 6 others).
   render_open.py --check: "ok: 34 open hypotheses, all classified; 4 generated files up to date"; frontier_crosswalk.py
   then --check ok (232 IDs, 25 matched); DischargesTest rerun (output differs only by the bundle rename 16 -> 17 and
   the dropped field); `autoform check blueprint --lean-root .`: "OK: 781 articles, 2343 dependencies", rc 0.
+
+## Step 3. Merge fork PR #55 (origin/cloud-b3/w17b-gaga-morphism, d81efece)
+- `git merge --no-ff` clean (merge-base c1e4ed1b; 424 files, all added under ZInQKernel/Contrib/: CloudB3W17bOka,
+  CloudB3W17bOkaComparison, CloudB3W17bReduced (a port of AxiomMath/Stacks under
+  ZInQKernel.Contrib.CloudB3W17bReduced.Port, so no module-name clash with the tree's Stacks copies),
+  CloudB3W17bAnalyticIdeal, CanonicalImage, GAGA, GraphScout, GraphScoutReverseIdeal, Identity, Kernel, NativeGlue,
+  ProjectiveBridge, four new files in the existing directory CloudB3W17GAGA (CanonicalModels, CanonicalOriginalPoints,
+  Descent, Graph; no existing file touched), OneProof/GAGAMorphism.lean). Commit b97b725b.
+- LICENSE/NOTICE files kept verbatim: CloudB3W17bGraphScoutReverseIdeal/LICENSE, CloudB3W17bOka/{LICENSE,NOTICE.md},
+  CloudB3W17bOkaComparison/LICENSE, CloudB3W17bReduced/{LICENSE,NOTICE} (and its MODIFICATIONS.md, README.md: the
+  PR's own record of its port edits to the Stacks source; no vendored file edited by this task).
+- No scratch files, no host paths (grep for /home/, /Users/, /mnt/, /tmp/: none).
+- Comment-aware scan of the 416 added .lean files: 0 hits (VERIFIED; same token list as step 1).
+- Build (VERIFIED): `lake build ZInQKernel.Contrib.OneProof.GAGAMorphism` succeeded, 9854 jobs, 398 modules built,
+  17.5 min, no error (build55-summary.txt).
+- `#discharges` (Discharges55.lean, discharges55-output.txt; on the step-2 head, so the bundle is
+  OpenTextbookLeaves17) (VERIFIED): `DISCHARGES [OpenTextbookLeaves17.gagaMorphism] by
+  ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof`, still assumes `[]`, axioms standard; `#check` prints
+  exactly `ZInQ.HomLattice.GAGAMorphism`. The file imports Main and the provider together, so there is no
+  declaration clash between the two libraries and Main's environment. The provider's `local instance`s
+  (classical topology and charts on A(ℂ)) do not enter its type, which is the closed constant.
