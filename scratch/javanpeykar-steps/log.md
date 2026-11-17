@@ -20,3 +20,12 @@ scratch/javanpeykar-steps/JavanpeykarThm111.lean (`lake env lean`, 7 s, no error
 * `exists_isBelyiDegree_le`, `javanpeykarBound_mono` (step 2).
 * `javanpeykarPrintedMap_of_thm111 : JavanpeykarThm111 → JavanpeykarRebase.JavanpeykarPrintedMap`
   (no other hypothesis). Axioms: [propext, Classical.choice, Quot.sound].
+## Step B: (H2), (H3) (VERIFIED, compiled)
+
+* `dim_eq_of_iso`, `isPrintedStableHeight_of_iso` (javanpeykar-dict `transport`; defeq of the printed
+  metric data accepted by `exact`), `isStableHeightBar_of_iso`.
+* `isPrintedStableHeight_unique (hT35 hGC hN1 hSS2)`: from `ZInQ.HeightFix.isStableFaltingsHeight_of_printed`
+  (checked: hypotheses T35 = ZInQ.LeafPush2.UniformizationExists and AVGlue.GeomConnOfRationalPoint) and
+  `ZInQ.HeightSplit.isStableFaltingsHeight_unique` (ZInQ.H5Neron.NeronModelExists, SemistableNeronBaseChange).
+  GeomConnOfRationalPoint is proved (`geomConnOfRationalPoint_proof`).
+* Copied verbatim to ZInQKernel/Contrib/OneProof/JavanpeykarThm111.lean.
