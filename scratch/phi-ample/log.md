@@ -34,3 +34,7 @@ Target theorem: PhiAmpleIsogeny from MumfordPhiSurjectiveAC alone (removes mumfo
   (both fields of OpenAddedLeaves19), axioms standard. VERIFIED.
 - autofold.json dry run: `strict count: 16/21 on 37 -> 15/21 on 36; strictest 16/21 -> 15/21` (−1, no new leaf).
   FoldDryRun.lean (line 1 stripped) compiles; sixContactMin_of_open39 axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- Same spec on origin/wip/leaf-fold33b (3091ccc77; temporary worktree /tmp/pa-lf33, build tree from ~/dzq-wt/leaf-fold33b,
+  removed afterwards): dry run `strict count: 15/20 on 35 -> 14/20 on 34; strictest 15/20 -> 14/20`; the printed module
+  (FoldDryRunLF33.lean.txt, .txt so it is not a Lean target) compiles after lake build of MumfordKLFinite there (14158 jobs);
+  sixContactMin_of_open40 axioms standard. VERIFIED.
