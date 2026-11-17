@@ -7,3 +7,4 @@
   negative-conjugate count odd; E_q(0) = #E^h(F_q)/q; (E.12) recurrence closed form.
 - App F (L8206-9980) read; rows written. To check: |GL4(F3)| and v2; alpha(-1)=1 sign bookkeeping;
   (O.6) from H-recurrence; shell parity (O.10); (O.12) and trace identity.
+- App G (L9981-10935) read; rows written. Map of E-G complete. Next: checks.py, K3, comments, conclusion.
