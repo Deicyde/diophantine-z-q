@@ -1,0 +1,21 @@
+{
+  "name": "pc-from-rc (NOT FOR FOLDING)",
+  "note": "Manuscript.PoleCompleteness is not a field of any bundle of ZInQ.OneProof.frozenTarget, so no open hypothesis is discharged and autofold does not apply. This file records the new statements of ZInQKernel/Contrib/OneProof/PoleCompletenessFromRC.lean (poleCompleteness_of_restrictedConverse_final) with kinds and flags, for a future manuscript-faithful headline (issue #74).",
+  "imports": ["ZInQKernel.Contrib.OneProof.PoleCompletenessFromRC"],
+  "discharges": [],
+  "statements": [
+    {"name": "kolyvaginRankOne", "type": "_root_.ZInQ.Manuscript.PoleRC.KolyvaginRankOne", "kind": "published",
+     "flag": "unread: new printed leaf (rank half of BCDT Thm A + Kolyvagin Thm 1, Sha dropped); locator UNVERIFIED (Kolyvagin cited as MPIM preprint MPI/90-69)",
+     "source": "Breuil-Conrad-Diamond-Taylor, JAMS 14 (2001), Thm A; Kolyvagin, MPI/90-69 (1990), Thm 1 pp. 4-5 (as cited, diophantine_zq.tex L1094)"},
+    {"name": "mordellWeil", "type": "_root_.ZInQ.Manuscript.PoleRC.MordellWeil", "kind": "published",
+     "flag": "unread: new printed leaf; locator UNVERIFIED", "source": "Mordell 1922; Silverman AEC VIII.6.7 (number UNVERIFIED)"},
+    {"name": "lemma54At", "type": "_root_.ZInQ.Manuscript.PoleRC.Lemma54At SelmerCorankOne", "kind": "interface",
+     "flag": "interface for the abstract SelmerCorankOne; Lemma 5.4 (Poonen-Stoll) only once P and Sel2 are genuine", "source": "diophantine_zq.tex lem:corank"},
+    {"name": "matrixRealization", "type": "_root_.ZInQ.Manuscript.PoleRC.MatrixRealization", "kind": "glue",
+     "flag": "ELLIOT: manuscript cites supplementary S11-S12; sketch L1033-1060", "source": "diophantine_zq.tex L1033-1060"},
+    {"name": "localTwo", "type": "_root_.ZInQ.Manuscript.PoleRC.LocalTwo", "kind": "glue", "flag": "textbook local computation", "source": "Silverman X.1"},
+    {"name": "localThree", "type": "_root_.ZInQ.Manuscript.PoleRC.LocalThree", "kind": "glue", "flag": "textbook local computation", "source": "Silverman X.1"},
+    {"name": "localBad", "type": "_root_.ZInQ.Manuscript.PoleRC.LocalBad", "kind": "glue", "flag": "textbook local computation (I0* twist)", "source": "Silverman X.1"},
+    {"name": "localGood", "type": "_root_.ZInQ.Manuscript.PoleRC.LocalGood", "kind": "glue", "flag": "textbook (Silverman X.4: image = unramified classes at good p)", "source": "Silverman X.4"}
+  ]
+}
