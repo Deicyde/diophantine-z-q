@@ -1,0 +1,10 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.ShimuraY3Strict
+
+#discharges
+
+#print axioms Y3ABUStrict.shimuraMainThmIDeligneY3AbU_of_strict
+#print axioms Y3ABUStrict.deligneCanonicalModelY3Every_of_split
+#print axioms Y3ABUStrict.deligneModuliY3Every_of_one
+#print axioms Y3ABUStrict.deligneReciprocityY3Every_of_one

@@ -167,4 +167,70 @@ theorem shimuraMainThmIDeligneY3AbU_of_strict (hM : Y3ABUPrint.Y3FineModuliAb)
     ShimuraMainThmIDeligneY3AbU :=
   Y3ABUPrint.shimuraMainThmIDeligneY3AbU_of_print hM (deligneCanonicalModelY3Every_of_split hI hR)
 
+/-! ## 4. The every-witness forms follow from the forms on one witness (the moduli scheme of the print)
+
+Two fine witnesses are isomorphic compatibly with their moduli bijections (`Y3ABUPrint.compare_iso_ab`), and
+`ModuliInterpAt` and `ReciprocityAt` transport along such an isomorphism. So each new leaf is equivalent to its
+statement on one witness, i.e. on the moduli scheme of the print; the every-witness form is not an extra step. -/
+
+/-- `ModuliInterpAt` transports along a compatible isomorphism of witnesses. -/
+theorem moduliInterp_transport {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {Φ' : PtEquiv Y'}
+    (k : Y' ≅ Y) (hk : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'), Φ' K y = Φ K (y ≫ k.hom))
+    {Ψ : UpperHalfPlane → BAQˣ → (fieldPt ℂ ⟶ Y)} (h : ModuliInterpAt Y Φ Ψ) :
+    ModuliInterpAt Y' Φ' (fun τ g => Ψ τ g ≫ k.inv) := by
+  obtain ⟨hsurj, hfib, hhol, hlev⟩ := h
+  have hΦ : ∀ y : fieldPt ℂ ⟶ Y, Φ' ℂ (y ≫ k.inv) = Φ ℂ y := fun y => by
+    rw [hk ℂ, Category.assoc, Iso.inv_hom_id, Category.comp_id]
+  refine ⟨fun y' => ?_, fun τ g τ' g' => ?_, fun g => ?_, fun u hu τ => ?_⟩
+  · obtain ⟨τ, g, h⟩ := hsurj (y' ≫ k.hom)
+    exact ⟨τ, g, by simp only [h, Category.assoc, Iso.hom_inv_id, Category.comp_id]⟩
+  · rw [← hfib τ g τ' g']
+    exact ⟨fun h => by simpa using congrArg (· ≫ k.hom) h,
+      fun h => by show Ψ τ g ≫ k.inv = Ψ τ' g' ≫ k.inv; rw [h]⟩
+  · exact Y3ABUPrint.isHolFamily_comp k.inv.left (hhol g)
+  · obtain ⟨P, hP, rest⟩ := hlev u hu τ
+    exact ⟨P, by rw [hΦ]; exact hP, rest⟩
+
+/-- `ReciprocityAt` transports along any morphism of witnesses (`galPt σ` is precomposition). -/
+theorem reciprocity_transport {Y Y' : Over (Spec (CommRingCat.of ℚ))} (h : Y ⟶ Y')
+    {Ψ : UpperHalfPlane → BAQˣ → (fieldPt ℂ ⟶ Y)} (hR : ReciprocityAt Y Ψ) :
+    ReciprocityAt Y' (fun τ g => Ψ τ g ≫ h) := by
+  obtain ⟨ε, δ, hrec⟩ := hR
+  refine ⟨ε, δ, ?_⟩
+  intro K _ _ _ hK κ q z hz σ s hs g
+  show fieldMap _ ≫ Ψ z g ≫ h = Ψ z _ ≫ h
+  rw [← Category.assoc]
+  exact congrArg (· ≫ h) (hrec K hK κ q z hz σ s hs g)
+
+/-- **The moduli-interpretation leaf from its statement on one witness.** -/
+theorem deligneModuliY3Every_of_one
+    (h : ∃ (Y₀ : Over (Spec (CommRingCat.of ℚ))) (Φ₀ : PtEquiv Y₀),
+      LeafQM.AV.R1UnivRigid.R1fpPropsAb Y₀ Φ₀ ∧ ∃ Ψ, ModuliInterpAt Y₀ Φ₀ Ψ) :
+    DeligneModuliY3Every := by
+  obtain ⟨Y₀, Φ₀, h1₀, Ψ, hΨ⟩ := h
+  intro Y Φ h1
+  obtain ⟨k, hk⟩ := Y3ABUPrint.compare_iso_ab h1₀ h1
+  exact ⟨_, moduliInterp_transport k hk hΨ⟩
+
+/-- **The reciprocity leaf from its statement on one witness.** -/
+theorem deligneReciprocityY3Every_of_one
+    (h : ∃ (Y₀ : Over (Spec (CommRingCat.of ℚ))) (Φ₀ : PtEquiv Y₀),
+      LeafQM.AV.R1UnivRigid.R1fpPropsAb Y₀ Φ₀ ∧ ∀ Ψ, ModuliInterpAt Y₀ Φ₀ Ψ → ReciprocityAt Y₀ Ψ) :
+    DeligneReciprocityY3Every := by
+  obtain ⟨Y₀, Φ₀, h1₀, hR₀⟩ := h
+  intro Y Φ h1 Ψ hΨ
+  -- `k : Y ≅ Y₀` with `Φ y = Φ₀ (y ≫ k.hom)`
+  obtain ⟨k, hk⟩ := Y3ABUPrint.compare_iso_ab h1₀ h1
+  -- move `Ψ` to `Y₀` along `k.hom` (the inverse direction of `moduliInterp_transport`)
+  have hk' : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y₀),
+      Φ₀ K y = Φ K (y ≫ k.symm.hom) := fun K _ _ y => by
+    rw [hk K, Iso.symm_hom, Category.assoc, Iso.inv_hom_id, Category.comp_id]
+  have hΨ₀ := moduliInterp_transport k.symm hk' hΨ
+  have hR := reciprocity_transport k.inv (hR₀ _ hΨ₀)
+  have e : (fun τ g => (Ψ τ g ≫ k.symm.inv) ≫ k.inv) = Ψ := by
+    funext τ g
+    simp only [Iso.symm_inv, Category.assoc, Iso.hom_inv_id, Category.comp_id]
+  rw [e] at hR
+  exact hR
+
 end Y3ABUStrict
