@@ -43,6 +43,18 @@ review. Research checks consume them. The kernel workflow, Lake configuration,
 kernel contract's global scan still reads any `.lean` file or Lake configuration
 inside these directories; those always require the full build.
 
+A PR entirely under `research/` can also skip when every changed path is an
+ordinary note, table, standalone Python verifier, decimal polynomial or licence:
+`.md`, `.tex`, `.bib`,
+`.pdf`, `.json`, `.py`, `.txt`, `.csv`, `.tsv`, `LICENSE`, `NOTICE` or `COPYING`.
+This whole-diff extension excludes protected script/test directories and other
+executable formats, Lean and Lake configuration, nested workflows, kernel configuration,
+and paths pinned by either contract. Both sides of a rename must qualify.
+For example, `research/proposal/data.json` and `research/proposal/check.py`
+together skip; adding `scripts/check.py` or a pinned input requires the build. A mixed PR containing an outside path cannot use this
+extension, though the previous independently justified exemptions still apply.
+Research checks and Protocol B review still run.
+
 Membership in either the base or head contract takes precedence over every
 exemption. All existing Lean, toolchain, configuration and protected-path rules
 also take precedence. Renames still test both paths. Unknown formats, including

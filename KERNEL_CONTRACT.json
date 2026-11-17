@@ -4,7 +4,7 @@
   "scope": "Conditional original existential polynomial; no claim of a formalized explicit quartic or proved premises.",
   "files": {
     ".gitattributes": "d72cd1a01bce3da869df78301c170c8eff08ffb0bb39a3cedb263f1df138d399",
-    ".github/workflows/kernel-lean.yml": "6c2213d6373c9ac6d142619c6326f2da233dcb6891e6be0f408f75fad340e10c",
+    ".github/workflows/kernel-lean.yml": "96b13200a374b9796bb7f3c3765040fb0043586241d0a7c1580afef941154ccd",
     "ThirdParty/GreenTao/ChallengeDeps.lean": "996bfc179f93078686a6a805adfc072727bbad1b7dbb59a87b2a0adafdb9fafe",
     "ThirdParty/GreenTao/Submission.lean": "6c01d0d42973f587d95e1731860910584ddaba17b92c9a170c3d22ea882724df",
     "ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean": "9e3ac01ce10d186a1fbbb25202f8ce66fb8a0518563c09d91f5d4ddb719985b2",
@@ -942,14 +942,14 @@
     "scripts/check_target.py": "3217b013bf839c4166dfbbfe6fb560a2d3b56bc1408addbfc08646807dfa2e25",
     "scripts/kernel_base_report.py": "994453807d588cd255edaa5b7488268f73f15f0d97b5e49b0ecc5cda8a83273c",
     "scripts/kernel_diagnostics.py": "74354d9e1a63918deab41e2ac99cc63d12ed89db4a150cb1270bc60e7cdc74bb",
-    "scripts/kernel_pr_scope.py": "29b53e3cb72c99cc12740858312260e5909fb84bc260b016b8261c0a9ee9a67b",
+    "scripts/kernel_pr_scope.py": "017027ba09bf357535f937f1069f329042953305a48899c191fb5ba86743d9db",
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
     "scripts/test_kernel_audit.py": "12e9be4df09488e37f48984676941d508f7c0b35a70b2db4f76acb1e99cf7122",
     "scripts/test_kernel_cache.py": "06551ff625de2ef2896841d035258a1666fc4dcefcec423b5eb6a332b5276030",
     "scripts/test_kernel_contract.py": "c678d0204deb42b716097eb6fb3f08d682035061d74c75154ca1f12491371888",
     "scripts/test_kernel_diagnostics.py": "a378953dfc9baf168ffe76c064f49c3058bb28f436179ae8e104ea303d1964ad",
     "scripts/test_kernel_phases.py": "76b737fc65be2c186d39e92576d1e10f733eddd5131f638b5195ec5de3a6d4e8",
-    "scripts/test_kernel_pr_scope.py": "5d4dbdf17c5cd497fe9df924cf0a739cbad02d4bae7678c1c034002ae6c5b00a"
+    "scripts/test_kernel_pr_scope.py": "bf03207ef24177278e481cae03521b5f7b2e81a3a9ffbc8f8913722f93e4bfd4"
   },
   "targets": [
     {

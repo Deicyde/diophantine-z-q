@@ -147,6 +147,59 @@ class ScopeTests(unittest.TestCase):
                 self.assertEqual((root / 'output').read_text(), 'full_build=' + str(failed).lower() + '\n')
                 self.assertIn('performing the full build' if failed else 'Kernel build skipped', (root / 'summary').read_text())
 
+    def test_research_only_notes_and_data_skip_across_nonversioned_directories(self):
+        self.rows = [{'filename': p, 'status': 'added'} for p in [
+            'research/brox-candidate/paper.tex', 'research/brox-candidate/paper.pdf',
+            'research/brox-candidate/data/coefficients.json', 'research/another/table.csv',
+            'research/brox-candidate/polynomial.txt', 'research/brox-candidate/LICENSE',
+            'research/brox-candidate/check.py']]
+        self.current['changed_files'] = len(self.rows)
+        full, reason, paths = self.decide()
+        self.assertFalse(full)
+        self.assertIn('Only research notes, data and standalone verifiers', reason)
+
+    def test_research_extension_rejects_every_protected_or_executable_kind(self):
+        for name in ['Proof.lean', 'lakefile.toml', 'lakefile.lean', 'lake-manifest.json',
+                     'lean-toolchain', 'KERNEL_CONTRACT.json', '.gitattributes', '.gitmodules',
+                     'run.sh', 'run.ps1', 'tool.js', 'archive.zip', 'unknown.bin',
+                     'scripts/readme.md', 'tests/data.json', '.github/workflows/check.yml',
+                     'test_fixture.json', 'lean/readme.md', 'kernel_config.json']:
+            with self.subTest(name=name):
+                self.assertFalse(scope.research_only_inputs({'research/proposal/' + name}, set()))
+        self.assertFalse(scope.research_only_inputs({'research/proposal/data.json'}, {'research/proposal/data.json'}))
+        self.assertFalse(scope.research_only_inputs(set(), set()))
+
+    def test_extension_requires_the_whole_diff_including_rename_origins(self):
+        for extra in ['README.md', 'scripts/check.py', 'tests/data.json', 'KERNEL_CONTRACT.json',
+                      '.github/workflows/kernel-lean.yml', 'research/other/run.sh']:
+            self.rows = [{'filename': 'research/proposal/data.json', 'status': 'added'},
+                         {'filename': extra, 'status': 'modified'}]
+            self.current['changed_files'] = 2
+            self.assertTrue(self.decide()[0], extra)
+        self.rows = [{'filename': 'research/proposal/data.json', 'status': 'renamed',
+                      'previous_filename': 'scripts/data.json'}]
+        self.current['changed_files'] = 1
+        self.assertTrue(self.decide()[0])
+        self.rows[0]['previous_filename'] = 'research/old/data.json'
+        self.assertFalse(self.decide()[0])
+
+    def test_research_extension_checks_later_pages_and_both_contracts(self):
+        self.rows = [{'filename': f'research/proposal/{i}.json', 'status': 'added'} for i in range(201)]
+        self.current['changed_files'] = len(self.rows)
+        self.assertFalse(self.decide()[0])
+        self.rows[-1]['filename'] = 'research/proposal/run.sh'
+        self.assertTrue(self.decide()[0])
+        self.rows[-1]['filename'] = 'research/proposal/locked.json'
+        original = self.api
+        def api(repo, path):
+            result = original(repo, path)
+            if path.endswith('ref=' + HEAD):
+                result['content'] = base64.b64encode(json.dumps({'schema': 'kernel-contract/v1',
+                    'files': {'research/proposal/locked.json': 'c' * 64}}).encode()).decode()
+            return result
+        with patch.object(scope, 'api', side_effect=api):
+            self.assertTrue(scope.decide('pull_request', self.event, 'x/y')[0])
+
     def test_workflow_embeds_exact_classifier_and_keeps_required_job(self):
         workflow = (ROOT / '.github/workflows/kernel-lean.yml').read_text()
         block = workflow.split('          # BEGIN KERNEL SCOPE\n')[1].split('          # END KERNEL SCOPE\n')[0]
@@ -154,8 +207,8 @@ class ScopeTests(unittest.TestCase):
         self.assertEqual(embedded, (ROOT / 'scripts/kernel_pr_scope.py').read_text())
         compile(embedded, '<kernel first step>', 'exec')
         self.assertIn('name: Complete kernel build and exact-target audit', workflow)
-        self.assertNotIn('paths:', workflow)
-        self.assertNotIn('paths-ignore:', workflow)
+        self.assertNotIn('paths:', workflow.split('jobs:', 1)[0])
+        self.assertNotIn('paths-ignore:', workflow.split('jobs:', 1)[0])
         self.assertNotIn("protected controller", workflow)
         steps = workflow.split('      - name: ')[1:]
         self.assertIn('id: scope', steps[0])
