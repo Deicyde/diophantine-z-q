@@ -1,0 +1,23 @@
+{
+ "name": "javanpeykar-steps",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.JavanpeykarThm111"
+ ],
+ "discharges": [
+  {
+   "field": "javanpeykarPrintedMapHF",
+   "proof": "_root_.JavanpeykarSteps.javanpeykarPrintedMap_of_thm111 {n}.javanpeykarThm111",
+   "leaves": [
+    {
+     "name": "javanpeykarThm111",
+     "type": "_root_.JavanpeykarSteps.JavanpeykarThm111",
+     "doc": "javanpeykar-steps: Javanpeykar, Algebra Number Theory 8 (2014), Thm 1.1.1 as printed, with the height identification printed in the same paper (p. 98; arXiv section 2.3 p. 9): for every algebraic closure Qbar of Q (IsAlgClosed, algebraic over Q) and every smooth (relative dimension 1) proper integral projective curve X over Qbar of genus g = dim H^1(X, O_X) >= 1, every tensor-compatible representative W of Pic^0_{X/Qbar} (Jac X), every stable height h of W (IsStableHeightBar: height-fix's printed stable height of a model V of W over a number field L inside Qbar, V_Qbar = W) and the Belyi degree dB (IsBelyiDegree: least positive degree of a Belyi morphism, a finite morphism X -> P^1 = Proj Qbar[X0,X1] whose restriction over P^1 minus {0,1,oo} is locally of finite type and formally unramified in Mathlib's sense, of degree [k(X):k(P^1)]): h <= 13*10^6 * g * dB^5. Implies javanpeykarPrintedMapHF with no other hypothesis (JavanpeykarSteps.javanpeykarPrintedMap_of_thm111: steps (1) X0 x_K Kbar is such a curve, (2) dB <= d and monotonicity, (3) ramification index 1 at closed points implies unramified, (H2) V is a K-form of W). Uniqueness of the printed height (H3) is JavanpeykarSteps.isPrintedStableHeight_unique (given T35, Stacks 04KV, N1, SS2).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Javanpeykar 2014 Thm 1.1.1 with p. 9's identification of h_Fal(X) as the stable Faltings height of Jac(X)); restatement read against the arXiv v1 reading recorded in locators.md row R18, no statement check recorded",
+     "source": "Javanpeykar, Polynomial bounds for Arakelov invariants of Belyi curves, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90 (arXiv:1403.6404v1 p. 1); height identification p. 98 (arXiv section 2.3 p. 9, citing Moret-Bailly, Pinceaux, Lemme 3.2.1); locators recorded by the locator audit (docs/research/locators.md row R18); over height-fix's printed stable height"
+    }
+   ]
+  }
+ ],
+ "note": "javanpeykar-steps: report docs/research/javanpeykar-steps.md. Replaces the GLUE field javanpeykarPrintedMapHF (kind consequence, pending reading) by the printed leaf javanpeykarThm111; the proof uses no other field."
+}
