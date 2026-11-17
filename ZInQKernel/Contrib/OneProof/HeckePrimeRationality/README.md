@@ -1,4 +1,4 @@
-# Prime Hecke rationality — proved low levels, open all-level target
+# Prime Hecke rationality — low-level proof and unrestricted foundations
 
 ## Exact original target
 
@@ -9,66 +9,103 @@ Fourier coefficients, it asks for rational coefficients of the actual
 `heckeSlashGamma1CuspFormEnd k (diagCosetGamma1 N p) g`.
 
 **The original all-level target remains OPEN.** No global hypothesis has been
-removed from the final single-proof assembly, and this work does not prove
-that Z is Diophantine in Q.
+removed from the final single-proof assembly. This work does not prove that
+Z is Diophantine in Q.
 
-## New closed level-five conclusion
+## Closed low-level Hecke conclusion
 
 `LevelFive.integral_input_hecke_rational` proves exactly the original contract
 at N = 5, with only its original weight, prime, good-prime and integral-input
-hypotheses. No generator, basis, Galois, dimension or rationality premise
-remains in this export.
+hypotheses. Its generators, rational coefficients, power basis and non-sign
+diamond matrix are constructed, not assumed.
 
-The proof also gives two stronger results at level five:
+At level five, rational cusp-form input has rational prime-Hecke output at
+all nonnegative integer weights, including the bad prime. With the earlier
+sign cases, `integral_input_hecke_rational_le_six` proves the original
+conclusion for every nonzero N ≤ 6. The level bound is explicit; no conclusion
+for arbitrary input forms at N ≥ 7 is claimed.
 
-- Every diamond class preserves rational modular-form coefficients at every
-  natural weight.
-- The actual prime-Hecke operator preserves rational cusp-form coefficients
-  at every nonnegative integer weight, including the bad prime.
+## Verified arbitrary-level foundations
 
-With the earlier sign-only cases, `integral_input_hecke_rational_le_six`
-proves the exact original conclusion at every nonzero level N ≤ 6. That level
-bound is explicit; levels N ≥ 7 are not discharged.
+The new constructions cover every positive N, including even and composite
+levels. They are not being counted as the original all-level leaf:
 
-## What was constructed, not assumed
+- **Theta nonvanishing:** the actual theta function is nonzero at
+  `(aτ+b)/N + (τ+1)/2` whenever a and b are not both divisible by N. This uses
+  a relative paired-series estimate, not an assumed product or zero set.
+- **Actual modular forms:** completed torsion logarithmic derivatives yield
+  weight-one forms on Γ₁(N) for `(0,b)`, and on Γ(N) for every admissible pair.
+  All invariance, holomorphy and every-cusp boundedness fields are proved.
+  Cusp constants depend on the level and label; the form need not be nonzero.
+- **Actual coefficient arithmetic:** every admissible integer pair has a
+  proved period-N expansion with coefficients in Q(exp(2πi/N)) and actual
+  coefficientwise Galois covariance. The two sparse exponent branches are
+  both retained at overlaps. This does not make each coefficient rational.
+- **The completed theta function:** the actual entire function
+  `H(z) = exp(πiz) theta(z + (τ+1)/2, τ)` has a proved derivative, quasi-periods,
+  oddness and an exact expression for every Good torsion logarithmic
+  derivative. Its global zero set, simple zeros and multiplication formula
+  are not proved in that module.
+- **The actual field:** cyclotomic structure, finite dimensionality, Galois
+  structure and automorphism root selectors are proved for that same field.
+- **Period conversion:** for Γ₁(N) forms, the period-N series is exactly
+  `PowerSeries.expand N` of the width-one series. Index N·m corresponds to m;
+  coefficients outside the multiples vanish. The two coefficient-field and
+  rationality conditions are equivalent.
+- **The invariant projector:** the explicit average `N⁻¹ ∑_{j<N} f | T^j` is
+  an actual Γ₁(N) form, complex-linear, and the identity after restriction
+  of Γ₁(N) forms. It transports a spanning family only if that family's
+  principal-level spanning is already proved.
+- **Residue transport:** the correcting Γ₁ matrix is explicit. Literal
+  global commutation of the Galois label map with Γ₀ matrices is not asserted.
+  A separate dictionary is proved only for the explicit `(0,b)` family.
+- **Coordinates and conjugates:** one linear retraction recovers subfield
+  coordinates from all Fourier rows simultaneously. Explicit finite-family
+  conjugate data then constructs a unique actual coefficient-conjugate form;
+  rational coefficients imply fixedness. These helpers neither supply the
+  family data nor create a spanning representation.
 
-1. Global nonvanishing of Mathlib's actual theta function at shifted nonzero
-   5-torsion points, proved by transformations and dominant-term estimates.
-2. Actual weight-one modular forms from completed theta logarithmic derivatives,
-   with holomorphy, Γ₁ invariance and boundedness at every cusp proved.
-3. Their actual q-expansions, cyclotomic coefficient membership and Galois
-   covariance, including the constant and first coefficients.
-4. Finite Galois structure and the fixed-field theorem for the explicit fifth
-   cyclotomic field.
-5. Concrete normalized generators A and B. Their rational coefficients follow
-   from Galois conjugation and the sharp weight-one coefficient bound. The
-   actual non-sign diamond has the integer matrix
-   `⟨2⟩A = -3A - B`, `⟨2⟩B = 10A + 3B`.
-6. The all-weight power basis and rational coordinate extraction, from a proved
-   sharp level-five bound. The Hecke recurrence then gives the closed export.
+The separate all-level complex-conjugation theorem preserves real
+coefficients. Realness is not rationality. No arbitrary-level two-generator
+power basis, non-scalarity assertion or impossibility claim is made.
 
-The separate all-level conjugation result preserves real coefficients, not
-rational coefficients. Neither it nor the level-five construction supplies
-a uniform proof at arbitrary levels. No non-scalarity or impossibility claim
-is made for other levels or weights.
+## Remaining mathematical bridge
+
+The unrestricted route needs the actual principal-level Eisenstein
+product-spanning theorem and its binding to these exact theta forms, followed
+by concrete invariant-space Galois/diamond compatibility. The classical
+same-level spanning statement for N ≥ 3 and weight ≥ 2 is Khuri-Makdisi's
+Theorem 5.1 in arXiv:0903.1439v6, combined with its generator theorem. Its
+published proof is not a closed Lean proof in this contribution.
+
+Principal-level spanning cannot be replaced by a claim about the `(0,b)`
+family on Γ₁(N). Nor can an assumed spanning premise or finite-family
+covariance be counted as a discharge of the original all-level leaf.
+The full product and invariant-descent bindings remain separate work.
+
+The zero-label control proves raw F(N,0,0) = 1/2 and F(N,N,0) = 3/2, with
+explicit failures of naive raw two-division. Those excluded values are not
+representative-independent. All-torsion distribution therefore needs a
+separate zero extension on every bad label, or explicit omitted-point
+corrections. The genuine Good-generator trace question is not falsified.
 
 ## Checks, scope and history
 
-See `CHECKS.md` for source hashes, commands, literal target checks and the
-transitive axiom audits. The new source was compiled with pinned Lean 4.35.0
-and independently reviewed. Audited closures use only `propext`,
-`Classical.choice`, and `Quot.sound`, with no `sorryAx`. Warm imports are
-explicitly disclosed; this is not an independent cold replay of every
-imported constant or a full-project integration certificate.
+See `CHECKS.md` for exact source hashes, build commands, literal target checks
+and axiom audits. The 34-module checkpoint audits 479 public proof/instance
+declarations and ten actual constructions, using at most `propext`,
+`Classical.choice`, and `Quot.sound`, with no `sorryAx`. Separate mathematical
+source review checks the exact code and scopes. Warm imports are disclosed;
+this is not an independent cold replay of every imported constant or a
+full-project acceptance certificate.
 
-All source additions are confined to this contribution. Existing proof source,
-dependency pins, assemblies and published history are preserved. Only this
-contribution's status/check documents are updated additively. No PR, merge or
-land is claimed by the WIP branch.
+Only contribution additions and this contribution's status/check updates are
+made. Existing proof source, pins, assemblies and published history are
+preserved. No PR, merge, land or global hypothesis discharge is claimed.
 
-This is background work for the modularity/coefficient-field passage in the
-manuscript's six-contact height estimate, not its pole-completeness argument.
-The modular level N = 5 here is not the manuscript's coefficient prime ℓ = 5.
-The all-level leaf and the other global proof obligations remain separate.
+This remains H-decomposition background for the manuscript's six-contact
+height estimate, not its pole-completeness/Route K lane. Modular level N = 5
+is not the manuscript's coefficient prime ℓ = 5. The full Z-in-Q proof and
+all other global obligations remain separate.
 
 This is an AI-assisted mathematical proof contribution.

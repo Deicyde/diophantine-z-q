@@ -227,3 +227,119 @@ are retained in the private verification record.
 and exposes only the extra bound N ≤ 6. It does not discharge any level N ≥ 7.
 The original all-level target, final assembly and other global obligations
 remain unchanged. No PR, merge, landing or full Z-in-Q claim is made.
+
+## Arbitrary-level foundation checkpoint
+
+The new mathematical source covers actual positive-level theta functions,
+actual principal and Gamma-one forms, coefficient arithmetic for all integer
+labels, exact period conversion, the explicit invariant projector, all-row
+field-coordinate descent, finite-family conjugation and homogeneous torsion
+products. The zero-label module proves counterexamples to naive raw
+all-torsion distribution; it does not prove trace closure.
+
+All 33 mathematical modules were co-imported successfully. The complete audit
+prints transitive axioms for all 465 named public proof/instance declarations
+and eight actual constructions: the old torsion form and normalized A/B,
+the arbitrary-level Gamma-one and principal forms, average, linear average,
+and product form. All 473 records contain at most `propext`,
+`Classical.choice`, and `Quot.sound`; no `sorryAx` is present. The earlier
+N ≤ 6 original-contract source and hashes remain unchanged.
+
+The reusable audit is `HeckePrimeRationality/Audit.lean`. Its literal checks
+use the actual functions and root-qualified types. Commands include:
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionProducts:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTraceTwoZeroConvention:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/Audit.lean
+```
+
+Component audits additionally check the literal infinite-row linear system,
+actual coefficient-coordinate equality, arbitrary integer labels, exact
+period-N versus period-one index N·m, actual averaging formula and projection,
+and finite-family coefficient-conjugate form. Every final component build and
+audit exited 0. Raw type printing confirms that the generic automorphism is
+an actual `AlgEquiv Rat K K`; its notation does not introduce an extension
+hypothesis. The generic rational-fixedness lemma proves rational implies
+fixed, not the converse without Galois/fixed-field data.
+
+Every new module received separate complete mathematical source review. That
+review is not an independent cold imported-proof replay. Warm pinned inputs
+are still used. The partial sources are not a full-project verification or
+a proof of any unrestricted principal spanning theorem.
+
+The following new source hashes identify the exact verified editions:
+
+- `AllLevelTorsionDefinitions.lean`:
+  `850b9acd85deab1b3aca2175649ce4268715973a27fdc4fe49b9549f5789a8ff`
+- `AllLevelThetaNonvanishing.lean`:
+  `51a28fb390750a289b95f116bfd7617a199ebb8b7521b56c838ae0ae2a496338`
+- `AllLevelTorsionCoefficients.lean`:
+  `22ae0a2347052f1df7237157dffc9005d224b15126a81866c49ace17f37b8bec`
+- `AllLevelTorsionForms.lean`:
+  `06523780031c9971e7126adddcdf66af7b0820fcca62fbb99138ccd77f9340e4`
+- `AllLevelPrincipalForms.lean`:
+  `682f23c519b6b9bd134c9e6d18a70824698774bdd81dbf8ab892cf2ae1d6ef93`
+- `FiniteLinearDescent.lean`:
+  `ce13a992c5950ddb649c56fc883018c5445cfc8e92e0770520fcb00ad5642c8f`
+- `AllLevelTorsionData.lean`:
+  `9cb39f2ea08a4d2b374a7d56400dde19e2ce80990c1b42813562affd9646f647`
+- `AllLevelPrincipalCoefficients.lean`:
+  `cd17a0dd46cc0c47255d9901eb844245e11884e635382d1aae680ee14af26573`
+- `CoefficientCoordinates.lean`:
+  `42722aa5e6278d5e7300fb8553ed1442aee1fb133e62a3c876cb17d0d83d3c77`
+- `AllLevelPeriodConversion.lean`:
+  `dcfdac8e6990c1924e109c2074362791e9e24dd935a9ba481df0c49f93ade257`
+- `AllLevelIntegerRows.lean`:
+  `7a063160a08f90a8741eee073fbd261a547417f5d20a5d09386b3245faddef7f`
+- `AllLevelUnipotentAverage.lean`:
+  `76aafc214c3ff4da0d5d87042c796813fc58cced3b22c0122501f9a383246c11`
+- `AllLevelAverageLinear.lean`:
+  `7f63cc299ca14cee113128eb20d26d75d02937e734705d7f919bb935d203d65b`
+- `CoefficientConjugation.lean`:
+  `9737eabc1442a84fdaf716a060d5e1d3af7c390c0cdde12ee891919bc3eaafad`
+- `AllLevelTorsionProductBase.lean`:
+  `c695ab7d264f3fcf4750a023252c8f9123667bc96163540b4a8202cc329059b0`
+- `AllLevelTorsionProducts.lean`:
+  `9c96307eb838cfc69b4c0b56b259e3e8be69a73300bb87a6761b21675c0226da`
+- `AllLevelTraceTwoZeroConvention.lean`:
+  `a169f851c4f31e38760cb863e8bb6a7b459b01cbbc6a44f15a0237feae684810`
+
+The full original all-level leaf is still open. Its missing producer is
+principal Eisenstein-product spanning bound to the actual theta family,
+with concrete invariant-space descent. No explicit spanning or conjugate
+family input of a generic helper has been removed by assertion. No global
+premise in the final assembly has changed.
+
+## Completed-theta extension: current 34-module audit
+
+`AllLevelCompletedTheta.lean` additionally constructs the actual entire odd
+theta H, its derivative Hder, joint holomorphy on the positive-imaginary
+parameter domain, quasi-periods, oddness, and the exact Good-torsion
+logarithmic-derivative expression. The global zero set, simple zeros,
+multiplication, distribution and Eisenstein spanning are not supplied by
+this module.
+
+Source: 159 lines, 7241 bytes, SHA256
+`821acb910d89b27902a119aa2e3132b1444b20f76be161ea2f5f7cb32d561b15`.
+
+The parent build and literal actual derivative/torsion-formula audit exited 0.
+The complete `Audit.lean` now co-imports all 34 mathematical source modules
+and audits all 479 public proofs/instances plus the earlier eight actual
+constructions and H/Hder. All 489 records remain within the standard trio;
+no `sorryAx` is present. The full source review checked the exact derivative,
+positive-imaginary domain, quasi-period signs, and the absorbed 1/2 term.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelCompletedTheta:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/Audit.lean
+```
+
+Exact audit source SHA256:
+`cc330b4f00a57098f6d2cdf7f884ca1ccd3211cbeba8dc7224204ec52c6aeee0`.
+
+The previous 33 mathematical source editions are unchanged. Current results
+remain ordinary pinned compilation and separate complete source review with
+warm imports, not independent cold replay or original all-level completion.
+The unconditional original Hecke contract is still proved here only for
+N ≤ 6, with its level bound visible.
