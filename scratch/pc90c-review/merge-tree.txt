@@ -1,0 +1,7 @@
+d065e84f3842537eb8641c54aa278f26af5cc6df
+100644 012b67f143571f5bcf5e44bf2573f7551f64aae2 1	ZInQKernel/OneProof/Main.lean
+100644 bebc8d36c4d2b2e3e306ac8e8b5d4c7696e04c8a 2	ZInQKernel/OneProof/Main.lean
+100644 372fa404d85f20e477d763af1be2e5277e2c9bb8 3	ZInQKernel/OneProof/Main.lean
+
+Auto-merging ZInQKernel/OneProof/Main.lean
+CONFLICT (content): Merge conflict in ZInQKernel/OneProof/Main.lean
