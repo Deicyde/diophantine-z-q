@@ -1,4 +1,4 @@
-Recorded from the statement-check sweep of 2026-11-18: an AI-READ report written by an AI agent that the project runs (no person checked it), against OPEN.md commit `2895a9c195344cdbca2454ba9bf58d748a3a9ce5`. It clears no flag.
+Recorded from the statement-check sweep of 2026-11-18, against OPEN.md commit `2895a9c195344cdbca2454ba9bf58d748a3a9ce5` (AI-READ). This report was produced by an AI agent run by the project. Jack McCarthy is accountable for the project's posted checks; that does not mean that this report was read or verified by a person. No person independently checked it. This recording changes no flags, ratings or counts and discharges no Lean theorem. Sources not read and AI use are disclosed below.
 
 ---
 
@@ -218,7 +218,7 @@ For the fine moduli model obtained above, D, Theorem 4.21 plus Corollary 5.7/Exa
 
 For any other \((Y,\Phi)\) satisfying `R1fpPropsAbP`, apply the restricted classifying property to the canonical model's family. This gives a \(\mathbf Q\)-morphism to \(Y\) agreeing with the moduli classes on field points. Conversely apply the canonical model's property to the family on \(Y\). The composites are the identity on field points; proper smooth curves are reduced, so they are identity morphisms. Thus there is a compatible \(\mathbf Q\)-isomorphism, along which \(\Psi\), holomorphy, and Galois action transfer.
 
-The project implements this restricted-witness comparison in [ShimuraY3PrintedLeaves.lean:347–372](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/ZInQKernel/Contrib/OneProof/ShimuraY3PrintedLeaves.lean#L347-L372), with canonical-body transport in [ShimuraY3Print.lean:145–222](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/ZInQKernel/Contrib/OneProof/ShimuraY3Print.lean#L145-L222). The word “every” therefore has a genuine comparison step behind it; it is not a theorem that every arbitrary rational form is canonical.
+The argument above, for two printed-P families, is external to the code. A related comparison is implemented in [ShimuraY3PrintedLeaves.lean:347–372](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/ZInQKernel/Contrib/OneProof/ShimuraY3PrintedLeaves.lean#L347-L372) for `R1fpPropsAbNP` witnesses (`compare_iso_np`); passing to the printed-P witnesses `R1fpPropsAbP` uses the P/NP conversion theorems at lines 328–337, which take the explicit prerequisite `ObjBridge.TorsionStructure` (corrected 2026-11-18). Canonical-body transport is in [ShimuraY3Print.lean:145–222](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/ZInQKernel/Contrib/OneProof/ShimuraY3Print.lean#L145-L222). The word “every” therefore has a genuine comparison step behind it; it is not a theorem that every arbitrary rational form is canonical.
 
 ### 7. Transfer the analytic/H₁ clauses and the half planes
 

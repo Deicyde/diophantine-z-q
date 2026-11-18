@@ -1,4 +1,4 @@
-Recorded from the statement-check sweep of 2026-11-18: an AI-READ report written by an AI agent that the project runs (no person checked it), against OPEN.md commit `2895a9c195344cdbca2454ba9bf58d748a3a9ce5`. It clears no flag.
+Recorded from the statement-check sweep of 2026-11-18, against OPEN.md commit `2895a9c195344cdbca2454ba9bf58d748a3a9ce5` (AI-READ). This report was produced by an AI agent run by the project. Jack McCarthy is accountable for the project's posted checks; that does not mean that this report was read or verified by a person. No person independently checked it. This recording changes no flags, ratings or counts and discharges no Lean theorem. Sources not read and AI use are disclosed below.
 
 ---
 
@@ -13,7 +13,7 @@ Verdict: CONSEQUENCE. The Lean proposition follows from the weight-at-least-two 
 - Commit of OPEN read: `2895a9c195344cdbca2454ba9bf58d748a3a9ce5`.
 - Recorded classification: published; strict GLUE; good-first; unread and unverified-locator.
 - Entry: [OPEN, lines 334–346](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/docs/one-proof/OPEN.md#L334-L346).
-- Binding: [bundle field, lines 36–37](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/ZInQKernel/OneProof/H/TailZ65.lean#L36-L37).
+- Binding: [bundle field `OpenResearchLeaves65.dsThm965Printed`, lines 24–25](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/ZInQKernel/OneProof/H/TailZ91.lean#L24-L25) (corrected 2026-11-18: an earlier version linked the same proposition in an older bundle generation, `TailZ65.lean`).
 - Checked definition and docstring: [lines 418–452](https://github.com/Deicyde/diophantine-z-q/blob/2895a9c195344cdbca2454ba9bf58d748a3a9ce5/ZInQKernel/Contrib/OneProof/DSCoeffExt.lean#L418-L452).
 
 All code references below name this same commit. This was a read-only statement check, not a compilation or proof audit. No repository files, issue threads, or reading records were changed.
