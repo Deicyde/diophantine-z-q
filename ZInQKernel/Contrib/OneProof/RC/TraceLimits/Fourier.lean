@@ -30,15 +30,11 @@ def HeckeFourier (coeff : ℕ → M →ₗ[O] O) (Tq Dq : M →ₗ[O] M) (q : �
 def UnaryFourier (m : Ideal O) (coeff : ℕ → M →ₗ[O] O) (J : ℕ) (C : M) : Prop :=
   ∀ n, (∀ k : ℕ, n ≠ J * k ^ 2) → coeff n C ∈ m
 
-/-- The coefficient at `n` of a good trace of a unary correction vanishes modulo
-`𝔪` if the prime avoids `nJ` (tex 9725–9727). -/
-theorem unary_fresh_trace (m : Ideal O) {coeff : ℕ → M →ₗ[O] O} {Tq Dq : M →ₗ[O] M}
-    {q n J : ℕ} {C : M} (hq : q.Prime) (hn : ¬ q ∣ n) (hJ : ¬ q ∣ J)
-    (hT : HeckeFourier coeff Tq Dq q) (hC : UnaryFourier m coeff J C) :
-    coeff n (Tq C) ∈ m := by
-  rw [hT n C, ite_eq_right hn, add_zero]
-  apply hC
-  intro k e
+/-- Multiplying an index by a prime outside the index and the unary subscript
+puts the new index outside the unary support. -/
+theorem fresh_mul_ne_unary {q n J : ℕ} (hq : q.Prime) (hn : ¬ q ∣ n) (hJ : ¬ q ∣ J)
+    (k : ℕ) : q * n ≠ J * k ^ 2 := by
+  intro e
   have hd : q ∣ J * k ^ 2 := e ▸ dvd_mul_right q n
   have hk : q ∣ k := hq.dvd_of_dvd_pow ((hq.dvd_mul.1 hd).resolve_left hJ)
   obtain ⟨a, rfl⟩ := hk
@@ -47,6 +43,15 @@ theorem unary_fresh_trace (m : Ideal O) {coeff : ℕ → M →ₗ[O] O} {Tq Dq :
   calc
     q * n = J * (q * a) ^ 2 := e
     _ = q * (q * (J * a ^ 2)) := by ring
+
+/-- The coefficient at `n` of a good trace of a unary correction vanishes modulo
+`𝔪` if the prime avoids `nJ` (tex 9725–9727). -/
+theorem unary_fresh_trace (m : Ideal O) {coeff : ℕ → M →ₗ[O] O} {Tq Dq : M →ₗ[O] M}
+    {q n J : ℕ} {C : M} (hq : q.Prime) (hn : ¬ q ∣ n) (hJ : ¬ q ∣ J)
+    (hT : HeckeFourier coeff Tq Dq q) (hC : UnaryFourier m coeff J C) :
+    coeff n (Tq C) ∈ m := by
+  rw [hT n C, ite_eq_right hn, add_zero]
+  exact hC _ (fresh_mul_ne_unary hq hn hJ)
 
 /-- The diamond correction formula on the integral module (tex 9719–9724).
 Here the error term includes the scalar `r ψ_U(r) - 1` times the original form. -/
@@ -75,6 +80,7 @@ theorem diamond_fresh_trace_coeff (m : Ideal O) {coeff : ℕ → M →ₗ[O] O}
     exact m.sum_mem fun j hj => m.smul_mem _ (unary_fresh_trace m hq hn (hJ j hj) hT (hC j hj))
 
 #print axioms diamond_correction_integral
+#print axioms fresh_mul_ne_unary
 #print axioms unary_fresh_trace
 #print axioms diamond_fresh_trace_coeff
 

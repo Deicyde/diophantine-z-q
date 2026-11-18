@@ -7,3 +7,8 @@
 - `Elementary.lean`: squares force normality; quadratic characters separate the elementary quotient. Compiled; axiom audit passed.
 - `RadicalWitness.lean`: a quadratic character with open kernel acts on a square root of a squarefree integer. Compiled; axiom audit passed.
 - Build cache mismatch: rebuilt the checked-out pole polynomial and its manuscript statement in the scratch artifact directory.
+- `Lattice.lean`: complete rank-one coefficient DVR with finite residue field is compact. All six declarations compiled and audited.
+- `Fourier.lean`: factored out the fresh index arithmetic; all four theorems compiled and audited.
+- `Limits.lean`: both scalar actions preserve the lattice by chosen-lift comparison, density, and continuity; all six theorems compiled and audited.
+- `Determinant.lean`: positive Fourier coefficients of every traced diamond discrepancy lie in the maximal ideal, given the genuine formulas; compiled and audited.
+- Resource control: an attempted pause of the prerequisite builder allowed it to advance during the new-file checks. Replaced the handoff with a blocking wait for the entire prerequisite build followed by serial checks.

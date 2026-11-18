@@ -1,4 +1,5 @@
 import Mathlib.Topology.Algebra.Module.Compact
+import Mathlib.Topology.Algebra.Valued.LocallyCompact
 import Mathlib.RingTheory.Ideal.Quotient.Index
 import Mathlib.Topology.Algebra.Group.ClosedSubgroup
 import Mathlib.Topology.Algebra.Module.Basic
@@ -13,6 +14,17 @@ No relation between reduction of individual coordinates and the abstract quotien
 -/
 
 namespace ZInQ.Manuscript.RC.TraceLimits
+
+open scoped Valued
+
+/-- The compactness hypothesis holds for a complete coefficient DVR with finite
+residue field, equipped with its rank-one valuation topology (tex 9649–9665). -/
+theorem coefficientDVR_compact (K Γ : Type*) [Field K] [LinearOrderedCommGroupWithZero Γ]
+    [Valued K Γ] [(Valued.v : Valuation K Γ).RankOne]
+    [CompleteSpace 𝒪[K]] [IsDiscreteValuationRing 𝒪[K]] [Finite 𝓀[K]] :
+    CompactSpace 𝒪[K] :=
+  Valued.integer.compactSpace_iff_completeSpace_and_isDiscreteValuationRing_and_finite_residueField.2
+    ⟨inferInstance, inferInstance, inferInstance⟩
 
 variable {O V : Type*} [CommRing O] [AddCommGroup V] [Module O V]
 
@@ -65,6 +77,7 @@ theorem residual_isOpen [IsNoetherianRing O] (Λ : Submodule O V) (hΛ : Λ.FG)
   have : N.toAddSubgroup.FiniteIndex := N.toAddSubgroup.finiteIndex_of_finite_quotient
   exact N.toAddSubgroup.isOpen_of_isClosed_of_finiteIndex hN
 
+#print axioms coefficientDVR_compact
 #print axioms lattice_fg_of_integral_coordinates
 #print axioms lattice_closed
 #print axioms residual_closed
