@@ -1,0 +1,4 @@
+- Base: `4ba51ebc2ab8f5de3f7a4492efab4421efb7428c`.
+- Reduction plan: integral lifts of local scalars give surjectivity; `relIndex_scalar` identifies the kernel by cardinality.
+- `Matrix.lean`: projective-line charts, finite-dimensional right matrix submodules by matrix units, and the line-to-right-plane equivalence. Compiled; 9 axiom checks passed.
+- Existing Eichler prerequisites through `Indexed.lean` built sequentially; no changes to their sources.
