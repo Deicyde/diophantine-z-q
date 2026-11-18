@@ -18,3 +18,7 @@
 - Conjugation: actual involution, determinant `-1`, positive and negative square root actions, and the two signs after auxiliary-kernel translation; `lake env lean` passed; all reported axioms standard.
 - Multiplier: exact character scaling from a common torsion annihilator; preservation of nontorsion under the exact scaled twist relation; `lake env lean` passed; all reported axioms standard.
 - LocalTorsionBound: local count kills prime-to-residue-characteristic torsion; count of a certified residue model in degrees 1–4 divides the four-count product; `lake env lean` passed; all reported axioms standard.
+- Actual, SplitTwist, DetectorStages: actual stage sequence, same Frobenius for the division point, trivial squared action on global torsion under the involution prescription, good-prime exclusions, and the real twist comparison; `lake env lean` passed; all reported axioms standard.
+- ReducedCurve: arithmetic Frobenius on Mathlib's geometric points, finite quadratic fixed group, and surjectivity of the stage Kummer map when Frobenius squared fixes geometric torsion; `lake env lean` passed; all reported axioms standard.
+- Witness: exact finite-ring specialization interface, finite Kummer reduction calculation, and `WitnessValuation` on `lamOf` under that identity; `lake env lean` passed; all reported axioms standard.
+- GenusDescent: native eigenpoints descend to the simple genus extension; its degree over the rationals is at most four; `lake env lean` passed; all reported axioms standard.

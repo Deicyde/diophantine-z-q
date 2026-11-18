@@ -59,7 +59,7 @@ theorem aux_le_joint (F₀ : IntermediateField ℚ Qbar) (Q : GeomPoint A) (M : 
     F₀ ≤ jointField A E F₀ Q M :=
   le_sup_left.trans (le_sup_left.trans le_sup_left)
 
-private theorem tors_left_le_joint (F₀ : IntermediateField ℚ Qbar) (Q : GeomPoint A) (M : ℕ) :
+theorem tors_left_le_joint (F₀ : IntermediateField ℚ Qbar) (Q : GeomPoint A) (M : ℕ) :
     torsField E M ≤ jointField A E F₀ Q M :=
   le_sup_right.trans (le_sup_left.trans le_sup_left)
 
