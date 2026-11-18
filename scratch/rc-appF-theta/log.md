@@ -6,3 +6,4 @@
 - Lines.lean compiles (no sorry); committed.
 - Brandt.lean compiles (no sorry); committed.
 - NonVacuity.lean (trivialStage: fields jointly satisfiable, relative to Voight leaf) compiles; axioms clean.
+- Report docs/research/rc-appF-theta.md written (scoped stop; no error verdict). Fleet note committed last.
