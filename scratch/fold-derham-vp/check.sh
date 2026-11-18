@@ -38,7 +38,7 @@ if [[ $# -eq 1 && $1 != --built ]]; then
   mkdir -p "$overlay/ZInQKernel/OneProof/H"
   (
     cd "$warm"
-    lake env bash -euc '
+    lake env bash -euo pipefail -c '
       cd "$1"
       export LEAN_PATH="$2:${LEAN_PATH:?missing path from Lake}"
       lean -o "$2/ZInQKernel/OneProof/H/TailZ88.olean" ZInQKernel/OneProof/H/TailZ88.lean
