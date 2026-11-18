@@ -3,3 +3,7 @@
 - `Matrix.lean`: projective-line charts, finite-dimensional right matrix submodules by matrix units, and the line-to-right-plane equivalence. Compiled; 9 axiom checks passed.
 - Existing Eichler prerequisites through `Indexed.lean` built sequentially; no changes to their sources.
 - `Reduction.lean`: good-prime ambient chart, surjective ideal and order reduction, kernels `pI` and `pR`, quotient ring and regular right-module equivalences. Compiled; 27 axiom checks passed.
+- `LocalPrincipal.lean`: the column preimage has index `p`; its basis matrix generates the matrix ideal locally. Integral preimages have the matching completion at `p` and leave all other completions unchanged. Compiled; 11 axiom checks passed.
+- `Neighbours.lean`: inverse correspondence between right planes and actual index-`p²` subideals; local principality, `lineIndex`, `neighbours`, `neighbours_at`, and `adjoint_good`. Compiled; 19 axiom checks passed.
+- Validation: all four files compiled sequentially using `lake env lean` without warnings; 66 axiom checks passed. Only `propext`, `Classical.choice`, and `Quot.sound` appeared. See `scratch/rc-line-index/axioms.md`.
+- Manuscript: verified the ideal indexing and weighted arrow identity; no error in the steps checked. No new prints.
