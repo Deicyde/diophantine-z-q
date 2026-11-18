@@ -1,0 +1,12 @@
+ZInQKernel/OneProof/H/TailZ87.lean:69	OpenAddedLeaves28	OpenAddedLeaves29_t10
+ZInQKernel/OneProof/H/TailZ87.lean:109	c8Leaves_of_OpenAddedLeaves28	c8Leaves_of_OpenAddedLeaves29_t10
+ZInQKernel/Contrib/OneProof/NOSNarrowChain.lean:4681	openResearchLeaves60_y3x6_of_OpenResearchLeaves63_nos	openResearchLeaves60_y3x6_of_OpenResearchLeaves63_nos_t10
+ZInQKernel/Contrib/OneProof/NOSNarrowChain.lean:4716	sixContactMin_of_open82_nos	sixContactMin_of_open82_nos_t10
+ZInQKernel/Contrib/OneProof/NOSNarrowChain.lean:4837	sixContactMin_of_open83_nos	sixContactMin_of_open83_nos_t10
+ZInQKernel/OneProof/H/TailZ91.lean:105	sixContactMin_of_open84	sixContactMin_of_open84_t10
+ZInQKernel/OneProof/H/TailZ92.lean:67	openResearchLeaves65_of_OpenResearchLeaves66	openResearchLeaves65_of_OpenResearchLeaves66_t10
+ZInQKernel/OneProof/H/TailZ92.lean:98	sixContactMin_of_open85	sixContactMin_of_open85_t10
+ZInQKernel/OneProof/H/TailZ93.lean:96	sixContactMin_of_open86	sixContactMin_of_open86_t10
+ZInQKernel/OneProof/Main.lean	frozenTarget	frozenTarget_t10
+before: 33 total; H 29, strict 5/24, strictest 5/24
+after: 33 total; H 29, strict 5/24, strictest 5/24

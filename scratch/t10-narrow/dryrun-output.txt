@@ -1,0 +1,16 @@
+'HDec.HSyn.c8Leaves_of_OpenAddedLeaves29_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.openResearchLeaves60_y3x6_of_OpenResearchLeaves63_nos_t10' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.sixContactMin_of_open82_nos_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open83_nos_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open84_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.openResearchLeaves65_of_OpenResearchLeaves66_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open85_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open86_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.frozenTarget_t10' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.HSyn.sixContactMin_of_open86: 97316 project constants; old T10=true, local T10=false
+HDec.HSyn.sixContactMin_of_open86_t10: 97316 project constants; old T10=false, local T10=true
+ZInQ.OneProof.frozenTarget: 113147 project constants; old T10=true, local T10=false
+ZInQ.OneProof.frozenTarget_t10: 113147 project constants; old T10=false, local T10=true
+Open entries: 33 (29 H) → 33 (29 H); only Tate duality changes.
