@@ -1,13 +1,13 @@
 import ZInQKernel.Contrib.OneProof.RC.TraceLimits.Determinant
 import ZInQKernel.Contrib.OneProof.RC.TraceLimits.Open
-import ZInQKernel.Contrib.OneProof.RC.TraceLimits.Quadratic
+import ZInQKernel.Contrib.OneProof.RC.TraceLimits.AbsoluteInertia
 
 /-!
-# Building the constituent model, conditional on the two remaining comparisons
+# Building the constituent model with its lattice comparison
 
 Tex 9638–9750. This constructor keeps the lattice fixed. A proof that its
-determinant discrepancies are detected by positive Fourier coordinates, and
-a proof of supported-character classification, must still be supplied.
+determinant discrepancies are detected by positive Fourier coordinates
+must still be supplied.
 -/
 
 noncomputable section
@@ -43,6 +43,20 @@ theorem consN_supported_of_ramification {chiType : GalQ →* Multiplicative L}
     qS (hS (Finset.mem_union_left _ (Nat.mem_primeFactors.2 ⟨hq, hd, T.m_pos.ne'⟩)))⟩
   exact inertia_le_consN T htyp hunr hU hgood qU
     (fun e => qS (hS (Finset.mem_union_right _ e))) hQ hqQ
+
+/-- The stationary type and the added bits detect the elementary quotient of
+the constituent subgroup for every good set (tex 9745–9750). -/
+theorem consN_kummer_at_good {chiType : GalQ →* Multiplicative L}
+    {F : Finset ℕ → Λ} {S U : Finset ℕ}
+    (hU : ∀ p ∈ U, T.Good p) (htyp : IsTypeChar T chiType)
+    (hunr : UnramifiedConstituents T avoid ρ)
+    (hopen : IsOpen (consN chiType m ρ Λ F U : Set GalQ))
+    (hS : T.m.primeFactors ∪ avoid ⊆ S) (h2 : 2 ∈ S)
+    (hfixed : TypeDetectsRadicals chiType S) (g : GalQ)
+    (hg : chiType g = 1) (hbits : ∀ p ∈ U, bitChar p g = 1) :
+    g ∈ Subgroup.closure (sqSet GalQ) ⊔ consN chiType m ρ Λ F U :=
+  kummer_of_support hfixed
+    (consN_supported_of_ramification hU htyp hunr hopen hS h2 oddRadicalRamification) g hg hbits
 
 /-- Extending the forms by zero on sets of nongood indices extends the Kummer
 conclusion from good sets to all finite sets, as required by the constituent
@@ -94,8 +108,8 @@ variable [TopologicalSpace O] [CompactSpace O] [IsNoetherianRing O]
 variable [ContinuousSMul O K] [Finite (O ⧸ m)]
 
 /-- A constituent model from good-prime operators, continuous representations,
-the Fourier determinant calculation with its lattice comparison, and the supported
-quadratic classification. The existing `Inputs` can be supplied directly to
+the Fourier determinant calculation with its lattice comparison, and coverage
+of the stationary support by the type. The existing `Inputs` can be supplied directly to
 `GaloisConstituentModel.toGaloisTraceModel`. -/
 def buildConstituentModel (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : ℕ)
     (chiType : GalQ →* Multiplicative L) (hchi : OpenTypeKernel chiType)
@@ -110,9 +124,8 @@ def buildConstituentModel (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : �
     (hlift : DetectsDetOrbit F D)
     (h2fresh : ∀ U g h, tV ρ g (tV ρ h (F U)) ∈ (m • ⊤ : Submodule O Λ).map Λ.subtype)
     (S : Finset ℕ) (hS : TypeDetectsRadicals chiType S)
-    (hzero : ∀ W, ¬ (∀ p ∈ W, T.Good p) → F W = 0)
-    (hclass : ∀ U, (∀ p ∈ U, T.Good p) →
-      SupportedQuadraticCharacters (consN chiType m ρ Λ F U) (S ∪ U)) :
+    (hlevel : T.m.primeFactors ∪ avoid ⊆ S) (hS2 : 2 ∈ S)
+    (hzero : ∀ W, ¬ (∀ p ∈ W, T.Good p) → F W = 0) :
     GaloisConstituentModel T R ap B chiType := by
   have hs := stable_operators T hfrob (lattice_closed Λ hΛ) hcont hunr ops
   have ho U := consN_isOpen (F := F) hchi (residual_isOpen Λ hΛ m) hs.1 hcont U
@@ -135,11 +148,13 @@ def buildConstituentModel (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : �
         (fun n hn => detOrbit_coefficient hfrob hcont hunr ops hs.1 hs.2 (F U) (D U) hm
           n hn (hcoeff U n) u v)
     two_fresh := h2fresh
-    kummer := consN_kummer_of_good F hzero (fun U hU => kummer_of_support hS (hclass U hU))
+    kummer := consN_kummer_of_good F hzero (fun U hU =>
+      consN_kummer_at_good hU htyp hunr (ho U) hlevel hS2 hS)
     finiteIndex := fun U _ => consN_finiteIndex U (ho U)
     chebotarev := fun U hU => consN_chebotarev T htyp hfrob hunr U hU (ho U) }
 
 #print axioms consN_supported_of_ramification
+#print axioms consN_kummer_at_good
 #print axioms consN_kummer_of_good
 #print axioms buildConstituentModel
 

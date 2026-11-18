@@ -16,3 +16,7 @@
 - `Quadratic.lean`: radical generation and finiteness, support criterion, and Kummer reduction; seven theorems compiled and audited.
 - `InertiaLift.lean`: profinite restriction maps inertia onto finite-level inertia under the invariant-ring hypotheses; a prime dividing a squarefree radicand has ramification index at least two in a ring containing its square root. Compiled and audited.
 - `Model.lean`: constructor of the unchanged constituent model, conditional on the lattice comparison and the supported-character classification; zero extension covers nongood sets. Compiled and audited.
+- `TypeSupport.lean`: extended the residue-squareclass radical formula and proved the stationary coverage of `typChar` and `stageChar`; compiled and audited.
+- `AbsoluteInertia.lean`: absolute inertia surjects onto inertia in a finite Galois subextension; odd divisors of a squarefree radicand admit inertia moving the radical. Compiled and audited.
+- `Model.lean`: integrated the absolute inertia proof into the good-set Kummer result and the constituent constructor; recompiled and audited. Remaining comparison: `DetectsDetOrbit` at tex 9725–9729.
+- Final serial validation: all 13 Lean files compiled; all 45 dependency audits contained only `propext`, `Classical.choice`, or `Quot.sound`.
