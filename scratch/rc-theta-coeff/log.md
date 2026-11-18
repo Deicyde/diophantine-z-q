@@ -6,3 +6,4 @@
 - `Hecke.lean`: compiled with `lake env lean`; `GoodRec.degeneracy`, `eisenstein_pow`, `eisenstein_at_prime`, `eisenstein_rec` and helpers audited; only standard axioms.
 - `Forms.lean`: compiled with `lake env lean`; all declarations with `#print axioms` use only the standard axioms. Integral (O.11) holds at zero, on the good unary shells, on the sieved indices, and off unary support.
 - Resource log: host load/memory checked before each Lean invocation. One early check was launched before cancellation of the initial dependency queue was confirmed; possible overlap there. Subsequent invocations were serialized.
+- `Lattice.lean`: compiled with `lake env lean`. The integral restriction agrees with the characteristic-zero expansion, satisfies `HeckeFourier`, and is continuous. A finite spanning set of Fourier rows proves finite generation. All theorem audits use only the standard axioms.
