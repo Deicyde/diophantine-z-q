@@ -22,3 +22,10 @@
 - ReducedCurve: arithmetic Frobenius on Mathlib's geometric points, finite quadratic fixed group, and surjectivity of the stage Kummer map when Frobenius squared fixes geometric torsion; `lake env lean` passed; all reported axioms standard.
 - Witness: exact finite-ring specialization interface, finite Kummer reduction calculation, and `WitnessValuation` on `lamOf` under that identity; `lake env lean` passed; all reported axioms standard.
 - GenusDescent: native eigenpoints descend to the simple genus extension; its degree over the rationals is at most four; `lake env lean` passed; all reported axioms standard.
+- UniformBound: positive finite-field counts, two distinct good primes, residue count transport, and uniform product of eight counts killing torsion over any number field of degree at most four; `lake env lean` passed; all reported axioms standard.
+- PreparedStages: install enlarged support and genus partner with the moving Legendre cut, giving `PreDataSpec` and advance; `lake env lean` passed; all reported axioms standard.
+- ExactGenus: twist embedding lies in native eigengroup, uniform product kills its torsion, exact equality of `L₀ * (4 * B)` times an eigenpoint or the actual conductor-one `genusPoint` with a rational twist point, preserving nontorsion; `lake env lean` passed; all reported axioms standard.
+- Primes: Galois stability of coordinates, and joint-field Galoisness for rational Q; `lake env lean` passed; all reported axioms standard.
+- DetectorStages: prime exclusions quantified after fixing the row, lift and exponent; `lake env lean` passed; all reported axioms standard.
+- Final scope: 20 Lean files, each checked separately. Every new theorem has a `#print axioms` command; no added axioms, proof placeholders or main-module import.
+- Open: `WitnessSpecialization`, the exact equality in `ZMod (2 ^ M)` between the chosen `StageKummer` value of the common scaled genus point and the finite row of the squared Frobenius cocycle. The conditional valuation and underlying finite-field identity compile.

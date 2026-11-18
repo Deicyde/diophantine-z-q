@@ -54,6 +54,50 @@ instance jointField_finite [E.IsElliptic] [A.IsElliptic]
   unfold jointField
   infer_instance
 
+/-- The coordinates of a Galois-stable family of points generate a normal field. -/
+private theorem normal_of_stable_coords {W : WeierstrassCurve ℚ}
+    {U : Set (GeomPoint W)}
+    (hU : ∀ (g : GalQ) {P}, P ∈ U → Affine.Point.map (W' := W) g.toAlgHom P ∈ U) :
+    Normal ℚ (IntermediateField.adjoin ℚ (⋃ P : U, coordSet P.val)) := by
+  apply IntermediateField.normal_iff_forall_map_le'.mpr
+  intro g
+  rw [IntermediateField.adjoin_map]
+  apply IntermediateField.adjoin_le_iff.mpr
+  rintro z ⟨x, hx, rfl⟩
+  obtain ⟨P, hP⟩ := Set.mem_iUnion.mp hx
+  refine IntermediateField.subset_adjoin ℚ _ (Set.mem_iUnion.mpr
+    ⟨⟨Affine.Point.map g.toAlgHom P.val, hU g P.property⟩, ?_⟩)
+  rcases P with ⟨(_ | ⟨x₀, y₀, hxy⟩), hU'⟩
+  · exact (Set.notMem_empty x hP).elim
+  · simp only [coordSet, Set.mem_insert_iff, Set.mem_singleton_iff] at hP
+    rcases hP with rfl | rfl
+    · simp [Affine.Point.map_some, coordSet]
+    · simp [Affine.Point.map_some, coordSet]
+
+/-- For rational Q the actual joint field is Galois. All three sets of point
+coordinates are stable under the absolute Galois group. -/
+theorem jointField_isGalois (F₀ : IntermediateField ℚ Qbar) [IsGalois ℚ F₀]
+    (Q : GeomPoint A) (M : ℕ)
+    (hQ : ∀ g : GalQ, Affine.Point.map (W' := A) g.toAlgHom Q = Q) :
+    IsGalois ℚ (jointField A E F₀ Q M) := by
+  have htor (W : WeierstrassCurve ℚ) : Normal ℚ (torsField W M) := by
+    change Normal ℚ (IntermediateField.adjoin ℚ
+      (⋃ P : ↥(AddSubgroup.torsionBy (GeomPoint W) (2 ^ M : ℕ)), coordSet P.val))
+    apply normal_of_stable_coords
+    intro g P hP
+    rw [SetLike.mem_coe, AddSubgroup.torsionBy.nsmul_iff] at hP ⊢
+    rw [← map_nsmul, hP, map_zero]
+  letI : Normal ℚ (torsField A M) := htor A
+  letI : Normal ℚ (torsField E M) := htor E
+  haveI : Normal ℚ (IntermediateField.adjoin ℚ (divisionCoords A Q M)) := by
+    apply normal_of_stable_coords
+    intro g P hP
+    change (2 ^ M : ℕ) • P = Q at hP
+    change (2 ^ M : ℕ) • Affine.Point.map g.toAlgHom P = Q
+    rw [← map_nsmul, hP, hQ]
+  unfold jointField
+  exact isGalois_iff.mpr ⟨inferInstance, inferInstance⟩
+
 /-- The same Frobenius representative also agrees on the whole auxiliary field. -/
 theorem aux_le_joint (F₀ : IntermediateField ℚ Qbar) (Q : GeomPoint A) (M : ℕ) :
     F₀ ≤ jointField A E F₀ Q M :=
@@ -195,6 +239,8 @@ theorem residueSigns_of_agreement {g σ : GalQ} {p : ℕ} [Fact p.Prime] (h2 : p
 #print axioms tors_right_le_joint
 #print axioms global_frob_sq_on_torsion
 #print axioms jointField_finite
+#print axioms normal_of_stable_coords
+#print axioms jointField_isGalois
 #print axioms exists_jointFrob
 #print axioms DivisionTower.proj_cocycle_sq_eq_of_agree
 #print axioms apply_sqrt_of_isFrobAt

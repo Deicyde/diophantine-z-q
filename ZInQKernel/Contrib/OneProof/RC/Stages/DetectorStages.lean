@@ -35,8 +35,7 @@ theorem exists_detector_stages {ℓ : ℕ} (hℓ : 0 < ℓ) {Dw hstar : ℤ}
     (hnt : ¬ IsOfFinAddOrder P) (hS : SerreThm3) (hA : HasNoCM (qtwist (Ecurve ℓ) Dw))
     (F₀ : IntermediateField ℚ Qbar) [IsGalois ℚ F₀] [FiniteDimensional ℚ F₀]
     {x y : Qbar} (hxmem : x ∈ F₀) (hymem : y ∈ F₀)
-    (hx : x ^ 2 = (Dw : Qbar)) (hy : y ^ 2 = (hstar : Qbar))
-    (B : Finset ℕ) :
+    (hx : x ^ 2 = (Dw : Qbar)) (hy : y ^ 2 = (hstar : Qbar)) :
     let A := qtwist (Ecurve ℓ) Dw
     let Q := Affine.Point.baseChange (W' := A) ℚ Qbar P
     let d := divisionTower (A := A) Q
@@ -46,7 +45,7 @@ theorem exists_detector_stages {ℓ : ℕ} (hℓ : 0 < ℓ) {Dw hstar : ℤ}
       tateRep (Ecurve ℓ) 2 σ = tateRep (Ecurve ℓ) 2 complexConj ∧
       (∀ t, b (tateRep A 2 σ t) = b t) ∧ Function.Surjective b ∧
       b (d.cocycle hQ (σ * σ)) = 2 ^ (a + 1) ∧
-      Nonempty (StageSequence (ActualAt A (Ecurve ℓ) Q F₀ σ Dw hstar) (a + 1)
+      ∀ B : Finset ℕ, Nonempty (StageSequence (ActualAt A (Ecurve ℓ) Q F₀ σ Dw hstar) (a + 1)
         (stageExclusions ℓ Dw hstar B)) := by
   intro A Q d hQ
   obtain ⟨a, h, b, hh, hρ, hb, hbonto, hc⟩ :=
@@ -67,7 +66,8 @@ theorem exists_detector_stages {ℓ : ℕ} (hℓ : 0 < ℓ) {Dw hstar : ℤ}
   refine ⟨a, σ, b, hρE, fun t => ?_, hbonto, hc, ?_⟩
   · rw [hρA]
     exact hb t
-  · exact ⟨actualStageSequence A (Ecurve ℓ) Q F₀ σ hdet Dw hstar (a + 1)
+  · intro B
+    exact ⟨actualStageSequence A (Ecurve ℓ) Q F₀ σ hdet Dw hstar (a + 1)
       (stageExclusions ℓ Dw hstar B) hxmem hymem hx hy hsx hsy
       (fun p hp hn => stageExclusions_good hℓ.ne' hDw.ne' hstar₀.ne B hp hn)⟩
 
