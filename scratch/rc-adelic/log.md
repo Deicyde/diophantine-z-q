@@ -1,0 +1,4 @@
+- Base: `64ef32230dac560acaf83ab105a3fdbe435613b3`.
+- `Coordinates.lean`: compiled; rational diagonal coordinates, integral intersection; axiom checks allowed only.
+- `Patch.lean`: compiled; exact prime-power gluing inside a full lattice; axiom checks allowed only.
+- `Level.lean`: compiled; exact completion, containment, and `IsEichler`; axiom checks allowed only.
