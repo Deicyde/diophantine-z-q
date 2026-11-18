@@ -1,10 +1,11 @@
 # kolyv-weil: the two cited inputs to Lemma 5.5
 
-**Verdict.** BCDT Theorem A in form (6) supplies the conductor-level weak Weil
-parametrization required in Kolyvagin's Theorem 1. The revised leaves use that
-same predicate. Their rank-one consequence is exactly the input used by the
-pole-completeness proof. This is a replacement of the two inputs to one call
-in the headline; no existing declaration is edited.
+**Verdict (updated for the fold).** The conductor-level weak Weil
+parametrization is a consequence of BCDT Theorem A. Kolyvagin's Theorem 1 uses
+that parametrization in its printed hypothesis. Together they give the rank-one
+implication used by the Cassels–Tate pole-completeness proof. The splice
+changes the two rank-route inputs to `ZInQ.OneProof.frozenTarget`; the handoff
+keeps `Main.lean` at the base version.
 
 Starting point (**VERIFIED**, Git): `a04588b4f`, the head of fork PR #90.
 The refreshed `origin/main` lacked the PR's pole-completeness modules when
@@ -15,16 +16,19 @@ as recorded in `PoleS12/Leaves.lean` L40–62. No print was fetched or reread.
 
 **VERIFIED (manuscript and prior page audit).** In `lem:forward-rank`
 (`diophantine_zq.tex` L1086–1109), the step at L1092 invokes **BCDT Theorem A**.
-Its Introduction's condition (6) gives the nonconstant ℚ-morphism
-$X_0(N_E) \to E$ that Kolyvagin assumes on p. 3 of MPI/90-69. Thus L1092
-supplies the parametrization for L1093 as written. The separate modular
-realization at `sec:rc` L1779–1787 is consistent with this reading. Lemma 5.5
+Its Introduction's condition (6), p. 3, gives a nonconstant ℚ-morphism
+$X_1(N_E) \to E$; Kolyvagin assumes $X_0(N_E) \to E$ on p. 3 of MPI/90-69.
+Thus L1092 supplies the parametrization for L1093 **with an implicit standard
+step**: trivial nebentypus, Shimura's $J_0(N_E)$ quotient and Faltings' isogeny
+theorem. The manuscript uses that realization in `sec:rc`, L1779–1784, citing
+Milne MF v1.31, Theorem 11.19 and Remark 11.18 (p. 117 in the earlier audit);
+L1785–1786 composes with the isogeny and the based Abel–Jacobi map. Lemma 5.5
 covers both analytic ranks 0 and 1; the pole application uses only 1.
 
 | New Prop | Rating | Reference and reason |
 | --- | --- | --- |
-| `KolyvWeil.BCDTThmA6` | **Printed form; CITED, published LEAF.** | BCDT author manuscript as cited at L1092 (bibliography L11150–54), Theorem A p. 1, specialized to the equivalent condition (6) p. 3; JAMS 14 (2001), 843–939. The level is the conductor and the nonconstant map is over ℚ. |
-| `KolyvWeil.KolyvaginThm1Print` | **Printed form; CITED preprint leaf by the task ruling.** | MPI/90-69 (1990) as cited at L1093 (bibliography L11163–67), weak Weil hypothesis p. 3 and Theorem 1 p. 4. Uses both printed rank cases and retains finiteness of the full Sha. The cited version is a preprint, so it does not meet a strictly refereed-only LEAF count. |
+| `KolyvWeil.BCDTThmA6` | **Consequence; GLUE in strict and strictest.** | BCDT author manuscript as cited at L1092 (bibliography L11150–54), Theorem A p. 1 and condition (6) p. 3; JAMS 14 (2001), 843–939. The print uses $X_1(N_E)$; the Lean Prop uses $X_0(N_E)$ via the realization above. |
+| `KolyvWeil.KolyvaginThm1Print` | **Printed form of a cited unrefereed preprint; GLUE in strict and strictest pending the owner's ruling.** | MPI/90-69 (1990), cited at L1093 (bibliography L11163–67), weak Weil hypothesis p. 3 and Theorem 1 p. 4. Uses both printed rank cases and retains finiteness of the full Sha. |
 
 ## The objects in Lean
 
@@ -84,63 +88,45 @@ covers both analytic ranks 0 and 1; the pole application uses only 1.
 
 ## Headline change and checks
 
-**VERIFIED (source).** `Main.lean` L159–167 sends `hB` and `hK` to
-`PoleS12.poleCompleteness_of_restrictedConverseGenuine_final`, then
-`_mw` uses them only via `PoleS12.kolyvaginRankOne_of_printed`. The result
-is `PoleRC.KolyvaginRankOne`, the exact rank implication in
-`PoleRC.crm_of_restrictedConverse_proved`.
+**VERIFIED (source).** On fork main `dcc3d7723`,
+`ZInQ.OneProof.frozenTarget` sends `hRC hCT hB hK` to
+`PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`.
+After converting the pairing to the square property, that call uses
+`PoleS12.kolyvaginRankOne_of_printed` to supply
+`PoleRC.KolyvaginRankOne` to `PoleRC.crm_of_restrictedConverse_proved`.
 
-**On-the-spot (consumer GLUE).** Give Kolyvagin the map returned by BCDT
-(6) and specialize to $r=1$; the old `AnalyticRankOne` supplies exactly
-the same continuation. This even proves the old `hK` Prop from the pair
-of new leaves: on input `IsModular E`, use the independently supplied
-conductor-level map. The old `hB` coefficient statement is not proved
-by this adapter; it was only used as that unused argument. Project to
-the rank conclusion, then call the existing `crm_of_restrictedConverse_proved`
-and `poleCompleteness_of_crm` with the same Selmer, Kummer, and
-simultaneous-construction proofs. This is the old `_mw` body with
-only the rank supplier changed.
+**On-the-spot (consumer GLUE).** Give Kolyvagin the assumed weak Weil map
+and specialize to $r=1$; the old `AnalyticRankOne` supplies exactly the same
+continuation. This proves the old `hK` Prop from the new pair: on input
+`IsModular E`, use the independently supplied conductor-level map. The old
+`hB` coefficient statement is not proved by this adapter; it served only as
+that unused argument. Project to rank one and pass it to the existing
+`crm_of_restrictedConverse_proved` and `poleCompleteness_of_crm`, using
+the pairing for Lemma 5.4 as in main.
 
-The integration would replace the `hB : PoleS12.BCDTThmA` and
-`hK : PoleS12.KolyvaginThm1` binders of `ZInQ.OneProof.frozenTarget`
-with `hB6 : KolyvWeil.BCDTThmA6` and
-`hKPrint : KolyvWeil.KolyvaginThm1Print`, and change its sole pole call
-to `KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print`.
-The H bundles, `hRC`, `h54`, and the result `ZInQ.FrozenTarget`
-stay as written. The companion alternative
-`PoleS12.poleCompleteness_of_restrictedConverseGenuine_leaves` is
-outside this replacement; it has other Lemma 5.4 inputs.
+The splice replaces `hB` and `hK` with `hB6 : KolyvWeil.BCDTThmA6`
+and `hKPrint : KolyvWeil.KolyvaginThm1Print`, and calls
+`KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print`
+with `hRC hCT hB6 hKPrint`. The H bundles, `hRC`, `hCT` and
+`ZInQ.FrozenTarget` stay as written.
 
-**VERIFIED (tool).** The recipe is `scratch/kolyv-weil/autofold.json`.
-Stock `autofold.py --dry-run` rejects `hK` as a non-bundle field.
-It cannot replace a pair of top-level binders. The spec records the exact
-`hK` proof and manual call and binder replacement separately. Run
-`python3 scratch/kolyv-weil/preview_fold.py` to see the proposed
-import, binders and pole call as a diff without touching `Main.lean`.
-
-**VERIFIED (Lean 4.35.0).** All three modules under
-`ZInQKernel/Contrib/OneProof/KolyvWeil/` compiled. `Original.lean` checked the
-verbatim copies against the old Props by `rfl`. `DryRun.lean` compiled the
-replacement pole call and checked the absence of any `TYZGenus` import.
-It runs the stock `#discharges` against a fixture with the four exact pole
-binders of `frozenTarget`, without the unrelated H import chain. It
-reported one match among 360 candidates: `DISCHARGES [hK]` by
-`kolyvaginThm1_of_prints`, assuming exactly `BCDTThmA6` and
-`KolyvaginThm1Print`. There is no `[hB]` match: the checked replacement
-call removes the only use of the old `hB`. All six axiom queries list
-only `propext`, `Classical.choice`, and `Quot.sound`. See
-[the original checker output](../../scratch/kolyv-weil/discharges-output.txt).
-
-**VERIFIED (Lean 4.35.0).** `HeadlineDryRun.lean` also checks a proof of
-`ZInQ.FrozenTarget` against the exact type of the existing assembly theorem
-(`MainGreenTao.lean` L33–34): it consumes `SixContactMin` and
-`PoleCompleteness`. The dry run takes that unchanged theorem and the H
-result as arguments; it does not rebuild the full `OneProof/Main.lean`
-dependency tree. Its [axiom output](../../scratch/kolyv-weil/headline-output.txt)
-is also standard. With the imports built, rerun the scratch files
-individually with `lake env lean scratch/kolyv-weil/<file>.lean`.
+The corrected recipe is [autofold.json](../../scratch/kolyv-weil/autofold.json).
+The stock script handles bundle fields, so the top-level replacement uses
+[the splice](../../scratch/kolyv-weil-fold/main-splice.patch). The old dry-run
+files are historical fixtures at the pre-squash base. For the real
+`lake build +ZInQKernel.OneProof.Main` checks, including the headline's own axiom
+query and `#discharges` on the compiled splice, see the
+[fold report](kolyv-weil-fold.md).
 
 ## Known issues
+
+- BCDT's condition (6) on p. 3 is printed at $X_1(N_E)$, as confirmed by the
+  [first audit](../theorem-application-audit/evidence/parallel-forward-modularity-report.md)
+  and the [second audit](../theorem-application-audit/evidence/parallel-theta-local-a070-second-review.md).
+  The $X_0(N_E)$ realization assumed here is not formalized in this contribution.
+  It is tracked as GLUE, with the manuscript's own Milne locator above.
+- The accurate print rating for Kolyvagin does not settle whether an unrefereed
+  preprint can count as LEAF. The rating remains GLUE pending the owner's ruling.
 
 - The old `KolyvaginThm1` had a weaker premise (a matching cusp form at
   some level) than the one on p. 3 of the preprint. That statement should
