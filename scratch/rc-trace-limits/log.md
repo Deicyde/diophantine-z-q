@@ -1,0 +1,4 @@
+- Base checked: c2a92cd2c8e857dbe6e456a40917102aa9e8b02d.
+- Tex 9725–9729: coefficientwise vanishing does not establish membership in the abstract submodule `𝔪Λ` (tex 9644–9646).
+- `Lattice.lean`: finite modules and their reduction submodules are closed; residual quotient finite and its kernel open. Compiled; axiom audit passed for all four theorems.
+- `Fourier.lean`: sign ratio gives integral half-correction; fresh good trace has the predicted vanishing at each eligible Fourier index; same for the determinant discrepancy. Compiled; axiom audit passed for all three theorems.
