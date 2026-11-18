@@ -14,12 +14,13 @@
 > `SixContactMin` by the open statements listed in `docs/one-proof/OPEN.md`, and proves
 > `PoleCompleteness` from four hypotheses, as the manuscript's Section 5.1 does:
 > - the restricted converse theorem (Theorem 5.3, `hRC`);
-> - Lemma 5.4 (`h54`);
+> - the Cassels–Tate pairing on the curves `E_ℓ` (`hCT`, Poonen–Stoll's statement of Cassels' theorem), from which
+>   Lean proves Lemma 5.4;
 > - consequences of the two printed inputs of Lemma 5.5: BCDT's Theorem A (`hB`) and Kolyvagin's
 >   Theorem 1 (`hK`).
 >
-> The proof is `ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final` (fork
-> #90, squashed as `5eca1103`). Proving Theorem 5.3 itself is fork issue #83. The rest of this
+> The proof is `ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`
+> (the Lemma 5.4 swap, over fork #90's `poleCompleteness_of_restrictedConverseGenuine_final`, squashed as `5eca1103`). Proving Theorem 5.3 itself is fork issue #83. The rest of this
 > document is kept as a record of the plan.
 
 This fork works toward a Lean proof of the 11/5 manuscript's Theorem 1.1, the statement

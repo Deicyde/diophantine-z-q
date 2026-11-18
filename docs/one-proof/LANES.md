@@ -7,16 +7,23 @@ A lane is one unit of project work: one issue (template "Lane"), one owner, one 
 - **New files, one directory.** New Lean goes in new files under the lane's own directory (outside contributors:
   `ZInQKernel/Contrib/OneProof/`). Existing modules change only in folds.
 - **One writer per shared file.** [OWNERS.tsv](../../OWNERS.tsv) names the single writer of each shared or generated
-  file. Generated files (OPEN.md, open-statements.json, pages-wanted.md) are written only by the folds. claims.tsv is
-  written only by the claims sync. A change to someone else's file goes through its owner.
+  file. Generated files (OPEN.md, open-statements.json, pages-wanted.md) are written only by the integrator with
+  render_open.py: in folds, and OPEN.md also after a volatile.tsv edit. claims.tsv is written only by the claims sync.
+  A change to someone else's file goes through its owner.
 - **See what is coming.** [fold-queue.tsv](fold-queue.tsv) lists what is about to land, and
   `volatile.tsv` (in this directory, once the integrator first uses it) lists board rows that a queued fold will remove
-  or rename: do not start work on those.
+  or rename: do not start work on those. After editing volatile.tsv, the integrator re-renders OPEN.md in the same
+  commit (`scripts/one_proof/render_open.py` runs from committed files; no Lean build is needed), so the "may change
+  soon" marker appears before the fold that removes the rows.
 - **Before pushing.** Run `scripts/push_gate.sh`: it merges current `main` with your branch in memory, stops on
-  conflicts, and checks that the merge does not drop board rows that `main` has.
+  conflicts, and checks that the merge neither drops board rows that `main` has nor adds rows that it does not (name
+  intended ones in `REMOVES_ROWS` and `ADDS_ROWS`).
 - **Pull requests.** The PR guard runs the same row check. A pull request that removes rows on purpose lists them on a
-  `Removes-rows:` line of its body. It also warns when the change touches files with an owner, and when the generated
-  files are out of date.
+  `Removes-rows:` line of its body, and one that adds rows (a new hypothesis, or the new name of a renamed row) lists
+  them on an `Adds-rows:` line; lines inside HTML comments do not count. An unlisted new row is usually one that a fold
+  removed and a branch built on an older `main` brings back: merge current `main` and regenerate. The guard also warns
+  when the change touches files with an owner, and about problems in the generated files that the change brings in;
+  problems `main` already has, such as an OPEN.md that lags a claims-sync commit until the next fold, are not repeated.
 - **Decisions** are recorded once, in [docs/DECISIONS.md](../DECISIONS.md), with a link to where they were made.
 
 ## Standing lanes

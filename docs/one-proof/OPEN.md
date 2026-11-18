@@ -13,7 +13,7 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**31 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves65`), plus four manuscript hypotheses outside the H part (`hRC`, `h54`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
+**31 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves65`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
 
 * **Strict count: 5 published / 26 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
@@ -157,7 +157,7 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`r9b`](#r9b) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`silverbergZarhinThm35`](#silverbergzarhinthm35) | research | published | LEAF | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`hRC`](#hrc) | frozenTarget | manuscript hypothesis | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/83)) |
-| [`h54`](#h54) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
+| [`hCT`](#hct) | frozenTarget | published | LEAF | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
 | [`hB`](#hb) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
 | [`hK`](#hk) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
 
@@ -626,26 +626,21 @@ ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine
 > `ZInQ.Manuscript.AnalyticRankOne`. It is `ZInQ.Manuscript.RestrictedConverse` at the predicate
 > `SelmerCorankOne`.
 
-### h54
+### hCT
 
-* Argument `h54` of `frozenTarget`; kind **consequence**, strict **GLUE**; flag: a lemma of the manuscript (lem:corank), not a printed leaf: the manuscript proves it from the Kummer sequence and Cassels-Tate via Poonen-Stoll; not proved in Lean.
-* Source: Glazer, 11/5 manuscript (diophantine_zq.tex), Lemma 5.4 (lem:corank), lines 1072-1084; Poonen-Stoll, Ann. of Math. 150 (1999) 1109-1149 (cited at L1081)
+* Argument `hCT` of `frozenTarget`; kind **published**, strict **LEAF**; flag: AI read (docs/research/cassels-tate-pairing.md, docs/research/lem54-ct-check.md); a direct instance of a secondary print (provenance (b)): Poonen-Stoll restating Cassels' theorem, existence form, specialized to the curves E_l; Milne ADT I.6.13(a) corroborates only.
+* Source: Poonen-Stoll, The Cassels-Tate pairing on polarized abelian varieties, Ann. of Math. (2) 150 (1999), 1109-1149, Introduction, first paragraph, p. 2 (the author's version the bibliography links, math.mit.edu/~poonen/papers/sha.pdf; the cited version is the print): for an elliptic curve over a number field a pairing Sha x Sha -> Q/Z that is alternating and nondegenerate after dividing by the maximal divisible subgroup (Poonen-Stoll restating Cassels' theorem); cited at diophantine_zq.tex L1079-1081
 * discussion: [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83).
 * Human readings recorded: none.
 * Status: open.
 
 ```lean
-ZInQ.Manuscript.PoleS12.Lemma54
+ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves
 ```
 
-> **Lemma 5.4 (`lem:corank`, tex L1072–1084), a lemma of the manuscript (not a printed leaf),
-> stated over genuine definitions.** For an
-> elliptic curve `E/ℚ` with full rational two-torsion, `dim_{𝔽₂} Sel₂(E/ℚ) = 3` (`#Sel₂ = 8`, with
-> `Sel₂ = selmerAt E 1`, Tau Ceti's 2-Selmer group with the conditions at every place) implies
-> `corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 1` (`SelmerTwoPower.SelmerCorankOne`). Provenance (b): the manuscript
-> proves it from the Kummer sequence and the Cassels–Tate pairing, citing Poonen–Stoll, Ann. of
-> Math. 150 (1999) 1109–1149 (`\cite{poonenstoll}`, tex L1081). It is a hypothesis here, a lemma that
-> the manuscript proves and not a published theorem; it is not proved in Lean.
+> **The Cassels–Tate pairing for the curves `E_ℓ`** (`SelmerTwoPower.CasselsTatePairing` at
+> `E_ℓ : y² = x(x − ℓ)(x + 3ℓ)` for positive squarefree `ℓ ≡ 11 (mod 12)`, the curves of Theorem 5.3 and
+> Lemma 5.4).
 
 ### hB
 

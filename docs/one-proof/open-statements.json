@@ -192,11 +192,11 @@
    "docstring":
    "**Theorem 5.3 of the 11/5 manuscript (restricted converse, `hyp:RC`), over the genuine Selmer\ncondition.** For every positive squarefree `ℓ ≡ 11 (mod 12)`,\n`corank_{ℤ₂} Sel_{2^∞}(E_ℓ/ℚ) = 1` implies `ord_{s=1} L(E_ℓ, s) = 1`, where\n`E_ℓ : y² = x(x - ℓ)(x + 3ℓ)` (`ZInQ.Manuscript.curve`) and `ord_{s=1}` is\n`ZInQ.Manuscript.AnalyticRankOne`. It is `ZInQ.Manuscript.RestrictedConverse` at the predicate\n`SelmerCorankOne`. ",
    "bundle": "frozenTarget"},
-  {"type": "ZInQ.Manuscript.PoleS12.Lemma54",
-   "statement": "ZInQ.Manuscript.PoleS12.Lemma54",
-   "field": "h54",
+  {"type": "ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves",
+   "statement": "ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves",
+   "field": "hCT",
    "docstring":
-   "**Lemma 5.4 (`lem:corank`, tex L1072–1084), a lemma of the manuscript (not a printed leaf),\nstated over genuine definitions.** For an\nelliptic curve `E/ℚ` with full rational two-torsion, `dim_{𝔽₂} Sel₂(E/ℚ) = 3` (`#Sel₂ = 8`, with\n`Sel₂ = selmerAt E 1`, Tau Ceti's 2-Selmer group with the conditions at every place) implies\n`corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 1` (`SelmerTwoPower.SelmerCorankOne`). Provenance (b): the manuscript\nproves it from the Kummer sequence and the Cassels–Tate pairing, citing Poonen–Stoll, Ann. of\nMath. 150 (1999) 1109–1149 (`\\cite{poonenstoll}`, tex L1081). It is a hypothesis here, a lemma that\nthe manuscript proves and not a published theorem; it is not proved in Lean. ",
+   "**The Cassels–Tate pairing for the curves `E_ℓ`** (`SelmerTwoPower.CasselsTatePairing` at\n`E_ℓ : y² = x(x − ℓ)(x + 3ℓ)` for positive squarefree `ℓ ≡ 11 (mod 12)`, the curves of Theorem 5.3 and\nLemma 5.4). ",
    "bundle": "frozenTarget"},
   {"type": "ZInQ.Manuscript.PoleS12.BCDTThmA",
    "statement": "ZInQ.Manuscript.PoleS12.BCDTThmA",

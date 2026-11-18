@@ -22,7 +22,7 @@ The open statements of the current proof (generated from docs/one-proof/OPEN.md;
 describe the fork main they name):
 
 <!-- open-count:begin -->
-**31 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves65`), plus four manuscript hypotheses outside the H part (`hRC`, `h54`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end of docs/one-proof/OPEN.md.
+**31 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves65`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end of docs/one-proof/OPEN.md.
 
 * **Strict count: 5 published / 26 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * By kind: consequence 19, glue 1, published 11.

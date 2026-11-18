@@ -35,7 +35,8 @@ which Lean derives the instance of the six-contact height estimate (the manuscri
 uses. The second is four statements from which Lean proves pole completeness (Theorem 5.2) for the manuscript's own
 pole polynomial, as the manuscript's Section 5.1 does:
 - the manuscript's restricted converse theorem (Theorem 5.3);
-- its Lemma 5.4;
+- the Cassels–Tate pairing on the curves of Theorem 5.3 (Poonen–Stoll's statement of Cassels' theorem, the print
+  the manuscript cites for its Lemma 5.4; Lean proves Lemma 5.4 from it);
 - consequences of the two printed theorems behind its Lemma 5.5: the modularity theorem of Breuil, Conrad, Diamond
   and Taylor (Theorem A), and Kolyvagin's Theorem 1.
 

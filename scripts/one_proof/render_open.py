@@ -7,11 +7,15 @@ Inputs (run from the repository root):
   labels, tiers, flag classes and area issues);
 * docs/one-proof/claims.tsv, who holds what (only a public claim line, on the claims issue or in a draft pull
   request that links it, holds a hypothesis, and the project's own holds may point at a pushed branch; a project
-  brief is shown as project interest, free to claim; a released claim shows as open);
+  brief is shown as project interest, free to claim; a released claim shows as open; a row whose hypothesis is no
+  longer open is skipped with a note, and the claims sync removes it);
 * docs/one-proof/reviews.tsv and credits.tsv, the ledgers of statement checks and credit;
-* docs/one-proof/volatile.tsv (optional: field, note, since), board rows that a queued fold will remove or rename;
-  they show as "may change soon" and are not offered as free to claim (rows are added by the integrator when it
-  queues such a fold, and removed by the fold that lands);
+* docs/one-proof/volatile.tsv (optional: field, note, since), board rows that a queued fold will remove or rename.
+  Unless held, such a row's status reads "may change soon, not offered" (a held row keeps its holder, marked "may
+  change soon"); the Packets lists mark it, and Good first targets and pages-wanted.md leave it out. The integrator
+  adds rows when it queues such a fold and the fold that lands removes them; with each volatile.tsv edit the
+  integrator re-renders OPEN.md and pages-wanted.md in the same commit (this script reads only committed files and
+  needs no Lean build);
 * docs/one-proof/issues.json, the claim issue, the statement-checks issue, the packet issues and the issue that
   logs folds and landings;
 * scratch/contrib-kit/DischargesTest-output.txt, the saved output of scratch/contrib-kit/DischargesTest.lean.
@@ -94,13 +98,17 @@ TABLES = [D + 'kinds.tsv', D + 'claims.tsv', D + 'reviews.tsv', D + 'credits.tsv
           D + 'volatile.tsv']
 
 
-def read_tsv(path, required=True):
+def read_tsv(path, required=True, quoting=csv.QUOTE_NONE):
+    """Rows of a tab-separated table as dicts. By default a cell is raw text and a double quote is an ordinary
+    character (csv.QUOTE_NONE), as sync_claims.py reads and writes claims.tsv; with csv quoting, a cell that starts
+    with a double quote would swallow the rows after it. load() reads kinds.tsv with csv quoting."""
     if not os.path.exists(path):
         if required:
             sys.exit(f'missing {path}')
         return []
     with open(path, newline='') as fh:
-        return [{k: (v or '') for k, v in r.items() if k is not None} for r in csv.DictReader(fh, delimiter='\t')]
+        return [{k: (v or '') for k, v in r.items() if k is not None}
+                for r in csv.DictReader(fh, delimiter='\t', quoting=quoting)]
 
 
 def words(n):
@@ -129,7 +137,9 @@ def issue_link(ref):
 
 def load():
     data = json.load(open(D + 'open-statements.json'))
-    kinds_rows = read_tsv(D + 'kinds.tsv')
+    # kinds.tsv keeps csv quoting: autofold.py writes it with csv.DictWriter, which quotes a cell holding a double
+    # quote, a tab or a newline, and reads it back the same way
+    kinds_rows = read_tsv(D + 'kinds.tsv', quoting=csv.QUOTE_MINIMAL)
     issues = {'claims_issue': 'Deicyde/diophantine-z-q#14', 'statement_checks_issue': '', 'packet_issues': {},
               'log_issue': 'Deicyde/diophantine-z-q#3'}
     if os.path.exists(ISSUES):
@@ -206,9 +216,9 @@ def validate(m):
             problems.append(f"kinds.tsv: {h['field']} has bundle {k['bundle']}, the Lean data says {h['bundle']}")
     held = set()
     for c in m['claims_rows']:
+        # a row whose field is no longer open is not a problem: render() skips it, main() notes it, and the claims
+        # sync removes it once the fold has landed
         f, hold, kind = c['field'], c['hold'], c['holder_kind']
-        if f not in open_fields:
-            problems.append(f'claims.tsv names {f}, which is not an open hypothesis')
         if hold not in HOLDS:
             problems.append(f'claims.tsv: {f}: hold must be one of {sorted(HOLDS)}, not {hold!r}')
         if kind not in HOLDER_KINDS:
@@ -268,7 +278,7 @@ def render(m):
     hyps, kinds, iss = m['hyps'], m['kinds'], m['issues']
     h_fields = [h['field'] for h in hyps if h['bundle'] != 'frozenTarget']
     tops = [h['field'] for h in hyps if h['bundle'] == 'frozenTarget']
-    claims = {c['field']: c for c in m['claims_rows']}
+    claims = {c['field']: c for c in m['claims_rows'] if c['field'] in h_fields + tops}  # rows of open fields only
     reads = human_reads(m)
     n = len(h_fields)
     strict = Counter(kinds[f]['strict'] for f in h_fields)
@@ -285,6 +295,10 @@ def render(m):
 
     def status(f):
         v = m.get('volatile', {}).get(f)
+        c = claims.get(f)
+        if v and not (c and c['hold'] == 'held'):
+            # a queued fold removes or renames the row: not offered, whatever its label or claims row says
+            return 'may change soon, not offered' + (f": {v['note']}" if v.get('note') else '')
         base = held_status(f)
         return base + (f" (may change soon: {v['note']})" if v and v.get('note') else ' (may change soon)' if v else '')
 
@@ -435,7 +449,8 @@ def render(m):
         for f in members:
             k = kinds[f]
             cls = ', '.join(x for x in k['flag_class'].split(',') if x and x != 'note')
-            w(f"* [`{f}`](#{anchor(f)}) ({k['strictest']}" + (f'; {cls}' if cls else '') + f"): {k['source']}")
+            soon = ' (may change soon)' if f in m.get('volatile', {}) else ''
+            w(f"* [`{f}`](#{anchor(f)}) ({k['strictest']}" + (f'; {cls}' if cls else '') + f"){soon}: {k['source']}")
         w('')
 
     w('## Index')
@@ -468,7 +483,9 @@ def render(m):
         if k['packet']:
             bits.append(f"packet [{k['packet']}](#packet-{k['packet'].lower()})")
         if k['label']:
-            bits.append(f"label {k['label']} ({LABELS[k['label']]})")
+            # a volatile row that is not held is not offered, so its label is shown without the offer's gloss
+            offered = not (f in m.get('volatile', {}) and not (f in claims and claims[f]['hold'] == 'held'))
+            bits.append(f"label {k['label']}" + (f" ({LABELS[k['label']]})" if offered else ''))
         if k['tier']:
             bits.append(f"tier {k['tier']} (model triage, unreviewed)")
         if k['area_issue']:
@@ -518,7 +535,8 @@ def render(m):
           '[OPEN.md](OPEN.md). How to do it, and what makes a reading count: [STATEMENT-CHECKS.md](STATEMENT-CHECKS.md).',
           '']
     for cls in PAGES_WANTED:
-        rows = [f for f in h_fields + tops if cls in kinds[f]['flag_class'].split(',')]
+        rows = [f for f in h_fields + tops if cls in kinds[f]['flag_class'].split(',')
+                and f not in m.get('volatile', {})]  # a queued fold removes or renames volatile rows
         if not rows:
             continue
         pw += [f'## {cls}', '']
@@ -594,6 +612,10 @@ def main():
     stale = sorted(set(m.get('volatile', {})) - {h['field'] for h in m['hyps']})
     if stale:
         print(f"note: volatile.tsv names rows that are no longer open (remove them): {', '.join(stale)}")
+    gone = sorted({c['field'] for c in m['claims_rows']} - {h['field'] for h in m['hyps']})
+    if gone:
+        print(f"note: claims.tsv names rows that are no longer open (skipped; the claims sync removes them): "
+              f"{', '.join(gone)}")
     if '--check' in sys.argv:
         problems += marker_problems
         for p, content in res.items():
