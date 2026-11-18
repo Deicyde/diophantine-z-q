@@ -30,3 +30,5 @@ which is not in Mathlib (several thousand lines). Ramsey's print is not read (lo
 UNVERIFIED).
 
 Report: `docs/research/rc-appE-phase.md`.
+
+Final SHA: 237738dac7fce14a882ea87ce241232e47ba4de0 has all the Lean files, the report and this note. The only later commit adds this line.
