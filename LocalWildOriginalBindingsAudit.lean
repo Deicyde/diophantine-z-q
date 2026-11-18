@@ -1,0 +1,53 @@
+import LocalWildNativeGeometryAudit
+import CommonNativeModelDataFirst
+import ToricFinitePart.InertiaDefectV002
+import OriginalFixedPrimaryFeedSecond
+import CommonFrobeniusFeedFirst
+import NativeSpecialPointPowersSecond
+import OriginalTorusPointMultiplierThird
+import OriginalInertiaResidueThird
+import NeronEtale.ComponentIndexV002
+import WeilTatePointSelfKernelV002
+
+/-!
+# Original-point supporting bindings
+
+These are original point/Tate interfaces and conditional monodromy consumers.
+Their geometric, count and pairing inputs are not silently discharged.
+No unrestricted wild-inertia or Z-in-Q conclusion is claimed.
+-/
+
+set_option pp.all true
+set_option pp.proofs true
+set_option pp.maxSteps 1000000
+
+#check @SemistableGeometry.CommonNativeModelData.common_power_two_bounds_and_torus
+#print axioms SemistableGeometry.CommonNativeModelData.common_power_two_bounds_and_torus
+#check @ToricFinitePart.cast_eq_zero_of_pow_nsmul_eq_zero
+#print axioms ToricFinitePart.cast_eq_zero_of_pow_nsmul_eq_zero
+#check @ToricFinitePart.levelwise_saturated
+#print axioms ToricFinitePart.levelwise_saturated
+#check @ToricFinitePart.annihilator_finite_le_toric_of_levels
+#print axioms ToricFinitePart.annihilator_finite_le_toric_of_levels
+#check @ToricFinitePart.inertia_defect_sq_zero
+#print axioms ToricFinitePart.inertia_defect_sq_zero
+#check @SemistableGeometry.OriginalFixedPrimaryFeed.uniform_fixedOrder_bound
+#print axioms SemistableGeometry.OriginalFixedPrimaryFeed.uniform_fixedOrder_bound
+#check @SemistableGeometry.CommonFrobeniusFeed.frobenius_power_congruence
+#print axioms SemistableGeometry.CommonFrobeniusFeed.frobenius_power_congruence
+#check @SemistableGeometry.NativeSpecialPointPowers.specialPoint_pow
+#print axioms SemistableGeometry.NativeSpecialPointPowers.specialPoint_pow
+#check @SemistableGeometry.OriginalTorusPointMultiplier.exists_period_original_torus_multiplier
+#print axioms SemistableGeometry.OriginalTorusPointMultiplier.exists_period_original_torus_multiplier
+#check @SemistableGeometry.OriginalInertiaResidue.inertiaResidueEquiv
+#print axioms SemistableGeometry.OriginalInertiaResidue.inertiaResidueEquiv
+#check @FiniteIndexTate.range_coord_eq_image_mul
+#print axioms FiniteIndexTate.range_coord_eq_image_mul
+#check @FiniteIndexTate.range_coord_open_subgroup_eq_image_torsion
+#print axioms FiniteIndexTate.range_coord_open_subgroup_eq_image_torsion
+#check @WeilTate.LevelPairing.tate_kernels_of_right_bounded
+#print axioms WeilTate.LevelPairing.tate_kernels_of_right_bounded
+#check @WeilTate.exists_tate_lift_of_divisible
+#print axioms WeilTate.exists_tate_lift_of_divisible
+#check @WeilTate.Divisible.point_tate_kernels
+#print axioms WeilTate.Divisible.point_tate_kernels
