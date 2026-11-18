@@ -1,0 +1,2 @@
+HodgeFil1.tatePolarizationSymmetry_proof: checked 139743 transitive dependencies; no removed Picard hypothesis or Fil¹ input
+HodgeFil1.scholzeH1AbVar_of_dR: checked 145142 transitive dependencies; no removed Picard hypothesis or Fil¹ input
