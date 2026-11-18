@@ -1,0 +1,8 @@
+- Base: 054cbd72893c420ec9600f74883589da25bf9848.
+- Interface finding: `GoodOperators` and `UnramifiedConstituents` are ambient and require `q ∉ avoid`; `Inputs` quantifies over formwise fresh good primes. No assumption that all good primes avoid the shared family level.
+- `Local.lean`: `localPair_exists`, `localPair_characters`, `upDifference_supported`, `o12_charZero`, `whittaker_sum`. Inertia and arithmetic Frobenius at one prime above p; all five character conditions proved. Old differences vanish; scalar action needed only on the ramified blocks. PASS; five axiom prints.
+- `Fourier.lean`: `goodHecke_of_data`, `trace_coeff_of_not_dvd`, `orbitCoeff_eq`, `read_orbit`, `o12_integral`, `o12_reduced`. Integral equality at indices p and one; `det_orbit` removes the determinant on reduction. PASS; six axiom prints.
+- `Theta.lean`: `eta_residue`, `fresh_normalized`, `fresh_residue`, `coefficientOne`, `omission_at_p` and six helpers. One source; off-unary integer-two comparison; fresh and omission coefficients from `TL_fresh` and `TL_omission`. PASS; eleven axiom prints.
+- `Inputs.lean`: `representative_trace`, `representative_bit`, `ThetaData.omissionSign_flip`, `ThetaData.o12_at_one`, `inputs_of_theta`. Representatives modulo `N_U` carry both orbits and the bit at p. PASS; five axiom prints.
+- Verification: sequential `lake env lean -j1`; 27/27 theorem results use only `propext`, `Classical.choice`, `Quot.sound`. Host load and available memory within the devserver limits before each run.
+- Open data: actual theta form comparisons, Casselman/Carayol ramified blocks and the Eisenstein counterpart; no source locators independently checked.
