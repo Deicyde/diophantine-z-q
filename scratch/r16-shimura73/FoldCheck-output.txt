@@ -1,0 +1,4 @@
+'HDec.HSyn.sixContactMin_of_open68' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open69' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R16ShimuraLi.r16CoreY_of_shimura_li' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R16ShimuraLi.r16CoreYTotal_of_shimura_li' depends on axioms: [propext, Classical.choice, Quot.sound]

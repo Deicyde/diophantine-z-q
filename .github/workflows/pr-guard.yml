@@ -1,0 +1,35 @@
+name: PR guard
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-guard-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    name: Board rows, owners and generated files
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # The default checkout of a pull_request event is GitHub's merge commit: HEAD^1 is main, HEAD the merged result.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12.14'
+      - name: Board rows this pull request removes (fails if unlisted)
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: python scripts/guard/check_pr.py rows --base HEAD^1
+      - name: Files with an owner in OWNERS.tsv (warning only)
+        run: python scripts/guard/check_pr.py owners --base HEAD^1
+      - name: Generated contributor files up to date (warning only)
+        continue-on-error: true
+        run: python scripts/one_proof/render_open.py --check

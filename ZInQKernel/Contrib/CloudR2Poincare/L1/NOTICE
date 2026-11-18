@@ -1,0 +1,30 @@
+Jacobian Challenge
+Copyright 2026 Axel Delaval, Jie Xu, and Shitan Xu.
+
+Parts of this library are adapted from Weil's conjectures project, whose source
+notices specify the Apache License, Version 2.0. The adapted code has been
+reorganized, modified, and integrated into this library.
+
+This repository is distributed under the Apache License, Version 2.0.
+See LICENSE for the license terms.
+
+H-72 round-2 L1 change notice (2026-11-14):
+Functorial.lean ports the upstream general relative Picard-sheaf pullback module
+from frenzymath/Jacobian-Challenge at c4254cce15b3e284a0a3ae1d73936f2ee195d272.
+Imports use the existing CloudW07JacobiansCurves contribution. New declarations
+are renamed into ZInQ.Contrib.CloudR2Poincare.L1 and the base-change maps use the
+vendor's AlgebraicGeometry.JacobianChallenge namespace. SheafifyMap.lean ports
+the same pin's Jacobian.CategoryTheory.Sites.SheafifyGrpMap into the lane
+namespace for its owned compiler DAG. Additional polarization family and
+translation identities are documented in their respective files.
+
+H-72 L1 Čech/Grauert/seesaw change notice (2026-11-15):
+The new lane-owned modules ScalarFreeMatrix through ReducedGlobalSeesaw
+re-derive scalar-kernel, actual Čech coefficient-map, local trivialization,
+and normalized global-seesaw proofs from the unchanged native APIs at the
+same Jacobian-Challenge pin. The compact finite affine-cover assembly in
+OriginalCechKernel uses the construction published in
+Jacobian.AlgebraicGeometry.Cohomology.DirectImage.FiniteFreeModel.
+Names live only in ZInQ.Contrib.CloudR2Poincare.L1. The native vendored source,
+its LICENSE/NOTICE, and the original final target were not modified.
+

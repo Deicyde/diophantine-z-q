@@ -1,0 +1,35 @@
+{
+ "name": "derham-scholze",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.DeRhamScholzeT"
+ ],
+ "discharges": [
+  {
+   "field": "deRhamVpAbVarDirect",
+   "proof": "_root_.DeRhamScholze.deRhamVpAbVarDirect_of_leaves {n}.scholzeDeRhamAlg {n}.t10TateDuality",
+   "leaves": [
+    {
+     "name": "scholzeDeRhamAlg",
+     "type": "_root_.DeRhamScholze.ScholzeDeRhamAlg",
+     "doc": "Scholze, p-adic Hodge theory for rigid-analytic varieties, Forum Math. Pi 1 (2013), Cor. 1.8 with Thms 9.1 and 9.3 and the corrigendum Forum Math. Pi 4 (2016) e6, applied as in diophantine_zq.tex lem:de-rham-descent L10953-10965 (step C3): for F finite over Q_p and X proper smooth over F, H^i_et(X_Fbar, Q_p) is de Rham and the Hodge filtration of D_dR has its jumps in [0, i] (the filtered comparison D_dR = H^i_dR(X) with Fil^0 H^i_dR = H^i_dR, Fil^{i+1} = 0). Lean form: H^i = Q_p (x)_{Z_p} Scheme.EllAdicCohomology (X x_F Spec Fbar) p i (Mathlib's pro-etale l-adic cohomology), sigma acting by transport along 1 x Spec(sigma^-1) (DeRhamScholze.galHX = t10-etale's galH); D_dR = (B_dR (x) W)^{G_F}, Fil^j = D_dR meet (t^j B_dR^+ (x) W). Consequence, not printed form: the print is for rigid-analytic varieties (not in Mathlib); dictionary steps analytification + Thms 9.1/9.3 (in the manuscript), Fbar vs C_p and pro-etale vs etale (on-the-spot, derham-scholze report section 3)",
+     "kind": "consequence",
+     "flag": "deciding step: algebraic-to-rigid comparison (analytification + Scholze Thms 9.1/9.3; the print states de Rham only for rigid-analytic varieties, Cor. 1.8; the journal Overview credits the algebraic case to Faltings but does not state it); also Mathlib's pro-etale H^i vs classical etale cohomology (Bhatt-Scholze 5.6; not cited by the manuscript; on-the-spot). Provenance: (a) tex 10953-10964; (b) Scholze 2013 Cor. 1.8, Thms 9.1/9.3 + corrigendum; (c) the pro-etale comparison. Strict leaf review queue25 (2026-11-17): GLUE/GLUE, consequence",
+     "source": "Scholze, Forum Math. Pi 1 (2013), Cor. 1.8, Thms 9.1, 9.3, corrigendum Forum Math. Pi 4 (2016) e6 (manuscript lem:de-rham-descent, L10953-10965): H^i_et(X_Fbar, Q_p) de Rham with Hodge jumps in [0, i], over Mathlib's EllAdicCohomology (derham-scholze)"
+    },
+    {
+     "name": "t10TateDuality",
+     "type": "_root_.T10Etale.T10_TateDuality",
+     "doc": "Milne, Abelian varieties, v2.00 (2008), Part I, Thm 12.1(a), as the manuscript cites it (lem:de-rham-descent L10966-10970; unrefereed notes, h-trust C3); refereed form Milne 1986 (Cornell-Silverman) Thm 15.1(a): H^1(A_Kbar, Z_l) = Hom(T_l A, Z_l), Galois-equivariantly, over Mathlib's pro-etale EllAdicCohomology (t10-etale's leaf T10Etale.T10_TateDuality, unchanged)",
+     "kind": "published",
+     "flag": "unread: t10-etale's leaf reused (av-b2 section 2.6: leaf, confirmed); Milne v2.00 Part I Thm 12.1(a) and Milne 1986 Thm 15.1(a) not read here; equivariance from canonicity and the pro-etale/etale comparison (Bhatt-Scholze 2015 section 5.6) are dictionary steps; locator UNVERIFIED",
+     "source": "Milne, Abelian varieties v2.00 Part I Thm 12.1(a) (manuscript's citation) / Milne 1986 Thm 15.1(a): V_l(A) = H^1_et(A_Kbar, Q_l)^dual, Galois-equivariantly, over Mathlib's pro-etale l-adic cohomology (T10Etale.T10_TateDuality)"
+    }
+   ]
+  },
+  {
+   "field": "hodgeTateDecompOr",
+   "proof": "_root_.DeRhamScholze.TT.hodgeTateDecompOr_of_scholzeMilne {n}.scholzeDeRhamAlg {n}.t10TateDuality",
+   "leaves": []
+  }
+ ]
+}

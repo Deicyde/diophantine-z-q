@@ -1,0 +1,38 @@
+name: Lane (project work item)
+description: One unit of parallel work with a single owner and a declared footprint (docs/one-proof/LANES.md).
+title: "Lane: "
+body:
+  - type: input
+    id: owner
+    attributes:
+      label: Owner
+      description: The one person or agent that pushes this lane's branch.
+    validations:
+      required: true
+  - type: textarea
+    id: writes
+    attributes:
+      label: Writes
+      description: Directories and files this lane creates or changes. New Lean goes in new files under one directory.
+      placeholder: ZInQKernel/Contrib/OneProof/<Lane>/
+    validations:
+      required: true
+  - type: textarea
+    id: rows
+    attributes:
+      label: Board rows changed
+      description: Fields of docs/one-proof/OPEN.md this lane discharges, removes or renames (none, if none).
+    validations:
+      required: true
+  - type: input
+    id: depends
+    attributes:
+      label: Depends on
+      description: Lanes or pull requests that must land first.
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when
+      description: The check that says the lane is finished (for example, #discharges shows the field discharged).
+    validations:
+      required: true

@@ -1,0 +1,9 @@
+'ZInQ.OneProof.frozenTarget_cb' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open73CB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open72_hm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.locAlgExponentEqWeight_of_conradPropB3' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.G0Galois.C8Conrad.c8TwistFinite_of_conradB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.g12DetPZ_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.c8Inputs_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]

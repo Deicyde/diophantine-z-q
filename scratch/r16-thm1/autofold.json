@@ -1,0 +1,45 @@
+{
+ "name": "r16-thm1",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.R16Thm1"
+ ],
+ "discharges": [
+  {
+   "field": "heckeJ1DS",
+   "proof": "_root_.R16Thm1.heckeJ1DS_of_bSh {n}.bShStandardModel",
+   "leaves": [
+    {
+     "name": "bShStandardModel",
+     "type": "_root_.R16Thm1.BShStandardModel",
+     "doc": "r16-thm1, ON THE SPOT bridge B-Sh (not printed in Shimura 1973, which defines its curve only by citing Shimura 1971 section 7.3; that book is not cited by the manuscript): Shimura's standard model of X_1(N) over Q with its Q-rational Hecke correspondences xi_p and diamond operators <d> is the kernel's model: for every X with IsX1Gen, a rational point and Jacobian J, there are endomorphisms T_p, <d> of J over Q acting on classes of the points x_tau by the double-coset formulas IsHeckeT, IsDiamond (pinned by AfTateLam.HeckePin). Same statement as AfTateLam.HeckeJ1DS (heckeJ1DS_of_bSh); the supplier changes from Diamond-Shurman 6.3/7.9 to Shimura's standard model.",
+     "kind": "consequence",
+     "flag": "pending review: ON THE SPOT bridge B-Sh (Shimura's standard model with xi_p, <d> = the kernel's IsX1Gen with IsHeckeT, IsDiamond); rests on Shimura 1971 sections 7.2-7.3 (unread, not cited by the manuscript or by Shimura 1973's statement)",
+     "source": "none printed for the bridge; Shimura, Introduction to the arithmetic theory of automorphic functions (1971), sections 7.2-7.3 (unread), cited by Shimura 1973 for its standard model"
+    }
+   ]
+  },
+  {
+   "field": "afShimura",
+   "proof": "_root_.R16Thm1.afShimura_of_shimura73 {n}.shimuraThm1Printed {n}.shimuraQuotientIsAf",
+   "leaves": [
+    {
+     "name": "shimuraThm1Printed",
+     "type": "_root_.R16Thm1.ShimuraThm1Printed",
+     "doc": "r16-thm1, printed form as read (AI page read): Shimura, On the factors of the jacobian variety of a modular function field, J. Math. Soc. Japan 25 (1973), 523-544, Theorem 1, at Gamma = Gamma_1(N). For a newform f in S_2(Gamma_1(N)) with nebentypus chi, the kernel's model X of X_1(N), Jacobian J and Hecke operators T_p = xi_p, <d> (transported by B-Sh): K_f finite over Q, and there are A over Q, nu : J -> A, theta : K_f -> End^0(A) with (i) nu surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2 (p not dividing N, xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q]; and, under the proviso's Fricke branch (span of the f_sigma stable under W_N), the total Euler identity (product over all embeddings, up to finitely many Euler factors). Weaker than the print: (iv) (cotangent space spanned by the f_sigma), uniqueness and the Gamma_0(N) branch dropped; (ii) only at n = p, p^2.",
+     "kind": "published",
+     "flag": "pending review: new printed leaf from the AI page read of Shimura 1973 Thm 1 (counts as a reading under the owner's ruling); 'quotient' read as connected kernel (reading-dependent); misprint in the Euler clause ('a_n^sigma f' for 'a_n^sigma f_sigma') recorded in docs/research/r16-thm1.md",
+     "source": "Shimura, On the factors of the jacobian variety of a modular function field, J. Math. Soc. Japan 25 (1973), 523-544, Theorem 1 (pp. 526-527; AI page read); cited by diophantine_zq.tex (shimura-factors)"
+    },
+    {
+     "name": "shimuraQuotientIsAf",
+     "type": "_root_.R16Thm1.ShimuraQuotientIsAf",
+     "doc": "r16-thm1, glue: Shimura's quotient is Diamond-Shurman's J/I_f J. For (A, nu, theta) with Shimura's clauses (i)-(iii), nu kills I_f J and every homomorphism killing I_f J factors uniquely through nu. Proof sketch ON THE SPOT: nu kills I_f J by (ii) and torsion-freeness of Hom; ker nu = I_f J by (i) and the dimension count dim J/I_f J <= [K_f : Q] (multiplicity one: Shimura 1971 Thm 7.14 / DS Prop 6.6.4, UNVERIFIED); J -> J/B universal (Mumford section 7).",
+     "kind": "consequence",
+     "flag": "pending review: glue, not a statement of Shimura 1973 Thm 1 as read; needed only because afCharpolyDS965 is phrased over DS's J/I_f J; proof sketch ON THE SPOT uses multiplicity one (Shimura 1971 Thm 7.14 / DS Prop 6.6.4, numbers UNVERIFIED)",
+     "source": "none (glue); proof sketch in R16Thm1.ShimuraQuotientIsAf's docstring and docs/research/r16-thm1.md"
+    }
+   ]
+  }
+ ],
+ "note": "r16-thm1: discharges the top fields heckeJ1DS (by B-Sh) and afShimura (by Shimura 1973 Thm 1 as read plus the glue ShimuraQuotientIsAf). No generation step. afCharpolyDS965 (DS 9.6.5, flagged) and igusaGL2DSGalSome are not touched. Report docs/research/r16-thm1.md."
+}

@@ -1,0 +1,214 @@
+closure size 292708
+carriers [HDec.HSyn.OpenAddedLeaves18PZ, HDec.HSyn.OpenAddedLeaves16PZ, HDec.HSyn.OpenAddedLeaves4PZ, HDec.HSyn.OpenAddedLeaves12PZ, HDec.HSyn.OpenAddedLeaves9PZ, HDec.HSyn.OpenAddedLeaves17PZ, HDec.HSyn.OpenAddedLeaves8PZ, HDec.HSyn.OpenAddedLeaves6PZ, HDec.HSyn.OpenAddedLeaves14PZ, HDec.G0Galois.GaloisPieces, HDec.HSyn.OpenAddedLeaves7PZ, HDec.HSyn.OpenAddedLeaves15PZ, HDec.HSyn.OpenAddedLeaves13PZ]
+tainted 71
+S ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.researchLeaves9_of_open14_hf_gm_pz_eb_sf_u
+S ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.ss1_ss3_of14NF_hf_gm_pz_eb_sf_u
+S ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.x6Rows_of_open14_hf_gm_pz_eb_sf_u
+S ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.cmDescends_of6_hf_pz_eb_u
+S ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.glue4_of_open6_hf_pz_eb_u
+S ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.qmHauptmodul_of6_pz_eb_u
+S ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.researchLeaves5_of_open7_pz_eb_u
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.qmCentralizerCMC
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.shimizuCovolumeO1
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.valenceFormulaCocompactEq
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.picRepresentableAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.picZeroAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.qmCentralizerCMC
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.shimizuCovolumeO1
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.valenceFormulaCocompactEq
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.picRepresentableAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.picZeroAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.qmCentralizerCMC
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.valenceFormulaCocompactEq
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.picRepresentableAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.picZeroAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.valenceFormulaCocompactEq
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.picRepresentableAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.picZeroAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.picRepresentableAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.picZeroAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves18PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves18PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves18PZ.picRepresentableAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves18PZ.picZeroAbVar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.alFixedPoints
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.cmDescends
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.cmOptimalEmbedding
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.egaIV_17_7_8_ii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.egaIV_8_8_2_ii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.finiteImageHT
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.gammaStarGen
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.isogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.qmAutCard
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.qmClassNumberOne
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.qmHauptmodul
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.senTwist
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.serreRigidity3
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.valenceBoundGammaStar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.x6ConicModel
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.y3Connected
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.zariskiConnectedness
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.alFixedPoints
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.cmOptimalEmbedding
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.egaIV_17_7_8_ii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.egaIV_8_8_2_ii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.finiteImageHT
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.isogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.qmAutCard
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.qmClassNumberOne
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.qmHauptmodulBase3
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.senTwist
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.stQM
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.valenceFormulaGammaStar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.x6ConicModel
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.y3Connected
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.zariskiConnectedness
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.egaIV_17_7_8_ii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.egaIV_8_8_2_ii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.qmCentralizerCMC
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.qmHauptmodulBase3
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.valenceFormulaGammaStar
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.x6ConicModel
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.y3Connected
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.zariskiConnectedness
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.igusaCMValue24
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.qmCentralizerCMC
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.shimizuCovolumeO1
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.valenceFormulaCocompactEq
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.x6ConicModel
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.y3Connected
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.axSenTate
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.egaIV_8_10_5_xii
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.igusaCMValue24
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.milneIsogenyQuasiInverse
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.mk
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.qmCentralizerCMC
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.shimizuCovolumeO1
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.tateTwistInvariants
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.valenceFormulaCocompactEq
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.x6ConicModel
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.openAddedLeaves18_of_OpenAddedLeaves22_pz
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.qmRows_of7_hf_pz
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.textbookLeaves4_of_open6_hf_pz
+S ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.textbookLeaves6_of_open7_hf_pz
+S ZInQKernel.OneProof.H.TailA HDec.G0Galois.GaloisPieces.burnside
+S ZInQKernel.OneProof.H.TailA HDec.G0Galois.GaloisPieces.finIndex
+S ZInQKernel.OneProof.H.TailA HDec.G0Galois.GaloisPieces.mk
+S ZInQKernel.OneProof.H.TailA HDec.G0Galois.GaloisPieces.odd
+S ZInQKernel.OneProof.H.TailA HDec.G0Galois.GaloisPieces.r14det
+S ZInQKernel.OneProof.H.TailA HDec.G0Galois.GaloisPieces.weight
+T ZInQKernel.OneProof.H.D2A6Chain HDec.G0Galois.g8_g12_of_leaves3_hf_pz_eb_u USES [HDec.G0Galois.GaloisPieces.detTate]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.G0AssembleMod.afterG7_of3_hf_pz_eb_u USES [HDec.G0Galois.g8_g12_of_leaves3_hf_pz_eb_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.SGRFold.heckeSqrtBranchAny_of_open29_hf_gm_pz_eb_sf_u USES [HDec.HSyn.SGRFold.added12_of_open29_hf_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.addedLeaves7_of_open8_pz_eb_sf_u USES [HDec.HSyn.OpenAddedLeaves8PZ.t09SymmIsogenyExists]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.addedLeaves9_of_open14_hf_gm_pz_eb_sf_u USES [HDec.HSyn.OpenAddedLeaves12PZ.t09SymmIsogenyExists]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.openGlue7_of_OpenGlue8_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.SGRFold.heckeSqrtBranchAny_of_open29_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open10_hf_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open9_hf_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open11_hf_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open10_hf_pz_eb_sf_u, HDec.HSyn.addedLeaves8_of_open9_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open17_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open11_hf_pz_eb_sf_u, HDec.HSyn.GR9.addedLeaves9_of_open14_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open18_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open17_hf_gm_pz_eb_sf_u, HDec.HSyn.addedLeaves12_of_open13_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open19_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open18_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open20_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open19_hf_gm_pz_eb_sf_u, HDec.HSyn.openAddedLeaves13_of_OpenAddedLeaves14_pz, HDec.HSyn.addedLeaves12_of_open13_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open21_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open20_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open22_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open21_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open23_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open22_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open24_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open23_hf_gm_pz_eb_sf_u, HDec.HSyn.openAddedLeaves14_of_OpenAddedLeaves15_hf_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open25_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open24_hf_gm_pz_eb_sf_u, HDec.HSyn.openAddedLeaves15_of_OpenAddedLeaves16_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open26_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open25_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open27_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open26_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open28_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open27_hf_gm_pz_eb_sf_u, HDec.HSyn.openAddedLeaves16_of_OpenAddedLeaves17_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open29_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open28_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open30_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open29_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open31_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open30_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open32_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open31_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open33_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open32_hf_gm_pz_eb_sf_u, HDec.HSyn.GR9.openGlue7_of_OpenGlue8_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open34_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open33_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open35_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open34_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open36_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open35_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open37_hf_gm_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open36_hf_gm_pz_eb_sf_u, HDec.HSyn.openAddedLeaves17_of_OpenAddedLeaves18_pz]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open45_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open37_hf_gm_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open48_eb_k954_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open45_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open72_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open48_eb_k954_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open8_hf_pz_eb_sf_u USES [HDec.HSyn.sixContactMin_of_open7_hf_pz_eb_u, HDec.HSyn.GR9.addedLeaves7_of_open8_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.GR9.sixContactMin_of_open9_hf_pz_eb_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open8_hf_pz_eb_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.addedLeaves4_of_open6_hf_pz_eb_u USES [HDec.HSyn.OpenAddedLeaves6PZ.t09SymmIsogenyExists]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.addedLeaves6_of_open7_hf_pz_eb_u USES [HDec.HSyn.OpenAddedLeaves7PZ.t09SymmIsogenyExists]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.gluePieces_of_open4_hf_pz_eb_u USES [HDec.HSyn.G0AssembleMod.afterG7_of3_hf_pz_eb_u, HDec.HSyn.OpenAddedLeaves4PZ.t09SymmIsogenyExists]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.sixContactMin_of_open4_hf_pz_eb_u USES [HDec.HSyn.gluePieces_of_open4_hf_pz_eb_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.sixContactMin_of_open6_hf_pz_eb_u USES [HDec.HSyn.sixContactMin_of_open4_hf_pz_eb_u, HDec.HSyn.addedLeaves4_of_open6_hf_pz_eb_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.sixContactMin_of_open73_sf_u USES [HDec.HSyn.GR9.sixContactMin_of_open72_sf_u]
+T ZInQKernel.OneProof.H.D2A6Chain HDec.HSyn.sixContactMin_of_open7_hf_pz_eb_u USES [HDec.HSyn.sixContactMin_of_open6_hf_pz_eb_u, HDec.HSyn.addedLeaves6_of_open7_hf_pz_eb_u]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves12PZ.t09SymmIsogenyExists USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.phiAmpleIsogeny USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves13PZ.weilPairingMumford USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.phiAmpleIsogeny USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves14PZ.weilPairingMumford USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.phiAmpleIsogeny USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves15PZ.weilPairingMumford USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.phiAmpleIsogeny USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves16PZ.weilPairingMumford USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.phiAmpleIsogeny USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves17PZ.weilPairingMumford USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves18PZ.phiAmpleIsogeny USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves18PZ.weilPairingMumford USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves4PZ.t09SymmIsogenyExists USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves6PZ.t09SymmIsogenyExists USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves7PZ.t09SymmIsogenyExists USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves8PZ.t09SymmIsogenyExists USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.OpenAddedLeaves9PZ.t09SymmIsogenyExists USES []
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.SGRFold.added12_of_open29_hf_pz USES [HDec.HSyn.addedLeaves12_of_open13_pz, HDec.HSyn.openAddedLeaves13_of_OpenAddedLeaves14_pz, HDec.HSyn.openAddedLeaves14_of_OpenAddedLeaves15_hf_pz, HDec.HSyn.openAddedLeaves15_of_OpenAddedLeaves16_pz, HDec.HSyn.openAddedLeaves16_of_OpenAddedLeaves17_pz]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.addedLeaves12_of_open13_pz USES [HDec.HSyn.OpenAddedLeaves13PZ.phiAmpleIsogeny, HDec.HSyn.OpenAddedLeaves13PZ.weilPairingMumford]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.addedLeaves8_of_open9_pz USES [HDec.HSyn.OpenAddedLeaves9PZ.t09SymmIsogenyExists]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.openAddedLeaves13_of_OpenAddedLeaves14_pz USES [HDec.HSyn.OpenAddedLeaves14PZ.phiAmpleIsogeny, HDec.HSyn.OpenAddedLeaves14PZ.weilPairingMumford]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.openAddedLeaves14_of_OpenAddedLeaves15_hf_pz USES [HDec.HSyn.OpenAddedLeaves15PZ.phiAmpleIsogeny, HDec.HSyn.OpenAddedLeaves15PZ.weilPairingMumford]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.openAddedLeaves15_of_OpenAddedLeaves16_pz USES [HDec.HSyn.OpenAddedLeaves16PZ.phiAmpleIsogeny, HDec.HSyn.OpenAddedLeaves16PZ.weilPairingMumford]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.openAddedLeaves16_of_OpenAddedLeaves17_pz USES [HDec.HSyn.OpenAddedLeaves17PZ.phiAmpleIsogeny, HDec.HSyn.OpenAddedLeaves17PZ.weilPairingMumford]
+T ZInQKernel.OneProof.H.PicZeroCharZeroCopy HDec.HSyn.openAddedLeaves17_of_OpenAddedLeaves18_pz USES [HDec.HSyn.OpenAddedLeaves18PZ.phiAmpleIsogeny, HDec.HSyn.OpenAddedLeaves18PZ.weilPairingMumford]
+T ZInQKernel.OneProof.H.TailA HDec.G0Galois.GaloisPieces.detTate USES []
+T ZInQKernel.OneProof.H.TailZ85 HDec.HSyn.sixContactMin_of_open78 USES [HDec.HSyn.sixContactMin_of_open73_sf_u]
+T ZInQKernel.OneProof.H.TailZ86 HDec.HSyn.sixContactMin_of_open79 USES [HDec.HSyn.sixContactMin_of_open78]
+T ZInQKernel.OneProof.Main ZInQ.OneProof.frozenTarget USES [HDec.HSyn.sixContactMin_of_open79]

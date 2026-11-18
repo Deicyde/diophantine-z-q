@@ -1,0 +1,84 @@
+{
+ "name": "c8-conrad2",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.C8Conrad",
+  "ZInQKernel.Contrib.OneProof.C8LocAlg",
+  "ZInQKernel.Contrib.OneProof.C8CFT",
+  "ZInQKernel.Contrib.OneProof.C8Poincare"
+ ],
+ "discharges": [],
+ "handfold": {
+  "kind": "copy reroute (not an autofold: no bundle field is discharged)",
+  "status": "dry run only; do not fold until consumer (iii) (hodgeTateDecompAbVar -> r10, task derham-scholze) no longer reads picRepresentableAbVar / kleimanPicZeroProper954SiteQ; then fold together and remove both rows",
+  "generator": "python3 scratch/c8-conrad2/gen/gen.py scratch/c8-conrad2/taint_out.txt OUT.lean sixContactMin_of_open45_pz_eb,sixContactMin_of_open48_eb_k954,sixContactMin_of_open70,sixContactMin_of_open71 (taint list from scratch/c8-conrad2/Taint.lean on the built top); append scratch/c8-conrad2/gen/top.lean and gen/fold.lean (dry run: scratch/c8-conrad2/C8FoldDryRun.lean, standard axioms)",
+  "c8_swap": {
+   "at": "HDec.G0Galois.g8_g12_of_leaves3_hf_pz_eb (EichlerBoundCopy L2473)",
+   "replace": "(g12Det_of_pz m.r14det m.detTate m.finIndex (frobeniusDenseQ_of t.frobeniusDense))",
+   "by": "(_root_.HDec.G0Galois.C8Conrad.g12DetPZ_of_inputs r.r14 r.r13 m.c8 h9 r.r10)",
+   "and": "GaloisPieces.detTate -> c8 : C8Inputs (filled by l.c8 in gluePieces_of_open4_hf_pz_eb, replacing detTate_of_leaves4_pz l.t09SymmIsogenyExists ...); in OpenAddedLeaves4PZ..18PZ the fields t09SymmIsogenyExists / phiAmpleIsogeny (+ weilPairingMumford, picRepresentableAbVar, picZeroAbVar deleted) -> c8 : C8Inputs"
+  },
+  "t8_swap": {
+   "at": "HDec.HSyn.sixContactMin_of_open45_pz_eb (EichlerBoundCopy L3291)",
+   "replace": "(openTextbookLeaves13HF_of_open16_22_pz t r.neronSchemeExtensionDedekind l)",
+   "by": "(openTextbookLeaves13HF_of_open16_P t r.neronSchemeExtensionDedekind hP)",
+   "consumer_field": "t8 = AVGlue.poincareReducibility_of_published' cartierSmooth_proof hP ... (HSyn.t8_of_poincareComplement)"
+  },
+  "new_top": "HDec.HSyn.sixContactMin_of_open72C8 (r : OpenResearchLeaves52) (t : OpenTextbookLeaves19C8) (l : OpenAddedLeaves28C8)",
+  "remaining_consumers_of_picard_rows": [
+   "(iii) openResearchLeaves35_of_OpenResearchLeaves36_eb_k954_cf ... l26: hodgeTateDecompAbVar -> r10 (read by g8_g12, afterG7, gluePieces; and by g12DetPZ_of_inputs through r.r10)"
+  ],
+  "field_taint": "scratch/c8-conrad2/dryrun_taint_out.txt"
+ },
+ "new_leaves": [
+  {
+   "bundle": "textbook",
+   "name": "poincareComplement",
+   "type": "_root_.ZInQ.Contrib.AVB1.PoincareComplement",
+   "kind": "consequence",
+   "class": "ELLIOT (uncited manuscript step, diophantine_zq.tex L865)",
+   "flag": "unread: restored printed leaf (was LEAF/LEAF before poincare-proof); locator UNVERIFIED: Milne, Abelian varieties (Cornell-Silverman 1986) Prop. 12.1 over any field; Milne AV notes v2.00 number not checked (jmilne.org not fetchable on host); Mumford 19 Thm 1 is over an algebraically closed field only",
+   "source": "Milne, Abelian varieties, in Cornell-Silverman (eds.), Arithmetic Geometry (1986), Prop. 12.1 (Poincare's complete reducibility); weaker form (char 0, no closed-immersion conclusion for Z -> J)"
+  },
+  {
+   "bundle": "added",
+   "name": "conradAppBQp",
+   "type": "_root_.HDec.G0Galois.C8Conrad.ConradAppBQp",
+   "kind": "consequence",
+   "flag": "unread; unrefereed source (author preprint); statement as reported by the theorem-application audit",
+   "source": "Conrad, Lifting global representations with local properties, author preprint Dec. 11 2011, App. B pp. 32-33 (diophantine_zq.tex L761, cited)"
+  },
+  {
+   "bundle": "added",
+   "name": "tateTwistInvariantsInertia",
+   "type": "_root_.HDec.G0Galois.C8Conrad.TateTwistInvariantsInertia",
+   "kind": "consequence",
+   "flag": "locator UNVERIFIED; dictionary step G_{completion of K^ur} = I_K; not cited by the manuscript (used to prove the manuscript's uncited step L763-764)",
+   "source": "Tate, p-divisible groups, Proc. Conf. Local Fields (Driebergen 1966), Springer 1967, sec. 3.3 Thm 2, for L = completion of K^ur"
+  },
+  {
+   "bundle": "added",
+   "name": "twistCharHTWt0",
+   "type": "_root_.HDec.G0Galois.C8Conrad.TwistCharHTWt0",
+   "kind": "glue",
+   "flag": "on-the-spot glue (N5 L758-760, L765-766), unproved; the Hodge-Tate half of c8-conrad's TwistCharHT0",
+   "source": "project glue"
+  },
+  {
+   "bundle": "added",
+   "name": "inertiaAtPDecomp",
+   "type": "_root_.HDec.G0Galois.C8Conrad.InertiaAtPDecomp",
+   "kind": "glue",
+   "flag": "dictionary glue (global inertia groups of Qbar vs decomp(I_{Q_q})), unproved, STANDARD",
+   "source": "project glue"
+  },
+  {
+   "bundle": "added",
+   "name": "minkowskiInertiaQ",
+   "type": "_root_.HDec.G0Galois.C8Conrad.MinkowskiInertiaQ",
+   "kind": "glue",
+   "flag": "dictionary glue over Mathlib's Minkowski theorem (NumberField.exists_not_isUnramifiedIn), unproved",
+   "source": "project glue"
+  }
+ ],
+ "note": "c8-conrad2: report docs/research/c8-conrad2.md. LocAlgExponentEqWeight proved from tateTwistInvariantsInertia (C8LocAlg); FiniteOfLocAlgTrivialQ proved from inertiaAtPDecomp + minkowskiInertiaQ (C8CFT); C8 from conradAppBQp + tateTwistInvariantsInertia + twistCharHTWt0 + the two dictionaries (c8TwistFinite_of_leaves); t8 from poincareComplement (t8_of_poincareComplement). #discharges: no open hypothesis discharged (expected)."
+}

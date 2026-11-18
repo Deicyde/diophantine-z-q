@@ -1,0 +1,6 @@
+'ZInQ.OneProof.frozenTarget_ht' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open73HT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open72_ht' depends on axioms: [propext, Classical.choice, Quot.sound]
+closure size 304201
+iterations 2; tainted fields [kleimanPicZeroProper954SiteQ, hodgeTateDecompExists, hodgeTateDecompOr, picRepresentableAbVar]
+EDGE HDec.HSyn.openResearchLeaves36EBCF_of_OpenResearchLeaves53 : field hodgeTateDecompExists <- [HDec.HSyn.OpenResearchLeaves53.hodgeTateDecompOr]

@@ -1,0 +1,25 @@
+current top sixContactMin_of_open79 (TailZ86): r : OpenResearchLeaves60, t : OpenTextbookLeaves18, l : OpenAddedLeaves27
+readers replaced [1, 1]
+69 blocks; 13 structures; top module ZInQKernel.OneProof.H.TailZ86
+addedLeaves8_of_open9_pz: 't09SymmIsogenyExists := l.t09SymmIsogenyExists' -> 'c8 := l.c8'
+addedLeaves12_of_open13_pz: 't09SymmIsogenyExists := _root_.PhiSurj.t09SymmIsogenyExists0_of_four0 l.picRepresentableAbVar l.picZeroAbVar\n    l.phiAm' -> 'c8 := l.c8'
+openAddedLeaves13_of_OpenAddedLeaves14_pz: 'phiAmpleIsogeny := n.phiAmpleIsogeny' -> 'c8 := n.c8'
+openAddedLeaves13_of_OpenAddedLeaves14_pz: deleted 'weilPairingMumford := n.weilPairingMumford'
+openAddedLeaves15_of_OpenAddedLeaves16_pz: 'phiAmpleIsogeny := n.phiAmpleIsogeny' -> 'c8 := n.c8'
+openAddedLeaves15_of_OpenAddedLeaves16_pz: deleted 'weilPairingMumford := n.weilPairingMumford'
+openAddedLeaves16_of_OpenAddedLeaves17_pz: 'phiAmpleIsogeny := n.phiAmpleIsogeny' -> 'c8 := n.c8'
+openAddedLeaves16_of_OpenAddedLeaves17_pz: deleted 'weilPairingMumford := n.weilPairingMumford'
+openAddedLeaves17_of_OpenAddedLeaves18_pz: 'phiAmpleIsogeny := n.phiAmpleIsogeny' -> 'c8 := n.c8'
+openAddedLeaves17_of_OpenAddedLeaves18_pz: deleted 'weilPairingMumford := n.weilPairingMumford'
+openAddedLeaves14_of_OpenAddedLeaves15_hf_pz: 'phiAmpleIsogeny := n.phiAmpleIsogeny' -> 'c8 := n.c8'
+openAddedLeaves14_of_OpenAddedLeaves15_hf_pz: deleted 'weilPairingMumford := n.weilPairingMumford'
+openAddedLeaves18_of_OpenAddedLeaves22_pz: 'phiAmpleIsogeny := _root_.PhiSurj.phiAmpleIsogeny0_of_open n.picRepresentableAbVar n.picZeroAbVar\n    t.mumfordTorsionAl' -> 'c8 := c8'
+openAddedLeaves18_of_OpenAddedLeaves22_pz: deleted 'weilPairingMumford := _root_.PhiSurj.weilPairingMumford0_of_open n.picRepresenta'
+openAddedLeaves18_of_OpenAddedLeaves22_pz: binder (c8 : C8Inputs) added
+addedLeaves4_of_open6_hf_pz_eb_u: 't09SymmIsogenyExists := l.t09SymmIsogenyExists' -> 'c8 := l.c8'
+addedLeaves6_of_open7_hf_pz_eb_u: 't09SymmIsogenyExists := l.t09SymmIsogenyExists' -> 'c8 := l.c8'
+addedLeaves9_of_open14_hf_gm_pz_eb_sf_u: 't09SymmIsogenyExists := l.t09SymmIsogenyExists' -> 'c8 := l.c8'
+addedLeaves7_of_open8_pz_eb_sf_u: 't09SymmIsogenyExists := l.t09SymmIsogenyExists' -> 'c8 := l.c8'
+ 
+strict count: 5/24 on 29 -> 5/24 on 29; strictest 5/24 -> 5/24
+wrote ZInQKernel/OneProof/H/C8Chain.lean, ZInQKernel/OneProof/H/TailZ87.lean (sixContactMin_of_open80, OpenResearchLeaves61, OpenAddedLeaves28), switched Main.lean, kinds.tsv

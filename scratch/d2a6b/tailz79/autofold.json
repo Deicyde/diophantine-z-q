@@ -1,0 +1,37 @@
+{
+ "name": "d2a6b",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SZRaynaud",
+  "ZInQKernel.Contrib.OneProof.Y3FullThreeZ30"
+ ],
+ "discharges": [
+  {
+   "field": "raynaudSemistableSHOr",
+   "proof": "_root_.SZRaynaud.raynaudSemistableSHOr_of_sz35 {n}.silverbergZarhinThm35",
+   "leaves": [
+    {
+     "name": "silverbergZarhinThm35",
+     "type": "_root_.SZRaynaud.SilverbergZarhinThm35",
+     "doc": "Silverberg-Zarhin, Semistable reduction and torsion subgroups of abelian varieties, Ann. Inst. Fourier 45 (1995), 403-420, Theorem 3.5, p. 406 (Raynaud's criterion as diophantine_zq.tex L816 cites it; the manuscript's bibliography L11077): over any field with a discrete valuation, n >= 3 not divisible by the residue characteristic, the n-torsion defined over the field itself (the print allows an unramified extension), then semistable reduction in Silverberg-Zarhin's sense (section 3, p. 405): the identity component of the special fibre over the residue field of every Neron model is an extension of an abelian variety by a torus, not necessarily split (DictModels.RaynaudOr.IsSemistableResT). Replaces raynaudSemistableSHOr (SGA 7 IX 4.7, not in the manuscript's bibliography): its specialization to strictly henselian DVRs, left disjunct (SZRaynaud.raynaudSemistableSHOr_of_sz35). The step to the kernel's semistability (geometric fibre, split torus) is SZRaynaud.isSemistable_of_sz (Stacks 04KV, proved)",
+     "kind": "published",
+     "flag": "reading 11-17 (the fleet's print reader, page image of Ann. Inst. Fourier 45 (1995) p. 406, relayed by the lead; notes scratch/sz-raynaud/sz-thm35-reading.md): the hypothesis line is n >= 3 (numdam's OCR shows '>'); any field with a discrete valuation; semistable as on p. 405 (torus not necessarily split); the n = 3 flag of locators R6 cleared",
+     "source": "Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.5, p. 406 (proof: SGA 7 IX Prop. 4.7), semistable reduction section 3, p. 405; cited by diophantine_zq.tex L816; sz-raynaud; d2a6-reroute (spec copied from sz-raynaud)"
+    }
+   ]
+  },
+  {
+   "field": "y3FineModuliAbP",
+   "proof": "_root_.Y3RouteA.y3FineModuliAbP_of_z30 {n}.y3FullThreeRepZ30",
+   "leaves": [
+    {
+     "name": "y3FullThreeRepZ30",
+     "type": "_root_.Y3RouteA.Y3FullThreeRepZ30",
+     "doc": "y3-route-a, the manuscript's own conclusion (diophantine_zq.tex L473-477; one object: the integral model X35/G5 of Y3 with its universal family): the moduli problem of abelian surfaces with an action of the maximal order O of B = (2,-3|Q) and full O-linear level-3 structure (QMAbSchemeP: at every geometric point eta : O/3O = A_s[3], i.e. a section of Isom_O(O/3O, A[3])) is represented on locally noetherian Z[1/30]-schemes by a proper smooth curve over Z[1/30] with a universal QMAbSchemeP; its generic fibre is Y3 (proved: Y3RouteA.y3RepresentableQ_of_z30 gives Y3Audit.Y3RepresentableQ). Manuscript derivation: Buzzard, Duke Math. J. 87 (1997) Thm 2.1 and Cor. 2.3 at V1(5) over Z[1/30] (L443-446); full five-marking (L447-449); the finite etale sheaf Isom_O(O/3O, A[3]), nonempty on geometric fibres since the Tate lattice is free of rank one over O_3 (L449-462); free action of G5 = (O/5O)^x by torsion-freeness of 1 + 3M4(Z3) (L465-472); quotient X35/G5 and descent of the universal abelian scheme with polarization, O-action and three-marking (L472-477). Weaker than the manuscript: proper for projective, locally noetherian universe-0 bases, no polarization (equivalent through the canonical principal polarization, relative Lemma P: ON THE SPOT, not proved in the tree). Implies Y3Fix.Y3FineModuliAbP (Y3RouteA.y3FineModuliAbP_of_z30).",
+     "kind": "consequence",
+     "flag": "ELLIOT: the manuscript's own claim (diophantine_zq.tex L473-477), derived there from Buzzard 1997 Thm 2.1 / Cor. 2.3 at V1(5) plus the Isom sheaf, the free G5 = (O/5O)^x quotient and descent (L443-477); not a print at level 3 (Buzzard excludes level at 3 | disc 6); polarization-free form equivalent to the manuscript's polarized problem through the canonical principal polarization (relative Lemma P), ON THE SPOT, not proved in the tree; Buzzard locator UNVERIFIED",
+     "source": "diophantine_zq.tex L443-477 (Glazer, 11/5 manuscript): Buzzard, Integral models of certain Shimura curves, Duke Math. J. 87 (1997) Thm 2.1 and Cor. 2.3 at V1(5) over Z[1/30], full five-marking, Isom_O(O/3O, A[3]), free quotient by (O/5O)^x, etale descent; locators UNVERIFIED"
+    }
+   ]
+  }
+ ]
+}

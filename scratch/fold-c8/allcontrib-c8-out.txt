@@ -1,0 +1,1 @@
+scratch/fold-c8/AllContribC8.lean:2:0: error: import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_WeierstrassCurve_GenusOnePic0 failed, environment already contains 'WeierstrassCurve.Affine.divisorSum' from ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Divisor.Sum

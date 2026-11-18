@@ -1,0 +1,3 @@
+'DeRhamScholze.HTAbVar.hodgeTateDecompAbVar_of_scholze' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTAbVar.hodgeTate01_dims' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTAbVar.finrank_fil1_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]

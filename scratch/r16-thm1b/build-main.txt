@@ -1,0 +1,9 @@
+⚠ [9045/9096] Replayed ZInQKernel.HDecomp.Objects
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Geometrically.Connected` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Proper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+... (114833 lines of the build log removed by fold-b116; result lines below)
+info: ZInQKernel/OneProof/H/TailZ83.lean:106:0: 'HDec.HSyn.sixContactMin_of_open76' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [15987/15987] Built ZInQKernel.OneProof.Main (7.6s)
+info: ZInQKernel/OneProof/Main.lean:139:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (15987 jobs).

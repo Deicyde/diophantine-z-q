@@ -1,0 +1,7 @@
+FATAL WeierstrassCurve.Affine.divisorSum : ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_WeierstrassCurve_GenusOnePic0 / ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Divisor.Sum [def / axiom; sameType false]
+FATAL PkgI6.TraceContainsRamificationIdx : ZInQKernel.HDecomp.Textbook.Different / ZInQKernel.Contrib.Different.Local [def / def; sameType true]
+FATAL TDifferent.phiExpl : ZInQKernel.HDecomp.Textbook.Different / ZInQKernel.Contrib.Different.Local [def / def; sameType true]
+FATAL TDifferent.resHom : ZInQKernel.HDecomp.Textbook.Different / ZInQKernel.Contrib.Different.Local [def / def; sameType true]
+FATAL TDifferent.phiF : ZInQKernel.HDecomp.Textbook.Different / ZInQKernel.Contrib.Different.Local [def / def; sameType true]
+FATAL TDifferent.filtR : ZInQKernel.HDecomp.Textbook.Different / ZInQKernel.Contrib.Different.Local [def / def; sameType true]
+FATAL PkgI6.MonogenicDVR : ZInQKernel.HDecomp.Textbook.Different / ZInQKernel.Contrib.Different.Local [def / def; sameType true]

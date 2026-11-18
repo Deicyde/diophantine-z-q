@@ -9,6 +9,9 @@ Inputs (run from the repository root):
   request that links it, holds a hypothesis, and the project's own holds may point at a pushed branch; a project
   brief is shown as project interest, free to claim; a released claim shows as open);
 * docs/one-proof/reviews.tsv and credits.tsv, the ledgers of statement checks and credit;
+* docs/one-proof/volatile.tsv (optional: field, note, since), board rows that a queued fold will remove or rename;
+  they show as "may change soon" and are not offered as free to claim (rows are added by the integrator when it
+  queues such a fold, and removed by the fold that lands);
 * docs/one-proof/issues.json, the claim issue, the statement-checks issue, the packet issues and the issue that
   logs folds and landings;
 * scratch/contrib-kit/DischargesTest-output.txt, the saved output of scratch/contrib-kit/DischargesTest.lean.
@@ -87,7 +90,8 @@ if os.environ.get('ONE_PROOF_HYGIENE_FILE'):
             rx, what = row.split('\t', 1)
             HYGIENE.append((re.compile(rx), what))
 PUBLIC_DOCS = ['CONTRIBUTING.md', D + 'CONTRIBUTING.md', D + 'STATEMENT-CHECKS.md']
-TABLES = [D + 'kinds.tsv', D + 'claims.tsv', D + 'reviews.tsv', D + 'credits.tsv', D + 'fold-queue.tsv']
+TABLES = [D + 'kinds.tsv', D + 'claims.tsv', D + 'reviews.tsv', D + 'credits.tsv', D + 'fold-queue.tsv',
+          D + 'volatile.tsv']
 
 
 def read_tsv(path, required=True):
@@ -137,6 +141,7 @@ def load():
         claims_rows=read_tsv(D + 'claims.tsv'),
         reviews=read_tsv(D + 'reviews.tsv', required=False),
         credits=read_tsv(D + 'credits.tsv', required=False),
+        volatile={r['field']: r for r in read_tsv(D + 'volatile.tsv', required=False)},
         issues=issues,
     )
 
@@ -279,6 +284,11 @@ def render(m):
         return f"[@{c['public_holder']}](https://github.com/{c['public_holder']})"
 
     def status(f):
+        v = m.get('volatile', {}).get(f)
+        base = held_status(f)
+        return base + (f" (may change soon: {v['note']})" if v and v.get('note') else ' (may change soon)' if v else '')
+
+    def held_status(f):
         c = claims.get(f)
         if c and c['hold'] == 'held':
             return f"held by {holder(c)} ([claim]({c['claim_url']}))"
@@ -293,7 +303,8 @@ def render(m):
 
     def free(f):
         c = claims.get(f)
-        return not (c and c['hold'] == 'held') and kinds[f]['label'] not in NOT_OFFERED
+        return (not (c and c['hold'] == 'held') and kinds[f]['label'] not in NOT_OFFERED
+                and f not in m.get('volatile', {}))
 
     def packet_venue(p):
         ref = iss.get('packet_issues', {}).get(p) or checks_ref or iss['claims_issue']
@@ -580,6 +591,9 @@ def main():
         print('\n'.join(problems))
         sys.exit(1)
     res, marker_problems = outputs(m)
+    stale = sorted(set(m.get('volatile', {})) - {h['field'] for h in m['hyps']})
+    if stale:
+        print(f"note: volatile.tsv names rows that are no longer open (remove them): {', '.join(stale)}")
     if '--check' in sys.argv:
         problems += marker_problems
         for p, content in res.items():

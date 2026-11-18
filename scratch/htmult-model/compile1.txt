@@ -1,0 +1,149 @@
+scratch/htmult-model/HTModelAx.lean:58:2: error: Invalid alternative name `zero`: There are no unhandled alternatives
+scratch/htmult-model/HTModelAx.lean:53:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI4.HTModel.psi_map`:
+  [FiniteDimensional ℚ_[p] E]
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] E] [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/htmult-model/HTModelAx.lean:103:24: error(lean.unknownIdentifier): Unknown identifier `b`
+scratch/htmult-model/HTModelAx.lean:102:87: error: unsolved goals
+p : ℕ
+inst✝¹⁰ : Fact (Nat.Prime p)
+E : Type u_1
+L : Type u_2
+inst✝⁹ : Field E
+inst✝⁸ : Field L
+inst✝⁷ : Algebra ℚ_[p] E
+inst✝⁶ : Algebra ℚ_[p] L
+inst✝⁵ : Algebra E L
+inst✝⁴ : IsScalarTower ℚ_[p] E L
+inst✝³ : FiniteDimensional ℚ_[p] E
+inst✝² : FiniteDimensional ℚ_[p] L
+d n : ℕ
+ρE : GQp p →* GL (Fin n) E
+ρL : GQp p →* GL (Fin n) L
+A : Type u_3
+inst✝¹ : AddCommGroup A
+inst✝ : Module ℚ_[p] A
+act : GQp p → A →ₗ[ℚ_[p]] A
+hρ : ∀ (σ : GQp p), (Matrix.GeneralLinearGroup.map (algebraMap E L)) (ρE σ) = ρL σ
+H : Subgroup (GQp p)
+⊢ finrank ℚ_[p] ↥(tensorInv p act H ρL) = d * finrank ℚ_[p] ↥(tensorInv p act H ρE)
+scratch/htmult-model/HTModelAx.lean:121:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:122:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:123:16: error(lean.unknownIdentifier): Unknown identifier `d`
+scratch/htmult-model/HTModelAx.lean:123:44: error(lean.unknownIdentifier): Unknown identifier `b.index_nonempty`
+scratch/htmult-model/HTModelAx.lean:124:48: error(lean.unknownIdentifier): Unknown identifier `d`
+scratch/htmult-model/HTModelAx.lean:125:77: error(lean.unknownIdentifier): Unknown identifier `b`
+scratch/htmult-model/HTModelAx.lean:127:26: error(lean.unknownIdentifier): Unknown identifier `b`
+scratch/htmult-model/HTModelAx.lean:120:49: error: unsolved goals
+p : ℕ
+inst✝⁸ : Fact (Nat.Prime p)
+E : Type u_1
+L : Type u_2
+inst✝⁷ : Field E
+inst✝⁶ : Field L
+inst✝⁵ : Algebra ℚ_[p] E
+inst✝⁴ : Algebra ℚ_[p] L
+inst✝³ : Algebra E L
+inst✝² : IsScalarTower ℚ_[p] E L
+inst✝¹ : FiniteDimensional ℚ_[p] E
+inst✝ : FiniteDimensional ℚ_[p] L
+n : ℕ
+ρE : GQp p →* GL (Fin n) E
+ρL : GQp p →* GL (Fin n) L
+hρ : ∀ (σ : GQp p), (Matrix.GeneralLinearGroup.map (algebraMap E L)) (ρE σ) = ρL σ
+w : ℤ
+this✝ : Free ℚ_[p] E
+this : Free E L
+hd : 0 < sorry
+hL : finrank ℚ_[p] L = finrank ℚ_[p] E * sorry
+⊢ finrank ℚ_[p] ↥(tensorInv p (htLin p w) ⊤ ρL) / finrank ℚ_[p] L =
+    finrank ℚ_[p] ↥(tensorInv p (htLin p w) ⊤ ρE) / finrank ℚ_[p] E
+scratch/htmult-model/HTModelAx.lean:135:68: error(lean.unknownIdentifier): Unknown identifier `b`
+scratch/htmult-model/HTModelAx.lean:134:49: error: unsolved goals
+p : ℕ
+inst✝⁸ : Fact (Nat.Prime p)
+E : Type u_1
+L : Type u_2
+inst✝⁷ : Field E
+inst✝⁶ : Field L
+inst✝⁵ : Algebra ℚ_[p] E
+inst✝⁴ : Algebra ℚ_[p] L
+inst✝³ : Algebra E L
+inst✝² : IsScalarTower ℚ_[p] E L
+inst✝¹ : FiniteDimensional ℚ_[p] E
+inst✝ : FiniteDimensional ℚ_[p] L
+n : ℕ
+ρE : GQp p →* GL (Fin n) E
+ρL : GQp p →* GL (Fin n) L
+hρ : ∀ (σ : GQp p), (Matrix.GeneralLinearGroup.map (algebraMap E L)) (ρE σ) = ρL σ
+w : ℤ
+⊢ htMultU p ρL w = htMultU p ρE w
+scratch/htmult-model/HTModelAx.lean:151:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:152:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:153:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:154:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:163:32: error: failed to synthesize
+  Free ↥E ↥L
+(deterministic) timeout at `typeclass`, maximum number of heartbeats (20000) has been reached
+
+Note: Use `set_option synthInstance.maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+'HDec.PkgI4.HTModel.psi_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.mem_tensorInv_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.tensorInvEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.finrank_tensorInv' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultU_eq_of_basis' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_eq_of_basis' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_eq_of_le' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_model_eq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTP_iff_of_model' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTP_iff_forall' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTU_iff_of_model' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

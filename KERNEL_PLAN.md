@@ -20,6 +20,24 @@ frozen upstream as `ZInQ.exists_bounded_integer_polynomial_defining_integers`
 (`lean/Frozen/BoundedIntegerPolynomial.lean`), in which every finite computation is
 checked by the Lean kernel.
 
+## Reference text and deviations
+
+**Rule (fork issue #95, 2026-11-17).** The Lean follows Elliot Glazer's original manuscript, the
+November 5, 2026 text kept in this repository as `diophantine_zq.tex`. Line numbers in this
+plan, in `docs/research/h-trust.md` and on the board refer to that file. The default is to state
+and prove each step as that text does. A deviation is allowed only when it is needed, for
+example because a step is wrong or cannot be formalized as written. A later upstream version
+that corrects a step is a reason to look at it, not a new reference text.
+
+Every deviation is listed here with what the manuscript says, what the Lean does instead, and
+why. The three below predate the rule and have not yet been reviewed against it.
+
+| Step | The manuscript | The Lean | Why |
+| --- | --- | --- | --- |
+| Proposition 6.2, used by multiplication | The fixed twenty-two-prime pattern, from Green–Tao linear equations in primes, Möbius–nilsequences and Green–Tao–Ziegler | Route AP: Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`, from the vendored Green–Tao proof) with the weak form of Proposition D (`ZInQ.Density.goodPrimeDensity`) | The manuscript's inputs are not in Lean and would be a hypothesis; route AP's input is proved, so no hypothesis is needed |
+| The catalogue bound CAT, a step in the proof of Proposition 12.1 | The explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer, with the catalogue below `2^(W³)` | The weaker form CAT₈ (`ZInQ.catalogueBound8`), with the catalogue below `2^(W⁸)`, from an effective Dirichlet theorem | The weaker bound is all the proof uses and can be proved in Lean |
+| Theorem 4.1, the six-contact height estimate | Stated for all admissible `S` and `R`, with the manuscript's own sourcing of each step | Enters as its one instance `SixContactMin`; the derivation from the literature re-sources some steps of Section 4 and replaces the last one | Recorded step by step in `docs/research/h-trust.md` |
+
 ## What can and cannot be formalized
 
 The manuscript assembles Theorem 1.1 from six inputs (Lemma 1.2): **G** (canonical point

@@ -5,6 +5,21 @@ Everyone whose work is in this repository, or who took part in the open work on 
 ## The manuscript
 
 - **Elliot Glazer** ([@elliotglazer](https://github.com/elliotglazer)): the manuscript [*ℤ is Diophantine in ℚ*](diophantine_zq.pdf), produced with Astra 6, Sol 6.1 and Opus 5.5 and audited by Fable 5.1, and the upstream repository this fork came from.
+- **Sohail Farhangi**: the earlier conditional manuscript of October 11, 2026, *A conditional Diophantine definition of Z in Q from four arithmetic inputs* (with ChatGPT 6), kept unmodified in [`October 11 Manuscript/`](October%2011%20Manuscript/README.md).
+
+## Credited by the upstream project
+
+Upstream's README says the project "uses the collective agentic notes from" the people below. They are listed here as upstream lists them; this file does not say which part of the work each one did.
+
+- **Stefan Baranczuk**
+- **Jose Brox** ([@JoseBrox](https://github.com/JoseBrox)), whose [repository](https://github.com/JoseBrox/diophantine-z-q_improvements) upstream points to for later results. His 195- and 196-variable quartics are in upstream's Versions 18 and 19, which this fork's Lean does not cover.
+- **Gabe Conant**
+- **Sohail Farhangi**
+- **Cameron Freer**
+- **James Freitag**
+- **Elliot Glazer**
+- **Jennifer Park**
+- **Caroline Terry**
 
 ## Contributed work on `main`
 

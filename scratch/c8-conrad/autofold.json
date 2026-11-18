@@ -1,0 +1,41 @@
+{
+ "name": "c8-conrad",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.C8Conrad"
+ ],
+ "discharges": [],
+ "not_folded": {
+  "reason": "No bundle field is discharged. The C8 consumer HDec.G0Galois.G12DetPZ is proved inside the chain (g12Det_of_pz from DetTate <- t09SymmIsogenyExists <- picRepresentableAbVar, kleimanPicZeroProper954SiteQ); it is not a hypothesis of frozenTarget. Rerouting it would be a copy reroute (replace g12Det_of_pz ... in a copy of g8_g12_of_leaves3_hf_pz_eb by HDec.G0Galois.C8Conrad.g12DetPZ_of_conrad r.r14 r.r13 hC hT hW hF h9 r.r10, and use a GaloisPieces without detTate), and it would not remove the Picard rows, which also feed poincareComplement (t8, step E1-E2) and hodgeTateDecompAbVar (C3/G9). See docs/research/c8-conrad.md section 5.",
+  "would_add": [
+   {
+    "name": "conradAppBQp",
+    "type": "_root_.HDec.G0Galois.C8Conrad.ConradAppBQp",
+    "kind": "consequence",
+    "flag": "unread; unrefereed source (author preprint): Conrad, Lifting global representations with local properties, Dec. 11 2011, App. B pp. 32-33, paragraph after Def. B.1 (Hodge-Tate => locally algebraic), base field Q_p, over Tau Ceti's local Artin map; one dictionary step (HasHTWeights {w} => Hodge-Tate, Serre-Tate bound) separates it from the print",
+    "source": "Conrad, Lifting global representations with local properties, author preprint, December 11, 2011, Appendix B, pp. 32-33 (diophantine_zq.tex L761, L11046-11049); statement as reported by docs/theorem-application-audit/evidence/parallel-galois-height-report.md L102, unread on this host"
+   },
+   {
+    "name": "twistCharHT0",
+    "type": "_root_.HDec.G0Galois.C8Conrad.TwistCharHT0",
+    "kind": "consequence",
+    "flag": "glue (C8, N5 L758-760, L765-766)",
+    "source": "project glue"
+   },
+   {
+    "name": "locAlgExponentEqWeight",
+    "type": "_root_.HDec.G0Galois.C8Conrad.LocAlgExponentEqWeight",
+    "kind": "consequence",
+    "flag": "glue (C8, N5 L763-764; Serre 1968 Ch. III App., Tate 1967 section 3.3, UNVERIFIED locators)",
+    "source": "project glue"
+   },
+   {
+    "name": "finiteOfLocAlgTrivialQ",
+    "type": "_root_.HDec.G0Galois.C8Conrad.FiniteOfLocAlgTrivialQ",
+    "kind": "consequence",
+    "flag": "glue (C8, N5 L761-765, class field theory over Q; Kronecker-Weber proved in the tree; finiteness at q != p on-the-spot)",
+    "source": "project glue"
+   }
+  ]
+ },
+ "note": "c8-conrad: report docs/research/c8-conrad.md. Proves HDec.G0Galois.G12DetPZ (C8's consumer) from Conrad App. B as cited by the manuscript plus three glue Props, without DetTate or the Weil pairing (g12DetPZ_of_conrad)."
+}

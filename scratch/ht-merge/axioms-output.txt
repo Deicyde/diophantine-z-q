@@ -1,0 +1,12 @@
+'DeRhamScholze.HTMerge.scholzeH1AbVar_of_old' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.scholzeH1AbSurf_of_abVar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeNumberH1AbVar_of_scholzeH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.deRhamVpAbVarDirect_of_scholzeH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.deRhamVpAbVarDirect_of_scholzeH1Milne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompHom_of_scholzeH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompOr_of_scholzeH1Milne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompAbVar_of_scholzeH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompAbVar_of_old' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompAbSurf_of_scholzeH1AbSurf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

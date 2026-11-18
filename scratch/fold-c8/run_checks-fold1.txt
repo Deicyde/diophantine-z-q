@@ -1,0 +1,58 @@
+21343 constants hashed
+Traceback (most recent call last):
+  File "/home/jackmccarthy/dzq-wt/fold-c8/scratch/fold-c8/cmp_hashes.py", line 7, in <module>
+    a, b = load(sys.argv[1]), load(sys.argv[2])
+           ^^^^^^^^^^^^^^^^^
+  File "/home/jackmccarthy/dzq-wt/fold-c8/scratch/fold-c8/cmp_hashes.py", line 6, in load
+    return {l.split()[0]: l.split(None, 1)[1] for l in open(d + f) if l.strip()}
+                                                       ^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'scratch/fold-b116/_a.txt'
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget: closure 296120
+  contains sorryAx: false
+  contains T09Pic.PicRepresentableAbVar: false
+  contains KleimanSite.KleimanPicZeroProper954SiteQ: false
+  contains HDec.HSyn.OpenAddedLeaves27: false
+  contains HDec.HSyn.OpenResearchLeaves60: true
+  contains HDec.HSyn.sixContactMin_of_open79: false
+  contains HDec.G0Galois.C8Conrad.TateTwistInvariantsInertia: false
+  contains HDec.G0Galois.C8Conrad.ConradAppBQp_unused_marker: false
+  contains HDec.HSyn.detTate_of_leaves4_pz: false
+  contains HDec.HSyn.GR9.sixContactMin_of_open45_pz_eb_sf_u: false
+  contains HDec.HSyn.hodgeTateDecompAbVar_of_open_k954: false
+  contains HDec.G0Galois.C8Conrad.ConradAppB: true
+  contains HDec.G0Galois.C8Conrad.ConradPropB3Qp: true
+  contains HDec.G0Galois.C8Conrad.ConradAppBQp: true
+  contains HDec.G0Galois.C8Conrad.g12DetPZ_of_inputs: true
+  contains HDec.G0Galois.C8Conrad.twistCharHTWt0_proof: true
+  contains DeRhamScholze.HTMerge.ScholzeH1AbVar: true
+  contains T10Etale.T10_TateDuality: true
+  contains ZInQ.Contrib.CloudR2Poincare.poincareComplement_proof: true
+  contains HDec.HSyn.sixContactMin_of_open79_hm: true
+  contains HDec.HSyn.OpenResearchLeaves61: true
+  contains HDec.HSyn.OpenAddedLeaves28: true
+  contains HDec.HSyn.sixContactMin_of_open80: true
+  contains ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr: true
+  PicRepresentable/KleimanPicZeroProper-named constants in the closure: 0 []
+field check: HDec.HSyn.OpenResearchLeaves60 27 fields, HDec.HSyn.OpenResearchLeaves61 26 fields; only in old: [hodgeTateDecompOr]; only in new: []
+wrote docs/one-proof/open-statements.json: 30 open hypotheses
+29 H hypotheses, strictest 5/24, 1 others
+23
+29 H hypotheses, strictest 5/24, 1 others
+ok: 30 open hypotheses, all classified; 4 generated files up to date
+wrote docs/one-proof/frontier-crosswalk.tsv: 232 IDs, 3 matched to an open hypothesis
+ok: docs/one-proof/frontier-crosswalk.tsv is up to date (232 IDs, 3 matched)
+autoform exit 0
+OK: 776 articles, 2332 dependencies
+    647 fully proved · 4 proved · 35 ready to state · 15 planned
+    2329 declaration name(s) resolved in the Lean sources
+AUTOFOLD-DRYRUN-EXIT=0
+TREE-UNCHANGED=yes
+GATEFOLD-EXIT=0
+GATEFOLD-AXIOMS=standard
+(files in /tmp/tmp.2V1vx6AnBv)
+GATE=ok
+
+real	2m30.705s
+user	2m3.492s
+sys	0m17.554s

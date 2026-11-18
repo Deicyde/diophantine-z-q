@@ -1,0 +1,3 @@
+'HDec.G0Galois.C8Conrad.c8TwistFinite_of_conrad' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.g12DetPZ_of_twistFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.g12DetPZ_of_conrad' depends on axioms: [propext, Classical.choice, Quot.sound]

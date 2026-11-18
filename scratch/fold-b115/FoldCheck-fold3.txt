@@ -1,0 +1,30 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves58 →
+  HDec.HSyn.OpenTextbookLeaves18 → HDec.HSyn.OpenAddedLeaves27 → ZInQ.PoleCompleteness → ZInQ.FrozenTarget
+ZInQ.OneProof.frozenTarget: closure 292918
+  contains sorryAx: false
+  contains GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34: false
+  contains SGA33Steps.SGA7_IX_Cor3_3: false
+  contains GaRigidity.SGA7.SGA7_IX_Cor3_3: false
+  contains CToPrinted.SGA7_IX_3_3: false
+  contains ReductB.SemistablePersistsSHcp: false
+  contains ZInQ.HeightSplit.SemistableNeronBaseChange: false
+  contains ZInQ.HeightSplit.SemistablePersists: false
+  contains HDec.HSyn.OpenResearchLeaves57: false
+  contains HDec.HSyn.sixContactMin_of_open76: false
+  contains ZInQ.SSFaltings.FaltingsSemistableHeightBC: true
+  contains ZInQ.SSFaltings.SemistableReductionThmIF: true
+  contains ZInQ.SSFaltings.semistableReductionThmIF_of_raynaud: true
+  contains HDec.HSyn.OpenResearchLeaves58: true
+  contains HDec.HSyn.sixContactMin_of_open77: true
+  contains HDec.HSyn.sixContactMin_of_open76_sf: true
+  contains GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34: true
+  contains ZInQ.SemistabAssembly.BostLowerBoundAnSS: false
+  contains ZInQ.BostGR9.GaudronRemondSec9LowerAnSS: true
+  contains SZRaynaud.SilverbergZarhinThm35: true
+  contains Y3RouteA.Y3FullThreeRepZ30: true
+  contains CarayolRefold.CarayolThmAFrob: true
+  contains HDec.PkgI4.BergerBst.IsAdmissible: true
+  contains HDec.PkgI4.BmaxOne.IsAdmissibleT: false
+  contains HDec.PkgI4.FontaineSt.IsPstF: true
+field check: HDec.HSyn.OpenResearchLeaves57 27 fields, HDec.HSyn.OpenResearchLeaves58 27 fields; only in old: [sga7_IX_Cor3_3_Def34]; only in new: [faltingsSemistableHeightBC]

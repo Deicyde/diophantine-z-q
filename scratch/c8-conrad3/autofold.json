@@ -1,0 +1,94 @@
+{
+ "name": "c8-conrad3",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.C8Conrad",
+  "ZInQKernel.Contrib.OneProof.C8LocAlg",
+  "ZInQKernel.Contrib.OneProof.C8CFT",
+  "ZInQKernel.Contrib.OneProof.C8Poincare",
+  "ZInQKernel.Contrib.OneProof.C8Ladic",
+  "ZInQKernel.Contrib.OneProof.C8Dicts",
+  "ZInQKernel.Contrib.OneProof.C8Twist",
+  "ZInQKernel.Contrib.OneProof.C8Printed"
+ ],
+ "discharges": [],
+ "handfold": {
+  "kind": "copy reroute (not an autofold: no bundle field of frozenTarget is discharged; #discharges: 34 open hypotheses, 19 discharge one, none from the C8 files)",
+  "status": "dry run only; do not fold until consumer (iii) (hodgeTateDecompAbVar -> r10, task derham-scholze) no longer reads picRepresentableAbVar / kleimanPicZeroProper954SiteQ; then fold together with the Hodge-Tate reroute and remove both rows",
+  "base_top": "HDec.HSyn.sixContactMin_of_open72 (TailZ79, igusa-drop; origin/main b1615c9b1, merged here)",
+  "generator": "c8-conrad2's copy, unchanged: python3 scratch/c8-conrad2/gen/gen.py scratch/c8-conrad2/taint_out.txt OUT.lean sixContactMin_of_open45_pz_eb,sixContactMin_of_open48_eb_k954,sixContactMin_of_open70,sixContactMin_of_open71 (taint list from scratch/c8-conrad2/Taint.lean); append scratch/c8-conrad2/gen/top.lean up to sixContactMin_of_open71_c8, then the c8-conrad3 top section of scratch/c8-conrad3/C8FoldDryRun.lean (sixContactMin_of_open72_c8, frozenTarget_c8, fold shape). Dry run: scratch/c8-conrad3/C8FoldDryRun.lean, standard axioms (dryrun_out.txt)",
+  "c8_swap": {
+   "at": "HDec.G0Galois.g8_g12_of_leaves3_hf_pz_eb (EichlerBoundCopy L2473)",
+   "replace": "(g12Det_of_pz m.r14det m.detTate m.finIndex (frobeniusDenseQ_of t.frobeniusDense))",
+   "by": "(_root_.HDec.G0Galois.C8Conrad.g12DetPZ_of_inputs r.r14 r.r13 m.c8 h9 r.r10)",
+   "c8_field": "c8 : C8Inputs, filled at the top by C8Conrad.c8Inputs_of_leaves (c8Leaves_of_OpenAddedLeaves28C8 l) (C8Printed.lean): the three glue fields of C8Inputs are theorems (twistCharHTWt0_proof, inertiaAtPDecomp_proof, minkowskiInertiaQ_proof); equivalently the reader can be C8Conrad.g12DetPZ_of_printed r.r14 r.r13 hC hTT h9 r.r10",
+   "and": "GaloisPieces.detTate -> c8 : C8Inputs (filled by l.c8 in gluePieces_of_open4_hf_pz_eb); in OpenAddedLeaves4PZ..18PZ the fields t09SymmIsogenyExists / phiAmpleIsogeny (+ weilPairingMumford, picRepresentableAbVar, picZeroAbVar deleted) -> c8 : C8Inputs (c8-conrad2's generated copy)"
+  },
+  "t8_swap": {
+   "at": "HDec.HSyn.sixContactMin_of_open45_pz_eb (EichlerBoundCopy L3291)",
+   "replace": "(openTextbookLeaves13HF_of_open16_22_pz t r.neronSchemeExtensionDedekind l)",
+   "by": "(openTextbookLeaves13HF_of_open16_P t r.neronSchemeExtensionDedekind hP)",
+   "consumer_field": "t8 = AVGlue.poincareReducibility_of_published' cartierSmooth_proof hP ... (HSyn.t8_of_poincareComplement)",
+   "hP_at_fold_time": "ZInQ.Contrib.CloudR2Poincare.poincareComplement_proof (PR #86, branch proof/poincare-complement-native-20261117 6984d6078, FinalUnconditional.lean:24): its type is ZInQ.Contrib.AVB1.PoincareComplement, the same constant t8_of_poincareComplement consumes (AVB1/Poincare.lean unchanged on that branch); checked by reading, not merged or compiled here. With it OpenTextbookLeaves19C8 is not needed."
+  },
+  "new_top": "HDec.HSyn.sixContactMin_of_open73C8 (r : OpenResearchLeaves53) (t : OpenTextbookLeaves19C8) (l : OpenAddedLeaves28C8)",
+  "new_generations": {
+   "OpenTextbookLeaves19C8": "{poincareComplement} (empty once PR #86's proof fills it)",
+   "OpenAddedLeaves28C8": "OpenAddedLeaves27 (picRepresentableAbVar, kleimanPicZeroProper954SiteQ) + {conradAppBQp, tateTwistInvariantsInertia}"
+  },
+  "remaining_consumers_of_picard_rows": [
+   "(iii) openResearchLeaves35_of_OpenResearchLeaves36_eb_k954_cf ... l26: hodgeTateDecompAbVar -> r10 (read by g8_g12, afterG7, gluePieces; and by g12DetPZ_of_inputs through r.r10)"
+  ],
+  "field_taint": "scratch/c8-conrad3/dryrun_taint_out.txt",
+  "counts_at_joint_fold": "kinds.tsv convention: a new printed leaf is GLUE/GLUE (strict/strictest) until a reviewer rates it; both Picard rows are GLUE/GLUE. C8 part alone: rows +2 (conradAppBQp, tateTwistInvariantsInertia), GLUE +2 while pending review, +0 once rated LEAF (c8-conrad2 had +5 rows: the same two leaves and three glue Props, now proved). Poincare part: +0 with PR #86's proof (+1 row, ELLIOT, pending review, without it). Joint fold with the Hodge-Tate reroute of consumer (iii): the two Picard rows leave (-2 rows, -2 GLUE/GLUE). Net of the C8+Poincare part at the joint fold, with PR #86: rows 0, GLUE 0 while the two new leaves are pending review, -2 after they are rated LEAF (strict reading: conradAppBQp is an unrefereed preprint, so -1). Alone, before consumer (iii) is rerouted: rows +2, GLUE +2 (autofold would refuse without --allow-rise): do not fold alone."
+ },
+ "new_leaves": [
+  {
+   "bundle": "textbook",
+   "name": "poincareComplement",
+   "type": "_root_.ZInQ.Contrib.AVB1.PoincareComplement",
+   "kind": "consequence",
+   "class": "ELLIOT (uncited manuscript step: diophantine_zq.tex L864-865 names 'Poincare reducibility' and cites nothing; milne-av v2.00 is cited only at L564 and L10968 for other statements)",
+   "flag": "unread: locator UNVERIFIED (Milne, Abelian varieties, Cornell-Silverman 1986, Prop. 12.1, over any field; not in the manuscript's bibliography; the manuscript's milne-av v2.00 numbering differs: its 'Part I, Theorem 12.1(a)' is the etale-cohomology duality cited at L10968). To be replaced at fold time by PR #86's ZInQ.Contrib.CloudR2Poincare.poincareComplement_proof (same type).",
+   "source": "Milne, Abelian varieties, in Cornell-Silverman (eds.), Arithmetic Geometry (1986), Prop. 12.1 (Poincare's complete reducibility); weaker form (char 0, no closed-immersion conclusion for Z -> J)"
+  },
+  {
+   "bundle": "added",
+   "name": "conradAppBQp",
+   "type": "_root_.HDec.G0Galois.C8Conrad.ConradAppBQp",
+   "kind": "consequence",
+   "class": "CITED (diophantine_zq.tex L760-762: 'Local algebraicity \\cite[Appendix B, pp.~32--33]{conrad-local-characters}'; bibitem L11046-11049, author preprint Dec. 11, 2011)",
+   "flag": "consequence of Conrad App. B p. 32 (Dec 11 2011 preprint; AI page read 11-17): HT => locally algebraic, L = Q_p, arithmetic normalization (allowed); unproved bridges: (1) HasHTWeights{w} => print-HT (ingredients proved in TailT.lean: Ysp_linearIndependent, htMult_eq_finrank_Ysp, exists_basis_Ysp; missing: print predicate, Galois enlargement of E, G_E -> G_Qp); (2) Q_p-homs G_m -> R_{E/Q_p}G_m are x -> x^n (no Weil restriction in the repo; Mathlib isGroupLikeElem_iff_mem_range_of at the pin, vendored groupLikeEquivSchemeCharacters); equivalence attributed to Tate via Serre [S6, III, A6, Cor. 2], Serre not cited by the manuscript; nothing stronger than the print. Strict leaf review queue28 (11-17): GLUE/GLUE",
+   "source": "Conrad, Lifting global representations with local properties, author preprint Dec. 11 2011, App. B pp. 32-33, base field Q_p"
+  },
+  {
+   "bundle": "added",
+   "name": "tateTwistInvariantsInertia",
+   "type": "_root_.HDec.G0Galois.C8Conrad.TateTwistInvariantsInertia",
+   "kind": "consequence",
+   "class": "DEPARTURE (no Tate 1967 in the manuscript's bibliography; it proves the manuscript's uncited step L763-764 'removing its integral local Hodge--Tate weight'). The same theorem for complete discretely valued fields with perfect residue field is in Brinon-Conrad's CMI notes (bibitem brinon-conrad L11019-11023, cited by the manuscript at L10975, L10994 for other steps), locator UNVERIFIED (from memory: Thm 2.2.7)",
+   "flag": "locator UNVERIFIED, unread; dictionary step G_{completion of K^ur} = I_K",
+   "source": "Tate, p-divisible groups, Proc. Conf. Local Fields (Driebergen 1966), Springer 1967, sec. 3.3 Thm 2, for L = completion of K^ur"
+  }
+ ],
+ "proved_glue": [
+  {
+   "name": "twistCharHTWt0",
+   "type": "_root_.HDec.G0Galois.C8Conrad.TwistCharHTWt0",
+   "proof": "HDec.G0Galois.C8Conrad.twistCharHTWt0_proof (C8Twist.lean)",
+   "note": "on-the-spot (N5 L758-760); no new cited input; determinant + square-root argument over hodge-split's Tate-Sen coordinates"
+  },
+  {
+   "name": "inertiaAtPDecomp",
+   "type": "_root_.HDec.G0Galois.C8Conrad.InertiaAtPDecomp",
+   "proof": "HDec.G0Galois.C8Conrad.inertiaAtPDecomp_proof (C8Dicts.lean)",
+   "note": "dictionary; Mathlib, Tau Ceti, GlueB3Unram, G15's lifting lemma (copied in C8Ladic.lean)"
+  },
+  {
+   "name": "minkowskiInertiaQ",
+   "type": "_root_.HDec.G0Galois.C8Conrad.MinkowskiInertiaQ",
+   "proof": "HDec.G0Galois.C8Conrad.minkowskiInertiaQ_proof (C8Dicts.lean)",
+   "note": "dictionary over Mathlib's NumberField.exists_not_isUnramifiedAt_int_of_isGalois"
+  }
+ ],
+ "note": "c8-conrad3: report docs/research/c8-conrad3.md. The three open glue Props of c8-conrad2's C8 reroute are proved (standard axioms); C8 now rests on conradAppBQp (CITED) and tateTwistInvariantsInertia (DEPARTURE) with R13, R14, G9 and R10 (C8Printed.g12DetPZ_of_printed). #discharges: no open hypothesis discharged (expected)."
+}

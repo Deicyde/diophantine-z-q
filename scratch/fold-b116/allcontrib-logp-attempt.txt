@@ -1,0 +1,2 @@
+error: ZInQKernel/Contrib/AllContrib.lean:3:0: import ZInQKernel.HDecomp.Textbook.Different failed, environment already contains 'PkgI6.TraceContainsRamificationIdx' from ZInQKernel.Contrib.Different.Local
+error: build failed

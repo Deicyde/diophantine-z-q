@@ -1,0 +1,12 @@
+kinds file: scratch/conrad-b3/kinds_origin_main_5f1fac790.tsv
+before: current top (H rows)                                 5/24 on 29
+joint fold, ht-merge spec (c8-conrad3 C8 leaves)             5/26 on 31   new rows: [('poincareComplement', 'GLUE'), ('conradAppBQp', 'GLUE'), ('tateTwistInvariantsInertia', 'GLUE'), ('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE')]
+joint fold, conrad-b3 (ConradAppB merged)                    5/25 on 30   new rows: [('poincareComplement', 'GLUE'), ('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE'), ('conradAppB', 'GLUE')]
+joint fold, ht-merge spec + PR #86 poincareComplement_proof  5/25 on 30   new rows: [('conradAppBQp', 'GLUE'), ('tateTwistInvariantsInertia', 'GLUE'), ('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE')]
+joint fold, conrad-b3 + PR #86 poincareComplement_proof      5/24 on 29   new rows: [('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE'), ('conradAppB', 'GLUE')]
+kinds file: docs/one-proof/kinds.tsv
+before: current top (H rows)                                 5/24 on 29
+joint fold, ht-merge spec (c8-conrad3 C8 leaves)             5/26 on 31   new rows: [('poincareComplement', 'GLUE'), ('conradAppBQp', 'GLUE'), ('tateTwistInvariantsInertia', 'GLUE'), ('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE')]
+joint fold, conrad-b3 (ConradAppB merged)                    5/25 on 30   new rows: [('poincareComplement', 'GLUE'), ('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE'), ('conradAppB', 'GLUE')]
+joint fold, ht-merge spec + PR #86 poincareComplement_proof  5/25 on 30   new rows: [('conradAppBQp', 'GLUE'), ('tateTwistInvariantsInertia', 'GLUE'), ('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE')]
+joint fold, conrad-b3 + PR #86 poincareComplement_proof      5/24 on 29   new rows: [('t10TateDuality', 'GLUE'), ('scholzeH1AbVar', 'GLUE'), ('conradAppB', 'GLUE')]
