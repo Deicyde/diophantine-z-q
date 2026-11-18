@@ -86,6 +86,38 @@ theorem reductionToModel_frobenius (hB : Ck = (B⁄k)) (σ : L ≃ₐ[ℚ] L)
     · rw [reductionToModel_pole v B hB hσxy (not_le.mp (mt (hstab x).mp hx)),
         reductionToModel_pole v B hB _ (not_le.mp hx), map_zero]
 
+/-- Good reduction commutes with a compatible embedding of valued fields.
+Both sides use the same equation over the prime field. -/
+theorem reductionToModel_natural {L' Γ' : Type*} [Field L'] [Algebra ℚ L'] [DecidableEq L']
+    [LinearOrderedCommGroupWithZero Γ'] (w : Valuation L' Γ')
+    [IsIntegral w.valuationSubring (E⁄L')]
+    [(integralModel w.valuationSubring (E⁄L')).IsElliptic]
+    [DecidableEq (ResidueField w.valuationSubring)]
+    [Algebra (ZMod p) (ResidueField w.valuationSubring)]
+    (hB : Ck = (B⁄k))
+    (hBw : (integralModel w.valuationSubring (E⁄L')).map (residue w.valuationSubring) =
+      (B⁄(ResidueField w.valuationSubring)))
+    (e : L →ₐ[ℚ] L')
+    (j : k →ₐ[ZMod p] ResidueField w.valuationSubring)
+    (he : ∀ x, w (e x) ≤ 1 ↔ v x ≤ 1)
+    (hj : ∀ (x : L) (hx : v x ≤ 1),
+      j (residue R ⟨x, hx⟩) = residue w.valuationSubring ⟨e x, (he x).mpr hx⟩)
+    (P : Affine.Point Wℓ) :
+    reductionToModel (E := E) w B hBw (Point.map (W' := E) e P) =
+      Point.map (W' := B) j (reductionToModel (E := E) v B hB P) := by
+  rcases P with _ | ⟨x, y, hxy⟩
+  · simp only [← Point.zero_def, map_zero]
+  · rw [Point.map_some (W' := E) e]
+    have hxy' := (Affine.baseChange_nonsingular E (f := e) e.injective x y).mpr hxy
+    by_cases hx : v x ≤ 1
+    · have hy := valuation_y_le_one_of_valuation_x_le_one v hxy.left hx
+      obtain ⟨_, hp⟩ := reductionToModel_some v B hB hxy hx hy
+      obtain ⟨_, hp'⟩ := reductionToModel_some w B hBw hxy' ((he x).mpr hx) ((he y).mpr hy)
+      rw [hp, hp', Point.map_some]
+      simp only [hj x hx, hj y hy]
+    · rw [reductionToModel_pole w B hBw hxy' (not_le.mp (mt (he x).mp hx)),
+        reductionToModel_pole v B hB _ (not_le.mp hx), map_zero]
+
 /-- An embedding of a field of order p² into a common residue model sends every
 point to the square-fixed group used by the detector. -/
 def quadraticResiduePoints {k₀ K : Type*} [Field k₀] [Field K]
@@ -110,6 +142,7 @@ def quadraticResiduePoints {k₀ K : Type*} [Field k₀] [Field K]
 #print axioms reductionToModel_pole
 #print axioms fp_frob_apply
 #print axioms reductionToModel_frobenius
+#print axioms reductionToModel_natural
 #print axioms quadraticResiduePoints
 
 end ZInQ.Manuscript.RC.WitnessSpec
