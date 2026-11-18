@@ -1535,3 +1535,132 @@ A full Eisenstein–cusp split, actual Rankin–Selberg product detector, critic
 weight-two/three nonvanishing selection and higher-weight multiplication remain
 separate. `PrincipalProductSpanning`, the original unrestricted Hecke contract
 and full Z-in-Q remain unproved; the unconditional original extent stays N≤6.
+
+## Decomposition and analytic suppliers: 199 modules
+
+Twenty-two mathematical modules add an actual primitive Eisenstein/cusp
+additive decomposition, a proved complement and unique residual cusp,
+all-complex-exponent twist Mellin identities, scoped critical-period and
+absolute-half-plane nonvanishing suppliers, and actual modular multiplication
+prerequisites. The 177 previously published mathematical sources and all
+older audit editions are preserved byte-for-byte.
+
+For N,k≥3, seven modules produce the primitive Eisenstein constant profile
+and a finite interpolant on the COMPLETE SL₂(Z)/Γ(N) quotient. The actual
+unscaled profile is δ_(0,1)+(-1)^k δ_(0,-1). True positive and negative
+translation fibres give the 2N kernel; every coefficient is fixed before τ.
+All integral cusp-representative constants of the residual vanish, and the
+actual arithmetic-cusp/all-GL theorem constructs a same-level CuspForm.
+The 877-line, 98-declaration component audit passes. This is not a given
+basis, dimension or splitting hypothesis.
+
+Three further modules prove primitive-span/cusp-range complementarity using
+actual cusp×modular integrability and positive principal-domain self-pairing.
+The actual class-series inclusion of primitive weight-three Eisenstein forms
+is derived from the unscaled grid and finite unit-convolution coefficients,
+not from a homogeneous product-span alias. Given orthogonality to the actual
+mixed/cusp intersection, the real decomposition extends that property to all
+mixed tests. The 366-line, 27-declaration audit passes; the orthogonal
+complement being zero is not asserted.
+
+Three Mellin modules supply convergence at both ends for actual rational
+translates and the existing cusp twist at every complex exponent. Primitive
+Gauss normalization keeps ψ⁻¹(-a), 1/M and the computed 2π/(2π)² critical
+factors. Their 439-line, 35-declaration audit passes. The Gauss constant being
+nonzero does not make the weighted period or critical L-value nonzero.
+
+Five distinct critical-twist modules give actual Mellin/parity averaging and
+normalization-plus-residue filtering. Their pointwise nonzero supplier uses
+the real cusp coefficient HasSum only under Re(s)>k/2+1; at s=k−1 this is
+k≥5 only. Weight-two L(1), weight-three L(2), primitivity/coprimality and
+character-exclusion freedom are not supplied by these five modules. The
+787-line, 64-declaration audit passes. Earlier direct-source reviews retain
+their stated scopes; any completed body-coverage review is separate evidence,
+not a retroactive relabeling.
+
+Four multiplication modules prove the actual tensor/product range,
+analytic cancellation, principal-group trace congruence modulo N²,
+absence of nonidentity interior fixed points for N≥3, and regular periods
+for every real conjugate. The actual-field pole-section pencil kernel and
+Riemann–Roch gap theorem retain INDEPENDENT GIVEN local orders, finite-
+dimensionality, Riemann–Roch dimensions and pencil inputs. The reduction to
+hgap/h22/h23/h33 leaves those actual surjectivity suppliers open. There is
+no actual X(N)/Hodge/Riemann–Roch instantiation. The 718-line component checks
+52 source items and four generated LocalOrders projections, 56 records;
+those four projections are not four extra source proofs. Two missing early
+object-byte editions are explicitly disclosed in the private history; current
+source and final objects are intact and no historical ABI recovery is claimed.
+
+`AdvancedAnalyticProducersAudit.lean` checks 2704 selected source records plus
+ten earlier literal contracts: 2714 distinct standard-axiom records.
+Exact SHA256:
+`22cdf9741fb85b837e126da1755401468d605b4a4a68acbf669e1fa7ebfab42a`.
+
+## Full mixed transport, cusp adjunction and weight-two decomposition: 217 modules
+
+Eighteen additional modules extend the cumulative 199-module source edition.
+Three 505+155+72-line modules prove a genuine cusp×arbitrary-modular-form
+Petersson trace/translate adjunction, with faithful center quotient,
+integrability before finite sums, correct relative index, and det^(k−2).
+The frozen 155-line rational theorem remains conditional on the single test
+form's transport witness. The separate 72-line binder FILLS that witness
+with actual positive-rational transport, giving orthogonality for weight-
+three lower-mixed tests only. All 41 unique Unicode declaration names pass
+the full component audit; the earlier duplicate/missed-name audit history is
+preserved rather than retrospectively called complete.
+
+Three 741-line modules construct actual absolute congruence-series forms
+for EVERY N>0,k≥3 by full-grid refinement at 3N and proved Γ(N) invariance/
+arithmetic cusp implication. The raw forward coefficient is n^(k−1), inverse
+coefficient n, scalar coefficient t^(k−2). Even bad classes retain G_k/N^k;
+odd bad classes vanish by a proved parity theorem. Exact bridges identify
+seriesSpanK at N≥3 and classSeriesSpan at weight three for every positive N.
+The FULL lower-mixed plus class-series space is transported by arbitrary
+positive-rational matrices using both genuine point and grid restrictions
+to a constructed common level. The 61-declaration audit passes. This is not
+whole M₃ or homogeneous λ³ spanning.
+
+Nine 1591-line weight-two modules determine the actual λ,λ²,μ constants,
+the complete-coset trace/residue constraint, genuine one-dimensional
+inverse-square axis sums, a fresh 3/4 finite sup-norm contraction, and actual
+finite division-form prototypes with all-SL₂ delta-minus-offset profiles.
+The inverse is the concrete ordinary finite matrix inverse, not an assumed
+profile-surjectivity operator; no k≥3 endpoint is applied at weight two.
+Each prototype belongs to the actual division span AND the Good degree-two
+product span. All 141 source declaration audits pass. The earlier 390-line
+constant/profile edition is preserved; it alone was not a splitting theorem.
+
+Three separate 365+55-line modules align the FULL real-image trace quotient
+with the integral quotient, explicitly retaining the inverse representative
+orientation. The actual trace-zero sum cancels the common offset in the
+finite kernel at NATURAL weight two. Every arbitrary complex f∈M₂(Γ(N)),
+N≥3, is then E+g with E in both actual division/product spans and g a genuine
+same-level CuspForm. No coefficient, rationality, profile, residue or desired
+split premise occurs. This does not instantiate primitive EisensteinSeriesMF
+at weight two or assert raw two-dimensional absolute convergence. The
+27 core plus three literal contract declarations pass their separate audit.
+Petersson orthogonality, directness and uniqueness at weight two remain open.
+
+`PrincipalDecompositionTransportAudit.lean` checks 2977 selected public
+source records plus ten earlier literal contracts: 2987 distinct records,
+each using at most propext, Classical.choice, Quot.sound, with no sorryAx.
+Component audit-only literals and generated projections are recorded
+separately and are not silently counted as new source declarations.
+Exact cumulative SHA256:
+`ae8e34ecd188a6bcc20db469a84478b9f58fa3765e3a8af4cd0a82f444cead09`.
+
+```sh
+lake --no-cache --no-ansi env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/PrincipalDecompositionTransportAudit.lean
+```
+
+Compilation is ordinary pinned verification with warm imports. Publication
+requires exact separate complete source-review receipts, including the
+completed coverage gate for the earlier critical-twist intermediate chain;
+a component's original replay-time pending flag is preserved as history,
+not rewritten when a later review arrives. Nothing here supplies cold/native
+admission, a full-project certificate or the unselected newer theta-potential,
+character-partner, Eichler-period or exclusion/conductor candidates.
+Actual weight-two orthogonality, the Rankin–Selberg product detector, critical
+weight-two/three nonvanishing and actual higher-weight multiplication remain
+open. PrincipalProductSpanning, the unchanged unrestricted Hecke leaf and
+full Z-in-Q remain unproved; the unconditional original extent remains N≤6.

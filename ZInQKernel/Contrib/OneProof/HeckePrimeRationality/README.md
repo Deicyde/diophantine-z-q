@@ -230,13 +230,44 @@ are proved in the reduction, not hidden premises.
   orthogonal to every principal cusp form in both orientations. Actual
   measure, faithful principal fundamental domain, oriented primitive-row
   equivalence and absolute integrability are supplied before unfolding and
-  Fubini. This does not establish an Eisenstein–cusp splitting by itself.
+  Fubini. A separate explicit finite constant-term interpolation now proves
+  primitive Eisenstein plus cusp decomposition for N,k≥3. The actual
+  principal-domain positive self-pairing proves disjointness of the primitive
+  span and cusp embedding range, hence complementarity and uniqueness of the
+  residual cusp only; generator coefficients are not asserted unique.
 - A new convergent second-theta-moment series determines the actual weight-
   two x constants. For every positive N and every integer label, including
   bad zero classes, the period-N q-expansion constant and every SL₂(Z) slash
   profile are proved. The axis value is −4π²w/(1−w)²−π²/3 and the non-axis
   value is −π²/3; denominators are proved nonzero on good axis labels.
-  This is not a weight-two decomposition or residue-constraint theorem.
+  This profile theorem by itself is not a decomposition. Later actual
+  one-dimensional inverse-square convolution, complete-coset trace zero and
+  the finite 2N kernel construct division/product prototypes and an arbitrary
+  weight-two decomposition f=E+g for N≥3. E lies in the division-series and
+  Good degree-two product spans; g is a genuine same-level cusp form.
+  Petersson orthogonality, directness and uniqueness at weight two are not
+  proved by that construction.
+- For every positive N and natural k≥3, actual absolute congruence-series
+  spans have positive-rational GL₂ transport at a constructed level with a
+  matrix-only multiplier. At weight three this also transports the full
+  lower-mixed plus class-series space, using honest point and grid refinement
+  to one common level. This is not whole M₃ spanning.
+- Actual cusp×modular-form Petersson trace adjunction and positive-rational
+  translate adjunction retain the faithful center quotient, genuine absolute
+  integrability and the determinant factor det^(k−2). Given orthogonality to
+  the actual mixed/cusp intersection, the produced weight-three decomposition
+  extends it to all mixed tests. Positive-rational orthogonality against lower
+  mixed test forms is then proved without a supplied test-transport premise.
+- Actual twists have all-complex-exponent convergent Mellin identities and
+  exact primitive Gauss/critical-integral factors. A separate normalized
+  coefficient argument produces nonzero opposite-parity twist values only
+  for Re(s)>k/2+1; at s=k−1 this covers k≥5, not critical weights two or three.
+- Genuine principal modular-form tensor multiplication has a proved product
+  range and analytic cancellation. An actual-field pole-section pencil kernel
+  and nonspecial degree-gap theorem retain independent Riemann–Roch and
+  finite-dimensionality inputs. The reduction to a gap supplier and the
+  (2,2), (2,3), (3,3) maps does not discharge those inputs or identify the
+  actual modular-curve/Hodge section spaces.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -263,22 +294,25 @@ modular-form spanning. Degree-two all-level product trace, all-weight
 congruence-series trace closure and primitive-series generator inclusion
 are proved. Arbitrary positive rational homogeneous and mixed transport,
 all-divisible mixed-space trace, normalized newform extraction and primitive
-Petersson orthogonality are also proved. A full Eisenstein–cusp splitting,
-Rankin–Selberg product detection, critical special-value nonvanishing,
-higher-weight multiplication and full principal spanning remain separate
-from this edition. The Γ₁ `(0,b)` family alone cannot replace the principal
+Petersson orthogonality, the N,k≥3 primitive Eisenstein/cusp complement,
+weight-two additive division/product-plus-cusp decomposition and full mixed
+rational transport are also proved. Actual weight-two Petersson orthogonality,
+Rankin–Selberg product detection, critical weight-two/three special-value
+nonvanishing, actual higher-weight multiplication and full principal spanning
+remain separate. The Γ₁ `(0,b)` family alone cannot replace the principal
 family.
 
-The current 177-module audit checks 2428 selected public source records.
-Ten additional literal-contract theorems give 2438 distinct audited records,
-all with at most `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`.
-The separate full literal inventory includes private declarations; it is not
-silently equated with the selected public audit list.
+The 217-module cumulative audit checks 2977 selected public source records.
+Ten additional earlier literal-contract theorems give 2987 distinct audited
+records, all with at most `propext`, `Classical.choice`, `Quot.sound`, and no
+`sorryAx`. Component audit literals and generated structure projections are
+recorded separately rather than silently counted as new mathematical source.
+The full literal inventory includes private declarations and is not equated
+with the selected public audit list.
 **Auditing a predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `RationalMixedStructuralProducersAudit.lean` for exact
-editions and commands. Earlier audit editions preserve the previous verified
-checkpoints.
+See `CHECKS.md` and `PrincipalDecompositionTransportAudit.lean` for exact
+editions and commands. Earlier audit editions preserve previous checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or
