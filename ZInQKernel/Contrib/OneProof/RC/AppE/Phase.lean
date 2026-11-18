@@ -242,9 +242,8 @@ theorem sqrtRatio_spec {N D₀ D : ℕ} (hN : N ≠ 0) (hc₀ : D₀.Coprime N) 
     sqrtRatio N D₀ D ^ 2 * (D₀ : ZMod N) = (D : ZMod N) := by
   have h := exists_sqrtRatio hN hc₀ hc hcl
   unfold sqrtRatio
-  split_ifs with h'
-  · exact h'.choose_spec
-  · exact absurd h h'
+  split_ifs
+  exact h.choose_spec
 
 /-- The chosen square root is a unit (PROVED). -/
 theorem sqrtRatio_isUnit {N D₀ D : ℕ} (hN : N ≠ 0) (hc₀ : D₀.Coprime N) (hc : D.Coprime N)
