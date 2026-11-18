@@ -1,0 +1,4 @@
+'HodgeFil1.finrank_filD_dual_of_pairing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.finrank_fil1_of_dR_of_pairing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.fil1_of_dR' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.fil1_surf_of_dR' depends on axioms: [propext, Classical.choice, Quot.sound]

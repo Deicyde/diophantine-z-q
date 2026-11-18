@@ -4,3 +4,4 @@
 - VERIFIED: the manuscript invokes an uncited Hodge number at L10996; the Scholze corrigendum is cited. No new error identified.
 - VERIFIED: autofold count preview exits 0, strict and strictest both 5 LEAF / 26 GLUE before and after, 31 H rows. The preview names a missing provider and is not a fold.
 - SPECULATIVE: adapt the native stabilizer quotient and descended normalized family to obtain compatible perfect Weil pairings, avoiding full Picard representability.
+- VERIFIED: `lake env lean` checks the contribution. `#print axioms` for both rank proofs and both assemblers reports only `propext`, `Classical.choice` and `Quot.sound`; see `axioms.txt`.
