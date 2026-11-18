@@ -1,0 +1,4 @@
+'ZInQ.Manuscript.PoleS12.CTCheck.pairing_on_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.CTCheck.eleven_in_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.CTCheck.retained_compatible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.CTCheck.nondegenerate_of_finite_sha' depends on axioms: [propext, Classical.choice, Quot.sound]

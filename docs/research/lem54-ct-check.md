@@ -89,3 +89,22 @@ Milne, *Arithmetic Duality Theorems*, 2nd ed., I.6.13(a), p. 82, gives the kerne
 component for the pairing with the dual; see p. 81 for alternation under the polarization defined
 by a rational divisor. The pairing is not named here. -/
 ```
+
+## 4. Non-vacuity and compatibility
+
+**STANDARD + VERIFIED.** The printed elliptic-curve theorem gives the premise of
+`CTCheck.pairing_on_family` in [NonVacuity.lean](../../scratch/lem54-ct-check/NonVacuity.lean).
+Lean verifies the specialization: a positive natural parameter is nonzero in `ℚ`, and the
+discriminant `2304 ℓ⁶` is nonzero (`PoleRC.curve_isElliptic`). Neither squarefreeness nor the
+congruence is needed for the pairing. `CTCheck.eleven_in_family` verifies that the indexing
+conditions really admit a curve (`ℓ = 11`). This uses the published theorem as mathematical
+evidence for the premise; the scratch file does not assert an unconditional Lean proof of it.
+
+**VERIFIED, relative compatibility.** Let `P` be the conjunction of the three retained H bundles,
+`hRC`, `hB` and `hK`. With the printed theorem, `CTCheck.retained_compatible` proves
+`(P ∧ CasselsTatePairingCurves) ↔ P`. Thus any simultaneous realization of the remaining inputs
+admits `hCT` with the same curves and definitions. This does not certify the remaining open inputs.
+In particular, `hRC` concludes analytic rank one under a corank premise, `hB` supplies modularity, and
+`hK` concludes rank one and finiteness of Sha under its modularity and analytic rank premises.
+Finiteness is compatible with `hCT`: for finite Sha its maximal divisible subgroup is zero, so the
+pairing is nondegenerate on Sha itself (`CTCheck.nondegenerate_of_finite_sha`).

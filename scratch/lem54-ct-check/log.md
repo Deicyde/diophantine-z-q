@@ -22,3 +22,8 @@
    primary kernel result. No clause of the proposed hypothesis strengthens the elliptic
    statement. The reported Milne footnote corrects blanket alternation for general abelian
    varieties; the case of elliptic curves is unaffected. No source was newly read.
+6. **VERIFIED:** `lake env lean scratch/lem54-ct-check/NonVacuity.lean` exited 0. The family
+   specialization is conditional on the printed theorem. The index `11` is admissible,
+   adding the pairing preserves any conjunction of retained hypotheses relative to the print,
+   and finite Sha has zero pairing radical. All four proofs use only the three standard
+   axioms. Full output: `NonVacuity-output.txt` in this directory.
