@@ -1,0 +1,56 @@
+import LocalWildInertiaAudit
+import InertiaNeronGlueV002
+import FrobeniusSchemeFixedThird
+import RelativeDimensionInstantiationV003
+import FiniteIntermediateBindingV001
+import ToricBaseChange.ActualToricRankResidueV001
+import RaynaudWild.ResTFrobeniusV003
+import ActualTorusMultiplierThird
+import OriginalFixedPrimaryFifth
+import FrobLift.CommutingFiniteV002
+import ToricBaseChange.ActualToricRankFiniteV001
+import AmbientTameClosureV001
+import ActualTameDensityV001
+import HenselDivision.ValuationPointLiftV003
+import WeilTatePointLeftNondegV003
+
+/-!
+# Native supporting interfaces for local wild inertia
+
+This audit checks supporting interfaces, including conditional consumers.
+It is not a proof of the unrestricted wild-inertia or Z-in-Q statements.
+The earlier local checkpoint remains unchanged.
+-/
+
+set_option pp.all true
+set_option pp.proofs true
+set_option pp.maxSteps 1000000
+
+#check @InertiaNeronGlue.inertia_fixed_tate_sections
+#print axioms InertiaNeronGlue.inertia_fixed_tate_sections
+#check @SemistableGeometry.FrobeniusFixed.finite_fixedPoints
+#print axioms SemistableGeometry.FrobeniusFixed.finite_fixedPoints
+#check @NeronRelativeDimension.Instantiation.dim_identityComponent_closed
+#print axioms NeronRelativeDimension.Instantiation.dim_identityComponent_closed
+#check @FiniteExtensionValuation.finite_intermediate_restriction_generic_fiber
+#print axioms FiniteExtensionValuation.finite_intermediate_restriction_generic_fiber
+#check @ToricBaseChange.ActualKernel.toricRank_le_residue
+#print axioms ToricBaseChange.ActualKernel.toricRank_le_residue
+#check @RaynaudWild.FrobDescent.resT_frob_pow_specialFibre
+#print axioms RaynaudWild.FrobDescent.resT_frob_pow_specialFibre
+#check @SemistableGeometry.ActualTorusMultiplier.actual_torus_frobenius_multiplier
+#print axioms SemistableGeometry.ActualTorusMultiplier.actual_torus_frobenius_multiplier
+#check @SemistableGeometry.OriginalFixedPrimary.exists_frobenius_finite_original_fixedPrimary
+#print axioms SemistableGeometry.OriginalFixedPrimary.exists_frobenius_finite_original_fixedPrimary
+#check @FrobLift.finite_inertiaImage_of_commute
+#print axioms FrobLift.finite_inertiaImage_of_commute
+#check @ToricBaseChange.ActualKernel.toricRank_le_finite_intermediate
+#print axioms ToricBaseChange.ActualKernel.toricRank_le_finite_intermediate
+#check @ActualTameInertia.leaf_tame_generator_ambient_closure
+#print axioms ActualTameInertia.leaf_tame_generator_ambient_closure
+#check @ActualTameInertia.exists_tameGeneratorDense
+#print axioms ActualTameInertia.exists_tameGeneratorDense
+#check @HenselDivision.valuationTorsionPointRestrictEquiv
+#print axioms HenselDivision.valuationTorsionPointRestrictEquiv
+#check @WeilTate.Divisible.point_left_nondeg'
+#print axioms WeilTate.Divisible.point_left_nondeg'
