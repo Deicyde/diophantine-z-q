@@ -1,4 +1,4 @@
-Base: `7c092f8c3753f783037df1d31a7253feb70fa323`. All paths are relative to the repository root. Each row below is **VERIFIED** by the corresponding proof term or source line. The `K` column means the field binder of `T10_TateDuality`, rather than the manuscript's auxiliary field `K`. Every `F) is a finite extension of `ℚ_p`. “Via” records the first call that passes the hypothesis onward.
+Base: `7c092f8c3753f783037df1d31a7253feb70fa323`. All paths are relative to the repository root. Each row below is **VERIFIED** by the corresponding proof term or source line. The `K` column means the field binder of `T10_TateDuality`, rather than the manuscript's auxiliary field `K`. Every `F` is a finite extension of `ℚ_p`. “Via” records the first call that passes the hypothesis onward.
 
 | Declaration | Source (declaration / read) | Old T10 instance `(K, ℓ, g)` | Read |
 |---|---|---|---|
