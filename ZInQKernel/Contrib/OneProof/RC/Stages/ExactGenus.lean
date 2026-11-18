@@ -18,13 +18,13 @@ namespace ZInQ.Manuscript.RC.Stages
 section FieldLevel
 
 variable {K : Type} [Field K] [NumberField K] {c : ℕ} [NeZero c]
-local notation "H" => ringClassField (conductorOrder K c)
 variable [DecidableEq (ringClassField (conductorOrder K c))] {χ : Pic (conductorOrder K c) →* ℂˣ}
 
 /-- The rational twist embedding has the native character of the genus root. -/
 theorem twistEmb_mem_eigenLattice (E : WeierstrassCurve ℚ) (h₁ : E.a₁ = 0) (h₃ : E.a₃ = 0)
-    {d : ℚ} {s : H} (hs : s ≠ 0) (hd : s ^ 2 = algebraMap ℚ H d)
-    (hsign : ∀ g : H ≃ₐ[K] H,
+    {d : ℚ} {s : ringClassField (conductorOrder K c)} (hs : s ≠ 0)
+    (hd : s ^ 2 = algebraMap ℚ (ringClassField (conductorOrder K c)) d)
+    (hsign : ∀ g : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
       g s = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm g) : ℤ) * s)
     (R : (qtwist E d).toAffine.Point) :
     twistEmb E d s (twistVC_smul E h₁ h₃ hs hd) R ∈ eigenLattice E χ := by
@@ -49,20 +49,23 @@ theorem twistEmb_mem_eigenLattice (E : WeierstrassCurve ℚ) (h₁ : E.a₁ = 0)
 
 /-- The eight-count product annihilates torsion in the native character group. -/
 theorem uniform_kills_native (C : WeierstrassCurve ℤ) (hK : Module.finrank ℚ K = 2)
-    {s : H} {d : ℚ} (hs : s ≠ 0) (hd : s ^ 2 = algebraMap ℚ H d)
-    (hsign : ∀ g : H ≃ₐ[K] H,
+    {s : ringClassField (conductorOrder K c)} {d : ℚ} (hs : s ≠ 0)
+    (hd : s ^ 2 = algebraMap ℚ (ringClassField (conductorOrder K c)) d)
+    (hsign : ∀ g : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
       g s = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm g) : ℤ) * s)
     {p q : ℕ} [Fact p.Prime] [Fact q.Prime] (hpq : p ≠ q)
     (hp : ¬ (p : ℤ) ∣ C.Δ) (hq : ¬ (q : ℤ) ∣ C.Δ)
-    {P : ((C⁄ℚ)⁄H).toAffine.Point} (hP : P ∈ eigenLattice (C⁄ℚ) χ)
+    {P : ((C⁄ℚ)⁄(ringClassField (conductorOrder K c))).toAffine.Point}
+    (hP : P ∈ eigenLattice (C⁄ℚ) χ)
     (hPtor : IsOfFinAddOrder P) :
     (reductionBound (finiteCount C p) * reductionBound (finiteCount C q)) • P = 0 := by
-  let F := IntermediateField.adjoin K ({s} : Set H)
+  let F := IntermediateField.adjoin K ({s} : Set (ringClassField (conductorOrder K c)))
   letI := Classical.decEq F
   have hF : Module.finrank ℚ F ≤ 4 := finrank_genusField hK
-    (d := algebraMap ℚ K d) (by rwa [IsScalarTower.algebraMap_apply ℚ K H] at hd)
+    (d := algebraMap ℚ K d)
+    (by rwa [IsScalarTower.algebraMap_apply ℚ K (ringClassField (conductorOrder K c))] at hd)
   obtain ⟨R, hR⟩ := eigenPoint_descends (C⁄ℚ) hs hsign hP
-  let j := Affine.Point.baseChange (W' := (C⁄ℚ)) F H
+  let j := Affine.Point.baseChange (W' := (C⁄ℚ)) F (ringClassField (conductorOrder K c))
   have hj : Function.Injective j := Affine.Point.map_injective _
   change j R = P at hR
   have htor : IsOfFinAddOrder R := by
@@ -86,15 +89,18 @@ The bounded-degree product clears that torsion; the resulting rational point
 is exactly the manuscript's multiple in the ring class field. -/
 theorem exact_twist_of_genus (C : WeierstrassCurve ℤ) [(C⁄ℚ).IsElliptic]
     (h₁ : (C⁄ℚ).a₁ = 0) (h₃ : (C⁄ℚ).a₃ = 0) (hK : Module.finrank ℚ K = 2)
-    {dR dT : ℚ} {sR sT : H} (hsR : sR ≠ 0) (hR : sR ^ 2 = algebraMap ℚ H dR)
-    (hsT : sT ≠ 0) (hT : sT ^ 2 = algebraMap ℚ H dT) (hneg : dR * dT < 0)
-    (hσ : ∀ g : H ≃ₐ[K] H,
+    {dR dT : ℚ} {sR sT : ringClassField (conductorOrder K c)} (hsR : sR ≠ 0)
+    (hR : sR ^ 2 = algebraMap ℚ (ringClassField (conductorOrder K c)) dR)
+    (hsT : sT ≠ 0) (hT : sT ^ 2 = algebraMap ℚ (ringClassField (conductorOrder K c)) dT)
+    (hneg : dR * dT < 0)
+    (hσ : ∀ g : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
       g sR = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm g) : ℤ) * sR ∧
       g sT = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm g) : ℤ) * sT)
     (htorT : ∀ R : (qtwist (C⁄ℚ) dT).toAffine.Point, IsOfFinAddOrder R)
     {p q : ℕ} [Fact p.Prime] [Fact q.Prime] (hpq : p ≠ q)
     (hp : ¬ (p : ℤ) ∣ C.Δ) (hq : ¬ (q : ℤ) ∣ C.Δ)
-    (L₀ : ℕ) {P : ((C⁄ℚ)⁄H).toAffine.Point} (hP : P ∈ eigenLattice (C⁄ℚ) χ) :
+    (L₀ : ℕ) {P : ((C⁄ℚ)⁄(ringClassField (conductorOrder K c))).toAffine.Point}
+    (hP : P ∈ eigenLattice (C⁄ℚ) χ) :
     let B := reductionBound (finiteCount C p) * reductionBound (finiteCount C q)
     ∃ R : (qtwist (C⁄ℚ) dR).toAffine.Point,
       twistEmb (C⁄ℚ) dR sR (twistVC_smul (C⁄ℚ) h₁ h₃ hsR hR) R = (L₀ * (4 * B)) • P ∧
