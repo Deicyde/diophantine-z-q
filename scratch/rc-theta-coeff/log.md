@@ -8,3 +8,4 @@
 - Resource log: host load/memory checked before each Lean invocation. One early check was launched before cancellation of the initial dependency queue was confirmed; possible overlap there. Subsequent invocations were serialized.
 - `Lattice.lean`: compiled with `lake env lean`. The integral restriction agrees with the characteristic-zero expansion, satisfies `HeckeFourier`, and is continuous. A finite spanning set of Fourier rows proves finite generation. All theorem audits use only the standard axioms.
 - `Blocks.lean`: compiled with `lake env lean`; all theorem audits use only the standard axioms. Exact expansion and diamond correction proved coefficientwise. Block realization and character action are inputs.
+- `Operators.lean`: compiled with `lake env lean`; all audits use only the standard axioms. Verified good trace and determinant on the lattice, `D U`, `hD`, and the trace equality under formwise inertia.
