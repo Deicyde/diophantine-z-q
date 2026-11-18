@@ -18,10 +18,11 @@ The definitions follow Silverman, *The Arithmetic of Elliptic Curves*, X.4, as f
 the continuous cohomology of `G_ℚ = Gal(ℚˢ/ℚ)` in discrete modules:
 
 * the places of `ℚ` are `Place = HeightOneSpectrum ℤ ⊕ Unit` (the finite places `v = (p)` and the
-  infinite place), with completions `Completion v` (the `v`-adic completion `ℚ_v`, which is `ℚ_p` by
-  Mathlib's `Rat.HeightOneSpectrum.padicEquiv`, and `ℝ`) and a fixed `ℚ`-embedding of separable
-  closures at each place (`emb`); the Selmer and Shafarevich–Tate groups do not depend on that choice
-  (Tau Ceti `EmbeddingIndependence`);
+  infinite place), with completions `Completion v` (the `v`-adic completion `ℚ_v`, which is `ℚ_p`
+  by Mathlib's `Rat.HeightOneSpectrum.adicCompletion.padicEquiv`, and `ℝ`) and a fixed
+  `ℚ`-embedding of separable closures at each place (`emb`); the Selmer and Shafarevich–Tate groups
+  do not depend on that choice (Tau Ceti `EmbeddingIndependence`), and they are the ones defined
+  with the fields `ℚ_p` (`SelmerPlaces.lean`: `sha_eq_shaQp`, `selmerAt_eq_selmerAtQp`);
 * `TwoPowerCoeff E = E(ℚˢ)[2^∞]`, the `2`-primary torsion of `E(ℚˢ)` (`AddCommGroup.primaryComponent`),
   a discrete `G_ℚ`-module;
 * `sha E = Sha(E/ℚ)`: Tau Ceti's Shafarevich–Tate group for the completions at all places;
@@ -54,7 +55,8 @@ abbrev Place : Type := HeightOneSpectrum ℤ ⊕ Unit
 
 open IsDedekindDomain in
 /-- **The completion of `ℚ` at a place**: the `v`-adic completion `ℚ_v` at a finite place
-`v = (p)` (it is `ℚ_p`: Mathlib's `Rat.HeightOneSpectrum.padicEquiv`), `ℝ` at the infinite place. -/
+`v = (p)` (it is `ℚ_p`: Mathlib's `Rat.HeightOneSpectrum.adicCompletion.padicEquiv`), `ℝ` at the
+infinite place. -/
 abbrev Completion : Place → Type :=
   Sum.elim (fun v : HeightOneSpectrum ℤ => v.adicCompletion ℚ) (fun _ : Unit => ℝ)
 

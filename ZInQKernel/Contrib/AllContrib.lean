@@ -3183,3 +3183,4 @@ import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomolo
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.SelmerGroup
 import ZInQKernel.Contrib.OneProof.SelmerSplit
 import ZInQKernel.Contrib.OneProof.SelmerExplicit
+import ZInQKernel.Contrib.OneProof.SelmerPlaces

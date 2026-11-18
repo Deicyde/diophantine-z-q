@@ -90,6 +90,16 @@ verbatim:
   `LocM ℚ ℓ a b` for every `(a, b) ∈ SelM ℓ` when `#SelM ℓ = 8`: the descent lane's `CR_M`, for every
   class).
 
+**The place family (compiled, standard axioms).** `ZInQKernel/Contrib/OneProof/SelmerPlaces.lean` proves
+that the change of the finite places from the primes `p` with `ℚ_p` (main at 4a063a7f: two families,
+`ℚ_p` and `ℝ`; and the single family over `Nat.Primes ⊕ Unit`) to the height-one primes `v` of `ℤ` with
+the `v`-adic completions changes nothing: `sha_eq_shaQp`, `selmerAt_eq_selmerAtQp`,
+`selmerTwoPower_eq_comap_shaQp`, `sha_eq_shaP`, `selmerAt_eq_selmerAtP` (same subgroups of the same
+`H¹`). The proof reindexes the places along `Rat.HeightOneSpectrum.primesEquiv` and transports the
+local condition along the ring isomorphism of `Rat.HeightOneSpectrum.adicCompletion.padicEquiv`
+(`pointRes_eq_zero_iff_of_algEquiv`, from Tau Ceti's `pointRes_pointRes_eq_zero_iff`; the two maps from
+`ℚ` agree by `eq_ratCast`/`map_ratCast`). The earlier families are kept there as comparison data only.
+
 **Remaining inputs of this lane.** Theorem 5.3 itself (`RestrictedConverseGenuine`), the Cassels–Tate square
 property (`CasselsTateSquare`) and the rank half of Lemma 5.5 (`KolyvaginRankOne`) are hypotheses; nothing
 here proves them.
