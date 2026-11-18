@@ -6,3 +6,4 @@
 - VERIFIED (TSV): main has 31 H fields (strict and strictest 5 LEAF / 26 GLUE), four other binders (1 / 3), and 35 total (6 / 29). Current fold ratings keep all counts; accepting the preprint as LEAF changes the strict four to 2 / 2 and the strict total to 7 / 28.
 - VERIFIED (repo tools): the revised spec is valid JSON; stock autofold rejects plain top-level `hK` as not a field of the current bundles. The real headline splice is manual.
 - VERIFIED (source closure and Git): the import adds three KolyvWeil modules and five Tau Ceti modules. The five are all in the unchanged `dcc3d7723` vendored tree and in the pin-5a01f5fe selmer-2infty manifest. The compiled import comparison is recorded separately.
+- VERIFIED (Git): `git apply --check scratch/kolyv-weil-fold/main-splice.patch` succeeds against the base headline. The base worktree source has not been changed by this patch check.
