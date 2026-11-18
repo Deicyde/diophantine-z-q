@@ -4,3 +4,5 @@
 - 9660–9668: integrality does not show preservation of the diamond span; use the span of Hecke and diamond translates.
 - 9745–9750: constructor uses common good-operator avoidance also as stationary support. The manuscript instead covers added level primes by the active set's bits.
 - `Hecke.lean`: compiled with `lake env lean`; `GoodRec.degeneracy`, `eisenstein_pow`, `eisenstein_at_prime`, `eisenstein_rec` and helpers audited; only standard axioms.
+- `Forms.lean`: compiled with `lake env lean`; all declarations with `#print axioms` use only the standard axioms. Integral (O.11) holds at zero, on the good unary shells, on the sieved indices, and off unary support.
+- Resource log: host load/memory checked before each Lean invocation. One early check was launched before cancellation of the initial dependency queue was confirmed; possible overlap there. Subsequent invocations were serialized.
