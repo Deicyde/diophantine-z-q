@@ -2,16 +2,13 @@ diff --git a/ZInQKernel/OneProof/Main.lean b/ZInQKernel/OneProof/Main.lean
 index 3bb4079..9427f10 100644
 --- a/ZInQKernel/OneProof/Main.lean
 +++ b/ZInQKernel/OneProof/Main.lean
-@@ -3,6 +3,7 @@ import ZInQKernel.MainGreenTao
- import ZInQKernel.Contrib.OneProof.DeRhamRange
+@@ -4,4 +4,5 @@ import ZInQKernel.Contrib.OneProof.DeRhamRange
  import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
  import ZInQKernel.Contrib.OneProof.CasselsTatePairing
 +import ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness
- 
+
  /-!
- # The whole proof in one theorem
-@@ -12,14 +13,14 @@ the development fork, and from nothing else: the open bundles of the H chain, th
- converse, `ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine`, `diophantine_zq.tex` lines 1005–1011, over the genuine
+@@ -13,12 +14,12 @@ converse, `ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine`, `diophanti
  `Sel_{2^∞}(E_ℓ/ℚ)`), the Cassels–Tate pairing on the curves `E_ℓ` of Theorem 5.3
  (`ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves`, the printed input the manuscript cites for its Lemma 5.4 at
 -`diophantine_zq.tex` L1079–1081; Lemma 5.4 itself is proved from it), the printed leaf BCDT Theorem A
@@ -30,10 +27,8 @@ index 3bb4079..9427f10 100644
 +with Lemma 5.4 (`Contrib/OneProof/SelmerCorankFam.lean`, `Contrib/OneProof/Lemma54FromCasselsTate.lean`),
  the matrix construction, the local images, the 2-descent, Mordell–Weil for `E_ℓ` and the Kummer identification
  `#Sel₂(E_ℓ/ℚ) = #SelM ℓ` proved.
- It composes the compiled H chain with the headline
-@@ -196,19 +197,19 @@ hypothesis by its proof; the theorem's statement then loses that hypothesis.
- namespace ZInQ.OneProof
- 
+@@ -197,17 +198,17 @@ namespace ZInQ.OneProof
+
  /-- **Theorem 1.1, from every statement still open:** the open H bundles, the manuscript's Theorem 5.3 (the restricted
 -converse, a lemma of the manuscript), the Cassels–Tate pairing on the curves `E_ℓ`, the printed leaf BCDT Theorem A
 -and a consequence of Kolyvagin's Theorem 1 (through Shimura's construction and Faltings' isogeny theorem). Pole
@@ -55,6 +50,5 @@ index 3bb4079..9427f10 100644
      (HDec.HSyn.sixContactMin_of_open84 r t l)
 -    (ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing hRC hCT hB hK)
 +    (ZInQ.Manuscript.KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print hRC hCT hB6 hKPrint)
- 
+
  end ZInQ.OneProof
- 

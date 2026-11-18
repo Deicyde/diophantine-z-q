@@ -2,8 +2,9 @@
 
 The fold replaces the two rank-route inputs of `ZInQ.OneProof.frozenTarget`
 with the conductor-level weak Weil parametrization and Kolyvagin's Theorem 1
-in printed form. It retains the Cassels–Tate route to Lemma 5.4 and the existing
-H proof. Both replacement inputs count as GLUE under the current rule.
+in printed form. The spliced `Main.lean` built on `dcc3d7723` with only the
+three standard axioms. It retains the Cassels–Tate route to Lemma 5.4 and the
+existing H proof. Both replacement inputs count as GLUE under the current rule.
 
 **VERIFIED (Git and source).** The seven kolyv-weil commits were cherry-picked
 onto fork main `dcc3d7723`; the base's `Main.lean` and board files are left to
@@ -76,12 +77,12 @@ the generated board has been edited.
 
 ## Imports added by the splice
 
-**VERIFIED (recursive source import comparison).** Relative to the base
-headline, the new import adds the following eight modules. The source
-comparison follows imports from both versions of `Main.lean`; the
-[Lean checker](../../scratch/kolyv-weil-fold/CheckImports.lean) reads the
-compiled import closure. The Tau Ceti names below use the prefix
-`ZInQKernel.Contrib.TauCeti.`.
+**VERIFIED (compiled import comparison).** The
+[Lean checker](../../scratch/kolyv-weil-fold/CheckImports.lean) imports
+only `Main` and reads all modules loaded into its environment. The closure
+increased from 18,907 to 18,915, with no removals. The recursive source
+comparison gave the same [eight additions](../../scratch/kolyv-weil-fold/imports-added.txt).
+The Tau Ceti names below use the prefix `ZInQKernel.Contrib.TauCeti.`.
 
 - `ZInQKernel.Contrib.OneProof.KolyvWeil.Leaves`
 - `ZInQKernel.Contrib.OneProof.KolyvWeil.Parametrization`
@@ -100,3 +101,35 @@ the notice assigns that batch to Tau Ceti
 commit `4a063a7f2`. No new files were vendored. In particular,
 `Def_ModularCurve_X0`, `LadicCond` and `CasselsTatePairing` are
 already in the base closure.
+
+## Build and checks
+
+**VERIFIED (Lean 4.35.0).** With one Lean compiler process at a time and
+`LEAN_NUM_THREADS=8`, the unmodified headline, `Discharges`, and the new
+pole module built in [16,552 Lake jobs](../../scratch/kolyv-weil-fold/baseline-build.txt).
+`lake env lean scratch/kolyv-weil-fold/Original.lean` checked the verbatim
+`IsModular`, `BCDTThmA` and `KolyvaginThm1` copies against main by `rfl`.
+With the splice applied to the actual `ZInQKernel/OneProof/Main.lean`,
+`lake build +ZInQKernel.OneProof.Main` ran offline and succeeded in
+[16,551 Lake jobs](../../scratch/kolyv-weil-fold/spliced-build.txt).
+The build's `#print axioms ZInQ.OneProof.frozenTarget` reports
+`[propext, Classical.choice, Quot.sound]`. The adapter and pole supplier
+have the same axiom set.
+
+[CheckHeadline.lean](../../scratch/kolyv-weil-fold/CheckHeadline.lean)
+imports the real built `Main` and runs the stock `#discharges` command.
+On the [baseline](../../scratch/kolyv-weil-fold/baseline-discharges.txt),
+it reports 35 open hypotheses, 15,028 candidates and 391 matches. The
+rank adapter discharges `[hK]` with exactly `BCDTThmA6` and
+`KolyvaginThm1Print` still assumed. On the
+[spliced headline](../../scratch/kolyv-weil-fold/spliced-discharges.txt),
+it reports 35 open hypotheses, 15,028 candidates and 390 matches. The
+`[hK]` match is the only one removed; neither replacement input is
+discharged. The printed theorem type confirms both new hypotheses and the
+unchanged result.
+
+The patch is the diff of the compiled splice. `Main.lean` was restored
+after the checks. A later `origin/main` already has `TailZ92` and
+`sixContactMin_of_open85`; when folding there, retain that H call and its
+bundle, and port only the rank binders, pole call, import and documentation.
+The build and counts above are for the requested `dcc3d7723` base.

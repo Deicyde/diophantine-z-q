@@ -1,0 +1,3 @@
+ℹ [16551/16551] Built ZInQKernel.OneProof.Main (5.6s)
+info: ZInQKernel/OneProof/Main.lean:216:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (16551 jobs).

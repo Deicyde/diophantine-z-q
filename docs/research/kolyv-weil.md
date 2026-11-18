@@ -113,10 +113,12 @@ with `hRC hCT hB6 hKPrint`. The H bundles, `hRC`, `hCT` and
 The corrected recipe is [autofold.json](../../scratch/kolyv-weil/autofold.json).
 The stock script handles bundle fields, so the top-level replacement uses
 [the splice](../../scratch/kolyv-weil-fold/main-splice.patch). The old dry-run
-files are historical fixtures at the pre-squash base. For the real
-`lake build +ZInQKernel.OneProof.Main` checks, including the headline's own axiom
-query and `#discharges` on the compiled splice, see the
-[fold report](kolyv-weil-fold.md).
+files are historical fixtures at the pre-squash base. **VERIFIED (Lean
+4.35.0):** `lake build +ZInQKernel.OneProof.Main` succeeded with the splice
+applied to the actual headline on `dcc3d7723`. The headline has only the
+three standard axioms. The real `#discharges` checks the old `[hK]` adapter
+on the base and reads the new premises on the splice; see the
+[fold report and output](kolyv-weil-fold.md#build-and-checks).
 
 ## Known issues
 
@@ -131,7 +133,7 @@ query and `#discharges` on the compiled splice, see the
 - The old `KolyvaginThm1` had a weaker premise (a matching cusp form at
   some level) than the one on p. 3 of the preprint. That statement should
   not be assigned directly to the print. The new adapter proves it using
-  **both** sources, without a cusp form to parametrization conversion.
+  both inputs. The needed `X₀` realization remains in the first input.
 - The task's quoted “CST Thm 1.1” is not the citation in `lem:forward-rank`.
   CST is cited separately at L2428 and L8269. This task uses BCDT as
   specified in the detailed assignment and in the manuscript at L1092.
