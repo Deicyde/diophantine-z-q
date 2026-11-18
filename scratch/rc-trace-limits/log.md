@@ -12,3 +12,7 @@
 - `Limits.lean`: both scalar actions preserve the lattice by chosen-lift comparison, density, and continuity; all six theorems compiled and audited.
 - `Determinant.lean`: positive Fourier coefficients of every traced diamond discrepancy lie in the maximal ideal, given the genuine formulas; compiled and audited.
 - Resource control: an attempted pause of the prerequisite builder allowed it to advance during the new-file checks. Replaced the handoff with a blocking wait for the entire prerequisite build followed by serial checks.
+- `Open.lean`: finite fixing-field witness for `N_U`, openness, finite index, inertia containment, and chosen-lift Chebotarev; five theorems compiled and audited.
+- `Quadratic.lean`: radical generation and finiteness, support criterion, and Kummer reduction; seven theorems compiled and audited.
+- `InertiaLift.lean`: profinite restriction maps inertia onto finite-level inertia under the invariant-ring hypotheses; a prime dividing a squarefree radicand has ramification index at least two in a ring containing its square root. Compiled and audited.
+- `Model.lean`: constructor of the unchanged constituent model, conditional on the lattice comparison and the supported-character classification; zero extension covers nongood sets. Compiled and audited.

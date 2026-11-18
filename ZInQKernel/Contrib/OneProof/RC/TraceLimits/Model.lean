@@ -1,0 +1,146 @@
+import ZInQKernel.Contrib.OneProof.RC.TraceLimits.Determinant
+import ZInQKernel.Contrib.OneProof.RC.TraceLimits.Open
+import ZInQKernel.Contrib.OneProof.RC.TraceLimits.Quadratic
+
+/-!
+# Building the constituent model, conditional on the two remaining comparisons
+
+Tex 9638–9750. This constructor keeps the lattice fixed. A proof that its
+determinant discrepancies are detected by positive Fourier coordinates, and
+a proof of supported-character classification, must still be supplied.
+-/
+
+noncomputable section
+
+namespace ZInQ.Manuscript.RC.TraceLimits
+
+open AddressGenuine
+open ZInQ.Manuscript.RC.Symbols ZInQ.Manuscript.RC.PrintsArith
+open ZInQ.Contrib.CloudB3RC53.CoefficientDictionary
+open scoped MatrixGroups
+
+variable {L : Type*} [AddCommGroup L] {ε : L →+ ZMod 2}
+variable {I K O : Type} [Field K] [CommRing O] [Algebra O K]
+variable {T : TypeData L ε} {avoid : Finset ℕ} {frob : ℕ → GalQ}
+variable {ρ : I → GalQ →* GL (Fin 2) K} {Λ : Submodule O (I → K)}
+variable {m : Ideal O}
+
+/-- For good sets, openness and constituent unramifiedness reduce the radical
+support condition to the odd-divisor inertia comparison (tex 9748–9750). -/
+theorem consN_supported_of_ramification {chiType : GalQ →* Multiplicative L}
+    {F : Finset ℕ → Λ} {S U : Finset ℕ}
+    (hU : ∀ p ∈ U, T.Good p) (htyp : IsTypeChar T chiType)
+    (hunr : UnramifiedConstituents T avoid ρ)
+    (hopen : IsOpen (consN chiType m ρ Λ F U : Set GalQ))
+    (hS : T.m.primeFactors ∪ avoid ⊆ S) (h2 : 2 ∈ S)
+    (hram : OddRadicalRamification) :
+    SupportedQuadraticCharacters (consN chiType m ρ Λ F U) (S ∪ U) := by
+  refine supportedQuadratic_of_inertia _ _ hopen (Finset.mem_union_left _ h2) ?_ hram
+  intro q hq hqa Q hQ hqQ
+  have qS : q ∉ S := fun e => hqa (Finset.mem_union_left _ e)
+  have qU : q ∉ U := fun e => hqa (Finset.mem_union_right _ e)
+  have hgood : T.Good q := ⟨hq, (Nat.Prime.coprime_iff_not_dvd hq).2 fun hd =>
+    qS (hS (Finset.mem_union_left _ (Nat.mem_primeFactors.2 ⟨hq, hd, T.m_pos.ne'⟩)))⟩
+  exact inertia_le_consN T htyp hunr hU hgood qU
+    (fun e => qS (hS (Finset.mem_union_right _ e))) hQ hqQ
+
+/-- Extending the forms by zero on sets of nongood indices extends the Kummer
+conclusion from good sets to all finite sets, as required by the constituent
+interface (on-the-spot, provenance (c)). -/
+theorem consN_kummer_of_good {chiType : GalQ →* Multiplicative L} (F : Finset ℕ → Λ)
+    (hzero : ∀ W, ¬ (∀ p ∈ W, T.Good p) → F W = 0)
+    (hk : ∀ W, (∀ p ∈ W, T.Good p) → ∀ g, chiType g = 1 →
+      (∀ p ∈ W, bitChar p g = 1) → g ∈ Subgroup.closure (sqSet GalQ) ⊔ consN chiType m ρ Λ F W)
+    (U : Finset ℕ) (g : GalQ) (hg : chiType g = 1) (hbit : ∀ p ∈ U, bitChar p g = 1) :
+    g ∈ Subgroup.closure (sqSet GalQ) ⊔ consN chiType m ρ Λ F U := by
+  classical
+  let V := U.filter T.Good
+  let S := Subgroup.closure (sqSet GalQ)
+  have hs (x : GalQ) : x ^ 2 ∈ S := Subgroup.subset_closure ⟨x, rfl⟩
+  have : S.Normal := normal_of_all_squares S hs
+  have hV : ∀ p ∈ V, T.Good p := fun p hp => (Finset.mem_filter.1 hp).2
+  obtain ⟨a, ha, b, hb, rfl⟩ := Subgroup.mem_sup_of_normal_left.1
+    (hk V hV g hg (fun p hp => hbit p (Finset.mem_filter.1 hp).1) :
+      g ∈ S ⊔ consN chiType m ρ Λ F V)
+  have ha' (p : ℕ) : bitChar p a = 1 := by
+    have h : S ≤ (bitChar p).ker := (Subgroup.closure_le _).2 (by
+      rintro _ ⟨x, rfl⟩
+      change bitChar p (x ^ 2) = 1
+      rw [map_pow, pow_two]
+      exact (show ∀ z : Multiplicative (ZMod 2), z * z = 1 by decide) _)
+    exact MonoidHom.mem_ker.1 (h ha)
+  have hbn : b ∈ consN chiType m ρ Λ F U := by
+    refine ⟨hb.1, ?_, fun σ W hW => ?_⟩
+    · intro p hp
+      simpa only [map_mul, ha' p, one_mul] using hbit p hp
+    · by_cases hw : ∀ p ∈ W, T.Good p
+      · exact hb.2.2 σ W (fun p hp => Finset.mem_filter.2 ⟨hW hp, hw p hp⟩)
+      · simp only [hzero W hw, ZeroMemClass.coe_zero, map_zero, sub_self]
+        exact Submodule.zero_mem _
+  exact Subgroup.mul_mem_sup ha hbn
+
+/-- The comparison missing at tex 9725–9729, restricted to the discrepancy
+vectors used there. There is no saturation hypothesis on the whole lattice. -/
+def DetectsDetOrbit (F : Finset ℕ → Λ)
+    {ops : GoodOperators T avoid frob ρ Λ}
+    (D : ∀ U, DeterminantFourierData ops m (F U)) : Prop :=
+  ∀ U u v (x : Λ), (x : I → K) =
+      dV ρ u (tV ρ v (F U)) - tV ρ v (F U) →
+    (∀ n : ℕ, n ≠ 0 → (D U).coeff n x ∈ m) →
+      (x : I → K) ∈ (m • ⊤ : Submodule O Λ).map Λ.subtype
+
+variable [TopologicalSpace K] [IsTopologicalRing K] [T2Space K]
+variable [TopologicalSpace O] [CompactSpace O] [IsNoetherianRing O]
+variable [ContinuousSMul O K] [Finite (O ⧸ m)]
+
+/-- A constituent model from good-prime operators, continuous representations,
+the Fourier determinant calculation with its lattice comparison, and the supported
+quadratic classification. The existing `Inputs` can be supplied directly to
+`GaloisConstituentModel.toGaloisTraceModel`. -/
+def buildConstituentModel (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : ℕ)
+    (chiType : GalQ →* Multiplicative L) (hchi : OpenTypeKernel chiType)
+    (htyp : IsTypeChar T chiType)
+    (hm2 : (2 : O) ∈ m) (hm : IsClosed (m : Set O)) (hΛ : Λ.FG)
+    (F : Finset ℕ → Λ) (read : Finset ℕ → (Λ ⧸ (m • (⊤ : Submodule O Λ))) →+ ZMod 2)
+    (hfrob : ∀ q, T.Good q → IsFrobAt (frob q) q)
+    (hcont : ContinuousOperators ρ Λ) (hunr : UnramifiedConstituents T avoid ρ)
+    (ops : GoodOperators T avoid frob ρ Λ)
+    (D : ∀ U, DeterminantFourierData ops m (F U))
+    (hcoeff : ∀ U n, Continuous ((D U).coeff n))
+    (hlift : DetectsDetOrbit F D)
+    (h2fresh : ∀ U g h, tV ρ g (tV ρ h (F U)) ∈ (m • ⊤ : Submodule O Λ).map Λ.subtype)
+    (S : Finset ℕ) (hS : TypeDetectsRadicals chiType S)
+    (hzero : ∀ W, ¬ (∀ p ∈ W, T.Good p) → F W = 0)
+    (hclass : ∀ U, (∀ p ∈ U, T.Good p) →
+      SupportedQuadraticCharacters (consN chiType m ρ Λ F U) (S ∪ U)) :
+    GaloisConstituentModel T R ap B chiType := by
+  have hs := stable_operators T hfrob (lattice_closed Λ hΛ) hcont hunr ops
+  have ho U := consN_isOpen (F := F) hchi (residual_isOpen Λ hΛ m) hs.1 hcont U
+  exact {
+    I := I
+    K := K
+    O := O
+    m := m
+    two_mem := hm2
+    ρ := ρ
+    Λ := Λ
+    stable_t := hs.1
+    stable_d := hs.2
+    F := F
+    read := read
+    frob := frob
+    frob_spec := hfrob
+    det_orbit := fun U u v =>
+      hlift U u v ⟨_, Λ.sub_mem (hs.2 u _ (hs.1 v _ (F U).2)) (hs.1 v _ (F U).2)⟩ rfl
+        (fun n hn => detOrbit_coefficient hfrob hcont hunr ops hs.1 hs.2 (F U) (D U) hm
+          n hn (hcoeff U n) u v)
+    two_fresh := h2fresh
+    kummer := consN_kummer_of_good F hzero (fun U hU => kummer_of_support hS (hclass U hU))
+    finiteIndex := fun U _ => consN_finiteIndex U (ho U)
+    chebotarev := fun U hU => consN_chebotarev T htyp hfrob hunr U hU (ho U) }
+
+#print axioms consN_supported_of_ramification
+#print axioms consN_kummer_of_good
+#print axioms buildConstituentModel
+
+end ZInQ.Manuscript.RC.TraceLimits
