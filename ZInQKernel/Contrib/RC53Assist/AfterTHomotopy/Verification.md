@@ -1,5 +1,10 @@
 # The homotopy equivalence `L ≃ P'` after inverting `t`: verification
 
+
+## Scope after independent review (2026-11-18)
+
+The general lemma `exists_homotopyEquiv_of_quasiIso` (a quasi-isomorphism between bounded-above complexes over a field is a homotopy equivalence) passed review. The consumer wrappers do not discharge the after-t input: the review compiled that the freely chosen change-of-condition package is equivalent to the homotopy-equivalence input it replaces, that the full witness wrappers accept identity changes, and an example in which the variable t and zero have identical reductions but generic ranks 0 and 2. The wrappers are reformulations of the input; tying the change of condition to the actual arithmetic complexes remains the open input.
+
 ## Result
 
 `HomotopyInput.lean` constructs the input `e : HomotopyEquiv L P'` of
