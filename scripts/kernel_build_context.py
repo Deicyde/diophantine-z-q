@@ -18,6 +18,7 @@ from kernel_build_inventory import FORBIDDEN_ENV
 from kernel_build_layout import project_layout
 from kernel_build_manifest import require
 from kernel_build_resolution import capture_lake_environment
+from kernel_build_metadata import prepare_metadata
 from kernel_build_runtime import capture_runtime
 
 
@@ -44,7 +45,7 @@ def portable_lookup(workspace, prefix, observed):
 
 def capture_context(workspace, prefix, module_paths, build_commands, *, driver_paths,
                     system_drivers, controls, environ=None, expected_environment=None,
-                    git_executable='git', progress=None):
+                    git_executable='git', progress=None, prepare_cache_metadata=False):
     """Check static inputs before executing the pinned Lake environment query.
 
     Initial consumer mismatch fails before Lake evaluates dependency configs.
@@ -60,6 +61,11 @@ def capture_context(workspace, prefix, module_paths, build_commands, *, driver_p
     require(expected_environment is None or isinstance(expected_environment, dict),
             'Malformed authenticated producer environment')
     report = progress or (lambda phase: None)
+    metadata = None
+    if prepare_cache_metadata:
+        report('preparing fixed-format dependency cache metadata before fingerprinting')
+        metadata = prepare_metadata(workspace, prefix, expected_environment=expected_environment,
+                                    environ=environment, git_executable=git_executable)
     report('fingerprinting installed compiler, dependencies and drivers')
     layout = project_layout(workspace)
     identity, detail = collect_environment(workspace, prefix, build_commands, layout,
@@ -95,4 +101,4 @@ def capture_context(workspace, prefix, module_paths, build_commands, *, driver_p
     return {'schema': 'kernel-build-context/v1', 'environment': identity, 'modules': modules,
             'project_paths': binding['project_resolution']}, {
                 'installed_inputs': detail, 'binding': binding,
-                'actual_lookup': lookup, 'runtime': runtime_detail}
+                'actual_lookup': lookup, 'runtime': runtime_detail, 'metadata_preparation': metadata}

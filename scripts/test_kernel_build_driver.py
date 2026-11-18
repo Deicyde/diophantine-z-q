@@ -97,6 +97,26 @@ class DriverTests(unittest.TestCase):
         self.assertEqual(result['staged']['files'], 5)
         self.assertTrue((self.state/'bundle/manifest.json').exists())
 
+    def test_cache_metadata_preparation_is_requested_only_before_the_initial_baseline(self):
+        self.cold()
+        with patch.object(driver, 'producer_identity', return_value=self.producer), \
+                patch.object(driver, 'capture', side_effect=lambda *a, **k: (copy.deepcopy(self.context), {})) as capture:
+            driver.prepare(self.workspace, self.state, self.root/'toolchain')
+            self.fixture_outputs()
+            driver.completed_phase(self.workspace, self.state, 'built')
+            driver.completed_phase(self.workspace, self.state, 'finish')
+        self.assertEqual([c.kwargs.get('prepare_cache_metadata', False) for c in capture.call_args_list],
+                         [True, False, False])
+
+    def test_initial_metadata_changes_are_preserved_as_diagnostics_not_a_replacement_baseline(self):
+        self.cold()
+        record = {'schema': 'kernel-cache-metadata/v1', 'changes': [{'path': 'fixture.hash'}]}
+        with patch.object(driver, 'producer_identity', return_value=self.producer), \
+                patch.object(driver, 'capture', return_value=(copy.deepcopy(self.context), {'metadata_preparation': record})):
+            driver.prepare(self.workspace, self.state, self.root/'toolchain')
+        self.assertEqual(driver.read(self.state/'metadata-preparation.json'), record)
+        self.assertEqual(driver.read(self.state/'session-prepared.json')['context'], self.context)
+
     def test_changed_build_inputs_prevent_built_state_and_publication(self):
         self.cold()
         with patch.object(driver, 'producer_identity', return_value=self.producer), \

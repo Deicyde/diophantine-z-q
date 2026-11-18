@@ -27,6 +27,7 @@ class PreparationTests(unittest.TestCase):
         def captured(*args, **kwargs):
             self.calls.append('capture')
             self.assertEqual(kwargs['expected_environment'], self.manifest['environment'])
+            self.assertTrue(kwargs['prepare_cache_metadata'])
             return self.context, self.detail
         def installed(*args):
             self.calls.append('install')

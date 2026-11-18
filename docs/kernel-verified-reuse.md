@@ -17,6 +17,18 @@ applies to main and to reserved dispatch refs. The initial main producer must
 therefore compile without those old project outputs. Dependency setup remains
 the existing pinned Mathlib cache operation.
 
+Before its initial fingerprint, preparation pads short lowercase hexadecimal
+Lake `.hash` sidecars in dependency build directories to 16 digits and creates
+the missing ProofWidgets lockfile text hash. It does not change source or
+compiled-object bytes. The fixed hash helper imports only the installed Lake
+implementation, outside the checkout, with no candidate search paths or package
+configuration. A consumer first matches the installed compiler and package
+identity to the authenticated producer. Shared or linked sidecars are refused.
+The preparation receipt is retained. All resulting sidecars remain ordinary
+inputs in the complete fingerprint; post-build and post-audit captures never
+repeat this preparation or replace the initial baseline. Any further metadata
+change therefore still rejects reuse/publication.
+
 After dependency setup, credential-free preparation checks the downloaded
 bundle and fingerprints the installed compiler, dependency sources and objects,
 build drivers, flags, module lookup and Linux runtime. Lean parses the import

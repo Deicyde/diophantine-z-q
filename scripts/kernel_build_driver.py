@@ -74,7 +74,7 @@ def producer_identity(workspace, environment):
             'workflow_sha256': hashlib.sha256((workspace/WORKFLOW).read_bytes()).hexdigest()}
 
 
-def capture(workspace, prefix, state, *, expected=None):
+def capture(workspace, prefix, state, *, expected=None, prepare_cache_metadata=False):
     contract = validate(workspace)
     inputs = ['scripts/'+p.name for p in Path(__file__).parent.glob('kernel_build_*.py')]
     inputs += ['scripts/check_kernel.py', 'scripts/check_kernel_contract.py', 'scripts/check_target.py',
@@ -83,6 +83,7 @@ def capture(workspace, prefix, state, *, expected=None):
         return capture_context(workspace, prefix, contract['modules'], BUILD_COMMANDS,
             driver_paths=sorted(inputs), system_drivers=[str(Path(sys.executable).resolve()), '/usr/bin/git', '/bin/bash'],
             controls=state/'controls', expected_environment=expected,
+            prepare_cache_metadata=prepare_cache_metadata,
             progress=lambda message: print('[kernel-reuse] '+message, flush=True))
     except InputContextMismatch as error:
         previous = read(state/'inputs-before.json') if (state/'inputs-before.json').exists() else None
@@ -151,12 +152,14 @@ def prepare(workspace, state, prefix):
         result = {'status': 'cold', 'reason': 'No authenticated producer selected', 'audit_required': True}
     if context is None and producer is not None:
         try:
-            context, detail = capture(workspace, prefix, state)
+            context, detail = capture(workspace, prefix, state, prepare_cache_metadata=True)
         except (ValueError, OSError, subprocess.TimeoutExpired) as error:
             result['producer_unavailable'] = type(error).__name__
     if context is not None:
         write_new(state/'session-prepared.json', begin(context))
         write_new(state/'inputs-before.json', detail)
+        if detail.get('metadata_preparation') is not None:
+            write_new(state/'metadata-preparation.json', detail['metadata_preparation'])
     config = {'schema': SCHEMA, 'workspace': str(workspace.resolve()), 'prefix': str(Path(prefix).resolve()),
               'producer': producer, 'has_context': context is not None, 'result': result}
     write_new(state/'prepared.json', config)

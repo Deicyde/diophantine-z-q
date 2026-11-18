@@ -51,7 +51,7 @@ def prepare_candidate(workspace, prefix, module_paths, build_commands, *, select
         context, detail = capture_context(workspace, prefix, module_paths, build_commands,
             driver_paths=driver_paths, system_drivers=system_drivers, controls=controls,
             environ=environment, expected_environment=manifest['environment'],
-            git_executable=git_executable, progress=progress)
+            git_executable=git_executable, progress=progress, prepare_cache_metadata=True)
     except (ValueError, OSError, subprocess.TimeoutExpired) as error:
         return {'status': 'cold', 'reason': 'Installed build inputs are ineligible or differ from the producer',
                 'detail': str(error)[:240] if isinstance(error, ValueError) else type(error).__name__,

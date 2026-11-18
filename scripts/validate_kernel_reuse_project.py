@@ -212,7 +212,7 @@ def validate(workspace, state, output, prefix):
         # private to this runner and are not eligible producer artifacts.
         for label, directory in (('producer', producer_state), ('consumer', consumer_state)):
             for name in ('selection.json', 'prepared.json', 'session-prepared.json',
-                         'session-built.json', 'finished.json', 'input-mismatch.json'):
+                         'session-built.json', 'finished.json', 'input-mismatch.json', 'metadata-preparation.json'):
                 source = directory/name
                 if source.is_file():
                     (output/(label+'-'+name)).write_bytes(source.read_bytes())
