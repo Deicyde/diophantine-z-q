@@ -12,3 +12,8 @@
 - AppE/Linear.lean: compiles, no warnings (period 1 of a Shimura form, analyticity at ∞, hiwCoeff linear, spaces/eigenspaces closed under +, •, Σ; proportional_of_waldspurgerCor2).
 - AppE/Ramsey.lean: compiles, no warnings. PRINT `RamseyAlgebraicModel` (R-span, R-conj); PROVED exists_algebraic_normalized (algebraic g' in V with a(D₀)=1), dirichlet_mem_Qbar, heckeT3_sum, unary_eigenvalue_ne (2√p < p+1).
 - AppE/Galois.lean (part 1): compiles, no warnings. GLUE hypothesis `HalfIntegralTwist` (stated, not proved: needs the theta-multiplier formula). PROVED: level raising (hiwForm_changeLevel, eigen_changeLevel), η²=ψ², ψν²=ψ^e, ην²=η^e, exists_odd_exponent (autToPow), tau_dirichlet, conj_mem_eigenspace (from R-conj), twist_mem_eigenspace (from HalfIntegralTwist).
+- AppE/Rational.lean: compiles. rational_of_ramsey (the field `rational`), from WaldspurgerCor2 + RamseyAlgebraicModel + HalfIntegralTwist (GLUE hyp) + continuations + F₀(1) ≠ 0.
+- AppE/Assembly.lean: compiles. WaldspurgerNonvanishingTwoPower (tree print + "ψ^(2^k)=1", the manuscript's tex 7920-7922/7944 conclusion), waldspurgerNonvanishing_of_twoPower, evenPhaseData_of_prints, hcond_primeFactors, evenPhaseData_Ecurve, exists_rootNumberAt_Ecurve.
+- AppE/Vacuity.lean: compiles. evenPhaseData_singleton: EvenPhaseData is inhabited with retained = {D₀} from the tree's print alone.
+- F3 (VERIFIED, compiled): EvenPhaseData does not pin `retained` from below; consumers must use `P.retained = {D | S0Filter S₀ D₀ D}` (recorded by evenPhaseData_of_prints).
+- #print axioms: all 24 new theorems [propext, Classical.choice, Quot.sound] (scratch/rc-appE-phase/axioms.txt).
