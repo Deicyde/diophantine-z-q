@@ -9,3 +9,4 @@
 | Local readers and compatibility | VERIFIED | All eight readers in the live route and two adjacent compatibility readers compile with `_loc`; the ten examples compile with the old statements. All ten axiom reports are standard. |
 | Bypass | VERIFIED | The generated chain and `frozenTarget_t10` compiled with standard axioms. The old T10 proposition is present below the base H and headline tops, absent below both new tops. The 32 other entries have identical types. |
 | Discharge scan | VERIFIED | Base headline: 33 open entries, 15257 theorems checked, 347 matches. No match for the old general T10 field. |
+| Replacement kinds row and count | VERIFIED | Proposed `t10TateDualityLocal`, added, consequence, GLUE/GLUE, pending review. Both readings stay at 5 LEAF / 24 GLUE (29 H entries); total headline entries stay at 33. |
