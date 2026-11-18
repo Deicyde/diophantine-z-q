@@ -23,8 +23,19 @@ and proves
 * `carayolDDT31Full_iff : CarayolDDT31Full ↔ CarayolDDT31` (the two leaves are equivalent), and
   `isDDTNewform_iff_DS` (comparison with the project's `IsNormalizedEigenformDS`).
 
-`CarayolDDT31Full` is stronger than the current open row `carayolThmAFrob` (which follows from it), so replacing the
-row by it trades a weaker packaged consequence for the printed theorem. That is a choice for the lead.
+**The two leaves are equivalent.** `ZInQKernel/Contrib/OneProof/CarayolThmAFrobConverse.lean` proves
+`CarayolDDT.ThmAFrobConverse.carayolDDT31Full_of_thmAFrob : CarayolRefold.CarayolThmAFrob → CarayolDDT31Full` on the
+same representation (absolute irreducibility from irreducibility and oddness, since the full matrix algebra survives
+field extension; the continuous map `ℤ_ℓ → K_{F,λ}` from the completion at the place over `ℓ`; the global
+determinant identity from the Frobenius determinants by density of Frobenius elements in each cyclotomic fibre and
+continuity), and `carayolDDT31Full_iff_thmAFrob`. So replacing the open row by `CarayolDDT31Full` changes the
+interface (absolute irreducibility over an algebraic closure, one continuous `ℤ_ℓ → K_{F,λ}` with the global
+determinant identity) but adds no mathematical assumption. Relative to the print, `CarayolDDT31Full` is the selected
+existential, weight-two repackaging of Theorem 3.1 (a)–(d) — a consequence of the print through the coefficient-field,
+existence, determinant/embedding and conductor dictionaries — not a literal transcription. The converse proof was
+written in an independent review of this branch and checked there; whether to swap is the lead's choice.
+
+(An earlier version of this note said `CarayolDDT31Full` is stronger than the open row; that was wrong.)
 
 ## Checks
 
@@ -38,3 +49,4 @@ DISCHARGES [OpenResearchLeaves65.carayolThmAFrob] by CarayolDDT.carayolThmAFrob_
   still assumes: [CarayolDDT.CarayolDDT31Full]
   axioms: [propext, Classical.choice, Quot.sound]
 ```
+* `#print axioms CarayolDDT.ThmAFrobConverse.carayolDDT31Full_iff_thmAFrob`: `[propext, Classical.choice, Quot.sound]`.
