@@ -34,3 +34,7 @@
 - **VERIFIED (tool):** `preview_fold.py` reads the spec and prints the three
   proposed edits to the actual headline source, without writing it. The
   unchanged H call still supplies the first argument of the headline combiner.
+- **VERIFIED (Lean):** `KolyvWeil/Leaves.lean` compiled, including both
+  cited Props and `rankOne_and_finiteSha_of_prints`. The latter identifies
+  the original analytic-rank-one input with the specialization at
+  `r = 1` by unfolding and simplifying the natural number casts.
