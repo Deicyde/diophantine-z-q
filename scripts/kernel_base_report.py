@@ -61,8 +61,14 @@ def main():
                     and run["head_repository"]["full_name"] == repo and run["event"] == "push"
                     and run["conclusion"] == "success"):
                 continue
-            artifacts = request(f"/repos/{repo}/actions/runs/{run['id']}/artifacts?per_page=100")
-            found = [a for a in artifacts["artifacts"] if a["name"] == "kernel-audit" and not a["expired"]]
+            # Long builds can upload hundreds of periodic resource chunks.
+            # Ask for the final audit by name, and refuse incomplete results.
+            artifacts = request(f"/repos/{repo}/actions/runs/{run['id']}/artifacts?name=kernel-audit&per_page=100")
+            rows = artifacts.get("artifacts")
+            if (not isinstance(rows, list) or type(artifacts.get("total_count")) is not int
+                    or artifacts["total_count"] != len(rows)):
+                continue
+            found = [a for a in rows if a["name"] == "kernel-audit" and not a["expired"]]
             if len(found) != 1:
                 continue
             artifact = found[0]
