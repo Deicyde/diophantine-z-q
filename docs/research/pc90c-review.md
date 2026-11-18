@@ -20,7 +20,8 @@ Every claim below is VERIFIED (compiled, computed or read in the tree) unless it
 * **A merge onto be73b91c5 is not clean. (4) CONFLICT.** `git merge-tree --write-tree be73b91c5 a04588b4f` reports a content
   conflict in one file, `ZInQKernel/OneProof/Main.lean`, in one hunk: the signature and body of `frozenTarget`. The
   resolution is mechanical: fold-c8's `OpenResearchLeaves61`, `OpenAddedLeaves28` and `sixContactMin_of_open80`, plus the
-  PR's `hRC, h54, hB, hK`. Built in a temporary worktree: see (4).
+  PR's `hRC, h54, hB, hK`. With that resolution the merged tree **builds (16495 jobs)**, and `frozenTarget` has standard
+  axioms only.
 * Not checked here and still open from pc90b: S12 is still in the PR's history (commit 4b2595108). Squash the PR before
   merging it.
 * Note: during this run the shared `origin/main` ref moved from be73b91c5 to dafd6c7c8 (the merge of PR #99). Everything
@@ -261,4 +262,25 @@ theorem _root_.ZInQ.OneProof.frozenTarget
 ```
 The full diff of the resolved `Main.lean` against be73b91c5 is `scratch/pc90c-review/resolved-merge-Main.diff`.
 
-RESOLVED_BUILD_PLACEHOLDER
+**The resolved merge builds.** In a temporary worktree `~/dzq-wt/pc90c-mergetmp` (detached at be73b91c5, with
+`git merge --no-commit a04588b4f`), I hand-resolved the conflict as above. Its index stages were the same blobs as in
+merge-tree. I copied this worktree's `.lake` with `cp --reflink`.
+
+* `lake build ZInQKernel.OneProof.Main ZInQKernel.MainGreenTao`: **Build completed successfully (16495 jobs)**, exit 0,
+  0 errors (`scratch/pc90c-review/build-merge.log`).
+* `#check` and `#print axioms` (`AxiomsMerge.lean`, output `AxiomsMerge-output.txt`):
+  ```
+  ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves61 → HDec.HSyn.OpenTextbookLeaves18 →
+    HDec.HSyn.OpenAddedLeaves28 → ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine →
+    ZInQ.Manuscript.PoleS12.Lemma54 → ZInQ.Manuscript.PoleS12.BCDTThmA → ZInQ.Manuscript.PoleS12.KolyvaginThm1 →
+    ZInQ.FrozenTarget
+  'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+  ```
+  The MainGreenTao headline also has standard axioms only.
+* I aborted the merge and then removed the temporary worktree with `git worktree remove --force`. `--force` was needed
+  because of the untracked `.lake`. Nothing was committed there.
+
+So after the merge, `frozenTarget` takes fold-c8's H bundles (`OpenResearchLeaves61`, `OpenTextbookLeaves18`,
+`OpenAddedLeaves28`) and `hRC, h54, hB, hK`. The PR's head should take this resolution, together with the label fixes
+of (3), before it lands. The resolution is against be73b91c5. `origin/main` has since moved to dafd6c7c8, which I did
+not check.

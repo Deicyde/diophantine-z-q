@@ -22,3 +22,9 @@
 - Token grep (sorry|admit|axiom|native_decide|implemented_by|extern|unsafe, whole word) over the 64 .lean files the PR
   changes vs b9b854867: no hit under ZInQKernel/; 2 hits in scratch/pc-from-rc/T3.lean:181-182 (`sorry`, a scratch file,
   not built, not imported). VERIFIED.
+- origin/main ref moved be73b91c5 → dafd6c7c8 during the run; all merge checks use be73b91c5 explicitly. VERIFIED.
+- Temp worktree ~/dzq-wt/pc90c-mergetmp at be73b91c5 + `merge --no-commit a04588b4f`: same conflict stages; resolved as
+  Leaves61/Added28/open80 + hRC,h54,hB,hK (resolved-merge-Main.diff). `lake build OneProof.Main MainGreenTao`: Build
+  completed successfully (16495 jobs), EXIT 0. #check frozenTarget: OpenResearchLeaves61 → OpenTextbookLeaves18 →
+  OpenAddedLeaves28 → RestrictedConverseGenuine → Lemma54 → BCDTThmA → KolyvaginThm1 → FrozenTarget; axioms standard
+  (AxiomsMerge-output.txt). Merge aborted, worktree removed. VERIFIED.

@@ -1,0 +1,10 @@
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves61 →
+  HDec.HSyn.OpenTextbookLeaves18 →
+    HDec.HSyn.OpenAddedLeaves28 →
+      ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine →
+        ZInQ.Manuscript.PoleS12.Lemma54 →
+          ZInQ.Manuscript.PoleS12.BCDTThmA → ZInQ.Manuscript.PoleS12.KolyvaginThm1 → ZInQ.FrozenTarget
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

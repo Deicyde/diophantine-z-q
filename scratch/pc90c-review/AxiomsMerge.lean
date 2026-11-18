@@ -1,0 +1,4 @@
+import ZInQKernel.OneProof.Main
+#check @ZInQ.OneProof.frozenTarget
+#print axioms ZInQ.OneProof.frozenTarget
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
