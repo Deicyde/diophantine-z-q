@@ -1,0 +1,9 @@
+name: Periodic kernel resource evidence
+description: Start or stop an optional background diagnostic uploader.
+inputs:
+  mode:
+    description: start or stop
+    required: true
+runs:
+  using: node24
+  main: index.cjs
