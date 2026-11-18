@@ -1,0 +1,1 @@
+'T10Etale.t10Local_of_tateDuality' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -26,4 +26,10 @@ def T10_TateDualityLocal : Prop :=
       ∀ (σ : Field.absoluteGaloisGroup F) x,
         φ (galH A p σ x) = (A.galT (ℓ := p) σ⁻¹).dualMap (φ x)
 
+/-- Restrict the old row to the local field and its residue prime. -/
+theorem t10Local_of_tateDuality (h : T10_TateDuality) : T10_TateDualityLocal :=
+  fun p _ F _ _ _ A => h F A p (DeRhamPrint.natCast_p_ne_zero p F)
+
 end T10Etale
+
+#print axioms T10Etale.t10Local_of_tateDuality
