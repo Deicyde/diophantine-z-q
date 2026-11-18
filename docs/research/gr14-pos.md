@@ -36,7 +36,8 @@ DISCHARGES [OpenResearchLeaves65.gaudronRemondThm14AnSS] by ZInQ.SemistabAssembl
 
 ## Reading behind the leaf
 
-An independent reading of the typeset journal copy (AI-READ, 2026-11-18): for `g ≥ 1` the Lean statement is
+A statement check of the typeset journal copy (AI-READ, 2026-11-18; recorded as
+`docs/one-proof/statement-checks/gaudronRemondThm14AnSS-sweep-20261118.md` on the statement-check branch): for `g ≥ 1` the Lean statement is
 Théorème 1.4 with the base field `k = K` (quantifiers, a pair of isogenies one in each direction each of degree
 at most `κ(A)` (p. 2059), the definitions of isogeny and degree (p. 2062), and
 `κ(A) = ((14g)^{64g²}[k:ℚ]·max(h_F(A), log[k:ℚ], 1)²)^{2^{10} g³}` (p. 2058) all match). The height is the stable
@@ -44,5 +45,5 @@ Faltings height with Faltings' original normalization, which is the metric of th
 semistability hypothesis of the Lean statement implies the paper's semi-abelian reduction, so it cannot make the
 leaf stronger than the print.
 
-At integration the new leaf is registered in kinds.tsv flagged unread (locator row "R19 (g ≥ 1)" in
-`docs/research/locators.md`); this branch does not edit kinds.tsv.
+At integration the new leaf is registered in kinds.tsv flagged unread (its row is under "Rows added by folds
+(after the audit)" in `docs/research/locators.md`); this branch does not edit kinds.tsv.
