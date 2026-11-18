@@ -1,0 +1,367 @@
+@ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      {ι : RingHom.{0, 0} A F} →
+        {S : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι} →
+          {M : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} →
+            {z₀ l₀ : Fin 2 → F} →
+              ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S M z₀ l₀ →
+                Eq.{1}
+                    (Matrix.mulVec.{0, 0, 0}
+                      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0}
+                        (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M))
+                      z₀)
+                    0 →
+                  Eq.{1}
+                      (Matrix.vecMul.{0, 0, 0} l₀
+                        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0}
+                          (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M)))
+                      0 →
+                    F
+@ZInQ.Contrib.RC53Assist.StageCone.stage_coord_eq_normalized : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] {ι : RingHom.{0, 0} A F} {S : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι}
+  {M : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} {z₀ l₀ : Fin 2 → F}
+  (g : ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S M z₀ l₀)
+  (hz₀ :
+    Eq.{1}
+      (Matrix.mulVec.{0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M))
+        z₀)
+      0)
+  (hl₀ :
+    Eq.{1}
+      (Matrix.vecMul.{0, 0, 0} l₀
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M)))
+      0),
+  Ne.{1} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S) 0 →
+    Ne.{1}
+        (Matrix.adjugate.{0, 0}
+          (Matrix.map.{0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0} S) ⇑ι))
+        0 →
+      ∀ {u₀ : F},
+        ZInQ.Manuscript.RC.Central.IsClassFunctionalCoord.{0} M z₀ l₀ u₀ →
+          Ne.{1} u₀ 0 →
+            Ne.{1} (Matrix.adjugate.{0, 0} M) 0 →
+              Eq.{1} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S)
+                (HMul.hMul.{0, 0, 0} u₀
+                  (Inv.inv.{0} (ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion g hz₀ hl₀)))
+@ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion_ne_zero : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] {ι : RingHom.{0, 0} A F} {S : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι}
+  {M : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} {z₀ l₀ : Fin 2 → F}
+  (g : ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S M z₀ l₀)
+  (hz₀ :
+    Eq.{1}
+      (Matrix.mulVec.{0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M))
+        z₀)
+      0)
+  (hl₀ :
+    Eq.{1}
+      (Matrix.vecMul.{0, 0, 0} l₀
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M)))
+      0),
+  Ne.{1} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S) 0 →
+    Ne.{1}
+        (Matrix.adjugate.{0, 0}
+          (Matrix.map.{0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0} S) ⇑ι))
+        0 →
+      ∀ {u₀ : F},
+        ZInQ.Manuscript.RC.Central.IsClassFunctionalCoord.{0} M z₀ l₀ u₀ →
+          Ne.{1} u₀ 0 →
+            Ne.{1} (Matrix.adjugate.{0, 0} M) 0 →
+              Ne.{1} (ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion g hz₀ hl₀) 0
+@ZInQ.Contrib.RC53Assist.StageCone.integralUnit_iff_normalized : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] {ι : RingHom.{0, 0} A F} {S : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι}
+  {M : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} {z₀ l₀ : Fin 2 → F}
+  (g : ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S M z₀ l₀)
+  (hz₀ :
+    Eq.{1}
+      (Matrix.mulVec.{0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M))
+        z₀)
+      0)
+  (hl₀ :
+    Eq.{1}
+      (Matrix.vecMul.{0, 0, 0} l₀
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M)))
+      0),
+  g.IntegralUnit hz₀ hl₀ ↔ ∃ c, Eq.{1} (ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion g hz₀ hl₀) (ι ↑c)
+@ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData : {F : Type} →
+  [inst : Field.{0} F] →
+    {ε σ : F} →
+      Ne.{1} ε 0 →
+        Eq.{1} (HMul.hMul.{0, 0, 0} σ σ) 1 →
+          {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} →
+            Eq.{1} (HMul.hMul.{0, 0, 0} J J) 1 →
+              Eq.{1} (Matrix.det.{0, 0} J) (-1) →
+                {v : Fin 2 → F} →
+                  Ne.{1} v 0 →
+                    (θ : F) → Ne.{1} θ 0 → F → F → ZInQ.Contrib.CloudB3RC53.UniformSwitch.SwitchCoordData.{0} F
+@ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData_uF : ∀ {F : Type} [inst : Field.{0} F] {ε σ : F} (hε : Ne.{1} ε 0)
+  (hσ : Eq.{1} (HMul.hMul.{0, 0, 0} σ σ) 1) {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F}
+  (hJ : Eq.{1} (HMul.hMul.{0, 0, 0} J J) 1) (hJdet : Eq.{1} (Matrix.det.{0, 0} J) (-1)) {v : Fin 2 → F}
+  (hv : Ne.{1} v 0) (θ : F) (hθ : Ne.{1} θ 0) (μF μS : F),
+  Eq.{1}
+    (ZInQ.Contrib.CloudB3RC53.UniformSwitch.SwitchCoordData.uF.{0}
+      (ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData hε hσ hJ hJdet hv θ hθ μF μS))
+    (HDiv.hDiv.{0, 0, 0} μF (HMul.hMul.{0, 0, 0} ε θ))
+@ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData_uS : ∀ {F : Type} [inst : Field.{0} F] {ε σ : F} (hε : Ne.{1} ε 0)
+  (hσ : Eq.{1} (HMul.hMul.{0, 0, 0} σ σ) 1) {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F}
+  (hJ : Eq.{1} (HMul.hMul.{0, 0, 0} J J) 1) (hJdet : Eq.{1} (Matrix.det.{0, 0} J) (-1)) {v : Fin 2 → F}
+  (hv : Ne.{1} v 0) (θ : F) (hθ : Ne.{1} θ 0) (μF μS : F),
+  Eq.{1}
+    (ZInQ.Contrib.CloudB3RC53.UniformSwitch.SwitchCoordData.uS.{0}
+      (ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData hε hσ hJ hJdet hv θ hθ μF μS))
+    (HDiv.hDiv.{0, 0, 0} (Neg.neg.{0} μS) (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} σ ε) θ))
+@ZInQ.Contrib.RC53Assist.StageCone.RelativeConeUnit : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      {ι : RingHom.{0, 0} A F} →
+        {S S' : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι} →
+          {ε σ : F} →
+            {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} →
+              {v : Fin 2 → F} →
+                ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} ε v) v
+                    (Pi.single.{0, 0} 0 1) →
+                  ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S'
+                      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} ε σ J v) (Matrix.mulVec.{0, 0, 0} J v)
+                      (Pi.single.{0, 0} 1 1) →
+                    Prop
+@ZInQ.Contrib.RC53Assist.StageCone.relativeConeUnit_of_commonFactor : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] {ι : RingHom.{0, 0} A F} {S S' : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι}
+  {ε σ : F} {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} {v : Fin 2 → F}
+  (g :
+    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} ε v) v
+      (Pi.single.{0, 0} 0 1))
+  (g' :
+    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S' (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} ε σ J v)
+      (Matrix.mulVec.{0, 0, 0} J v) (Pi.single.{0, 0} 1 1))
+  (θ : F) (a b : Units.{0} A),
+  Eq.{1}
+      (ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion g (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hz ε v)
+        (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hl ε v))
+      (HMul.hMul.{0, 0, 0} θ (ι ↑a)) →
+    Eq.{1}
+        (ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion g'
+          (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hz ε σ J v) (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hl ε σ J v))
+        (HMul.hMul.{0, 0, 0} θ (ι ↑b)) →
+      ZInQ.Contrib.RC53Assist.StageCone.RelativeConeUnit g g'
+@ZInQ.Contrib.RC53Assist.StageCone.relativeConeUnit_of_integralUnits : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] {ι : RingHom.{0, 0} A F} {S S' : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι}
+  {ε σ : F} {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} {v : Fin 2 → F}
+  (g :
+    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} ε v) v
+      (Pi.single.{0, 0} 0 1))
+  (g' :
+    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S' (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} ε σ J v)
+      (Matrix.mulVec.{0, 0, 0} J v) (Pi.single.{0, 0} 1 1)),
+  g.IntegralUnit (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hz ε v) (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hl ε v) →
+    g'.IntegralUnit (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hz ε σ J v)
+        (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hl ε σ J v) →
+      ZInQ.Contrib.RC53Assist.StageCone.RelativeConeUnit g g'
+@ZInQ.Contrib.RC53Assist.StageCone.coordStep_of_relativeConeUnit : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      {ι : RingHom.{0, 0} A F} →
+        {S S' : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι} →
+          {ε σ : F} →
+            {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} →
+              {v : Fin 2 → F} →
+                (g :
+                    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} ε v)
+                      v (Pi.single.{0, 0} 0 1)) →
+                  (g' :
+                      ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S'
+                        (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} ε σ J v) (Matrix.mulVec.{0, 0, 0} J v)
+                        (Pi.single.{0, 0} 1 1)) →
+                    Ne.{1} ε 0 →
+                      Eq.{1} (HMul.hMul.{0, 0, 0} σ σ) 1 →
+                        Eq.{1} (HMul.hMul.{0, 0, 0} J J) 1 →
+                          Eq.{1} (Matrix.det.{0, 0} J) (-1) →
+                            Ne.{1} v 0 →
+                              Ne.{1} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S) 0 →
+                                Ne.{1}
+                                    (Matrix.adjugate.{0, 0}
+                                      (Matrix.map.{0, 0, 0, 0}
+                                        (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0} S) ⇑ι))
+                                    0 →
+                                  Ne.{1} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S') 0 →
+                                    Ne.{1}
+                                        (Matrix.adjugate.{0, 0}
+                                          (Matrix.map.{0, 0, 0, 0}
+                                            (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0} S') ⇑ι))
+                                        0 →
+                                      ZInQ.Contrib.RC53Assist.StageCone.RelativeConeUnit g g' →
+                                        ZInQ.Contrib.CloudB3RC53.UniformSwitch.CoordStep.{0, 0} ι
+                                          (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S)
+                                          (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S')
+@ZInQ.Contrib.RC53Assist.StageCone.coordStep_of_commonFactor : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      {ι : RingHom.{0, 0} A F} →
+        {S S' : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι} →
+          {ε σ : F} →
+            {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F} →
+              {v : Fin 2 → F} →
+                (g :
+                    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} ε v)
+                      v (Pi.single.{0, 0} 0 1)) →
+                  (g' :
+                      ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S'
+                        (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} ε σ J v) (Matrix.mulVec.{0, 0, 0} J v)
+                        (Pi.single.{0, 0} 1 1)) →
+                    Ne.{1} ε 0 →
+                      Eq.{1} (HMul.hMul.{0, 0, 0} σ σ) 1 →
+                        Eq.{1} (HMul.hMul.{0, 0, 0} J J) 1 →
+                          Eq.{1} (Matrix.det.{0, 0} J) (-1) →
+                            Ne.{1} v 0 →
+                              Ne.{1} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S) 0 →
+                                Ne.{1}
+                                    (Matrix.adjugate.{0, 0}
+                                      (Matrix.map.{0, 0, 0, 0}
+                                        (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0} S) ⇑ι))
+                                    0 →
+                                  Ne.{1} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S') 0 →
+                                    Ne.{1}
+                                        (Matrix.adjugate.{0, 0}
+                                          (Matrix.map.{0, 0, 0, 0}
+                                            (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0} S') ⇑ι))
+                                        0 →
+                                      (θ : F) →
+                                        (a b : Units.{0} A) →
+                                          Eq.{1}
+                                              (ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion g
+                                                (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hz ε v)
+                                                (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hl ε v))
+                                              (HMul.hMul.{0, 0, 0} θ (ι ↑a)) →
+                                            Eq.{1}
+                                                (ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion g'
+                                                  (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hz ε σ J v)
+                                                  (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hl ε σ J v))
+                                                (HMul.hMul.{0, 0, 0} θ (ι ↑b)) →
+                                              ZInQ.Contrib.CloudB3RC53.UniformSwitch.CoordStep.{0, 0} ι
+                                                (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S)
+                                                (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0} S')
+@ZInQ.Contrib.RC53Assist.StageCone.planeCoordWithSummand : {F : Type} →
+  [inst : Field.{0} F] →
+    {E₀ E₁ E₂ E₃ : Type} →
+      [Fintype.{0} E₀] →
+        [inst_2 : Fintype.{0} E₁] →
+          [inst_3 : Fintype.{0} E₂] →
+            [Fintype.{0} E₃] →
+              [DecidableEq.{1} E₀] →
+                [DecidableEq.{1} E₁] →
+                  [DecidableEq.{1} E₂] →
+                    [DecidableEq.{1} E₃] →
+                      (M : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F) →
+                        (z l : Fin 2 → F) →
+                          Eq.{1}
+                              (Matrix.mulVec.{0, 0, 0}
+                                (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0}
+                                  (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M))
+                                z)
+                              0 →
+                            Eq.{1}
+                                (Matrix.vecMul.{0, 0, 0} l
+                                  (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0}
+                                    (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M)))
+                                0 →
+                              ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} F E₀ E₁ E₂ E₃ →
+                                Equiv.{1, 1} (Sum.{0, 0} E₀ E₂) (Sum.{0, 0} E₁ E₃) → F
+@ZInQ.Contrib.RC53Assist.StageCone.planeCoordWithSummand_eq : ∀ {F : Type} [inst : Field.{0} F] {E₀ E₁ E₂ E₃ : Type}
+  [inst_1 : Fintype.{0} E₀] [inst_2 : Fintype.{0} E₁] [inst_3 : Fintype.{0} E₂] [inst_4 : Fintype.{0} E₃]
+  [inst_5 : DecidableEq.{1} E₀] [inst_6 : DecidableEq.{1} E₁] [inst_7 : DecidableEq.{1} E₂]
+  [inst_8 : DecidableEq.{1} E₃] (M : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F) (z l : Fin 2 → F)
+  (hz :
+    Eq.{1}
+      (Matrix.mulVec.{0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M)) z)
+      0)
+  (hl :
+    Eq.{1}
+      (Matrix.vecMul.{0, 0, 0} l
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M)))
+      0)
+  (E : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} F E₀ E₁ E₂ E₃)
+  (sE : Equiv.{1, 1} (Sum.{0, 0} E₀ E₂) (Sum.{0, 0} E₁ E₃))
+  (hE :
+    ZInQ.Contrib.CloudB3RC53.Torsion.Contraction.{0, 0, 0}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{0, 0, 0, 0, 0} E))
+  {u : F},
+  ZInQ.Manuscript.RC.Central.IsClassFunctionalCoord.{0} M z l u →
+    ∀
+      (hC :
+        ZInQ.Contrib.CloudB3RC53.Torsion.Contraction.{0, 0, 0}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{0, 0, 0, 0, 0}
+            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{0, 0, 0, 0, 0}
+              (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} M) z l hz hl))),
+      Eq.{1} (ZInQ.Contrib.RC53Assist.StageCone.planeCoordWithSummand M z l hz hl E sE)
+        (HMul.hMul.{0, 0, 0} u
+          (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{0, 0, 0}
+            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{0, 0, 0, 0, 0} E) sE))
+@ZInQ.Contrib.RC53Assist.StageCone.commonSummand_switch_relation : ∀ {F : Type} [inst : Field.{0} F]
+  {E₀ E₁ E₂ E₃ : Type} [inst_1 : Fintype.{0} E₀] [inst_2 : Fintype.{0} E₁] [inst_3 : Fintype.{0} E₂]
+  [inst_4 : Fintype.{0} E₃] [inst_5 : DecidableEq.{1} E₀] [inst_6 : DecidableEq.{1} E₁] [inst_7 : DecidableEq.{1} E₂]
+  [inst_8 : DecidableEq.{1} E₃] {ε σ : F},
+  Ne.{1} ε 0 →
+    Eq.{1} (HMul.hMul.{0, 0, 0} σ σ) 1 →
+      ∀ {J : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F},
+        Eq.{1} (HMul.hMul.{0, 0, 0} J J) 1 →
+          ∀ {v : Fin 2 → F},
+            Ne.{1} v 0 →
+              ∀ (E : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} F E₀ E₁ E₂ E₃)
+                (sE : Equiv.{1, 1} (Sum.{0, 0} E₀ E₂) (Sum.{0, 0} E₁ E₃))
+                (hE :
+                  ZInQ.Contrib.CloudB3RC53.Torsion.Contraction.{0, 0, 0}
+                    (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{0, 0, 0, 0, 0} E)),
+                Eq.{1}
+                  (ZInQ.Contrib.RC53Assist.StageCone.planeCoordWithSummand
+                    (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} ε v) v (Pi.single.{0, 0} 0 1)
+                    (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hz ε v)
+                    (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hl ε v) E sE)
+                  (HMul.hMul.{0, 0, 0} (Neg.neg.{0} σ)
+                    (ZInQ.Contrib.RC53Assist.StageCone.planeCoordWithSummand
+                      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} ε σ J v) (Matrix.mulVec.{0, 0, 0} J v)
+                      (Pi.single.{0, 0} 1 1) (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hz ε σ J v)
+                      (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hl ε σ J v) E sE))
+'ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.stage_coord_eq_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.normalizedConeTorsion_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.integralUnit_iff_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData_uF' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.volumeSwitchData_uS' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.RelativeConeUnit' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.relativeConeUnit_of_commonFactor' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.relativeConeUnit_of_integralUnits' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.coordStep_of_relativeConeUnit' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.coordStep_of_commonFactor' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.planeCoordWithSummand' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.planeCoordWithSummand_eq' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.commonSummand_switch_relation' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

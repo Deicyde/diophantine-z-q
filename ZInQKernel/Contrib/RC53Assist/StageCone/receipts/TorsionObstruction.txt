@@ -1,0 +1,218 @@
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector : {F : Type} → [Field.{0} F] → Fin 2 → F
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector_ne_zero : ∀ {F : Type} [inst : Field.{0} F],
+  Ne.{1} ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector 0
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.switchedVector : ∀ {F : Type} [inst : Field.{0} F],
+  Eq.{1}
+    (Matrix.mulVec.{0, 0, 0} (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F)
+      ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+    ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldMatrix : {A : Type} →
+  [CommRing.{0} A] → A → Matrix.{0, 0, 0} (Fin 3) (Fin 3) A
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newMatrix : {A : Type} →
+  [CommRing.{0} A] → A → Matrix.{0, 0, 0} (Fin 3) (Fin 3) A
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      (ι : RingHom.{0, 0} A F) → (a : A) → Ne.{1} (ι a) 0 → ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      (ι : RingHom.{0, 0} A F) → (a : A) → Ne.{1} (ι a) 0 → ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage_ne_zero : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Ne.{1}
+    (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0}
+      (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha))
+    0
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage_ne_zero : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Ne.{1}
+    (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0}
+      (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha))
+    0
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage_adjugate : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Ne.{1}
+    (Matrix.adjugate.{0, 0}
+      (Matrix.map.{0, 0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0}
+          (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha))
+        ⇑ι))
+    0
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage_adjugate : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Ne.{1}
+    (Matrix.adjugate.{0, 0}
+      (Matrix.map.{0, 0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.D.{0, 0}
+          (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha))
+        ⇑ι))
+    0
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage_sign : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Eq.{1} (ZInQ.Contrib.CloudB3RC53.StageCone.stageSign (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha))
+    1
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage_sign : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Eq.{1} (ZInQ.Contrib.CloudB3RC53.StageCone.stageSign (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha))
+    1
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.primitiveComparison : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      (ι : RingHom.{0, 0} A F) →
+        (S : ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.{0, 0} ι) →
+          (M : Matrix.{0, 0, 0} (Fin 2) (Fin 2) F) →
+            (z l : Fin 2 → F) →
+              Eq.{1} (Matrix.mulVec.{0, 0, 0} M z) 0 →
+                (i : Fin (HAdd.hAdd.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.n.{0, 0} S) 1)) →
+                  (j : Fin 2) →
+                    Eq.{1} (ι (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.z.{0, 0} S i)) 1 →
+                      Eq.{1} (l j) 1 → ZInQ.Contrib.CloudB3RC53.StageCone.StageMap S M z l
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldComparison : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      (ι : RingHom.{0, 0} A F) →
+        (a : A) →
+          (ha : Ne.{1} (ι a) 0) →
+            ZInQ.Contrib.CloudB3RC53.StageCone.StageMap (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha)
+              (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} 1
+                ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+              ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector (Pi.single.{0, 0} 0 1)
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newComparison : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      (ι : RingHom.{0, 0} A F) →
+        (a : A) →
+          (ha : Ne.{1} (ι a) 0) →
+            ZInQ.Contrib.CloudB3RC53.StageCone.StageMap (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha)
+              (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} 1 1 (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F)
+                ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+              (Matrix.mulVec.{0, 0, 0} (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F)
+                ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+              (Pi.single.{0, 0} 1 1)
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldComparison_torsion : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0)
+  (g :
+    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha)
+      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} 1 ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+      ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector (Pi.single.{0, 0} 0 1)),
+  Eq.{1}
+    (g.coneTorsion
+      (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hz 1 ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+      (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hl 1 ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector))
+    (ι a)
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newComparison_torsion : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0)
+  (g :
+    ZInQ.Contrib.CloudB3RC53.StageCone.StageMap (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha)
+      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.newMat.{0} 1 1 (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F)
+        ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+      (Matrix.mulVec.{0, 0, 0} (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F)
+        ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+      (Pi.single.{0, 0} 1 1)),
+  Eq.{1}
+    (g.coneTorsion
+      (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hz 1 1 (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F)
+        ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+      (ZInQ.Contrib.CloudB3RC53.StageCone.newMat_hl 1 1 (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F)
+        ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector))
+    (ι a)
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldIntegralUnit_iff : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Function.Injective.{1, 1} ⇑ι →
+    ∀
+      (g :
+        ZInQ.Contrib.CloudB3RC53.StageCone.StageMap (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha)
+          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.oldMat.{0} 1 ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+          ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector (Pi.single.{0, 0} 0 1)),
+      g.IntegralUnit
+          (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hz 1 ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector)
+          (ZInQ.Contrib.CloudB3RC53.StageCone.oldMat_hl 1 ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector) ↔
+        IsUnit.{0} a
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.not_stageConeComparison_of_nonunit : ∀ {A F : Type}
+  [inst : CommRing.{0} A] [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Function.Injective.{1, 1} ⇑ι →
+    ¬IsUnit.{0} a →
+      ¬ZInQ.Contrib.CloudB3RC53.StageCone.StageConeComparison
+          (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha)
+          (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha) 1 1
+          (ZInQ.Manuscript.RC.Uniform.switchJ0.{0} F) ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.coordinate_sign_relation : ∀ {A F : Type} [inst : CommRing.{0} A]
+  [inst_1 : Field.{0} F] (ι : RingHom.{0, 0} A F) (a : A) (ha : Ne.{1} (ι a) 0),
+  Eq.{1}
+    (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0}
+      (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha))
+    (Neg.neg.{0}
+      (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0}
+        (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha)))
+@ZInQ.Contrib.RC53Assist.StageCone.Obstruction.commonDiskCoordStep : {A F : Type} →
+  [inst : CommRing.{0} A] →
+    [inst_1 : Field.{0} F] →
+      (ι : RingHom.{0, 0} A F) →
+        (a : A) →
+          (ha : Ne.{1} (ι a) 0) →
+            ZInQ.Contrib.CloudB3RC53.UniformSwitch.CoordStep.{0, 0} ι
+              (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0}
+                (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage ι a ha))
+              (ZInQ.Contrib.CloudB3RC53.UniformSwitch.TwoTermStage.u.{0, 0}
+                (ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage ι a ha))
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector' depends on axioms: [propext, Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.planeVector_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.switchedVector' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldMatrix' depends on axioms: [propext, Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newMatrix' depends on axioms: [propext, Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage_adjugate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage_adjugate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldStage_sign' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newStage_sign' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.primitiveComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldComparison_torsion' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.newComparison_torsion' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.oldIntegralUnit_iff' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.not_stageConeComparison_of_nonunit' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.coordinate_sign_relation' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'ZInQ.Contrib.RC53Assist.StageCone.Obstruction.commonDiskCoordStep' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
