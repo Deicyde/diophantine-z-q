@@ -38,7 +38,9 @@ def KolyvaginThm1Print : Prop :=
 followed by Kolyvagin. -/
 theorem rankOne_and_finiteSha_of_prints (hB : BCDTThmA6) (hK : KolyvaginThm1Print)
     (E : WeierstrassCurve ℚ) [E.IsElliptic] (hA : AnalyticRankOne E) :
-    Module.rank ℤ E.toAffine.Point = 1 ∧ Finite (sha E) :=
-  hK E (hB E) 1 le_rfl hA
+    Module.rank ℤ E.toAffine.Point = 1 ∧ Finite (sha E) := by
+  have hA' : AnalyticRank E 1 := by
+    simpa only [AnalyticRank, AnalyticRankOne, Nat.cast_one] using hA
+  simpa only [Nat.cast_one] using hK E (hB E) 1 le_rfl hA'
 
 end ZInQ.Manuscript.KolyvWeil
