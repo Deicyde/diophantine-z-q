@@ -1,9 +1,11 @@
 # Wild inertia from Silverberg–Zarhin Theorem 3.3
 
-The proposed replacement for the uncited step at manuscript L817–818 is
+The uncited step at manuscript L817–818 is discharged in Lean and folded out of
+`ZInQ.OneProof.frozenTarget`. Its replacement is
 `SZRaynaud.SilverbergZarhinThm33`, from the paper already cited at L816.
 The old hypothesis follows from the forward implication and the proved
-`WildPeriodCoprime`. The construction adds no other leaf.
+`WildPeriodCoprime`. The folded theorem builds. The new leaf is pending review,
+so the strict and strictest GLUE counts are unchanged.
 
 ## Print and Lean statement
 
@@ -67,7 +69,7 @@ semistability predicate is needed.
 
 `scratch/elliot-wild2/autofold.json` replaces
 `research/elliotWildInertiaTrivial` by `research/silverbergZarhinThm33`.
-The dry run generates:
+The dry run generated `TailZ90.lean`, and the live fold uses its two theorems:
 
 ```lean
 theorem HDec.HSyn.openResearchLeaves63_of_OpenResearchLeaves64
@@ -77,10 +79,36 @@ theorem HDec.HSyn.sixContactMin_of_open83
     (l : HDec.HSyn.OpenAddedLeaves28) : ZInQ.SixContactMin
 ```
 
+The new `frozenTarget` uses `OpenResearchLeaves64` and keeps its
+`OpenTextbookLeaves18`, `OpenAddedLeaves28` and `ZInQ.PoleCompleteness`
+parameters and its result `ZInQ.FrozenTarget`.
+
 | Scope | Before: strict / strictest GLUE | Fold with pending review | If rated printed form in both columns |
 | --- | ---: | ---: | ---: |
 | H (33 hypotheses) | 28 / 28 | 28 / 28 | 27 / 27 |
 | `frozenTarget`, with pole completeness (34 hypotheses) | 29 / 29 | 29 / 29 | 28 / 28 |
+
+## Checks and touched files
+
+- The real contribution built with Lake. Before the fold, `#discharges` matched
+  `OpenResearchLeaves63.elliotWildInertiaTrivial` by `elliot_of_sz33` and
+  listed only `SZRaynaud.SilverbergZarhinThm33` as still assumed.
+- The baseline and folded `OneProof.Main` built with Lake. The folded
+  `frozenTarget`, both fold theorems, and both contribution theorems have only
+  `propext`, `Classical.choice`, and `Quot.sound`. The hash guard found 38
+  additions and no removals; the only existing declaration with a changed
+  hash was `ZInQ.OneProof.frozenTarget`.
+- The open statements were regenerated from Lean, and
+  `render_open.py --check` passed. The results are in
+  `scratch/elliot-wild2/log.md`.
+
+The fold changes `ZInQKernel/OneProof/Main.lean` to use the new bundle and
+updates `docs/one-proof/kinds.tsv`, `credits.tsv` and `reviews.tsv`.
+It regenerates `docs/one-proof/open-statements.json`, `OPEN.md`,
+`pages-wanted.md`, the worked example in `CONTRIBUTING.md` and its
+`scratch/contrib-kit/DischargesTest-output.txt`, and the count in
+`STATUS.md`. The leaf's source entry is added to
+`docs/research/locators.md`. No manuscript or existing proof body was edited.
 
 ## Known issues
 
