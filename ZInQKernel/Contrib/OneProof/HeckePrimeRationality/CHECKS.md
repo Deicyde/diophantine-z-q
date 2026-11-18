@@ -1110,3 +1110,71 @@ remains nonzero N≤6. No original assembly premise, pin or earlier published
 proof edition is changed. These are ordinary pinned compilations and complete
 source reviews with warm imports, not independent cold/native acceptance or
 full Z-in-Q completion.
+
+## Coprime-prime and all-divisible-level degree-two product trace: 120 modules
+
+Fifteen sources close the actual coprime-prime Good principal-product trace,
+including the stronger zero-extended all-point raw product and upper-span
+endpoints. They prove the genuine CRT split, negative-determinant Fourier
+phase, exact −1/N coefficient after affine cancellation, actual lower signed
+correlation forms and nonempty orbit averaging. All ranks, nonprimitive lower
+labels, zero classes and p=2 are covered. No desired trace/orbit/span premise
+is supplied.
+
+Two further sources combine that result with the previously proved repeated-
+prime case. For positive N∣M and N≥3, the actual normalized weight-two trace
+sends every upper Good degree-two product-span member into the lower product
+span. Strong induction retains the explicit intermediate level bound. Actual
+invariant descent constructs a lower product-span member before restriction
+injectivity identifies it. This is degree two only, not whole-space spanning.
+
+The seventeen new mathematical sources contain 90 proof bodies and 23
+selected definitions/type aliases: fifteen coprime files have 81 proofs/23
+definitions, and the two binder files have nine proofs/no definitions.
+Complete independent source reviews read all 1580 coprime lines and all 224
+binder lines with load-bearing callees. The binder review's coprime-source
+condition was subsequently satisfied by the complete coprime review; its
+historical wording was preserved.
+
+The exact source editions were restored on a fresh worker without changing
+any prior mathematical source, dependency pin, original leaf or published
+history. The full ordinary rebuild and cumulative audit both exited 0:
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllWeightEisensteinAudit:olean +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelPrincipalProductTrace:olean
+lake --no-cache --no-ansi env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/AllLevelProductTraceAudit.lean
+```
+
+`AllLevelProductTraceAudit.lean` checks all 120 mathematical modules: 1448
+named public source proofs/instances, 220 selected definitions/structures/
+aliases/inductive types and one derived-row-instance capture. All 1669 records
+have at most `propext`, `Classical.choice`, `Quot.sound`, with no `sorryAx`.
+Its literal coprime-prime/all-divisible-level/invariant-descent/composite-
+generator examples retain the actual Mathlib groups, trace and product span.
+
+Exact new cumulative audit SHA256:
+`2308a5895bb8890048fafbd270f35d0cda0990bf4cb567ead51b94871869d565`.
+This is a new derived audit from the frozen 103-module audit plus the exact
+113 new author-inventory entries, not a byte/ABI identity claim for an earlier
+unbanked audit. The initial private ASCII-only inventory omitted 18 Unicode
+names; the corrected exact-name inventory verifies all 1669 unique entries.
+No mathematical source was changed to correct that diagnostic.
+
+Exact new endpoint editions:
+
+- `CoprimePrincipalProductTrace.lean`:
+  `0e687b1cdac2f1ceb873163af49b29d5f4e3bfe574b13abcf9e2370d3db7ece9`
+- `CoprimePrincipalProductTraceSpan.lean`:
+  `a54da5adec9dd04baa84ca1c31e2df95969b61106eb1b6c4050089fa3ca4aaea`
+- `PrincipalProductTraceUpperSpan.lean`:
+  `99d357f24698e502af9d21ea8a558607ae9f52595c38329a579df30d3fe58d81`
+- `AllLevelPrincipalProductTrace.lean`:
+  `16de2d561abb0c095deabea7ed7de23f5418d19042ca1ea81bc4bc8d4d94d372`
+
+These are ordinary pinned compilations with warm imported proof artifacts
+plus complete independent source reviews, not a cold/native or full-project
+acceptance certificate. Mixed weight-three product trace, primitive-series
+binding, newform extraction and principal-product spanning are not supplied
+by this edition. `PrincipalProductSpanning`, the unrestricted Hecke leaf and
+the full Z-in-Q theorem remain unproved; the original unconditional extent
+remains nonzero N≤6 and no assembly premise is removed.

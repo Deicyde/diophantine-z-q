@@ -160,6 +160,17 @@ are proved in the reduction, not hidden premises.
   rows use actual WP derivative expressions; bad even rows retain actual
   G_k by absolute residue-grid averaging. This is not an identification
   with the separate primitive gcd=1 Eisenstein series or whole-space span.
+- For coprime prime p and N ≥ 3, actual normalized trace of every Good
+  degree-two principal product, and every member of its genuine upper span,
+  lies in the lower product span. Actual CRT splitting, negative-determinant
+  Fourier orientation and nonempty orbit averaging cover all ranks and zero
+  classes. No desired orbit identity or product-trace premise is supplied.
+- For positive N∣M with N ≥ 3, actual normalized trace sends every upper
+  degree-two product-span member to the lower product span. Prime extension
+  and strong induction construct the lower member before restriction
+  injectivity is used. Invariant upper members descend to actual lower forms
+  in that same span. This is degree two only, not all-weight or whole-space
+  principal-product spanning.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -182,19 +193,20 @@ defect have proved membership in the independent convergent series span,
 by explicit equalities and finite combinations. Their integer-slope canonical
 correction and general lower-series-span trace closure are proved. This is
 not identification with a classical Petersson-Eisenstein subspace or full
-modular-form spanning. Repeated-prime degree-two product trace and all-weight
-congruence-grid generator inclusion are proved. The coprime-prime and mixed
-weight-three product-trace cases, primitive-series binding and full principal
-spanning remain separate from these results.
+modular-form spanning. Repeated-prime and coprime-prime degree-two product
+trace, all-divisible-level degree-two closure and all-weight congruence-grid
+generator inclusion are proved. Mixed weight-three product trace,
+primitive-series binding and full principal spanning remain separate from
+these results.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 103-module audit checks 1358 named public source proofs/instances,
-197 selected definitions, structures, aliases or inductive types and one
-additional capture of the derived row decision instance. All 1556 records
+The current 120-module audit checks 1448 named public source proofs/instances,
+220 selected definitions, structures, aliases or inductive types and one
+additional capture of the derived row decision instance. All 1669 records
 have at most `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`.
 **Auditing a predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `AllWeightEisensteinAudit.lean` for exact editions and
+See `CHECKS.md` and `AllLevelProductTraceAudit.lean` for exact editions and
 commands. Earlier audit editions preserve the previous verified checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
