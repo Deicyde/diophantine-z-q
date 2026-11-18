@@ -10,3 +10,4 @@
 - `Translation.lean`: compiled. Integral conjugate at level `N³` with new index `d²u` and unchanged bottom-right entry modulo `N`; differentiation and cusp limit for the sum.
 - `ThetaGauss.lean`: compiled. Even frequencies by square completion, odd frequencies cancel, numerator changes by a unit square for `4m² ∣ c`.
 - `Translation.lean`, `ThetaGauss.lean`: `#print axioms` reports only `propext`, `Classical.choice`, `Quot.sound`.
+- `ThetaNonvanishing.lean`: compiled. Theta duplication by parity separation and upper-half-plane nonvanishing by iteration; all four axiom checks are standard.
