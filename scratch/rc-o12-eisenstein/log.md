@@ -1,4 +1,9 @@
 - Base: `71d379283cea3d3650e7bd8c2b23ecb58163a7e7`, branch `wip/rc-o12-eisenstein`.
 - Normalization: `ρ` abstract at `RC/AddressGenuine/Constituents.lean:264–267`; arithmetic Frobenius at 288–291 and `RC/O12/Local.lean:34–42`. Tex 9795–9796 and 10358–10360 are consistent with twisting the divisor character by the cyclotomic character.
-- Divisor sum: (a_{pn}=\chi_1(p)a_n) when the second character is ramified and (a_{pn}=p\chi_2(p)a_n) when the first is ramified. For (d\) prime to (p\), the (d\)-th degeneracy has the same scalar.
+- Divisor sum: \(a_{pn}=\chi_1(p)a_n\) if \(\chi_2\) is ramified and \(a_{pn}=p\chi_2(p)a_n\) if \(\chi_1\) is ramified. The \(d\)-th degeneracy has the same scalar for \(d\) prime to \(p\).
 - `DivisorSum.lean`: `lake env lean -j1` passed; all six theorem checks permit only `propext`, `Classical.choice`, and `Quot.sound`.
+- `Characters.lean`: `lake env lean -j1` passed against the base interfaces. All ten theorem checks report only `propext`, `Classical.choice` and `Quot.sound`.
+- Character pair: `cycChar_unitsMap` identifies reduction; the twist at odd \(p\) has values \(1,p\) on \(\tau,\phi\). The quadratic Gauss sum has square \(p^*\) and reads the chosen \(\tau\) as \(-1\). In either order `CharacterPair.unramLine_frob` equals the coefficient scalar.
+- Coordinate statements: common basis gives \(\operatorname{diag}(1,-1)\), \(\operatorname{diag}(\lambda,\mu)\); the operator on the selected sum scales coordinate \(i\) by \(\lambda_i\) and shifts all positive coefficients. \(\mathrm{(O.12)}\)'s newLine and the projected comparison at one hold simultaneously for the assembled operator.
+- LocalBlocks.lean: lake env lean -j1 passed; all ten theorem checks report only propext, Classical.choice, and Quot.sound.
+- Base verification: Constituents.lean, O12/Local.lean and O12/Fourier.lean rebuilt at the pinned revision before checking the new imports.
