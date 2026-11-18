@@ -367,9 +367,15 @@ I checked five places and found no strengthening.
 ## Not read
 
 * **This paper.**
-  * Not read: the rest of the paper, except the reference list. That is p. 529 after Theorem 2, pp. 530–531 (most
-    of §3), p. 533 after the proof of Prop. 8, and pp. 534–542 (§4 from (4.8) on, §5, §6).
-  * Read: pp. 523–529 in full, the start of §4 on p. 531, and pp. 532–533 in full.
+  * Read: pp. 523–529 and pp. 532–533 in full, as whole-page images (150 dpi); the quoted passages on pp. 525, 526,
+    527, 528, 532 and 533 were also read in 300 dpi crops. p. 531 was viewed once as a whole-page image, and only the
+    opening of §4 on it (the definition of Γ, s and 𝔥) was read closely, in a 300 dpi crop. On p. 533 only the proof of
+    Prop. 8, up to "Observe that σ(y) sends ζ_M = e^{2πi/M} onto ζ_M^q", was used.
+  * Not read: p. 530 and pp. 534–542 (never opened); the rest of p. 531 (the end of §3) beyond the whole-page view;
+    p. 543 apart from the reference list. The reference entries quoted from pp. 543–544 ([3], [11], [15]) were read
+    from the PDF's OCR text layer, not from the page images. (Corrected 2026-11-18 from the reader's record: an
+    earlier version also listed p. 529 after Theorem 2 and p. 533 after Prop. 8 as not read; both pages were viewed
+    in full before the report was written.)
 * **Other sources.**
   * Shimura 1971 [11]: not read. This paper cites it for the standard model, for (7.2.2) and (7.2.6), for §3.4 and
     for Th. 3.51.
