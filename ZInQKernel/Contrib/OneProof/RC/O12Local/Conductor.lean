@@ -104,9 +104,7 @@ structure InducedModel (π : LocalAction p E V) (halfMod μ₁ μ₂ : LocalChar
   right_translate : ∀ v g t, realize (π t v) g = realize v (g * t)
 
 /-- PRINT: Casselman, Theorem 1, pp. 302–306 (UNVERIFIED), the conductor cases
-used at tex 9802–9809. In the principal-series case the normalized model may be
-taken with the inducing characters in either order, as used at tex 9825–9827.
-The two special cases are distinguished by the twisting character.
+used at tex 9802–9809. The two special cases are distinguished by the twisting character.
 This is the classification for an irreducible generic cuspidal local component. -/
 inductive CasselmanCases (π : LocalAction p E V) (halfMod χ : LocalCharacter p E)
     (c : ℕ) : Prop
@@ -114,7 +112,6 @@ inductive CasselmanCases (π : LocalAction p E V) (halfMod χ : LocalCharacter p
       (cond₁ : charConductor p μ₁ a₁) (cond₂ : charConductor p μ₂ a₂)
       (cond : c = a₁ + a₂) (central : χ = μ₁ * μ₂)
       (model : Nonempty (InducedModel p π halfMod μ₁ μ₂))
-      (swapped : Nonempty (InducedModel p π halfMod μ₂ μ₁))
   | specialUnramified (cond : c = 1) (central : charTrivialAt p χ 0)
   | specialRamified (cond : 2 ≤ c)
   | supercuspidal (cond : 2 ≤ c)
@@ -126,6 +123,14 @@ def CasselmanOldspace (π : LocalAction p E V) (c : ℕ) : Prop :=
   ∀ n, Module.Finite E (levelSpace p π n) ∧
     Module.finrank E (levelSpace p π n) = n + 1 - c
 
+/-- ELLIOT (tex 9825–9827): interchange of the inducing characters of the
+irreducible principal series. Only the ordering from ramified to unramified first
+is used. -/
+def PrincipalInterchange (π : LocalAction p E V) (halfMod : LocalCharacter p E) : Prop :=
+  ∀ μ₁ μ₂ : LocalCharacter p E, charConductor p μ₁ 1 → charConductor p μ₂ 0 →
+    Nonempty (InducedModel p π halfMod μ₁ μ₂) →
+    Nonempty (InducedModel p π halfMod μ₂ μ₁)
+
 theorem conductor_one (π : LocalAction p E V) (χ : LocalCharacter p E)
     (hc : centralAction p π χ) {c n : ℕ} (hχ : charConductor p χ 1)
     (hπ : repConductor p π c) (hn : hasLevel p π n) (hn₁ : n ≤ 1) : c = 1 := by
@@ -135,16 +140,18 @@ theorem conductor_one (π : LocalAction p E V) (χ : LocalCharacter p E)
 /-- At conductor one with ramified central character, the only possible case
 has a conductor-zero character first and a conductor-one character second. -/
 theorem ordered_principal (π : LocalAction p E V) (halfMod χ : LocalCharacter p E)
-    (hχ : charConductor p χ 1) (hclass : CasselmanCases p π halfMod χ 1) :
+    (hχ : charConductor p χ 1) (hclass : CasselmanCases p π halfMod χ 1)
+    (hswap : PrincipalInterchange p π halfMod) :
     ∃ μ₁ μ₂ : LocalCharacter p E, charConductor p μ₁ 0 ∧ charConductor p μ₂ 1 ∧
       χ = μ₁ * μ₂ ∧ Nonempty (InducedModel p π halfMod μ₁ μ₂) := by
   cases hclass with
-  | principal μ₁ μ₂ a₁ a₂ h₁ h₂ hsum hcentral hm hs =>
+  | principal μ₁ μ₂ a₁ a₂ h₁ h₂ hsum hcentral hm =>
       by_cases h : a₁ = 0
       · have h' : a₂ = 1 := by omega
         exact ⟨μ₁, μ₂, h ▸ h₁, h' ▸ h₂, hcentral, hm⟩
       · have h' : a₁ = 1 ∧ a₂ = 0 := by omega
-        refine ⟨μ₂, μ₁, h'.2 ▸ h₂, h'.1 ▸ h₁, hcentral.trans ?_, hs⟩
+        refine ⟨μ₂, μ₁, h'.2 ▸ h₂, h'.1 ▸ h₁, hcentral.trans ?_,
+          hswap μ₁ μ₂ (h'.1 ▸ h₁) (h'.2 ▸ h₂) hm⟩
         ext u
         exact mul_comm _ _
   | specialUnramified _ hu => exact False.elim (hχ.2 0 Nat.zero_lt_one hu)
