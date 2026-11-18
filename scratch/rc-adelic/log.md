@@ -6,3 +6,10 @@
 - `FiniteUnits.lean`: compiled; restricted units, integral units, rational diagonal, double cosets; axiom checks allowed only.
 - `Ideal.lean`: compiled; exact local principal ideal correspondence, fixed-multiplier criterion, conjugate left order and class-group units; axiom checks allowed only.
 - `Level.lean`: recompiled with unchanged completions away from the level; axiom checks allowed only.
+- `RightAction.lean`: compiled; one-place adeles and quotient permutations; central-square involution criterion.
+- `Operations.lean`: compiled; Atkin–Lehner normalization and involution; division uniformizer normalization and permutation.
+- `HeckeMatrix.lean`: compiled; one right coset of the integral group for each residue line in the `diag(p,1)` double coset.
+- `Hecke.lean`: compiled; descent preserving multiplicity, agreement with `nbAt` and the total good-prime neighbour map.
+- `Stage.lean`: compiled; algebraic inputs in the RC/PM types; finite adelic class set.
+- All eleven files: individual `lake env lean --threads=1` checks passed, with only `propext`, `Classical.choice`, `Quot.sound` in the axiom reports.
+- Geometric comparison and specialization: outside scope. New printed leaves: none.
