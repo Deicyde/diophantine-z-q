@@ -70,8 +70,10 @@ theorem IsConductor.unique {E : WeierstrassCurve ℚ} [E.IsElliptic] {M N : ℕ+
     exact_mod_cast (hM p).trans (hN p).symm
   · rw [Nat.factorization_eq_zero_of_not_prime _ hp, Nat.factorization_eq_zero_of_not_prime _ hp]
 
-/-- Weak Weil hypothesis (Kolyvagin, MPI/90-69 p. 3; BCDT, Introduction (6) p. 3):
-there is a nonconstant ℚ-morphism `X₀(N_E) → E` at the conductor of E. -/
+/-- Weak Weil hypothesis (Kolyvagin, MPI/90-69 p. 3): there is a nonconstant ℚ-morphism
+`X₀(N_E) → E` at the conductor of E. BCDT's Introduction condition (6) (p. 3) uses `X₁(N_E)`.
+The realization from `X₀(N_E)` uses trivial nebentypus, Shimura's `J₀` quotient and Faltings,
+as in tex L1779–1784 (Milne MF v1.31, Theorem 11.19 and Remark 11.18). -/
 def HasWeakWeilParametrization (E : WeierstrassCurve ℚ) [E.IsElliptic] : Prop :=
   ∃ N : ℕ+, IsConductor E N ∧ Nonempty (NonconstantX0Map N E)
 
