@@ -1,0 +1,1 @@
+  systemd-run --user --scope -q -p MemoryMax="${MEMMAX:-28G}" codex exec -m gpt-6.2-sol -c model_reasoning_effort="${EFFORT:-high}" -s workspace-write --add-dir "$HOME/dzq/.git" -C "$HOME/dzq-wt/$wt" --skip-git-repo-check --json "$(cat "$HOME/dzq-runs/prompts/$task.md")" > "$HOME/dzq-runs/$task/stream-$n.jsonl" 2> "$HOME/dzq-runs/$task/stderr-$n.log" < /dev/null
