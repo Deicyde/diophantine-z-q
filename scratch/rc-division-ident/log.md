@@ -1,0 +1,5 @@
+- Merged the local division base into the Eichler base.
+- Tex 8559: equality is in the residue field and requires a bar on (Q_B(x)); recorded in the report and handoff.
+- Dependency build: 33 existing modules compiled with sequential `lake env lean` invocations.
+- `Ambient.lean`: compiled. Seven axiom checks, each restricted to `propext`, `Classical.choice`, and `Quot.sound`.
+- Ambient statements: coefficientwise (K)- and (A)-algebra equivalences; trace and norm comparison; norm formula (x_0^2+x_1^2+p(x_2^2+x_3^2)).
