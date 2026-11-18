@@ -303,6 +303,23 @@ jobs:
           name: kernel-swap-${{ github.run_attempt }}
           path: build/kernel-ci/swap-status.json
           if-no-files-found: warn
+      - name: Install and test optional resource uploader
+        id: progress_install
+        if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
+        continue-on-error: true
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund --prefix .github/actions/kernel-progress
+          node --test .github/actions/kernel-progress/progress.test.cjs
+      - name: Start optional resource uploader
+        id: progress_start
+        if: steps.progress_install.outcome == 'success' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        continue-on-error: true
+        uses: ./.github/actions/kernel-progress
+        with:
+          mode: start
+      - name: Report unavailable periodic diagnostics
+        if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false') && (steps.progress_install.outcome != 'success' || steps.progress_start.outcome != 'success')
+        run: echo 'Periodic resource uploads unavailable. Running the original kernel checks with ordinary final evidence uploads.' >> "$GITHUB_STEP_SUMMARY"
       - name: Build all kernel modules
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         run: python -B scripts/check_kernel.py --phase build
@@ -324,6 +341,12 @@ jobs:
           # Lower only the audit worker count; every replay and target check remains.
           LEAN_NUM_THREADS: '1'
         run: python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json
+      - name: Stop optional resource uploader
+        if: always() && env.KERNEL_PROGRESS_DIR != ''
+        continue-on-error: true
+        uses: ./.github/actions/kernel-progress
+        with:
+          mode: stop
       - name: Upload proof-status evidence
         if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
