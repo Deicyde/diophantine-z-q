@@ -31,3 +31,6 @@
   `not a field of the current bundles: ['hK']`. It only folds H bundle fields.
   `autofold.json` records the exact `hK` proof and the manual consumer
   substitution that drops both old top-level binders.
+- **VERIFIED (tool):** `preview_fold.py` reads the spec and prints the three
+  proposed edits to the actual headline source, without writing it. The
+  unchanged H call still supplies the first argument of the headline combiner.
