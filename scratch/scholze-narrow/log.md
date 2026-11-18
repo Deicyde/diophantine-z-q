@@ -1,0 +1,3 @@
+- VERIFIED (source, base `41892618b`): `Main` calls `sixContactMin_of_open82`. C8 inputs project only Conrad; downstream C8 obtains weights via G9 at 5. The direct de Rham row is separate. The general Or value is filled then dropped. Both live R10 branches apply at the same local abelian surface.
+- VERIFIED (source): all three Scholze clauses are used by the dimensioned HT proof. Restrict the quantifier over dimensions to 2; no numbered clause is deleted. The rank needed at L10996 remains explicit.
+- VERIFIED (source): autofold fills an old bundle field with a proof of its original type, so the surface restriction needs a bypass.
