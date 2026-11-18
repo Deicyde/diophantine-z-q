@@ -1675,7 +1675,7 @@ jobs:
           # secrets, GitHub-hosted runners and SHA-pinned actions. Project outputs come only
           # from a verified successful main artifact; branches never publish producers.
           # A change requires a reviewed pin update.
-          LEAN_WORKFLOW_SHA256 = '7b05d7c769793c1117ee738aad6110592a7f2b860c042accc788e4b22bbf3d1d'
+          LEAN_WORKFLOW_SHA256 = 'fd9220edd88e0b3002ec7fba7c94c393b137a011bb7fc96e300cb3cf1a8299e2'
           LEAN_REF_PREFIX = 'refs/heads/codex/protocol-b-kernel/'
 
 

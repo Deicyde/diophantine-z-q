@@ -388,7 +388,7 @@ jobs:
           path: ${{ runner.temp }}/kernel-main-reuse/*.json
           if-no-files-found: warn
       - name: Stop optional resource uploader
-        if: always() && env.KERNEL_PROGRESS_DIR != ''
+        if: always() && env.KERNEL_PROGRESS_DIR != '' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         continue-on-error: true
         uses: ./.github/actions/kernel-progress
         with:
