@@ -136,6 +136,15 @@ theorem levelOrder_le (N : ℕ) (hN : 0 < N) :
   rw [← Order.completion_toSubmodule]
   exact levelLocal_le ell h N p (Subring.mem_iInf.mp hx p)
 
+/-- At a prime not dividing the level, the completed explicit order is unchanged. -/
+theorem levelOrder_completion_away (N : ℕ) (hN : 0 < N) (p : Prime) (hpN : ¬ p.val ∣ N) :
+    (levelOrder ell h N hN).completion p.val = (explicitOrderAt ell h).completion p.val := by
+  rw [levelOrder_completion]
+  apply le_antisymm (levelLocal_le ell h N p)
+  intro x hx
+  simpa only [Nat.factorization_eq_zero_of_not_dvd hpN, pow_zero, one_smul] using
+    levelLocal_smul ell h N p hx
+
 theorem levelOrder_isEichler (N : ℕ) (hN : 0 < N) (hcop : N.Coprime ell) :
     IsEichler ell N (levelOrder ell h N hN) := by
   refine ⟨Fact.out, hN, hcop, ?_, ?_⟩
@@ -169,6 +178,7 @@ theorem levelOrder_isEichler (N : ℕ) (hN : 0 < N) (hcop : N.Coprime ell) :
 #print axioms level_patch
 #print axioms levelOrder_completion
 #print axioms levelOrder_le
+#print axioms levelOrder_completion_away
 #print axioms levelOrder_isEichler
 
 end ZInQ.Manuscript.RC.Adelic

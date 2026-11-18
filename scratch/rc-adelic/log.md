@@ -2,3 +2,7 @@
 - `Coordinates.lean`: compiled; rational diagonal coordinates, integral intersection; axiom checks allowed only.
 - `Patch.lean`: compiled; exact prime-power gluing inside a full lattice; axiom checks allowed only.
 - `Level.lean`: compiled; exact completion, containment, and `IsEichler`; axiom checks allowed only.
+- `FullPatch.lean`: compiled; exact gluing with fractional local modifications; axiom checks allowed only.
+- `FiniteUnits.lean`: compiled; restricted units, integral units, rational diagonal, double cosets; axiom checks allowed only.
+- `Ideal.lean`: compiled; exact local principal ideal correspondence, fixed-multiplier criterion, conjugate left order and class-group units; axiom checks allowed only.
+- `Level.lean`: recompiled with unchanged completions away from the level; axiom checks allowed only.
