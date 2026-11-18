@@ -13,3 +13,7 @@
    Its baseline is the original headline. Its `h54` pairing match is the all-curves bridge with
    Mordell–Weil as a premise. The dry run instead checks the consumer on the specific family,
    which has no open Mordell–Weil premise. Full output: `FrozenCT-output.txt` in this directory.
+4. **VERIFIED:** The manuscript check at L1072–1085 and L1098–1102 identifies the finite
+   Kummer count, the primary decomposition and the square property. The final corank
+   inference is implicit in the manuscript; Lean supplies it by comparing finite-level counts
+   rather than constructing the literal infinite-level tensor sequence on this route.
