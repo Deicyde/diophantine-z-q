@@ -1,5 +1,6 @@
 import copy
 import json
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -47,6 +48,20 @@ class DriverTests(unittest.TestCase):
             self.assertEqual(result['status'], 'cold')
             self.assertTrue(result['audit_required'])
             capture.assert_not_called()
+        self.assertFalse(driver.completed_phase(self.workspace, self.state, 'built')['publish'])
+        self.assertFalse(driver.completed_phase(self.workspace, self.state, 'finish')['publish'])
+        self.assertFalse((self.state/'bundle').exists())
+
+    def test_main_input_query_timeout_keeps_cold_build_and_audit_available(self):
+        self.cold()
+        with patch.object(driver, 'producer_identity', return_value=self.producer), \
+                patch.object(driver, 'capture', side_effect=subprocess.TimeoutExpired(['lake', 'env'], 60)):
+            result = driver.prepare(self.workspace, self.state, self.root/'toolchain')
+        self.assertEqual(result['status'], 'cold')
+        self.assertEqual(result['producer_unavailable'], 'TimeoutExpired')
+        self.assertTrue(result['audit_required'])
+        config = driver.read(self.state/'prepared.json')
+        self.assertFalse(config['has_context'])
         self.assertFalse(driver.completed_phase(self.workspace, self.state, 'built')['publish'])
         self.assertFalse(driver.completed_phase(self.workspace, self.state, 'finish')['publish'])
         self.assertFalse((self.state/'bundle').exists())

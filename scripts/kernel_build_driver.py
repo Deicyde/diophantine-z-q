@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 import urllib.error
 
@@ -143,7 +144,7 @@ def prepare(workspace, state, prefix):
     if context is None and producer is not None:
         try:
             context, detail = capture(workspace, prefix, state)
-        except (ValueError, OSError) as error:
+        except (ValueError, OSError, subprocess.TimeoutExpired) as error:
             result['producer_unavailable'] = type(error).__name__
     if context is not None:
         write_new(state/'session-prepared.json', begin(context))

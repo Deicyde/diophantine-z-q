@@ -6,7 +6,11 @@ producer and archive digest. A missing or incompatible bundle selects a cold
 build. Once installation starts, an error is fatal rather than hiding a possibly
 partial restore behind the cold path. The full kernel audit is always required.
 """
+import lzma
 import os
+import subprocess
+import zipfile
+import zlib
 
 from kernel_build_context import capture_context
 from kernel_build_inventory import FORBIDDEN_ENV
@@ -38,7 +42,8 @@ def prepare_candidate(workspace, prefix, module_paths, build_commands, *, select
     # All optional-cache rejection occurs before any project outputs are installed.
     try:
         manifest = verify_archive(archive, archive_sha256, producer)
-    except (ValueError, OSError) as error:
+    except (ValueError, OSError, EOFError, NotImplementedError,
+            zipfile.BadZipFile, zlib.error, lzma.LZMAError) as error:
         return {'status': 'cold', 'reason': 'Downloaded bundle failed verification',
                 'detail': str(error)[:240] if isinstance(error, ValueError) else type(error).__name__,
                 'audit_required': True}, None, None
@@ -47,7 +52,7 @@ def prepare_candidate(workspace, prefix, module_paths, build_commands, *, select
             driver_paths=driver_paths, system_drivers=system_drivers, controls=controls,
             environ=environment, expected_environment=manifest['environment'],
             git_executable=git_executable, progress=progress)
-    except (ValueError, OSError) as error:
+    except (ValueError, OSError, subprocess.TimeoutExpired) as error:
         return {'status': 'cold', 'reason': 'Installed build inputs are ineligible or differ from the producer',
                 'detail': str(error)[:240] if isinstance(error, ValueError) else type(error).__name__,
                 'audit_required': True}, None, None

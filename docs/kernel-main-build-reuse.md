@@ -12,7 +12,7 @@ closure. Dependency setup still uses the pinned Mathlib cache.
   main ancestry, the approved workflow, exact successful attempt, job and
   artifact. `kernel_build_download.py` checks GitHub's archive digest, limits
   the download and removes the API token before following the signed redirect.
-  Only these trusted selection operations receive a GitHub read token.
+  Within the new reuse stages, only these selection operations receive a GitHub read token. Existing scope and base-report steps keep their separate read tokens.
 - `kernel_build_manifest.py` validates the complete archive, output sizes and
   hashes, module ownership and dependency closure. It rejects unsafe paths,
   links, duplicate entries, unknown outputs and incomplete modules. Candidate
@@ -34,9 +34,37 @@ closure. Dependency setup still uses the pinned Mathlib cache.
 
 The workflow reads the driver from protected main before candidate execution.
 Until the driver is installed there, implementation PRs build cold. This is
-intentional and does not demonstrate a production artifact restore.
+intentional and does not demonstrate a production artifact restore. Copying the
+driver establishes which code runs; it is not an operating-system isolation
+boundary. The runner uses one account, which can also write the temporary state.
 
-## Measurements obtained
+The added full-project validation job exercises the candidate driver before
+installation on main. It calls `prepare`, builds under the new Lake controls,
+calls `built`, runs the unchanged complete audit, and calls `finish`. It then
+preserves only the two project output roots, restores their verified local
+bundle and requires `lake --rehash --no-build` to accept every contract module.
+Byte inventories must match before and after that check. It uses the real
+project's pinned dependencies, path package, module-system files and library
+source directories. A failed input capture is a failed test, not an untested
+cold success.
+
+The validation substitutes an explicitly synthetic local identity at the
+producer-identity function only. Its original GitHub execution identity is
+recorded separately. The test bundle carries an extra scope field that cannot
+match the authenticated producer record. It never sets workflow outputs or
+uploads a `kernel-main-build` artifact. This is a deployment dry run, not an
+authenticated main producer, and does not rerun the full audit after its local
+restore. The authenticated producer and restored full audit below remain
+required after deployment. The current repair's full-project run is pending.
+
+The fingerprints cover the declared source, import and build inputs described
+above. They do not detect arbitrary file reads by Lean elaborators or macros,
+such as an unregistered `include_str` input. Projects using such inputs must
+register their dependency or reject reuse until it is covered. Passing the
+full audit checks the compiled declarations; it does not establish that every
+possible elaboration-time input was fingerprinted.
+
+## Historical measurements obtained
 
 The [Linux validation run 44104869076](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44104869076)
 used the actual compiler, context collector, verifier, restorer and unchanged

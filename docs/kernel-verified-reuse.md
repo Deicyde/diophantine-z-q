@@ -6,7 +6,8 @@ all project declarations with the unchanged kernel auditor.
 
 The workflow first reads the reuse driver from the protected `main` branch.
 It copies that code outside the candidate checkout before running candidate
-code. Only the selection step receives a GitHub read token. It checks the
+code. Within the new reuse stages, only selection receives a GitHub read token.
+Existing scope and base-report steps retain their separate read tokens. It checks the
 producer's repository, main ancestry, exact workflow bytes, successful job and
 run attempt, and GitHub's artifact digest. If the driver is not yet installed
 on main, as during the first implementation PR, the job builds cold.
@@ -32,7 +33,8 @@ rejected. This exception does not cover dependency libraries, other paths or
 unknown files. All other loader errors still reject reuse.
 
 A missing producer, invalid bundle or incompatible installed environment uses
-the cold path. An error after restoration starts fails the job rather than
+the cold path, including malformed archives and native-query timeouts before
+installation. An error after restoration starts fails the job rather than
 continuing with a possibly partial installation. The decision and captured
 inputs are kept in `kernel-reuse-evidence-<attempt>`.
 
@@ -49,3 +51,9 @@ and a source change that rebuilds its reverse dependency closure. Report
 download and hashing time, restored and rebuilt modules, total build and audit
 time, peak memory, swap and disk usage. A local fixture or an offline test does
 not by itself establish hosted performance or production acceptance.
+
+Before deployment, the full-project candidate-driver validation is separate
+from the required kernel check. It exercises the real package layout and
+complete audit, then verifies a local restore without compilation. Its synthetic
+identity and local bundle cannot authorize production reuse. See the
+[validation description and limits](kernel-main-build-reuse.md).

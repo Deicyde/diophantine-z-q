@@ -6,6 +6,7 @@ on:
       - 'scripts/kernel_build_*.py'
       - 'scripts/test_kernel_build_*.py'
       - 'scripts/validate_kernel_reuse_linux.py'
+      - 'scripts/validate_kernel_reuse_project.py'
       - 'scripts/audit_kernel.lean'
       - '.github/workflows/kernel-reuse-validation.yml'
       - '.github/workflows/kernel-lean.yml'
@@ -52,4 +53,119 @@ jobs:
           name: kernel-reuse-linux-${{ github.run_attempt }}
           path: build/kernel-reuse-live/
           include-hidden-files: true
+          if-no-files-found: warn
+
+  full_project:
+    name: Full project candidate-driver dry run
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      LEAN_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install pinned Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir "$RUNNER_TEMP/fixture-elan"
+          cd "$RUNNER_TEMP/fixture-elan"
+          curl --fail --location --retry 3 -o elan.tar.gz https://github.com/leanprover/elan/releases/download/v4.2.4/elan-x86_64-unknown-linux-gnu.tar.gz
+          echo '42b94d4244e8353142c456ec0e4ca6528fd898a6c604d4059f494e706e431f63  elan.tar.gz' | sha256sum --check -
+          tar -xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          "$HOME/.elan/bin/elan" toolchain install leanprover/lean4:v4.35.0
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Test validation guards and source contract
+        run: |
+          python -B scripts/test_kernel_build_project_validation.py
+          python -B scripts/check_kernel_contract.py --output build/kernel-ci/contract.json
+      - name: Fetch pinned Mathlib cache
+        run: lake exe cache get
+      - name: Add 24 GiB swap for the kernel audit
+        # Preserve existing swap. VM teardown releases this additional file.
+        shell: bash
+        run: |
+          set -euo pipefail
+          swap_file=''
+          allocation='existing'
+          record_swap_on_exit() {
+            original_status=$?
+            trap - EXIT
+            set +e
+            args=(--record-swap build/kernel-ci/swap-status.json --disk-path "$RUNNER_TEMP" --allocation "$allocation" --requested-bytes 25769803776)
+            if [[ -n "$swap_file" ]]; then args+=(--added-path "$swap_file"); fi
+            python -B scripts/kernel_diagnostics.py "${args[@]}"
+            record_status=$?
+            if (( original_status != 0 )); then exit "$original_status"; fi
+            exit "$record_status"
+          }
+          trap record_swap_on_exit EXIT
+          free -m
+          df -h "$RUNNER_TEMP"
+          swapon --show
+          available=$(df -B1 --output=avail "$RUNNER_TEMP" | tail -n 1)
+          if (( available < 28 * 1024 * 1024 * 1024 )); then
+            allocation='skipped-low-disk'
+            echo '::warning::Less than 28 GiB free; cannot add 24 GiB swap while leaving 4 GiB disk headroom. Continuing the full kernel audit with existing swap.'
+            echo 'Additional audit swap skipped: insufficient disk space. All audit checks still run.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
+            allocation='added'
+            sudo fallocate -l 24G "$swap_file"
+            sudo chmod 600 "$swap_file"
+            sudo mkswap "$swap_file"
+            sudo swapon "$swap_file"
+          fi
+          free -m
+          swapon --show
+      - name: Preserve verified swap configuration
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-project-validation-swap-${{ github.run_attempt }}
+          path: build/kernel-ci/swap-status.json
+          if-no-files-found: warn
+      - name: Install and test optional resource uploader
+        id: progress_install
+        continue-on-error: true
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund --prefix .github/actions/kernel-progress
+          node --test .github/actions/kernel-progress/progress.test.cjs
+      - name: Start optional resource uploader
+        id: progress_start
+        if: steps.progress_install.outcome == 'success'
+        continue-on-error: true
+        uses: ./.github/actions/kernel-progress
+        with:
+          mode: start
+      - name: Report unavailable periodic diagnostics
+        continue-on-error: true
+        if: always() && (steps.progress_install.outcome != 'success' || steps.progress_start.outcome != 'success')
+        run: echo 'Periodic resource uploads unavailable. Running the original kernel checks with ordinary final evidence uploads.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Exercise candidate preparation, full build, audit and local restore
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          prefix=$(lean --print-prefix)
+          env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY -u GITHUB_ENV -u GITHUB_OUTPUT python -B scripts/validate_kernel_reuse_project.py --prefix "$prefix" --state "$RUNNER_TEMP/kernel-project-validation" --output build/kernel-reuse-project
+      - name: Stop optional resource uploader
+        if: always() && env.KERNEL_PROGRESS_DIR != ''
+        continue-on-error: true
+        uses: ./.github/actions/kernel-progress
+        with:
+          mode: stop
+      - name: Preserve full-project validation evidence only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-reuse-project-validation-${{ github.run_attempt }}
+          path: |
+            build/kernel-reuse-project/
+            build/kernel-ci/
           if-no-files-found: warn
