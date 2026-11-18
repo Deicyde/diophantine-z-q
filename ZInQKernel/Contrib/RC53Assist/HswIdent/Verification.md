@@ -1,5 +1,10 @@
 # Coefficient and trace identifications of the residual switch: verification report
 
+
+## Note after independent review (2026-11-18)
+
+An independent review approved the identifications with notes. The declaration census is 60 named declarations plus 7 instances. `ReciprocityAt` is an arithmetic, non-circular input and is not proved here.
+
 Compiled contribution for the six identifications `eT`, `eM₂`, `hWeil`, `eμ`, `heμ`, `hmatch` taken by the residual bridge `derivSwitch_switchCoordinates_tame_of_Milne` (module `ZInQKernel.Contrib.RC53Assist.HswResidual.Residual`), constructed for the genuine residual objects. Single module: `ZInQKernel.Contrib.RC53Assist.HswIdent.Identifications`.
 
 ## The genuine objects
