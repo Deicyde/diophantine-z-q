@@ -1,0 +1,9 @@
+- Base: `2481181053ae50cea6b6c2b9118de0f2e17f09ae`.
+- Manuscript 9638–9668, 9712–9739, 9891–9902: integral stability and evaluation before reduction; whole-module `hdiam` unsupported.
+- Result (c): fresh Frobenius tests at each positive index give whole-module trace congruence. Evaluate `T_q` at `qn`, subtract `v[q²n]` and cancel `q ≡ 1 mod 𝔪` to obtain whole-module `hdiam`.
+- `trace_congruence_of_fresh_hecke`: positive-coefficient kernel stable under all scalar traces.
+- `hdiam_of_hecke`: exact `buildConstituentModel.hdiam` argument, from trace congruence and `HeckeFourier`.
+- No extra character, correction, saturation, or residual splitting hypothesis for `hdiam`; the correction data still feed the determinant orbit.
+- Compile setup: this worktree had no project oleans. A serial `lake env lean --threads=1` dependency build with a separate artifact directory passed the initial cache issues by rebuilding the pole modules and vendored `PoleValuation.lean` from unchanged source. No project dependency sources edited.
+- `lake env lean --threads=1` on `ZInQKernel/Contrib/OneProof/RC/Diamond/Congruence.lean`: exit 0.
+- Axiom audits: `trace_congruence_of_fresh_hecke` and `hdiam_of_hecke` each use only `[propext, Classical.choice, Quot.sound]`.
