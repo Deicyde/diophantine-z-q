@@ -1,0 +1,12 @@
+import ZInQKernel.Contrib.OneProof.ShimuraQuotientGeometry
+
+open ShimuraSteps.Quotient
+
+#print axioms AbVarQuotientBySubvarietyExists
+#print axioms unit_closed
+#print axioms kernelInclusion_closed
+#print axioms kills_iff_kills_imageSum
+#print axioms printQuotient_iff_iso
+#print axioms schemeKernelConnected_of_isAbVarQuotient
+#print axioms unit_isIso_of_finite_connected
+#print axioms kerConnected_of_schemeKernelConnected
