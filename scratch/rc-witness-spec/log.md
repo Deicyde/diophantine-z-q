@@ -15,3 +15,7 @@
 - `SplitRoot.lean`, `TwistMatch.lean`: checked; the selected root reduces to the prime field, and the embedded rational twist uses the same root as the geometric identification.
 - `Torsion.lean`: checked; a finite field of definition reduces the geometric torsion-kernel calculation to the existing finite-prime theorem. Matching counts give bijectivity on the full geometric level torsion.
 - The axiom outputs for these files contain only `propext`, `Classical.choice`, and `Quot.sound`.
+- `ActualLocal.lean`: constructed the local stage from point reduction composed with the exact geometric twist. Verified with the standard axioms only.
+- `TwistAtPlace.lean`: checked; the actual twist change is integral and reduces from the prime field. The unit preserves poles and reduces ordinary coordinates by the same factors.
+- `Specialize.lean`, `actualWitness`: the chosen Frobenius place and conductor-one reduction supply the match for every stage. The resulting single `StageKummer` satisfies both `WitnessSpecialization` and `WitnessValuation`. Verified with the standard axioms only.
+- No geometric evaluation on unused entries of the total stage interface is claimed.

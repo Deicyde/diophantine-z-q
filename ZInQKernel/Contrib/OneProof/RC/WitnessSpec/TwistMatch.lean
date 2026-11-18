@@ -18,6 +18,13 @@ def rationalGeomPoint (A : WeierstrassCurve ℚ) :
   (Affine.Point.map (W' := A) (Algebra.ofId ℚ Qbar)).comp
     (Affine.Point.equivBaseChangeSelf A.toAffine).toAddMonoidHom
 
+/-- The rational point supplies the fixed-point input of the division cocycle. -/
+theorem rationalGeomPoint_fixed (A : WeierstrassCurve ℚ) (R : A.toAffine.Point) (g : GalQ) :
+    Affine.Point.map (W' := A) g.toAlgHom (rationalGeomPoint A R) = rationalGeomPoint A R := by
+  have h : g.toAlgHom.comp (Algebra.ofId ℚ Qbar) = Algebra.ofId ℚ Qbar := by
+    ext
+  simp only [rationalGeomPoint, AddMonoidHom.comp_apply, Affine.Point.map_map, h]
+
 /-- Extending the ring-class twist embedding to the algebraic closure gives
 exactly the geometric twist map, with no change of root. -/
 theorem map_twistEmb_eq_geomTwist {H : Type*} [Field H] [Algebra ℚ H]
@@ -42,6 +49,7 @@ theorem map_twistEmb_eq_geomTwist {H : Type*} [Field H] [Algebra ℚ H]
     simp only [map_div₀, map_pow, e.commutes]
 
 #print axioms rationalGeomPoint
+#print axioms rationalGeomPoint_fixed
 #print axioms map_twistEmb_eq_geomTwist
 
 end ZInQ.Manuscript.RC.WitnessSpec
