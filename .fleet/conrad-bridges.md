@@ -1,0 +1,7 @@
+# conrad-bridges handoff
+
+Both dictionaries for C8 are proved. `HDec.G0Galois.C8Conrad.Bridges.conradAppB_of_concrete` gives the exact original `ConradAppB` from the appendix’s near-one formula and Proposition B.3 on the identity coefficient line. The proof builds the full `ℂ_p ⊗_{ℚ_p} V` splitting from `HasHTWeights {w}` and uses the finite Galois coefficient enlargement and its fixing subgroup. Over `ℚ_p`, the product in the concrete display has one factor; no Weil restriction is needed. No existing consumer changed.
+
+VERIFIED on base `15c9e93d3`: the contribution and verbatim statement checks compile. The generated fold and `ZInQ.OneProof.frozenTarget_conradBridges` compile on the pinned top. `#discharges` matches `OpenAddedLeaves28.conradAppB` and lists only `ConradAppBConcrete` as the adapter’s remaining assumption. The pinned and generated headlines and the adapter all report exactly `propext`, `Classical.choice` and `Quot.sound`. Transcripts and the unapplied autofold spec are in [`scratch/conrad-bridges`](../scratch/conrad-bridges/); the pinned-top checks are committed at `7dce13c78`.
+
+H strict LEAF/GLUE on N: 5/24 on 29 before and 5/24 on 29 after. The cited December 11, 2011 author preprint does not meet this task’s refereed-source rule. If the integrator explicitly accepts it, the count becomes 6/23 on 29. No fresh independent PDF read was performed; the manuscript application was checked against the supplied p. 32–33 read and A011. See the [research report](../docs/research/conrad-bridges.md) for the locators and ratings.
