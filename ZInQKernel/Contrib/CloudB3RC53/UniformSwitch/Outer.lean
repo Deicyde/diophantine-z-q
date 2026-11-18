@@ -19,15 +19,24 @@ Fields of `OuterSwitchProcess`:
 * `pos` — **PROVED** from the nonzero outer kernel vector `z_out` (tex 4938–4940: "the inner kernels
   have primitive vectors whose outer image is nonzero, so the outer kernel dimension `s` is at least
   one").
-* `terminal` — **PROVED** (via RC16's `terminalData_of_minimalModels`): at `s = 1` some maximal minor
-  of `D_out` is nonzero (`exists_minor_ne_zero_of_finrank_ker_eq_one`); the GLUE link
-  `minor_link` (a nonzero outer minor is the class of non-negligible, nonzero, integral inner minors,
-  tex 4706–4714, 4957–4959) gives the inner minors; integral cycles and `v λ ≥ −a` (the paired
-  functional, exponent `a`) give the Schur/Cramer terminal data (tex 4957–4961).
+* `terminal` — **PROVED** (via `terminalData_of_minimalModels_eventually`, the form of RC16's
+  `terminalData_of_minimalModels` with the inner minors nonzero only on an outer-large set): at
+  `s = 1` some maximal minor of `D_out` is nonzero (`exists_minor_ne_zero_of_finrank_ker_eq_one`);
+  the GLUE link `minor_link` (a nonzero outer minor is the class of non-negligible, integral inner
+  minors, nonzero on an outer-large set, tex 4706–4714, 4957–4959) gives the inner minors; integral
+  cycles and `v λ ≥ −a` (the paired functional, exponent `a`) give the Schur/Cramer terminal data
+  (tex 4957–4961).
 * `switch` — **PROVED from GLUE inputs**: the outer dimension drop from `NonquadDims` over `K_out`
   (detection: relaxed image = finite plane; (5.5a)), and the equality of inner valuations on an
   outer-large set from RC16's `switch_equal_valuation` applied to per-instance switch data
   `SwitchCoordData` with unit volume normalizations (tex 4940–4950).
+
+Round 3 change (lane RC0, field shape): `minor_link` asks the inner minors to be nonzero on an
+outer-large set (`∀ᶠ j in 𝒰`) instead of at every instance. This is Elliot's statement ("Its inner
+minors have one finite valuation `b` on an outer-large set", tex 4958–4959), and it is what the
+genuine outer model gives (batch 3's `SwitchInputs.minorLinkEventually_proof`): a sequence of minors
+can vanish on a `𝒰`-small set without changing its class in `𝒪_∞`. RC16's process
+`OuterSwitchProcess` is unchanged (its terminal field is already stated along `𝒰`).
 -/
 
 noncomputable section
@@ -75,11 +84,41 @@ theorem OuterStage.one_le_outerDim (S : OuterStage Kout K J) : 1 ≤ S.outerDim 
   rw [Submodule.finrank_eq_zero.mp h0, Submodule.mem_bot] at hmem
   exact S.hzout0 hmem
 
+/-- **The terminal data from the minimal models, along the ultrafilter** (tex 4957–4961): RC16's
+`terminalData_of_minimalModels` with the inner minors `Δ_j` nonzero only on an outer-large set
+(Elliot: "Its inner minors have one finite valuation `b` on an outer-large set"). The Schur/Cramer
+relation `u_j Δ_j = ±z_j(j₀) λ_j(k₀)` (RC16's `classFunctionalCoord_cramer`) is used at the
+instances where `Δ_j ≠ 0`, which is all the terminal field of `OuterSwitchProcess` asks. PROVED. -/
+theorem terminalData_of_minimalModels_eventually (a n : ℕ)
+    (D : J → Matrix (Fin (n + 1)) (Fin (n + 1)) K) (z lam : J → Fin (n + 1) → K)
+    (w : J → Fin n → Fin (n + 1) → K) (y : J → Fin (n + 1) → K) (k0 j0 : Fin (n + 1))
+    (hz : ∀ j, D j *ᵥ z j = 0) (hlam : ∀ j, lam j ᵥ* D j = 0)
+    (hden : ∀ j, detCols (colsDWY (D j) (w j) (y j)) ≠ 0)
+    (hΔ0 : ∀ᶠ j in (𝒰 : Filter J), ((D j).submatrix k0.succAbove j0.succAbove).det ≠ 0)
+    (hα : ∀ᶠ j in (𝒰 : Filter J), (0 : WithTop ℤ) ≤ v (z j j0))
+    (hβ : ∀ᶠ j in (𝒰 : Filter J), (((-a : ℤ)) : WithTop ℤ) ≤ v (lam j k0))
+    (hΔint : ∀ᶠ j in (𝒰 : Filter J),
+      (0 : WithTop ℤ) ≤ v (((D j).submatrix k0.succAbove j0.succAbove).det))
+    (hΔ : ¬ OuterNegligible v 𝒰 (fun j => ((D j).submatrix k0.succAbove j0.succAbove).det)) :
+    ∃ (α β Δ s : J → K), (∀ j, s j = 1 ∨ s j = -1) ∧
+      (∀ᶠ j in (𝒰 : Filter J),
+        classFunctionalCoordWith (D j) (z j) (lam j) (w j) (y j) * Δ j = s j * (α j * β j)) ∧
+      (∀ᶠ j in (𝒰 : Filter J), (0 : WithTop ℤ) ≤ v (α j)) ∧
+      (∀ᶠ j in (𝒰 : Filter J), (((-a : ℤ)) : WithTop ℤ) ≤ v (β j)) ∧
+      (∀ᶠ j in (𝒰 : Filter J), (0 : WithTop ℤ) ≤ v (Δ j)) ∧
+      ¬ OuterNegligible v 𝒰 Δ := by
+  refine ⟨fun j => z j j0, fun j => lam j k0,
+    fun j => ((D j).submatrix k0.succAbove j0.succAbove).det,
+    fun _ => (-1) ^ (n + (j0 : ℕ) + (k0 : ℕ)), fun _ => cramerSign_eq_or n j0 k0,
+    hΔ0.mono fun j hj => ?_, hα, hβ, hΔint, hΔ⟩
+  exact (classFunctionalCoord_cramer (D j) (z j) (lam j) (hz j) (hlam j) k0 j0 hj
+    (w j) (y j) (hden j)).1
+
 /-- **The outer switching data** (tex 4927–4964). GLUE fields, each with the hypotheses of RC16's
 cores in its type:
 * `minor_link` (tex 4706–4714, 4957–4959): a nonzero maximal minor of the outer model is the class
-  in `𝒪_∞` of the inner minors at the same position, which are then nonzero, integral and not
-  negligible;
+  in `𝒪_∞` of the inner minors at the same position, which are then nonzero on an outer-large set,
+  integral and not negligible;
 * `cycle_integral`, `functional_bound`: the inner cycles are integral and `v λ_j ≥ −a` (the
   paired-functional exponent `a`);
 * `switch`: for `s > 1`, a next configuration whose outer dimension satisfies (5.5a) with the
@@ -92,7 +131,7 @@ structure OuterSwitchData (a : ℕ) where
   minor_link : ∀ S (k0 j0 : Fin ((stage S).m + 1)),
     ((stage S).Dout.submatrix k0.succAbove j0.succAbove).det ≠ 0 →
     ∃ (k1 j1 : Fin ((stage S).n + 1)),
-      (∀ j, (((stage S).D j).submatrix k1.succAbove j1.succAbove).det ≠ 0) ∧
+      (∀ᶠ j in (𝒰 : Filter J), (((stage S).D j).submatrix k1.succAbove j1.succAbove).det ≠ 0) ∧
       (∀ᶠ j in (𝒰 : Filter J),
         (0 : WithTop ℤ) ≤ v ((((stage S).D j).submatrix k1.succAbove j1.succAbove).det)) ∧
       ¬ OuterNegligible v 𝒰 (fun j => (((stage S).D j).submatrix k1.succAbove j1.succAbove).det)
@@ -122,7 +161,7 @@ def OuterSwitchData.toProcess {a : ℕ} (P : OuterSwitchData (Kout := Kout) v �
   terminal S h1 := by
     obtain ⟨k0, j0, hk⟩ := exists_minor_ne_zero_of_finrank_ker_eq_one (P.stage S).Dout h1
     obtain ⟨k1, j1, hΔ0, hΔint, hΔ⟩ := P.minor_link S k0 j0 hk
-    exact terminalData_of_minimalModels v 𝒰 a (P.stage S).n (P.stage S).D (P.stage S).z
+    exact terminalData_of_minimalModels_eventually v 𝒰 a (P.stage S).n (P.stage S).D (P.stage S).z
       (P.stage S).lam (P.stage S).w (P.stage S).y k1 j1 (P.stage S).hz (P.stage S).hlam
       (P.stage S).hden hΔ0 (Eventually.of_forall fun j => P.cycle_integral S j j1)
       (Eventually.of_forall fun j => P.functional_bound S j k1) hΔint hΔ
@@ -185,7 +224,7 @@ noncomputable def exampleOuterData (𝒰 : Ultrafilter ℕ) : OuterSwitchData (K
   Stage := Unit
   stage _ := exampleOuterStage
   minor_link _ k0 j0 _ := ⟨(0 : Fin 1), (0 : Fin 1),
-    fun _ h => one_ne_zero (example_minor.symm.trans h),
+    Eventually.of_forall fun _ h => one_ne_zero (example_minor.symm.trans h),
     Eventually.of_forall fun _ =>
       (le_of_eq (by rw [AddValuation.map_one] : (0 : WithTop ℤ) = vTwo 1)).trans_eq
         (congrArg vTwo example_minor).symm,

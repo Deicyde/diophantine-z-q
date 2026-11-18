@@ -10,9 +10,20 @@ import ZInQKernel.Contrib.OneProof.RC.Boolean.Node
 import ZInQKernel.Contrib.OneProof.RC.TwistDictionary.Uses
 import ZInQKernel.Contrib.CloudB3RC53.KummerCorankZero.Basic
 import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.Node34
+import ZInQKernel.Contrib.OneProof.RC.Wiring.GenusOdd34
+import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate3
+import ZInQKernel.Contrib.OneProof.RC.Wiring.PreSpec
+import ZInQKernel.Contrib.OneProof.RC.Wiring.AuxFactor3
+import ZInQKernel.Contrib.OneProof.RC.Wiring.EvenUpper3
+import ZInQKernel.Contrib.OneProof.RC.Wiring.AddressDict6
+import ZInQKernel.Contrib.OneProof.RC.Wiring.ClearingComplex3
+import ZInQKernel.Contrib.OneProof.RC.GlueSweep.AnaLevel
+import ZInQKernel.Contrib.OneProof.RC.Wiring.CalibrationLeaf2
+import ZInQKernel.Contrib.OneProof.RC.BaseZeroAssembly.Assembly
+import ZInQKernel.Contrib.OneProof.RC.Wiring.UniformSwitch
 
 /-!
-# Theorem 5.3, Lane RC0 round 2: every remaining hypothesis in one structure
+# Theorem 5.3, Lane RC0: every remaining hypothesis in one structure
 
 `restrictedConverseGenuine_of_leaves : Prints → RCLeaves → RestrictedConverseGenuine` (PROVED,
 standard axioms). `RCLeaves` collects every hypothesis that remains after the lanes' results are
@@ -25,19 +36,27 @@ with Selmer corank one:
 3. the attained odd minimum `δ_o` (batch 3's (F.4)–(F.6), `exists_oddMinimum`, from the fixed
    visible witness);
 4. the thirteen steps `RCSteps` of the skeleton, each a theorem from the leaves and the lanes'
-   results (`rcSteps_of_leaves`): `lstar_ne_zero_iff` (RC11), `genus_partner` (RC13),
-   `visibility` (RC12), `companion` (from the leaf and RC11), `gz_comparison` (leaf),
-   `final_family` (batch 3's `finalFamilyField_proof`, with (F.3) from RC13's `roughCompanion`,
-   (3.3b) from RC2's `even_upper_valuation`, (3.5) from RC16 over RC20's genuine `𝒪`, and the
-   address input from RC2's `addressInput_of_address` with batch 3's coefficient dictionary and
-   RC3's K-split seed), `calibration`, `common_coordinate`, `base_zero` (RC15, base zero over RC20's
-   genuine `Λ_(t)`), `height_one` (RC16 with (4.7)), `clearing` (RC7 with batch 3's
-   PairedFunctional);
+   results (`rcSteps_of_leaves`): `lstar_ne_zero_iff` (RC11, the normalization carried by the
+   GenusOdd instance), `genus_partner` (RC13), `visibility` (RC12), `companion` (from the leaf and
+   RC11), `gz_comparison` and (3.4) at the companions (batch 3's GenusOdd from `Prints` and
+   `ArtinFactorization`, with RC11's `L_*` as a scaled central value), `final_family` (batch 3's
+   `finalFamilyField_proof`, with (F.3) from RC13's `roughCompanion`, (3.3b) from batch 3's
+   EvenUpper over RC11's (3.2) with the Boolean comparison from RC1, the auxiliary factor from batch
+   3's dictionary, (3.5) from RC16 with batch 3's concrete outer switching data over RC20's genuine
+   `𝒪`, the stages from the data specification, and the address input from RC2's construction at the
+   staged level with the K-split even restriction, constituent models over finite quotients and
+   RC3's trace data), `calibration` (RC15 with RC19's regulator, the free generators from `Prints`
+   and batch 3's Calibration), `common_coordinate` (batch 3's support-triangle models), `base_zero`
+   (RC15 through batch 3's `baseZeroEndToEnd` over RC20's `Λ_(t)`, the height formula by RC19),
+   `height_one` (RC16 with batch 3's concrete height-one switching data and (4.7)), `clearing` (RC7
+   with batch 3's PairedFunctional and the repaired budget (5.7));
 5. the skeleton's Branch 1 / fixed-field package (`rc_of_oddEmptyUnit`, `fixedFieldPackage_of_steps`),
    with the Kummer sequence in rank zero proved by batch 3 (`kummerCorankZero_proof`);
 6. the blueprint's assembly with the missing-address node proved by lane RC1.
 
-No field relies on batch 3's SelmerDuality statements (reviewed as GLUE).
+No field relies on batch 3's SelmerDuality statements (reviewed as GLUE), on batch 3's
+`TraceModel`/`ConstituentModel` (which cannot be inhabited: `traceModel_false`), or on the
+positivity versions of the budget (5.7).
 
 **Which theorem carries the reduction.** Given `Prints`, the blueprint's `BranchPackageNode` is
 equivalent to Theorem 5.3 (its coefficient data are existential and not tied to `ũ_x`). The
@@ -89,41 +108,51 @@ theorem companionTarget_of {ℓ : ℕ} {W : WData ℓ} (hL : LstarTarget W.toRCD
 /-- **The leaves that do not involve `δ_o`** (at an admissible `ℓ` with Selmer corank one and a
 genus partner `h_*`), each with tex lines, kind and owner. -/
 structure PreLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
-  /-- `L_*` is lane RC11's normalization (GLUE Birch–Manin; tex 1825–1830; owner RC11). -/
-  lstar : LstarNormalized W.toRCData
-  /-- The fixed support contains `2, 3` and the primes of `ℓ` (definition; tex 1790–1793). -/
-  support : SupportSpec W
+  /-- The data are built to specification (`PreDataSpec`: the support consists of primes and
+  contains `2, 3` and the primes of `ℓ`; the hyperfilter on the stages; `M_θ ≥ θ`; the stage support
+  is the prepared filter cut by a stage condition holding at `D = 1`; the prepared filter contains
+  one) (definitions; tex 1790–1793, 2404–2410, 2586, App F 8209–8212, 8233, 8400–8429, App G
+  10190–10191; owner RC0, as batch 3's `PreFieldsSpec`). It gives the support, the stages and the
+  stage support (`preFields_of_dataSpec`). -/
+  data_spec : PreDataSpec W
   /-- The prepared filter is positive and prime to the support (definition; tex 2404–2410). -/
   prepared_spec : PreparedSpec W
   /-- (O.7), native index, torsion clause (lane RC12's remaining inputs of (O.8); tex 9101–9445;
   PRINT Cornut–Jetchev, CST + ELLIOT; owner RC12 / batch 3 GenusOdd). -/
   visibility : VisibilityInputs W.toRCData
-  /-- The ultrafilter on the stages is nonprincipal (definition; App G 10190–10191). -/
-  stages_nonprincipal : (W.stages : Filter ℕ) ≤ cofinite
-  /-- The stages are indexed with precision `M_θ ≥ θ` ((3.7) supplies arbitrarily advanced stages;
-  ELLIOT/definition; App F 8233, 8400–8401; owner batch 3 GenusOdd). -/
-  stages_index : ∀ θ : ℕ, θ ≤ W.Mθ θ
-  /-- `D = 1` is admissible at every stage (ELLIOT; tex 2586, App F 8209–8212; owner RC12). -/
-  one_admissible : ∀ θ : ℕ, W.admissible θ 1
   /-- The fixed visible witness `D_w` ((3.7); ELLIOT + PRINT CST; tex 2460–2546; owner batch 3
   GenusOdd / RC12). -/
   witness : WitnessLeaf W
-  /-- The partitionable auxiliary factor (ELLIOT; App G 10055–10150; owner RC2). -/
-  aux_factor : ∃ A₀ : ℕ, AuxFactor W A₀
-  /-- The inputs of the even upper bound (3.3b) left by lane RC2's `even_upper_valuation`: (3.3a),
-  (3.2) and the missing address on the cubes (ELLIOT; tex 2273–2341; owners RC11, RC1, RC2). -/
-  even_upper : EvenUpperInputs W
-  /-- (3.4) at the rough companions and at the final `k`, one period constant (PRINT
-  Cai–Shu–Tian Thm 1.1 + ELLIOT; tex 2436–2440, 2692–2693; owner batch 3 GenusOdd). -/
-  gz34 : Gz34Target W
-  /-- The inputs of (3.5) left by lane RC16's `exLimitsUniformLowerBound` over the genuine `𝒪`
-  (the valuation identification is lane RC20's `valuationOfO_genuine`): height-one and outer
-  switching processes, (4.6) at the companion pairs (ELLIOT; tex 2441–2446, 3987–4047,
-  4909–5202; owners RC16, RC15, RC6, batch 3). -/
-  eq35 : Eq35InputsGenuine W
-  /-- Admissible theta parameters lie in the prepared filter (GLUE; tex 2404–2410, 8408–8429;
-  owner batch 3 / RC12). -/
-  prepared_glue : PreparedGlue W
+  /-- The specification of the data behind the partitionable auxiliary factor (`AuxFactorInputs`:
+  the type data, the conductor on the support, the prepared even sources per total type with
+  RC2's coefficient rules, vanishing off their filter, a prepared unit seed per type, and the
+  meaning of `Partitionable`; definition + ELLIOT; tex 2016–2185, App G 10055–10150; owners RC0,
+  RC2, batch 3 AuxFactor / CoefficientDictionary). The auxiliary factor itself is PROVED from it
+  (batch 3's `auxFactor_of_dictionary`, via `auxFactor_of_inputs`). -/
+  aux_factor : AuxFactorInputs W
+  /-- The remaining inputs of the even upper bound (3.3b) (`EvenUpperRC11Inputs`): (3.3a) at the units
+  of the normalized even symbol, lane RC11's (3.2) (`EvenScalar32`), and the realized cubes of units
+  (ELLIOT; tex 2273–2341, App G 10079–10129; owners RC11, batch 3 EvenUpper, RC2). The missing
+  address on the cubes is PROVED (batch 3's Boolean comparison from lane RC1), at the single
+  precision the consumer uses (`EvenUpperInputsAt`). -/
+  even_upper : EvenUpperRC11Inputs W
+  /-- GenusOdd's genuine objects of (3.4) for `W` (`GenusOddInstance`): lane RC11's normalization of
+  `L_*` (GLUE Birch–Manin; tex 1825–1830, 7175–7177), the newform data of `E`, `L_*(h_*)` over the
+  lattice's `Ω⁻` a nonzero rational (GLUE Manin–Drinfeld, tex 2403), the Heegner
+  selections and the identification of the interface data (definitions), the genus partner's
+  squares at the level and the final `k`'s conditions (ELLIOT; tex 2403–2416, 2595–2603); owners
+  RC11, batch 3 GenusOdd, RC13. (3.4) itself is PROVED from it
+  (`gz34Target_of_genusOdd`, with `Prints.cst` and the GLUE `artin`). -/
+  genusOdd : Nonempty (GenusOddInstance W)
+  /-- The inputs of (3.5) over the genuine `𝒪` (`Eq35InputsGenuineG`): the primitive coordinates at
+  the companion pairs with the height-one switching data (`RegularityInputsS`), (4.6) at the
+  companion pairs, and the concrete outer switching data over `𝒪` (`GenuineOuterSwitchData`:
+  integral inner minimal models of one size, the outer model in `Frac 𝒪_∞`, integral cycles, the
+  functional bound `v λ ≥ −a`, the switch data) (ELLIOT + GLUE; tex 2441–2446, 3987–4047,
+  4909–5202; owners RC16, RC15, RC6, batch 3 UniformSwitch / SwitchInputs). PROVED from them:
+  `pos`, the Cramer terminal step, the inner minors' link along the ultrafilter, the equal inner
+  valuations, and RC16's (3.5) over RC20's genuine valuation. -/
+  eq35 : Eq35InputsGenuineG W
 
 /-- **The leaves at the chosen `h_*` and `δ_o`**, each with tex lines, kind and owner. -/
 structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
@@ -131,37 +160,58 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   at `2N` (ELLIOT; tex 2595–2603, 2720–2721; owner RC2 / RC11 / RC13), recorded by the properties the
   deduction uses, with `L_*(k) ≠ 0` (a unit of the symbol has a nonzero coefficient). -/
   companion : CompanionLeaf W
-  /-- The inputs of the address construction at `δ_o` left by lane RC2's `addressInput_of_address`
-  in the dictionary form: the companion's arithmetic side conditions, the type alphabets, lane
-  RC12's readings of the odd stage source and of the even source of `E^{(k)}` (the coefficient
-  rules are batch 3's `rulesUpTo_symb`, `coefficientRules_symb`), the nonempty seeds (the K-split
-  seed reduces to RC3's congruence), the prime realization and the two readings (ELLIOT/GLUE; App G
-  10258–10861, App F 9447–9976; owners RC2, RC12, RC11, RC3, batch 3 AppGEndpoints). -/
-  address : AddressPackageDictLeaf W
-  /-- The inputs of (4.6) left by lane RC15's `calibration_46` (the integer data of the support
-  triangles, Cassels–Milne isogeny invariance, component groups; ELLIOT + PRINT Milne ADT I.7.3,
-  Edixhoven Thm 5.3; tex 3987–4141; owners RC15, RC9). -/
-  calibration : CalibrationInputs W.toRCData
-  /-- The inputs of (4.7) left by lane RC15's `corrected_eq` (the unused-prime comparison and the
-  correction `η`; ELLIOT + GLUE Nekovář 6.4.1–6.4.3; tex 4142–4328; owners RC15, RC4). -/
-  common_coordinate : CommonCoordinateInputs W.toRCData
-  /-- The inputs of height-one regularity of the primitive coordinates left by lane RC16 (the
-  height-one switching processes; the terminal step is batch 3's PairedFunctional) (ELLIOT; tex
-  4976–5197; owners RC16, batch 3). -/
-  prim_regular : PrimRegularityInputs W.toRCData
-  /-- The model inputs of (5.9) left by lane RC7's `clearing_nodes` over the genuine `𝒪`: the
-  Smith model of the remaining complex, the two generic patterns, Elliot's coordinate identity,
-  the entry poles and the budget (5.7) (ELLIOT; tex 5251–5645; owner RC7 with batch 3 RankCounts
-  and lane RC4; the exponent `a = 0` and the `μ`-coordinates are discharged by batch 3's
-  PairedFunctional). -/
-  clearing_model : ClearingModel W.toRCData
-  /-- The inputs of the base-zero lemma left by lane RC15's `baseZero_node` over the genuine DVR
-  `Λ_(t)` (lane RC20), with the conductor-one height formula proved by lane RC19 from Cai–Shu–Tian
-  Thm 1.1 (`Prints.cst`) and the conductor-one Heegner data (`HeegnerData`): the two-term model
-  with central dimensions `(1,1)`, the retained boundary (4.5), (4.7) at the base (ELLIOT + GLUE
-  `L(E/K,s) = L(E,s)L(E^{(k)},s)`; tex 4330–4376; owners RC15, RC19, batch 3 HeegnerCohomology,
-  RankCounts). -/
-  base_zero : BaseZeroInputsCST W.toRCData
+  /-- The inputs of the address construction at `δ_o` (`AddressPackageLeaf6`): lane RC2's
+  `addressInput_of_address` at the staged level, with the even side the K-split restriction of the
+  full even symbol of `E^{(k)}` (the common alphabet consists of K-split types, tex 10268–10293;
+  the restriction's coefficient rules are PROVED from the full ones), the coefficient readings of
+  the odd stage source and of the full even source produced by constituent models over finite
+  quotients (`ConstituentModelRel`, with their two ELLIOT inputs; GLUE Chebotarev in the finite
+  quotient, tex 9524–9548, 9663–9704, 9905–9918), the K-split congruence from lane RC3's trace data
+  at the fresh K-split primes, and `C_{e,final}` and the even reading from the inputs of (F.1)
+  (batch 3's `F1_unit`); unchanged: the side conditions on `k`, the alphabets, the bounded-weight
+  witness, the filters, prime realization and the odd reading (ELLIOT/GLUE; App G 10079–10861, App
+  F 9447–9976; owners RC2, RC12, RC11, RC3, batch 3). -/
+  address : AddressPackageLeaf6 W
+  /-- The inputs of (4.6) at every address (`CalibrationInputsC`): the two-primary Ш and torsion
+  orders (ELLIOT + PRINT Kolyvagin), the component groups at `p ∣ k` through the reduction (PRINT
+  Edixhoven Thm 5.3, Rem. 5.4.1, as GLUE), the pullback and comparison data, Cassels–Milne isogeny
+  invariance at the genuine canonical regulators (PRINT Milne ADT I.7.3 + GLUE), the moving prime in
+  the output form of RC17's moving character, and the triangular Kummer model with its central
+  quotient block (ELLIOT; tex 3987–4141; owners RC15, RC9, RC19, RC4/RC17, batch 3 Duality). PROVED
+  from them: the isogeny and regulator data (RC19's `regulator_inputs_sumDiff`), the free
+  generators (from `Prints`), the component fields, the moving-prime fields, and `hvprim` with
+  Elliot's total length `2v₂N + 4ω` (batch 3's Calibration). -/
+  calibration : CalibrationInputsC W.toRCData
+  /-- The inputs of (4.7) at every address as support-triangle data (`CommonCoordinateTriangles`):
+  the coefficient ring, the character and the graph-prime factors (definition), the Euler-factor
+  identity (ELLIOT, the Frobenius model at `q`), the Frobenius matrices at the unused primes, and
+  the triangular models of the support triangle at each relaxation step (ELLIOT; tex 4142–4328;
+  owners RC15, RC4, batch 3 CommonCoordinate). The multi-prime (4.7) and `ε_q ∈ Λ^×` are PROVED
+  from them (batch 3's `commonCoordinateModel_of_models`), replacing the earlier GLUE. -/
+  common_coordinate : CommonCoordinateInputsT W.toRCData
+  /-- The inputs of height-one regularity of the primitive coordinates (`PrimRegularityInputsS`): at
+  every height-one prime `𝔭 ≠ (2)`, concrete two-term switching data (`HeightOneSwitchDataS`: the
+  two-term models with integral class and closed functional, the sign involution, the nonzero
+  class, and the switch steps with their (5.5a) and detection inputs) (ELLIOT + GLUE; tex
+  4976–5197; owners RC16, batch 3 UniformSwitch / SwitchInputs / HeegnerCohomology). PROVED from
+  them: `pos`, the terminal step, `s₊ + s₋ = s`, the nonquadratic `U = F`, and RC16's regularity. -/
+  prim_regular : PrimRegularityInputsS W.toRCData
+  /-- The inputs of (5.9) from the remaining complex (`ClearingInputsCx`): the identification of the
+  remaining complex over `𝒪[G]` (block form, augmentation the old complex, new-local Schur
+  differentials, the (5.7) counts, a quasi-isomorphism to a Selmer complex; GLUE), the coordinate
+  link (E1a, GLUE) and Elliot's determinant computation (E1b, ELLIOT) (tex 5355–5645; owners RC7,
+  batch 3 ClearingComplex / RankCounts). PROVED from them: the Smith model, the generic patterns,
+  the entry poles, the budget (5.7), and (5.9) by lane RC7 over RC20's genuine `𝒪`, with the
+  exponent `a = 0` and the `μ`-coordinates from batch 3's PairedFunctional. -/
+  clearing_model : ClearingInputsCx W.toRCData
+  /-- The inputs of the base-zero lemma left by lane RC25's `baseZeroTarget_of_leaves` (lane RC15's
+  `baseZero_node` over lane RC20's `Λ_(t)`, the height formula by lane RC19 from Cai–Shu–Tian Thm 1.1
+  and the conductor-one Heegner data): the two-term model with central dimensions `(1,1)`, the
+  stages of (4.5) at the base (PRINT (4.1) per stage) with the limit at the centre (ELLIOT), and the
+  identification of `u_{prim,0}` (definition); (4.7) at the base, `ũ₀ ∈ Λ[1/2]` and the package's
+  datum are PROVED from `common_coordinate` and `prim_regular` (tex 4330–4376, 3895–3921,
+  4369–4373, 5703–5706; owners RC15, RC19, RC25, batch 3 HeegnerCohomology, RankCounts). -/
+  base_zero : BaseZeroAssembly.BaseZeroLeafInputs W.toRCData
 
 /-- **Every remaining hypothesis of Theorem 5.3 beyond the blueprint's `Prints`.** -/
 structure RCLeaves where
@@ -176,9 +226,10 @@ structure RCLeaves where
   modularNewform : PrintsAnalytic.ModularNewform
   /-- Absolute convergence of `L(E, s)` on `Re s > 3/2` (GLUE, textbook: Hasse's bound; lane RC8). -/
   hasse : PrintsAnalytic.HasseConvergence
-  /-- The level of the functional equation is supported on the bad primes (GLUE: the level is the
-  conductor; lane RC13). -/
-  levelSupport : Nonvanishing.FromRC8.LevelSupport
+  /-- The one GLUE statement of (3.4): the Artin factorization of the ring-class `L`-functions over
+  imaginary quadratic fields (GLUE; tex 2411–2440; owner batch 3 GenusOdd; genus theory's square
+  roots, the Galois closure and the splitting criterion are PROVED there). -/
+  artin : ZInQ.Contrib.CloudB3RC53.GenusOdd.ArtinFactorization
   /-- The interface data, given the genus partner `h_*`. -/
   data : ∀ ℓ : ℕ, ℤ → WData ℓ
   /-- The leaves not involving `δ_o`, at every genus partner. -/
@@ -196,11 +247,12 @@ theorem RCLeaves.hl (L : RCLeaves) : Nonvanishing.HoffsteinLuo :=
     (TwistDictionary.hoffsteinLuoCurve_of_print L.hlPrint L.modularNewform L.hasse)
 
 /-- BFH's twist sign for elliptic curves (PROVED from the twisted functional equation; lane
-RC18's `twistDictionary`; the level-support GLUE). -/
+RC18's `twistDictionary`; the level of the functional equation is supported on the bad primes by
+lane RC22's `levelSupport_of_modularNewform`). -/
 theorem RCLeaves.twistSign (L : RCLeaves) : Nonvanishing.BFHTwistSign :=
   Nonvanishing.FromRC8.bfhTwistSign_of_curve
     (TwistDictionary.twistedRootNumberCurve_of_print L.twistedFE L.modularNewform L.hasse)
-    L.levelSupport
+    (GlueSweep.Ana.levelSupport_of_modularNewform L.modularNewform)
 
 /-- Every elliptic curve over `ℚ` has a root number (PROVED from modularity in newform form and
 Hasse's convergence; lane RC8's `exists_rootNumber`). -/
@@ -213,27 +265,29 @@ theorem rcSteps_of_leaves (P : Prints) (L : RCLeaves) {ℓ : ℕ} (hadm : Adm �
     ∃ δ : ℤ, RCSteps ((L.data ℓ h).withChoices h δ).toRCData := by
   set W₁ := (L.data ℓ h).withHstar h with hW₁
   have hp := L.pre ℓ hadm hSel h hG
+  obtain ⟨hsupp, hnonp, hidx, hone, hglue⟩ := preFields_of_dataSpec hadm.1 hp.data_spec
   -- `M_θ → ∞` along the ultrafilter (batch 3's `stagesAdvance_of_nonprincipal`)
   have hstages : Tendsto W₁.Mθ (W₁.stages : Filter ℕ) atTop :=
-    ZInQ.Contrib.CloudB3RC53.GenusOdd.stagesAdvance_of_nonprincipal _ hp.stages_nonprincipal _
-      hp.stages_index
+    ZInQ.Contrib.CloudB3RC53.GenusOdd.stagesAdvance_of_nonprincipal _ hnonp _ hidx
   have hHL := L.hl
   have hTS := L.twistSign
-  have hL : LstarTarget W₁.toRCData := lstarTarget_of hadm.1 L.rootNumberExists hp.lstar
+  obtain ⟨I⟩ := hp.genusOdd
+  have hL : LstarTarget W₁.toRCData :=
+    lstarTarget_of hadm.1 L.rootNumberExists (lstarNormalized_of_instance I)
   have hvis : VisibilityTarget W₁.toRCData := visibilityTarget_of_inputs _ hp.visibility
-  obtain ⟨A₀, haux⟩ := hp.aux_factor
-  obtain ⟨C₁, h33b⟩ := evenUpper33b_of_inputs W₁ P
-    ZInQ.Contrib.CloudB3RC53.KummerCorankZero.kummerCorankZero_proof hadm.1 hL hp.even_upper
+  obtain ⟨A₀, haux⟩ := auxFactor_of_inputs W₁ hsupp hp.aux_factor
+  obtain ⟨C₁, h33b⟩ := evenUpper33b_of_RC11Inputs W₁ P hadm.1 hL (lstarNormalized_of_instance I)
+    hp.even_upper
   have hF3 : F3Target W₁ := f3Target_of W₁ P
     ZInQ.Contrib.CloudB3RC53.KummerCorankZero.kummerCorankZero_proof hHL hTS
-    L.rootNumberExists hadm.1 hL hp.support hp.prepared_spec haux h33b
+    L.rootNumberExists hadm.1 hL hsupp hp.prepared_spec haux h33b
   -- the attained odd minimum
   obtain ⟨Cdet, hCdet⟩ := hvis
   obtain ⟨A, CE, h33⟩ := hF3
-  obtain ⟨Cper, h34, h34k⟩ := hp.gz34
-  have h35 : Eq35Target W₁ := eq35Target_of_inputs W₁ (eq35Inputs_of_genuine W₁ hp.eq35)
+  obtain ⟨Cper, h34, h34k⟩ := gz34Target_of_genusOdd P L.artin L.rootNumberExists I
+  have h35 : Eq35Target W₁ := eq35Target_of_inputsGenuineG W₁ hp.eq35
   obtain ⟨CR, h35A⟩ := h35 A
-  obtain ⟨δ, hδ⟩ := exists_oddMinimum W₁ h33 h34 h35A hCdet hp.prepared_glue hp.witness
+  obtain ⟨δ, hδ⟩ := exists_oddMinimum W₁ h33 h34 h35A hCdet hglue hp.witness
   refine ⟨δ, ?_⟩
   set W₂ := (L.data ℓ h).withChoices h δ with hW₂
   have hq := L.post ℓ hadm hSel h hG δ hδ
@@ -243,15 +297,17 @@ theorem rcSteps_of_leaves (P : Prints) (L : RCLeaves) {ℓ : ℕ} (hadm : Adm �
   have hG₂ : GenusPartnerTarget W₂.toRCData := genusPartnerTarget_of hL₂ hG
   have hfam : FinalFamilyTarget W₂.toRCData :=
     finalFamilyTarget_of W₂ hvis₂ hstages ⟨A, CE, h33⟩ ⟨Cper, h34, h34k⟩ h35
-      hp.prepared_glue hδ (addressLeaf_of_dictPackage W₂ hq.address)
+      hglue hδ (addressLeaf_of_6 W₂ hq.address)
   have h47 : CommonCoordinateTarget W₂.toRCData :=
-    commonCoordinateTarget_of_inputs hq.common_coordinate
+    commonCoordinateTarget_of_inputs (commonCoordinateInputs_of_triangles hq.common_coordinate)
   have hheight : HeightOneTarget W₂.toRCData :=
-    heightOneTarget_of_inputs _ hq.prim_regular h47
-  exact rcSteps_of_targets _ hL₂ hG₂ hvis₂ hstages hp.one_admissible
+    heightOneTarget_of_inputsS _ hq.prim_regular h47
+  exact rcSteps_of_targets _ hL₂ hG₂ hvis₂ hstages hone
     (companionTarget_of hL₂ hq.companion)
-    ⟨Cper, h34k⟩ hfam (calibrationTarget_of_inputs hq.calibration) h47 hheight
-    (clearingTarget_of_model _ hheight hq.clearing_model) (baseZeroTarget_of_inputs P (baseZeroInputs_of_CST hq.base_zero))
+    ⟨Cper, h34k⟩ hfam (calibrationTarget_of_C P hadm.1 hq.calibration) h47 hheight
+    (clearingTarget_of_complex _ hheight hq.clearing_model) (BaseZeroAssembly.baseZeroTarget_of_leaves P
+      (commonCoordinateInputs_of_triangles hq.common_coordinate)
+      (primRegularityInputs_of_S _ hq.prim_regular) hq.base_zero)
 
 /-! ## The node and Theorem 5.3 -/
 

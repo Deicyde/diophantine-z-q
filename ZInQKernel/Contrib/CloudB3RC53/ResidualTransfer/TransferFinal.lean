@@ -23,9 +23,12 @@ active comparison cone after inverting `t`. Here:
   `0 → U' → U → W → 0` of `SelmerDuality` (`changeMap`, `RelaxedQuotientNode`) with `W` acyclic and
   bounded finite free Selmer models, the cone of `C(U') → C(U)` is contractible — exactly the input
   `hact` of `transferOfSupportChange`.
-* `transfer_final` (PROVED from the inputs in its type): the field `transfer` whose only remaining
-  inputs are `SupportChangeInput` (GLUE) and the stateable local data (the short exact sequence of
-  local conditions, `W` acyclic, freeness and bounds).
+* `transfer_final` (PROVED from the inputs in its type): the field `transfer` for a minimal model of
+  the original-support complex `C(U_full)` (full conditions at the active primes), whose only
+  remaining inputs are `SupportChangeInput` (GLUE) and the stateable local data (the short exact
+  sequence `U^ur → U^full → W` of local conditions, `W` acyclic, freeness and bounds). An earlier
+  version had the direction reversed (see its docstring); `transfer_final_nonvacuous` (in `TransferFinalNonVacuity.lean`) checks that
+  the corrected hypotheses are jointly satisfiable.
 
 Universe: the cone lemmas of `SelmerCone.lean` are stated for `ModuleCat.{0}`, so the last two
 nodes take `S : Type` (the text's `𝔽₂((t))[G]` and `𝔽₂((t))` are such).
@@ -183,14 +186,25 @@ theorem hact_of_singularQuotient {S : Type} [CommRing S] (D : SelData S) (U' W :
     quasiIso_f_of_shortExact_acyclic (E := changeSES D f g hfg) hSE hW
   exact cone_contractible_of_homotopyEquiv _ (homotopyEquiv_of_quasiIso_free a b _)
 
-/-- **The field `transfer`, final form** (tex L4598–4647). Over a local ring `S` (`𝔽₂((t))[G]` or
-`𝔽₂((t))`): the smaller-support model `selCx T.D` is related to the unramified-at-active model
-`selCx T.Dp` by the support comparison (`SupportChangeInput`, GLUE: Nekovář 7.8.8(ii)); the
-original-support complex is `C(U') = selCx (restrictData T.Dp f)` for the change of local
-conditions `0 → U' → T.Dp.U → W → 0` at the active places with acyclic singular quotient `W`
-(e.g. `twoTerm_acyclic` with `activeSingular_bijective`); `L` is a minimal model of `C(U')`. Then
-`genericRank ≤ rankTot`. Remaining inputs: only `SupportChangeInput` and the stateable local data in
-the type. Classification: PROVED (from the inputs in its type). -/
+/-- **The field `transfer`, final form** (tex L4598–4647; direction as in tex L4612–4631). Over a
+local ring `S` (`𝔽₂((t))[G]` or `𝔽₂((t))`):
+* the smaller-support model `C_{S₀} = selCx T.D` is related by the support comparison
+  (`SupportChangeInput`, GLUE: Nekovář 7.8.8(ii)) to `selCx T.Dp`, the complex with the
+  **unramified** condition `U' = T.Dp.U` at the active primes (tex L4612–4618);
+* replacing the unramified condition by the **full** one gives the **original-support** complex:
+  Selmer data `Dfull` with full condition `Dfull.U`, the inclusion `f : U' → Dfull.U` with
+  `T.Dp = restrictData Dfull f`, and the singular quotient `0 → U' → Dfull.U → W → 0` acyclic after
+  inverting `t` (tex L4619–4631; e.g. `twoTerm_acyclic` with `activeSingular_bijective`);
+* `genericRank` is typed against a minimal model `L ≃ C(U_full) = selCx Dfull` of the
+  original-support complex.
+Then `genericRank ≤ rankTot` with `rankTot` the total rank of `C_{S₀}`: the ranks of `L` are
+transported to `C(U')` by the active comparison (`hact_of_singularQuotient`), then to `C_{S₀}` by
+the inverse support comparison. Remaining inputs: only `SupportChangeInput` and the stateable local
+data in the type.
+
+*Correction note.* An earlier version of this theorem had the modelling direction reversed: it took
+the minimal model `L` of `C(U')` (the unramified side) as the original-support complex. This version
+follows tex L4612–4631. Classification: PROVED (from the inputs in its type). -/
 theorem transfer_final {S : Type} [CommRing S] [IsLocalRing S]
     (T : SupportChangeData S) (H : SupportChangeUnramified T)
     (hSC : SupportChangeInput T H) (a b : ℤ)
@@ -198,24 +212,34 @@ theorem transfer_final {S : Type} [CommRing S] [IsLocalRing S]
     [(selCx T.Dp).toCC.IsStrictlyGE a] [(selCx T.Dp).toCC.IsStrictlyLE b]
     [∀ n, Module.Free S ((selCx T.D).toCC.X n)] [∀ n, Module.Free S ((selCx T.Dp).toCC.X n)]
     [∀ n, Module.Finite S ((selCx T.D).toCC.X n)]
-    (U' W : GCx S) (f : GHom U' T.Dp.U) (g : GHom T.Dp.U W)
-    (hfg : ∀ i (u : U'.X i), g.f i i rfl (f.f i i rfl u) = 0)
+    (Dfull : SelData S) (W : GCx S) (f : GHom T.Dp.U Dfull.U) (g : GHom Dfull.U W)
+    (hDp : T.Dp = restrictData Dfull f)
+    (hfg : ∀ i (u : T.Dp.U.X i), g.f i i rfl (f.f i i rfl u) = 0)
     (hinj : ∀ i, Function.Injective (f.f i i rfl)) (hsurj : ∀ i, Function.Surjective (g.f i i rfl))
-    (hex : ∀ i (u : T.Dp.U.X i), g.f i i rfl u = 0 → ∃ u', f.f i i rfl u' = u)
+    (hex : ∀ i (u : Dfull.U.X i), g.f i i rfl u = 0 → ∃ u', f.f i i rfl u' = u)
     (hW : W.toCC.Acyclic)
-    [(selCx (restrictData T.Dp f)).toCC.IsStrictlyGE a]
-    [(selCx (restrictData T.Dp f)).toCC.IsStrictlyLE b]
-    [∀ n, Module.Free S ((selCx (restrictData T.Dp f)).toCC.X n)]
+    [(selCx (restrictData Dfull f)).toCC.IsStrictlyGE a]
+    [(selCx (restrictData Dfull f)).toCC.IsStrictlyLE b]
+    [∀ n, Module.Free S ((selCx (restrictData Dfull f)).toCC.X n)]
+    [(selCx Dfull).toCC.IsStrictlyGE a] [(selCx Dfull).toCC.IsStrictlyLE b]
+    [∀ n, Module.Free S ((selCx Dfull).toCC.X n)]
     (L : CochainComplex (ModuleCat.{0} S) ℤ) [L.IsStrictlyGE a] [L.IsStrictlyLE b]
     [∀ i, Module.Free S (L.X i)] [∀ i, Module.Finite S (L.X i)]
     (hLmin : ∀ i j x, (L.d i j).hom x ∈ IsLocalRing.maximalIdeal S • (⊤ : Submodule S (L.X j)))
-    (eL : HomotopyEquiv L (selCx (restrictData T.Dp f)).toCC) (s : Finset ℤ)
+    (eL : HomotopyEquiv L (selCx Dfull).toCC) (s : Finset ℤ)
     (genericRank rankTot : ℕ)
     (hgen : genericRank = ∑ n ∈ s, Module.finrank S (L.X n))
     (htot : rankTot = ∑ n ∈ s, Module.finrank S ((selCx T.D).X n)) :
-    genericRank ≤ rankTot :=
-  transferOfSupportChange_final T H hSC a b _ (GHom.toCC (changeMap T.Dp f))
-    (hact_of_singularQuotient T.Dp U' W f g hfg hinj hsurj hex hW a b) L hLmin eL s
-    genericRank rankTot hgen htot
+    genericRank ≤ rankTot := by
+  -- `C_{S₀} ≃ C(U')`: the support comparison (GLUE input)
+  obtain ⟨e₁, -⟩ := supportComparisonHomotopyEquiv T H hSC a b
+  -- `C(U') ≃ C(U_full)`: the active comparison cone is contractible
+  obtain ⟨hc⟩ := hact_of_singularQuotient Dfull T.Dp.U W f g hfg hinj hsurj hex hW a b
+  obtain ⟨e₂, -⟩ := homotopyEquiv_of_cone_contractible _ hc
+  -- `selCx T.Dp = selCx (restrictData Dfull f)`
+  let e₃ : HomotopyEquiv (selCx T.Dp).toCC (selCx (restrictData Dfull f)).toCC :=
+    HomotopyEquiv.ofIso (eqToIso (congrArg (fun D => (selCx D).toCC) hDp))
+  exact transferOfModels_final L (selCx T.D).toCC a b hLmin
+    (((eL.trans e₂.symm).trans e₃.symm).trans e₁.symm) s genericRank rankTot hgen htot
 
 end ZInQ.Contrib.CloudB3RC53.ResidualTransfer

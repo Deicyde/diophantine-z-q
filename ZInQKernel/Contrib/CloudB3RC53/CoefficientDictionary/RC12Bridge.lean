@@ -3,6 +3,16 @@ import ZInQKernel.Contrib.CloudB3RC53.CoefficientDictionary.Rules
 /-!
 # The coefficient dictionary, part 3: RC12's trace readings in the dictionary's form
 
+**DEPRECATED.** `TraceModel` is uninhabitable (`traceModel_false`, `RC/Wiring/TraceModelRel.lean`):
+its field `chebotarev` asks for exact conjugacy of Frobenius in `G` for every `g`, which together
+with `bit_frob` contradicts CRT, Dirichlet and reciprocity (exact conjugacy holds only in a
+finite quotient, tex 9749–9750; in general Frobenius classes are only dense, tex 9666–9668).
+The theorems over it (`fixedU_of_model`, `primary_of_model`, `o12_of_model`,
+`rulesUpTo_of_model`, `coefficientRules_of_model`) are vacuous. Use RC0's corrected `TraceModelRel`
+and `coefficientRules_of_modelRel` / `TraceModelRel.rulesUpTo_of_model`, whose consistency witness
+is `TraceModelRel.zero` (`traceModelRel_zero_nonempty`). This file is kept because
+`TraceModelInstance.lean` (the operators `tV`, `dV`) and RC0's Rel files import it (`sqSet`).
+
 Manuscript `diophantine_zq.tex`, App F, proof of Proposition `ex:app-coefficient-rules`: the
 integral trace module and its operators (L9641–9762), the trace identities (L9729–9750), (O.12)
 (L9763–9905), the coefficient-one readings and the omission rule (L9905–9953).
@@ -42,7 +52,7 @@ variable {L : Type*} [AddCommGroup L] {ε : L →+ ZMod 2}
 def sqSet (G : Type*) [Group G] : Set G := {x | ∃ h, x = h ^ 2}
 
 /-- **The trace-module model of RC12's readings**, within the budget `B` (see the module
-docstring). -/
+docstring). **DEPRECATED (uninhabitable; see `TraceModelRel`/`ConstituentModelRel` in `RC/Wiring/`; the theorems over it are vacuous).** -/
 structure TraceModel (T : TypeData L ε) (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : ℕ) where
   /-- the finite joint Galois quotient -/
   G : Type
@@ -251,7 +261,8 @@ theorem o12_of_model : O12Reading T R ap B := by
     exact hO
 
 omit X in
-/-- **RC2's rules within a budget from RC12's readings** (the odd source at one stage). -/
+/-- **RC2's rules within a budget from RC12's readings** (the odd source at one stage).
+**DEPRECATED (vacuous: `TraceModel` is uninhabitable; use `TraceModelRel.rulesUpTo_of_model`).** -/
 theorem rulesUpTo_of_model {W : ℕ} (X : TraceModel T R ap (W + 1)) (hap : ApEven T ap) :
     RulesUpTo ε (symb T R) W :=
   rulesUpTo_symb T R ap W X.fixedU_of_model X.o12_of_model hap X.primary_of_model
@@ -259,7 +270,8 @@ theorem rulesUpTo_of_model {W : ℕ} (X : TraceModel T R ap (W + 1)) (hap : ApEv
 end TraceModel
 
 /-- **RC2's coefficient rules from RC12's readings** (the even source: a model at every
-budget). -/
+budget). **DEPRECATED (vacuous: `TraceModel` is uninhabitable; use
+`coefficientRules_of_modelRel`).** -/
 theorem coefficientRules_of_model {T : TypeData L ε} {R : Finset ℕ → ZMod 2} {ap : ℕ → ℤ}
     (X : ∀ B, TraceModel T R ap B) (hap : ApEven T ap) : CoefficientRules ε (symb T R) :=
   coefficientRules_symb T R ap (fun B => (X B).fixedU_of_model) (fun B => (X B).o12_of_model)

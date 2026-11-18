@@ -3,6 +3,14 @@ import ZInQKernel.Contrib.CloudB3RC53.CoefficientDictionary.RC12Bridge
 /-!
 # The coefficient dictionary, part 4: a `TraceModel` from the constituent representations
 
+**DEPRECATED.** `ConstituentModel` is uninhabitable (`constituentModel_false`,
+`RC/Wiring/TraceModelRel.lean`; same `chebotarev` defect as `TraceModel`), so `toTraceModel` and
+`coefficientRules_of_constituents` are vacuous. RC0's corrected `ConstituentModelRel`
+(`RC/Wiring/ConstituentModelRel.lean`) is built on the operators `tV`, `dV` of this file (still
+valid; `tV_mul`, `tV_one`, `tV_conj` are used there), with `toTraceModelRel`,
+`coefficientRules_of_constituentsRel` and the consistency witness `ConstituentModelRel.zero`
+(`constituentModelRel_zero_exists`). Use those.
+
 Manuscript `diophantine_zq.tex`, App F, proof of Proposition `ex:app-coefficient-rules`, the
 integral trace module (tex L9641–9670, L9711–9771).
 
@@ -97,7 +105,7 @@ end Operators
 /-! ## The constituent model and its `TraceModel` -/
 
 /-- **The constituent model of the integral trace module** (tex L9641–9771; see the module
-docstring for the classification of the fields). -/
+docstring for the classification of the fields). **DEPRECATED (uninhabitable; see `TraceModelRel`/`ConstituentModelRel` in `RC/Wiring/`; the theorems over it are vacuous).** -/
 structure ConstituentModel {L : Type*} [AddCommGroup L] {ε : L →+ ZMod 2} (T : TypeData L ε)
     (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : ℕ) where
   /-- the finite joint Galois quotient -/
@@ -282,7 +290,8 @@ theorem t_class (g h : X.G) : X.tM (h * g * h⁻¹) = X.tM g := by
     rw [tV_conj]
 
 /-- **The `TraceModel` of the constituent model** (tex L9641–9771), with the two INPUTs `reading`
-and `o12` of `TraceModel`, stated for the genuine reduced operators. -/
+and `o12` of `TraceModel`, stated for the genuine reduced operators. **DEPRECATED (vacuous:
+`ConstituentModel` is uninhabitable; use `ConstituentModelRel.toTraceModelRel`).** -/
 def toTraceModel
     (reading : ∀ (U : Finset ℕ) (q : ℕ), (∀ s ∈ U, T.Good s) → T.Good q → q ∉ U →
       (insert q U).card ≤ B → R (insert q U) = X.readM U (X.tM (X.frob q) (X.FM U)))
@@ -325,7 +334,8 @@ def toTraceModel
 end ConstituentModel
 
 /-- **RC2's coefficient rules from constituent models** (the even source: a model at every budget,
-with its `reading` and `o12` inputs). -/
+with its `reading` and `o12` inputs). **DEPRECATED (vacuous: `ConstituentModel` is
+uninhabitable; use `coefficientRules_of_constituentsRel`).** -/
 theorem coefficientRules_of_constituents {L : Type*} [AddCommGroup L] {ε : L →+ ZMod 2}
     {T : TypeData L ε} {R : Finset ℕ → ZMod 2} {ap : ℕ → ℤ}
     (X : ∀ B, ConstituentModel T R ap B)
