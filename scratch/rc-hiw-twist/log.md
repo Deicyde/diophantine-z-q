@@ -14,3 +14,4 @@
 - `ThetaPoisson.lean`: compiled. Residue splitting and the two-variable Jacobi equation give the rational Poisson expansion; at denominators divisible by four the even modes reduce it to the original theta. All five axiom checks are standard.
 - `Multiplier.lean`: compiled. Actual theta ratios agree for all signs of the bottom-left entry under `4m² ∣ c` and the rational matrix equality. All seven axiom checks are standard.
 - `Twist.lean`: compiled. `halfIntegralTwist : AppE.HalfIntegralTwist` with witness `N³` and the original-modulus translation sum. `halfIntegralTwist`, the conditional construction, and the bridge to `thetaMultiplier` depend only on `propext`, `Classical.choice`, `Quot.sound`.
+- `Twist.lean`: recompiled after extracting the covariance criterion and adding `primitive_twist` for every conductor `r ∣ N`. The primitive Gauss sum has the required character and coefficients at `N³` before the original-modulus sieve. All five axiom checks are standard.
