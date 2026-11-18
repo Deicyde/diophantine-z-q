@@ -1,0 +1,6 @@
+- Merged `8f709193`.
+- Base: no `hdiam`; `hlevel : T.m.primeFactors ∪ avoid ⊆ S` still present.
+- Model scope: `Blocks.F` is zero outside the pool; `O12.ThetaData` tests every good set with `U.card + 1 ≤ B`.
+- Source scope: `ThetaStage.recAt` is at precision `2^M`; the integral lifts only have the reduction comparisons in `Lift`.
+- Rebuilt base O12/Inputs, O12/Build, and the theta coefficient operator dependencies sequentially.
+- Source: `ratio_sign`, `signed_recur_stage`, `lift_depth`, `lift_source`, `normalized_congr`; first Lean run passed, only allowed axioms.
