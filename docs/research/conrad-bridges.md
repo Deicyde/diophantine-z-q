@@ -1,0 +1,33 @@
+# C8: Conrad’s Appendix B in its concrete local form
+
+The C8 input can be stated using the near-one formula on Conrad's p. 33 and a single line of Proposition B.3. The adapter targets the original `ConradAppB` exactly; the local character consumer and the rest of the chain are unchanged. The technical retyping and the source's publication status are separate: this task explicitly requires a refereed source for strict LEAF, and the exact citation is an author preprint.
+
+Base: `15c9e93d3` (`OpenAddedLeaves28.conradAppB`, introduced by the joint C8 fold). VERIFIED means read, compiled, or computed as specified; STANDARD means published with the stated reference; SPECULATIVE means unverified. The primary-source evidence here is the supplied 2026-11-17 reading desk report of pp. 32–33 and the repository's [A011 audit](../theorem-application-audit/evidence/parallel-galois-height-report.md#L94) (especially lines 102–108), not a fresh PDF read.
+
+## Manuscript and citation
+
+VERIFIED against `diophantine_zq.tex`, `sec:height`, L755–767 and `conrad-local-characters`, L11046–11049. The manuscript takes the restriction at five of a de Rham, finitely ramified character. The print as reported by A011 and the reading desk takes a continuous character of the absolute Galois group of a local field with finite (p)-adic coefficient field. Its underlying `ℚ_p` representation is Hodge–Tate in the forward direction (p. 32). This applies at local base `ℚ₅` (the finite coefficient field is allowed to be larger). The formal C8 route has already proved a singleton HT input, through `twistCharHTWt0_proof`.
+
+The local character in the p. 33 display is evaluated through the arithmetic Artin map; Tau Ceti uses the same normalization. Over `ℚ_p` the product over local **base** embeddings has one factor, `x^(-n)`. Proposition B.3 identifies the weight of the coefficient line with the corresponding exponent, hence with that same `n`, in Conrad's convention. In the manuscript's convention that weight is `-n`; also the arithmetic Artin symbol of a unit evaluates under the cyclotomic character to the inverse of the unit. Thus the sign comparison at L763–764 agrees: removing the matching cyclotomic power kills the character on an open subgroup of the local units. Finiteness at the other primes and the resulting global ray-class conclusion belong to the existing CFT glue, not to Conrad. This checks the reported application without the false assertion that arbitrary local base fields have only a single embedding.
+
+## Statements and rating
+
+| Statement | Rating and reason |
+| --- | --- |
+| `ConradNearOne` | **CITED**, `sec:height` L760–762; Conrad p. 32 HT ⇒ locally algebraic followed by p. 33's own display. Direct instance in the concrete displayed form: finite Galois coefficients, base `ℚ_p`, single weight on the underlying representation. No Weil restriction or classification of its algebraic maps is needed for this version. |
+| `ConradIdentityWeight` | **CITED**, L760–764; Proposition B.3, p. 33. Concrete consequence of the print, rather than a verbatim restatement: keep the identity coefficient line only, over the subgroup fixing the coefficients. Write its isomorphism with `ℂ_p(n)` as multiplication by a nonzero scalar. |
+| `ConradAppBConcrete` | One row for the manuscript's one citation. Strict **GLUE** under this task's refereed-source requirement. It packages the two concrete cited consequences above; the bridge theorems are proved glue and add no rows. |
+
+## Lean dictionaries (on-the-spot)
+
+- **Underlying Hodge–Tate splitting.** If the old singleton count is 1, the defining quotient of dimensions gives at least `[E:ℚ_p]` independent equivariant `ℚ_p` covectors of weight `-w`. They remain independent over `ℂ_p`: apply Galois to a relation of minimal support, normalized to have one coefficient 1, and subtract. A nonzero difference would give a relation with smaller support, so the coefficients are fixed by the full local group and belong to `ℚ_p` by the tree's Ax–Sen–Tate proof. Base change identifies the covectors with a basis of the `ℂ_p` dual; evaluation gives the equivariant tensor-product isomorphism with `[E:ℚ_p]` copies of `ℂ_p(-w)`. This checks the full local group, not just a finite-index subgroup.
+- **Coefficients, restriction and B.3.** Enlarge the original finite field to its normal closure `K` in the same algebraic closure. This changes coefficients, not the local base. Mathlib's fixing subgroup equivalence identifies `Gal(ℚ̄_p/K)` with the subgroup of `G_{ℚ_p}` fixing `K`. The identity line gives a nonzero vector in TailT's one-dimensional `Y_n` coordinates on this subgroup; Tate–Sen independence bounds the dimension by one, and TailT's Galois descent identifies the `ℚ_p` dimension of the full invariant space with that of `Y_n`. Over the original field use the tree's `htSpaceExtendEquiv`, which repeats the space `[K:E]` times, and cancel the positive degree. The same coefficient extension preserves the singleton weights and reflects the Artin formula.
+- **Near 1 and signs.** The proposed hypothesis states the actual neighborhood formula, on lifts of the local Artin symbol. The norm bound for (u-1) is equivalent to reduction modulo (p^k) being 1. These radii tend to zero, and a (p)-adic point at distance less than 1 from 1 is an integral unit. This gives the two directions between the printed formula and the old congruence formulation; `isLocallyAlgebraic_iff_conrad` handles the exponent sign. None of these arguments needs a statement about algebraic maps of tori.
+
+## Known issues
+
+No mathematical defect in the cited passage or its use is recorded by A011 or the supplied page read. The manuscript cites an unrefereed author version, and no refereed edition of that exact source was verified. The earlier project note [c8-conrad §6](c8-conrad.md#6-known-issues-and-limitations) says that queue28 itself did not use a referee requirement. The current task explicitly does. Keeping the exact citation therefore keeps the row GLUE for this count; no alternative citation is substituted.
+
+## Checks and count
+
+H strict LEAF/GLUE on N: 5/24 on 29 before; 5/24 on 29 after the proposed replacement under the task's strict source rule. If an integrator counts this exact cited preprint as eligible, the technical retyping would give 6/23 on 29 (GLUE −1).

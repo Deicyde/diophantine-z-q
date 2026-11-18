@@ -1,0 +1,21 @@
+{
+  "name": "conrad-bridges",
+  "imports": ["ZInQKernel.Contrib.OneProof.ConradBridges"],
+  "discharges": [
+    {
+      "field": "conradAppB",
+      "proof": "_root_.HDec.G0Galois.C8Conrad.Bridges.conradAppB_of_concrete {n}.conradAppBConcrete",
+      "leaves": [
+        {
+          "name": "conradAppBConcrete",
+          "type": "_root_.HDec.G0Galois.C8Conrad.Bridges.ConradAppBConcrete",
+          "doc": "C8: Conrad's Hodge–Tate implication in the p. 33 near-one form and Proposition B.3 on the identity coefficient line; the local base is Q_p.",
+          "kind": "consequence",
+          "flag": "CITED (sec:height, L760–764, Conrad App. B); reading desk page read 2026-11-17 and A011; unrefereed author preprint, the manuscript's exact source. Both dictionaries are proved; the strict count retains GLUE for publication status.",
+          "flag_class": "note",
+          "source": "Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32–33, including Proposition B.3; diophantine_zq.tex sec:height L760–764, bibitem conrad-local-characters"
+        }
+      ]
+    }
+  ]
+}

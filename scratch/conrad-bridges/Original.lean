@@ -14,6 +14,23 @@ open Module
 section
 variable (p : ℕ) [Fact p.Prime]
 
+/-- A unit of `ℤ_p` as a unit of `ℚ_p`. -/
+def unitsQp (u : ℤ_[p]ˣ) : ℚ_[p]ˣ := Units.map (PadicInt.Coe.ringHom : ℤ_[p] →+* ℚ_[p]).toMonoidHom u
+
+/-- `σ ∈ G_{ℚ_p}` represents the local Artin symbol of `x ∈ ℚ_p^×`: its class in the topological abelianization of
+`G_{ℚ_p}` is Tau Ceti's absolute local Artin map at `x` (normalization: `χ_cyc(Art(p^k u)) = u⁻¹`, Tau Ceti's
+`abelianizedLocalCyclotomicCharacter_artinMap_padic`). -/
+def IsArtinLift (σ : PkgI4.GQp p) (x : ℚ_[p]ˣ) : Prop :=
+  (QuotientGroup.mk (show Field.absoluteGaloisGroup ℚ_[p] from σ) : Field.absoluteGaloisGroupAbelianization ℚ_[p]) = TauCeti.ClassFieldTheory.artinMap ℚ_[p] x
+
+variable {p}
+
+/-- A character `ψ : G_{ℚ_p} → E^×` as the one-dimensional `E`-linear representation (as `PkgI4.cycRep`). -/
+def charRep {E : Type*} [Field E] (ψ : PkgI4.GQp p →* Eˣ) : PkgI4.GQp p →* GL (Fin 1) E :=
+  (Units.map (algebraMap E (Matrix (Fin 1) (Fin 1) E)).toMonoidHom).comp ψ
+
+variable (p)
+
 /-- **Locally algebraic of exponent `n`** (Conrad, Def. B.1, for the base field `ℚ_p`: the only algebraic characters
 of `Res_{ℚ_p/ℚ_p} 𝔾_m = 𝔾_m` are `x ↦ x^n`): `ψ ∘ Art_{ℚ_p}` agrees with `x ↦ x^n` on an open subgroup of `ℤ_p^×`,
 here `1 + p^k ℤ_p`. -/
