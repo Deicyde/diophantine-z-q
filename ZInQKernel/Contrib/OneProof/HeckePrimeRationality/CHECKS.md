@@ -1178,3 +1178,260 @@ binding, newform extraction and principal-product spanning are not supplied
 by this edition. `PrincipalProductSpanning`, the unrestricted Hecke leaf and
 the full Z-in-Q theorem remain unproved; the original unconditional extent
 remains nonzero N≤6 and no assembly premise is removed.
+
+## Primitive Eisenstein inclusion and variable-weight series trace: 133-module stage
+
+Thirteen additive mathematical modules preserve the earlier 120 source
+editions and their audits. A combined finite-convolution module proves the
+actual inverse-power tail bound for k≥3, supplies cardinality-free sup-norm
+contraction for guarded permutation matrices, and produces the usual inverse
+with coefficients independent of any external parameter. The full positive-
+index identification requires the explicitly stated guard/identity data at
+one; the identity-plus-tail matrix alone does not imply those head conditions.
+The combined file has 60 proof bodies and eight definitions. Same-line
+annotated theorems are explicit declarations, not generated declarations.
+
+Six modules bind the actual unrestricted congruence-grid sum to primitive
+Mathlib Eisenstein series. Their genuine gcd-Sigma equivalence includes gcd
+zero; signed division and canonical inverse-unit residue permutations are
+proved. On primitive residue rows the full actual series is the primitive
+term plus the convergent positive-gcd tail. The inverse matrix turns this
+into a finite combination of raw modular forms, each N^(−k) times the
+previously constructed grid form. The coefficients are fixed before τ.
+
+The final `actual_primitive_eisensteinSeriesMF_mem` proves that every actual
+Mathlib `eisensteinSeriesMF`, for N≥3, Nat k≥3 and every residue vector, belongs
+to the same-level genuine Good length-k product span. Its formal `NeZero N`
+class is retained and is derivable from the level bound. Nonprimitive rows
+are proved zero through the empty primitive gcd-one domain; this does not
+make the unrelated bad even unrestricted grid sum zero. Composite primitive
+rows such as (2,3) mod 6 need neither coordinate to be a unit.
+
+Six further modules prove all-label congruence-series trace closure for
+positive N∣M, N≥3 and every Nat weight k≥3. The maps are actual variable-weight
+restriction and normalized trace. Complete-fibre distribution has factor
+p^k; repeated-prime averaging divides by p², not by p^k. The coprime case
+produces the unique prime-zero point and its lower generator. Strong induction
+constructs lower membership before restriction injectivity is used. The raw
+N^(−k) generator span is identified with that same independent series span.
+No product-trace, Petersson or whole-space premise is substituted for these
+series statements.
+
+All 13 mathematical modules received separate complete source reviews and
+ordinary independent source recompilation. The six primitive modules have
+37 proof bodies, 15 definitions and one abbreviation, 53 source declarations;
+the six variable-weight series modules have 37 proofs and eight definitions.
+The component primitive audit additionally checks ten literal root-object
+contracts, for 63 component records. A normal Lake build of the primitive
+endpoint also completed successfully; module-system/style warnings are
+retained and are not mathematical errors.
+
+`PrimitiveAndAllWeightSeriesAudit.lean` preserves the 133-module stage:
+1582 named source proofs/instances, 252 selected definitions/structures/
+aliases/inductive types and one derived-row-instance capture, 1835 source
+records. Ten literal-contract theorems bring the audit to 1845 unique records.
+Every closure is within `propext`, `Classical.choice`, `Quot.sound`, with no
+`sorryAx`. Printed universe arguments such as `Classical.choice.{u}` are
+recorded as arguments of the same standard axiom, not as new axioms. The
+initial private parser's qualifier false positives are retained as diagnostics;
+no source or audit was weakened to correct them.
+
+Exact cumulative stage audit SHA256:
+`6ec15f8ebc1e464e91cdc17233e29ed34d0630fd56dc4e317cdaa1b352180eb8`.
+
+Exact endpoint/source editions:
+
+- `FiniteUnitConvolution.lean`:
+  `5fea9f8f2c546ce62895c9a30da4681bd00bb9dae4d205b7c2173c7469219bd4`
+- `PrimitiveEisensteinGcdData.lean`:
+  `19b0575e2a18256b12fadacd51e7c62c76c81ebaf31c5b77a51f3291a732393f`
+- `PrimitiveEisensteinNormalization.lean`:
+  `ad972b8059056d4a300a18b44973b8808fb7e0828a20477fdb68397bb79dbf78`
+- `PrimitiveEisensteinUnitSeries.lean`:
+  `3a6fe4ebeb4cfb18153f55494d0be42cb4c3fed6251b9d2cef3b5e50b16310d0`
+- `PrimitiveEisensteinGrid.lean`:
+  `2c2f47bdd92eb1ec0ac8cdad7da692febf13405fb342de29ede58502de3251d3`
+- `PrimitiveEisensteinCongruenceSeries.lean`:
+  `466918e351550af944a0a16fe9aa2b69120e447ef763703152f304d5dae063f6`
+- `PrimitiveEisensteinSeriesMembership.lean`:
+  `9c43feafda9cfb22c863c2cbe96025f97eb6df2e75d8f9982c3f9947d07e36d5`
+- `AllWeightSeriesTraceClosure.lean`:
+  `094168b679944b961bf349639ce4a79996c331db3a0c9b28744181e0c22e57d6`
+- `AllWeightRawSeriesBridge.lean`:
+  `4dedb7eccc7bd98bef29aa09afc5b15c29d0f82f6af139f8e530dd9fe3f7d193`
+
+These are generator inclusion and specific series-span trace closure, not
+full modular-form spanning or pointwise L-value nonvanishing. The original
+Hecke leaf, `PrincipalProductSpanning`, full Z-in-Q, original assembly premises
+and dependency pins remain unchanged and unproved by this stage.
+
+## Rectangular transport, cusp carriers and mixed trace: 147-module stage
+
+Six modules derive the actual real and imaginary completed-theta rectangular
+multiplication identities, not just a generic quasi-theta statement. Exact
+zero divisors, simple denominator zeros, removable quotients and Liouville
+supply the constants. Good-label logarithmic identities and separately
+proved periodic-odd bad-fibre cancellation give all-label zero-extended
+transport without changing the raw bad conventions.
+
+Actual translate/restrict maps send the genuine homogeneous product spans
+to a constructed common principal level nN, in every nonnegative degree.
+The forward slash coefficient is 1/n, the inverse is n^(1-k), and normalized
+levelRaise contributes n^(−k). These are derived from the actual determinant
+power convention, not by multiplying weight-one slashes. The six files have
+74 proof bodies and 16 definitions, 90 declarations. Superseded real-only
+lattice/analytic editions are retained in the verification history; only the
+final bf61/5df8 editions are used.
+
+Four independent modules construct the actual Γ(N)→Γ₁(N²) cusp carrier for
+all integer weights, with g(τ)=f(Nτ), every-cusp vanishing, injectivity,
+nonzero preservation, and qExpansion 1 g = qExpansion N f. Actual invariant
+character decomposition of a diamond-cyclic submodule gives a nonzero
+nebentypus component in a finite positive-rational translate combination of
+original f. There is no newness or ambient-basis premise. These four files
+have 25 proof bodies and three definitions, 28 declarations.
+
+The two preserved mixed-addition/distribution files bind the full y=℘′ and
+the factor 1/2, including degenerate labels. A repeated-prime mixed trace
+file supplies all zero/independent cases and slopes 0,±1. Its explicit target
+is lower mixed span plus the image of the upper class-series span. A separate
+binder identifies the actual raw generators and trace maps, supplies lower
+class-series containment, and includes the target in the genuine Good
+length-three product span. For p=2,3 this closes every integer label; the
+general-prime statement in these preserved files keeps `SlopeClosed` visible.
+These four mathematical files have 67 proofs and 14 definitions, 81 items.
+
+All added files received independent complete source reviews and separate
+ordinary source recompilation. All 118 rectangular/carrier declarations and
+81 mixed declarations are included in their full component inventories;
+the combined rectangular/carrier inventory is 118, not the earlier arithmetic
+slip of 119. Component literal targets retain the actual groups, products,
+trace, integer weights and zero conventions. Warnings and failed private
+probes remain in the verification history; no mathematical scope was weakened.
+
+The normal Lake build and the complete `HeckeProducersAudit.lean` both exited
+0. This 147-module stage has 1748 selected named source proofs/instances,
+285 selected definitions/structures/aliases/inductive types and one derived
+instance capture: 2034 selected source records. Ten literal-contract theorems
+bring the audit to 2044 unique standard-axiom records, with no `sorryAx`.
+Exact stage audit SHA256:
+`602bcd151084ff860e1aafa932833fba68a04ef0acce27c1bc931bbef9d4ff87`.
+
+## Reverse good-Hecke eigenform extraction: 150-module stage
+
+Three further files construct the original-f positive-rational translate
+function orbit, prove its finite representations and actual Hecke-sum
+stability, and extract a nonzero eigencomponent inside it. The entire family
+of good primes is used, not a chosen finite list. Actual character compatibility,
+commutativity, Petersson adjunction and finite-order character values supply
+semisimplicity. Restricting this family to the actual finite-dimensional
+invariant orbit produces a joint eigenvector; no ambient eigenbasis vector
+is used in the reverse direction.
+
+`principal_goodEigenform_rational_translates` then bundles the vector as
+actual `EigenformAwayFromLevel (N²) k`, for positive N and Nat k≥2, preserving
+a finite positive-rational translate representation of original f. It is
+not asserted to be new or first-coefficient-normalized in these three files.
+They have 19 theorems, four definitions, two abbreviations and three local
+Petersson inner-product instances, all 28 component records standard-axiom
+only. The local instances do not replace the global cusp-function norm.
+
+`HeckeGoodEigenformAudit.lean` preserves this stage, 1770 selected named source
+proofs/instances, 291 selected definitions/structures/aliases/inductive types
+and one derived instance: 2062 source records plus ten literal contracts,
+2072 unique standard-axiom records. Exact audit SHA256:
+`1d84751aea53b38224b3d6074a236f13c330a54a2b18854a171f26d6ab6ae200`.
+
+## Every-slope repeated-prime mixed trace: 151-module stage
+
+`MixedWeightThreeSlope.lean` supplies the earlier unproved `SlopeClosed` input
+for every integer slope, with an actual finite original-level row expansion
+and an independently constructed class-series correction at a positive
+multiple of the original level. It adds 30 theorem bodies and eight definitions.
+
+Root enlargement gives s·C, not s²·C. The four row coefficients are −ns,
++n²,+ns,−n² and the recursive coefficient is +n/s at slope −n. Signed divisions
+are proved exact; nonnegative integer remainders are established before
+`toNat`, and the next torsion order is strictly smaller. The zero-slope base
+retains its n² coefficient. `Valid3` records the two slope congruences, not a
+determinant constraint or a new uniform factorial bound.
+
+At a repeated prime, the row coordinates become p-divisible and give actual
+lower mixed forms. The genuine difference G=fibre−rows has proved upper
+series-span membership before actual invariant descent is applied. Only
+then does injectivity identify the constructed lower member. Thus for every
+prime p∣ℓ, ℓ≥3 and every integer label, the actual mixed trace lies in the
+lower Good degree-three product span. Coprime mixed trace, arbitrary λ³
+product trace and all of M₃ are not conclusions of this file.
+
+The exact source edition is 587 lines, SHA256
+`4a9d0ed3e00897952464478a88ad981b7884bffe0131479ef6dc06ce1951d59f`.
+Full independent source review, ordinary recompilation, all 38 component
+axiom records and all-prime/p=5 literal checks passed. The first private p=5
+example lacked a Fact instance in its statement; moving a closed instance
+into the example's scope repaired only that audit. The failed edition and
+log are retained; the mathematical source is unchanged.
+
+`HeckeProducersExtendedAudit.lean` preserves this 151-module stage: 1800
+selected named proofs/instances, 299 selected definitions/structures/aliases/
+inductive types and one derived capture, 2100 source records plus ten literal
+contracts, 2110 unique standard-axiom records. Exact audit SHA256:
+`d61c79488609f7afb4a502480bd10f89d364afc4f7e4628c9af7aaccb2c09715`.
+
+## Actual Weierstrass correction and mixed diagonal transport: 154 modules
+
+Three additional modules differentiate actual rectangular theta identities
+on ordinary zero-free germs and determine the cyclic constants by cancellation
+of genuine double poles. The actual WP regular part is continuous and zero
+at the origin; the zero-extended x origin is peeled off before any off-lattice
+WP evaluation. No cyclic constant or distribution premise survives the actual
+real/imaginary endpoints.
+
+For all n,N>0 and integer labels, x_up=n^(−2)(sum_shift_x−CycR) and
+x_down=sum_shift_x−CycI. The bad shifted sums separately equal their cyclic
+corrections by periodicity; they are not incorrectly called zero. The true
+mixed x_P λ_Q span is generated independently by Good mixed forms, with all
+bad-factor forms proved zero. Actual weight-three translate/restrict maps
+preserve that mixed span at nN, with forward coefficient 1/n and inverse
+1/n². These are not products of lower-weight slashes.
+
+All three exact sources, 40 proof bodies and 15 definitions, received full
+independent source review and ordinary independent recompilation. Their
+72-record component audit includes all 55 source declarations and 17 actual
+literal contracts, including bad classes, n=1 and both derived coefficients.
+A nonfatal audit-only unused-simp warning is retained.
+
+Exact source editions:
+- `RectangularWeierstrassAnalytic.lean`:
+  `c2899db8198a8615dc940f2e2c35b3bab81e89c1502eea115a36e025e67680cd`
+- `RectangularWeierstrassValues.lean`:
+  `0329c0cefbb06681cd69cba3c1f076eaa217d115709035ad6ce230cf55a08839`
+- `RectangularMixedTransport.lean`:
+  `5fda0c03d177fdb2072490b756695253fa05af7303c12b4e86dfa77b8eb87208`
+
+The complete `HeckeAnalyticProducersAudit.lean` co-imports all 154 mathematical
+modules and checks 1840 selected named source proofs/instances, 314 selected
+definitions/structures/aliases/inductive types and one derived capture:
+2155 selected source records plus ten earlier literal-contract theorems,
+2165 unique standard-axiom records. The 17 additional component literals are
+reported separately, not silently counted as new mathematical source items.
+Exact current audit SHA256:
+`02f5be720d89f70b69d753a9a2cf95a24e2c72ffe5f3e7b8d6373455632c82b3`.
+Every audit closure has at most `propext`, `Classical.choice`, `Quot.sound`,
+with no `sorryAx`. All earlier source and audit editions are preserved.
+
+For ordinary cumulative verification with the pinned toolchain/environment:
+
+```sh
+lake --no-cache --no-ansi env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/HeckeAnalyticProducersAudit.lean
+```
+
+These are ordinary warm-import proof compilations and full source reviews,
+not independent cold/native proof admission or full-project acceptance.
+Coprime mixed trace, arbitrary rational mixed transport, normalized newform
+lowering, primitive Petersson orthogonality and a full Eisenstein–cusp splitting
+are not supplied by this edition. Rankin–Selberg product detection, critical
+special-value nonvanishing and higher-weight multiplication remain separate.
+`PrincipalProductSpanning`, the original unrestricted Hecke leaf and full
+Z-in-Q remain unproved here; the unconditional original extent stays N≤6.
+No original assembly premise or dependency pin is changed.

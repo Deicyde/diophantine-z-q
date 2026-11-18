@@ -171,6 +171,49 @@ are proved in the reduction, not hidden premises.
   injectivity is used. Invariant upper members descend to actual lower forms
   in that same span. This is degree two only, not all-weight or whole-space
   principal-product spanning.
+- For N ≥ 3 and Nat k ≥ 3, every actual Mathlib primitive gcd=1
+  `eisensteinSeriesMF` lies in the same-level Good length-k product span.
+  True signed gcd decomposition and inverse-unit residue permutations bind
+  the primitive series to the unrestricted grid. An actual finite matrix
+  inverse gives coefficients independent of τ; the grid form is divided by
+  N^k. Nonprimitive primitive-series rows are proved zero, without erasing
+  the unrelated bad even grid values G_k.
+- The guarded permutation-convolution inverse is constructed from the
+  actual tail bound ∑_{d≥2}d^(−k) ≤ 1/2 for k ≥ 3. Its sup-norm contraction
+  has no finite-index cardinality loss. Identifying the full positive-index
+  series additionally requires the stated identity and guard data at d=1.
+- For N ≥ 3, positive N∣M and every Nat weight k ≥ 3, actual normalized
+  trace preserves the span of independently defined all-label congruence
+  series. The variable-weight trace, prime formulas, invariant descent and
+  exact raw N^(−k) normalization are proved. This is a specific series span,
+  not the full product span or the entire modular-form space.
+- Actual rectangular theta isogenies give rational diagonal and inverse-
+  diagonal transport of every Good homogeneous torsion-product span to a
+  constructed common principal level. The scalar factors are derived from
+  the actual slash convention, including weight zero. All-label zero-
+  extended identities have separately proved bad-fibre cancellation.
+- Ordinary Weierstrass pole cancellation determines the finite cyclic x
+  corrections in both rectangular directions. All-label x transport then
+  gives actual diagonal and inverse-diagonal preservation of the independently
+  generated mixed x_P λ_Q span, with exact weight-three factors 1/n and
+  1/n². Bad shifted sums equal their cyclic corrections, not zero. This
+  does not identify the mixed span with all weight-three forms.
+- Every positive-level principal cusp form has an actual square-level
+  Gamma-one carrier with exact period-matched expansion. A nonzero input
+  yields a nonzero nebentypus component in its finite positive-rational
+  translate orbit. A further invariant-submodule construction gives an
+  actual nonzero joint eigenform for every good-prime Hecke operator in
+  that same orbit. Neither newness nor first-coefficient normalization
+  is asserted.
+- Mixed weight-three addition and distribution retain the full derivative
+  y=℘′, factor 1/2 and every degenerate class. Their series span is identified
+  with the actual weight-three congruence-series span. For every prime p∣ℓ
+  and ℓ≥3, every actual integer-labeled x_P λ_Q mixed form traces into the
+  genuine lower Good degree-three product span. A constructed terminating
+  integer-slope recursion supplies the earlier all-slope premise, with all
+  higher-level series corrections and exact row divisions retained. This
+  is repeated-prime mixed trace, not full weight-three spanning or trace
+  of arbitrary degree-three products.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -193,20 +236,23 @@ defect have proved membership in the independent convergent series span,
 by explicit equalities and finite combinations. Their integer-slope canonical
 correction and general lower-series-span trace closure are proved. This is
 not identification with a classical Petersson-Eisenstein subspace or full
-modular-form spanning. Repeated-prime and coprime-prime degree-two product
-trace, all-divisible-level degree-two closure and all-weight congruence-grid
-generator inclusion are proved. Mixed weight-three product trace,
-primitive-series binding and full principal spanning remain separate from
-these results.
+modular-form spanning. Degree-two all-level product trace, all-weight
+congruence-series trace closure and primitive-series generator inclusion
+are proved. Rational diagonal product transport and square-level cusp
+transport are also proved. The all-slope repeated-prime mixed trace and
+reverse good-Hecke eigenform extraction are proved. Coprime mixed trace,
+newform lowering/normalization, Rankin-Selberg detection, special-value
+nonvanishing and full principal spanning remain separate from this edition.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 120-module audit checks 1448 named public source proofs/instances,
-220 selected definitions, structures, aliases or inductive types and one
-additional capture of the derived row decision instance. All 1669 records
-have at most `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`.
+The current 154-module audit checks 1840 named public source proofs/instances,
+314 selected definitions, structures, aliases or inductive types and one
+additional capture of the derived row decision instance: 2155 selected source
+records. Ten additional literal-contract theorems give 2165 audited records,
+all with at most `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`.
 **Auditing a predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `AllLevelProductTraceAudit.lean` for exact editions and
+See `CHECKS.md` and `HeckeAnalyticProducersAudit.lean` for exact editions and
 commands. Earlier audit editions preserve the previous verified checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
