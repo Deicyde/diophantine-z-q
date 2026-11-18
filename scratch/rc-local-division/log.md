@@ -9,3 +9,6 @@
 - `Model.lean`: `coordinates`, `localModel`, weight rules, square norm residue on support, and compact open ambient support. Compiled; axiom checks passed.
 - Base `DivisionAmbient.lean` and its missing project dependencies compiled from source without source edits.
 - Tex 8559: missing reduction bar on the norm; report and handoff record the correction.
+- `Quadratic.lean`: degree-two field in the first two coordinates, \(jz=\bar z j\), integral closure on \(1,i\), maximal ideal \((p)\), separable degree-two residue extension. Compiled; 13 axiom checks passed.
+- Final verification: all six files compiled separately and sequentially. Axiom checks: Valuation 8, Algebra 20, Order 19, Residue 24, Quadratic 13, Model 11. Only `propext`, `Classical.choice`, and `Quot.sound`.
+- Remaining join: the order and ambient algebra equivalences preserving the inclusion, trace, and norm.

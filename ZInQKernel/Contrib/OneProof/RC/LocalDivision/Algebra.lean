@@ -45,10 +45,9 @@ noncomputable def tr : D p →ₗ[ℚ_[p]] ℚ_[p] := (2 : ℚ_[p]) • (Quatern
 
 @[simp] theorem tr_apply (x : D p) : tr x = 2 * x.re := rfl
 
-theorem tr_continuous : Continuous (tr : D p → ℚ_[p]) :=
-  by
-    change Continuous (fun x : D p => (2 : ℚ_[p]) * (coordHomeomorph x).1)
-    exact continuous_const.mul (coordHomeomorph (p := p)).continuous.fst
+theorem tr_continuous : Continuous (tr : D p → ℚ_[p]) := by
+  change Continuous (fun x : D p => (2 : ℚ_[p]) * (coordHomeomorph x).1)
+  exact continuous_const.mul (coordHomeomorph (p := p)).continuous.fst
 
 theorem tr_mul_comm (x y : D p) : tr (x * y) = tr (y * x) := by
   rcases x with ⟨a,b,c,d⟩
@@ -94,6 +93,12 @@ theorem nrd_formula (x : D p) :
   change a*(a+0*b) + (-1)*b*(-b) + (-(p : ℚ_[p]))*c*(-c) +
     0 * (-(p : ℚ_[p]))*c*(-d) - (-1)* (-(p : ℚ_[p]))*d*(-d) = _
   ring
+
+theorem nrd_algebraMap (a : ℚ_[p]) : nrd (algebraMap ℚ_[p] (D p) a) = a ^ 2 := by
+  simp [nrd_formula, QuaternionAlgebra.algebraMap_eq]
+
+theorem nrd_smul (a : ℚ_[p]) (x : D p) : nrd (a • x) = a ^ 2 * nrd x := by
+  rw [Algebra.smul_def, map_mul, nrd_algebraMap]
 
 theorem nrd_continuous : Continuous (nrd : D p → ℚ_[p]) := by
   have h := (coordHomeomorph (p := p)).continuous
@@ -175,6 +180,8 @@ theorem inv_formula (x : D p) (hx : x ≠ 0) :
 #print axioms star_mul_eq
 #print axioms nrd_mul_star
 #print axioms nrd_formula
+#print axioms nrd_algebraMap
+#print axioms nrd_smul
 #print axioms nrd_continuous
 #print axioms nrd_conj
 #print axioms tr_zero_sq
