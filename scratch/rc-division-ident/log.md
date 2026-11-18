@@ -5,3 +5,6 @@
 - Ambient statements: coefficientwise (K)- and (A)-algebra equivalences; trace and norm comparison; norm formula (x_0^2+x_1^2+p(x_2^2+x_3^2)).
 - `Order.lean`: compiled. Twelve axiom checks, all within the allowed three axioms.
 - Order statements: image equals the integral quaternion order; inclusion-compatible isomorphism; full rational span; maximal among full finite orders; exact ramified clause.
+- `Identification.lean`: compiled. Eleven axiom checks, all within the allowed three axioms.
+- Identification statements: all five fields of `DivisionIdentification`; weight equals the residue character on the trace-zero line; nonzero support test; order-unit invariance, scalar-unit multiplier and uniformizer sign; nonzero square norm residue.
+- Final audit: 30 checks across three new files, each compiled with `lake env lean`; no `sorry`, axioms, or new prints.
