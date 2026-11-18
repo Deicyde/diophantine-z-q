@@ -16,20 +16,20 @@ section Evaluation
 variable {X Y H : Type*} [AddCommGroup X] [AddCommGroup Y] [AddCommGroup H]
   (n : ℕ) (red : X →+ Y)
 
-local notation "Xₙ" => AddSubgroup.torsionBy X (n : ℤ)
-local notation "Yₙ" => AddSubgroup.torsionBy Y (n : ℤ)
-
 /-- Restrict an additive specialization map to the finite torsion. -/
-def torsionMap : Xₙ →+ Yₙ :=
-  (red.comp (AddSubgroup.subtype Xₙ)).codRestrict Yₙ fun t => by
+def torsionMap : (AddSubgroup.torsionBy X (n : ℤ)) →+ (AddSubgroup.torsionBy Y (n : ℤ)) :=
+  (red.comp (AddSubgroup.subtype (AddSubgroup.torsionBy X (n : ℤ)))).codRestrict
+    (AddSubgroup.torsionBy Y (n : ℤ)) fun t => by
     apply AddSubgroup.torsionBy.nsmul_iff.mpr
     change n • red t.val = 0
     rw [← map_nsmul, AddSubgroup.torsionBy.nsmul_iff.mp t.property, map_zero]
 
 /-- Prime-to-characteristic injectivity and the matching two torsion counts suffice
 to identify the finite torsion. This does not require surjectivity on all points. -/
-theorem torsionMap_bijective [Finite Yₙ] (hinj : Set.InjOn red Xₙ)
-    (hcard : Nat.card Xₙ = Nat.card Yₙ) : Function.Bijective (torsionMap n red) := by
+theorem torsionMap_bijective [Finite (AddSubgroup.torsionBy Y (n : ℤ))]
+    (hinj : Set.InjOn red (AddSubgroup.torsionBy X (n : ℤ)))
+    (hcard : Nat.card (AddSubgroup.torsionBy X (n : ℤ)) = Nat.card (AddSubgroup.torsionBy Y (n : ℤ))) :
+    Function.Bijective (torsionMap n red) := by
   have hi : Function.Injective (torsionMap n red) :=
     fun x y h => Subtype.ext (hinj x.property y.property (congrArg Subtype.val h))
   exact (Nat.bijective_iff_injective_and_card (torsionMap n red)).mpr ⟨hi, hcard⟩
@@ -66,9 +66,10 @@ def stageMap (n : ℕ) (red : X →+ Y) (g : X →+ X) (F : Y →+ Y)
 
 /-- The integer coefficient of the cocycle is unchanged in the finite ring: no sign
 or unit factor appears on this choice of arithmetic Frobenius. -/
-theorem stageMap_apply_division (readRow : Xₙ →+ H) {G : Type*} [AddCommGroup G] (r : G →+ FixedSq F)
+theorem stageMap_apply_division (readRow : (AddSubgroup.torsionBy X (n : ℤ)) →+ H)
+    {G : Type*} [AddCommGroup G] (r : G →+ FixedSq F)
     (P : G) (Q R : X) (hR : n • R = Q) (hP : red Q = (r P).val)
-    (t : Xₙ) (ht : t.val = g (g R) - R) :
+    (t : (AddSubgroup.torsionBy X (n : ℤ))) (ht : t.val = g (g R) - R) :
     stageMap (X := X) (Y := Y) (H := H) (G := G) n red g F hred hsq hbij hdiv readRow r P = readRow t := by
   have hκ : kappa F n hdiv (frob_sq_on_reduced_torsion n red g F hred hsq hbij) (r P) =
       torsionMap n red t := by

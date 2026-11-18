@@ -18,15 +18,10 @@ namespace ZInQ.Manuscript.RC.WitnessSpec.FrobeniusPlace
 variable {g : GQ} {p : ℕ} [Fact p.Prime] (v : FrobeniusPlace g p)
 variable (C : WeierstrassCurve ℤ) [(C⁄ℚ).IsElliptic] (hg : ¬ (p : ℤ) ∣ C.Δ)
 
-local notation "wₚ" => (ValuationSubring.valuation (valuationRing v))
-local notation "kₚ" => (IsLocalRing.ResidueField (Valuation.valuationSubring wₚ))
-local notation "B" => (WeierstrassCurve.map C (Int.castRingHom (ZMod p)))
-local notation "E" => (WeierstrassCurve.baseChange C ℚ)
-local notation "X" => (Affine.Point (WeierstrassCurve.toAffine (E⁄Qbar)))
-
 /-- Prime-to-p torsion in the kernel of absolute specialization is zero. -/
 theorem curveReduction_eq_zero_of_nsmul {n : ℕ} (hn : ¬ p ∣ n)
-    (P : X) (hred : v.curveReduction C hg P = 0) (hP : n • P = 0) : P = 0 := by
+    (P : Affine.Point (WeierstrassCurve.toAffine ((C.baseChange ℚ)⁄Qbar)))
+    (hred : v.curveReduction C hg P = 0) (hP : n • P = 0) : P = 0 := by
   rcases P with _ | ⟨x, y, hxy⟩
   · rfl
   · exfalso
@@ -38,12 +33,13 @@ theorem curveReduction_eq_zero_of_nsmul {n : ℕ} (hn : ¬ p ∣ n)
     let e : L →ₐ[ℚ] Qbar := L.val
     let x' : L := ⟨x, IntermediateField.mem_adjoin_pair_left ℚ x y⟩
     let y' : L := ⟨y, IntermediateField.mem_adjoin_pair_right ℚ x y⟩
-    let hxy' := (Affine.baseChange_nonsingular (WeierstrassCurve.toAffine E) (f := e) e.injective x' y').mp hxy
+    let hxy' := (Affine.baseChange_nonsingular (WeierstrassCurve.toAffine (C.baseChange ℚ)) (f := e)
+      e.injective x' y').mp hxy
     let P' := Affine.Point.some x' y' hxy'
-    let mapP := Affine.Point.map (W' := E) e
+    let mapP := Affine.Point.map (W' := (C.baseChange ℚ)) e
     have hmap : mapP P' = Affine.Point.some x y hxy := rfl
     have hnP' : n • P' = 0 := by
-      apply Affine.Point.map_injective (W' := E) e
+      apply Affine.Point.map_injective (W' := (C.baseChange ℚ)) e
       change mapP (n • P') = mapP 0
       simpa only [map_nsmul, hmap, map_zero] using hP
     let u := v.restrictHeightOne e
@@ -52,30 +48,34 @@ theorem curveReduction_eq_zero_of_nsmul {n : ℕ} (hn : ¬ p ∣ n)
       exact_mod_cast hn
     have hv := (Affine.Point.valuation_xCoord_le_one_and_valuation_yCoord_le_one_of_nsmul_eq_zero
       u hnu (Affine.Point.some_ne_zero hxy') hnP').1
-    have hi : wₚ x ≤ 1 := (v.valuation_le_one_restrict e x').mpr hv
-    let := integralEquation_elliptic wₚ C p hg
-    have hz : Affine.Point.reductionHom wₚ (.some x y hxy) = 0 := by
-      apply (AddEquiv.cast (M := fun T : WeierstrassCurve kₚ => T.toAffine.Point)
-        (integralEquation_residue wₚ C p)).injective
+    have hi : v.valuationRing.valuation x ≤ 1 := (v.valuation_le_one_restrict e x').mpr hv
+    let := integralEquation_elliptic v.valuationRing.valuation C p hg
+    have hz : Affine.Point.reductionHom v.valuationRing.valuation (.some x y hxy) = 0 := by
+      apply (AddEquiv.cast (M := fun T :
+        WeierstrassCurve (IsLocalRing.ResidueField v.valuationRing.valuation.valuationSubring) =>
+          T.toAffine.Point)
+        (integralEquation_residue v.valuationRing.valuation C p)).injective
       simpa only [curveReduction, reductionToModel, AddMonoidHom.comp_apply,
         AddEquiv.coe_toAddMonoidHom, map_zero] using hred
-    rcases (Affine.Point.reductionHom_eq_zero_iff wₚ _).mp hz with h | h
+    rcases (Affine.Point.reductionHom_eq_zero_iff v.valuationRing.valuation _).mp hz with h | h
     · exact Affine.Point.some_ne_zero hxy h
     · exact (not_lt_of_ge hi) h
 
 /-- Absolute reduction identifies all geometric 2^M-torsion at an odd place. -/
 theorem curveReduction_torsion_bijective (hodd : p ≠ 2) (M : ℕ) :
     Function.Bijective (torsionMap (2 ^ M) (v.curveReduction C hg)) := by
+  let kₚ := IsLocalRing.ResidueField v.valuationRing.valuation.valuationSubring
+  let B := C.map (Int.castRingHom (ZMod p))
   have htwo : (2 : kₚ) ≠ 0 := by
     change ((2 : ℕ) : kₚ) ≠ 0
     rw [ne_eq, CharP.cast_eq_zero_iff kₚ p]
     exact (Nat.prime_dvd_prime_iff_eq (Fact.out : p.Prime) Nat.prime_two).not.mpr hodd
   have hB : (B⁄kₚ).IsElliptic := by
-    rw [← integralEquation_residue wₚ C p]
-    let := integralEquation_elliptic wₚ C p hg
+    rw [← integralEquation_residue v.valuationRing.valuation C p]
+    let := integralEquation_elliptic v.valuationRing.valuation C p hg
     infer_instance
   let red := v.curveReduction C hg
-  have hc₁ := (E⁄Qbar).natCard_tateModuleLevel (by norm_num : (2 : Qbar) ≠ 0) M
+  have hc₁ := ((C.baseChange ℚ)⁄Qbar).natCard_tateModuleLevel (by norm_num : (2 : Qbar) ≠ 0) M
   have hc₂ := (B⁄kₚ).natCard_tateModuleLevel htwo M
   let : Finite (AddSubgroup.torsionBy (B⁄kₚ).toAffine.Point ((2 ^ M : ℕ) : ℤ)) :=
     Nat.finite_of_card_ne_zero (show Nat.card _ ≠ 0 from hc₂.symm ▸ by positivity)

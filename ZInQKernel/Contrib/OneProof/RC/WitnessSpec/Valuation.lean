@@ -29,35 +29,34 @@ def restrictHeightOne [Fact p.Prime] (e : L →ₐ[ℚ] Qbar) : HeightOneSpectru
   have hz : (p : 𝓞 L) = 0 := by simpa only [eq_intCast, Int.cast_natCast] using hm
   exact (Nat.cast_ne_zero.mpr (Fact.out : p.Prime).ne_zero) hz
 
-local notation "Z" => (Subalgebra.toSubring (integralClosure ℤ Qbar))
-
 /-- Localization of the absolute integers at the chosen prime. -/
-abbrev localRing (v : FrobeniusPlace g p) := @LocalSubring.ofPrime _ _ Z v.prime v.isPrime
+abbrev localRing (v : FrobeniusPlace g p) :=
+  @LocalSubring.ofPrime _ _ (Subalgebra.toSubring (integralClosure ℤ Qbar)) v.prime v.isPrime
 
-local notation "Sₚ" => (LocalSubring.toSubring (localRing v))
+instance localRingIntAlgebra : Algebra Zbar v.localRing.toSubring :=
+  inferInstanceAs (Algebra (↥(Subalgebra.toSubring (integralClosure ℤ Qbar))) v.localRing.toSubring)
 
-instance localRingIntAlgebra : Algebra Zbar Sₚ :=
-  inferInstanceAs (Algebra (↥Z) Sₚ)
-
-instance localRingLocalization : IsLocalization.AtPrime Sₚ v.prime :=
-  IsLocalization.isLocalization_of_algEquiv _ (@LocalSubring.ofPrimeEquiv _ _ Z v.prime v.isPrime)
+instance localRingLocalization : IsLocalization.AtPrime v.localRing.toSubring v.prime :=
+  IsLocalization.isLocalization_of_algEquiv _
+    (@LocalSubring.ofPrimeEquiv _ _ (Subalgebra.toSubring (integralClosure ℤ Qbar)) v.prime v.isPrime)
 
 /-- The localized rings of integers of finite subfields map into this local ring. -/
 def localRingMap [Fact p.Prime] (e : L →ₐ[ℚ] Qbar) :
-    valuationSubringAtPrime L (v.restrictHeightOne e) →+* Sₚ :=
-  IsLocalization.map Sₚ (integersMap e)
+    valuationSubringAtPrime L (v.restrictHeightOne e) →+* v.localRing.toSubring :=
+  IsLocalization.map v.localRing.toSubring (integersMap e)
     (show (v.restrictHeightOne e).asIdeal.primeCompl ≤
       v.prime.primeCompl.comap (integersMap e) from fun _ ha => ha)
 
 /-- The map of local rings uses the original field embedding on their elements. -/
 theorem coe_localRingMap [Fact p.Prime] (e : L →ₐ[ℚ] Qbar)
     (x : valuationSubringAtPrime L (v.restrictHeightOne e)) :
-    ((v.localRingMap e x : Sₚ) : Qbar) = e (x : L) := by
-  have hh : (Subring.subtype Sₚ).comp (v.localRingMap e) =
-      e.toRingHom.comp (Subring.subtype (ValuationSubring.toSubring (valuationSubringAtPrime L (v.restrictHeightOne e)))) := by
+    ((v.localRingMap e x : v.localRing.toSubring) : Qbar) = e (x : L) := by
+  have hh : (Subring.subtype v.localRing.toSubring).comp (v.localRingMap e) =
+      e.toRingHom.comp (Subring.subtype
+        (ValuationSubring.toSubring (valuationSubringAtPrime L (v.restrictHeightOne e)))) := by
     apply IsLocalization.ringHom_ext (v.restrictHeightOne e).asIdeal.primeCompl
     ext y
-    change ((v.localRingMap e (algebraMap (𝓞 L) _ y) : Sₚ) : Qbar) =
+    change ((v.localRingMap e (algebraMap (𝓞 L) _ y) : v.localRing.toSubring) : Qbar) =
       e ((algebraMap (𝓞 L) (valuationSubringAtPrime L (v.restrictHeightOne e)) y : _) : L)
     simp only [localRingMap, IsLocalization.map_eq]
     change algebraMap Zbar Qbar (integersMap e y) = e (algebraMap (𝓞 L) L y)
@@ -67,7 +66,7 @@ theorem coe_localRingMap [Fact p.Prime] (e : L →ₐ[ℚ] Qbar)
 /-- The localization of the algebraic integers at the exact Chebotarev prime
 is a valuation subring of the algebraic closure. -/
 def valuationRing [Fact p.Prime] : ValuationSubring Qbar :=
-  .ofSubring Sₚ (fun x => by
+  .ofSubring v.localRing.toSubring (fun x => by
     let L₀ := ℚ⟮x⟯
     let : FiniteDimensional ℚ L₀ := IntermediateField.adjoin.finiteDimensional (IsAlgebraic.isIntegral
       (Algebra.IsAlgebraic.isAlgebraic (R := ℚ) x))
@@ -77,7 +76,7 @@ def valuationRing [Fact p.Prime] : ValuationSubring Qbar :=
     let A := valuationSubringAtPrime L₀ (v.restrictHeightOne e)
     rcases A.mem_or_inv_mem x₀ with hx | hx
     · left
-      change e x₀ ∈ Sₚ
+      change e x₀ ∈ v.localRing.toSubring
       exact v.coe_localRingMap e ⟨x₀, hx⟩ ▸ (v.localRingMap e ⟨x₀, hx⟩).property
     · right
       have he : e (x₀⁻¹) = x⁻¹ := by rw [map_inv₀]; rfl
