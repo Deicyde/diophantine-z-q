@@ -1,0 +1,22 @@
+{
+  "name": "pc-s12 (NOT FOR FOLDING)",
+  "note": "Manuscript.PoleCompleteness is not a field of any bundle of ZInQ.OneProof.frozenTarget, so no open hypothesis is discharged and autofold does not apply (see scratch/pc-s12/discharges-output.txt). This records the new statements of ZInQKernel/Contrib/OneProof/PoleCompletenessFromRCGenuine.lean (poleCompleteness_of_restrictedConverseGenuine) with kinds and flags, for a manuscript-faithful headline (issue #74).",
+  "imports": ["ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuine"],
+  "discharges": [],
+  "theorem": "ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine",
+  "statements": [
+    {"name": "restrictedConverseGenuine", "type": "_root_.ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine", "kind": "target",
+     "flag": "Theorem 5.3 of the 11/5 manuscript as printed (P := SelmerCorankOne); proved in the manuscript's Sections 6-; not this task", "source": "diophantine_zq.tex hyp:RC"},
+    {"name": "lemma54", "type": "_root_.ZInQ.Manuscript.PoleS12.Lemma54", "kind": "published",
+     "flag": "cited leaf, provenance (b): the manuscript's lem:corank over Tau Ceti's Sel_2 (selmerAt E 1) and SelmerCorankOne; proof cites Poonen-Stoll (Cassels-Tate); unread", "source": "diophantine_zq.tex L1076-1093; Poonen-Stoll, Ann. of Math. 150 (1999) 1109-1149"},
+    {"name": "kummerSelmerM", "type": "_root_.ZInQ.Manuscript.PoleS12.KummerSelmerM", "kind": "glue",
+     "flag": "textbook GLUE, not printed: #Sel_2(E_l/Q) (Tau Ceti) = #SelM l (explicit 2-Selmer system); Kummer identification", "source": "Silverman AEC 2nd ed. Prop. X.1.4, p. 315 (as cited in S12 L242; page UNVERIFIED)"},
+    {"name": "bcdtThmA", "type": "_root_.ZInQ.Manuscript.PoleS12.BCDTThmA", "kind": "published",
+     "flag": "unread: new printed leaf (consequence: IsModular keeps a weight-2 cusp form on Gamma0(N) with L-series coefficients = E.LFunction, no newform/level)", "source": "Breuil-Conrad-Diamond-Taylor, JAMS 14 (2001) 843-939, Thm A (manuscript cites the author manuscript, tex L1099)"},
+    {"name": "kolyvaginThm1", "type": "_root_.ZInQ.Manuscript.PoleS12.KolyvaginThm1", "kind": "published",
+     "flag": "unread: new printed leaf, r = 1 case with finite Sha (SelmerTwoPower.sha); locator UNVERIFIED; preprint, not refereed", "source": "Kolyvagin, MPIM preprint MPI/90-69 (1990), Thm 1, pp. 4-5 (tex L1100)"},
+    {"name": "mordellWeil", "type": "_root_.ZInQ.Manuscript.PoleRC.MordellWeil", "kind": "published",
+     "flag": "unread: textbook leaf; locator UNVERIFIED", "source": "Mordell 1922; Silverman AEC VIII.6.7 (number UNVERIFIED)"}
+  ],
+  "proved": ["ZInQ.Manuscript.PoleS12.matrixRealization : MatrixRealization", "ZInQ.Manuscript.PoleS12.dimThreeCount : DimThreeCount", "ZInQ.Manuscript.PoleS12.simultaneousConstruction : SimultaneousConstruction", "ZInQ.Manuscript.PoleS12.localGoodUnram : LocalGoodUnram", "ZInQ.Manuscript.PoleS12.necAt_S12", "ZInQ.Manuscript.PoleS12.selM_finite"]
+}

@@ -1,0 +1,14 @@
+DISCHARGES [OpenResearchLeaves59Y3.heckeSqrtBranchAny] by SGRDirect.heckeSqrtBranchAny_of_y3
+  still assumes: [Y3P1j.Y3ToP1j,
+ ObjBridge.TorsionStructure,
+ ZInQ.LeafPush2.UniformizationExists,
+ HDec.HomUnify.HomLatticeCorr,
+ HDec.HeckeRest.QMAutCard,
+ HDec.HeckeRest.SerreRigidity3,
+ HDec.HeckeRest.ALFixedPoints]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves59Y3.heckeSqrtBranchAny] by SGRDirect.heckeSqrtBranchAny_proof
+  still assumes: [Y3P1j.Y3ToP1j]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 34 open hypotheses, 14329 theorems checked, 543 discharge one
+Open hypotheses including pole completeness: 34 → 33; only heckeSqrtBranchAny removed

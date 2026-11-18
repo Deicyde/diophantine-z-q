@@ -1,0 +1,6 @@
+sign 1 [['0', '0', '-1', '1'], ['0', '0', '1', '-2'], ['1', '-1', '0', '0'], ['-1', '2', '0', '0']]
+sign -1 [['0', '0', '1', '-1'], ['0', '0', '-1', '2'], ['-1', '1', '0', '0'], ['1', '-2', '0', '0']]
+matches the printed matrix (some sign): True
+det of printed matrix = 1
+(2/3) Legendre = -1
+|(O/3O)^*| at the ramified prime 3: |O/3O| = 81, radical index 9 (residue field F_9): 81 - 9 = 72 <= 81

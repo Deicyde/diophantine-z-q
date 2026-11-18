@@ -1,0 +1,3 @@
+|O/3O| = 81 ; |(O/3O)^*| = 72 ; norm 1 mod 3: 36 ; norm -1 mod 3: 36
+manuscript bound 4|(O/3O)^*| = 288 <= 4*81 = 324: True
+|N/(A_f^* K_3)| = 4|(O/3O)^*|/|(Z/3)^*| = 144

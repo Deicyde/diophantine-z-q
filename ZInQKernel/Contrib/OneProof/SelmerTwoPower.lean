@@ -34,7 +34,8 @@ the continuous cohomology of `G_ℚ = Gal(ℚˢ/ℚ)` in discrete modules:
 * `RestrictedConverseGenuine := ZInQ.Manuscript.RestrictedConverse SelmerCorankOne`: Theorem 5.3 over
   the genuine Selmer condition.
 
-Nothing here is used by the main theorem, and nothing is assumed: this file only defines and states.
+Nothing is assumed here: this file only defines and states. `ZInQ.OneProof.frozenTarget` takes
+`RestrictedConverseGenuine` from this file as its hypothesis `hRC`.
 -/
 
 noncomputable section

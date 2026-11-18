@@ -1,0 +1,85 @@
+== y3-x6b reader grep (code lines, comments/docstrings excluded) on this base
+== (a) X6 field / clause names in the cm-fold-rebase files (the readers new on this base, not on cm-branch2's route)
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:49:  x6CoarseModuliIdeal : _root_.X6ALIdeal.X6CoarseModuliIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:51:  elkiesX6StarEveryIdeal : _root_.X6ALIdeal.ElkiesX6StarEveryIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:114:  x6CoarseModuliIdeal : _root_.X6ALIdeal.X6CoarseModuliIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:116:  elkiesX6StarEveryIdeal : _root_.X6ALIdeal.ElkiesX6StarEveryIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:169:  x6CoarseModuliIdeal : _root_.X6ALIdeal.X6CoarseModuliIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:171:  elkiesX6StarEveryIdeal : _root_.X6ALIdeal.ElkiesX6StarEveryIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:224:  x6CoarseModuliIdeal : _root_.X6ALIdeal.X6CoarseModuliIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:226:  elkiesX6StarEveryIdeal : _root_.X6ALIdeal.ElkiesX6StarEveryIdeal
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:380:  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:382:  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:431:  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:433:  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:457:  x6CoarseModuli := (_root_.X6ALIdeal.x6CoarseModuli_of_ideal n.x6CoarseModuliIdeal)
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:458:  elkiesX6StarEvery := (_root_.X6ALIdeal.elkiesX6StarEvery_of_ideal' n.elkiesX6StarEveryIdeal n.x6CoarseModuliIdeal (_root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Cont
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:497:  gonzalezRotgerX6Ab := _root_.HDec.QMSplit.Moduli.gonzalezRotgerX6Ab_r5_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli
+ZInQKernel/Contrib/OneProof/CMFoldRebase/Open77.lean:502:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMai
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:59:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:62:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:86:  elkiesX6StarPrinted : _root_.HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:172:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:175:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:180:  elkiesEquationsX6Ab : QMSplit.Moduli.ElkiesEquationsX6Ab
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:233:  elkiesEquationsX6Ab := _root_.HDec.QMSplit.Moduli.ElkiesX6Star.elkiesEquationsX6Ab_of_printed n.elkiesX6StarPrinted
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:288:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:291:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:296:  elkiesEquationsX6Ab : QMSplit.Moduli.ElkiesEquationsX6Ab
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:409:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:412:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:417:  elkiesEquationsX6Ab : QMSplit.Moduli.ElkiesEquationsX6Ab
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:532:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:535:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:540:  elkiesEquationsX6Ab : QMSplit.Moduli.ElkiesEquationsX6Ab
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:662:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:665:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:670:  elkiesEquationsX6Ab : QMSplit.Moduli.ElkiesEquationsX6Ab
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:752:`_root_.HDec.LeafAdopt.R1R2fpRepW_r5` from `_root_.HDec.QMSplit.Moduli.x6Rows_of_leavesW_r5`, whose base witness is González–Rotger's (`_root_.HDec.QMSplit.Moduli.GonzalezRotgerX6_r5`)
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:755:    _root_.HDec.LeafAdopt.R1R2fpRepW_r5 ∧ _root_.HDec.X6Kummer.X6ConicModel_r5 :=
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:759:      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:761:      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl_r5 hR).mpr r.gonzalezRotgerX6Ab
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:762:      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl hR).mpr r.elkiesEquationsX6Ab }
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:771:model (`elkiesX6StarPrinted`), `_root_.LeafQM.AV.R1R2fp_r5` (generation 14's `_root_.HDec.HSyn.GR9.x6Rows_of_open14_hf_gm_pz_eb_r5`) and T5. -/
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:777:    (_root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed) r.elkiesX6StarPrinted
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:884:  r1r2 : _root_.HDec.LeafAdopt.R1R2fpRepW_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9.lean:973:  r1r2 : _root_.HDec.LeafAdopt.R1R2fpRepW_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:35:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:47:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:84:  gonzalezRotgerX6Ab := _root_.HDec.QMSplit.Moduli.gonzalezRotgerX6Ab_r5_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:89:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMai
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:125:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:137:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:211:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:223:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:296:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:308:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:383:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:395:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:472:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:484:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:573:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:596:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:670:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:693:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:767:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:795:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:871:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:899:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:975:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:978:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1006:  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1031:  babaGranathRationalAb := _root_.BGExplicit.babaGranathRationalAb_of_printed (_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionFiel
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1083:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1086:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1106:  elkiesX6StarPrinted : _root_.HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1145:  elkiesX6StarPrinted := _root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1192:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1195:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1215:  elkiesX6StarPrinted : _root_.HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1302:  babaGranathRationalAb : QMSplit.Moduli.BabaGranathRationalAb
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1305:  gonzalezRotgerX6Ab : _root_.HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5
+ZInQKernel/Contrib/OneProof/CMFoldRebase/R5GR9_1.lean:1329:  elkiesX6StarPrinted : _root_.HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted
+
+== (b) the same names in the y3-x6b route files (Y3X6/*, Y3X6Fold.lean), code lines only
+(end)

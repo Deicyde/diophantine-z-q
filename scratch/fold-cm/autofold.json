@@ -1,0 +1,26 @@
+{
+ "name": "fold-cm",
+ "ruling": "Jack, to 'Should [the CM-branch package] fold now?': \"Fold now at +4 (Recommended)\" (count rise accepted: --allow-rise)",
+ "mode": "generator fold (autofold.py's discharges format does not apply: the removed fields are unread on the new route, not proved). Steps and head-dependent points: scratch/fold-cm/REPLAY.md.",
+ "base": "wip/leaf-fold33b 0bcb3b0b1 (top HDec.HSyn.sixContactMin_of_open80, TailZ87, OpenResearchLeaves61)",
+ "components": [
+  {"source": "origin/wip/cm-fold-rebase 664e00417",
+   "generators": ["gen/mk_top_live.py", "DirtyCM.lean", "gen/gen_r5live.py", "gen/gen_open81.py", "gen/fold_main1.py"],
+   "proof_files": ["ZInQKernel/Contrib/OneProof/CMBranchUC8.lean"],
+   "modules": ["OneProof/H/CMTopLive", "OneProof/H/CMR5_1", "OneProof/H/CMR5_2", "OneProof/H/CMR5", "OneProof/H/CMOpen", "OneProof/H/TailZ88"],
+   "top": "HDec.HSyn.sixContactMin_of_open81 (r : OpenResearchLeaves62) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves28)",
+   "remove": ["research/gonzalezRotgerThm512X6RCF"],
+   "add": ["research/cmFibreSplit (glue)", "research/fowlerProp27 (published, pending review)", "research/cmjDegree (consequence, pending review)", "research/cmPotentialGood (consequence, pending review)", "research/cmHeight62 (consequence, pending review)"],
+   "kinds_rows": "scratch/cm-fold-rebase/kinds-rows.tsv, flags prefixed 'pending review (new leaf, GLUE until a reviewer rates it); '",
+   "count": "5/24 on 29 -> 5/28 on 33"},
+  {"source": "origin/wip/y3-x6b 9a2bbbe3f",
+   "generators": ["gen/gen_y3live.py", "gen/gen_top_y3.py", "gen/fold_main2.py"],
+   "modules": ["OneProof/H/Y3Copy1..6", "OneProof/H/Y3Open", "OneProof/H/TailZ89"],
+   "top": "HDec.HSyn.sixContactMin_of_open82 (r : OpenResearchLeaves63) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves28)",
+   "remove": ["research/x6CoarseModuliIdeal", "research/elkiesX6StarEveryIdeal"],
+   "add": ["research/y3ToP1j (consequence, pending review)", "research/heckeSqrtBranchAny (glue; Y3-only argument on-the-spot)"],
+   "kinds_rows": "scratch/y3-x6b/kinds-rows.tsv, kinds-remove.tsv",
+   "count": "5/28 on 33 -> 5/28 on 33"}
+ ],
+ "not_folded": ["G1 Prop ShimuraTotalToComponents (Jack: 'Keep DS 9.6.5 (Recommended)')"]
+}

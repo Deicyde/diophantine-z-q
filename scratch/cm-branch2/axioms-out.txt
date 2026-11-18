@@ -1,0 +1,7 @@
+'HDec.CMBranch.heightAdditivityUpper_of_t35' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.reducedCMPeriod_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.cmPeriodLattice_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.reducedCMPeriod_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.exists_reduced_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open4_hf_pz_eb_cm2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open72_cm2' depends on axioms: [propext, Classical.choice, Quot.sound]

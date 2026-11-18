@@ -1,0 +1,9 @@
+{
+  "name": "hecke-sqrt",
+  "imports": ["ZInQKernel.Contrib.OneProof.HeckeSqrt"],
+  "discharges": [
+    {"field": "heckeSqrtBranchAny",
+     "proof": "_root_.SGRDirect.heckeSqrtBranchAny_proof {n}.y3ToP1j",
+     "leaves": []}
+  ]
+}

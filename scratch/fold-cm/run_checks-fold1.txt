@@ -1,0 +1,55 @@
+22561 constants hashed
+before 21343  after 22561  only before 0  only after 1218  changed 1
+changed: ['ZInQ.OneProof.frozenTarget']
+only before: []
+modules of new constants: {'ZInQKernel.OneProof.H.CMR5': 45, 'ZInQKernel.OneProof.H.CMR5_2': 514, 'ZInQKernel.OneProof.H.CMR5_1': 428, 'ZInQKernel.OneProof.H.CMOpen': 161, 'ZInQKernel.OneProof.H.CMTopLive': 32, 'ZInQKernel.OneProof.H.TailZ88': 38}
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget: closure 295824
+  contains sorryAx: false
+  contains GR512Bridge.GonzalezRotgerThm512X6RCF: false
+  contains GRDict.GonzalezRotgerThm512X6: false
+  contains GR512Bridge.gonzalezRotgerThm512X6_of_rcf: false
+  contains GRDict.r5ptProps_of_thm512: false
+  contains GRX6AbPrint.gonzalezRotgerX6Ab_of_print: false
+  contains LeafQM.AV.R5ptProps: false
+  contains HDec.FS5NoCM.R1R2fpFullProps: false
+  contains HDec.HSyn.sixContactMin_of_open4_hf_pz_eb_u_c8: false
+  contains HDec.HSyn.sixContactMin_of_open4_hf_pz_eb: false
+  contains HDec.HSyn.OpenResearchLeaves61: false
+  contains HDec.HSyn.sixContactMin_of_open80: false
+  contains HDec.HSyn.sixContactMin_of_open80_cm_r5: false
+  contains HDec.CMBranch.CMFibreSplit: true
+  contains HDec.CMBranch.FowlerProp27: true
+  contains HDec.CMBranch.CMjDegree: true
+  contains HDec.CMBranch.CMPotentialGood: true
+  contains HDec.CMBranch.CMHeight62: true
+  contains HDec.CMBranch.coxProperLattice_proof: true
+  contains HDec.CMBranch.HeightAdditivityUpper: true
+  contains HDec.CMBranch.ReducedCMPeriod: true
+  contains HDec.HSyn.sixContactMin_of_open4_cm_u_c8: false
+  contains HDec.HSyn.sixContactMin_of_open4_hf_pz_eb_u_c8_cm_r5: true
+  contains HDec.HSyn.OpenResearchLeaves62: true
+  contains HDec.HSyn.sixContactMin_of_open81: true
+  contains HDec.G0Galois.C8Conrad.ConradAppB: true
+  contains DeRhamScholze.HTMerge.ScholzeH1AbVar: true
+  GonzalezRotger-named constants in the closure: 48 [HDec.HSyn.GR9.OpenResearchLeaves20GMEBSFU_r5.gonzalezRotgerX6Ab, HDec.HSyn.GR9.OpenResearchLeaves32EBCFSFU_r5.gonzalezRotgerX6Ab, HDec.HSyn.GR9.OpenResearchLeaves15GMEBSFU_r5.gonzalezRotgerX6Ab, HDec.HSyn.GR9.OpenResearchLeaves23GMEBSFU_r5.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves34EBCFSFU_r5.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves16GMEBSFU_r5.gonzalezRotgerX6Ab, HDec.HSyn.GR9.OpenResearchLeaves26GMEBSFU_r5.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves31EBSFU_r5.gonzalezRotgerX6Ab, HDec.HSyn.GR9.Ope
+  R5pt/NoCM/FS5-named constants in the closure: 8 [HDec.CMBranch.NoCMAt, HDec.G0ModField.KernelField.ConjMapsNoCM, HDec.FS5NoCM.R1fpPropsFull, HDec.FS5NoCM.ComIntOrQuadOrder._proof_1, HDec.FS5NoCM.X6KummerFibre._proof_1, HDec.G0ModField.KernelField.conjMapsNoCM_of, HDec.FS5NoCM.CMOptimalEmbedding, HDec.FS5NoCM.R1R2fpFullProps_r5]
+  X6-named constants in the closure: 295 [HDec.QMSplit.Moduli.X6LeavesW_r5, X6ALIdeal.left_j._proof_1_1, HDec.HSyn.GR9.OpenResearchLeaves20GMEBSFU_r5.gonzalezRotgerX6Ab, X6ALIdeal.ALIdealClause, HDec.QMSplit.Moduli.HauptmodulUniqueX6S, X6ALIdeal.bcAut._proof_2, HDec.QMSplit.Moduli.r2fp_of_r2X6, HDec.QMSplit.Moduli.coarseX6OfFine_ofW, HDec.QMSplit.Moduli.X6LeavesW_r5.t5, X6ALIdeal.every_at_of_ideal, X6Glue.conicMapL_injective, HDec.HSyn.GR9.OpenResearchLeaves32EBCFSFU_r5.gonzalezRotgerX6Ab, HDec.HSyn.GR9.OpenResearchLeaves28GMEBSFU_r5.elkiesX6StarFunctionField, HDec.QMSplit.Moduli.BabaGranathX6
+field check: HDec.HSyn.OpenResearchLeaves61 26 fields, HDec.HSyn.OpenResearchLeaves62 30 fields; only in old: [gonzalezRotgerThm512X6RCF]; only in new: [cmFibreSplit,
+wrote docs/one-proof/open-statements.json: 34 open hypotheses
+33 H hypotheses, strictest 5/28, 1 others
+131
+33 H hypotheses, strictest 5/28, 1 others
+ok: 34 open hypotheses, all classified; 4 generated files up to date
+wrote docs/one-proof/frontier-crosswalk.tsv: 232 IDs, 3 matched to an open hypothesis
+ok: docs/one-proof/frontier-crosswalk.tsv is up to date (232 IDs, 3 matched)
+autoform exit 0
+OK: 776 articles, 2332 dependencies
+    647 fully proved · 4 proved · 35 ready to state · 15 planned
+    2329 declaration name(s) resolved in the Lean sources
+AUTOFOLD-DRYRUN-EXIT=0
+TREE-UNCHANGED=yes
+GATEFOLD-EXIT=0
+GATEFOLD-AXIOMS=standard
+(files in /tmp/tmp.9iu92CTgi1)
+GATE=ok

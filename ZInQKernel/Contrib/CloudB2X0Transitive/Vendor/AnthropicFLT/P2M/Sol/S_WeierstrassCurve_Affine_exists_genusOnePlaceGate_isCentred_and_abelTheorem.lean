@@ -4,6 +4,10 @@ Upstream module: P2M.Sol.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCe
 Modified for the Z-in-Q kernel (2026-11-15, task flt-cqj2): local import paths are relocated
 (`P2M.Util` is the copy published by Cloud Worker 2) and the upstream lakefile options are set
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
+Modified 2026-11-17 (fork issue #83): the definition `WeierstrassCurve.Affine.divisorSum` of
+`Definitions.Def_WeierstrassCurve_GenusOnePic0` is renamed `WeierstrassCurve.Affine.placeDivisorSum`,
+and its uses with it, so that this library can be imported together with the vendored Tau Ceti
+library, which defines a different `WeierstrassCurve.Affine.divisorSum`; marked `-- [port]` where defined.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 [port] Tau Ceti name clash: renamed `XYIdeal_isMaximal` → `XYIdeal_isMaximal_aflt`, `XYIdeal_ne_bot` → `XYIdeal_ne_bot_aflt`.
@@ -44,7 +48,7 @@ open scoped nonZeroDivisors Polynomial.Bivariate
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 p2m_open "WeierstrassCurve.Affine WeierstrassCurve"
 
 universe u
@@ -313,7 +317,7 @@ open scoped Polynomial.Bivariate
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 namespace CoordinateRing
 p2m_export "WeierstrassCurve.Affine.CoordinateRing" "smul_basis_eq_zero XYIdeal XYIdeal'_eq quotientXYIdealEquiv XClass_ne_zero smul YClass XYIdeal' natDegree_norm_ne_one mk map degree_norm_smul_basis exists_smul_basis_eq XClass smul_basis_mul_Y YClass_ne_zero"
 p2m_open "WeierstrassCurve.Affine.CoordinateRing WeierstrassCurve.Affine WeierstrassCurve"
@@ -560,7 +564,7 @@ theorem isDedekindDomain_of_forall_isMaximal_isUnit {R : Type*} (K : Type*) [Com
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 p2m_open "WeierstrassCurve.Affine WeierstrassCurve"
 
 universe u
@@ -715,7 +719,7 @@ p2m_reactivate "P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentre
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 p2m_open "WeierstrassCurve.Affine WeierstrassCurve"
 
 variable {F : Type*} [Field F] {W : Affine F}
@@ -1008,7 +1012,7 @@ p2m_open "AlgebraicCurve P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 p2m_open "WeierstrassCurve.Affine WeierstrassCurve"
 
 universe u
@@ -1221,7 +1225,7 @@ p2m_reactivate "P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentre
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 p2m_open "WeierstrassCurve.Affine WeierstrassCurve"
 
 p2m_open "WeierstrassCurve.Affine.CoordinateRing P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.WeierstrassCurve.Affine.CoordinateRing AlgebraicCurve P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.AlgebraicCurve"
@@ -1908,7 +1912,7 @@ p2m_reactivate "P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentre
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 p2m_open "WeierstrassCurve.Affine WeierstrassCurve"
 
 universe u
@@ -2115,7 +2119,7 @@ open scoped Polynomial.Bivariate
 namespace WeierstrassCurve
 p2m_export "WeierstrassCurve" "Affine Affine.Point.toClass a₃ a₁ map Affine.CoordinateRing coe_Δ' mk a₄ Jacobian a₂ a₆ reduction Affine.CoordinateRing.XYIdeal' IsIntegral Affine.Point Δ j Δ' Affine.GenusOnePlaceGate Affine.AbelTheorem Affine.genusOnePic0Equiv Affine.GenusOnePlaceGate.IsCentred"
 namespace Affine
-p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one divisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
+p2m_export "WeierstrassCurve.Affine" "Equation Point.toClass CoordinateRing.XYIdeal CoordinateRing.XYIdeal'_eq equation_iff_nonsingular_of_Δ_ne_zero CoordinateRing map CoordinateRing.YClass Point.some Nonsingular CoordinateRing.XYIdeal' FunctionField Point CoordinateRing.mk Point.toClass_injective CoordinateRing.XClass equation_iff polynomial GenusOnePlaceGate pointEquivPlace placeOfPoint deg_eq_one placeDivisorSum AbelTheorem genusOnePic0Equiv GenusOnePlaceGate.IsCentred"
 p2m_open "WeierstrassCurve.Affine WeierstrassCurve"
 
 p2m_open "WeierstrassCurve.Affine.CoordinateRing P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.WeierstrassCurve.Affine.CoordinateRing AlgebraicCurve P2MW.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.AlgebraicCurve"

@@ -4,6 +4,10 @@ Upstream module: Definitions.Def_WeierstrassCurve_GenusOnePic0
 Modified for the Z-in-Q kernel (2026-11-15, task flt-cqj2): local import paths are relocated
 (`P2M.Util` is the copy published by Cloud Worker 2) and the upstream lakefile options are set
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
+Modified 2026-11-17 (fork issue #83): the definition `WeierstrassCurve.Affine.divisorSum` of
+`Definitions.Def_WeierstrassCurve_GenusOnePic0` is renamed `WeierstrassCurve.Affine.placeDivisorSum`,
+and its uses with it, so that this library can be imported together with the vendored Tau Ceti
+library, which defines a different `WeierstrassCurve.Affine.divisorSum`; marked `-- [port]` where defined.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/
@@ -65,16 +69,16 @@ theorem degree_eq_sum (D : AlgebraicCurve.Divisor F W.FunctionField) :
   exact Finsupp.sum_congr fun v _ => by
     rw [AddMonoidHom.mulRight_apply, deg_eq_one v, Nat.cast_one, mul_one]
 
-def divisorSum : AlgebraicCurve.Divisor F W.FunctionField →+ W.Point :=
+def placeDivisorSum : AlgebraicCurve.Divisor F W.FunctionField →+ W.Point :=  -- [port] renamed from `divisorSum`
   Finsupp.liftAddHom fun v => zmultiplesHom W.Point ((pointEquivPlace (W := W)).symm v)
 
 @[simp]
 theorem divisorSum_single (v : AlgebraicCurve.Place F W.FunctionField) (n : ℤ) :
-    divisorSum (Finsupp.single v n) = n • (pointEquivPlace (W := W)).symm v :=
+    placeDivisorSum (Finsupp.single v n) = n • (pointEquivPlace (W := W)).symm v :=
   Finsupp.liftAddHom_apply_single _ v n
 
 theorem divisorSum_single_placeOfPoint (P : W.Point) (n : ℤ) :
-    divisorSum (Finsupp.single (placeOfPoint P) n) = n • P := by
+    placeDivisorSum (Finsupp.single (placeOfPoint P) n) = n • P := by
   rw [divisorSum_single, pointEquivPlace_symm_placeOfPoint]
 
 def pointDivisor (P : W.Point) : Divisor.degZero (K := F) (F := W.FunctionField) :=
@@ -93,7 +97,7 @@ theorem pointDivisor_zero : pointDivisor (0 : W.Point) = 0 :=
   Subtype.ext (sub_self _)
 
 theorem divisorSum_pointDivisor (P : W.Point) :
-    divisorSum (pointDivisor P : AlgebraicCurve.Divisor F W.FunctionField) = P := by
+    placeDivisorSum (pointDivisor P : AlgebraicCurve.Divisor F W.FunctionField) = P := by
   rw [coe_pointDivisor, map_sub, divisorSum_single_placeOfPoint, divisorSum_single_placeOfPoint,
     one_smul, one_smul, sub_zero]
 
@@ -110,23 +114,23 @@ class AbelTheorem : Prop where
 
   isPrincipal_iff_divisorSum_eq_zero :
     ∀ D : AlgebraicCurve.Divisor F W.FunctionField, Divisor.degree D = 0 →
-      (Divisor.IsPrincipal D ↔ divisorSum D = 0)
+      (Divisor.IsPrincipal D ↔ placeDivisorSum D = 0)
 
 section AbelTheorem
 
 variable [AbelTheorem W]
 
 theorem divisorSum_eq_zero_of_isPrincipal {D : AlgebraicCurve.Divisor F W.FunctionField}
-    (h0 : Divisor.degree D = 0) (hD : Divisor.IsPrincipal D) : divisorSum D = 0 :=
+    (h0 : Divisor.degree D = 0) (hD : Divisor.IsPrincipal D) : placeDivisorSum D = 0 :=
   (AbelTheorem.isPrincipal_iff_divisorSum_eq_zero D h0).mp hD
 
 theorem isPrincipal_of_divisorSum_eq_zero {D : AlgebraicCurve.Divisor F W.FunctionField}
-    (h0 : Divisor.degree D = 0) (hD : divisorSum D = 0) : Divisor.IsPrincipal D :=
+    (h0 : Divisor.degree D = 0) (hD : placeDivisorSum D = 0) : Divisor.IsPrincipal D :=
   (AbelTheorem.isPrincipal_iff_divisorSum_eq_zero D h0).mpr hD
 
 def pic0ToPoint : AlgebraicCurve.Pic0 F W.FunctionField →+ W.Point :=
   QuotientAddGroup.lift _
-    (divisorSum.comp (Divisor.degZero (K := F) (F := W.FunctionField)).subtype)
+    (placeDivisorSum.comp (Divisor.degZero (K := F) (F := W.FunctionField)).subtype)
     (by
       rintro ⟨D, hD0⟩ hD
       rw [AddSubgroup.mem_addSubgroupOf] at hD
@@ -136,7 +140,7 @@ def pic0ToPoint : AlgebraicCurve.Pic0 F W.FunctionField →+ W.Point :=
 
 @[simp]
 theorem pic0ToPoint_mk (D : Divisor.degZero (K := F) (F := W.FunctionField)) :
-    pic0ToPoint (Pic0.mk D) = divisorSum (D : AlgebraicCurve.Divisor F W.FunctionField) :=
+    pic0ToPoint (Pic0.mk D) = placeDivisorSum (D : AlgebraicCurve.Divisor F W.FunctionField) :=
   rfl
 
 @[simp]
@@ -153,7 +157,7 @@ theorem pic0ToPoint_injective : Function.Injective (pic0ToPoint (W := W)) := by
   | H D =>
     intro hD
     obtain ⟨D, hD0⟩ := D
-    replace hD : divisorSum D = 0 := hD
+    replace hD : placeDivisorSum D = 0 := hD
     rw [QuotientAddGroup.eq_zero_iff, AddSubgroup.mem_addSubgroupOf]
     exact Divisor.mem_principal.mpr
       (isPrincipal_of_divisorSum_eq_zero (Divisor.mem_degZero.mp hD0) hD)

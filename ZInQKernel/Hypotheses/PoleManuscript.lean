@@ -12,12 +12,12 @@ and 5.3, in the namespace `ZInQ.Manuscript` (fork issue #74).
   `ZInQ.polePoly` (`ZInQKernel/Hypotheses/Pole.lean`) is the manuscript's, with the curves
   `y² = x(x - ℓ)(x + 3ℓ)`, so these three are abbreviations of `ZInQ.polePoly`, `ZInQ.PoleSoluble`
   and `ZInQ.PoleCompleteness`: there is one definition. PC is a hypothesis of the headline
-  `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness` and of
-  `ZInQ.OneProof.frozenTarget`.
+  `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`;
+  `ZInQ.OneProof.frozenTarget` proves it from Theorem 5.3 (fork issue #83).
 * `Manuscript.curve`, `Manuscript.AnalyticRankOne`, `Manuscript.RestrictedConverse`:
   **Theorem 5.3** (`hyp:RC`), the restricted converse from which the manuscript proves
-  Theorem 5.2. Its Selmer condition is a parameter here, because this repository has no
-  definition of the `2`-power Selmer group of an elliptic curve; see `RestrictedConverse`.
+  Theorem 5.2. Its Selmer condition is a parameter here, so that this file needs only Mathlib;
+  the genuine instance is `SelmerTwoPower.RestrictedConverseGenuine`; see `RestrictedConverse`.
 -/
 
 namespace ZInQ.Manuscript
@@ -76,13 +76,14 @@ def AnalyticRankOne (E : WeierstrassCurve ℚ) : Prop :=
 condition as a parameter.** For every positive squarefree `ℓ ≡ 11 (mod 12)`,
 `corank_{ℤ₂} Sel_{2^∞}(E_ℓ/ℚ) = 1` implies `ord_{s=1} L(E_ℓ, s) = 1`.
 
-**This is a statement schema, not yet the theorem.** `SelmerCorankOne E` stands for
-`corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 1`. The repository has no definition of the `2`-power Selmer group
-of an elliptic curve over `ℚ` (Route K's `Sel₂` is the explicit `2`-Selmer system of the
-congruent number curves, a different object), so the condition cannot be written over a genuine
-definition today. `RestrictedConverse P` is Theorem 5.3 only for that one predicate `P`; it must
-not be taken as a hypothesis at any other instance. The lane of issue #74 does not use it: the
-headline takes `PoleCompleteness`. -/
+**A statement schema; the theorem is its genuine instance.** `SelmerCorankOne E` stands for
+`corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 1`. The `2`-primary Selmer group of an elliptic curve over `ℚ` and its
+`ℤ₂`-corank are defined in `ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean` (over the vendored Tau
+Ceti Galois cohomology), and Theorem 5.3 is the instance
+`ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine := RestrictedConverse SelmerTwoPower.SelmerCorankOne`.
+That instance is the hypothesis `ZInQ.OneProof.frozenTarget` takes, in place of `PoleCompleteness`
+(fork issue #83). `RestrictedConverse P` is Theorem 5.3 only for that one predicate; it must not be
+taken as a hypothesis at any other instance. -/
 def RestrictedConverse (SelmerCorankOne : WeierstrassCurve ℚ → Prop) : Prop :=
   ∀ ℓ : ℕ, 0 < ℓ → Squarefree ℓ → ℓ % 12 = 11 →
     SelmerCorankOne (curve ℓ) → AnalyticRankOne (curve ℓ)

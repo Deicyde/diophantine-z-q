@@ -1,0 +1,24 @@
+{
+  "name": "hecke-sqrt",
+  "base": {
+    "bundle": "HDec.HSyn.OpenResearchLeaves59Y3",
+    "top": "HDec.HSyn.sixContactMin_of_open78_y3x6",
+    "after": "y3-x6b"
+  },
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.HeckeSqrt",
+    "ZInQKernel.Contrib.OneProof.Y3X6Fold"
+  ],
+  "discharges": [
+    {
+      "field": "heckeSqrtBranchAny",
+      "proof": "_root_.SGRDirect.heckeSqrtBranchAny_proof {n}.y3ToP1j",
+      "leaves": []
+    }
+  ],
+  "next": {
+    "bundle": "HDec.HSyn.OpenResearchLeaves60Y3",
+    "top": "HDec.HSyn.sixContactMin_of_open79_heckeSqrt",
+    "module": "ZInQKernel.Contrib.OneProof.HeckeSqrtFold"
+  }
+}

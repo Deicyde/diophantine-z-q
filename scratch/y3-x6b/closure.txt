@@ -1,0 +1,475 @@
+== HDec.HSyn.sixContactMin_of_open78_y3x6: 129961 constants
+  LeafQM.AV.X6Props: present=true inClosure=false
+  LeafQM.AV.R2X6Props: present=true inClosure=false
+  LeafQM.AV.CMExists: present=true inClosure=false
+  LeafQM.AV.X6Surj: present=true inClosure=false
+  HDec.LeafAdopt.R2X6PropsIff: present=true inClosure=false
+  LeafQM.AV.R5ptProps: present=true inClosure=false
+  X6ALIdeal.X6CoarseModuliIdeal: present=true inClosure=false
+  X6ALIdeal.ElkiesX6StarEveryIdeal: present=true inClosure=false
+  GRX6AbPrint.X6CoarseModuli: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesEquationsX6Ab: present=true inClosure=false
+  HDec.QMSplit.Moduli.BabaGranathRationalAb: present=true inClosure=false
+  HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5: present=true inClosure=false
+  HDec.HSyn.OpenResearchLeaves58CM: present=false inClosure=false
+  HDec.HSyn.OpenResearchLeaves57: present=true inClosure=false
+  HDec.HSyn.GR9.OpenResearchLeaves34EBCF_r5: present=false inClosure=false
+  HDec.HSyn.GR9.OpenResearchLeaves35EBCF_cm: present=false inClosure=false
+  HDec.LeafAdopt.R1R2fpRepW: present=true inClosure=false
+  HDec.LeafAdopt.R1R2fpRepW_r5: present=true inClosure=false
+  LeafQM.AV.R1R2fp: present=true inClosure=false
+  Y3X6.R1R2fpY3: present=true inClosure=true
+  Y3P1j.Y3ToP1j: present=true inClosure=true
+  SGRDirect.HeckeSqrtBranchAny: present=true inClosure=true
+  HDec.X6Kummer.X6ConicModel: present=true inClosure=false
+  HDec.HSyn.GR9.SGRFold.heckeSqrtBranchAny_of_open29_hf_gm_pz_eb_r5: present=false inClosure=false
+  HDec.HSyn.GR9.SGRFold.heckeSqrtBranchAny_of_open29_hf_gm_pz_eb: present=true inClosure=false
+  GRX6AbPrint.x6ModuliWitness_of_coarse: present=true inClosure=false
+  HDec.QMSplit.Moduli.gonzalezRotgerX6Ab_r5_of_coarse: present=true inClosure=false
+  SGRDirect.elkies_coordinate: present=true inClosure=false
+  HDec.HSyn.OpenResearchLeaves59Y3.y3ToP1j: present=true inClosure=true
+  HDec.HSyn.OpenResearchLeaves59Y3.heckeSqrtBranchAny: present=true inClosure=true
+  suffix: RayClassCFT.nrd_pos_of_cm
+  suffix: GapST.twist_of_cm
+  suffix: GlueAssembly.max_one_hA_le_cm
+  _r5 or _cm constants in closure: 3
+  names mentioning X6/x6/Elkies/BabaGranath: 198
+    GRCountX6.ConjRel
+    GRCountX6.ConjRel._proof_1
+    GRCountX6.OptEmb
+    GRCountX6.conjRel_equivalence
+    GRCountX6.unit_inv_mul
+    HDec.FS5NoCM.X6KummerFibre._proof_1
+    HDec.GammaStarArea.x6_uM
+    HDec.HSyn.G0Split.FibreQM.PeriodGlue.LQ20.iota_x6
+    HDec.HSyn.G0Split.FibreQM.PeriodGlue.iota_x6
+    HDec.HSyn.G0Split.FibreQM.PeriodGlue.x6
+    HDec.HSyn.GR9.OpenResearchLeaves14GMEB_y3.gonzalezRotgerCountX6Ab
+    HDec.HSyn.GR9.OpenResearchLeaves15GMEB_y3.gonzalezRotgerCountX6Ab
+    HDec.HSyn.GR9.OpenResearchLeaves16GMEB_y3.gonzalezRotgerCountX6Ab
+    HDec.HSyn.GR9.OpenResearchLeaves17GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves18GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves19GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves20GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves21GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves22GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves23GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves24GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves25GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves26GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves27GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves28GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves29GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves31EB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves32EBCF_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves33EBCF_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves34EBCF_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.bdRInvariantsPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.bostLowerBound
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.carayolThmA
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.deRhamVpAbVarPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.dsThm965Printed
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.dsThm966Printed
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.eigenformHTNew
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.gaudronRemondThm14
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.hodgeTateDecompAbVar
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.javanpeykarBound
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.mk
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.neronOggShafarevichSep
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.pazukiCor13Upper
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r11r12
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r16CoreY
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r9a
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r9b
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.raynaudSemistableSHOr
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.sga7_IX_3_3_SHpre
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.sga7_IX_3_5_ForwardGeom
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.shimuraMainThmIDeligneY3AbU
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.y3ToP1j
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.bdRInvariantsPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.bostLowerBound
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.carayolThmA
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.deRhamVpAbVarPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.dsThm965Printed
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.dsThm966Printed
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.eigenformHTNew
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.gaudronRemondThm14
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.hodgeTateDecompExists
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.javanpeykarBound
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.mk
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.neronOggShafarevichSep
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.pazukiCor13Upper
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r11r12
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r16CoreY
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r9a
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r9b
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.raynaudSemistableSHOr
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.sga7_IX_3_3_SHpre
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.sga7_IX_3_5_ForwardGeom
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.shimuraMainThmIDeligneY3AbU
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.y3ToP1j
+    HDec.HSyn.GR9.OpenResearchLeaves9EB_y3.gonzalezRotgerCountX6
+    HDec.HSyn.GR9.openResearchLeaves34_y3_of_35_y3x6
+    HDec.HSyn.GR9.openResearchLeaves35_y3x6_of_36_y3x6
+    HDec.HSyn.GR9.openResearchLeaves36EBCF_y3x6_of_54_y3x6
+    HDec.HSyn.GR9.x6Rows_of_open14_hf_gm_pz_eb_y3
+    HDec.HSyn.OpenAddedLeaves6PZ_y3.x6ConicModel
+    HDec.HSyn.OpenAddedLeaves7PZ_y3.x6ConicModel
+    HDec.HSyn.OpenAddedLeaves8PZ_y3.x6ConicModel
+    HDec.HSyn.OpenAddedLeaves9PZ_y3.x6ConicModel
+    HDec.HSyn.OpenResearchLeaves54_y3x6
+    HDec.HSyn.OpenResearchLeaves54_y3x6.afCharpolyDS965
+    HDec.HSyn.OpenResearchLeaves54_y3x6.afShimura
+    HDec.HSyn.OpenResearchLeaves54_y3x6.bergerSurveyF
+    HDec.HSyn.OpenResearchLeaves54_y3x6.carayolThmAIrr
+    HDec.HSyn.OpenResearchLeaves54_y3x6.deRhamVpAbVarDirect
+    HDec.HSyn.OpenResearchLeaves54_y3x6.deligneCanonicalModelY3EveryPrint
+    HDec.HSyn.OpenResearchLeaves54_y3x6.dsThm965Printed
+    HDec.HSyn.OpenResearchLeaves54_y3x6.dsThm966Printed
+    HDec.HSyn.OpenResearchLeaves54_y3x6.gaudronRemondSec9LowerAnSS
+    HDec.HSyn.OpenResearchLeaves54_y3x6.gaudronRemondThm14AnSS
+    HDec.HSyn.OpenResearchLeaves54_y3x6.heckeJ1DS
+    HDec.HSyn.OpenResearchLeaves54_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.OpenResearchLeaves54_y3x6.hodgeTateDecompOr
+    HDec.HSyn.OpenResearchLeaves54_y3x6.javanpeykarThm111An
+    HDec.HSyn.OpenResearchLeaves54_y3x6.mk
+    HDec.HSyn.OpenResearchLeaves54_y3x6.modularHTCoeff
+    HDec.HSyn.OpenResearchLeaves54_y3x6.neronOggShafarevichSep
+    HDec.HSyn.OpenResearchLeaves54_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.OpenResearchLeaves54_y3x6.panPrintedF
+    HDec.HSyn.OpenResearchLeaves54_y3x6.pazukiCor13Upper
+    HDec.HSyn.OpenResearchLeaves54_y3x6.r9a
+    HDec.HSyn.OpenResearchLeaves54_y3x6.r9b
+    HDec.HSyn.OpenResearchLeaves54_y3x6.raynaudSemistableSHOr
+    HDec.HSyn.OpenResearchLeaves54_y3x6.sga7_IX_3_5_ForwardGeom_Def34
+    HDec.HSyn.OpenResearchLeaves54_y3x6.sga7_IX_Cor3_3_Def34
+    HDec.HSyn.OpenResearchLeaves54_y3x6.y3FineModuliAbP
+    HDec.HSyn.OpenResearchLeaves54_y3x6.y3ToP1j
+    HDec.HSyn.OpenResearchLeaves55_y3x6
+    HDec.HSyn.OpenResearchLeaves55_y3x6.afCharpolyDS965
+    HDec.HSyn.OpenResearchLeaves55_y3x6.afShimura
+    HDec.HSyn.OpenResearchLeaves55_y3x6.bergerSurveyF
+    HDec.HSyn.OpenResearchLeaves55_y3x6.carayolThmAIrr
+    HDec.HSyn.OpenResearchLeaves55_y3x6.deRhamVpAbVarDirect
+    HDec.HSyn.OpenResearchLeaves55_y3x6.deligneCanonicalModelY3EveryPrint
+    HDec.HSyn.OpenResearchLeaves55_y3x6.dsThm965Printed
+    HDec.HSyn.OpenResearchLeaves55_y3x6.dsThm966Printed
+    HDec.HSyn.OpenResearchLeaves55_y3x6.gaudronRemondSec9LowerAnSS
+    HDec.HSyn.OpenResearchLeaves55_y3x6.gaudronRemondThm14AnSS
+    HDec.HSyn.OpenResearchLeaves55_y3x6.heckeJ1DS
+    HDec.HSyn.OpenResearchLeaves55_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.OpenResearchLeaves55_y3x6.hodgeTateDecompOr
+    HDec.HSyn.OpenResearchLeaves55_y3x6.javanpeykarThm111An
+    HDec.HSyn.OpenResearchLeaves55_y3x6.mk
+    HDec.HSyn.OpenResearchLeaves55_y3x6.modularHTCoeff
+    HDec.HSyn.OpenResearchLeaves55_y3x6.neronOggShafarevichSep
+    HDec.HSyn.OpenResearchLeaves55_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.OpenResearchLeaves55_y3x6.panPrintedF
+    HDec.HSyn.OpenResearchLeaves55_y3x6.pazukiCor13Upper
+    HDec.HSyn.OpenResearchLeaves55_y3x6.r9a
+    HDec.HSyn.OpenResearchLeaves55_y3x6.r9b
+    HDec.HSyn.OpenResearchLeaves55_y3x6.sga7_IX_3_5_ForwardGeom_Def34
+    HDec.HSyn.OpenResearchLeaves55_y3x6.sga7_IX_Cor3_3_Def34
+    HDec.HSyn.OpenResearchLeaves55_y3x6.silverbergZarhinThm35
+    HDec.HSyn.OpenResearchLeaves55_y3x6.y3FineModuliAbP
+    HDec.HSyn.OpenResearchLeaves55_y3x6.y3ToP1j
+    HDec.HSyn.OpenResearchLeaves56_y3x6
+    HDec.HSyn.OpenResearchLeaves56_y3x6.afCharpolyDS965
+    HDec.HSyn.OpenResearchLeaves56_y3x6.afShimura
+    HDec.HSyn.OpenResearchLeaves56_y3x6.bergerSurveyF
+    HDec.HSyn.OpenResearchLeaves56_y3x6.carayolThmAIrr
+    HDec.HSyn.OpenResearchLeaves56_y3x6.deRhamVpAbVarDirect
+    HDec.HSyn.OpenResearchLeaves56_y3x6.deligneCanonicalModelY3EveryPrint
+    HDec.HSyn.OpenResearchLeaves56_y3x6.dsThm965Printed
+    HDec.HSyn.OpenResearchLeaves56_y3x6.dsThm966Printed
+    HDec.HSyn.OpenResearchLeaves56_y3x6.gaudronRemondSec9LowerAnSS
+    HDec.HSyn.OpenResearchLeaves56_y3x6.gaudronRemondThm14AnSS
+    HDec.HSyn.OpenResearchLeaves56_y3x6.heckeJ1DS
+    HDec.HSyn.OpenResearchLeaves56_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.OpenResearchLeaves56_y3x6.hodgeTateDecompOr
+    HDec.HSyn.OpenResearchLeaves56_y3x6.javanpeykarThm111An
+    HDec.HSyn.OpenResearchLeaves56_y3x6.mk
+    HDec.HSyn.OpenResearchLeaves56_y3x6.modularHTCoeff
+    HDec.HSyn.OpenResearchLeaves56_y3x6.neronOggShafarevichSep
+    HDec.HSyn.OpenResearchLeaves56_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.OpenResearchLeaves56_y3x6.panPrintedF
+    HDec.HSyn.OpenResearchLeaves56_y3x6.pazukiCor13Upper
+    HDec.HSyn.OpenResearchLeaves56_y3x6.r9a
+    HDec.HSyn.OpenResearchLeaves56_y3x6.r9b
+    HDec.HSyn.OpenResearchLeaves56_y3x6.sga7_IX_3_5_ForwardGeom_Def34
+    HDec.HSyn.OpenResearchLeaves56_y3x6.sga7_IX_Cor3_3_Def34
+    HDec.HSyn.OpenResearchLeaves56_y3x6.silverbergZarhinThm35
+    HDec.HSyn.OpenResearchLeaves56_y3x6.y3FullThreeRepZ30
+    HDec.HSyn.OpenResearchLeaves56_y3x6.y3ToP1j
+    HDec.HSyn.openResearchLeaves54_y3x6_of_55_y3x6
+    HDec.HSyn.openResearchLeaves55_y3x6_of_56_y3x6
+    HDec.HSyn.openResearchLeaves56_y3x6_of_59Y3
+    HDec.HSyn.sixContactMin_of_open78_y3x6
+    HDec.LeafQCheck.P_x6
+    HDec.LeafQCheck.P_x6i
+    HDec.LeafQCheck.QMglue.tab_x6
+    HDec.LeafQCheck.QMglue.tab_x6i
+    HDec.LeafQCheck.conj_x6
+    HDec.LeafQCheck.nrd_x6
+    HDec.LeafQCheck.nrd_x6i
+    HDec.LeafQCheck.x6_x6i
+    HDec.LeafQCheck.x6i
+    HDec.LeafQCheck.x6i_x6
+    HDec.X6Kummer.X6ConicModel_y3
+    Y3X6.R1R2fpY3
+    Y3X6.cm_objects
+    Y3X6.exists_fibre_object
+    Y3X6.r1r2fpY3_of
+    Y3X6.r1r2fp_Y
+    Y3X6.r1rec_of_row
+    Y3X6.r2fp_of_at
+    Y3X6.residue_unramified_over_branch
+== HDec.HSyn.sixContactMin_y3x6b: 129962 constants
+  LeafQM.AV.X6Props: present=true inClosure=false
+  LeafQM.AV.R2X6Props: present=true inClosure=false
+  LeafQM.AV.CMExists: present=true inClosure=false
+  LeafQM.AV.X6Surj: present=true inClosure=false
+  HDec.LeafAdopt.R2X6PropsIff: present=true inClosure=false
+  LeafQM.AV.R5ptProps: present=true inClosure=false
+  X6ALIdeal.X6CoarseModuliIdeal: present=true inClosure=false
+  X6ALIdeal.ElkiesX6StarEveryIdeal: present=true inClosure=false
+  GRX6AbPrint.X6CoarseModuli: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField: present=true inClosure=false
+  HDec.QMSplit.Moduli.ElkiesEquationsX6Ab: present=true inClosure=false
+  HDec.QMSplit.Moduli.BabaGranathRationalAb: present=true inClosure=false
+  HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5: present=true inClosure=false
+  HDec.HSyn.OpenResearchLeaves58CM: present=false inClosure=false
+  HDec.HSyn.OpenResearchLeaves57: present=true inClosure=false
+  HDec.HSyn.GR9.OpenResearchLeaves34EBCF_r5: present=false inClosure=false
+  HDec.HSyn.GR9.OpenResearchLeaves35EBCF_cm: present=false inClosure=false
+  HDec.LeafAdopt.R1R2fpRepW: present=true inClosure=false
+  HDec.LeafAdopt.R1R2fpRepW_r5: present=true inClosure=false
+  LeafQM.AV.R1R2fp: present=true inClosure=false
+  Y3X6.R1R2fpY3: present=true inClosure=true
+  Y3P1j.Y3ToP1j: present=true inClosure=true
+  SGRDirect.HeckeSqrtBranchAny: present=true inClosure=true
+  HDec.X6Kummer.X6ConicModel: present=true inClosure=false
+  HDec.HSyn.GR9.SGRFold.heckeSqrtBranchAny_of_open29_hf_gm_pz_eb_r5: present=false inClosure=false
+  HDec.HSyn.GR9.SGRFold.heckeSqrtBranchAny_of_open29_hf_gm_pz_eb: present=true inClosure=false
+  GRX6AbPrint.x6ModuliWitness_of_coarse: present=true inClosure=false
+  HDec.QMSplit.Moduli.gonzalezRotgerX6Ab_r5_of_coarse: present=true inClosure=false
+  SGRDirect.elkies_coordinate: present=true inClosure=false
+  HDec.HSyn.OpenResearchLeaves59Y3.y3ToP1j: present=true inClosure=true
+  HDec.HSyn.OpenResearchLeaves59Y3.heckeSqrtBranchAny: present=true inClosure=true
+  suffix: RayClassCFT.nrd_pos_of_cm
+  suffix: GapST.twist_of_cm
+  suffix: GlueAssembly.max_one_hA_le_cm
+  _r5 or _cm constants in closure: 3
+  names mentioning X6/x6/Elkies/BabaGranath: 199
+    GRCountX6.ConjRel
+    GRCountX6.ConjRel._proof_1
+    GRCountX6.OptEmb
+    GRCountX6.conjRel_equivalence
+    GRCountX6.unit_inv_mul
+    HDec.FS5NoCM.X6KummerFibre._proof_1
+    HDec.GammaStarArea.x6_uM
+    HDec.HSyn.G0Split.FibreQM.PeriodGlue.LQ20.iota_x6
+    HDec.HSyn.G0Split.FibreQM.PeriodGlue.iota_x6
+    HDec.HSyn.G0Split.FibreQM.PeriodGlue.x6
+    HDec.HSyn.GR9.OpenResearchLeaves14GMEB_y3.gonzalezRotgerCountX6Ab
+    HDec.HSyn.GR9.OpenResearchLeaves15GMEB_y3.gonzalezRotgerCountX6Ab
+    HDec.HSyn.GR9.OpenResearchLeaves16GMEB_y3.gonzalezRotgerCountX6Ab
+    HDec.HSyn.GR9.OpenResearchLeaves17GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves18GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves19GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves20GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves21GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves22GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves23GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves24GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves25GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves26GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves27GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves28GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves29GMEB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves31EB_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves32EBCF_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves33EBCF_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves34EBCF_y3.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.bdRInvariantsPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.bostLowerBound
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.carayolThmA
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.deRhamVpAbVarPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.dsThm965Printed
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.dsThm966Printed
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.eigenformHTNew
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.gaudronRemondThm14
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.hodgeTateDecompAbVar
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.javanpeykarBound
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.mk
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.neronOggShafarevichSep
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.pazukiCor13Upper
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r11r12
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r16CoreY
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r9a
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.r9b
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.raynaudSemistableSHOr
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.sga7_IX_3_3_SHpre
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.sga7_IX_3_5_ForwardGeom
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.shimuraMainThmIDeligneY3AbU
+    HDec.HSyn.GR9.OpenResearchLeaves35EBCF_y3x6.y3ToP1j
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.bdRInvariantsPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.bostLowerBound
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.carayolThmA
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.deRhamVpAbVarPrinted
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.dsThm965Printed
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.dsThm966Printed
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.eigenformHTNew
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.gaudronRemondThm14
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.gonzalezRotgerProp56X6
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.hodgeTateDecompExists
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.javanpeykarBound
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.mk
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.neronOggShafarevichSep
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.pazukiCor13Upper
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r11r12
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r16CoreY
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r9a
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.r9b
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.raynaudSemistableSHOr
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.sga7_IX_3_3_SHpre
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.sga7_IX_3_5_ForwardGeom
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.shimuraMainThmIDeligneY3AbU
+    HDec.HSyn.GR9.OpenResearchLeaves36EBCF_y3x6.y3ToP1j
+    HDec.HSyn.GR9.OpenResearchLeaves9EB_y3.gonzalezRotgerCountX6
+    HDec.HSyn.GR9.openResearchLeaves34_y3_of_35_y3x6
+    HDec.HSyn.GR9.openResearchLeaves35_y3x6_of_36_y3x6
+    HDec.HSyn.GR9.openResearchLeaves36EBCF_y3x6_of_54_y3x6
+    HDec.HSyn.GR9.x6Rows_of_open14_hf_gm_pz_eb_y3
+    HDec.HSyn.OpenAddedLeaves6PZ_y3.x6ConicModel
+    HDec.HSyn.OpenAddedLeaves7PZ_y3.x6ConicModel
+    HDec.HSyn.OpenAddedLeaves8PZ_y3.x6ConicModel
+    HDec.HSyn.OpenAddedLeaves9PZ_y3.x6ConicModel
+    HDec.HSyn.OpenResearchLeaves54_y3x6
+    HDec.HSyn.OpenResearchLeaves54_y3x6.afCharpolyDS965
+    HDec.HSyn.OpenResearchLeaves54_y3x6.afShimura
+    HDec.HSyn.OpenResearchLeaves54_y3x6.bergerSurveyF
+    HDec.HSyn.OpenResearchLeaves54_y3x6.carayolThmAIrr
+    HDec.HSyn.OpenResearchLeaves54_y3x6.deRhamVpAbVarDirect
+    HDec.HSyn.OpenResearchLeaves54_y3x6.deligneCanonicalModelY3EveryPrint
+    HDec.HSyn.OpenResearchLeaves54_y3x6.dsThm965Printed
+    HDec.HSyn.OpenResearchLeaves54_y3x6.dsThm966Printed
+    HDec.HSyn.OpenResearchLeaves54_y3x6.gaudronRemondSec9LowerAnSS
+    HDec.HSyn.OpenResearchLeaves54_y3x6.gaudronRemondThm14AnSS
+    HDec.HSyn.OpenResearchLeaves54_y3x6.heckeJ1DS
+    HDec.HSyn.OpenResearchLeaves54_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.OpenResearchLeaves54_y3x6.hodgeTateDecompOr
+    HDec.HSyn.OpenResearchLeaves54_y3x6.javanpeykarThm111An
+    HDec.HSyn.OpenResearchLeaves54_y3x6.mk
+    HDec.HSyn.OpenResearchLeaves54_y3x6.modularHTCoeff
+    HDec.HSyn.OpenResearchLeaves54_y3x6.neronOggShafarevichSep
+    HDec.HSyn.OpenResearchLeaves54_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.OpenResearchLeaves54_y3x6.panPrintedF
+    HDec.HSyn.OpenResearchLeaves54_y3x6.pazukiCor13Upper
+    HDec.HSyn.OpenResearchLeaves54_y3x6.r9a
+    HDec.HSyn.OpenResearchLeaves54_y3x6.r9b
+    HDec.HSyn.OpenResearchLeaves54_y3x6.raynaudSemistableSHOr
+    HDec.HSyn.OpenResearchLeaves54_y3x6.sga7_IX_3_5_ForwardGeom_Def34
+    HDec.HSyn.OpenResearchLeaves54_y3x6.sga7_IX_Cor3_3_Def34
+    HDec.HSyn.OpenResearchLeaves54_y3x6.y3FineModuliAbP
+    HDec.HSyn.OpenResearchLeaves54_y3x6.y3ToP1j
+    HDec.HSyn.OpenResearchLeaves55_y3x6
+    HDec.HSyn.OpenResearchLeaves55_y3x6.afCharpolyDS965
+    HDec.HSyn.OpenResearchLeaves55_y3x6.afShimura
+    HDec.HSyn.OpenResearchLeaves55_y3x6.bergerSurveyF
+    HDec.HSyn.OpenResearchLeaves55_y3x6.carayolThmAIrr
+    HDec.HSyn.OpenResearchLeaves55_y3x6.deRhamVpAbVarDirect
+    HDec.HSyn.OpenResearchLeaves55_y3x6.deligneCanonicalModelY3EveryPrint
+    HDec.HSyn.OpenResearchLeaves55_y3x6.dsThm965Printed
+    HDec.HSyn.OpenResearchLeaves55_y3x6.dsThm966Printed
+    HDec.HSyn.OpenResearchLeaves55_y3x6.gaudronRemondSec9LowerAnSS
+    HDec.HSyn.OpenResearchLeaves55_y3x6.gaudronRemondThm14AnSS
+    HDec.HSyn.OpenResearchLeaves55_y3x6.heckeJ1DS
+    HDec.HSyn.OpenResearchLeaves55_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.OpenResearchLeaves55_y3x6.hodgeTateDecompOr
+    HDec.HSyn.OpenResearchLeaves55_y3x6.javanpeykarThm111An
+    HDec.HSyn.OpenResearchLeaves55_y3x6.mk
+    HDec.HSyn.OpenResearchLeaves55_y3x6.modularHTCoeff
+    HDec.HSyn.OpenResearchLeaves55_y3x6.neronOggShafarevichSep
+    HDec.HSyn.OpenResearchLeaves55_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.OpenResearchLeaves55_y3x6.panPrintedF
+    HDec.HSyn.OpenResearchLeaves55_y3x6.pazukiCor13Upper
+    HDec.HSyn.OpenResearchLeaves55_y3x6.r9a
+    HDec.HSyn.OpenResearchLeaves55_y3x6.r9b
+    HDec.HSyn.OpenResearchLeaves55_y3x6.sga7_IX_3_5_ForwardGeom_Def34
+    HDec.HSyn.OpenResearchLeaves55_y3x6.sga7_IX_Cor3_3_Def34
+    HDec.HSyn.OpenResearchLeaves55_y3x6.silverbergZarhinThm35
+    HDec.HSyn.OpenResearchLeaves55_y3x6.y3FineModuliAbP
+    HDec.HSyn.OpenResearchLeaves55_y3x6.y3ToP1j
+    HDec.HSyn.OpenResearchLeaves56_y3x6
+    HDec.HSyn.OpenResearchLeaves56_y3x6.afCharpolyDS965
+    HDec.HSyn.OpenResearchLeaves56_y3x6.afShimura
+    HDec.HSyn.OpenResearchLeaves56_y3x6.bergerSurveyF
+    HDec.HSyn.OpenResearchLeaves56_y3x6.carayolThmAIrr
+    HDec.HSyn.OpenResearchLeaves56_y3x6.deRhamVpAbVarDirect
+    HDec.HSyn.OpenResearchLeaves56_y3x6.deligneCanonicalModelY3EveryPrint
+    HDec.HSyn.OpenResearchLeaves56_y3x6.dsThm965Printed
+    HDec.HSyn.OpenResearchLeaves56_y3x6.dsThm966Printed
+    HDec.HSyn.OpenResearchLeaves56_y3x6.gaudronRemondSec9LowerAnSS
+    HDec.HSyn.OpenResearchLeaves56_y3x6.gaudronRemondThm14AnSS
+    HDec.HSyn.OpenResearchLeaves56_y3x6.heckeJ1DS
+    HDec.HSyn.OpenResearchLeaves56_y3x6.heckeSqrtBranchAny
+    HDec.HSyn.OpenResearchLeaves56_y3x6.hodgeTateDecompOr
+    HDec.HSyn.OpenResearchLeaves56_y3x6.javanpeykarThm111An
+    HDec.HSyn.OpenResearchLeaves56_y3x6.mk
+    HDec.HSyn.OpenResearchLeaves56_y3x6.modularHTCoeff
+    HDec.HSyn.OpenResearchLeaves56_y3x6.neronOggShafarevichSep
+    HDec.HSyn.OpenResearchLeaves56_y3x6.neronSchemeExtensionDedekind
+    HDec.HSyn.OpenResearchLeaves56_y3x6.panPrintedF
+    HDec.HSyn.OpenResearchLeaves56_y3x6.pazukiCor13Upper
+    HDec.HSyn.OpenResearchLeaves56_y3x6.r9a
+    HDec.HSyn.OpenResearchLeaves56_y3x6.r9b
+    HDec.HSyn.OpenResearchLeaves56_y3x6.sga7_IX_3_5_ForwardGeom_Def34
+    HDec.HSyn.OpenResearchLeaves56_y3x6.sga7_IX_Cor3_3_Def34
+    HDec.HSyn.OpenResearchLeaves56_y3x6.silverbergZarhinThm35
+    HDec.HSyn.OpenResearchLeaves56_y3x6.y3FullThreeRepZ30
+    HDec.HSyn.OpenResearchLeaves56_y3x6.y3ToP1j
+    HDec.HSyn.openResearchLeaves54_y3x6_of_55_y3x6
+    HDec.HSyn.openResearchLeaves55_y3x6_of_56_y3x6
+    HDec.HSyn.openResearchLeaves56_y3x6_of_59Y3
+    HDec.HSyn.sixContactMin_of_open78_y3x6
+    HDec.HSyn.sixContactMin_y3x6b
+    HDec.LeafQCheck.P_x6
+    HDec.LeafQCheck.P_x6i
+    HDec.LeafQCheck.QMglue.tab_x6
+    HDec.LeafQCheck.QMglue.tab_x6i
+    HDec.LeafQCheck.conj_x6
+    HDec.LeafQCheck.nrd_x6
+    HDec.LeafQCheck.nrd_x6i
+    HDec.LeafQCheck.x6_x6i
+    HDec.LeafQCheck.x6i
+    HDec.LeafQCheck.x6i_x6
+    HDec.X6Kummer.X6ConicModel_y3
+    Y3X6.R1R2fpY3
+    Y3X6.cm_objects
+    Y3X6.exists_fibre_object
+    Y3X6.r1r2fpY3_of
+    Y3X6.r1r2fp_Y
+    Y3X6.r1rec_of_row
+    Y3X6.r2fp_of_at
+    Y3X6.residue_unramified_over_branch

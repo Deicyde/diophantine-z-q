@@ -11,9 +11,16 @@
 > (`ZInQKernel/MainGreenTao.lean`) proves the target from the minimal height hypothesis
 > `SixContactMin` and pole completeness `PoleCompleteness`, the manuscript's Theorem 5.2 for its
 > own polynomial (curves `y² = x(x − ℓ)(x + 3ℓ)`). `ZInQ.OneProof.frozenTarget` replaces
-> `SixContactMin` by the open statements listed in `docs/one-proof/OPEN.md`. The manuscript
-> derives Theorem 5.2 from its restricted converse theorem (Theorem 5.3); formalizing that
-> derivation is fork issue #83. The rest of this document is kept as a record of the plan.
+> `SixContactMin` by the open statements listed in `docs/one-proof/OPEN.md`, and proves
+> `PoleCompleteness` from four hypotheses, as the manuscript's Section 5.1 does:
+> - the restricted converse theorem (Theorem 5.3, `hRC`);
+> - Lemma 5.4 (`h54`);
+> - consequences of the two printed inputs of Lemma 5.5: BCDT's Theorem A (`hB`) and Kolyvagin's
+>   Theorem 1 (`hK`).
+>
+> The proof is `ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final` (fork
+> #90, squashed as `5eca1103`). Proving Theorem 5.3 itself is fork issue #83. The rest of this
+> document is kept as a record of the plan.
 
 This fork works toward a Lean proof of the 11/5 manuscript's Theorem 1.1, the statement
 frozen upstream as `ZInQ.exists_bounded_integer_polynomial_defining_integers`

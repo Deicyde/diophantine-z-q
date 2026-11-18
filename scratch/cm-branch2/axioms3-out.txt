@@ -1,0 +1,32 @@
+'HDec.HSyn.sixContactMin_of_open73_cm' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.HSyn.OpenResearchLeaves54CM.mk : PkgI3.FaltingsSemisimple →
+  PkgI3.FaltingsTate →
+    ZInQ.HeightSplit.PazukiCor13Upper →
+      DictModels.RaynaudOr.RaynaudSemistableSHOr →
+        ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind →
+          NOSSepDict.NeronOggShafarevichSep →
+            DSCoeffExt.DSThm965Printed →
+              DSThm966EV.DSThm966Printed →
+                CarayolPrinted.CarayolThmAIrr →
+                  HDec.PkgI4.PanDict.PanPrintedF →
+                    AfTateLam.HeckeJ1DS →
+                      AfTateLam.AfShimura →
+                        AfTateLam.AfCharpolyDS965 →
+                          Y3Fix.Y3FineModuliAbP →
+                            DeRhamPrint.Direct.DeRhamVpAbVarDirect →
+                              ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr →
+                                X6ALIdeal.X6CoarseModuliIdeal →
+                                  X6ALIdeal.ElkiesX6StarEveryIdeal →
+                                    HTNewAssembly.ModularHTCoeff →
+                                      GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34 →
+                                        GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34 →
+                                          HDec.PkgI4.PanDict.BergerSurveyF →
+                                            Y3Hodge.DeligneCanonicalModelY3EveryPrint →
+                                              ZInQ.SemistabAssembly.BostLowerBoundAnSS →
+                                                ZInQ.SemistabAssembly.GaudronRemondThm14AnSS →
+                                                  JavanpeykarAnRetype.JavanpeykarThm111An →
+                                                    HDec.CMBranch.CMFibreSplit →
+                                                      HDec.CMBranch.FowlerProp27 →
+                                                        HDec.CMBranch.CMjDegree →
+                                                          HDec.CMBranch.CMPotentialGood →
+                                                            HDec.CMBranch.CMHeight62 → HDec.HSyn.OpenResearchLeaves54CM

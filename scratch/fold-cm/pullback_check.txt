@@ -1,0 +1,3 @@
+G^6 - 97200 F^2 - H^2 == 0: True
+prime support (discriminants, leading coefficients, pairwise resultants): [2, 3, 5, 7, 11, 13]
+J(inf) = -57600/7^6 = -57600/117649 ; branch values 0, inf, -16/27: True

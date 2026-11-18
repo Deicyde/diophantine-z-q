@@ -1,0 +1,112 @@
+== grep -rn 'x6CoarseModuliIdeal' (all .lean files, whole tree; field declarations and pass-through 'n.x6CoarseModuliIdeal' copies removed)
+ZInQKernel/Contrib/OneProof/X6AtkinLehnerIdeal.lean:27:   the converse (`x6CoarseModuliIdeal_of_twist`);
+ZInQKernel/Contrib/OneProof/X6AtkinLehnerIdeal.lean:693:given the textbook fields `gagaMorphism`, `mumfordTorsionAlgClosed` (`x6CoarseModuliIdeal_of_twist`). -/
+ZInQKernel/Contrib/OneProof/X6AtkinLehnerIdeal.lean:713:theorem x6CoarseModuliIdeal_of_twist (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed)
+ZInQKernel/Contrib/OneProof/X6AtkinLehnerIdeal.lean:718:theorem x6CoarseModuliIdeal_iff (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) :
+ZInQKernel/Contrib/OneProof/X6AtkinLehnerIdeal.lean:720:  ⟨x6CoarseModuli_of_ideal, x6CoarseModuliIdeal_of_twist hG hM⟩
+ZInQKernel/OneProof/H/TailZ73.lean:59:  /-- x6-coarse, printed form of x6CoarseModuli: the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a bijection Psi on Qbar-points with QM pairs u
+ZInQKernel/OneProof/H/TailZ73.lean:61:  /-- x6-coarse: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t (p. 17), CM values t = 0, 1, infinity at dis
+ZInQKernel/OneProof/H/TailZ74.lean:1152:  /-- x6-coarse, printed form of x6CoarseModuli: the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a bijection Psi on Qbar-points with QM pairs
+ZInQKernel/OneProof/H/TailZ74.lean:1154:  /-- x6-coarse: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t (p. 17), CM values t = 0, 1, infinity at d
+ZInQKernel/OneProof/H/TailZ74.lean:1169:  x6CoarseModuli := _root_.X6ALIdeal.x6CoarseModuli_of_ideal n.x6CoarseModuliIdeal
+ZInQKernel/OneProof/H/TailZ74.lean:1170:  elkiesX6StarEvery := _root_.X6ALIdeal.elkiesX6StarEvery_of_ideal' n.elkiesX6StarEveryIdeal n.x6CoarseModuliIdeal (_root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAl
+ZInQKernel/OneProof/H/TailZ74.lean:1231:  /-- x6-coarse, printed form of x6CoarseModuli: the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a bijection Psi on Qbar-points with QM pairs
+ZInQKernel/OneProof/H/TailZ74.lean:1233:  /-- x6-coarse: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t (p. 17), CM values t = 0, 1, infinity at d
+ZInQKernel/OneProof/H/TailZ74.lean:1320:  /-- x6-coarse, printed form of x6CoarseModuli: the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a bijection Psi on Qbar-points with QM pairs
+ZInQKernel/OneProof/H/TailZ74.lean:1322:  /-- x6-coarse: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t (p. 17), CM values t = 0, 1, infinity at d
+ZInQKernel/OneProof/H/TailZ71.lean:8:Fields added (new leaves): `hodgeTateDecompOr`, `x6CoarseModuliIdeal`, `elkiesX6StarEveryIdeal`. -/
+ZInQKernel/OneProof/H/TailZ71.lean:14:/-- `OpenResearchLeaves44` without `hodgeTateDecompExists`, `x6CoarseModuli`, `elkiesX6StarEvery`, with the leaves `hodgeTateDecompOr`, `x6CoarseModuliIdeal`, `elkiesX6StarEveryIdeal` (leaf-fold33-batch-w99). -/
+ZInQKernel/OneProof/H/TailZ71.lean:72:  /-- x6-coarse, printed form of x6CoarseModuli: the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a bijection Psi on Qbar-points with QM pairs u
+ZInQKernel/OneProof/H/TailZ71.lean:74:  /-- x6-coarse: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t (p. 17), CM values t = 0, 1, infinity at dis
+ZInQKernel/OneProof/H/TailZ71.lean:90:  x6CoarseModuli := _root_.X6ALIdeal.x6CoarseModuli_of_ideal n.x6CoarseModuliIdeal
+ZInQKernel/OneProof/H/TailZ71.lean:91:  elkiesX6StarEvery := _root_.X6ALIdeal.elkiesX6StarEvery_of_ideal' n.elkiesX6StarEveryIdeal n.x6CoarseModuliIdeal (_root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgC
+ZInQKernel/OneProof/H/TailZ72.lean:64:  /-- x6-coarse, printed form of x6CoarseModuli: the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a bijection Psi on Qbar-points with QM pairs u
+ZInQKernel/OneProof/H/TailZ72.lean:66:  /-- x6-coarse: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t (p. 17), CM values t = 0, 1, infinity at dis
+scratch/x6-coarse/X6ALIdeal.lean:27:   the converse (`x6CoarseModuliIdeal_of_twist`);
+scratch/x6-coarse/X6ALIdeal.lean:693:given the textbook fields `gagaMorphism`, `mumfordTorsionAlgClosed` (`x6CoarseModuliIdeal_of_twist`). -/
+scratch/x6-coarse/X6ALIdeal.lean:713:theorem x6CoarseModuliIdeal_of_twist (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed)
+scratch/x6-coarse/X6ALIdeal.lean:718:theorem x6CoarseModuliIdeal_iff (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) :
+scratch/x6-coarse/X6ALIdeal.lean:720:  ⟨x6CoarseModuli_of_ideal, x6CoarseModuliIdeal_of_twist hG hM⟩
+scratch/x6-coarse/Axioms.lean:47:#print axioms X6ALIdeal.x6CoarseModuliIdeal_of_twist
+scratch/x6-coarse/Axioms.lean:48:#print axioms X6ALIdeal.x6CoarseModuliIdeal_iff
+scratch/y3-route-a/DryRunFold.lean:51:  /-- x6-coarse, printed form of x6CoarseModuli: the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a bijection Psi on Qbar-points with QM pairs u
+scratch/y3-route-a/DryRunFold.lean:53:  /-- x6-coarse: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t (p. 17), CM values t = 0, 1, infinity at dis
+
+== grep -rn 'elkiesX6StarEveryIdeal' (all .lean files, whole tree; field declarations and pass-through 'n.elkiesX6StarEveryIdeal' copies removed)
+ZInQKernel/OneProof/H/TailZ71.lean:8:Fields added (new leaves): `hodgeTateDecompOr`, `x6CoarseModuliIdeal`, `elkiesX6StarEveryIdeal`. -/
+ZInQKernel/OneProof/H/TailZ71.lean:14:/-- `OpenResearchLeaves44` without `hodgeTateDecompExists`, `x6CoarseModuli`, `elkiesX6StarEvery`, with the leaves `hodgeTateDecompOr`, `x6CoarseModuliIdeal`, `elkiesX6StarEveryIdeal` (leaf-fold33-batch-w99). -/
+ZInQKernel/OneProof/H/TailZ71.lean:91:  elkiesX6StarEvery := _root_.X6ALIdeal.elkiesX6StarEvery_of_ideal' n.elkiesX6StarEveryIdeal n.x6CoarseModuliIdeal (_root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgC
+ZInQKernel/OneProof/H/TailZ74.lean:1170:  elkiesX6StarEvery := _root_.X6ALIdeal.elkiesX6StarEvery_of_ideal' n.elkiesX6StarEveryIdeal n.x6CoarseModuliIdeal (_root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAl
+
+== readers of \.x6CoarseModuli\b in ZInQKernel/ (non pass-through)
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:3698:  gonzalezRotgerX6Ab := _root_.GRX6AbPrint.gonzalezRotgerX6Ab_of_print n.gonzalezRotgerThm512X6 n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli t.gagaMorphism t.mumfordTorsionAlgClosed
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:3703:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6Coarse
+ZInQKernel/OneProof/H/TailZ59.lean:78:  gonzalezRotgerX6Ab := _root_.GRX6AbPrint.gonzalezRotgerX6Ab_of_print n.gonzalezRotgerThm512X6 n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli t.gagaMorphism t.mumfordTorsionAlgClosed
+ZInQKernel/OneProof/H/TailZ59.lean:83:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli)
+ZInQKernel/OneProof/H/TailZ74.lean:309:  gonzalezRotgerX6Ab := _root_.GRX6AbPrint.gonzalezRotgerX6Ab_of_print n.gonzalezRotgerThm512X6 n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli t.gagaMorphism t.mumfordTorsionAlgClosed
+ZInQKernel/OneProof/H/TailZ74.lean:314:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli)
+
+== readers of \.elkiesX6StarEvery\b in ZInQKernel/ (non pass-through)
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:3703:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6Coarse
+ZInQKernel/OneProof/H/TailZ59.lean:83:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli)
+ZInQKernel/OneProof/H/TailZ74.lean:314:  elkiesX6StarFunctionField := _root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every n.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse n.shimuraMainThmIDeligneY3AbU n.x6CoarseModuli)
+
+== readers of \.gonzalezRotgerX6Ab\b in ZInQKernel/ (non pass-through)
+ZInQKernel/Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean:1328:      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl hR).mpr r.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:461:  gonzalezRotgerCountX6Ab := _root_.GRCountX6.gonzalezRotgerCountX6Ab_of_printed n.gonzalezRotgerProp56X6 n.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:1515:      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl hR).mpr r.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/PicZeroCharZeroCopy.lean:1829:      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl hR).mpr r.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:450:  gonzalezRotgerCountX6Ab := _root_.GRCountX6.gonzalezRotgerCountX6Ab_of_printed n.gonzalezRotgerProp56X6 n.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:1484:      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl hR).mpr r.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:2948:      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl hR).mpr r.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/TailZ27.lean:105:  gonzalezRotgerCountX6Ab := _root_.GRCountX6.gonzalezRotgerCountX6Ab_of_printed n.gonzalezRotgerProp56X6 n.gonzalezRotgerX6Ab
+ZInQKernel/OneProof/H/TailZ23.lean:715:      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl hR).mpr r.gonzalezRotgerX6Ab
+
+== readers of \.elkiesX6StarFunctionField\b in ZInQKernel/ (non pass-through)
+ZInQKernel/Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean:1813:  babaGranathRationalAb := _root_.BGExplicit.babaGranathRationalAb_of_printed (_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField) t.unifor
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:1004:  elkiesX6StarPrinted := _root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:1924:  babaGranathRationalAb := _root_.BGExplicit.babaGranathRationalAb_of_printed (_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField) t.uniformizationLeafAll t.g
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:981:  elkiesX6StarPrinted := _root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:1892:  babaGranathRationalAb := _root_.BGExplicit.babaGranathRationalAb_of_printed (_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField) t.uniformizationLeafAll t.gagaMor
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:1572:  elkiesX6StarPrinted := _root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:2243:  babaGranathRationalAb := _root_.BGExplicit.babaGranathRationalAb_of_printed (_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField) t.uniformizationLeafAll t.g
+ZInQKernel/OneProof/H/TailZ36.lean:102:  elkiesX6StarPrinted := _root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField
+ZInQKernel/OneProof/H/TailZ37.lean:91:  babaGranathRationalAb := _root_.BGExplicit.babaGranathRationalAb_of_printed (_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField) t.uniformizationLeafAll t.gagaMorphism
+
+== readers of \.elkiesX6StarPrinted\b in ZInQKernel/ (non pass-through)
+ZInQKernel/Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean:1885:    (_root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed) r.elkiesX6StarPrinted
+ZInQKernel/Contrib/OneProof/SGRFold.lean:49:    (_root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed) r.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:686:  elkiesEquationsX6Ab := _root_.HDec.QMSplit.Moduli.ElkiesX6Star.elkiesEquationsX6Ab_of_printed n.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:1982:    (_root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed) r.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:1246:  elkiesEquationsX6Ab := _root_.HDec.QMSplit.Moduli.ElkiesX6Star.elkiesEquationsX6Ab_of_printed n.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:3221:    (_root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed) r.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/PicZeroCharZeroCopy.lean:2105:    (_root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed) r.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:671:  elkiesEquationsX6Ab := _root_.HDec.QMSplit.Moduli.ElkiesX6Star.elkiesEquationsX6Ab_of_printed n.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:1950:    (_root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed) r.elkiesX6StarPrinted
+ZInQKernel/OneProof/H/TailZ29.lean:106:  elkiesEquationsX6Ab := _root_.HDec.QMSplit.Moduli.ElkiesX6Star.elkiesEquationsX6Ab_of_printed n.elkiesX6StarPrinted
+
+== readers of \.babaGranathRationalAb\b in ZInQKernel/ (non pass-through)
+ZInQKernel/Contrib/OneProof/BabaGranathRationalAb.lean:10:The research field `HDec.HSyn.OpenResearchLeaves22.babaGranathRationalAb : HDec.QMSplit.Moduli.BabaGranathRationalAb`
+ZInQKernel/Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean:1326:      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+ZInQKernel/OneProof/H/PicZeroCharZeroCopy.lean:1827:      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:1513:      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:2946:      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:1482:      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+ZInQKernel/OneProof/H/TailZ23.lean:713:      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+
+== readers of \.elkiesEquationsX6Ab\b in ZInQKernel/ (non pass-through)
+ZInQKernel/Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean:1329:      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl hR).mpr r.elkiesEquationsX6Ab }
+ZInQKernel/OneProof/H/GoodModelIsoCopy.lean:1516:      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl hR).mpr r.elkiesEquationsX6Ab }
+ZInQKernel/OneProof/H/PicZeroCharZeroCopy.lean:1830:      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl hR).mpr r.elkiesEquationsX6Ab }
+ZInQKernel/OneProof/H/NoSGA3Copy.lean:1485:      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl hR).mpr r.elkiesEquationsX6Ab }
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:2949:      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl hR).mpr r.elkiesEquationsX6Ab }
+ZInQKernel/OneProof/H/TailZ23.lean:716:      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl hR).mpr r.elkiesEquationsX6Ab }
+
+== readers of \.x6ConicModel\b in ZInQKernel/ (non pass-through)
+ZInQKernel/Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean:633:      hMob hYu t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+ZInQKernel/OneProof/H/PicZeroCharZeroCopy.lean:1447:      hMob hYu t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+ZInQKernel/OneProof/H/EichlerBoundCopy.lean:2668:      hMob hYu t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+ZInQKernel/OneProof/H/TailK.lean:364:      hMob hYu t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+ZInQKernel/OneProof/H/TailO.lean:2604:    l.finiteImageHT, l.t09SymmIsogenyExists, l.isogenyQuasiInverse, l.x6ConicModel, l.y3Connected,
+ZInQKernel/OneProof/H/TailO.lean:2634:    l.finiteImageHT, l.t09SymmIsogenyExists, l.isogenyQuasiInverse, l.x6ConicModel, l.y3Connected,
+

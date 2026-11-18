@@ -1,0 +1,78 @@
+24772 constants hashed
+before 22561  after 24772  only before 0  only after 2211  changed 1
+changed: ['ZInQ.OneProof.frozenTarget']
+only before: []
+modules of new constants: {'ZInQKernel.OneProof.H.Y3Copy1': 377, 'ZInQKernel.OneProof.H.Y3Copy5': 354, 'ZInQKernel.OneProof.H.Y3Copy3': 322, 'ZInQKernel.OneProof.H.Y3Copy4': 467, 'ZInQKernel.OneProof.H.Y3Open': 161, 'ZInQKernel.OneProof.H.Y3Copy6': 2, 'ZInQKernel.OneProof.H.Y3Copy2': 490, 'ZInQKernel.OneProof.H.TailZ89': 38}
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget: closure 295296
+  contains sorryAx: false
+  contains GR512Bridge.GonzalezRotgerThm512X6RCF: false
+  contains GRDict.GonzalezRotgerThm512X6: false
+  contains GRDict.r5ptProps_of_thm512: false
+  contains GRX6AbPrint.gonzalezRotgerX6Ab_of_print: false
+  contains LeafQM.AV.R5ptProps: false
+  contains HDec.FS5NoCM.R1R2fpFullProps: false
+  contains HDec.HSyn.sixContactMin_of_open4_hf_pz_eb_u_c8: false
+  contains HDec.HSyn.sixContactMin_of_open4_hf_pz_eb: false
+  contains HDec.HSyn.OpenResearchLeaves61: false
+  contains HDec.HSyn.OpenResearchLeaves62: false
+  contains HDec.HSyn.sixContactMin_of_open80: false
+  contains HDec.HSyn.sixContactMin_of_open81: false
+  contains LeafQM.AV.X6Props: false
+  contains LeafQM.AV.R2X6Props: false
+  contains LeafQM.AV.CMExists: false
+  contains LeafQM.AV.X6Surj: false
+  contains HDec.LeafAdopt.R2X6PropsIff: false
+  contains X6ALIdeal.X6CoarseModuliIdeal: false
+  contains X6ALIdeal.ElkiesX6StarEveryIdeal: false
+  contains GRX6AbPrint.X6CoarseModuli: false
+  contains HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery: false
+  contains HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted: false
+  contains HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField: false
+  contains HDec.QMSplit.Moduli.ElkiesEquationsX6Ab: false
+  contains HDec.QMSplit.Moduli.BabaGranathRationalAb: false
+  contains HDec.QMSplit.Moduli.GonzalezRotgerX6Ab_r5: false
+  contains HDec.QMSplit.Moduli.GonzalezRotgerX6: false
+  contains HDec.QMSplit.Moduli.gonzalezRotgerX6Ab_r5_of_coarse: false
+  contains GRX6AbPrint.x6ModuliWitness_of_coarse: false
+  contains SGRDirect.elkies_coordinate: false
+  contains HDec.X6Kummer.X6ConicModel: false
+  contains HDec.LeafAdopt.R1R2fpRepW: false
+  contains HDec.LeafAdopt.R1R2fpRepW_r5: false
+  contains LeafQM.AV.R1R2fp: false
+  contains HDec.CMBranch.CMFibreSplit: true
+  contains HDec.CMBranch.FowlerProp27: true
+  contains HDec.CMBranch.CMjDegree: true
+  contains HDec.CMBranch.CMPotentialGood: true
+  contains HDec.CMBranch.CMHeight62: true
+  contains HDec.CMBranch.coxProperLattice_proof: true
+  contains HDec.CMBranch.HeightAdditivityUpper: true
+  contains HDec.CMBranch.ReducedCMPeriod: true
+  contains Y3X6.R1R2fpY3: true
+  contains Y3P1j.Y3ToP1j: true
+  contains SGRDirect.HeckeSqrtBranchAny: true
+  contains HDec.HSyn.OpenResearchLeaves63: true
+  contains HDec.HSyn.sixContactMin_of_open82: true
+  contains HDec.G0Galois.C8Conrad.ConradAppB: true
+  contains DeRhamScholze.HTMerge.ScholzeH1AbVar: true
+  GonzalezRotger-named constants in the closure: 23 [HDec.HSyn.GR9.OpenResearchLeaves17GMEBSFU_y3c.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves35EBCFSFU_y3x6.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves9EBSFU_y3c.gonzalezRotgerCountX6, HDec.HSyn.GR9.OpenResearchLeaves15GMEBSFU_y3c.gonzalezRotgerCountX6Ab, HDec.HSyn.GR9.OpenResearchLeaves26GMEBSFU_y3c.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves31EBSFU_y3c.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves19GMEBSFU_y3c.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves24GMEBSFU_y3c.gonzalezRotgerP
+  R5pt/NoCM/FS5-named constants in the closure: 6 [HDec.CMBranch.NoCMAt, HDec.G0ModField.KernelField.ConjMapsNoCM, HDec.FS5NoCM.ComIntOrQuadOrder._proof_1, HDec.FS5NoCM.X6KummerFibre._proof_1, HDec.G0ModField.KernelField.conjMapsNoCM_of, HDec.FS5NoCM.CMOptimalEmbedding]
+  X6-named constants in the closure: 196 [HDec.HSyn.GR9.OpenResearchLeaves17GMEBSFU_y3c.gonzalezRotgerProp56X6, HDec.HSyn.GR9.OpenResearchLeaves35EBCFSFU_y3x6.gonzalezRotgerProp56X6, HDec.HSyn.OpenResearchLeaves60_y3x6.neronSchemeExtensionDedekind, HDec.HSyn.GR9.OpenResearchLeaves36EBCFSFU_y3x6.heckeSqrtBranchAny, HDec.HSyn.GR9.OpenResearchLeaves35EBCFSFU_y3x6.neronSchemeExtensionDedekind, HDec.HSyn.GR9.OpenResearchLeaves9EBSFU_y3c.gonzalezRotgerCountX6, HDec.HSyn.GR9.OpenResearchLeaves35EBCFSFU_y3x6.eigenformHTNew, HDec.HSyn.GR9.OpenResearchLeaves36EBCFSFU_y3x6.shimuraMainThmIDeligneY3AbU, HD
+field check: HDec.HSyn.OpenResearchLeaves62 30 fields, HDec.HSyn.OpenResearchLeaves63 30 fields; only in old: [x6CoarseModuliIdeal,
+wrote docs/one-proof/open-statements.json: 34 open hypotheses
+33 H hypotheses, strictest 5/28, 1 others
+135
+33 H hypotheses, strictest 5/28, 1 others
+ok: 34 open hypotheses, all classified; 4 generated files up to date
+wrote docs/one-proof/frontier-crosswalk.tsv: 232 IDs, 3 matched to an open hypothesis
+ok: docs/one-proof/frontier-crosswalk.tsv is up to date (232 IDs, 3 matched)
+autoform exit 0
+OK: 776 articles, 2332 dependencies
+    647 fully proved · 4 proved · 35 ready to state · 15 planned
+    2329 declaration name(s) resolved in the Lean sources
+AUTOFOLD-DRYRUN-EXIT=0
+TREE-UNCHANGED=yes
+GATEFOLD-EXIT=0
+GATEFOLD-AXIOMS=standard
+(files in /tmp/tmp.RGMCuC5usq)
+GATE=ok

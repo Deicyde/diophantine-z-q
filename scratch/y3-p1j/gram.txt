@@ -1,0 +1,7 @@
+nrd(mu) = 6  mu^2 = [Fraction(-6, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)]
+['0', '0', '-1', '1']
+['0', '0', '1', '-2']
+['1', '-1', '0', '0']
+['-1', '2', '0', '0']
+det = 1
+equals printed: True  equals minus printed: False

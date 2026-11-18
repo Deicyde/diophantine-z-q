@@ -1,0 +1,13 @@
+== HDec.HSyn.sixContactMin_of_open72_cm2_r5: 130539 constants
+  LeafQM.AV.R5ptProps: false
+  GRDict.r5ptProps_of_thm512: false
+  GRX6AbPrint.gonzalezRotgerX6Ab_of_print: false
+  GRDict.GonzalezRotgerThm512X6: true
+  HDec.HSyn.OpenResearchLeaves35EBCF.gonzalezRotgerThm512X6: false
+  HDec.HSyn.OpenResearchLeaves36EBCF.gonzalezRotgerThm512X6: true
+  HDec.HSyn.OpenResearchLeaves53.gonzalezRotgerThm512X6RCF: true
+  HDec.HSyn.OpenResearchLeaves53.x6CoarseModuliIdeal: true
+  HDec.HSyn.OpenResearchLeaves53.elkiesX6StarEveryIdeal: true
+  HDec.FS5NoCM.R1R2fpFullProps: false
+  HDec.QMSplit.Moduli.gonzalezRotgerX6Ab_r5_of_coarse: true
+EXIT 0

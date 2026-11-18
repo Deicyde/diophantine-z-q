@@ -1,0 +1,4 @@
+HDec.CMBranch.CoxLattice.coxProperLattice_proof : HDec.CMBranch.CoxProperLattice
+'HDec.CMBranch.CoxLattice.coxProperLattice_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.reducedCMPeriod_of_leaves_cox' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open72_coxlattice' depends on axioms: [propext, Classical.choice, Quot.sound]

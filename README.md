@@ -30,11 +30,18 @@ cannot be formalized as written. Each deviation is recorded with its reason in
 [`KERNEL_PLAN.md`](KERNEL_PLAN.md#reference-text-and-deviations)
 ([#95](https://github.com/Deicyde/diophantine-z-q/issues/95)).
 
-The proof follows the manuscript's route. Its hypotheses are pole completeness (Theorem 5.2) for the manuscript's
-own pole polynomial, and the statements from which Lean derives the instance of the six-contact height estimate (the
-manuscript's Theorem 4.1) that the proof uses. The manuscript derives pole completeness from its restricted converse
-theorem (Theorem 5.3); formalizing that derivation is [#83](https://github.com/Deicyde/diophantine-z-q/issues/83).
-Given those two hypotheses, the main theorem departs from the manuscript in two smaller steps, both proved: route AP
+The proof follows the manuscript's route. Its hypotheses fall into two groups. The first is the statements from
+which Lean derives the instance of the six-contact height estimate (the manuscript's Theorem 4.1) that the proof
+uses. The second is four statements from which Lean proves pole completeness (Theorem 5.2) for the manuscript's own
+pole polynomial, as the manuscript's Section 5.1 does:
+- the manuscript's restricted converse theorem (Theorem 5.3);
+- its Lemma 5.4;
+- consequences of the two printed theorems behind its Lemma 5.5: the modularity theorem of Breuil, Conrad, Diamond
+  and Taylor (Theorem A), and Kolyvagin's Theorem 1.
+
+Proving Theorem 5.3 in Lean, from the manuscript's Sections 7–9 and Appendices E–G, is
+[#83](https://github.com/Deicyde/diophantine-z-q/issues/83).
+Apart from these hypotheses, the main theorem departs from the manuscript in two smaller steps, both proved: route AP
 replaces Proposition 6.2 by Szemerédi's theorem in the primes together with a density theorem for the good primes
 (Proposition D), and the catalogue bound is proved in the weaker form CAT₈. Deriving the height estimate from the
 literature also re-sources some steps of the manuscript's Section 4 and replaces its last step. An earlier proof,
@@ -119,12 +126,11 @@ writes a file of several megabytes per module that embeds absolute paths. Clone 
 - The manuscripts: [diophantine_zq.pdf](diophantine_zq.pdf) ([TeX](diophantine_zq.tex)) and the earlier conditional
   [October 11 manuscript](October%2011%20Manuscript/README.md); the polynomial and its checks are in
   [construction/](construction/README.md). The copy here is the November 5 text that `ZInQ.FrozenTarget` was frozen
-  against. Upstream has revised the manuscript since (version 19 when this was written), with corrections listed
-  in its README.
+  against. Upstream has revised the manuscript since (version 20 as of 2026-11-18), with corrections listed in
+  its README.
 - The previous, longer README, with the earlier five-hypothesis theorem and its trust statements, is
   [here](https://github.com/Deicyde/diophantine-z-q/blob/222c98bfaaade688e1c0afdef7c857ce59ab6081/README.md).
-- [Blueprint site](https://deicyde.github.io/diophantine-z-q/) (a snapshot from 2026-11-13; it redeploys after
-  the next main build cache run that passes on `main`).
+- [Blueprint site](https://deicyde.github.io/diophantine-z-q/) (a snapshot from 2026-11-13).
 - Licence: the fork's own material is under the Apache License 2.0 ([LICENSE](LICENSE)). It does not cover the
   manuscripts, `construction/` and `lean/`, which came from upstream, or the vendored libraries
   ([NOTICE](NOTICE), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

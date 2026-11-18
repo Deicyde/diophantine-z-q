@@ -1,0 +1,8 @@
+'HDec.HSyn.sixContactMin_of_open78_y3x6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_y3x6b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Y3X6.r1r2fpY3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Y3X6.residue_unramified_over_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Y3X6.exists_fibre_object' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Y3X6.cm_objects' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Y3X6.r1rec_of_row' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GapST.cm_pointW_y3' depends on axioms: [propext, Classical.choice, Quot.sound]

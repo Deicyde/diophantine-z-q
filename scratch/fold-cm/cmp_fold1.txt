@@ -1,0 +1,4 @@
+before 21343  after 22561  only before 0  only after 1218  changed 1
+changed: ['ZInQ.OneProof.frozenTarget']
+only before: []
+modules of new constants: {'ZInQKernel.OneProof.H.CMR5': 45, 'ZInQKernel.OneProof.H.CMR5_2': 514, 'ZInQKernel.OneProof.H.CMR5_1': 428, 'ZInQKernel.OneProof.H.CMOpen': 161, 'ZInQKernel.OneProof.H.CMTopLive': 32, 'ZInQKernel.OneProof.H.TailZ88': 38}

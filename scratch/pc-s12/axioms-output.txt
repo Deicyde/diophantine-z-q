@@ -1,0 +1,13 @@
+'ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverse_abstract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleS12.simultaneousConstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.localGoodUnram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.matrixRealization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.necAt_S12' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.selM_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.lemma54At_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.kolyvaginRankOne_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
