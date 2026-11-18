@@ -3,3 +3,5 @@
 - Dependency build: 33 existing modules compiled with sequential `lake env lean` invocations.
 - `Ambient.lean`: compiled. Seven axiom checks, each restricted to `propext`, `Classical.choice`, and `Quot.sound`.
 - Ambient statements: coefficientwise (K)- and (A)-algebra equivalences; trace and norm comparison; norm formula (x_0^2+x_1^2+p(x_2^2+x_3^2)).
+- `Order.lean`: compiled. Twelve axiom checks, all within the allowed three axioms.
+- Order statements: image equals the integral quaternion order; inclusion-compatible isomorphism; full rational span; maximal among full finite orders; exact ramified clause.
