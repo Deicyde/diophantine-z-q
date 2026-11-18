@@ -112,30 +112,28 @@ section RingClass
 
 variable {K : Type} [Field K] [NumberField K] {c : ℕ} [NeZero c]
 
-local notation "Hc" => ringClassField (conductorOrder K c)
-
 /-- A `ℚ`-automorphism of `H_c` trivial on `K` is `K`-linear. -/
-def toKEquiv [Normal ℚ K] (g : Hc ≃ₐ[ℚ] Hc) (hg : g ∈ (AlgEquiv.restrictNormalHom K (K₁ := Hc)).ker) :
-    Hc ≃ₐ[K] Hc :=
+def toKEquiv [Normal ℚ K] (g : (ringClassField (conductorOrder K c)) ≃ₐ[ℚ] (ringClassField (conductorOrder K c))) (hg : g ∈ (AlgEquiv.restrictNormalHom K (K₁ := (ringClassField (conductorOrder K c)))).ker) :
+    (ringClassField (conductorOrder K c)) ≃ₐ[K] (ringClassField (conductorOrder K c)) :=
   AlgEquiv.ofRingEquiv (f := g.toRingEquiv) fun k => by
     have h1 := AlgEquiv.restrictNormal_commutes g K k
     have h2 : g.restrictNormal K = 1 := hg
     rw [h2, AlgEquiv.one_apply] at h1
     exact h1.symm
 
-theorem toKEquiv_apply [Normal ℚ K] (g : Hc ≃ₐ[ℚ] Hc) (hg) (z : Hc) : toKEquiv g hg z = g z := rfl
+theorem toKEquiv_apply [Normal ℚ K] (g : (ringClassField (conductorOrder K c)) ≃ₐ[ℚ] (ringClassField (conductorOrder K c))) (hg) (z : (ringClassField (conductorOrder K c))) : toKEquiv g hg z = g z := rfl
 
-theorem restrictScalars_mem_ker [Normal ℚ K] (σ : Hc ≃ₐ[K] Hc) :
-    σ.restrictScalars ℚ ∈ (AlgEquiv.restrictNormalHom K (K₁ := Hc)).ker := by
+theorem restrictScalars_mem_ker [Normal ℚ K] (σ : (ringClassField (conductorOrder K c)) ≃ₐ[K] (ringClassField (conductorOrder K c))) :
+    σ.restrictScalars ℚ ∈ (AlgEquiv.restrictNormalHom K (K₁ := (ringClassField (conductorOrder K c)))).ker := by
   rw [MonoidHom.mem_ker]
   ext k
-  apply (algebraMap K Hc).injective
+  apply (algebraMap K (ringClassField (conductorOrder K c))).injective
   rw [AlgEquiv.restrictNormalHom, MonoidHom.mk'_apply, AlgEquiv.restrictNormal_commutes]
   simp
 
 variable (E : WeierstrassCurve ℚ) [DecidableEq (ringClassField (conductorOrder K c))]
 
-theorem map_mul_algEquiv (g h : Hc ≃ₐ[ℚ] Hc) (x : (E.baseChange Hc).toAffine.Point) :
+theorem map_mul_algEquiv (g h : (ringClassField (conductorOrder K c)) ≃ₐ[ℚ] (ringClassField (conductorOrder K c))) (x : (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point) :
     WeierstrassCurve.Affine.Point.map (W' := E.toAffine) (g * h).toAlgHom x =
       WeierstrassCurve.Affine.Point.map (W' := E.toAffine) g.toAlgHom
         (WeierstrassCurve.Affine.Point.map (W' := E.toAffine) h.toAlgHom x) := by
@@ -148,28 +146,28 @@ conjugation `ρ` fix one and negate the other. If `E^{(d_T)}(ℚ)` is torsion, t
 the native lattice `E(H_c)^χ` is, modulo torsion, the image of a point of the rational line
 `E^{(d_R)}(ℚ)`. -/
 theorem two_nsmul_mem_twist_add_torsion (hdesc : TwistDescent) [E.IsElliptic] (h₁ : E.a₁ = 0)
-    (h₃ : E.a₃ = 0) (hK2 : Module.finrank ℚ K = 2) [IsGalois ℚ Hc]
+    (h₃ : E.a₃ = 0) (hK2 : Module.finrank ℚ K = 2) [IsGalois ℚ (ringClassField (conductorOrder K c))]
     {χ : Pic (conductorOrder K c) →* ℂˣ}
-    {dR dT : ℚ} {sR sT : Hc} (hsR : sR ≠ 0) (hsRd : sR ^ 2 = algebraMap ℚ Hc dR) (hsT : sT ≠ 0)
-    (hsTd : sT ^ 2 = algebraMap ℚ Hc dT)
-    (hσ : ∀ σ : Hc ≃ₐ[K] Hc,
-      σ sR = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : Hc) * sR ∧
-      σ sT = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : Hc) * sT)
-    (ρ : Hc ≃ₐ[ℚ] Hc) (hρ : (ρ sR = sR ∧ ρ sT = -sT) ∨ (ρ sR = -sR ∧ ρ sT = sT))
+    {dR dT : ℚ} {sR sT : (ringClassField (conductorOrder K c))} (hsR : sR ≠ 0) (hsRd : sR ^ 2 = algebraMap ℚ (ringClassField (conductorOrder K c)) dR) (hsT : sT ≠ 0)
+    (hsTd : sT ^ 2 = algebraMap ℚ (ringClassField (conductorOrder K c)) dT)
+    (hσ : ∀ σ : (ringClassField (conductorOrder K c)) ≃ₐ[K] (ringClassField (conductorOrder K c)),
+      σ sR = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : (ringClassField (conductorOrder K c))) * sR ∧
+      σ sT = (chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : (ringClassField (conductorOrder K c))) * sT)
+    (ρ : (ringClassField (conductorOrder K c)) ≃ₐ[ℚ] (ringClassField (conductorOrder K c))) (hρ : (ρ sR = sR ∧ ρ sT = -sT) ∨ (ρ sR = -sR ∧ ρ sT = sT))
     (htorT : ∀ P : (qtwist E dT).toAffine.Point, IsOfFinAddOrder P) :
     ∀ x ∈ eigenLattice E χ, ∃ r : (qtwist E dR).toAffine.Point,
       IsOfFinAddOrder ((2 : ℕ) • x - twistEmb E dR sR (twistVC_smul E h₁ h₃ hsR hsRd) r) := by
   intro x hx
   have : Algebra.IsQuadraticExtension ℚ K := ⟨hK2⟩
-  set φ := AlgEquiv.restrictNormalHom (F := ℚ) K (K₁ := Hc)
+  set φ := AlgEquiv.restrictNormalHom (F := ℚ) K (K₁ := (ringClassField (conductorOrder K c)))
   set N := φ.ker
-  set act : (Hc ≃ₐ[ℚ] Hc) → (E.baseChange Hc).toAffine.Point →+ (E.baseChange Hc).toAffine.Point :=
+  set act : ((ringClassField (conductorOrder K c)) ≃ₐ[ℚ] (ringClassField (conductorOrder K c))) → (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point →+ (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point :=
     fun g => WeierstrassCurve.Affine.Point.map (W' := E.toAffine) g.toAlgHom with hact
   have hsRne : sR ≠ -sR := fun h => hsR (by
-    have : (2 : Hc) * sR = 0 := by linear_combination h
+    have : (2 : (ringClassField (conductorOrder K c))) * sR = 0 := by linear_combination h
     simpa using this)
   have hsTne : sT ≠ -sT := fun h => hsT (by
-    have : (2 : Hc) * sT = 0 := by linear_combination h
+    have : (2 : (ringClassField (conductorOrder K c))) * sT = 0 := by linear_combination h
     simpa using this)
   -- the two signs agree on `N` with the character `χ`
   have hsgnN : ∀ (g) (hg : g ∈ N), sgnAt sR g = chiSign χ
@@ -205,28 +203,28 @@ theorem two_nsmul_mem_twist_add_torsion (hdesc : TwistDescent) [E.IsElliptic] (h
   obtain ⟨huN, huρ, hwN, hwρ, hsum⟩ := eigen_decomp act (map_mul_algEquiv E) (sgnAt sR) (sgnAt sT)
     (sgnAt_mul hsR hsRd) (sgnAt_sq sR) (sgnAt_sq sT) N hNeq ρ hρsgn hnorm hρ2 x hxN
   -- `ρ` is not `K`-linear
-  have hnotK : ¬ ∃ σ : Hc ≃ₐ[K] Hc, ∀ z, σ z = ρ z := by
+  have hnotK : ¬ ∃ σ : (ringClassField (conductorOrder K c)) ≃ₐ[K] (ringClassField (conductorOrder K c)), ∀ z, σ z = ρ z := by
     rintro ⟨σ, hσρ⟩
     obtain ⟨h1, h2⟩ := hσ σ
     rw [hσρ] at h1 h2
     rcases hρ with ⟨h3, h4⟩ | ⟨h3, h4⟩
     · rw [h3] at h1; rw [h4] at h2
-      have e1 : ((chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : ℤ) : Hc) = 1 :=
+      have e1 : ((chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : ℤ) : (ringClassField (conductorOrder K c))) = 1 :=
         (mul_right_cancel₀ hsR (h1.symm.trans (one_mul sR).symm))
       rw [e1, one_mul] at h2
       exact hsTne h2.symm
     · rw [h3] at h1; rw [h4] at h2
-      have e2 : ((chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : ℤ) : Hc) = 1 :=
+      have e2 : ((chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : ℤ) : (ringClassField (conductorOrder K c))) = 1 :=
         (mul_right_cancel₀ hsT (h2.symm.trans (one_mul sT).symm))
       rw [e2, one_mul] at h1
       exact hsRne h1.symm
   -- descent of `u` and `w`
-  have hdescent : ∀ (d : ℚ) (s : Hc) (hs : s ≠ 0) (hsd : s ^ 2 = algebraMap ℚ Hc d)
-      (y : (E.baseChange Hc).toAffine.Point),
+  have hdescent : ∀ (d : ℚ) (s : (ringClassField (conductorOrder K c))) (hs : s ≠ 0) (hsd : s ^ 2 = algebraMap ℚ (ringClassField (conductorOrder K c)) d)
+      (y : (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point),
       (∀ g ∈ N, act g y = sgnAt s g • y) → act ρ y = sgnAt s ρ • y →
       ∃ P : (qtwist E d).toAffine.Point, twistEmb E d s (twistVC_smul E h₁ h₃ hs hsd) P = y := by
     intro d s hs hsd y hyN hyρ
-    refine hdesc E h₁ h₃ K hK2 Hc d s hs hsd ρ hnotK y (fun σ => ?_) ?_
+    refine hdesc E h₁ h₃ K hK2 (ringClassField (conductorOrder K c)) d s hs hsd ρ hnotK y (fun σ => ?_) ?_
     · have := hyN _ (restrictScalars_mem_ker σ)
       have hfg : (σ.restrictScalars ℚ).toAlgHom = σ.toAlgHom.restrictScalars ℚ :=
         AlgHom.ext fun z => rfl
