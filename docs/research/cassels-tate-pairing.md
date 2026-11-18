@@ -54,6 +54,8 @@ whose restriction to `ℚ_p` for every prime `p` (`embFin`) and to `ℝ` (`embIn
      is not true — see the paper of Poonen and Stoll". (This concerns abelian varieties in general; for
      elliptic curves the pairing is alternating, as above.)
 
+Addendum (2026-11-18): Cassels' papers were later read (AI-READ), see `docs/one-proof/statement-checks/hCT-cassels-sweep-20261118.md`: *IV* (1962), Theorem 1.1 p. 95, §3 p. 101, §3(viii) p. 104, Lemma 4.1 p. 104 and §4 p. 105, and *VIII* (1965) p. 184 support the leaf as a consequence. The original text of this paragraph follows.
+
 Cassels 1962 itself was not read; the leaf is checked against Poonen–Stoll's printed statement of Cassels'
 theorem (Introduction, first paragraph) and Milne's Theorem 6.13 (a) and 6.26 (a).
 
