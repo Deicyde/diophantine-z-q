@@ -7,3 +7,11 @@
 - Reading: residue characteristic, additive decoder, evaluation at one; passed, only allowed axioms.
 - Model: split support Kummer argument, model and FourierData construction; passed, only allowed axioms.
 - Window: same lattice, actual theta seed coefficient reduction; passed, only allowed axioms.
+- Expansions: operator order independence, exact off-unary division, theta reduction, fresh normalization; passed (4 audits).
+- Symbol: two-power phase, normalized residue at the integer valuation threshold, zero off support; passed (5 audits).
+- Omission: first-shell coefficient congruence using the stage recurrence; passed (2 audits).
+- Inputs: stage valuation comparison, pointwise fresh input, `ThetaData`, unchanged consumer conditional on exact lifts and full realization; passed (5 audits).
+- Pointwise: omission residue and (O.12) at one using a pair of realized forms and named local data; passed (4 audits).
+- Window: added `window_misses_test` for budgets at least two; recompiled (3 audits).
+- AtPrecision: original `GaloisConstituentModel.Inputs` from stage precision, conditional on full compatible realization; passed (1 audit).
+- All ten new Lean modules checked with `lake env lean -j1`; 37 declaration audits, only `propext`, `Classical.choice`, `Quot.sound`.
