@@ -7,3 +7,6 @@
 - The Poisson comparison uses the unevaluated quadratic Gauss sum; its numerator shifts by a unit square.
 - `Fourier.lean`: compiled; Fourier inversion, character covariance, primitive Gauss normalization, q-series and coefficient extraction, prime deletion, and the primitive-character sieve.
 - `Fourier.lean`, `Cusps.lean`: `#print axioms` reports only `propext`, `Classical.choice`, `Quot.sound`.
+- `Translation.lean`: compiled. Integral conjugate at level `N³` with new index `d²u` and unchanged bottom-right entry modulo `N`; differentiation and cusp limit for the sum.
+- `ThetaGauss.lean`: compiled. Even frequencies by square completion, odd frequencies cancel, numerator changes by a unit square for `4m² ∣ c`.
+- `Translation.lean`, `ThetaGauss.lean`: `#print axioms` reports only `propext`, `Classical.choice`, `Quot.sound`.
