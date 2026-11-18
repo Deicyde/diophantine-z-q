@@ -5,60 +5,58 @@ open_statements: allowed
 
 # Z is Diophantine in Q
 
-This blueprint formalizes Theorem 1.1 of the 11/5 manuscript *ℤ is Diophantine in ℚ*:
-an integer polynomial in 292,890,231,905 variables, of degree below $2\uparrow\uparrow 7$
-and with coefficients below $2\uparrow\uparrow 8$, whose rational zero projection to the
-first variable is exactly $\mathbb Z$.
+This blueprint formalizes Theorem 1.1 of the 11/5 manuscript *ℤ is Diophantine in ℚ*
+(`diophantine_zq.tex`): an integer polynomial in 292,890,231,905 variables, of degree below
+$2\uparrow\uparrow 7$ and with coefficients below $2\uparrow\uparrow 8$, whose rational zero projection to the
+first variable is exactly $\mathbb Z$. The chapters below follow the manuscript section by section. Each one
+says where its material sits in the manuscript, what is proved in Lean, what the Lean takes as a hypothesis, and
+what the checks of the manuscript's text found. Where the Lean takes a different route from the manuscript, the
+chapter says so.
 
-The [main theorem](main/main-theorem.md) proves it from two explicitly stated hypotheses, both
-inputs of the manuscript:
-- the minimal form of the six-contact height estimate (the one instance of the manuscript's Theorem 4.1
-  that the proof uses). It is not a published theorem: its proof combines refereed theorems and exact
-  computations with new arguments, the manuscript's and this project's, reviewed only by AI models;
-- pole completeness, the manuscript's Theorem 5.2: an explicit polynomial, whose rational zeros put two
-  points on curves $y^2=x(x-\ell)(x+3\ell)$, has a zero for every suitably prepared input. The manuscript
-  derives it from its restricted converse theorem (Theorem 5.3) by a simultaneous 2-descent. That
-  derivation is not yet formalized here, and the proof of Theorem 5.3 is not formalized either.
+The [main theorem](main/main-theorem.md) proves Theorem 1.1 from two hypotheses, both inputs of the manuscript:
+- the minimal form of the six-contact height estimate (Section 4), which the Lean in turn reduces to statements of
+  the literature, most of them the ones the manuscript cites;
+- pole completeness, the manuscript's Theorem 5.2 (Section 5), for the manuscript's polynomial. The manuscript
+  derives it from its restricted converse theorem, Theorem 5.3, whose proof occupies Sections 7-9 and
+  Appendices E-G.
 
-The height hypothesis is in turn derived from statements of the literature, which
-[the height-decomposition chapter](height-decomposition/README.md) lists. It may also be assumed in its $j$-form, a bound on the height of the Hauptmodul value (not a
-published theorem) from which the minimal form is proved.
+Everything else is proved in Lean, with every finite computation checked by the Lean kernel.
 
-The manuscript's other inputs are proved, multiplication from the two hypotheses above. The
-Mordell–Weil theorem for the generator curve, which the generator input uses and which was first
-stated as a hypothesis, is proved too. Two of these proofs depart from the manuscript:
-- The bound for the prime catalogue follows from an effective Dirichlet theorem, with a larger cutoff
-  than the manuscript's.
-- The manuscript's twenty-two-prime pattern is not needed. A change in the completeness proof, route
-  AP, uses long arithmetic progressions of good primes instead. These come from Szemerédi's theorem in
-  the primes, from a Lean proof of the Green–Tao theorem, and from a density theorem for those primes.
+## The manuscript, section by section
 
-Everything else is proved, with every finite computation checked by the Lean kernel.
+- **Section 1, the main theorem and proof structure** (`sec:main`, L52-140): [the main theorem and its
+  hypotheses](main/README.md).
+- **Section 2, a finite specification of the polynomial** (`sec:syntax`, L141-253) and **Appendix C, the literal
+  finite-constructor specification** (L6666-6782): [the finite specification](syntax/README.md). Proved.
+- **Section 3, the elliptic model of integer indices** (`sec:model`, L254-376): [the elliptic model](model/README.md).
+  Proved, including the Mordell–Weil theorem for the generator curve.
+- **Section 4, the six-contact height estimate** (`sec:height`, L377-972) and **Appendix H, the de Rham comparison**
+  (L10936-11250): a hypothesis of the main theorem. [The statements of the literature it reduces
+  to](height-decomposition/README.md) are listed by theory.
+- **Section 5, the pole predicate and its converse input** (`sec:pole`, L973-1122): [pole
+  completeness](main/pole-completeness.md), Theorem 5.2, for the manuscript's polynomial; the [pole
+  obstruction](multiplication/pole-obstruction.md), Lemma 5.1, is proved.
+- **Section 6, multiplication and the finite false-triple guard** (`sec:mult`, L1123-1759):
+  [multiplication](multiplication/README.md). Proved. The manuscript's twenty-two-prime pattern (Proposition 6.2)
+  is checked but not formalized: the Lean proves the completeness of multiplication by a different route,
+  [long progressions of good primes](route-ap/README.md), which uses [Szemerédi's theorem in the
+  primes](green-tao/README.md) and [the density of good slope primes](density/README.md).
+- **Sections 7-9 and Appendices E-G, the restricted converse** (`sec:rc`, L1760-5744; L6825-10935): [the proof of
+  Theorem 5.3](restricted-converse/README.md). Not formalized in Lean; the main theorem takes Theorem 5.3 as a
+  hypothesis.
+- **Section 10, exact precision computation and polynomial compilation** (`sec:compiler`, L5745-6093):
+  [compilation](compiler/README.md). Proved.
+- **Section 11, a variable-shift relation for ordinary values** (`sec:bridge`, L6094-6271):
+  [assembly](assembly/README.md). Proved.
+- **Section 12, the cutoff and polynomial size** (`sec:size`, L6272-6442): [size](size/README.md) and [primes in
+  arithmetic progressions](progressions/README.md). Proved, with a larger cutoff than the manuscript's, from an
+  effective Dirichlet theorem.
+- **Section 13, consequences of the integer definition** (L6443-6589): not yet in the blueprint.
+- **Appendices A, B and D** (dependency order, source identities, primary theorem applications; L6591-6665,
+  L6783-6824): bookkeeping for the manuscript's citations, used by the chapters above.
 
-Until fork issue #77 the project replaced pole completeness by Route K: a variant of the pole polynomial
-for the congruent number curves, whose pole completeness followed from a certified rank hypothesis
-derived from Tian–Yuan–Zhang's Theorem 3.5(2) in one reading and from Gross–Zagier. Route K is retired.
-Its Lean is kept at the tag `route-k-final`. Its chapters, listed last, are kept and marked as retired.
+## Route K
 
-## Chapters
-
-- [The main theorem and its hypotheses](main/README.md)
-- [The finite specification of the polynomial](syntax/README.md)
-- [The elliptic model of integer indices](model/README.md)
-- [Multiplication and the finite false-triple guard](multiplication/README.md)
-- [Exact precision computation and polynomial compilation](compiler/README.md)
-- [Assembly and the ordinary-value relation](assembly/README.md)
-- [The cutoff and polynomial size](size/README.md)
-- [Primes in arithmetic progressions](progressions/README.md)
-- [Long progressions of good primes replace the prime pattern (route AP)](route-ap/README.md)
-- [Szemerédi's theorem in the primes (Green–Tao)](green-tao/README.md)
-- [The density of good slope primes (Proposition D)](density/README.md)
-- [The minimal height hypothesis from the literature](height-decomposition/README.md)
-
-### Retired with Route K
-
-- [Pole completeness from certified rank (Route K)](route-k/README.md)
-- [The explicit system is the 2-Selmer group (Proposition 0)](selmer/README.md)
-- [The row-5b determinant](rank-5b/README.md)
-- [Rédei's formula for the 4-rank of class groups](redei/README.md)
-- [The rank hypothesis as positive rank](rank/README.md)
+Until fork issue #77 the project replaced pole completeness by Route K, a variant of the pole polynomial whose
+pole completeness followed from a rank hypothesis built on Tian–Yuan–Zhang and Gross–Zagier. Route K is retired:
+its chapters are removed from this blueprint, and its Lean is kept at the tag `route-k-final`.
