@@ -1,0 +1,41 @@
+TatePolarSymNative.lean
+'_private.ZInQKernel.Contrib.OneProof.TatePolarSymNative.0.HodgeFil1.TatePolar.translate_eq_tr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.TatePolarSymNative.0.HodgeFil1.TatePolar.polarizationFamily_eq_phiPt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.phiPt_isTranslInv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.phiPt_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.mulN_pic_of_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.exists_nativePolarization' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+TatePolarSymWeil.lean
+'_private.ZInQKernel.Contrib.OneProof.TatePolarSymWeil.0.HodgeFil1.TatePolar.torPow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.TatePolarSymWeil.0.HodgeFil1.TatePolar.NativePolarization.clTor_isDualTors' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.TatePolarSymWeil.0.HodgeFil1.TatePolar.NativePolarization.scalar_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.TatePolarSymWeil.0.HodgeFil1.TatePolar.NativePolarization.scalar_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.TatePolarSymWeil.0.HodgeFil1.TatePolar.NativePolarization.weil_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.NativePolarization.weil_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.NativePolarization.weil_perfect' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.NativePolarization.weil_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.NativePolarization.weil_compat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.NativePolarization.weil_alt' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+TatePolarSymTate.lean
+'HodgeFil1.TatePolar.wv_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_add_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_nsmul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_nsmul_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_compat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.wv_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.tateSeq_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.tatePairing_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.tatePairing_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.torsion_radical_killed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.tatePairing_left_ker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.integral_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.TatePolar.rational_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+TatePolarSym.lean
+'HodgeFil1.tatePolarizationSymmetry_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HodgeFil1.scholzeH1AbVar_of_dR' depends on axioms: [propext, Classical.choice, Quot.sound]
