@@ -2,3 +2,8 @@
 - Tex 9725–9729: coefficientwise vanishing does not establish membership in the abstract submodule `𝔪Λ` (tex 9644–9646).
 - `Lattice.lean`: finite modules and their reduction submodules are closed; residual quotient finite and its kernel open. Compiled; axiom audit passed for all four theorems.
 - `Fourier.lean`: sign ratio gives integral half-correction; fresh good trace has the predicted vanishing at each eligible Fourier index; same for the determinant discrepancy. Compiled; axiom audit passed for all three theorems.
+- `Lattice.lean`: finite integral coordinate embedding implies finite generation over a Noetherian coefficient ring. Recompiled; axiom audit passed.
+- `Density.lean`: topological Frobenius density and openness of uniform right periods. Compiled; axiom audit passed.
+- `Elementary.lean`: squares force normality; quadratic characters separate the elementary quotient. Compiled; axiom audit passed.
+- `RadicalWitness.lean`: a quadratic character with open kernel acts on a square root of a squarefree integer. Compiled; axiom audit passed.
+- Build cache mismatch: rebuilt the checked-out pole polynomial and its manuscript statement in the scratch artifact directory.

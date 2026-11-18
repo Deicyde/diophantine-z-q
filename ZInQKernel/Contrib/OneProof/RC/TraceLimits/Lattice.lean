@@ -27,6 +27,15 @@ theorem residual_quotient_finite (Λ : Submodule O V) (hΛ : Λ.FG)
   have : Module.Finite O Λ := Module.Finite.of_fg hΛ
   exact Submodule.finite_quotient_smul m (Module.Finite.fg_top (R := O) (M := Λ))
 
+/-- Finitely many integral coordinates detecting vectors of the lattice make the
+lattice finite over the coefficient DVR (tex 9663–9665). -/
+theorem lattice_fg_of_integral_coordinates [IsNoetherianRing O] {J : Type*} [Finite J]
+    (Λ : Submodule O V) (coordinates : Λ →ₗ[O] (J → O))
+    (hinj : Function.Injective coordinates) : Λ.FG := by
+  let e : Λ ≃ₗ[O] LinearMap.range coordinates := LinearEquiv.ofInjective coordinates hinj
+  have : IsNoetherian O Λ := isNoetherian_of_linearEquiv e.symm
+  exact Module.Finite.iff_fg.mp (inferInstance : Module.Finite O Λ)
+
 variable [TopologicalSpace O] [CompactSpace O]
 variable [TopologicalSpace V] [T2Space V] [IsTopologicalAddGroup V] [ContinuousSMul O V]
 
@@ -56,6 +65,7 @@ theorem residual_isOpen [IsNoetherianRing O] (Λ : Submodule O V) (hΛ : Λ.FG)
   have : N.toAddSubgroup.FiniteIndex := N.toAddSubgroup.finiteIndex_of_finite_quotient
   exact N.toAddSubgroup.isOpen_of_isClosed_of_finiteIndex hN
 
+#print axioms lattice_fg_of_integral_coordinates
 #print axioms lattice_closed
 #print axioms residual_closed
 #print axioms residual_quotient_finite
