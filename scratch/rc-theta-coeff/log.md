@@ -7,3 +7,4 @@
 - `Forms.lean`: compiled with `lake env lean`; all declarations with `#print axioms` use only the standard axioms. Integral (O.11) holds at zero, on the good unary shells, on the sieved indices, and off unary support.
 - Resource log: host load/memory checked before each Lean invocation. One early check was launched before cancellation of the initial dependency queue was confirmed; possible overlap there. Subsequent invocations were serialized.
 - `Lattice.lean`: compiled with `lake env lean`. The integral restriction agrees with the characteristic-zero expansion, satisfies `HeckeFourier`, and is continuous. A finite spanning set of Fourier rows proves finite generation. All theorem audits use only the standard axioms.
+- `Blocks.lean`: compiled with `lake env lean`; all theorem audits use only the standard axioms. Exact expansion and diamond correction proved coefficientwise. Block realization and character action are inputs.
