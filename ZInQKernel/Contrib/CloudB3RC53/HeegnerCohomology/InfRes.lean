@@ -19,7 +19,7 @@ group of `Γ` with those coefficients" (tex 3014–3016).
 
 The RC10 lane records this input as the interface `InfResInput` (file
 `ZInQKernel/Contrib/OneProof/RC/HeegnerAlgebra/Interfaces.lean`, with `FiveTerm` from
-`.../HeegnerAlgebra/Descent.lean`, interface drafts at commit 7481834f).  This file discharges
+`.../HeegnerAlgebra/Descent.lean`).  This file discharges
 that interface over the genuine continuous cohomology of a profinite group with discrete
 coefficients (the explicit low-degree model of Tau Ceti: `H1`, `H2`, `explicitInfl1`,
 `explicitResConj1`, `transgression`), for every closed normal subgroup:

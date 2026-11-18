@@ -28,14 +28,18 @@ The remaining named inputs, with RC6's types (the genuine values substituted whe
 * `kummer` (tex 4482–4492; GLUE: Kummer theory and the `S`-unit theorem for `G_{K,S_T}`) and `genus`
   (tex 4494–4517; ELLIOT's genus argument), as in `GlobalCountsGenus`, with
   `h1ST = dim H¹(G_{K,S_T}, 𝔽₂)` and `nPlaces = #(primes above p)`; `clDim` is the dimension of
-  `Cl(𝒪_{K,S_T})[2]`, not defined here;
+  `Cl(𝒪_{K,S_T})[2]`, not defined here (both are proved downstream: `genus` in
+  `ResidualCountsGenus.lean`, `kummer` in `ResidualCountsKummer.lean`);
 * `places_deg`, `places_counts` (tex 4544–4582; local degrees and the local table; RC6's
   `placeData_counts_of_prints` gives the local-cohomology part from Milne ADT I.2.3, I.2.8);
 * `arch_le` (tex 4584–4591);
-* `cone` (tex 4593–4597; the Selmer-cone model, see the Duality lane's `cone_of_selmerModel` on
-  branch `cloud-b3s/rc53-selmer-duality-2`);
-* `transfer` (tex 4598–4647; Nekovář 7.8.8(ii) and RC6's `ResidualAlgebra`; assigned to the
-  MinimalComplexes lane, branch `cloud-b3s/rc53-residual-transfer`).
+* `cone` (tex 4593–4597; the Selmer-cone model, see the Duality lane's `cone_of_selmerModel` in
+  `SelmerDuality/ResidualBridge.lean`, plugged in by `ResidualCountsFull.lean`);
+* `transfer` (tex 4598–4647; Nekovář 7.8.8(ii) and RC6's `ResidualAlgebra`; the MinimalComplexes
+  lane's route is in `ResidualTransfer/`).
+
+`genericRank` is a free natural number bounded through `transfer`; it is not yet tied to the
+genuine `N(E, A, j)`.
 
 Kinds: PROVED from the named inputs.
 -/
@@ -158,7 +162,9 @@ open Classical in
 /-- **The constructor of RC6's `ResidualRankCounts`** (tex 4453–4648). PROVED from the PRINT leaves
 Milne ADT I.4.10/I.5.1 and the named inputs listed in the module docstring, for an imaginary
 quadratic field `K = ℚ(√k)` with `ω(k) ≤ A`, conductor `N`, moving prime `r`, derivative primes `D`,
-`S₀ = primes above chargedPrimes N r D`, `S_T = primes above primeSetT N r D Ram`. -/
+`S₀ = primes above chargedPrimes N r D`, `S_T = primes above primeSetT N r D Ram`. The bounded
+quantity `genericRank` is free (constrained only by `transfer`); it is not yet the genuine
+`N(E, A, j)`. -/
 def residualRankCounts_of (h410 : MilneADT_I_4_10_totallyComplex)
     (h51 : MilneADT_I_5_1_totallyComplex) (k : ℤ) (α : 𝓞 K) (hα : IsQuadraticRadicand K k α)
     (hK : IsTotallyComplex K) (N : ℕ) (hN : N ≠ 0) (A : ℕ) (hA : k.natAbs.primeFactors.card ≤ A)
@@ -219,7 +225,8 @@ open Classical in
 /-- **Lemma `ex:limits-residual-bound`, `N(E,A,j) ≤ 56 ω(2N) + 8A + 56j + 70`** (tex 4453–4648),
 PROVED from the PRINT leaves Milne ADT I.4.10/I.5.1 and the named inputs of
 `residualRankCounts_of` (kummer, genus, the local inputs, cone, transfer), through RC6's
-`ResidualRankCounts.genericRank_le`. -/
+`ResidualRankCounts.genericRank_le`. The bound is for a free `genericRank ≤ rankTot`; it is not
+yet the genuine `N(E, A, j)`. -/
 def ResidualRankBoundNode : Prop :=
   MilneADT_I_4_10_totallyComplex → MilneADT_I_5_1_totallyComplex →
   ∀ (K : Type) [Field K] [NumberField K] (k : ℤ) (α : 𝓞 K), IsQuadraticRadicand K k α →

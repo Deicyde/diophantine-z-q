@@ -8,7 +8,7 @@ Manuscript `diophantine_zq.tex`, Lemma `ex:limits-fixed-field-budget`, tex 5355�
 Proposition `ex:limits-fixed-field-clearing`, tex 5522–5541.
 
 **Targets.** Lane RC7's assembly of (5.9), `fixed_field_clearing`
-(`ZInQKernel/Contrib/OneProof/RC/Determinant/Output.lean`, draft commit 7481834f), takes the
+(`ZInQKernel/Contrib/OneProof/RC/Determinant/Output.lean`), takes the
 budget (5.7) as the two hypotheses
 
     (hm : B.mTot ≤ dK + 5) (hh : B.hSmith ≤ hK + 2 * cE + 2 * tK)
@@ -567,7 +567,7 @@ complex, RC7's (5.7) hypotheses `hfg, h57a, hQ, e, h57d, ht₁, ht₃, hh, hJ` a
 
     (hm : B.mTot ≤ dK + 5) (hh : B.hSmith ≤ hK + 2 * cE + 2 * tK)
 
-of `fixed_field_clearing` (`Determinant/Output.lean`, draft commit 7481834f). -/
+of `fixed_field_clearing` (`Determinant/Output.lean`). -/
 def FixedFieldBudgetSmith : Prop :=
   ∀ (S O : Type) [CommRing S] [CommRing O] [Algebra Lam O] (B : SmithBlocks S O) (fr : ℕ → ℕ),
     B.n ≤ 3 → (∀ i j, 1 ≤ (B.s i j).valuation) →
@@ -600,8 +600,7 @@ theorem fixedFieldBudgetSmith_proof : FixedFieldBudgetSmith := by
 
 /-! ## The inputs of RC7's `budget_57`
 
-RC7's `budget_57` (`ZInQKernel/Contrib/OneProof/RC/Determinant/Budget.lean`, draft commit
-79c2699a5) proves `B.mTot ≤ dK + 5 ∧ B.hSmith ≤ hK + 2 * cE + 2 * tK` from, among others, the
+RC7's `budget_57` (`ZInQKernel/Contrib/OneProof/RC/Determinant/Budget.lean`) proves `B.mTot ≤ dK + 5 ∧ B.hSmith ≤ hK + 2 * cE + 2 * tK` from, among others, the
 "RankCounts" inputs (their Lean text, with `HD n`, `H0D … H3D` the cohomology of `D_c ⊗ 𝔽₂` and
 `D_c`):
 
@@ -652,8 +651,7 @@ theorem subsingleton_centralH_zero {S O : Type*} [CommRing S] [CommRing O]
 5375–5383). For RC7's central Smith data `B` (disks in degrees `< 3`, central entries in `(2)`) and
 free generators `fr = (0, 1, 1, 0)` (one in each of degrees one and two, tex 5379–5380):
 `hmodel` and `hsmith` with `rankTotal = 2 + 2 * B.mTot` and `HD n = H^n(D_c ⊗ 𝔽₂)`;
-`[Subsingleton H0D]`; and `htors`, all in RC7's Lean text (`Determinant/Budget.lean`, draft commit
-79c2699a5). -/
+`[Subsingleton H0D]`; and `htors`, all in RC7's Lean text (`Determinant/Budget.lean`). -/
 def RC7Budget57Inputs : Prop :=
   ∀ (S O : Type) [CommRing S] [CommRing O] [Algebra Lam O] (B : SmithBlocks S O) (fr : ℕ → ℕ),
     B.n ≤ 3 → (∀ i j, 1 ≤ (B.s i j).valuation) →

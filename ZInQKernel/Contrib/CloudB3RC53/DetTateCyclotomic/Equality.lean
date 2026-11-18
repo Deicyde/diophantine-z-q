@@ -3,9 +3,10 @@ import ZInQKernel.Contrib.CloudB3RC53.DetTateCyclotomic.Basic
 /-!
 # `det ρ₂ = χ₂`: the determinant of the `2`-adic Tate representation is the cyclotomic character
 
-Target (copied, with this body, from the draft file
+Target (with the same body as `DetTateTwoEqCyclotomic` of
 `ZInQKernel/Contrib/OneProof/RC/TateWiring/Image.lean`, namespace `ZInQ.Manuscript.RC.TateWiring`,
-of the Theorem 5.3 lanes; not yet on this branch, to be bridged by definitional equality):
+of the Theorem 5.3 lanes; bridged by definitional equality in `RC/TateWiring/Discharge.lean`,
+`detTateTwoEqCyclotomic_holds`):
 
 ```
 DetTateTwoEqCyclotomic E :=
@@ -32,7 +33,7 @@ namespace ZInQ.Contrib.CloudB3RC53.DetTateCyclotomic
 open ZInQ.Manuscript.RC.PrintsArith TauCeti TauCeti.Isogeny WeierstrassCurve
 open scoped WeierstrassCurve
 
-/-- **`det ρ₂ = χ₂`** (statement copied from the draft `RC/TateWiring/Image.lean`,
+/-- **`det ρ₂ = χ₂`** (same body as `RC/TateWiring/Image.lean`'s `DetTateTwoEqCyclotomic`,
 namespace `ZInQ.Manuscript.RC.TateWiring`): the determinant of the `2`-adic Tate representation
 is Mathlib's `2`-adic cyclotomic character. -/
 def DetTateTwoEqCyclotomic (E : WeierstrassCurve ℚ) : Prop :=

@@ -25,7 +25,7 @@ on a few facts about the Iwasawa algebra `Λ = ℤ₂[[t]]`, which this file pro
   L3730–3731: the residual active Frobenius is `(1+t)^a I` with `a` odd, so `A = Φ − 1` and
   `D = Φ − N_q(g)`, whose augmentation is `Φ − q`, are invertible over `𝒪[G]`).
   Turning "not in `(2)`" into "a unit of `𝒪 = (Λ_(2))^`" is the `𝒪`-model lemma
-  `isUnit_algebraMap_of_not_mem_span_two` of the determinant lane (draft), and invertibility over
+  `isUnit_algebraMap_of_not_mem_span_two` of the determinant lane, and invertibility over
   `𝒪[G]` is its augmentation criterion; neither is restated here.
 
 All nodes are PROVED. No height-one prime is assumed principal: the argument only uses that

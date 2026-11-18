@@ -8,6 +8,7 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.GlueTwo
 normal closure of `H_c` over `ℚ` (`two_nsmul_mem_twist_add_torsion'`), and the square roots
 `√d₁, √d₂ ∈ H_c` come from `genusRoots_proof`. `datum_facts_core'` and `core34'` are
 `datum_facts_core` and `core34` with these inputs; `genusLower34_of_artin` is (3.4).
+`ArtinFactorization` itself is reduced in `LocalFinal.lean` (`artinFactorization_of_newform`).
 -/
 
 noncomputable section

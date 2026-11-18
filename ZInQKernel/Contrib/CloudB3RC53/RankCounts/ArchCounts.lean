@@ -18,7 +18,7 @@ dimension of the archimedean terms retained in the Selmer cone: the full local c
 cohomology of the genuine absolute Galois group of `K_w`. Since `G_{K_w}` is trivial (Tau Ceti's
 `subsingleton_fieldAbsoluteGaloisGroup_of_isComplex`), `H¹ = H² = 0` (Tau Ceti's explicit low-degree
 cohomology and its comparison with Mathlib's) and `H⁰ = W`; so `archTotal K w = 2 + 2 = 4` and RC6's
-field `arch_le : archTot ≤ 4` holds (`archTotal_le`). Kinds: PROVED.
+field `arch_le : archTot ≤ 4` holds (`archLe_proof`, from `archTotal_eq_four`). Kinds: PROVED.
 -/
 
 noncomputable section

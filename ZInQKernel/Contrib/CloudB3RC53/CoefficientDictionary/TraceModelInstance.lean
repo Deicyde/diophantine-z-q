@@ -291,7 +291,8 @@ theorem t_class (g h : X.G) : X.tM (h * g * h⁻¹) = X.tM g := by
 
 /-- **The `TraceModel` of the constituent model** (tex L9641–9771), with the two INPUTs `reading`
 and `o12` of `TraceModel`, stated for the genuine reduced operators. **DEPRECATED (vacuous:
-`ConstituentModel` is uninhabitable; use `ConstituentModelRel.toTraceModelRel`).** -/
+`ConstituentModel` is uninhabitable, `constituentModel_false`; use
+`ConstituentModelRel.toTraceModelRel`).** -/
 def toTraceModel
     (reading : ∀ (U : Finset ℕ) (q : ℕ), (∀ s ∈ U, T.Good s) → T.Good q → q ∉ U →
       (insert q U).card ≤ B → R (insert q U) = X.readM U (X.tM (X.frob q) (X.FM U)))

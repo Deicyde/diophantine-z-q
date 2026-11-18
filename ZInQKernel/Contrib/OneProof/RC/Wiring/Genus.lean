@@ -99,22 +99,27 @@ variable {ℓ : ℕ} (W : WData ℓ)
 def SupportSpec : Prop :=
   (∀ p ∈ W.S, p.Prime) ∧ 2 ∈ W.S ∧ 3 ∈ W.S ∧ ∀ p : ℕ, p.Prime → p ∣ ℓ → p ∈ W.S
 
-/-- **The prepared filter** (definition, tex 2404–2410, 1836–1845: the prepared positive filter
-containing one; its members are prime to the fixed support). -/
+/-- **The prepared filter** (definition, tex 2344–2346, 2404–2410, 1836–1845, 10059–10061: the
+prepared positive filter containing one; its members are positive, squarefree, `≡ 1 (mod 8)` ("Thus
+`h ≡ 1 (mod 8)`", tex 2346) and prime to the fixed support). -/
 def PreparedSpec : Prop :=
-  ∀ h : ℤ, W.prepared h → 0 < h ∧ ∀ p ∈ W.S, ¬ (p : ℤ) ∣ h
+  ∀ h : ℤ, W.prepared h → 0 < h ∧ Squarefree h ∧ h % 8 = 1 ∧ ∀ p ∈ W.S, ¬ (p : ℤ) ∣ h
 
 /-- **The partitionable auxiliary factor** (ELLIOT; lane RC2; the hypothesis `hdummy` of lane
-RC13's `roughCompanion`, from App G `ex:app-rough-companion`, tex 10055–10150): for every `h > 0`
-prime to the support and every finite avoidance set, a positive squarefree `a` with `ω(a) = A₀`,
-prime to the support, to the avoidance set and to `h`, such that every negative `au ≡ 1 (mod 8)`,
-squarefree and square at the support and at the primes of `h`, makes `h(au)` partitionable. -/
+RC13's `roughCompanion`, from App G `ex:app-rough-companion`, tex 10055–10150): for every positive
+squarefree `h ≡ 1 (mod 8)` prime to the support (the prepared parameters, tex 2344–2346,
+10059–10061) and every finite avoidance set, a positive squarefree `a` with `ω(a) = A₀`, prime to
+the support, to the avoidance set and to `h`, such that every negative `au ≡ 1 (mod 8)`, squarefree
+and square at the support and at the primes of `h`, with `L(E^{(h·au)},1) ≠ 0` (the companions
+actually produced, tex 2380–2385), makes `h(au)` partitionable. -/
 def AuxFactor (A₀ : ℕ) : Prop :=
-  ∀ h : ℤ, 0 < h → (∀ p ∈ W.S, ¬ (p : ℤ) ∣ h) → ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
+  ∀ h : ℤ, 0 < h → Squarefree h → h % 8 = 1 → (∀ p ∈ W.S, ¬ (p : ℤ) ∣ h) →
+    ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
     ∃ a : ℤ, 0 < a ∧ Squarefree a ∧ Nonvanishing.omega a = A₀ ∧
       (∀ p ∈ W.S ∪ X, ¬ (p : ℤ) ∣ a) ∧ IsCoprime a h ∧
       ∀ u : ℤ, a * u < 0 → (a * u) % 8 = 1 → Squarefree (a * u) →
         (∀ p ∈ W.S ∪ h.natAbs.primeFactors, Nonvanishing.IsSquareAt p ((a * u : ℤ) : ℚ)) →
+        AnalyticRank (Etw ℓ (h * (a * u))) 0 →
           W.Partitionable (h * (a * u))
 
 /-- **The even upper bound (3.3b)** (Proposition `ex:sec7-even-upper`, tex 2273–2318; ELLIOT;
@@ -146,17 +151,19 @@ theorem f3Target_of (P : Prints) (hKum : KummerCorankZero) (hHL : Nonvanishing.H
     (fun d => W.Partitionable d ∧ d ≠ 0)
     (fun d => d ≠ 0 → Z2Corank (selmerTwoPower (qtwist (Ecurve ℓ) (d : ℚ))) 0)
     (fun d => padicValRat 2 (W.Lstar d)) (sFun ℓ) C₁ A₀
-    (fun h hh hS X hX => by
-      obtain ⟨a, ha, hsf, hω, hSX, hcop, hpart⟩ := hAux h hh hS X hX
-      refine ⟨a, ha, hsf, hω, hSX, hcop, fun u hu h8 hsfu hsq => ⟨hpart u hu h8 hsfu hsq, ?_⟩⟩
+    (fun h hh hsqf h8 hS X hX => by
+      obtain ⟨a, ha, hsf, hω, hSX, hcop, hpart⟩ := hAux h hh hsqf h8 hS X hX
+      refine ⟨a, ha, hsf, hω, hSX, hcop, fun u hu h8' hsfu hsq hcn =>
+        ⟨hpart u hu h8' hsfu hsq hcn, ?_⟩⟩
       exact mul_ne_zero hh.ne' (by intro h0; rw [h0] at hu; simp at hu))
     (fun d hd hd0 => forward_corankZero P hKum hℓ hd0 hd)
     (fun d ⟨hpd, hd0⟩ hcz => h33b d hd0 hpd (hcz hd0))
   refine ⟨A, CE, fun h hprep hsz => ?_⟩
-  obtain ⟨hpos, hprime⟩ := hPrep h hprep
+  obtain ⟨hpos, hsqf, h8, hprime⟩ := hPrep h hprep
   have hw := rootNumber_neg_one_of_simpleZero hRN hℓ hpos.ne' hsz
   obtain ⟨k', hk'neg, hk'8, hk'F, hloc, hX, ⟨hpart, -⟩, hcn, hωk, hvL⟩ :=
-    hRC h hpos hprime hw W.hstar.natAbs.primeFactors (fun p hp => Nat.prime_of_mem_primeFactors hp)
+    hRC h hpos hsqf h8 hprime hw W.hstar.natAbs.primeFactors
+      (fun p hp => Nat.prime_of_mem_primeFactors hp)
   have hhk : h * k' ≠ 0 := mul_ne_zero hpos.ne' hk'neg.ne
   refine ⟨k', ⟨hk'neg, hk'8, hk'F, hloc, hX, hpart, hcn⟩, by exact_mod_cast hωk,
     (hL _ hhk).mpr hcn, ?_⟩

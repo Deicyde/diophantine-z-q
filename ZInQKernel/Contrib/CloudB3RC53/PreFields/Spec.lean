@@ -114,15 +114,16 @@ theorem preFieldsSpec_withHstar {W : WData ℓ} (h : PreFieldsSpec W) (hs : ℤ)
     h.prepared_one⟩
 
 /-- **Joint satisfiability with RC0's `PreparedSpec`** (PROVED): data with support `S₀ ℓ`, the
-hyperfilter, precision `θ + 3`, prepared filter `{h > 0 prime to S₀}` and stage support
-`{1}` meet every requirement and `PreparedSpec`. -/
+hyperfilter, precision `θ + 3`, prepared filter `{h > 0 squarefree, h ≡ 1 mod 8, prime to S₀}`
+and stage support `{1}` meet every requirement and `PreparedSpec`. -/
 theorem preFieldsSpec_example (ℓ : ℕ) (hℓ : 0 < ℓ) :
     ∃ W : WData ℓ, PreFieldsSpec W ∧ PreparedSpec W := by
   let W : WData ℓ :=
     { toyW ℓ with
       S := S0 ℓ
-      prepared := fun h => 0 < h ∧ ∀ p ∈ S0 ℓ, ¬ (p : ℤ) ∣ h
-      admissible := fun _ D => (0 < D ∧ ∀ p ∈ S0 ℓ, ¬ (p : ℤ) ∣ D) ∧ D = 1 }
+      prepared := fun h => 0 < h ∧ Squarefree h ∧ h % 8 = 1 ∧ ∀ p ∈ S0 ℓ, ¬ (p : ℤ) ∣ h
+      admissible := fun _ D =>
+        (0 < D ∧ Squarefree D ∧ D % 8 = 1 ∧ ∀ p ∈ S0 ℓ, ¬ (p : ℤ) ∣ D) ∧ D = 1 }
   have hprime : ∀ p ∈ S0 ℓ, p.Prime := by
     intro p hp
     simp only [S0, Finset.mem_insert, Nat.mem_primeFactors] at hp
@@ -130,8 +131,8 @@ theorem preFieldsSpec_example (ℓ : ℕ) (hℓ : 0 < ℓ) :
     · exact Nat.prime_two
     · exact Nat.prime_three
     · exact hp
-  have hone : (0 : ℤ) < 1 ∧ ∀ p ∈ S0 ℓ, ¬ (p : ℤ) ∣ 1 := by
-    refine ⟨one_pos, fun p hp h => ?_⟩
+  have hone : (0 : ℤ) < 1 ∧ Squarefree (1 : ℤ) ∧ (1 : ℤ) % 8 = 1 ∧ ∀ p ∈ S0 ℓ, ¬ (p : ℤ) ∣ 1 := by
+    refine ⟨one_pos, squarefree_one, rfl, fun p hp h => ?_⟩
     have := Int.eq_one_of_dvd_one (by positivity) h
     exact (hprime p hp).one_lt.ne' (by exact_mod_cast this)
   exact ⟨W, ⟨hprime, subset_rfl, rfl, fun θ => by simp [W, toyW],

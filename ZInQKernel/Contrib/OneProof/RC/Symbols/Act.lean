@@ -21,8 +21,6 @@ noncomputable def actT (m : Sym2 ℕ →₀ ℕ) (f : Finset (Sym2 ℕ) → ZMod
     (U : Finset (Sym2 ℕ)) : ZMod 2 :=
   if ∀ e, m e ≤ 1 then ∑ W ∈ m.support.powerset, f (symmDiff U W) else 0
 
-lemma zmod2_add_self (x : ZMod 2) : x + x = 0 := by
-  fin_cases x <;> decide
 
 /-- `act` as a sum over any finite set of monomials containing the support (tex 2219, 10635–10655). PROVED. -/
 theorem act_eq_sum (p : MvPolynomial (Sym2 ℕ) (ZMod 2)) (f : Finset (Sym2 ℕ) → ZMod 2)

@@ -17,10 +17,13 @@ Manuscript `diophantine_zq.tex`, Lemma `ex:limits-residual-bound`, tex 4453–46
   rank `rankTot`, whose global part has total rank at most `globalTot = h⁰ + h¹ + h²` and whose
   local part has total rank at most the place costs plus `archTot` (inputs `hG`, `hL`).
 
-Remaining named inputs (RC6 types, genuine values substituted): `kummer`, `genus` (no Kummer
-theory, `S`-unit theorem or class group of `𝒪_{K,S_T}` for `G_{K,S_T}` in Lean; `clDim` undefined),
-`hcond` (ELLIOT table), `arch_le`, the cone-model rank bounds `hG`, `hL`, and `transfer` (assigned
-to the MinimalComplexes lane). Kinds: PROVED from the named inputs.
+Remaining named inputs (RC6 types, genuine values substituted): `kummer`, `genus` (with `clDim`
+free here; both are proved downstream, `genus` with the genuine `clDim` in
+`ResidualCountsGenus.lean` and `kummer` in `ResidualCountsKummer.lean`),
+`hcond` (ELLIOT table), `arch_le` (PROVED for the genuine archimedean total:
+`archLe_proof`, `archTotal_eq_four` in `ArchCounts.lean`), the cone-model rank bounds `hG`, `hL`, and `transfer` (assigned
+to the MinimalComplexes lane). The bounded `genericRank` is free (constrained only by `transfer`);
+it is not yet the genuine `N(E, A, j)`. Kinds: PROVED from the named inputs.
 -/
 
 noncomputable section
@@ -43,7 +46,8 @@ theorem prime_of_mem_chargedPrimes {N r : ℕ} {D : Finset ℕ} (hr : r.Prime)
 open Classical in
 /-- **RC6's `ResidualRankCounts` with the genuine places and the Selmer-cone model** (tex
 4453–4648). PROVED from the PRINT leaves Milne ADT I.4.10, I.5.1 (global), I.2.3, I.2.8 (local)
-and the named inputs listed in the module docstring. -/
+and the named inputs listed in the module docstring. As in `residualRankCounts_of`, `genericRank`
+is free (constrained only by `transfer`); it is not yet the genuine `N(E, A, j)`. -/
 def residualRankCounts_full (h410 : MilneADT_I_4_10_totallyComplex)
     (h51 : MilneADT_I_5_1_totallyComplex) (h28 : MilneADT_I_2_8) (h23 : MilneADT_I_2_3_trivial)
     (k : ℤ) (α : 𝓞 K) (hα : IsQuadraticRadicand K k α)

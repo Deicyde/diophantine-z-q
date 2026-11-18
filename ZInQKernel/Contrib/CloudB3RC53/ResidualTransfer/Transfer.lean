@@ -25,7 +25,8 @@ dimensions of the cohomology after augmentation. Hence the generic rank is at mo
 smaller-support model.
 
 Nodes:
-* `MinimalRankLe` (PROVED from RC6's GLUE `MinimalModelsExist`): over a local ring, a minimal
+* `MinimalRankLe` (PROVED from RC6's `MinimalModelsExist`, itself PROVED as
+  `minimalModelsExist_proof` in `MinimalModelsExist.lean`): over a local ring, a minimal
   bounded finite free complex homotopy equivalent to a bounded finite free complex `K₀` has, degree
   by degree, rank at most that of `K₀` (the minimal model `L₀` of `K₀` has ranks at most those of
   `K₀`, and two homotopy-equivalent minimal complexes are degreewise isomorphic,
@@ -42,6 +43,13 @@ Nodes:
   complex, from `SupportChangeInput` and the contractibility of the active comparison cone after
   inverting `t` (an explicit hypothesis, tex L4625–4631: "Every active comparison cone is then
   contractible"; its algebra is RC6's `ResidualAlgebra`).
+
+Caveat: `SupportChangeInput` takes `SupportChangeUnramified` (through `UnramifiedNewPlace`), which
+requires degreewise isomorphisms of the full local complex at `q` with the 3-term tame model
+`M → M ⊕ M → M`; genuine continuous cochains `C^•(G_{K_q}, M)` are only quasi-isomorphic to it (they
+are nonzero in every degree `≥ 0`), so `supportComparisonHomotopyEquiv` and `transferOfSupportChange`
+have consistent hypotheses (zero witnesses) that are not instantiable by genuine continuous
+cochains; see `ZInQ.Contrib.CloudB3RC53.GenuineInst.transfer_final_genuine`.
 -/
 
 namespace ZInQ.Contrib.CloudB3RC53.ResidualTransfer
@@ -64,7 +72,8 @@ theorem subsingleton_of_finrank_eq_zero {M : Type u} [AddCommGroup M] [Module S 
   exact (Module.Free.chooseBasis S M).repr.toEquiv.subsingleton
 
 /-- **A minimal model has ranks at most those of any homotopy-equivalent finite free model**
-(tex L4633–4647). Given RC6's GLUE `MinimalModelsExist S` over a local ring `S`, let `K₀` be a
+(tex L4633–4647). Given RC6's `MinimalModelsExist S` (PROVED: `minimalModelsExist_proof`) over a
+local ring `S`, let `K₀` be a
 bounded (`IsStrictlyGE a`, `IsStrictlyLE b`) complex of finite free modules and `L` a minimal
 (`d(L) ⊆ 𝔪 L`) bounded complex of finite free modules with a homotopy equivalence `L ≃ K₀`. Then
 `rank Lⁱ ≤ rank K₀ⁱ` for every `i`. Classification: PROVED (from `MinimalModelsExist`). -/
@@ -181,7 +190,9 @@ support change of [Nekovář, Proposition 7.8.8(ii)] as the GLUE input `SupportC
 `SelmerDuality/SupportChange.lean`). If the old and new Selmer models `selCx T.D`, `selCx T.Dp`
 are bounded complexes of free modules, the support comparison is the forward map of a homotopy
 equivalence (a quasi-isomorphism of bounded free complexes has an integral homotopy inverse,
-`QuasiIsoFreeHomotopyInverse`). Classification: PROVED (from the GLUE input). -/
+`QuasiIsoFreeHomotopyInverse`). Caveat: the hypothesis `SupportChangeUnramified` (through
+`UnramifiedNewPlace`) is not instantiable by genuine continuous cochains; see `ZInQ.Contrib.CloudB3RC53.GenuineInst.transfer_final_genuine`.
+Classification: PROVED (from the GLUE input). -/
 theorem supportComparisonHomotopyEquiv {S : Type u} [CommRing S] (T : SupportChangeData S)
     (H : SupportChangeUnramified T) (hSC : SupportChangeInput T H) (a b : ℤ)
     [(selCx T.D).toCC.IsStrictlyGE a] [(selCx T.D).toCC.IsStrictlyLE b]
@@ -203,7 +214,10 @@ theorem supportComparisonHomotopyEquiv {S : Type u} [CommRing S] (T : SupportCha
 * `L` a minimal bounded finite free model of `C` (`eL : L ≃ C`), `genericRank` its total rank, and
   `rankTot` the total rank of the smaller-support Selmer model `selCx T.D` (the quantity of
   `cone_of_selmerModel`).
-Then, given RC6's GLUE `MinimalModelsExist S`, `genericRank ≤ rankTot`.
+Then, given RC6's `MinimalModelsExist S` (PROVED: `minimalModelsExist_proof`; discharged in
+`transferOfSupportChange_final`), `genericRank ≤ rankTot`. Caveat: the hypothesis
+`SupportChangeUnramified` (through `UnramifiedNewPlace`) is not instantiable by genuine continuous
+cochains; see `ZInQ.Contrib.CloudB3RC53.GenuineInst.transfer_final_genuine`.
 Classification: PROVED (from the inputs in its type). -/
 theorem transferOfSupportChange {S : Type u} [CommRing S] [IsLocalRing S]
     (hMM : MinimalModelsExist S) (T : SupportChangeData S) (H : SupportChangeUnramified T)

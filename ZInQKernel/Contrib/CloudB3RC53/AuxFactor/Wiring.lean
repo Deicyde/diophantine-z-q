@@ -36,7 +36,7 @@ theorem auxFactor_wiring {ℓ : ℕ} (W : Wiring.WData ℓ) (hS : ∀ p ∈ W.S,
           Nonvanishing.IsSquareAt p (((∏ i ∈ range A₀, (q i : ℤ)) * u : ℤ) : ℚ)) →
         W.Partitionable (h * ((∏ i ∈ range A₀, (q i : ℤ)) * u))) :
     Wiring.AuxFactor W A₀ := by
-  intro h hh0 _ X hX
+  intro h hh0 _ _ _ X hX
   obtain ⟨q, -, hq, ha0, hasf, haω, haSX, hah⟩ := dummy_realization m hm hm2 A₀ cls hcls W.S X h
   refine ⟨∏ i ∈ range A₀, (q i : ℤ), ha0, hasf, haω, fun p hp => ?_, hah hh0.ne', ?_⟩
   · have hpp : p.Prime := by
@@ -44,7 +44,8 @@ theorem auxFactor_wiring {ℓ : ℕ} (W : Wiring.WData ℓ) (hS : ∀ p ∈ W.S,
       · exact hS p hp
       · exact hX p hp
     exact haSX p hp hpp
-  · exact hDict h q (fun i hi => ⟨(hq i hi).1, (hq i hi).2.2.2.2⟩)
+  · exact fun u hu h8 hsf hsq _ =>
+      hDict h q (fun i hi => ⟨(hq i hi).1, (hq i hi).2.2.2.2⟩) u hu h8 hsf hsq
 
 open ZInQ.Manuscript.SelmerTwoPower in
 /-- **RC0's leaf `EvenUpper33b W C₁` from (F.1)–(F.2)** (tex 10079–10129, 2273–2341), `PROVED`

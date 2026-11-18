@@ -12,7 +12,10 @@ itself:
 * `UnramifiedNewPlace` and `SupportChangeUnramified` (hypotheses of `SupportChangeInput`): the zero
   coefficient module with the zero complexes (`zeroNewPlace`, `zeroSupportChangeUnramified`); every
   field (the tame model at augmentation, the unramified condition, the retractions, the exact
-  sequences, the compatibility of `ι`) holds, so the fields are consistent.
+  sequences, the compatibility of `ι`) holds, so the fields are consistent. They are not
+  instantiable by genuine continuous cochains (the degreewise isomorphisms with the 3-term tame
+  model fail for `C^•(G_{K_q}, M)`, which is nonzero in every degree `≥ 0`); re-pointing to the
+  genuine Galois support data is pending.
 * `RetainedPairing` (hypothesis of `cup_naturality`, `pairedFunctional_natural`): the constant
   Selmer data `constSel S` of `SelmerPairing.lean`, multiplication as both cup products, zero
   isotropy homotopies (`constRetainedPairing`).

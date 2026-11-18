@@ -8,7 +8,7 @@ Manuscript `diophantine_zq.tex`, Lemma `ex:limits-residual-bound`, tex 4519–45
 > Inflation from `G_{K,S₀}` into `G_{K,S_T}` is injective on `H¹` with trivial coefficients.
 
 Lane RC6 takes this as the GLUE field `inflation : h1S0F2 ≤ h1ST` of `ResidualRankCounts`
-(`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit 79c2699a5). Here it is
+(`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`). Here it is
 PROVED for the genuine groups `G_{K,S} = GaloisGroupS K S` of `GlobalPrints.lean`:
 
 * `normal_unramifiedOutside`: `K_S/K` is normal (a supremum of finite Galois subextensions);
@@ -172,7 +172,7 @@ end Inflation
 `G_{K,S₀}` into `G_{K,S_T}` is injective on `H¹` with trivial coefficients": for `S ⊆ S'` and
 `H¹(G_{K,S'}, 𝔽₂)` finite-dimensional, `dim H¹(G_{K,S}, 𝔽₂) ≤ dim H¹(G_{K,S'}, 𝔽₂)`. RC6:
 `S = S₀`, `S' = S_T`. Source of the field text:
-`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit 79c2699a5. -/
+`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`. -/
 def RC6Inflation : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (S S' : Set (HeightOneSpectrum (𝓞 K))), S ⊆ S' →
     Module.Finite (ZMod 2) (continuousCohomology 1 (trivialRepS (GaloisGroupS K S') (ZMod 2))) →

@@ -47,15 +47,17 @@ theorem roughCompanion_genuine (P : ZInQ.Contrib.CloudB3RC53.Prints) (hHL : Hoff
     {E : WeierstrassCurve ℚ} (hE : E.IsElliptic) {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime)
     (h2 : 2 ∈ S) (hbad : ∀ p : ℕ, p.Prime → ¬ GoodAt E p → p ∈ S)
     (Partitionable : ℤ → Prop) (vL s : ℤ → ℤ) (C₁ : ℤ) (A₀ : ℕ)
-    (hdummy : ∀ h : ℤ, 0 < h → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) → ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
+    (hdummy : ∀ h : ℤ, 0 < h → Squarefree h → h % 8 = 1 → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
+      ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
       ∃ a : ℤ, 0 < a ∧ Squarefree a ∧ Nonvanishing.omega a = A₀ ∧
         (∀ p ∈ S ∪ X, ¬ (p : ℤ) ∣ a) ∧
         IsCoprime a h ∧ ∀ u : ℤ, a * u < 0 → (a * u) % 8 = 1 → Squarefree (a * u) →
           (∀ p ∈ S ∪ h.natAbs.primeFactors, IsSquareAt p ((a * u : ℤ) : ℚ)) →
+          CentralNonzero (qtwist E ((h * (a * u) : ℤ) : ℚ)) →
             Partitionable (h * (a * u)))
     (h33b : ∀ d : ℤ, Partitionable d → (d ≠ 0 → Z2Corank (selmerTwoPower (qtwist E d)) 0) →
       vL d ≤ 2 * Nonvanishing.omega d + s d + C₁) :
-    ∃ (A : ℕ) (CE : ℤ), ∀ h : ℤ, 0 < h → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
+    ∃ (A : ℕ) (CE : ℤ), ∀ h : ℤ, 0 < h → Squarefree h → h % 8 = 1 → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
       RootNumber (qtwist E h) (-1) → ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
         ∃ k' : ℤ, k' < 0 ∧ k' % 8 = 1 ∧ Nonvanishing.IsFundamentalDiscriminant k' ∧
           (∀ p ∈ S ∪ h.natAbs.primeFactors, IsSquareAt p (k' : ℚ) ∧ ¬ (p : ℤ) ∣ k') ∧

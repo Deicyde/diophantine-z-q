@@ -95,11 +95,11 @@ theorem auxFactor_of_dictionary {ℓ : ℕ} (W : Wiring.WData ℓ) (hS : ∀ p �
   let tyOf : ℕ → L := fun i =>
     if h : i < P.card then (Γ₀ (e.symm ⟨i, h⟩).1.1).t (e.symm ⟨i, h⟩).1.2 else 0
   let cls : ℕ → ZMod T.m := fun i => cl (tyOf i)
-  refine ⟨A₀, fun h hh0 hhS X hX => ?_⟩
+  refine ⟨A₀, fun h hh0 _ _ hhS X hX => ?_⟩
   obtain ⟨q, hqinj, hq, ha0, hasf, haω, haSX, hah⟩ :=
     dummy_realization T.m T.m_pos T.two_dvd A₀ cls (fun i => hcl _) W.S X h
   set a : ℤ := ∏ i ∈ range A₀, (q i : ℤ) with ha
-  refine ⟨a, ha0, hasf, haω, fun p hp => ?_, hah hh0.ne', fun u hu h8 hsfu hsq => ?_⟩
+  refine ⟨a, ha0, hasf, haω, fun p hp => ?_, hah hh0.ne', fun u hu h8 hsfu hsq _ => ?_⟩
   · rcases mem_union.mp hp with hp' | hp'
     · exact haSX p hp (hS p hp')
     · exact haSX p hp (hX p hp')

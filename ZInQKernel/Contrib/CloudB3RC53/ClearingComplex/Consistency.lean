@@ -11,6 +11,10 @@ checks that its fields do not contradict each other: the trivial remaining compl
 sign-evaluated differentials are (empty) new-local Schur complements, and its central complex
 has `H¹ ≅ H² ≅ ℤ₂`, `H³ = 0`, with `J = H³_C = 0` in (5.7d). The generic pattern of this complex is
 the rank-one pattern (`unitCx_zero_rankOne`).
+
+The witness has an empty new-local family, so `Identification b 0 0 0 0` is always inhabited and
+the content sits in the coordinate identity E1; `Identification` is superseded by `Identification2`
+(`NewLocalModel.lean`, consistency with a nonempty family in `PlaceSupport.lean`).
 -/
 
 noncomputable section

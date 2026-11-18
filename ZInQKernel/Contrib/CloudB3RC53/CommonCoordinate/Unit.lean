@@ -127,7 +127,10 @@ theorem lamUnit_eps (qn : ℕ) (hodd : Odd qn) {cR cP : PowerSeries ℚ_[2]} (hR
 /-- The data of one relaxation step in the original bases (tex L4166–4193): actual primitive and
 relaxed models `DPa`, `DRa` with coordinates `uprim`, `urel`, integral changes of bases to the
 triangular model at the prime (Frobenius `F`, `q`, `qi = q⁻¹`, `z`, `zi`), the norm identity and
-`λ_R ∘ i = e_q λ_P` in the triangular bases, and the step unit `ε = q⁻⁴ c_R c_P⁻¹`. -/
+`λ_R ∘ i = e_q λ_P` in the triangular bases, and the step unit `ε = q⁻⁴ c_R c_P⁻¹`.
+
+Superseded by `NaturalStep` (`CommonCoordinate/NaturalStep`), which derives the functional relation
+`w_R|old = e_q w_P` assumed here; `NaturalStep.toActualStep`. -/
 def ActualStep {K : Type} [CommRing K] (F : Matrix (Fin 2) (Fin 2) K) (q qi a z zi : K)
     (uprim urel ε : K) (unitR unitP : K → Prop) : Prop :=
   ∃ (n : ℕ) (DPa PP QP : Matrix (Fin n) (Fin n) K)

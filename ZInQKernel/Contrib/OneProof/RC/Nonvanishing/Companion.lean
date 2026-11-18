@@ -282,11 +282,12 @@ three inputs, in Elliot's order of choices: the constants `A = A₀ + 5` and `C_
 before `h` and before the exclusion set. The inputs:
 
 * `hdummy` (ELLIOT; lane RC2-symbols; tex 2359–2379, 2384–2385, App G 10096–10105, 10131–10139):
-  a bounded supply of `A₀` dummy labels, fixed before `h`, is realized for each `h` and exclusion
-  set `X` by a squarefree positive product `a` of distinct primes outside `S`, `h` and `X`, and
-  "for the actual resulting total type, the already chosen dummy supply makes `hk'`
-  partitionable": every `k' = a u` of the companion's shape (negative, `≡ 1 (mod 8)`, a square at
-  every `p ∈ S ∪ primes(h)`, squarefree) makes `hk'` partitionable.
+  a bounded supply of `A₀` dummy labels, fixed before `h`, is realized for each prepared `h`
+  (positive, squarefree, `≡ 1 (mod 8)`, prime to `S`; tex 2344–2346) and exclusion set `X` by a
+  squarefree positive product `a` of distinct primes outside `S`, `h` and `X`, and "for the actual
+  resulting total type, the already chosen dummy supply makes `hk'` partitionable": every
+  `k' = a u` of the companion's shape (negative, `≡ 1 (mod 8)`, a square at every
+  `p ∈ S ∪ primes(h)`, squarefree) with `L(E^{(hk')},1) ≠ 0` makes `hk'` partitionable.
 * `hforward` (PRINT; `lem:forward-rank`, Kolyvagin Thm 1 / Kato Cor 14.3; tex 2386): nonvanishing
   gives Selmer corank zero.
 * `h33b` (ELLIOT; (3.3b), tex 2295–2341, App G (F.2) 10107–10129; lane RC2-symbols/RC11-even): a
@@ -298,23 +299,25 @@ theorem roughCompanion (hHL : HoffsteinLuo) (hTS : BFHTwistSign) (hBCDT : BCDTTh
     {E : WeierstrassCurve ℚ} (hE : E.IsElliptic) {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime)
     (h2 : 2 ∈ S) (hbad : ∀ p : ℕ, p.Prime → ¬ GoodAt E p → p ∈ S)
     (Partitionable CorankZero : ℤ → Prop) (vL s : ℤ → ℤ) (C₁ : ℤ) (A₀ : ℕ)
-    (hdummy : ∀ h : ℤ, 0 < h → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) → ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
+    (hdummy : ∀ h : ℤ, 0 < h → Squarefree h → h % 8 = 1 → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
+      ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
       ∃ a : ℤ, 0 < a ∧ Squarefree a ∧ omega a = A₀ ∧ (∀ p ∈ S ∪ X, ¬ (p : ℤ) ∣ a) ∧
         IsCoprime a h ∧ ∀ u : ℤ, a * u < 0 → (a * u) % 8 = 1 → Squarefree (a * u) →
           (∀ p ∈ S ∪ h.natAbs.primeFactors, IsSquareAt p ((a * u : ℤ) : ℚ)) →
+          CentralNonzero (qtwist E ((h * (a * u) : ℤ) : ℚ)) →
             Partitionable (h * (a * u)))
     (hforward : ∀ d : ℤ, CentralNonzero (qtwist E d) → CorankZero d)
     (h33b : ∀ d : ℤ, Partitionable d → CorankZero d → vL d ≤ 2 * omega d + s d + C₁) :
-    ∃ (A : ℕ) (CE : ℤ), ∀ h : ℤ, 0 < h → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
+    ∃ (A : ℕ) (CE : ℤ), ∀ h : ℤ, 0 < h → Squarefree h → h % 8 = 1 → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
       RootNumber (qtwist E h) (-1) → ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
         ∃ k' : ℤ, k' < 0 ∧ k' % 8 = 1 ∧ IsFundamentalDiscriminant k' ∧
           (∀ p ∈ S ∪ h.natAbs.primeFactors, IsSquareAt p (k' : ℚ) ∧ ¬ (p : ℤ) ∣ k') ∧
           (∀ p ∈ X, ¬ (p : ℤ) ∣ k') ∧ Partitionable (h * k') ∧
           CentralNonzero (qtwist E ((h * k' : ℤ) : ℚ)) ∧ omega k' ≤ A ∧
           vL (h * k') ≤ 2 * omega h + 2 * omega k' + s (h * k') + CE := by
-  refine ⟨A₀ + 5, C₁, fun h hh0 hhS hhw X hX => ?_⟩
+  refine ⟨A₀ + 5, C₁, fun h hh0 hhsf hh8 hhS hhw X hX => ?_⟩
   -- the dummy realization after `h` and the exclusions (2373–2379)
-  obtain ⟨a, ha0, hasf, haω, haSX, hah, hpart⟩ := hdummy h hh0 hhS X hX
+  obtain ⟨a, ha0, hasf, haω, haSX, hah, hpart⟩ := hdummy h hh0 hhsf hh8 hhS X hX
   have haS : ∀ p ∈ S, ¬ (p : ℤ) ∣ a := fun p hp => haSX p (Finset.mem_union_left _ hp)
   have haX : ∀ p ∈ X, ¬ (p : ℤ) ∣ a := fun p hp => haSX p (Finset.mem_union_right _ hp)
   -- the nonvanishing construction (2380–2384)
@@ -322,7 +325,7 @@ theorem roughCompanion (hHL : HoffsteinLuo) (hTS : BFHTwistSign) (hBCDT : BCDTTh
     roughCompanion_nonvanishing hHL hTS hBCDT hE hS h2 hbad hh0 hhw ha0 hasf haS hah X hX haX
   have hsfk : Squarefree (a * u) := (hF.squarefree_of_odd (Int.odd_iff.mpr (by omega))).1
   -- partitionability (2384–2385), corank zero (2386), (3.3b) (2387)
-  have hP := hpart u hneg h8 hsfk fun p hp => (hsq p hp).1
+  have hP := hpart u hneg h8 hsfk (fun p hp => (hsq p hp).1) hL
   have hC := hforward _ (by exact_mod_cast hL)
   have hV := h33b _ hP hC
   -- `ω(hk') = ω(h) + ω(k')`: `k'` is prime to the primes of `h`

@@ -55,7 +55,7 @@ theorem auxFactor (hHL : HoffsteinLuo) (hTS : BFHTwistSign) (hBCDT : BCDTThmA)
     (hmiss : ∀ δ : ℤ, (∀ D, aNZ D → δ ≤ va D - omega D) → (∃ D, aNZ D ∧ va D - omega D = δ) →
       ∀ d, Partitionable d → CorankZero d → ∀ M : ℤ, ∃ x, (aNZ x ∧ va x - omega x = δ) ∧
         (u x = u d ∨ M - cE ≤ Padic.valuation (u x - u d))) :
-    ∃ (A : ℕ) (CE : ℤ), ∀ h : ℤ, 0 < h → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
+    ∃ (A : ℕ) (CE : ℤ), ∀ h : ℤ, 0 < h → Squarefree h → h % 8 = 1 → (∀ p ∈ S, ¬ (p : ℤ) ∣ h) →
       RootNumber (qtwist E h) (-1) → ∀ X : Finset ℕ, (∀ p ∈ X, p.Prime) →
         ∃ k' : ℤ, k' < 0 ∧ k' % 8 = 1 ∧ IsFundamentalDiscriminant k' ∧
           (∀ p ∈ S ∪ h.natAbs.primeFactors, IsSquareAt p (k' : ℚ) ∧ ¬ (p : ℤ) ∣ k') ∧
@@ -66,7 +66,7 @@ theorem auxFactor (hHL : HoffsteinLuo) (hTS : BFHTwistSign) (hBCDT : BCDTThmA)
     href hfwdL h32 hmiss
   refine roughCompanion hHL hTS hBCDT hE hS h2 hbad Partitionable CorankZero vL
     (fun d => (sN d : ℤ)) C₁ A₀ ?_ hforward h33b
-  intro h hh0 hhS X hX
+  intro h hh0 _ _ hhS X hX
   obtain ⟨q, -, hq, ha0, hasf, haω, haSX, hah⟩ := dummy_realization m hm hm2 A₀ cls hcls S X h
   refine ⟨∏ i ∈ range A₀, (q i : ℤ), ha0, hasf, haω, fun p hp => ?_, hah hh0.ne', ?_⟩
   · have hpp : p.Prime := by
@@ -74,6 +74,7 @@ theorem auxFactor (hHL : HoffsteinLuo) (hTS : BFHTwistSign) (hBCDT : BCDTThmA)
       · exact hS p hp
       · exact hX p hp
     exact haSX p hp hpp
-  · exact hDict h q (fun i hi => ⟨(hq i hi).1, (hq i hi).2.2.2.2⟩)
+  · exact fun u hu h8 hsf hsq _ =>
+      hDict h q (fun i hi => ⟨(hq i hi).1, (hq i hi).2.2.2.2⟩) u hu h8 hsf hsq
 
 end ZInQ.Contrib.CloudB3RC53.AuxFactor

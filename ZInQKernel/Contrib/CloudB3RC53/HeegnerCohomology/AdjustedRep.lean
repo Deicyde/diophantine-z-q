@@ -12,8 +12,7 @@ coboundary of a single element of `E[2^a]`; subtract the same global coboundary 
 restriction exactly this Kummer cocycle."
 
 RC10 takes the outcome as the fields `cocycle`, `tors`, `kummer_upper` of its interface
-`DerivativePrimeInput` (file `ZInQKernel/Contrib/OneProof/RC/HeegnerAlgebra/Interfaces.lean`,
-commit 7481834f), classified `ELLIOT`.  Here the step is `PROVED` over genuine continuous
+`DerivativePrimeInput` (file `ZInQKernel/Contrib/OneProof/RC/HeegnerAlgebra/Interfaces.lean`), classified `ELLIOT`.  Here the step is `PROVED` over genuine continuous
 cohomology (`exists_adjusted_rep`): for a short exact sequence `0 → A → B → C → 0` of discrete
 `G`-modules (for `0 → E[2^a] → E → E → 0`), a subgroup `N` (for `G_{H_{f n_I ℓ}}`), a class
 `v ∈ H¹(G, A)` (for `b_{I∪{ℓ},a}`) whose restriction to `N` is the Kummer class `δ⁰(x')`, and any

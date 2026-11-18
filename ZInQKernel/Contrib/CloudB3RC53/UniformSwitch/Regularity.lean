@@ -38,7 +38,8 @@ Fields of `RegularitySwitchProcess` (tex lines as in RC16):
 The GLUE content (labelled in each structure) is the identification of the cohomological objects
 (sign decomposition of `H¹(C ⊗ k)`, the local images as self-annihilating planes, the (5.5a)
 dimension equations, the stage coordinates as the switch-sequence coordinates) — exactly what RC16
-lists as needing Selmer complexes over `Λ` and `𝒪`.
+lists as needing Selmer complexes over `Λ` and `𝒪`. The stages are not yet tied to the genuine
+fibre models (see the caveat on `HeightOneSwitchData`).
 
 The consumer: `regular_of_switchData` (every stage coordinate is in `R`) and, over the genuine
 `Λ_𝔭 = Localization.AtPrime 𝔭` inside `Frac Λ`, `regularAtPrime_of_switchData`, which is the input
@@ -321,7 +322,12 @@ theorem CoordStep.relation {ι : A →+* F} {u u' : F}
 `A` (`= Λ_𝔭`) with fraction field embedding `ι` and residue map `ρ`. The stages carry genuine
 two-term models; `sp, sm` are the sign dimensions of `H¹(C ⊗ k)` at a quadratic prime. The switch
 fields are GLUE inputs whose types carry the hypotheses of RC16's cores (`CoordStep`,
-`QuadMixedDims`, `QuadSingleDims`, `NonquadDims`), not the conclusions of the process. -/
+`QuadMixedDims`, `QuadSingleDims`, `NonquadDims`).
+
+Caveat: the stages are not tied to the genuine fibre models; a one-stage datum of fibre dimension 1
+(no switch demanded) satisfies the structure (`exampleSwitchData`), so as a hypothesis it is
+equivalent to its conclusion (compare RC's `regularityInputsS_iff`). Linking the stages to the
+genuine fibre models is pending. -/
 structure HeightOneSwitchData (ι : A →+* F) (ρ : A →+* k) where
   Stage : Type
   stage : Stage → TwoTermStage ι

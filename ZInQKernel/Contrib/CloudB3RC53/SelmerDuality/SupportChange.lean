@@ -37,6 +37,13 @@ Over the Selmer complexes `selCx` of `PairedFunctional/SelmerPairing.lean`
   quasi-isomorphism. It is not a printed leaf: the identification of the abstract complexes with the
   continuous cochains of `G_{K,S}`, `G_{K,S∪q}` and of the local Galois groups is left open.
 
+Caveat: `UnramifiedNewPlace` (hence `SupportChangeUnramified`, `SupportChangeInput` and every
+structure or theorem taking them) requires degreewise isomorphisms of the full local complex at `q`
+with the 3-term tame model `M → M ⊕ M → M`; genuine continuous cochains `C^•(G_{K_q}, M)` are only
+quasi-isomorphic to it (they are nonzero in every degree `≥ 0`), so these hypotheses are consistent
+(zero witnesses) but not instantiable by genuine continuous cochains; re-pointing to the genuine
+Galois support data is pending.
+
 The five uses listed at tex L3484–3489 are instances of `SupportChangeInput` for the actual Galois
 cochain complexes; they are not statable here (no Galois cochain complexes of all degrees in the
 library), and enter consumers as instances of the input.
@@ -198,7 +205,13 @@ a coefficient module `M` with Frobenius `Φ` on which inertia acts trivially (`g
 local complex `L_q` identified with the tame model (4.4) at `g = 1`,
 `M --(Φ−1, 0)--> M ⊕ M --(0, Φ−q)--> M` in degrees `0, 1, 2`, the local condition `U_q`
 identified with the unramified complex `[Φ − 1]` in degrees `0, 1`, and `ι_q : U_q → L_q` the
-inclusion of the unramified summand. -/
+inclusion of the unramified summand.
+
+Caveat: this structure requires degreewise isomorphisms of the full local complex at `q` with the
+3-term tame model `M → M ⊕ M → M`; genuine continuous cochains `C^•(G_{K_q}, M)` are only
+quasi-isomorphic to it (they are nonzero in every degree `≥ 0`), so this hypothesis is consistent
+(zero witnesses) but not instantiable by genuine continuous cochains; re-pointing to the genuine
+Galois support data is pending. -/
 structure UnramifiedNewPlace (S : Type u) [CommRing S] where
   /-- The coefficient module at `q`. -/
   M : ModuleCat.{u} S
@@ -235,7 +248,13 @@ the old local complexes and conditions are retained as direct summands (`λ`, `�
 retractions), and their complements are the full local complex and the unramified local condition
 at one new place `q` with unramified coefficients (`UnramifiedNewPlace`): degreewise exact
 `0 → L --λ--> L⁺ --p_L--> L_q → 0` and `0 → U --μ--> U⁺ --p_U--> U_q → 0`, compatible with
-`ι⁺` and `ι_q`. -/
+`ι⁺` and `ι_q`.
+
+Caveat: through its new place `P : UnramifiedNewPlace S` this structure requires degreewise
+isomorphisms of the full local complex at `q` with the 3-term tame model `M → M ⊕ M → M`; genuine
+continuous cochains `C^•(G_{K_q}, M)` are only quasi-isomorphic to it (they are nonzero in every
+degree `≥ 0`), so this hypothesis is consistent (zero witnesses) but not instantiable by genuine
+continuous cochains; re-pointing to the genuine Galois support data is pending. -/
 structure SupportChangeUnramified (T : SupportChangeData S) where
   /-- The new place. -/
   P : UnramifiedNewPlace S
@@ -257,6 +276,11 @@ model): under the expressible hypotheses `SupportChangeUnramified` (old conditio
 place with unramified coefficients and the unramified condition), the support comparison
 `j : C_S(U) → C_{S∪q}(U⁺)` is a quasi-isomorphism. Not a printed leaf: the identification of the
 abstract complexes with the Galois cochains of `G_{K,S}`, `G_{K,S∪q}` and `G_{K_q}` is left open.
+Caveat: its hypothesis `SupportChangeUnramified` (through `UnramifiedNewPlace`) requires degreewise
+isomorphisms of the full local complex at `q` with the 3-term tame model `M → M ⊕ M → M`; genuine
+continuous cochains `C^•(G_{K_q}, M)` are only quasi-isomorphic to it (they are nonzero in every
+degree `≥ 0`), so this hypothesis is consistent (zero witnesses) but not instantiable by genuine
+continuous cochains; re-pointing to the genuine Galois support data is pending.
 Classification: GLUE (assumed input). -/
 def SupportChangeInput (T : SupportChangeData S) (_H : SupportChangeUnramified T) : Prop :=
   QuasiIso (GHom.toCC (supportMap T))

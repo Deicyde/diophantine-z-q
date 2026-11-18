@@ -31,7 +31,8 @@ differences between the transported conditions and their orthogonal conditions o
 and moving places. Their full local complexes have the integral contractions displayed above."
 That the cone of a change of local conditions of Selmer complexes is the sum of the local complexes
 at the changed places is the Selmer-complex formalism the text cites (Nekovář, Sections
-6.2.5–6.2.8 and Theorem 6.3.4, UNVERIFIED); Selmer complexes are not defined in Lean, so it enters
+6.2.5–6.2.8 and Theorem 6.3.4, UNVERIFIED); the genuine Galois Selmer complexes are not defined in
+Lean (only the abstract model `selCx` of `SelmerPairing.lean`), so it enters
 here as an explicit hypothesis. The old-support comparisons (tex L3766–3817) are integral homotopy
 equivalences by `QuasiIsoFreeHomotopyInverse` and do not enter the cone.
 

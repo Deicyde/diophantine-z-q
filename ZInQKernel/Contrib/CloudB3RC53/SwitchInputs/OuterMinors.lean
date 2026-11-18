@@ -12,9 +12,9 @@ of Lemma `ex:limits-outer-evaluation`, tex L4706–4714:
 
 The outer model is the entrywise image of the inner integral models in `𝒪_∞ = (∏_𝒰 𝒪_j)/(…)` and
 in its fraction field. This file derives, from that genuine construction, the GLUE field
-`minor_link` of the outer switching data (`UniformSwitch/Outer.lean`, `OuterSwitchData.minor_link`:
-a nonzero outer minor gives inner minors at a position that are nonzero, integral and not
-outer-negligible).
+`minor_link` of the outer switching data (`UniformSwitch/Outer.lean`, `OuterSwitchData.minor_link`,
+in its round-3 shape: a nonzero outer minor gives inner minors at a position that are nonzero on an
+outer-large set, integral and not outer-negligible).
 
 Setup. `R` is a DVR with uniformizer `ϖ` (Elliot's `𝒪`, uniformizer `2`), `K` a field containing
 `R` (`algebraMap R K` injective; in the text `K = Frac 𝒪`), `v : AddValuation K (WithTop ℤ)` the
@@ -30,15 +30,14 @@ Nodes (PROVED):
 * `outerNegligible_iff_mem_infinitesimals` (tex L4706–4714, L4724): RC16's `OuterNegligible v 𝒰`
   for the images in `K` is RC6's `infinitesimals U ϖ`.
 * `MinorLinkEventually` (tex L4957–4959): a nonzero outer minor gives inner minors at the same
-  position that are integral, nonzero on an outer-large set, and not outer-negligible.
-* `MinorLinkRestricted`: after restricting the instances to an outer-large set (with the
-  restricted ultrafilter), the exact field shape of `minor_link`, with inner minors nonzero at
-  every instance.
-
-Gap recorded (form only): over the unrestricted index set the inner minors are nonzero only on an
-outer-large set (a minor sequence can vanish on a `𝒰`-small set without changing its class). The
-exact field `∀ j, minor_j ≠ 0` therefore holds after the harmless restriction of the sequence of
-instances to an outer-large set, which is what `MinorLinkRestricted` proves.
+  position that are integral, nonzero on an outer-large set, and not outer-negligible. This is the
+  content of the round-3 field `minor_link` (Elliot: "Its inner minors have one finite valuation
+  `b` on an outer-large set"); `SwitchInputs/Plug.lean` (`ModelStage.minorLink`) uses it directly.
+* `MinorLinkRestricted`: a stronger optional form, kept for reference. After restricting the
+  instances to an outer-large set (with the restricted ultrafilter), the inner minors are nonzero at
+  every instance. It was the workaround for the pre-round-3 shape `∀ j, minor_j ≠ 0` of
+  `minor_link`, which a minor sequence vanishing on a `𝒰`-small set does not satisfy; the round-3
+  field no longer needs it.
 -/
 
 noncomputable section
@@ -150,7 +149,8 @@ theorem eventually_ne_zero_of_not_mem {x : ι → R} (hx : x ∉ infinitesimals 
 inner minors have one finite valuation `b` on an outer-large set"). For integral inner models
 `M j` with outer model `outerMatrix U ϖ M` over `Frac 𝒪_∞`: if a maximal minor of the outer model is
 nonzero, the inner minors at the same position (viewed in `K`) are integral, nonzero on an
-outer-large set, and not outer-negligible. Classification: PROVED. -/
+outer-large set, and not outer-negligible: the content of the round-3 field `OuterSwitchData.minor_link`
+(`UniformSwitch/Outer.lean`). Classification: PROVED. -/
 def MinorLinkEventually : Prop :=
   ∀ (n : ℕ) (M : ι → Matrix (Fin (n + 1)) (Fin (n + 1)) R), Function.Injective (algebraMap R K) →
     IsPiAdicOn ϖ v →
@@ -231,14 +231,15 @@ theorem mem_infinitesimals_restrict_iff (P : Set ι) (hP : P ∈ (U : Filter ι)
     rintro ⟨i, hi⟩ rfl
     exact hj
 
-/-- **Minor link, exact field shape, after restriction to an outer-large set** (tex L4957–4959;
-the GLUE field `OuterSwitchData.minor_link` of `UniformSwitch/Outer.lean`). Let `P = goodSet` be
+/-- **Minor link at every instance, after restriction to an outer-large set** (tex L4957–4959). A
+stronger optional form of `MinorLinkEventually`, written for the pre-round-3 shape of
+`OuterSwitchData.minor_link` (`∀ j, minor_j ≠ 0`); the round-3 field asks only for nonvanishing on
+an outer-large set, which `MinorLinkEventually` gives directly. Let `P = goodSet` be
 the outer-large set of instances at which the finitely many non-infinitesimal inner minors are
 nonzero, `U_P` the restricted ultrafilter, `D j = M j` over `K` for `j ∈ P`, and `D_out` the outer
 model of the restricted family over `Frac 𝒪_∞`. Then for every position with nonzero outer minor,
 the inner minors at the same position are nonzero at every instance, integral on an outer-large
-set, and not outer-negligible — the conclusion of `minor_link` verbatim (with `k1 = k0`,
-`j1 = j0`). Classification: PROVED. -/
+set, and not outer-negligible (with `k1 = k0`, `j1 = j0`). Classification: PROVED. -/
 def MinorLinkRestricted : Prop :=
   ∀ (n : ℕ) (M : ι → Matrix (Fin (n + 1)) (Fin (n + 1)) R), Function.Injective (algebraMap R K) →
     IsPiAdicOn ϖ v →

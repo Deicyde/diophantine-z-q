@@ -177,4 +177,7 @@ noncomputable def Config.at {b : ℕ} (Γ : Config L) (act' : ℕ → Option (Fi
 def Config.Extends (Γ Γ' : Config L) : Prop :=
   Γ.V ⊆ Γ'.V ∧ (∀ v ∈ Γ.V, Γ'.t v = Γ.t v) ∧ ∀ v ∈ Γ.V, ∀ w ∈ Γ.V, Γ'.z v w = Γ.z v w
 
+/-- In `ZMod 2` every element is its own negative (shared by the symbol files). -/
+theorem zmod2_add_self (x : ZMod 2) : x + x = 0 := CharTwo.add_self_eq_zero x
+
 end ZInQ.Manuscript.RC.Symbols

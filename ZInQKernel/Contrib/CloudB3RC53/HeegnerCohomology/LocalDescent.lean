@@ -246,7 +246,7 @@ variable {Γ : Type*} [Group Γ] [TopologicalSpace Γ] {V : Type*} [AddCommGroup
 /-- **(H10) for continuous cohomology** (tex 3038–3057), `PROVED`: with `Γ = Gal(F'/F)` and
 `V = B(F')`, the hypotheses of `coboundary_of_filtration` on `B₀(F') ⊆ V` and `c_B • V ⊆ B₀(F')`
 give `c_B • H¹(Γ, V) = 0`.  This is the field `hH10` of RC10's `LocalDescentInput`
-(`ZInQKernel/Contrib/OneProof/RC/HeegnerAlgebra/Interfaces.lean`, commit 7481834f) for
+(`ZInQKernel/Contrib/OneProof/RC/HeegnerAlgebra/Interfaces.lean`) for
 `Hinf = H1 Γ V`. -/
 theorem H10_killH1 (F : ℕ → AddSubgroup V)
     (hstable : ∀ i (g : Γ), ∀ x ∈ F i, g • x ∈ F i)

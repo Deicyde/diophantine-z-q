@@ -8,7 +8,8 @@ import ZInQKernel.Contrib.CloudB3RC53.Splitting.Criterion
 With `GenusRoots` (`genusRoots_proof`) and the splitting criterion
 (`Splitting.splittingCriterion_proof`, the Splitting area) proved, the GLUE of (3.4) is
 `ArtinFactorization` (the `L`-factorization of the ring-class `L`-function) and `RingClassGalois`
-(`H_c/ℚ` Galois). This file packages the endpoints at that GLUE.
+(`H_c/ℚ` Galois). This file packages the endpoints at that GLUE. (`RingClassGalois` is no longer
+needed on the route of `Artin34.lean`, and `ArtinFactorization` is reduced in `LocalFinal.lean`.)
 -/
 
 noncomputable section

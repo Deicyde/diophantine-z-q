@@ -19,9 +19,6 @@ variable {L : Type*} [AddCommGroup L]
 theorem zmod2_cases (a : ZMod 2) : a = 0 ∨ a = 1 := by
   revert a; decide
 
-/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
-theorem zmod2_add_self (a : ZMod 2) : a + a = 0 := by
-  rcases zmod2_cases a with rfl | rfl <;> decide
 
 /-! ### The target-adapted dual basis -/
 
