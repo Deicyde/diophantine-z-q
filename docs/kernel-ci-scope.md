@@ -43,6 +43,21 @@ review. Research checks consume them. The kernel workflow, Lake configuration,
 kernel contract's global scan still reads any `.lean` file or Lake configuration
 inside these directories; those always require the full build.
 
+A PR entirely under `research/` can also skip when every changed path is an
+ordinary note, table, standalone Python verifier, decimal polynomial or licence:
+`.md`, `.tex`, `.bib`,
+`.pdf`, `.json`, `.py`, `.txt`, `.csv`, `.tsv`, `LICENSE`, `NOTICE` or `COPYING`.
+This whole-diff extension excludes protected script/test directories and other
+executable formats, Lean and Lake configuration, nested workflows, kernel configuration,
+and paths pinned by either contract. Directory and configuration-name
+comparisons in this predicate ignore case. It also excludes basenames beginning
+`test_`, `test-` or `kernel_`, and basenames ending `_test.json` or `-test.json`.
+Both sides of a rename must qualify.
+For example, `research/proposal/data.json` and `research/proposal/check.py`
+together skip; adding `scripts/check.py` or a pinned input requires the build. A mixed PR containing an outside path cannot use this
+extension, though the previous independently justified exemptions still apply.
+Research checks and Protocol B review still run.
+
 Membership in either the base or head contract takes precedence over every
 exemption. All existing Lean, toolchain, configuration and protected-path rules
 also take precedence. Renames still test both paths. Unknown formats, including
@@ -74,6 +89,19 @@ documents, all current contract entries, renames, pagination, unknown files,
 incomplete lists, revision changes, API failures, push/manual runs and the
 unchanged required job name. They also cover versioned data/verifiers, pinned
 exceptions, nested Lean/configuration files and renames out of `scripts/`.
+The research-only tests cover named research directories and their standalone
+verifiers, mixed diffs, protected names and rename origins. The retained
+`test_unknown_files_and_other_research_locations_still_build` test checks the
+older per-path `affects_kernel` function; the whole-diff predicate can exempt
+`research/other/verify.py` when every path qualifies.
+
+`tests/protocol_b/test_research_kernel_scope.py` separately checks that a
+research-only PR does not enter Lean preflight, uses the research review budget,
+and still needs a successful required check. The Protocol B gate and PDF test
+workflow (`.github/workflows/protocol-b-pdf-test.yml`) discovers the complete
+`tests/protocol_b` suite on changes to those tests or the gate. The kernel and
+Research jobs do not run that separate suite.
+
 The skip writes its reason to the step summary.
 
 This change updates the workflow and line-ending rules' contract hashes and

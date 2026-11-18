@@ -3,7 +3,7 @@
 The required kernel job has a 360-minute limit on the existing Ubuntu hosted
 runner. It requests an additional 24 GiB swap file, preserving any existing
 swap. This is a capacity increase, not a change to the declarations replayed or
-the exact-target checks. Build workers remain at four and audit workers at one.
+the exact-target checks. Build workers use the two-worker default; audit workers remain at one.
 
 After fetching dependencies, the job checks the filesystem holding
 `RUNNER_TEMP`. It allocates the file only with at least 28 GiB free, leaving

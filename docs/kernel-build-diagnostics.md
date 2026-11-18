@@ -25,30 +25,51 @@ build evidence. A runner lost during compilation may leave no build artifact;
 the separately uploaded `kernel-swap-<attempt>` artifact still records the
 pre-build configuration if that upload completed.
 
-The swap step retains the existing request for 8 GiB additional swap and the
-12 GiB free-disk threshold. It records the active devices reported by
+The swap step requests 24 GiB additional swap with a 28 GiB free-disk
+threshold, leaving 4 GiB of headroom as described in
+[Hosted kernel capacity](kernel-runner-capacity.md). It records the active devices reported by
 `/proc/swaps`, their actual capacities and use, available disk space and host
 memory. When allocation is attempted, the exact additional file must be active
 at the requested usable size. If disk space is insufficient, the existing
 warning remains and the record explicitly says `skipped-low-disk`; it does not
-claim that 8 GiB was added. In that case existing active swap must still be
+claim that 24 GiB was added. In that case existing active swap must still be
 verified. No active swap, an absent/undersized newly allocated file, or an
 unreadable verification record fails the step. Allocation command failures stay
 failures even if recording succeeds.
 
-Compilation retains its existing thread configuration. The audit alone uses one worker to
-reduce concurrent import/runtime memory demand. Its command passes `lean -j 1`
+Compilation defaults to `LEAN_NUM_THREADS=2` for Lake. The audit uses one worker
+to reduce concurrent import/runtime memory demand. Its command passes `lean -j 1`
 explicitly: the Lean 4.35 CLI does not take this limit from `LEAN_NUM_THREADS`.
 The adversarial audit tests use the same explicit worker limit. The kernel replay was already
 serial; this does not change what is replayed and is not a measured guarantee
 of a lower peak. The hosted run must establish its actual memory use and runtime.
-No proof statement, accepted axiom, memory capacity, cache policy or job timeout
-is changed by this adjustment.
+No proof statement, accepted axiom or cache policy changes. The capacity
+change separately raises the job limit to six hours and the requested swap
+allocation to 24 GiB.
 
 Earlier runs set `LEAN_NUM_THREADS=4`, but that is not a measured count of
 compiler or audit CLI workers. Compare the new explicit audit limit with the
 previous CLI default, rather than treating that environment value as proof
 that all earlier subprocesses used four workers.
+
+
+On 17 November 2026, the [complete two-worker experiment](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44190746468)
+passed on `6b79fa536870135935d6e58ea62c5dcb632d55dc`, with 24 GiB added swap.
+Compilation took 40m50.401s. Its full audit agrees with the successful
+four-worker baseline except for head and contract hashes. Root-build minimum
+available host memory was 7.21 GiB versus 2.06 GiB, and sampled process-tree
+swap peaked at 1.03 GiB versus 5.13 GiB. The runners differed, and the
+baseline used `lake --rehash build` while the experiment used `lake build`.
+This is one successful comparison, not a repeated-run reliability result.
+
+The subsequent [two-worker PR164 run](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44201012447)
+at `bd7cce201f1e8a283ebb637a850a389f22beddb1` retained main's older 8 GiB
+additional-swap setting and lost its runner during compilation after 54m55s.
+Its swap record confirms that allocation. No completed build marker, final
+memory samples or audit survived. The lost-runner annotation does not prove
+an out-of-memory failure. The combined configuration uses the authorized
+24 GiB capacity with two build workers; subsequent runs must establish its
+reliability. Memory sampling and complete audit coverage remain in place.
 
 If this repair's hosted job fails, inspect the last completed workflow step,
 the swap artifact, the build marker and any retained phase samples before

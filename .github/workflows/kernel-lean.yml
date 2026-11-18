@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     env:
-      LEAN_NUM_THREADS: '4'
+      LEAN_NUM_THREADS: '2'
     steps:
       - name: Decide whether this PR affects the kernel
         id: scope
@@ -107,6 +107,29 @@ jobs:
               return PurePosixPath(path).suffix.lower() not in {'.md', '.tex', '.bib', '.pdf'}
 
 
+
+          def research_only_inputs(paths, locked):
+              """A complete PR of research notes/data/verifiers; kernel inputs stay protected."""
+              if not paths:
+                  return False
+              allowed = {'.md', '.tex', '.bib', '.pdf', '.json', '.py', '.txt', '.csv', '.tsv'}
+              forbidden = {'scripts', 'script', 'tests', 'test', '.github', '.lake', 'lean', 'zinqkernel', 'thirdparty'}
+              config = {'lakefile.toml', 'lakefile.lean', 'lake-manifest.json', 'lean-toolchain',
+                        'kernel_contract.json', '.gitattributes', '.gitmodules'}
+              for path in paths:
+                  if not valid_path(path) or not path.startswith('research/') or path in locked:
+                      return False
+                  item = PurePosixPath(path)
+                  if (any(part.lower() in forbidden for part in item.parts[1:-1])
+                          or item.name.lower() in config
+                          or item.name.lower().startswith(('test_', 'test-', 'kernel_'))
+                          or item.name.lower().endswith(('_test.json', '-test.json'))):
+                      return False
+                  if item.suffix.lower() not in allowed and item.name not in {'LICENSE', 'NOTICE', 'COPYING'}:
+                      return False
+              return True
+
+
           def decide(event_name, event, repo):
               if event_name != 'pull_request':
                   return True, 'Pushes and manual runs always perform the full kernel build.', []
@@ -144,6 +167,8 @@ jobs:
               locked = contract_paths(repo, base) | contract_paths(repo, head)
               if not same_revision(api(repo, f'/pulls/{number}')):
                   raise ValueError('PR changed during classification')
+              if research_only_inputs(paths, locked):
+                  return False, 'Only research notes, data and standalone verifiers changed; no Lean, workflow, protected script/test or kernel-contract input changed.', sorted(paths)
               affected = sorted(p for p in paths if affects_kernel(p, locked))
               if affected:
                   return True, 'Kernel inputs or unclassified files changed: ' + ', '.join(affected[:10]), sorted(paths)
