@@ -1,0 +1,315 @@
+scratch/scholze-narrow/DryRun.lean:3300:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.HSyn.G0AssembleMod`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/scholze-narrow/DryRun.lean:3310:2: warning: Try this:
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/scholze-narrow/DryRun.lean:4457:100: warning: Variable name `l` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _l
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'HDec.HSyn.GR9.openResearchLeaves31_of_OpenResearchLeaves32_eb_cf_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves32_of_OpenResearchLeaves33_eb_cf_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves33_of_OpenResearchLeaves34_eb_cf_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves34_y3c_of_35EBCFSFU_y3x6_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves35EBCFSFU_y3x6_of_36_y3x6_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves36EBCFSFU_y3x6_of_54SFU_y3x6_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves27_of_OpenResearchLeaves28_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves28_of_OpenResearchLeaves29_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves29GM_of_OpenResearchLeaves31_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves26_of_OpenResearchLeaves27_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves25_of_OpenResearchLeaves26_hf_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openGlue7_of_OpenGlue8_hf_gm_pz_eb_sf_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves24_of_OpenResearchLeaves25_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves23_of_OpenResearchLeaves24_hf_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves22_of_OpenResearchLeaves23_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves21_of_OpenResearchLeaves22_hf_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves20_of_OpenResearchLeaves21_hf_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves19_of_OpenResearchLeaves20_hf_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves18_of_OpenResearchLeaves19_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves17_of_OpenResearchLeaves18_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves16_of_OpenResearchLeaves17_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves14_of_OpenResearchLeaves15_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.openResearchLeaves15_of_OpenResearchLeaves16_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.raynaudCriterionNF_of14_hf_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.x6Rows_of_open14_hf_gm_pz_eb_sf_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.addedLeaves9_of_open14_hf_gm_pz_eb_sf_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.researchLeaves9_of_open14_hf_gm_pz_eb_sf_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.researchLeaves8_of_open9_hf_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.addedLeaves7_of_open8_pz_eb_sf_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.r20Lower_of8_hf_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.GR9.heightRowsNo20_of8_hf_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.researchLeaves7_of_open8_hf_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.addedLeaves6_of_open7_hf_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.researchLeaves5_of_open7_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.cmDescends_of6_hf_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.qmHauptmodul_of6_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.addedLeaves4_of_open6_hf_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.glue4_of_open6_hf_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.researchLeaves2_of_open5_eb_u_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.hom_of_common3_hf_pz_eb_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.ResearchLeaves3EBU_y3c_scholzeNarrow.h5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.nonCMBranch_of_u_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.g8_g11_hf_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.g12DetPZ_of_twistFinite_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.G0Galois.C8Conrad.g12DetPZ_of_inputs_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.g8_g12_hf_pz_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.g8_g12_of_leaves3_hf_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.G0AssembleMod.newformLeaves_of3_hf_pz_eb_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.G0AssembleMod.afterG7NC_of3_hf_pz_eb_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.G0RevIsog.reverseIsogeny_of_leaves3_eb_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.researchLeaves3_of_open2_eb_u_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open4_cm_u_c8_y3c_scholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open4_hf_pz_eb_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.sixContactMin_of_open6_hf_pz_eb_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.sixContactMin_of_open7_hf_pz_eb_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open8_hf_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open9_hf_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open10_hf_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open11_hf_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open17_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open18_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open19_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.raynaudSemistable_of14_hf_gm_eb_sf_u_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.ss1_ss3_of14NF_hf_gm_pz_eb_sf_u_c8_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open20_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open21_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open22_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open23_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open24_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open25_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open26_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open27_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open28_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open29_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open30_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open31_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open32_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open33_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open34_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open35_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open36_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open37_hf_gm_pz_eb_sf_u_c8_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.GR9.sixContactMin_of_open45_pz_eb_sf_u_hm_cm_y3c_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.c8Leaves_of_OpenAddedLeaves29' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.openResearchLeaves54SFU_y3x6_of_59_y3x6_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.openResearchLeaves59_y3x6_of_60_y3x6_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.openResearchLeaves60_y3x6_of_OpenResearchLeaves63_scholzeNarrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.HSyn.sixContactMin_of_open83' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.frozenTargetScholzeNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+added bundle: #[conradAppB, scholzeH1AbVar, t10TateDuality] -> #[conradAppB, scholzeH1Narrow, t10TateDuality]
+HDec.HSyn.sixContactMin_of_open82: 277226 constants
+  DeRhamScholze.HTMerge.ScholzeH1AbVar: PRESENT
+  DeRhamScholze.HTMerge.ScholzeH1Narrow: absent
+  HDec.HSyn.OpenAddedLeaves28: PRESENT
+  HDec.HSyn.OpenAddedLeaves29: absent
+  ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr: PRESENT
+  DeRhamPrint.Direct.DeRhamVpAbVarDirect: PRESENT
+  HDec.HSyn.OpenResearchLeaves63.deRhamVpAbVarDirect: PRESENT
+  T10Etale.T10_TateDuality: PRESENT
+  HDec.G0Galois.C8Conrad.ConradAppB: PRESENT
+  HDec.PkgI4.PanDict.BergerSurveyF: PRESENT
+  HDec.PkgI4.R10Surface: absent
+  HDec.ZInQ.Contrib.G9.g9GlueNoT23_of_fieldEmb: PRESENT
+  HDec.ZInQ.Contrib.G9.g9GlueFromSurfaces_of_fieldEmb: absent
+  sorryAx: absent
+ZInQ.OneProof.frozenTarget: 298782 constants
+  DeRhamScholze.HTMerge.ScholzeH1AbVar: PRESENT
+  DeRhamScholze.HTMerge.ScholzeH1Narrow: absent
+  HDec.HSyn.OpenAddedLeaves28: PRESENT
+  HDec.HSyn.OpenAddedLeaves29: absent
+  ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr: PRESENT
+  DeRhamPrint.Direct.DeRhamVpAbVarDirect: PRESENT
+  HDec.HSyn.OpenResearchLeaves63.deRhamVpAbVarDirect: PRESENT
+  T10Etale.T10_TateDuality: PRESENT
+  HDec.G0Galois.C8Conrad.ConradAppB: PRESENT
+  HDec.PkgI4.PanDict.BergerSurveyF: PRESENT
+  HDec.PkgI4.R10Surface: absent
+  HDec.ZInQ.Contrib.G9.g9GlueNoT23_of_fieldEmb: PRESENT
+  HDec.ZInQ.Contrib.G9.g9GlueFromSurfaces_of_fieldEmb: absent
+  sorryAx: absent
+HDec.HSyn.sixContactMin_of_open83: 277185 constants
+  DeRhamScholze.HTMerge.ScholzeH1AbVar: absent
+  DeRhamScholze.HTMerge.ScholzeH1Narrow: PRESENT
+  HDec.HSyn.OpenAddedLeaves28: absent
+  HDec.HSyn.OpenAddedLeaves29: PRESENT
+  ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr: absent
+  DeRhamPrint.Direct.DeRhamVpAbVarDirect: PRESENT
+  HDec.HSyn.OpenResearchLeaves63.deRhamVpAbVarDirect: PRESENT
+  T10Etale.T10_TateDuality: PRESENT
+  HDec.G0Galois.C8Conrad.ConradAppB: PRESENT
+  HDec.PkgI4.PanDict.BergerSurveyF: PRESENT
+  HDec.PkgI4.R10Surface: PRESENT
+  HDec.ZInQ.Contrib.G9.g9GlueNoT23_of_fieldEmb: absent
+  HDec.ZInQ.Contrib.G9.g9GlueFromSurfaces_of_fieldEmb: PRESENT
+  sorryAx: absent
+ZInQ.OneProof.frozenTargetScholzeNarrow: 298741 constants
+  DeRhamScholze.HTMerge.ScholzeH1AbVar: absent
+  DeRhamScholze.HTMerge.ScholzeH1Narrow: PRESENT
+  HDec.HSyn.OpenAddedLeaves28: absent
+  HDec.HSyn.OpenAddedLeaves29: PRESENT
+  ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr: absent
+  DeRhamPrint.Direct.DeRhamVpAbVarDirect: PRESENT
+  HDec.HSyn.OpenResearchLeaves63.deRhamVpAbVarDirect: PRESENT
+  T10Etale.T10_TateDuality: PRESENT
+  HDec.G0Galois.C8Conrad.ConradAppB: PRESENT
+  HDec.PkgI4.PanDict.BergerSurveyF: PRESENT
+  HDec.PkgI4.R10Surface: PRESENT
+  HDec.ZInQ.Contrib.G9.g9GlueNoT23_of_fieldEmb: absent
+  HDec.ZInQ.Contrib.G9.g9GlueFromSurfaces_of_fieldEmb: PRESENT
+  sorryAx: absent

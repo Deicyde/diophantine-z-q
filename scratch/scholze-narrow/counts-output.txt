@@ -1,0 +1,5 @@
+Catalog row passes kinds_row_problems.
+base: H 33 total; strict 5 LEAF / 28 GLUE; strictest 5 LEAF / 28 GLUE.
+base: headline 37 total; strict 5 LEAF / 32 GLUE; strictest 5 LEAF / 32 GLUE.
+proposed: H 33 total; strict 5 LEAF / 28 GLUE; strictest 5 LEAF / 28 GLUE.
+proposed: headline 37 total; strict 5 LEAF / 32 GLUE; strictest 5 LEAF / 32 GLUE.

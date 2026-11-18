@@ -1,0 +1,49 @@
+open Lean
+
+def surfaceFoldClosure (env : Environment) (top : Name) : NameSet := Id.run do
+  let mut seen : NameSet := {}
+  let mut todo := [top]
+  while let c :: next := todo do
+    todo := next
+    if seen.contains c then continue
+    seen := seen.insert c
+    if let some ci := env.find? c then
+      todo := ci.type.getUsedConstants.foldl (fun ns n => n :: ns) todo
+      if let some e := ci.value? (allowOpaque := true) then
+        todo := e.getUsedConstants.foldl (fun ns n => n :: ns) todo
+  return seen
+
+set_option maxHeartbeats 0 in
+run_cmd do
+  let env ← getEnv
+  let oldFields := getStructureFields env `HDec.HSyn.OpenAddedLeaves28
+  let newFields := getStructureFields env `HDec.HSyn.OpenAddedLeaves29
+  unless oldFields.map (fun n => if n == `scholzeH1AbVar then `scholzeH1Narrow else n) == newFields do
+    throwError "unexpected added-bundle field change: {oldFields} -> {newFields}"
+  IO.println s!"added bundle: {oldFields} -> {newFields}"
+  let old : Array Name := #[`HDec.HSyn.sixContactMin_of_open82, `ZInQ.OneProof.frozenTarget]
+  let new : Array Name := #[`HDec.HSyn.sixContactMin_of_open83, `ZInQ.OneProof.frozenTargetScholzeNarrow]
+  for family in [old, new] do
+    for top in family do
+      let cl := surfaceFoldClosure env top
+      let isOld := old.contains top
+      IO.println s!"{top}: {cl.size} constants"
+      for (n, expected) in [
+          (`DeRhamScholze.HTMerge.ScholzeH1AbVar, isOld),
+          (`DeRhamScholze.HTMerge.ScholzeH1Narrow, !isOld),
+          (`HDec.HSyn.OpenAddedLeaves28, isOld),
+          (`HDec.HSyn.OpenAddedLeaves29, !isOld),
+          (`ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr, isOld),
+          (`DeRhamPrint.Direct.DeRhamVpAbVarDirect, true),
+          (`HDec.HSyn.OpenResearchLeaves63.deRhamVpAbVarDirect, true),
+          (`T10Etale.T10_TateDuality, true),
+          (`HDec.G0Galois.C8Conrad.ConradAppB, true),
+          (`HDec.PkgI4.PanDict.BergerSurveyF, true),
+          (`HDec.PkgI4.R10Surface, !isOld),
+          (`HDec.ZInQ.Contrib.G9.g9GlueNoT23_of_fieldEmb, isOld),
+          (`HDec.ZInQ.Contrib.G9.g9GlueFromSurfaces_of_fieldEmb, !isOld),
+          (`sorryAx, false)] do
+        let present := cl.contains n
+        IO.println s!"  {n}: {if present then "PRESENT" else "absent"}"
+        unless present == expected do
+          throwError "{n} in {top}: expected presence = {expected}, got {present}"
