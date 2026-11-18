@@ -1,0 +1,21 @@
+{
+  "name": "hodge-fil1",
+  "status": "BLOCKED: count preview only; do not fold. tatePolarizationSymmetry_proof is a placeholder for a future theorem, not an axiom, hypothesis, or declaration in this contribution.",
+  "imports": ["ZInQKernel.Contrib.OneProof.HodgeFil1"],
+  "discharges": [
+    {
+      "field": "scholzeH1AbVar",
+      "proof": "_root_.HodgeFil1.fil1_of_dR {n}.scholzeH1AbVarDR {n}.t10TateDuality _root_.HodgeFil1.tatePolarizationSymmetry_proof",
+      "leaves": [
+        {
+          "name": "scholzeH1AbVarDR",
+          "type": "_root_.HodgeFil1.ScholzeH1AbVarDR",
+          "doc": "Scholze's comparison in degree one for abelian varieties: H^1_et is de Rham and its filtration has jumps in [0,1]. Same objects and quantifiers as scholzeH1AbVar. The Fil^1 dimension clause (L10996 in the surface case) has been removed from this proposed field.",
+          "kind": "consequence",
+          "flag": "pending review: GLUE until rated; drops the Fil^1 dimension clause (L10996 in the surface case). The replacement is blocked on proving TatePolarizationSymmetry; locator UNVERIFIED in this task.",
+          "source": "diophantine_zq.tex L10939-10965; Scholze, Forum Math. Pi 1 (2013), Cor. 1.8, Thms 9.1 and 9.3, with the 2016 corrigendum, as cited there (locator UNVERIFIED in this task)"
+        }
+      ]
+    }
+  ]
+}

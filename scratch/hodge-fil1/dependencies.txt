@@ -1,0 +1,9 @@
+HodgeFil1.finrank_fil1_of_dR_of_pairing: checked 127368 transitive dependencies; no clause-3 declaration
+HodgeFil1.fil1_of_dR: inspected generated auxiliary DeRhamScholze.HTMerge.ScholzeH1AbVar._proof_1 : ∀ (p : ℕ)
+  [inst : Fact (Nat.Prime p)], SMulCommClass ℤ_[p] ℚ_[p] ℚ_[p]
+HodgeFil1.fil1_of_dR: checked 127371 transitive dependencies; no clause-3 declaration
+HodgeFil1.fil1_surf_of_dR: inspected generated auxiliary DeRhamScholze.HTMerge.ScholzeH1AbVar._proof_1 : ∀ (p : ℕ)
+  [inst : Fact (Nat.Prime p)], SMulCommClass ℤ_[p] ℚ_[p] ℚ_[p]
+HodgeFil1.fil1_surf_of_dR: inspected generated auxiliary DeRhamScholze.HTMerge.ScholzeH1AbSurf._proof_1 : (1 +
+    1).AtLeastTwo
+HodgeFil1.fil1_surf_of_dR: checked 127372 transitive dependencies; no clause-3 declaration
