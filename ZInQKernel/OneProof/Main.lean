@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailZ91
+import ZInQKernel.OneProof.H.TailZ92
 import ZInQKernel.MainGreenTao
 import ZInQKernel.Contrib.OneProof.DeRhamRange
 import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
@@ -197,13 +197,13 @@ Kolyvagin's Theorem 1 (through Shimura's construction and Faltings' isogeny theo
 manuscript's Theorem 5.2) is proved from the last four
 (`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final`). -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves65) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
+    (r : HDec.HSyn.OpenResearchLeaves66) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
     (h54 : ZInQ.Manuscript.PoleS12.Lemma54) (hB : ZInQ.Manuscript.PoleS12.BCDTThmA)
     (hK : ZInQ.Manuscript.PoleS12.KolyvaginThm1) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
-    (HDec.HSyn.sixContactMin_of_open84 r t l)
+    (HDec.HSyn.sixContactMin_of_open85 r t l)
     (ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final hRC h54 hB hK)
 
 end ZInQ.OneProof
