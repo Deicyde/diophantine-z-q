@@ -44,4 +44,5 @@ Faltings height with Faltings' original normalization, which is the metric of th
 semistability hypothesis of the Lean statement implies the paper's semi-abelian reduction, so it cannot make the
 leaf stronger than the print.
 
-The new leaf enters kinds.tsv flagged unread (locator row "R19 (g ≥ 1)" in `docs/research/locators.md`).
+At integration the new leaf is registered in kinds.tsv flagged unread (locator row "R19 (g ≥ 1)" in
+`docs/research/locators.md`); this branch does not edit kinds.tsv.
