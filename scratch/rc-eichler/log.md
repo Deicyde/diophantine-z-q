@@ -4,3 +4,11 @@
 - `Order.lean`: norm-one order units; finite `Rˣ` and ambient subgroup; order divides `Odd.c0`; ramification predicate implies negative parameters. Compiled.
 - `Ideals.lean`: common multiples between full lattices; full left order of a full right ideal in a definite algebra. Compiled.
 - `Local.lean`: local normal forms use lower-left divisibility by `p^(v_p N)` with no restriction at 2; good-prime split extraction verified.
+- `ClassSet.lean`: locally principal right ideals modulo rational left multiplication; preservation of local principality and shortest-vector normalization; class subgroups and divisibility. Compiled.
+- `Packing.lean`: uniform denominator for normalized over-lattices, finite lattice intervals, and `Finite (ClassSet R)`: compiled.
+- `Explicit.lean`: integer order on the basis `1, i, (1+j)/2, (i+k)/2` for `ell ≡ 3 mod 4`; anisotropy at infinity. Compiled.
+- `Stabilizer.lean`, `Fields.lean`: the units of the left order equal the stabilizer of the ideal; multipliers onto a fixed translate form a copy of that group; positive divisible weights and finite counting identity. Compiled.
+- `Neighbours.lean`: index of the scalar sublattice, actual arrow reversal, bounded integral representatives and finiteness of integral ideals of bounded positive index. Compiled.
+- `Indexed.lean`: class neighbour function and weighted adjointness for any good-prime line indexing of the locally principal index-`p²` subideals. Compiled.
+- Checked manuscript and stated citation locators. No manuscript error found in the checked steps. Finite-place ramification/maximality, the adelic identification, and the line indexing are the scoped stops.
+- Final sequential verification: 11 Lean files compiled without warnings; 78 `#print axioms` checks passed, with only `propext`, `Classical.choice` and `Quot.sound` allowed. See `scratch/rc-eichler/axioms.md`.

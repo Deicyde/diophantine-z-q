@@ -118,6 +118,26 @@ def LocallyPrincipal {R : Order a b} (I : RightIdeal R) : Prop :=
     (localLattice p I.lattice : Set (Bp p a b)) =
       (fun x : Bp p a b => (u : Bp p a b) * x) '' (R.completion p : Set (Bp p a b))
 
+theorem self_locallyPrincipal (R : Order a b) : (self R).LocallyPrincipal := by
+  intro p hp
+  refine ⟨1, ?_⟩
+  change (localLattice p R.lattice : Set (Bp p a b)) =
+    (fun x : Bp p a b => ((1 : (Bp p a b)ˣ) : Bp p a b) * x) ''
+      (R.completion p : Set (Bp p a b))
+  rw [← R.completion_toSubmodule]
+  simp
+  rfl
+
 end RightIdeal
 
 end ZInQ.Manuscript.RC.Eichler
+
+/-! Axiom audit -/
+
+#print axioms ZInQ.Manuscript.RC.Eichler.toLocal
+#print axioms ZInQ.Manuscript.RC.Eichler.Order.completion
+#print axioms ZInQ.Manuscript.RC.Eichler.Order.completion_toSubmodule
+#print axioms ZInQ.Manuscript.RC.Eichler.standardLevel_zero
+#print axioms ZInQ.Manuscript.RC.Eichler.IsEichler.local_split
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.LocallyPrincipal
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.self_locallyPrincipal

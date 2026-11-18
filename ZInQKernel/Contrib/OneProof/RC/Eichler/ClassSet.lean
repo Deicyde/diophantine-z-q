@@ -125,6 +125,9 @@ def idealRel (R : Order a b) : Setoid (LPIdeal R) where
 
 abbrev ClassSet (R : Order a b) := Quotient (idealRel R)
 
+theorem classSet_nonempty (R : Order a b) : Nonempty (ClassSet R) :=
+  ⟨Quotient.mk _ ⟨RightIdeal.self R, RightIdeal.self_locallyPrincipal R⟩⟩
+
 /-- A representative right ideal chosen once for each class. -/
 noncomputable def representative (z : ClassSet R) : LPIdeal R := z.out
 
@@ -137,3 +140,16 @@ theorem class_card_G_dvd (ha : a < 0) (hb : b < 0) (z : ClassSet R) :
   ((representative z).val.leftOrder ha hb).card_G_dvd ha hb
 
 end ZInQ.Manuscript.RC.Eichler
+
+/-! Axiom audit -/
+
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.mem_translate
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.translate_one
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.translate_mul
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.locallyPrincipal_translate
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.exists_min_norm
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.exists_normalized
+#print axioms ZInQ.Manuscript.RC.Eichler.idealRel
+#print axioms ZInQ.Manuscript.RC.Eichler.classSet_nonempty
+#print axioms ZInQ.Manuscript.RC.Eichler.classG
+#print axioms ZInQ.Manuscript.RC.Eichler.class_card_G_dvd

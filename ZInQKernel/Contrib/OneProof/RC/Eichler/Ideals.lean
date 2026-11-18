@@ -117,3 +117,10 @@ def leftOrder (I : RightIdeal R) (ha : a < 0) (hb : b < 0) : Order a b where
 end RightIdeal
 
 end ZInQ.Manuscript.RC.Eichler
+
+/-! Axiom audit -/
+
+#print axioms ZInQ.Manuscript.RC.Eichler.FullLattice.multiple_mem
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.ext
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.exists_ne_zero
+#print axioms ZInQ.Manuscript.RC.Eichler.RightIdeal.leftOrder
