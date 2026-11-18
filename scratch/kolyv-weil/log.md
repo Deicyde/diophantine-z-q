@@ -47,3 +47,9 @@
   at the consumer; there is no separate proof of the old cusp form Prop.
   The six axiom queries and the discharge report are all standard;
   see `discharges-output.txt`.
+- **VERIFIED (Lean):** `HeadlineDryRun.lean` compiles the splice through the
+  exact `SixContactMin → PoleCompleteness → FrozenTarget` interface of
+  `MainGreenTao.lean` L33–34. The interface is a parameter here; the full
+  H chain and original headline were not rebuilt. `headline-output.txt`
+  lists the three standard axioms.
+- **VERIFIED (Git):** `Main.lean` and the `PoleS12/` tree match `a04588b4f`.

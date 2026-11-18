@@ -131,6 +131,15 @@ call removes the only use of the old `hB`. All six axiom queries list
 only `propext`, `Classical.choice`, and `Quot.sound`. See
 [the original checker output](../../scratch/kolyv-weil/discharges-output.txt).
 
+**VERIFIED (Lean 4.35.0).** `HeadlineDryRun.lean` also checks a proof of
+`ZInQ.FrozenTarget` against the exact type of the existing assembly theorem
+(`MainGreenTao.lean` L33–34): it consumes `SixContactMin` and
+`PoleCompleteness`. The dry run takes that unchanged theorem and the H
+result as arguments; it does not rebuild the full `OneProof/Main.lean`
+dependency tree. Its [axiom output](../../scratch/kolyv-weil/headline-output.txt)
+is also standard. With the imports built, rerun the scratch files
+individually with `lake env lean scratch/kolyv-weil/<file>.lean`.
+
 ## Known issues
 
 - The old `KolyvaginThm1` had a weaker premise (a matching cusp form at
@@ -142,7 +151,7 @@ only `propext`, `Classical.choice`, and `Quot.sound`. See
   specified in the detailed assignment and in the manuscript at L1092.
   No replacement source is used.
 - The jump to Sha[2] = 0 at tex L1111–1113 uses the earlier Kummer count
-  $r+\dim\Sha[2]=1$ (L1077), which together with rank one suffices.
+  $r+\dim\mathrm{Sha}[2]=1$ (L1077), which together with rank one suffices.
   Finiteness alone does not give this jump. The existing Lean consumer
   uses the parallel cardinality argument through `descentGlueM`, so
   projecting to rank leaves that proof as it stands.
