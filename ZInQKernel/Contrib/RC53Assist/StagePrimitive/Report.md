@@ -1,5 +1,10 @@
 # Retained actual classes, primitive kernels, and height-one regularity
 
+
+## Note after independent review (2026-11-18)
+
+An independent review approved the bridge with notes. The `Manifest.json` mentioned below is not shipped; the shipped files are `GenuineRegularity.lean`, this report, `TheoremStatements.md` and `DeclarationReceipt.txt`. The arithmetic construction of the switch data and the stronger unit certificate for the strict factor remain open.
+
 ## Result and scope
 
 The primitive-kernel obstruction is removed for every specified genuine two-term realization with a nonzero actual degree-one class. The retained stage vector is not replaced by its primitive kernel vector.
