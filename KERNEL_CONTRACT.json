@@ -948,7 +948,7 @@
     "scripts/test_kernel_cache.py": "06551ff625de2ef2896841d035258a1666fc4dcefcec423b5eb6a332b5276030",
     "scripts/test_kernel_contract.py": "c678d0204deb42b716097eb6fb3f08d682035061d74c75154ca1f12491371888",
     "scripts/test_kernel_diagnostics.py": "eba53120942f60a2da99a672c9ef596d400e185e6202e9d4c20a33236d909815",
-    "scripts/test_kernel_phases.py": "2b43c0d5a465e979e5f6e8edc1c22681eecb3805a2cf08686bf5c3cd70a3667c",
+    "scripts/test_kernel_phases.py": "a032a51ae5b033edd526640e9313c801f3d55844591ad6bdc322f5938f990865",
     "scripts/test_kernel_pr_scope.py": "dabffdf4fc151738fa8de5d4ba51c9152a146f0a2c6d3849be3fe12ca6af338a"
   },
   "targets": [

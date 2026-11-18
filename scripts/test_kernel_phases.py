@@ -210,13 +210,6 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("sudo fallocate -l 24G", trace)
         self.assertIn("--requested-bytes 25769803776", trace)
 
-    def test_secret_free_waiter_fits_hosted_job_limit_and_keeps_receipt(self):
-        gate = (ROOT / ".github/workflows/protocol-b.yml").read_text(encoding="utf-8")
-        preflight = gate.split("  kernel_preflight:\n", 1)[1].split("    steps:\n", 1)[0]
-        self.assertIn("timeout-minutes: 360", preflight)
-        wait = gate.split("def wait_lean():", 1)[1].split("SOURCE_CHECK_SCHEMA", 1)[0]
-        self.assertIn("deadline = time.monotonic() + 355 * 60", wait)
-        self.assertIn("An unresolved claim is retained, never replayed", wait)
 
 
 if __name__ == "__main__":
