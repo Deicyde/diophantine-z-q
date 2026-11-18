@@ -13,7 +13,7 @@ namespace ZInQ.Manuscript.RC.ExplicitSplit
 
 theorem anisotropic_at_ell {ell : ℕ} [Fact ell.Prime] (h : ell % 4 = 3) :
     AppF.NormFormAnisotropic ℚ_[ell] ((-1 : ℚ) : ℚ_[ell]) ((-(ell : ℚ)) : ℚ_[ell]) := by
-  letI : Fact (ell % 4 = 3) := ⟨h⟩
+  let : Fact (ell % 4 = 3) := ⟨h⟩
   intro x y z t hn
   let q : LocalDivision.D ell := ⟨x, y, z, t⟩
   have hz : LocalDivision.nrd q = 0 := by
