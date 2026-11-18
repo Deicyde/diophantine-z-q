@@ -71,6 +71,33 @@ theorem residueWeight_eq {O : Type*} [Ring O] (t : ZMod p) :
 noncomputable def divisionWeight {O : Type*} [Ring O] (x : C.order) : O :=
   C.residueWeight (C.red x)
 
+theorem divisionWeight_nonzero_iff {O : Type*} [Ring O] [Nontrivial O]
+    (x : C.order) (hx : C.tr x.val = 0) : (C.divisionWeight x : O) ≠ 0 ↔ C.red x ≠ 0 := by
+  obtain ⟨t, ht⟩ := C.trace_line x hx
+  unfold divisionWeight
+  rw [ht, C.residueWeight_eq]
+  by_cases hz : t = 0
+  · simp [hz]
+  · have ht' : algebraMap (ZMod p) (GaloisField p 2) t ≠ 0 := by
+      intro h
+      apply hz
+      apply (algebraMap (ZMod p) (GaloisField p 2)).injective
+      simpa only [map_zero] using h
+    have hn := mul_ne_zero ht' C.beta_ne_zero
+    rcases quadraticChar_dichotomy hz with h | h <;> simp [hn, h]
+
+/-- Reducing the scalar `-x²` gives the norm residue used in tex 8559.
+Here `a` is the integral representative of the reduced norm. -/
+theorem norm_residue_of_trace_zero (x : C.order) (hx : C.tr x.val = 0) (a : ℤ_[p])
+    (ha : algebraMap ℤ_[p] D a = -(x.val ^ 2)) :
+    ∃ t : ZMod p, C.red x = algebraMap (ZMod p) (GaloisField p 2) t * C.beta ∧
+      algebraMap (ZMod p) (GaloisField p 2) (PadicInt.toZMod a) =
+        -(algebraMap (ZMod p) (GaloisField p 2) t * C.beta) ^ 2 := by
+  obtain ⟨t, ht⟩ := C.trace_line x hx
+  have ha' : algebraMap ℤ_[p] C.order a = -(x ^ 2) := Subtype.ext ha
+  refine ⟨t, ht, ?_⟩
+  rw [← C.red_scalar, ha', map_neg, map_pow, ht]
+
 theorem divisionWeight_locallyConstant {O : Type*} [Ring O] :
     IsLocallyConstant (C.divisionWeight : C.order → O) :=
   C.red_locallyConstant.comp C.residueWeight
@@ -110,6 +137,10 @@ open ZInQ.Manuscript.RC.LocalWeights in
 #print axioms DivisionCoordinates.coordinate_injective
 open ZInQ.Manuscript.RC.LocalWeights in
 #print axioms DivisionCoordinates.residueWeight_eq
+open ZInQ.Manuscript.RC.LocalWeights in
+#print axioms DivisionCoordinates.divisionWeight_nonzero_iff
+open ZInQ.Manuscript.RC.LocalWeights in
+#print axioms DivisionCoordinates.norm_residue_of_trace_zero
 open ZInQ.Manuscript.RC.LocalWeights in
 #print axioms DivisionCoordinates.divisionWeight_locallyConstant
 open ZInQ.Manuscript.RC.LocalWeights in

@@ -13,6 +13,19 @@ variable {p : ℕ} [Fact p.Prime]
 local notation "res" => (PadicInt.toZMod : ℤ_[p] →+* ZMod p)
 local notation "red" => PadicInt.toZModPow
 
+/-- Exact divisibility is the valuation-one condition in tex 8536. Mathlib's
+numeric valuation returns zero at zero, which is excluded by the condition. -/
+theorem nilSupport_valuation (x : TraceZero ℤ_[p]) :
+    NilSupport p x ↔ x.val.det.valuation = 1 := by
+  by_cases hz : x.val.det = 0
+  · simp [NilSupport, hz]
+  · have hd (n : ℕ) : (p : ℤ_[p]) ^ n ∣ x.val.det ↔ n ≤ x.val.det.valuation := by
+      rw [← Ideal.mem_span_singleton, PadicInt.mem_span_pow_iff_le_valuation _ hz]
+    have hp := hd 1
+    rw [pow_one] at hp
+    rw [NilSupport, hp, hd]
+    omega
+
 theorem nilWeight_nonzero_iff {O : Type*} [Ring O] [Nontrivial O]
     (x : TraceZero ℤ_[p]) : (nilWeight p x : O) ≠ 0 ↔ NilSupport p x := by
   by_cases h : NilSupport p x
@@ -115,6 +128,7 @@ end ZInQ.Manuscript.RC.LocalWeights
 
 open ZInQ.Manuscript.RC.LocalWeights
 #print axioms nilWeight_nonzero_iff
+#print axioms nilSupport_valuation
 #print axioms nilWeight_conj
 #print axioms nilWeight_scale
 #print axioms nilWeight_congr

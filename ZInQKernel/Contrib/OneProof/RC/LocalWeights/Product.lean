@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.OneProof.RC.LocalWeights.Models
-import Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic
+import Mathlib.NumberTheory.LegendreSymbol.JacobiSymbol
+import Mathlib.Data.Nat.Squarefree
 
 /-! The finite product in tex 8571–8577. It may be evaluated on the local coordinates
 of a global vector. No adelic class set or lattice at a class is used. -/
@@ -31,6 +32,37 @@ theorem legendreUnit_inv (p : ℕ) [Fact p.Prime] (v : ℤ_[p]ˣ) :
   change ((Units.map (Int.castRingHom O).toMonoidHom) a)⁻¹ = _
   rw [← map_inv, ha]
   rfl
+
+/-- On odd positive representatives, the unit restriction of the character of
+the negative of a squarefree integer congruent to three modulo four is the product of the Legendre
+symbols at the primes dividing (m). This calculation is provenance (c). -/
+theorem negativeDiscriminant_unit_character (m d : ℕ) (hm : m % 4 = 3)
+    (hs : Squarefree m) (hd : Odd d) :
+    jacobiSym (-(m : ℤ)) d = ∏ p ∈ m.primeFactors, jacobiSym d p := by
+  have hd' : d % 2 = 1 := Nat.odd_iff.mp hd
+  have hqr := jacobiSym.quadratic_reciprocity_if (a := m) (b := d)
+    (show m % 2 = 1 by omega) hd'
+  have hj : jacobiSym (-(m : ℤ)) d = jacobiSym d m := by
+    rw [jacobiSym.neg (m : ℤ) hd, ← hqr]
+    rcases Nat.odd_mod_four_iff.mp hd' with h | h
+    · rw [ZMod.χ₄_nat_one_mod_four h]
+      simp [hm, h]
+    · rw [ZMod.χ₄_nat_three_mod_four h]
+      simp [hm, h]
+  rw [hj]
+  conv_lhs => rw [← Nat.prod_primeFactors_of_squarefree hs]
+  set S := m.primeFactors
+  have hn : ∀ p ∈ S, p ≠ 0 := fun p hp => (Nat.prime_of_mem_primeFactors hp).ne_zero
+  classical
+  clear_value S
+  clear hm hs hj hqr hd hd' m
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert q T hq ih =>
+    rw [Finset.prod_insert hq, Finset.prod_insert hq, jacobiSym.mul_right']
+    · rw [ih fun p hp => hn p (Finset.mem_insert_of_mem hp)]
+    · exact hn q (Finset.mem_insert_self _ _)
+    · exact Finset.prod_ne_zero_iff.mpr fun p hp => hn p (Finset.mem_insert_of_mem hp)
 
 /-- Local rules on an ambient trace-zero model. The norm of an order unit
 lands in the local integer unit group. `normChar` is the local factor of
@@ -68,8 +100,7 @@ theorem finiteWeight_conj (S : Finset ι) (W : ∀ i, LocalRule (O := O) (X i) (
     (u : ∀ i, G i) (x : ∀ i, X i) :
     finiteWeight S W (fun i => (W i).conj (u i) (x i)) =
       (((finiteNormChar S W (fun i => (W i).norm (u i)))⁻¹ : Oˣ) : O) * finiteWeight S W x := by
-  simp only [finiteWeight, finiteNormChar, LocalRule.weight_conj, Finset.prod_mul_distrib,
-    ]
+  simp only [finiteWeight, finiteNormChar, LocalRule.weight_conj, Finset.prod_mul_distrib]
   rw [← Finset.prod_inv_distrib, Units.coe_prod]
 
 theorem finiteWeight_scale (S : Finset ι) (W : ∀ i, LocalRule (O := O) (X i) (G i) (V i))
@@ -88,3 +119,4 @@ open ZInQ.Manuscript.RC.LocalWeights
 #print axioms legendreUnit_inv
 #print axioms finiteWeight_conj
 #print axioms finiteWeight_scale
+#print axioms negativeDiscriminant_unit_character

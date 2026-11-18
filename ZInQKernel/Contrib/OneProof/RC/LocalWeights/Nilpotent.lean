@@ -15,6 +15,7 @@ variable {F : Type*} [Field F] [Fintype F] [DecidableEq F]
 def NilBasis (A : Mat F) (g : GL (Fin 2) F) : Prop :=
   A * (g : Mat F) = (g : Mat F) * X0
 
+omit [Fintype F] in
 /-- All nonzero trace-zero, determinant-zero matrices have a nilpotent basis. -/
 theorem nilBasis_exists (A : Mat F) (ht : A.trace = 0) (hd : A.det = 0) (hn : A ≠ 0) :
     ∃ g : GL (Fin 2) F, NilBasis A g := by
