@@ -1,0 +1,372 @@
+ZInQ.Contrib.RC53Assist.ResidualWitness.homologyModel_d {k : Type} [Field k] (C : CochainComplex (ModuleCat k) ℤ)
+  (i j : ℤ) : (homologyModel C).toCC.d i j = 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.homologyModel_d' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.cycleSection_π {k : Type} [Field k] (C : CochainComplex (ModuleCat k) ℤ)
+  (n : ℤ) : cycleSection C n ≫ HomologicalComplex.homologyπ C n = 𝟙 (HomologicalComplex.homology C n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.cycleSection_π' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.homologyModelTo_quasiIso {k : Type} [Field k]
+  (C : CochainComplex (ModuleCat k) ℤ) : QuasiIso (homologyModelTo C)
+'ZInQ.Contrib.RC53Assist.ResidualWitness.homologyModelTo_quasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.extension_d_neg {k : Type} [CommRing k] (C : CochainComplex (ModuleCat k) ℕ) :
+  (natCx C).toCC.d (-1) 0 = 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.extension_d_neg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.natHomology_negative {k : Type} [CommRing k]
+  (C : CochainComplex (ModuleCat k) ℕ) (n : ℤ) (hn : n < 0) :
+  Subsingleton ↑(HomologicalComplex.homology (natCx C).toCC n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.natHomology_negative' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallK_degree : Module.finrank ℚ SmallK = 2
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallK_degree' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallK_complex : IsTotallyComplex SmallK
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallK_complex' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallAlpha_sq : smallAlpha ^ 2 = -1
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallAlpha_sq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallAlpha_radicand : IsQuadraticRadicand SmallK (-1) smallAlpha
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallAlpha_radicand' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.eleven_admissible :
+  0 < 11 ∧ Squarefree 11 ∧ 11 % 12 = 11 ∧ ∀ (ℓ : ℕ), ℓ % 12 = 11 → 11 ≤ ℓ
+'ZInQ.Contrib.RC53Assist.ResidualWitness.eleven_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallE_roots : 0 ≠ 11 ∧ 0 ≠ -33 ∧ 11 ≠ -33
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallE_roots' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallE_elliptic : SmallE.IsElliptic
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallE_elliptic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallE_residual_hypotheses (S : Set (HeightOneSpectrum (𝓞 SmallK))) :
+  FullTorsion SmallK S SmallE (2 ^ (0 + 1)) ∧
+    FullTorsion SmallK S SmallE (2 ^ 0) ∧
+      FullTorsion SmallK S SmallE 2 ∧ ∀ (σ : GKS SmallK S) (P : TorsS SmallK S SmallE ↑2), σ • P = P
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallE_residual_hypotheses' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallS_finite : SmallS.Finite
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallS_finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallS_above_two (v : HeightOneSpectrum (𝓞 SmallK)) (hv : 2 ∈ v.asIdeal) :
+  v ∈ SmallS
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallS_above_two' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallSetting : NekovarFiniteSetting SmallK SmallS 2 (ZMod 2)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallSetting' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallTorsion :
+  FullTorsion SmallK SmallS SmallE (2 ^ (0 + 1)) ∧
+    FullTorsion SmallK SmallS SmallE (2 ^ 0) ∧
+      FullTorsion SmallK SmallS SmallE 2 ∧ ∀ (σ : GKS SmallK SmallS) (P : TorsS SmallK SmallS SmallE ↑2), σ • P = P
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallTorsion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallM_facts :
+  Nat.card SmallM = 4 ∧ Module.finrank (ZMod 2) SmallM = 2 ∧ ∀ (σ : GKS SmallK SmallS) (x : SmallM), σ • x = x
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallM_facts' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallGenH_finite (h51 : MilneADT_I_5_1_totallyComplex) (n : ℕ) (hn : n ≤ 2) :
+  Module.Finite (ZMod 2) ↑(genH SmallK SmallS n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallGenH_finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallGenH_upper (h410 : MilneADT_I_4_10_totallyComplex) (n : ℕ) (hn : 2 < n) :
+  Subsingleton ↑(genH SmallK SmallS n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallGenH_upper' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallGlobal_finite (h410 : MilneADT_I_4_10_totallyComplex)
+  (h51 : MilneADT_I_5_1_totallyComplex) (n : ℤ) : Module.Finite (ZMod 2) ↑(smallResidualData.G.X n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallGlobal_finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallGlobal_off (h410 : MilneADT_I_4_10_totallyComplex) (n : ℤ)
+  (hn : n < 0 ∨ 2 < n) : Subsingleton ↑(smallResidualData.G.X n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallGlobal_off' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_ge (h410 : MilneADT_I_4_10_totallyComplex) : smallP.IsStrictlyGE 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_ge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_le (h410 : MilneADT_I_4_10_totallyComplex) : smallP.IsStrictlyLE 2
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_finite (h410 : MilneADT_I_4_10_totallyComplex)
+  (h51 : MilneADT_I_5_1_totallyComplex) (n : ℤ) : Module.Finite (ZMod 2) ↑(smallP.X n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.modelProj_quasiIso (G : GCx (ZMod 2)) :
+  QuasiIso (GHom.toCC (CloudB3RC53.Torsion.modelProj G))
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.modelProj_quasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallPP_exists (h410 : MilneADT_I_4_10_totallyComplex) : ∃ pP, QuasiIso pP
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallPP_exists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_d (i j : ℤ) : smallP.d i j = 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_d' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_minimal (i j : ℤ) (x : ↑(smallP.X i)) :
+  (ModuleCat.Hom.hom (smallP.d i j)) x ∈ IsLocalRing.maximalIdeal (ZMod 2) • ⊤
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_minimal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallGlobal_zero_rank : Module.finrank (ZMod 2) ↑(smallResidualData.G.X 0) = 2
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallGlobal_zero_rank' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_positive (h410 : MilneADT_I_4_10_totallyComplex)
+  (h51 : MilneADT_I_5_1_totallyComplex) : 6 ≤ ∑ n ∈ smallDegrees, Module.finrank (ZMod 2) ↑(smallP.X n)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallP_positive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_elliptic.{u_1} (F : Type u_1) [Field F] [CharZero F] :
+  (smallCurve F).IsElliptic
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_elliptic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_eq_smallE : smallCurve SmallK = SmallE
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_eq_smallE' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_map.{u_1, u_2} {R : Type u_1} {A : Type u_2} [CommRing R]
+  [CommRing A] (f : R →+* A) : (smallCurve R).map f = smallCurve A
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_map' depends on axioms: [propext,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallLocal_baseChange (w : HeightOneSpectrum (𝓞 SmallK)) :
+  (smallLocalModels w).baseChange (HeightOneSpectrum.adicCompletion SmallK w) =
+    smallCurve (HeightOneSpectrum.adicCompletion SmallK w)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallLocal_baseChange' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallCond_derivative (P : Ideal (𝓞 SmallK)) :
+  smallCond P = LocalCondition.derivRelaxed → ∃ q ∈ ∅, P ∈ primesAbove SmallK q
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallCond_derivative' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_discriminant.{u_1} (R : Type u_1) [CommRing R] :
+  (smallCurve R).Δ = 2304 * 11 ^ 6
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_discriminant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.local_models_are_baseChanges (w : HeightOneSpectrum (𝓞 SmallK)) :
+  (smallLocalModels w).baseChange (HeightOneSpectrum.adicCompletion SmallK w) =
+    SmallE.baseChange (HeightOneSpectrum.adicCompletion SmallK w)
+'ZInQ.Contrib.RC53Assist.ResidualWitness.local_models_are_baseChanges' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.rootZero_nonsingular.{u_1} (F : Type u_1) [Field F] [CharZero F] :
+  (smallCurve F).toAffine.Nonsingular 0 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.rootZero_nonsingular' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.rootEleven_nonsingular.{u_1} (F : Type u_1) [Field F] [CharZero F] :
+  (smallCurve F).toAffine.Nonsingular 11 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.rootEleven_nonsingular' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.rootNegThirtyThree_nonsingular.{u_1} (F : Type u_1) [Field F] [CharZero F] :
+  (smallCurve F).toAffine.Nonsingular (-33) 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.rootNegThirtyThree_nonsingular' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.two_zsmul_eq_zero_iff.{u_1} (F : Type u_1) [Field F] [CharZero F]
+  (P : (smallCurve F).toAffine.Point) : 2 • P = 0 ↔ ∃ i, fourTorsionPoints F i = P
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.two_zsmul_eq_zero_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.fourTorsionPoints_injective.{u_1} (F : Type u_1) [Field F] [CharZero F] :
+  Function.Injective (fourTorsionPoints F)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.fourTorsionPoints_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_two_torsion.{u_1} (F : Type u_1) [Field F] [CharZero F] :
+  Nat.card ↥(Submodule.torsionBy ℤ (smallCurve F).toAffine.Point 2) = 4
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallCurve_two_torsion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.local_models_have_full_two_torsion (w : HeightOneSpectrum (𝓞 SmallK)) :
+  Nat.card
+      ↥(Submodule.torsionBy ℤ
+          ((smallLocalModels w).baseChange (HeightOneSpectrum.adicCompletion SmallK w)).toAffine.Point 2) =
+    4
+'ZInQ.Contrib.RC53Assist.ResidualWitness.local_models_have_full_two_torsion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallCond_full (w : HeightOneSpectrum (𝓞 SmallK)) :
+  smallCond w.asIdeal = LocalCondition.oldKummer →
+    Nat.card
+        ↥(Submodule.torsionBy ℤ
+            ((smallLocalModels w).baseChange (HeightOneSpectrum.adicCompletion SmallK w)).toAffine.Point 2) =
+      4
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallCond_full' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallUm :
+  ∑ n ∈ smallDegrees, Module.finrank (ZMod 2) ↑(smallResidualData.U.X n) ≤
+    ∑ p ∈ chargedPrimes 66 5 ∅,
+      condSum SmallK
+        (genCondDimFun2 SmallK SmallS smallCond
+          (CloudB3RC53.Mattuck.kummerDimOfCurves SmallK smallLocalModels
+            (CloudB3RC53.Mattuck.kd2OfCurves SmallK smallLocalModels)))
+        p
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallUm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallLm :
+  ∑ n ∈ smallDegrees, Module.finrank (ZMod 2) ↑(smallResidualData.L.X (n - 1)) ≤
+    ∑ p ∈ chargedPrimes 66 5 ∅, genLocSum SmallK SmallS p
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallLm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.sameGHom {A B : GCx (ZMod 2)} (f g : GHom A B)
+  (h : ∀ (i : ℤ) (x : ↑(A.X i)), (f.f i i ⋯) x = (g.f i i ⋯) x) : f = g
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.sameGHom' depends on axioms: [propext,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallRestricted : smallSupportData.Dp = restrictData smallFullData smallF
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallRestricted' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallFg (n : ℤ) (u : ↑(smallSupportData.Dp.U.X n)) :
+  (smallG.f n n ⋯) ((smallF.f n n ⋯) u) = 0
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallFg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallF_injective (n : ℤ) : Function.Injective ⇑(smallF.f n n ⋯)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallF_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallG_surjective (n : ℤ) : Function.Surjective ⇑(smallG.f n n ⋯)
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallG_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallExact (n : ℤ) (u : ↑(smallFullData.U.X n)) :
+  (smallG.f n n ⋯) u = 0 → ∃ u', (smallF.f n n ⋯) u' = u
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallExact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallQuotient_acyclic : HomologicalComplex.Acyclic smallQuotient.toCC
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallQuotient_acyclic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.jointWitness_nonempty (h410 : MilneADT_I_4_10_totallyComplex)
+  (h51 : MilneADT_I_5_1_totallyComplex) (h788 : NekovarProp788ii SmallK) : Nonempty JointWitness
+'ZInQ.Contrib.RC53Assist.ResidualWitness.jointWitness_nonempty' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallPrimeFactors : (2 * 66).primeFactors = {2, 3, 11}
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallPrimeFactors' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallSupport_facts :
+  Nat.Prime 5 ∧ ¬5 ∣ 2304 * 11 ^ 6 ∧ chargedPrimes 66 5 ∅ = {2, 3, 5, 11}
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallSupport_facts' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallInfinitePlace_complex : smallInfinitePlace.IsComplex
+'_private.ZInQKernel.Contrib.RC53Assist.ResidualWitness.Audit.0.ZInQ.Contrib.RC53Assist.ResidualWitness.smallInfinitePlace_complex' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.residualRankCounts_genuine_nonvacuous (h410 : MilneADT_I_4_10_totallyComplex)
+  (h51 : MilneADT_I_5_1_totallyComplex) (h28 : MilneADT_I_2_8) (h23 : MilneADT_I_2_3_trivial)
+  (h788 : NekovarProp788ii SmallK) :
+  ∃ J,
+    6 ≤ (genuineCounts h410 h51 h28 h23 h788 J).genericRank ∧ (genuineCounts h410 h51 h28 h23 h788 J).genericRank ≤ 238
+'ZInQ.Contrib.RC53Assist.ResidualWitness.residualRankCounts_genuine_nonvacuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.residualRankCounts_actual_nonvacuous (h410 : MilneADT_I_4_10_totallyComplex)
+  (h51 : MilneADT_I_5_1_totallyComplex) (h28 : MilneADT_I_2_8) (h23 : MilneADT_I_2_3_trivial)
+  (h788 : NekovarProp788ii SmallK) :
+  ∃ J, 6 ≤ (actualCounts h410 h51 h28 h23 h788 J).genericRank ∧ (actualCounts h410 h51 h28 h23 h788 J).genericRank ≤ 238
+'ZInQ.Contrib.RC53Assist.ResidualWitness.residualRankCounts_actual_nonvacuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.ResidualWitness.smallBound : residualBoundConstant (2 * 66).primeFactors.card 0 ∅.card = 238
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness : Type 1
+number of parameters: 0
+fields:
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.finiteG : ∀ (n : ℤ),
+      Module.Finite (ZMod 2) ↑(smallResidualData.G.X n)
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.eG : (n : ℤ) →
+      n ∈ smallDegrees → ↑(smallResidualData.G.X n) ≃ₗ[ZMod 2] ↑(genH SmallK SmallS n.toNat)
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.eGact : (n : ℤ) →
+      n ∈ smallDegrees →
+        ↑(smallResidualData.G.X n) ≃ₗ[ZMod 2] ↑(contCohomology (ZMod 2) (GKS SmallK SmallS) SmallM n.toNat)
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.hUm : ∑ n ∈ smallDegrees,
+        Module.finrank (ZMod 2) ↑(smallResidualData.U.X n) ≤
+      ∑ p ∈ chargedPrimes 66 5 ∅,
+        condSum SmallK
+          (genCondDimFun2 SmallK SmallS smallCond
+            (CloudB3RC53.Mattuck.kummerDimOfCurves SmallK smallLocalModels
+              (CloudB3RC53.Mattuck.kd2OfCurves SmallK smallLocalModels)))
+          p
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.hLm : ∑ n ∈ smallDegrees,
+        Module.finrank (ZMod 2) ↑(smallResidualData.L.X (n - 1)) ≤
+      ∑ p ∈ chargedPrimes 66 5 ∅, genLocSum SmallK SmallS p
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.boundedGE : smallP.IsStrictlyGE 0
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.boundedLE : smallP.IsStrictlyLE 2
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.pP : smallP ⟶ (selCx smallSupportData.D).toCC
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.quasiP : QuasiIso self.pP
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.L : CochainComplex (ModuleCat (ZMod 2)) ℤ
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.Lge : self.L.IsStrictlyGE 0
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.Lle : self.L.IsStrictlyLE 2
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.finiteL : ∀ (n : ℤ), Module.Finite (ZMod 2) ↑(self.L.X n)
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.hLmin : ∀ (i j : ℤ) (x : ↑(self.L.X i)),
+      (ModuleCat.Hom.hom (self.L.d i j)) x ∈ IsLocalRing.maximalIdeal (ZMod 2) • ⊤
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.pL : self.L ⟶ (selCx smallFullData).toCC
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.quasiL : QuasiIso self.pL
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.positive : 6 ≤
+      ∑ n ∈ smallDegrees, Module.finrank (ZMod 2) ↑(self.L.X n)
+constructor:
+  ZInQ.Contrib.RC53Assist.ResidualWitness.JointWitness.mk
+    (finiteG : ∀ (n : ℤ), Module.Finite (ZMod 2) ↑(smallResidualData.G.X n))
+    (eG : (n : ℤ) → n ∈ smallDegrees → ↑(smallResidualData.G.X n) ≃ₗ[ZMod 2] ↑(genH SmallK SmallS n.toNat))
+    (eGact :
+      (n : ℤ) →
+        n ∈ smallDegrees →
+          ↑(smallResidualData.G.X n) ≃ₗ[ZMod 2] ↑(contCohomology (ZMod 2) (GKS SmallK SmallS) SmallM n.toNat))
+    (hUm :
+      ∑ n ∈ smallDegrees, Module.finrank (ZMod 2) ↑(smallResidualData.U.X n) ≤
+        ∑ p ∈ chargedPrimes 66 5 ∅,
+          condSum SmallK
+            (genCondDimFun2 SmallK SmallS smallCond
+              (CloudB3RC53.Mattuck.kummerDimOfCurves SmallK smallLocalModels
+                (CloudB3RC53.Mattuck.kd2OfCurves SmallK smallLocalModels)))
+            p)
+    (hLm :
+      ∑ n ∈ smallDegrees, Module.finrank (ZMod 2) ↑(smallResidualData.L.X (n - 1)) ≤
+        ∑ p ∈ chargedPrimes 66 5 ∅, genLocSum SmallK SmallS p)
+    (boundedGE : smallP.IsStrictlyGE 0) (boundedLE : smallP.IsStrictlyLE 2)
+    (pP : smallP ⟶ (selCx smallSupportData.D).toCC) (quasiP : QuasiIso pP) (L : CochainComplex (ModuleCat (ZMod 2)) ℤ)
+    (Lge : L.IsStrictlyGE 0) (Lle : L.IsStrictlyLE 2) (finiteL : ∀ (n : ℤ), Module.Finite (ZMod 2) ↑(L.X n))
+    (hLmin : ∀ (i j : ℤ) (x : ↑(L.X i)), (ModuleCat.Hom.hom (L.d i j)) x ∈ IsLocalRing.maximalIdeal (ZMod 2) • ⊤)
+    (pL : L ⟶ (selCx smallFullData).toCC) (quasiL : QuasiIso pL)
+    (positive : 6 ≤ ∑ n ∈ smallDegrees, Module.finrank (ZMod 2) ↑(L.X n)) : JointWitness
+'ZInQ.Contrib.RC53Assist.ResidualWitness.homologyModelTo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.ResidualWitness.natHomologyIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallMEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallEG' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.ResidualWitness.smallEGact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.ResidualWitness.genuineCounts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.ResidualWitness.actualCounts' depends on axioms: [propext, Classical.choice, Quot.sound]
