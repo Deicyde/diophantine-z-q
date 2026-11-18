@@ -1,0 +1,58 @@
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:545:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:561:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:640:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:641:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:642:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:643:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:648:2: warning: Unused tactic linter: `norm_num only at ed2 ed3` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+ZInQKernel/Contrib/RC53Assist/Budget/ArithmeticBudget.lean:1244:40: warning: This simp argument is unused:
+  Pi.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mulVec_diagonal, hk]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

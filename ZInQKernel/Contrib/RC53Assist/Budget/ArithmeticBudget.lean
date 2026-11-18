@@ -18,10 +18,11 @@ Manuscript `diophantine_zq.tex`, lines 5251–5386:
 * their integral degree-two cohomology has length at most `2 c_E`;
 * the condition-change sequence supplies (5.7d).
 
-All new comparison assumptions are stated separately from the bounds they imply.
-Minimality is necessary for the chain-rank bound: unit disks cannot be bounded
-from quasi-isomorphy alone. No assertion about the finiteness of the whole
-Tate–Shafarevich group is used.
+The primary export is `budgetInputsAt_from_selmer_minimal`: the rank bound
+uses the residual exact sequence, (5.7a), and positive central Smith valuations
+as in lines 5355–5359. `SmallGradedModel` is retained only as an explicit
+assumed degreewise rank-bound input for the nonminimal compatibility route.
+No assertion about finiteness of the whole Tate–Shafarevich group is used.
 -/
 
 noncomputable section
@@ -1397,11 +1398,13 @@ theorem budgetInputsAt_of_integralModel {S : Type} [CommRing S] {B : SmithBlocks
     BudgetInputsAt B fr₀ A.dK A.hK cE A.tK :=
   budgetInputsAt_of_comparison A cE hmin hprofile h (P.length_comparison cE h hdual)
 
-/-! ## The rank bound without imposing minimality on the old Smith blocks
+/-! ## Nonminimal compatibility route with an assumed rank bound
 
-A retained old graded model embeds into an ordinary minimal model together
-with the two singular disks. This route counts any unit disks that survived;
-it does not impose positive valuations on the old Smith entries.
+The following embeddings are arbitrary injective linear maps. Together with
+the prescribed source basis sizes, they assume degreewise rank inequalities;
+they do not encode chain-map compatibility or follow from (5.7c). Unit disks
+are permitted only with this extra rank-bound input. The primary export below
+uses the residual exact sequence and minimality instead.
 -/
 
 section SingularChain
@@ -1472,9 +1475,13 @@ theorem singular_chain_total_rank [StrongRankCondition R] (X Y : Matrix (Fin 2) 
 
 end SingularChain
 
-/-- A retained small old graded model, as furnished by the cone construction in (5.7c).
-The ordinary source model is minimal: its bases have the residual Selmer cohomology sizes.
-The old model can be nonminimal; the embeddings account for all its disks, including units. -/
+/-- An explicit assumed degreewise rank-bound input for nonminimal old Smith data.
+`bas` prescribes source sizes; `emb` and `emb_injective` assume
+`rank D_cⁿ ≤ dim Hⁿ(ordinaryRed) + rank Q_rⁿ`. The maps have no compatibility
+condition with differentials, coefficient change, or the cochain comparison.
+The manuscript does not supply these embeddings in (5.7c). The model comparison
+`phi` and `qis` is retained for compatibility but is not used by `rank_budget`.
+This structure is not consumed by the primary minimality export. -/
 structure SmallGradedModel {S : Type} [CommRing S] {B : SmithBlocks S OO}
     (A : ArithmeticComparison B) where
   C : ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex ℤ_[2]
@@ -1493,7 +1500,8 @@ variable {S : Type} [CommRing S] {B : SmithBlocks S OO} {A : ArithmeticCompariso
     (D : SmallGradedModel A)
 
 include D in
-/-- The rank estimate of (5.7), allowing unit disks in the old model. -/
+/-- Summing the assumed degreewise rank bounds, with unit disks allowed.
+This is not a derivation of the rank estimate from the residual comparison. -/
 theorem rank_budget (hprofile : ResidualKummerProfile A.ordinaryRed) :
     ∑ n : Fin 4, Module.finrank ℤ_[2] (centralCx B fr₀ n) ≤ 2 * A.dK + 12 := by
   have hc : ∀ n : Fin 4, Module.finrank ℤ_[2] (D.C.toGCx.X (n : ℤ)) =
@@ -1531,8 +1539,10 @@ theorem rank_budget (hprofile : ResidualKummerProfile A.ordinaryRed) :
 
 end SmallGradedModel
 
-/-- The budget from a small retained graded model and ordinary integral duality.
-It permits unit old Smith disks and assumes no numerical or cohomology-sequence budget field. -/
+/-- Compatibility producer for nonminimal old Smith data and ordinary integral duality.
+Its rank field is assumed through `SmallGradedModel`; the cohomology sequence and torsion
+length consequences are proved. Use the primary minimality export for the manuscript's
+rank derivation. -/
 theorem budgetInputsAt_of_smallGradedModel {S : Type} [CommRing S] {B : SmithBlocks S OO}
     (A : ArithmeticComparison B) (D : SmallGradedModel A) (P : IntegralFirstSmithModel A)
     (cE : ℕ) (hprofile : ResidualKummerProfile A.ordinaryRed)
@@ -1543,7 +1553,9 @@ theorem budgetInputsAt_of_smallGradedModel {S : Type} [CommRing S] {B : SmithBlo
     (A.h1Equiv cE h) A.i A.j A.delta A.l (A.exact_sequence cE h) ht1
     ((P.length_comparison cE h hdual).trans ht1) hh2 (A.singular_length cE h)
 
-/-- The final disk and valuation bounds (5.7), for any old Smith model in degrees zero through three. -/
+/-- Disk and valuation consequences for nonminimal data with an assumed rank-bound input.
+The disk-count conclusion inherits `SmallGradedModel`'s assumed degreewise rank bounds;
+the torsion-length conclusion is derived from the integral comparison. -/
 theorem smith_budget_of_smallGradedModel {S : Type} [CommRing S] {B : SmithBlocks S OO}
     (A : ArithmeticComparison B) (D : SmallGradedModel A) (P : IntegralFirstSmithModel A)
     (cE : ℕ) (hamp : ∀ i, 3 ≤ i → i < B.n → B.m i = 0)
@@ -1556,8 +1568,9 @@ theorem smith_budget_of_smallGradedModel {S : Type} [CommRing S] {B : SmithBlock
     A.i A.j A.delta A.l (A.exact_sequence cE h) ht1
     ((P.length_comparison cE h hdual).trans ht1) hh2 (A.singular_length cE h) hr1 hr2
 
-/-- Binding computed cohomological parameters to the manuscript's parameter names.
-These equalities are definition/identification links, not arithmetic bounds. -/
+/-- Renaming the three computed cohomological parameters.
+This holds by reflexivity at their computed values and proves no identification
+with arithmetic Selmer groups or rational point torsion; those links are separate. -/
 def ParameterAgreement {S : Type} [CommRing S] {B : SmithBlocks S OO}
     (A : ArithmeticComparison B) (dK hK tK : ℕ) : Prop :=
   A.dK = dK ∧ A.hK = hK ∧ A.tK = tK
@@ -1619,8 +1632,11 @@ theorem tK_of_coefficient_exact {S : Type} [CommRing S] {B : SmithBlocks S OO}
     A.tK = (Module.length ℤ_[2] Tor).toNat :=
   congrArg ENat.toNat (torsionIdentificationOfExact i j hi hij hTor).length_eq.symm
 
-/-- The retained singular diagram at one sufficient precision at each moving place.
-The stage determinant bounds are the point-count input; the limiting bounds are proved. -/
+/-- Determinant-cap data represented at one coefficient precision at each place.
+Without a binding to actual stage matrices this is logically equivalent to the
+nonzero determinant and valuation cap of the limiting matrices: the witnesses
+may be chosen equal to those matrices. `cE` is a natural-number parameter here,
+not an identified manuscript constant. The singular length bound is derived. -/
 structure RetainedSingularStage {S : Type} [CommRing S] {B : SmithBlocks S OO}
     (A : ArithmeticComparison B) (cE : ℕ) where
   X0 : Matrix (Fin 2) (Fin 2) ℤ_[2]
@@ -1639,9 +1655,11 @@ theorem RetainedSingularStage.bounds {S : Type} [CommRing S] {B : SmithBlocks S 
   singularBounds_of_retained R.X0 R.Y0 A.X A.Y cE R.congrX R.congrY
     R.detX_ne R.detY_ne R.valX R.valY
 
-/-- The unchanged target interface, from the genuine scalar/model interfaces and named
-arithmetic parameters. No field of the former numerical budget is supplied as a premise.
-Use `GenuineComparison.toArithmetic` for the genuine cochain instantiation. -/
+/-- The former primary export, kept as a nonminimal compatibility producer.
+The rank bound is assumed through `SmallGradedModel`, not derived from (5.7c);
+its residual comparison fields and `SmallGradedModel.phi`/`qis` are unused here.
+Use `budgetInputsAt_from_selmer_minimal` for the residual minimality derivation.
+Use `GenuineComparison.toArithmetic` to instantiate the genuine cochain interface. -/
 theorem budgetInputsAt_from_selmer_models {S : Type} [CommRing S] {B : SmithBlocks S OO}
     (A : ArithmeticComparison B) (D : SmallGradedModel A) (P : IntegralFirstSmithModel A)
     (dK hK cE tK : ℕ) (R : RetainedSingularStage A cE)
@@ -1655,6 +1673,26 @@ theorem budgetInputsAt_from_selmer_models {S : Type} [CommRing S] {B : SmithBloc
       (residualKummerProfile_of_selfDuality (Field.toIsField (ZMod 2)) A.ordinaryRed γ hγ e0)
       R.bounds hdual)
 
-/-! ## Exact statements and kernel axioms -/
+/-! ## Primary export: the manuscript's residual minimality route -/
+
+/-- Primary budget producer, found in an independent review.
+The rank bound follows from the residual exact sequence of (5.7c), (5.7a),
+and positive central Smith valuations, corresponding to cancelling unit entries
+at manuscript lines 5355–5359. No `SmallGradedModel` is consumed.
+The integral length relation follows from ordinary finite free model duality;
+`ParameterAgreement` only renames computed values and `cE` remains an unbound cap. -/
+theorem budgetInputsAt_from_selmer_minimal {S : Type} [CommRing S] {B : SmithBlocks S OO}
+    (A : ArithmeticComparison B) (P : IntegralFirstSmithModel A)
+    (dK hK cE tK : ℕ) (R : RetainedSingularStage A cE)
+    (hpos : ∀ i j, 1 ≤ (B.s i j).valuation)
+    (γ : A.ordinaryRed.toCC ⟶ (dualCx A.ordinaryRed 3).toCC) (hγ : QuasiIso γ)
+    (e0 : A.ordinaryRed.toCC.homology 0 ≃ₗ[ZMod 2] (Fin 2 → ZMod 2))
+    [Module.Finite (ZMod 2) (A.ordinaryRed.toCC.homology 1)]
+    (hdual : IntegralModelDuality P.C) (hpar : ParameterAgreement A dK hK tK) :
+    BudgetInputsAt B fr₀ dK hK cE tK :=
+  budgetInputsAt_with_parameters A dK hK cE tK hpar
+    (budgetInputsAt_of_integralModel A P cE (residuallyMinimal_of_positive B hpos)
+      (residualKummerProfile_of_selfDuality (Field.toIsField (ZMod 2)) A.ordinaryRed γ hγ e0)
+      R.bounds hdual)
 
 end ZInQ.Contrib.RC53Assist.Budget
