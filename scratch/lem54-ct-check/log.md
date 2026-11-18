@@ -17,3 +17,8 @@
    Kummer count, the primary decomposition and the square property. The final corank
    inference is implicit in the manuscript; Lean supplies it by comparing finite-level counts
    rather than constructing the literal infinite-level tensor sequence on this route.
+5. **VERIFIED from recorded quotations:** The Poonen–Stoll Introduction states the full elliptic
+   pairing; L1081 cites it for the quotient pairing and alternation. Milne I.6.13(a) states the
+   primary kernel result. No clause of the proposed hypothesis strengthens the elliptic
+   statement. The reported Milne footnote corrects blanket alternation for general abelian
+   varieties; the case of elliptic curves is unaffected. No source was newly read.

@@ -53,3 +53,39 @@ literal short exact sequence with the tensor term. In that proof, finiteness of 
 from `Fam.range_selmerAtToTwoPower` at `n = 1`, so `Cofinite.exists_addEquiv_of_isPPrimary` also
 applies to the Selmer group. `Fam.finite_H0_twoPowerCoeff` supplies the uniform kernel bound from
 Mordell–Weil.
+
+## 3. Statement check
+
+**VERIFIED against the recorded quotations; verdict: YES, direct instance.** The sole evidence for
+this review is [the repository's quotation record](cassels-tate-pairing.md). No additional source
+was read.
+
+| Lean clause | What the quoted print supports |
+| --- | --- |
+| `sha E` and `QZ` | The domain is the usual `Sha(E/ℚ)`: continuous Galois `H¹` of geometric points, with vanishing restriction at every `ℚ_p` and `ℝ` (`SelmerTwoPower.sha`). This is the `Sha(E)` of Poonen–Stoll; the target is the additive quotient `ℚ/ℤ`. Neither group is an auxiliary structure posited by the leaf. |
+| `∃ b : sha E →+ sha E →+ QZ` | **STANDARD:** Poonen–Stoll, *The Cassels–Tate pairing on polarized abelian varieties*, Ann. of Math. (2) 150 (1999), 1109–1149, Introduction, first paragraph (author's version p. 2), reports Cassels' existence of a pairing for elliptic curves over number fields. A pairing here is biadditive; Lean does not identify a canonical choice. |
+| `∀ x, b x x = 0` | The same paragraph states alternation for elliptic curves. The abstract and remarks after Corollary 12 (author's version pp. 1 and 14) corroborate this; Milne's 2nd edition, p. 81, states the rational-divisor polarization criterion, satisfied by the origin divisor on an elliptic curve. |
+| `∀ x, (∀ y, b x y = 0) ↔ x ∈ divisiblePart (sha E)` | In the Introduction the pairing descends to the quotient by the maximal divisible subgroup and is nondegenerate there; descent gives containment in the radical, and nondegeneracy gives equality. Alternation makes the two radicals equal; Lean specifies the left one. **STANDARD:** Milne, *Arithmetic Duality Theorems*, 2nd ed., I.6.13(a), p. 82, gives both kernels explicitly for the canonical pairing with the dual on each primary component. It corroborates the kernel clause; the full-group elliptic statement is supported directly by Poonen–Stoll. |
+| `CasselsTatePairingCurves` | `ℚ` is a number field, and every tested curve is elliptic by `PoleRC.curve_isElliptic` since its parameter is nonzero. Quantifying over this family only specializes the printed statement. The underlying `CasselsTatePairing E` is a predicate; it is not asserted for singular Weierstrass equations. |
+
+**VERIFIED, citation and strength.** L1079–1081 cites `poonenstoll` for precisely the nondegenerate
+alternating pairing after quotient by the maximal divisible subgroup. The bibliography at
+L11098–11100 identifies the refereed paper. The next inference about paired finite cyclic factors
+is derived in Lean, and the cited paragraph does not have to state Lemma 5.4 or that inference.
+Milne is in the bibliography at L11116–11118, but is not the citation at Lemma 5.4. No clause of
+`hCT` strengthens the quoted elliptic-curve result: there is no finiteness requirement for Sha, no
+claim of a perfect pairing on `Sha[2]`, and no specified pairing or extra compatibility among choices.
+
+Replacement docstring for `SelmerTwoPower.CasselsTatePairing` in
+`ZInQKernel/Contrib/OneProof/CasselsTatePairing.lean` (for the integrator):
+
+```lean
+/-- **The Cassels–Tate pairing for an elliptic curve `E/ℚ`** (existence form): an alternating
+biadditive pairing `Sha(E/ℚ) × Sha(E/ℚ) → ℚ/ℤ` with left radical equal to the maximal divisible
+subgroup. This is Cassels' elliptic-curve theorem as stated in Poonen–Stoll, Ann. of Math. (2)
+150 (1999), 1109–1149, Introduction, first paragraph (p. 2 of the author's version; see the remarks
+after Corollary 12 for alternation). The manuscript cites it at `diophantine_zq.tex` L1079–1081.
+Milne, *Arithmetic Duality Theorems*, 2nd ed., I.6.13(a), p. 82, gives the kernels on each primary
+component for the pairing with the dual; see p. 81 for alternation under the polarization defined
+by a rational divisor. The pairing is not named here. -/
+```
