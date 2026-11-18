@@ -5,3 +5,4 @@
 - Building RC.Odd.Statements first.
 - Lines.lean compiles (no sorry); committed.
 - Brandt.lean compiles (no sorry); committed.
+- NonVacuity.lean (trivialStage: fields jointly satisfiable, relative to Voight leaf) compiles; axioms clean.

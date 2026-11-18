@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.OneProof.RC.AppF.Stage
+import ZInQKernel.Contrib.OneProof.RC.AppF.NonVacuity
 open ZInQ.Manuscript.RC.AppF
 #print axioms count0_primitive
 #print axioms count0_pdiv
@@ -20,3 +20,4 @@ open ZInQ.Manuscript.RC.AppF
 #print axioms ThetaStage.aθ_zero
 #print axioms ThetaStage.sourceHyp
 #print axioms ThetaStage.oddStageSource
+#print axioms trivialStage

@@ -18,3 +18,4 @@
 'ZInQ.Manuscript.RC.AppF.ThetaStage.aθ_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.RC.AppF.ThetaStage.sourceHyp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.RC.AppF.ThetaStage.oddStageSource' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppF.trivialStage' depends on axioms: [propext, Classical.choice, Quot.sound]
