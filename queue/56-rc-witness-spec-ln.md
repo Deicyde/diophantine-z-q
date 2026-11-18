@@ -1,0 +1,22 @@
+rc-witness-spec-ln: remove the `local notation` commands from ZInQKernel/Contrib/OneProof/RC/WitnessSpec/ with no statement change (base: wip/rc-witness-spec at f2c6dbc7d2696fa5e73370f18931325de5c51845).
+
+Why: the merge scanner of the cloud agent that owns Theorem 5.3's reduction blocks `local notation` (fork issue #83, comment 6974088651), so this work cannot be merged until they are gone. rc-witness-spec has 49, in eleven files of ZInQKernel/Contrib/OneProof/RC/WitnessSpec/ (ActualLocal 4, CurveAtPlace 6, Evaluation 2, FiniteReduction 7, LocalFrobenius 3, PointReduction 5, Restriction 7, Specialize 4, Torsion 5, TwistAtPlace 4, Valuation 2).
+
+Setup: your worktree is already on branch wip/rc-witness-spec-ln at f2c6dbc7d2696fa5e73370f18931325de5c51845. Origin refs in the shared repository are refreshed for you; do not run git fetch or git push yourself (a separate job pushes your commits). Touch only files under ZInQKernel/Contrib/OneProof/RC/WitnessSpec/. The one `local notation` in RC/Stages/ExactGenus.lean, which this branch inherits from rc-stages, is fixed on its own branch by the task rc-stages-ln; leave RC/Stages/ unchanged here.
+
+Your work:
+1. Before editing, write scratch/rc-witness-spec-ln/Check.lean: it imports each module you will change and runs `#check @name` for every theorem and definition declared in those files, under `set_option pp.notation false` and `set_option pp.explicit true`. Run it on the unchanged branch and save the output as scratch/rc-witness-spec-ln/check-before.txt.
+2. Replace every `local notation` command. In every theorem or definition statement, inline the notation's expansion at each use, so the elaborated statements stay exactly the same. Inside proofs you may instead use `let`/`set`, or a private abbreviation that takes every variable it mentions as an explicit argument (no section variables captured implicitly). Change nothing else: no statement, name, binder or proof strategy, beyond what the replacement needs. If you find other local syntax (`local infix`, `local macro`, `scoped notation`, `notation3`), list it in the report and leave it unchanged.
+3. Rebuild the changed modules (lake env lean, one Lean process at a time), rerun scratch/rc-witness-spec-ln/Check.lean, save scratch/rc-witness-spec-ln/check-after.txt, and diff the two files. They must be identical, apart from source positions if any are printed; any other difference means a statement changed, so fix it. Rerun `#print axioms` for every theorem whose file changed: only propext, Classical.choice and Quot.sound.
+4. Confirm with git grep that no `local notation` remains under ZInQKernel/Contrib/OneProof/RC/WitnessSpec/.
+
+RESOURCE LIMITS (hard rules; breaking one fails your task):
+- At most ONE Lean process (lean, lake, repl, or a pytest run that starts real Lean) at a time. Never start Lean jobs in the background with &, xargs -P, or shards.
+- A Lean REPL session gets at most 10 commands, then restart it. Or send the header once and pass "env" on later commands so it doesn't re-import.
+- Check `uptime` and `sysctl vm.swapusage` before every Lean or pytest run. If load is above 40 or swap used is above 8 GB, don't start it; report that you were blocked.
+- Ground-truth or differential checks use a sample of at most 30 inputs, run one after another.
+Host note (devserver): check `uptime` and `free -g` instead of vm.swapusage; hold Lean only above load 120 or below 20 GB available memory; do not sleep and poll.
+
+Hygiene, for everything bound for the fork (Lean, report, commit messages): no session names, host names or user paths. Write paths relative to the repository root, and refer to people by role ("the lead", "the reviewer", "the cloud agent").
+
+Deliverables: commits on your branch wip/rc-witness-spec-ln only (a background job pushes them; never git add -A; git add your own paths). A short report docs/research/rc-witness-spec-ln.md: the notations replaced (file, line, expansion, inlined or abbreviated), the check-before/check-after diff result, the compile and axiom results, and any other local syntax found. A results log at scratch/rc-witness-spec-ln/log.md. At the end write .fleet/rc-witness-spec-ln.md (a few lines: done or not, the final SHA, the diff result) and commit it last. Resuming: if scratch/rc-witness-spec-ln/log.md exists, an earlier run was interrupted; read it and continue. Keep working until .fleet/rc-witness-spec-ln.md is written and committed.
