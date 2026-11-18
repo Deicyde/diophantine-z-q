@@ -41,6 +41,25 @@ class DriverTests(unittest.TestCase):
         driver.write_new(ci/'build-complete.json', {'schema': 'kernel-build-complete/v1', 'status': 'complete', 'identity': identity})
         driver.write_new(ci/'audit.json', {'schema': 'kernel-audit/v1', 'status': 'passed', **identity})
 
+    def test_capture_saves_changed_file_evidence_and_still_refuses(self):
+        previous = {'installed_inputs': {'dependency_files': {'dep': {
+            'Dep.olean': {'sha256': 'a'*64, 'size': 4}}}}}
+        driver.write_new(self.state/'inputs-before.json', previous)
+        error = driver.InputContextMismatch('Installed build inputs differ',
+            {'dependency_inputs': 'old'}, {'dependency_inputs': 'new'},
+            {'dependency_files': {'dep': {'Dep.olean': {'sha256': 'b'*64, 'size': 4}}}})
+        with patch.object(driver, 'validate', return_value={'modules': {}}), \
+                patch.object(driver, 'capture_context', side_effect=error):
+            with self.assertRaisesRegex(driver.InputContextMismatch, 'Installed build inputs differ'):
+                driver.capture(self.workspace, self.root/'prefix', self.state, expected={})
+        evidence = driver.read(self.state/'input-mismatch.json')
+        self.assertEqual(evidence['changed_file_counts'], {'dependency/dep': 1})
+        self.assertEqual(evidence['file_examples'][0]['path'], 'Dep.olean')
+        self.assertFalse(evidence['acceptance'])
+        self.assertEqual(driver.read(self.state/'inputs-before.json'), previous)
+        self.assertFalse((self.state/'session-built.json').exists())
+        self.assertFalse((self.state/'bundle').exists())
+
     def test_cold_pr_does_not_capture_or_publish_and_preserves_controls(self):
         self.cold()
         with patch.object(driver, 'capture') as capture:

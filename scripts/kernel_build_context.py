@@ -11,6 +11,7 @@ from pathlib import Path
 import platform
 
 from kernel_build_binding import collect_bound_inventory
+from kernel_build_changes import InputContextMismatch
 from kernel_build_controls import verify_controls
 from kernel_build_environment import collect_environment
 from kernel_build_inventory import FORBIDDEN_ENV
@@ -64,8 +65,9 @@ def capture_context(workspace, prefix, module_paths, build_commands, *, driver_p
     identity, detail = collect_environment(workspace, prefix, build_commands, layout,
         driver_paths=driver_paths, git_executable=git_executable, environ=environment, controls=controls)
     if expected_environment is not None:
-        require(all(expected_environment.get(k) == v for k, v in identity.items()),
-                'Installed build inputs differ from the authenticated producer')
+        if not all(expected_environment.get(k) == v for k, v in identity.items()):
+            raise InputContextMismatch('Installed build inputs differ from the authenticated producer',
+                                       expected_environment, identity, detail)
     packages = identity['packages']
     compiler = {'summary': identity['toolchain'], 'files': detail['toolchain_files'],
                 'builtins': detail['builtins']}
@@ -85,7 +87,9 @@ def capture_context(workspace, prefix, module_paths, build_commands, *, driver_p
         environ={**environment, **lookup}, compiler_root=prefix)
     identity['runtime'] = runtime
     if expected_environment is not None:
-        require(identity == expected_environment, 'Actual lookup or runtime differs from the authenticated producer')
+        if identity != expected_environment:
+            raise InputContextMismatch('Actual lookup or runtime differs from the authenticated producer',
+                                       expected_environment, identity, detail)
     verify_controls(workspace, controls, environment)
     report('input context captured')
     return {'schema': 'kernel-build-context/v1', 'environment': identity, 'modules': modules,

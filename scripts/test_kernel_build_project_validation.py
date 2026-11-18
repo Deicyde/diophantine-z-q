@@ -74,6 +74,18 @@ class ProjectValidationTests(unittest.TestCase):
         for relative in project.BUILD_ROOTS:
             self.assertFalse((self.workspace/relative).exists())
 
+    def test_early_probe_cannot_compile_or_claim_a_successful_build(self):
+        self.output.mkdir()
+        with patch.object(project.subprocess, 'run') as run:
+            run.return_value.returncode = 1  # Missing project outputs is expected.
+            result = project.probe_cached_inputs(self.workspace, self.output)
+        self.assertEqual(run.call_args.args[0],
+                         ['lake', '--rehash', '--no-build', 'build', 'ZInQKernel', 'GreenTaoVendor'])
+        self.assertEqual(result['exit_code'], 1)
+        self.assertIn('neither build nor audit acceptance', result['scope'])
+        self.assertFalse((self.workspace/'build/kernel-ci/build-complete.json').exists())
+        self.assertFalse((self.workspace/'build/kernel-ci/audit.json').exists())
+
     def test_backup_cannot_target_checkout_or_overwrite_prior_evidence(self):
         source = self.workspace/'.lake/build'
         source.mkdir(parents=True); (source/'keep').write_text('built')
@@ -103,6 +115,64 @@ class ProjectValidationTests(unittest.TestCase):
         # module inventory, so the test-only field rejects even otherwise equal facts.
         with self.assertRaisesRegex(ValueError, 'Wrong bundle producer'):
             validate_manifest({'schema': 'kernel-main-build/v1', 'producer': identity}, actual_shape)
+
+    def test_failed_capture_preserves_original_diagnostic_in_uploaded_evidence(self):
+        workflow = self.workspace/project.WORKFLOW
+        workflow.parent.mkdir(parents=True); workflow.write_text('fixture')
+        evidence = {'schema': 'kernel-input-mismatch/v1', 'acceptance': False,
+                    'decision': 'rejected', 'changed_categories': ['dependency_inputs']}
+        def prepare(*args):
+            project.driver.write_new(self.state/'producer/input-mismatch.json', evidence)
+            raise ValueError('Installed build inputs differ')
+        with patch.object(project.sys, 'platform', 'linux'), \
+                patch.object(project.driver, 'git', return_value=b'a'*40), \
+                patch.object(project.driver, 'prepare', side_effect=prepare), \
+                patch.object(project.subprocess, 'run') as execute:
+            with self.assertRaisesRegex(ValueError, 'Installed build inputs differ'):
+                project.validate(self.workspace, self.state, self.output, self.root)
+        execute.assert_not_called()
+        self.assertEqual((self.output/'producer-input-mismatch.json').read_bytes(),
+                         (self.state/'producer/input-mismatch.json').read_bytes())
+        self.assertEqual(json.loads((self.output/'result.json').read_text())['status'], 'failed')
+
+    def exercise_probe_sequence(self, *, mismatch):
+        workflow = self.workspace/project.WORKFLOW
+        workflow.parent.mkdir(parents=True); workflow.write_text('fixture')
+        context = {'environment': {'identity': 'prepared'}, 'modules': {'A': {}}}
+        def prepare(*args):
+            project.driver.write_new(self.state/'producer/prepared.json', {'has_context': True})
+            project.driver.write_new(self.state/'producer/session-prepared.json', {'context': context})
+            return {'status': 'cold'}
+        def execute(command, **kwargs):
+            from types import SimpleNamespace
+            return SimpleNamespace(returncode=1 if '--no-build' in command else 0)
+        with patch.object(project.sys, 'platform', 'linux'), \
+                patch.object(project.driver, 'git', return_value=b'a'*40), \
+                patch.object(project.driver, 'prepare', side_effect=prepare), \
+                patch.object(project.driver, 'validate', return_value={'modules': {'A': {}}}), \
+                patch.object(project.driver, 'capture',
+                             side_effect=ValueError('probe mismatch') if mismatch else None,
+                             return_value=(context, {})), \
+                patch.object(project.driver, 'completed_phase', side_effect=ValueError('after full build')) as completed, \
+                patch.object(project.subprocess, 'run', side_effect=execute) as run:
+            with self.assertRaisesRegex(ValueError, 'probe mismatch' if mismatch else 'after full build'):
+                project.validate(self.workspace, self.state, self.output, self.root)
+        commands = [call.args[0] for call in run.call_args_list]
+        self.assertIn('--no-build', commands[0])
+        if mismatch:
+            self.assertEqual(len(commands), 1)
+            completed.assert_not_called()
+        else:
+            self.assertEqual(commands[1], ['python', '-B', 'scripts/check_kernel.py', '--phase', 'build'])
+            self.assertEqual(len(commands), 2)
+            completed.assert_called_once()
+        self.assertEqual(json.loads((self.output/'result.json').read_text())['status'], 'failed')
+
+    def test_probe_input_mismatch_stops_before_full_project_compilation(self):
+        self.exercise_probe_sequence(mismatch=True)
+
+    def test_unchanged_probe_still_requires_full_project_compilation(self):
+        self.exercise_probe_sequence(mismatch=False)
 
     def test_no_context_is_a_failed_dry_run_not_an_untested_cold_success(self):
         workflow = self.workspace/project.WORKFLOW

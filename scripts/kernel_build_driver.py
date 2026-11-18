@@ -17,6 +17,7 @@ import urllib.error
 
 from check_kernel_contract import git, validate
 from kernel_build_context import capture_context
+from kernel_build_changes import InputContextMismatch
 from kernel_build_controls import prepare_controls, verify_controls, SETTINGS
 from kernel_build_download import download_archive
 from kernel_build_inventory import FORBIDDEN_ENV
@@ -78,10 +79,17 @@ def capture(workspace, prefix, state, *, expected=None):
     inputs = ['scripts/'+p.name for p in Path(__file__).parent.glob('kernel_build_*.py')]
     inputs += ['scripts/check_kernel.py', 'scripts/check_kernel_contract.py', 'scripts/check_target.py',
                'scripts/audit_kernel.lean', 'scripts/kernel_diagnostics.py']
-    return capture_context(workspace, prefix, contract['modules'], BUILD_COMMANDS,
-        driver_paths=sorted(inputs), system_drivers=[str(Path(sys.executable).resolve()), '/usr/bin/git', '/bin/bash'],
-        controls=state/'controls', expected_environment=expected,
-        progress=lambda message: print('[kernel-reuse] '+message, flush=True))
+    try:
+        return capture_context(workspace, prefix, contract['modules'], BUILD_COMMANDS,
+            driver_paths=sorted(inputs), system_drivers=[str(Path(sys.executable).resolve()), '/usr/bin/git', '/bin/bash'],
+            controls=state/'controls', expected_environment=expected,
+            progress=lambda message: print('[kernel-reuse] '+message, flush=True))
+    except InputContextMismatch as error:
+        previous = read(state/'inputs-before.json') if (state/'inputs-before.json').exists() else None
+        # Preserve bounded mismatch evidence before the unchanged fatal refusal.
+        # This record is diagnostic and never becomes a new accepted baseline.
+        write_new(state/'input-mismatch.json', error.report(previous))
+        raise
 
 
 def select(state, repository, approved_workflow):

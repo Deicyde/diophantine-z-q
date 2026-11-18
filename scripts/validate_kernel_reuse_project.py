@@ -70,6 +70,23 @@ def no_build_commands(modules):
                *['+'+name for name in modules[start:start+100]]]
 
 
+def probe_cached_inputs(workspace, output):
+    """Observe a non-compiling traversal; never treat its exit as a build result.
+
+    Missing project outputs are expected. This traversal can expose a dependency
+    metadata change before spending an hour compiling the project. The caller
+    immediately recaptures the exact prepared inputs and still runs the full
+    required build and audit if the comparison passes.
+    """
+    require(not any(os.environ.get(k) for k in FORBIDDEN_ENV), 'No credentials allowed in probe')
+    command = ['lake', '--rehash', '--no-build', 'build', 'ZInQKernel', 'GreenTaoVendor']
+    with (output/'cached-input-probe.log').open('xb') as log:
+        process = subprocess.run(command, cwd=workspace, stdout=log,
+                                 stderr=subprocess.STDOUT, timeout=120, check=False)
+    return {'command': command, 'exit_code': process.returncode,
+            'scope': 'Diagnostic traversal only; neither build nor audit acceptance'}
+
+
 def validate(workspace, state, output, prefix):
     require(sys.platform.startswith('linux'), 'Full-project validation must run on Linux')
     require(not any(os.environ.get(k) for k in FORBIDDEN_ENV), 'No credentials allowed in validation')
@@ -135,6 +152,13 @@ def validate(workspace, state, output, prefix):
             modules = sorted(prepared['context']['modules'])
             report['module_count'] = len(modules)
             require(modules == sorted(driver.validate(workspace)['modules']), 'Incomplete project inventory')
+            phase('cached-input-probe', lambda: probe_cached_inputs(workspace, output))
+            def check_probe_inputs():
+                observed, _ = driver.capture(workspace, prefix, producer_state,
+                    expected=prepared['context']['environment'])
+                require(observed == prepared['context'], 'Inputs changed during the non-compiling probe')
+                return {'matches_prepared_context': True, 'acceptance': False}
+            phase('probe-input-comparison', check_probe_inputs)
             phase('build', lambda: run(['python', '-B', 'scripts/check_kernel.py', '--phase', 'build']))
             phase('built', lambda: driver.completed_phase(workspace, producer_state, 'built'))
             phase('full-audit', lambda: run(
@@ -188,7 +212,7 @@ def validate(workspace, state, output, prefix):
         # private to this runner and are not eligible producer artifacts.
         for label, directory in (('producer', producer_state), ('consumer', consumer_state)):
             for name in ('selection.json', 'prepared.json', 'session-prepared.json',
-                         'session-built.json', 'finished.json'):
+                         'session-built.json', 'finished.json', 'input-mismatch.json'):
                 source = directory/name
                 if source.is_file():
                     (output/(label+'-'+name)).write_bytes(source.read_bytes())
