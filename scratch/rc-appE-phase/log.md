@@ -10,3 +10,4 @@
 ## Compile log
 - AppE/Phase.lean: compiles, no warnings (S0Filter, S0Filter.spec, S0Filter.self, isSquare_zmod_of_local [Hensel via Mathlib hensels_lemma + CRT], sqrtRatio, phase, phase_sq_eta, phase_sq, phase_root).
 - AppE/Linear.lean: compiles, no warnings (period 1 of a Shimura form, analyticity at ∞, hiwCoeff linear, spaces/eigenspaces closed under +, •, Σ; proportional_of_waldspurgerCor2).
+- AppE/Ramsey.lean: compiles, no warnings. PRINT `RamseyAlgebraicModel` (R-span, R-conj); PROVED exists_algebraic_normalized (algebraic g' in V with a(D₀)=1), dirichlet_mem_Qbar, heckeT3_sum, unary_eigenvalue_ne (2√p < p+1).
