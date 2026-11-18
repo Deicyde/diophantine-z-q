@@ -34,3 +34,11 @@ H strict LEAF/GLUE on N: 5/24 on 29 before; 5/24 on 29 after the proposed replac
 
 - VERIFIED (Lean): [ConradBridges.lean](../../ZInQKernel/Contrib/OneProof/ConradBridges.lean) compiles without warnings. [Original.lean](../../scratch/conrad-bridges/Original.lean) preserves the old definitions, checked by three definitional equalities. [Axioms.lean](../../scratch/conrad-bridges/Axioms.lean) records only `propext`, `Classical.choice` and `Quot.sound` for all seven checked declarations ([output](../../scratch/conrad-bridges/axioms-out.txt)).
 - VERIFIED (generator): [autofold.json](../../scratch/conrad-bridges/autofold.json) removes `OpenAddedLeaves28.conradAppB` and adds the single `conradAppBConcrete` field, leaving the rest of the bundles unchanged. It generates the wrapper `sixContactMin_of_open81` used in [DryRun.lean](../../scratch/conrad-bridges/DryRun.lean). No fold was applied to existing kernel files.
+- VERIFIED (Lean, pinned top): rebuilt the missing dependencies of `Main` at `15c9e93d3`, then ran `lake env lean` on [DryRun.lean](../../scratch/conrad-bridges/DryRun.lean) and [Discharges.lean](../../scratch/conrad-bridges/Discharges.lean). `sixContactMin_of_open81`, `ZInQ.OneProof.frozenTarget_conradBridges` and the pinned `ZInQ.OneProof.frozenTarget` all report exactly `propext`, `Classical.choice` and `Quot.sound` ([fold axioms](../../scratch/conrad-bridges/dryrun-out.txt), [pinned check](../../scratch/conrad-bridges/discharges-out.txt)).
+- VERIFIED (`#discharges`): the check on the pinned top finds 30 open hypotheses (including PC) and 24 discharging theorems. The [C8 result](../../scratch/conrad-bridges/discharges-out.txt#L63) reads:
+
+  ```text
+  DISCHARGES [OpenAddedLeaves28.conradAppB] by HDec.G0Galois.C8Conrad.Bridges.conradAppB_of_concrete
+    still assumes: [HDec.G0Galois.C8Conrad.Bridges.ConradAppBConcrete]
+    axioms: [propext, Classical.choice, Quot.sound]
+  ```
