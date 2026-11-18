@@ -2,7 +2,8 @@
 
 The open hypothesis `OpenResearchLeaves65.fowlerProp27` (`HDec.CMBranch.FowlerProp27`) states Fowler's class-number
 bound with the project's encodings of the order discriminant, `orderDisc R = conductor(R)² · d_k`, and of the class
-number, `Nat.card (CommRing.Pic R)`. An independent reading (AI-READ, 2026-11-18) rated it a consequence of the print
+number, `Nat.card (CommRing.Pic R)`. A statement check (AI-READ, 2026-11-18; recorded as `docs/one-proof/statement-checks/fowlerProp27-sweep-20261118.md` on the
+statement-check branch) rated it a consequence of the print
 through exactly these two identifications.
 
 `ZInQKernel/Contrib/OneProof/FowlerProp27Printed.lean` adds the leaf
@@ -34,4 +35,7 @@ DISCHARGES [OpenResearchLeaves65.fowlerProp27] by HDec.CMBranch.fowlerProp27_of_
   axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-The new leaf enters kinds.tsv flagged unread (locator row "Fowler 2·7" in `docs/research/locators.md`).
+At integration the new leaf is registered in kinds.tsv flagged unread (its row is under "Rows added by folds
+(after the audit)" in `docs/research/locators.md`); this branch does not edit kinds.tsv. The re-indexing by orders rests on
+two classical facts that are not formalized: the order of a given discriminant is unique up to isomorphism, and its class
+group is finite (so `Nat.card` is the class number).
