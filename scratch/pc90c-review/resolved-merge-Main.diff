@@ -1,0 +1,52 @@
+diff --git a/ZInQKernel/OneProof/Main.lean b/ZInQKernel/OneProof/Main.lean
+index bebc8d36c..ffb801a0b 100644
+--- a/ZInQKernel/OneProof/Main.lean
++++ b/ZInQKernel/OneProof/Main.lean
+@@ -1,13 +1,21 @@
+ import ZInQKernel.OneProof.H.TailZ87
+ import ZInQKernel.MainGreenTao
+ import ZInQKernel.Contrib.OneProof.DeRhamRange
++import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
+ 
+ /-!
+ # The whole proof in one theorem
+ 
+ `ZInQ.OneProof.frozenTarget` derives the frozen target `ZInQ.FrozenTarget` from every statement that is still open on
+-the development fork, and from nothing else: the open bundles of the H chain and pole completeness PC
+-(`ZInQ.PoleCompleteness`, Theorem 5.2 of the 11/5 manuscript, `diophantine_zq.tex` lines 1001–1004, for the manuscript's pole polynomial).
++the development fork, and from nothing else: the open bundles of the H chain, the manuscript's Theorem 5.3 (the restricted
++converse, `ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine`, `diophantine_zq.tex` lines 1005–1011, over the genuine
++`Sel_{2^∞}(E_ℓ/ℚ)`), the printed leaves Lemma 5.4 (`ZInQ.Manuscript.PoleS12.Lemma54`), BCDT Theorem A
++(`ZInQ.Manuscript.PoleS12.BCDTThmA`) and Kolyvagin's Theorem 1 (`ZInQ.Manuscript.PoleS12.KolyvaginThm1`).
++Pole completeness PC (`ZInQ.PoleCompleteness`, Theorem 5.2, lines 1001–1004, for the manuscript's pole polynomial) is
++proved from these by the manuscript's descent (lines 1019–1121):
++`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final`
++(`Contrib/OneProof/PoleCompletenessFromRCGenuineFinal.lean`; fork issue #83), with the matrix construction, the local
++images, the 2-descent, Mordell–Weil for `E_ℓ` and the Kummer identification `#Sel₂(E_ℓ/ℚ) = #SelM ℓ` proved.
+ It composes the compiled H chain with the headline
+ `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`
+ (`ZInQKernel/MainGreenTao.lean`: the assembly with route AP, Green–Tao in its dense form and Proposition D proved).
+@@ -156,14 +164,19 @@ hypothesis by its proof; the theorem's statement then loses that hypothesis.
+ 
+ namespace ZInQ.OneProof
+ 
+-/-- **Theorem 1.1, from every statement still open:** the open H bundles and pole completeness PC
+-(the manuscript's Theorem 5.2). -/
++/-- **Theorem 1.1, from every statement still open:** the open H bundles, the manuscript's Theorem 5.3 (the restricted
++converse) and the printed leaves Lemma 5.4, BCDT Theorem A and Kolyvagin's Theorem 1. Pole completeness PC (the
++manuscript's Theorem 5.2) is proved from the last four
++(`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final`). -/
+ theorem _root_.ZInQ.OneProof.frozenTarget
+     (r : HDec.HSyn.OpenResearchLeaves61) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
+-    (hPC : ZInQ.PoleCompleteness) :
++    (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
++    (h54 : ZInQ.Manuscript.PoleS12.Lemma54) (hB : ZInQ.Manuscript.PoleS12.BCDTThmA)
++    (hK : ZInQ.Manuscript.PoleS12.KolyvaginThm1) :
+     ZInQ.FrozenTarget :=
+   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
+-    (HDec.HSyn.sixContactMin_of_open80 r t l) hPC
++    (HDec.HSyn.sixContactMin_of_open80 r t l)
++    (ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final hRC h54 hB hK)
+ 
+ end ZInQ.OneProof
+ 
