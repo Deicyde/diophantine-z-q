@@ -1,5 +1,10 @@
 # Central Kummer comparison: input (1) pinned to the genuine objects
 
+
+## Scope after independent review (2026-11-18)
+
+An independent review approved this as a pinned-object reduction and finite-level obstruction only. The genuine Tate and Kummer constructions pass (the Kummer condition is the actual cocycle condition at every place of S; the rationalization is along Z_2 to Q_2; the Tate comparison is a legitimate identity). The remaining identification of H^1 of the rational Kummer complex with the kernel of the specialized matrix is exactly the missing comparison: under the intended universal-coefficient, descent and corank-one inputs it is equivalent to `hcentral`, and it is not a construction of the manuscript's normalized comparison: replacing an identification by twice it still satisfies the degree-one interface. The manuscript requires actual comparisons from local vanishing and unchanged old conditions (tex 3952-3962) that preserve the point and duality transport (tex 3965-3981). This contribution does not discharge input (1), `central`, `hcentral` or the base-zero leaf.
+
 ## Result
 
 Input (1) of `centralSelmerComparisonOfSpecializedModel` (a complex `K` of `ℚ₂`-vector spaces, a
