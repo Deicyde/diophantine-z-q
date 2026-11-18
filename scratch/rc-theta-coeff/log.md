@@ -1,0 +1,6 @@
+- Base: 2481181053ae50cea6b6c2b9118de0f2e17f09ae.
+- 8476–8494, 9077–9089: exact coefficient lift; Brandt and (O.6) hold modulo integer 2^M.
+- 9647–9654: no citation for the product/constituent assertion. Weil cited later in the theta-source proof (8626 onward), Carayol at 9778.
+- 9660–9668: integrality does not show preservation of the diamond span; use the span of Hecke and diamond translates.
+- 9745–9750: constructor uses common good-operator avoidance also as stationary support. The manuscript instead covers added level primes by the active set's bits.
+- `Hecke.lean`: compiled with `lake env lean`; `GoodRec.degeneracy`, `eisenstein_pow`, `eisenstein_at_prime`, `eisenstein_rec` and helpers audited; only standard axioms.
