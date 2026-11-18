@@ -104,8 +104,8 @@ Research jobs do not run that separate suite.
 
 The skip writes its reason to the step summary.
 
-This change updates the workflow and line-ending rules' contract hashes and
-adds the classifier and its tests to the contract; it does not change mathematical targets or Lean
-sources. Jack McCarthy (`Deicyde`) is being asked to confirm this inventory, and
-Fable will review the follow-up PR before merge. Neither confirmation is
-claimed by these offline tests.
+The classifier and its tests are contract-pinned. A new kernel consumer requires
+a reviewed input-inventory and scope update; passing the offline tests is not
+proof of a mathematical target. Gate-only waiter-capacity assertions belong to
+`tests/protocol_b/test_kernel_dispatch.py`, not the kernel phase suite, so the
+independent-gate exemption remains consistent with the kernel job's inputs.

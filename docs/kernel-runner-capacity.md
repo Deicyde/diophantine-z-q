@@ -7,7 +7,8 @@ the exact-target checks. Build workers use the two-worker default; audit workers
 
 After fetching dependencies, the job checks the filesystem holding
 `RUNNER_TEMP`. It allocates the file only with at least 28 GiB free, leaving
-4 GiB of disk headroom. With less space it warns, records that the additional
+4 GiB of disk headroom. That minimum is not a guarantee that future build
+outputs fit; disk exhaustion still fails the job. With less space it warns, records that the additional
 allocation was skipped, and continues with existing swap. It never reports
 that 24 GiB is active merely because it was requested. The diagnostic reads
 `/proc/swaps`, verifies the exact new file and its usable size, and preserves

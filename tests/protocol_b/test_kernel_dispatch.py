@@ -254,6 +254,17 @@ class KernelDispatch(unittest.TestCase):
             with self.subTest(case=case): gate.cleanup_kernel_refs(gh)
             self.assertFalse(gh.deletions)
 
+    def test_secret_free_waiter_fits_hosted_job_limit_and_keeps_receipt(self):
+        # Gate-only inputs belong to this suite: a gate-only PR legitimately
+        # skips the kernel job but runs protocol-b-pdf-test.yml.
+        preflight = workflow.split("  kernel_preflight:\n", 1)[1].split("    steps:\n", 1)[0]
+        self.assertIn("timeout-minutes: 360", preflight)
+        wait = workflow.split("def wait_lean():", 1)[1].split("SOURCE_CHECK_SCHEMA", 1)[0]
+        self.assertIn("deadline = time.monotonic() + 355 * 60", wait)
+        self.assertIn("An unresolved claim is retained, never replayed", wait)
+        kernel_tests = (ROOT / "scripts/test_kernel_phases.py").read_text(encoding="utf-8")
+        self.assertNotIn(".github/workflows/protocol-b.yml", kernel_tests)
+
     def test_preflight_and_cleanup_jobs_have_no_provider_environment(self):
         pre = workflow.split('  kernel_preflight:',1)[1].split('  run_reviewers:',1)[0]
         cleanup = workflow.split('  cleanup_kernel_refs:',1)[1]
