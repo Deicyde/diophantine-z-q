@@ -1,0 +1,53 @@
+rc-o12-local: the cuspidal local blocks at p ∈ U in the Carayol and Casselman normalization. Supplies the cuspidal part of O12.LocalBlocks and the comparison UpAtOne, the local inputs that rc-o12 left named (base: rc/thm53-proof-20261117 at 71d379283cea3d3650e7bd8c2b23ecb58163a7e7).
+
+Why: the owner said "I feel like we're spending way too much time re-reading literature and not nearly enough time trying to prove Elliot's manuscript", then approved the project's hosts taking Theorem 5.3's appendices. The host task rc-o12 proved both halves of GaloisConstituentModel.Inputs from named data (O12.inputs_of_theta, folded at 453aeacb; report docs/research/rc-o12.md). Its remaining inputs include "the local blocks in the Casselman/Carayol normalization". Its Manuscript check marks tex 9773–9811, 9813–9841 and 9857–9864 unverified, because the local normalization was taken as input. The project claimed this follow-up on fork issue #83. Do not overlap the sibling tasks: rc-o12-eisenstein (the Eisenstein blocks, tex 9862–9864), rc-theta-coeff (the coefficient family), rc-pm, rc-two-fresh. Do not edit RC/O12/, RC/Odd/, RC/AddressGenuine/ or RC/TraceLimits/; import them.
+
+Setup: your worktree is already on branch wip/rc-o12-local at 71d379283cea3d3650e7bd8c2b23ecb58163a7e7. Origin refs in the shared repository are refreshed for you; do not run git fetch or git push yourself (a separate job pushes your commits). Your files go under ZInQKernel/Contrib/OneProof/RC/O12Local/ (a new directory).
+
+What exists (read first):
+- RC/O12/Local.lean: LocalPair (τ, φ at a maximal ideal over p) and LocalBlocks X U P, with the fields active, ramified, Up, supported, preserves_ramified, old and newLine. newLine asks, for each active ramified constituent, for b, λ, μ with b ρ_i(τ) b⁻¹ = diag(1, −1), b ρ_i(φ) b⁻¹ = diag(λ, μ), and Up acting on that coordinate by λ. RC/O12/Fourier.lean: UpAtOne (the weight-two U_p^{(2)} on these vectors moves coefficient p to coefficient one). RC/O12/Inputs.lean: LocalInput. RC/O12/Build.lean and docs/research/rc-o12.md: how these are consumed, and whittaker_sum (the finite matrix sum, already proved).
+- RC/AddressGenuine/Constituents.lean: GaloisConstituentModel.ρ, the PRINT data from Carayol.
+- RC/Odd/Traces.lean: O12_diag, O12_unramified, whittaker_matrix.
+- The manuscript, diophantine_zq.tex:
+  - 9754–9771: the blocks at p ∈ U. θB_U and the unary blocks with p ∈ J have level exponent at most one and primitive quadratic character at p; the unary blocks with p ∉ J are degeneracies of forms at a level omitting p.
+  - 9773–9797: the unitary normalization a_q = √q(α_q + β_q), α_qβ_q = χ(q); Carayol §§0.3–0.7, Théorème A, pp. 409–411, applied to Π_f^∨ with ρ_f = σ(Π_f^∨)^∨; reciprocity sending geometric Frobenius to a uniformizer; ω_p = |·|_p; σ(Ind(ξ₁, ξ₂)) = ξ₁^{-1}ω_p^{-1/2} ⊕ ξ₂^{-1}ω_p^{-1/2}.
+  - 9798–9811: the local conductor of a ramified block is exactly one; Casselman, Theorem 1, pp. 302–306, so Π_{f,p} = Ind(μ₁, μ₂) with μ₁ unramified and μ₂ of conductor one; its newvector space is a line.
+  - 9812–9840: normalized induction, K₀(p) with the character k ↦ μ₂(k₂₂), h_p, vol(K₀(p)) = 1, H_p = ∑_b Π_{f,p}((p b; 0 1)), the newvector supported on BK₀(p) with v(1) = 1, and (H_p v)(1) = √p μ₁(p).
+  - 9841–9856: the Whittaker comparison giving U_p^{(2)} = √p μ₁(p) on the new line, the arithmetic Frobenius eigenvalue on the unramified Galois line.
+  - 9857–9861: old multiplicities at other primes carry the same scalar; Casselman, Corollary p. 306 and Theorem 4 p. 313, add no multiplicity at this conductor-one prime.
+
+Your work, for a cuspidal constituent f in a ramified block at p:
+1. The newvector computation (tex 9812–9840), as a Lean theorem. For a function v on GL₂(ℚ_p) with v((a x; 0 d) g) = μ₁(a)μ₂(d)|a/d|_p^{1/2} v(g), right K₀(p)-equivariant for k ↦ μ₂(k₂₂), supported on BK₀(p), with v(1) = 1, show (H_p v)(1) = √p μ₁(p). Include the convention change by h_p if your statement needs it. Build only the objects this computation needs; the local representation theory of GL₂(ℚ_p) is not in Mathlib.
+2. The conductor step (tex 9798–9811). The local conductor of a ramified block is at most the level exponent (at most one) and at least the conductor of its determinant (one), so it is exactly one. With Casselman's classification it follows that Π_{f,p} = Ind(μ₁, μ₂) with μ₁ unramified, μ₂ of conductor one, and a newvector line. State Casselman's results in the form Elliot uses them, as printed-form inputs with the manuscript's locators (UNVERIFIED): Theorem 1, pp. 302–306 (special representations have conductor one only for unramified twists; ramified twists and supercuspidals have conductor at least two) and Corollary p. 306 with Theorem 4 p. 313 (the oldspace count). Prove the manuscript's own steps around them.
+3. The Galois side (tex 9773–9797). From Carayol's formula as the manuscript quotes it, with the two dualities and the Frobenius convention, derive that ρ_f on the decomposition group at p has a basis of two character lines. On the first line inertia acts trivially and arithmetic Frobenius acts by √p μ₁(p); on the second, inertia acts by the prescribed quadratic character. This gives b, λ = √p μ₁(p) and μ for newLine. Carayol is already the PRINT behind ρ; state the local-global compatibility at p in the form Elliot applies it, with that provenance. Do not duplicate the existence print.
+4. The Whittaker comparison (tex 9841–9856). The global form's Fourier coefficient a_n corresponds to the finite Whittaker coefficient a_n/n under the stated archimedean normalization. With whittaker_sum, this gives UpAtOne. The text gives this comparison without a citation: state it as an ELLIOT input if you cannot prove it, and say so in the report.
+5. The blocks (tex 9754–9761, 9857–9861). Give active, ramified, supported, preserves_ramified and old. The unary blocks with p ∉ J are degeneracies of forms of level prime to p, hence unramified at p; old multiplicities at other primes carry the same scalar.
+6. Assemble the cuspidal part of LocalBlocks and UpAtOne, leaving the Eisenstein blocks as a named hypothesis for the sibling task, and show how LocalInput follows.
+Out of scope for this run:
+- the Eisenstein blocks (rc-o12-eisenstein);
+- the theta forms and their coefficient family (rc-theta-coeff);
+- a general theory of admissible representations.
+Prints: Casselman and Carayol only, as the manuscript cites them at tex 9786 and 9802–9806, 9857–9861, in the form Elliot uses them. Uncited steps the text asserts are ELLIOT and become named hypotheses if you cannot prove them.
+
+RESOURCE LIMITS (hard rules; breaking one fails your task):
+- At most ONE Lean process (lean, lake, repl, or a pytest run that starts real Lean) at a time. Never start Lean jobs in the background with &, xargs -P, or shards.
+- A Lean REPL session gets at most 10 commands, then restart it. Or send the header once and pass "env" on later commands so it doesn't re-import.
+- Check `uptime` and `sysctl vm.swapusage` before every Lean or pytest run. If load is above 40 or swap used is above 8 GB, don't start it; report that you were blocked.
+- Ground-truth or differential checks use a sample of at most 30 inputs, run one after another.
+Host note (devserver): check `uptime` and `free -g` instead of vm.swapusage; hold Lean only above load 120 or below 20 GB available memory; do not sleep and poll.
+
+The owner's rules: follow the manuscript (diophantine_zq.tex) first, then the literature it cites. Label any step that is in neither as on-the-spot (provenance (c)). Cited prints become printed-form leaves exactly as Elliot uses them (the owner's Gross-Zagier ruling: "Follow the manuscript: CST Thm 1.1 and Kolyvagin Thm 1 become printed-form leaves exactly as Elliot cites them; we write no GZ argument of our own"). Reuse the print statements already in the tree (RC/PrintsArith, RC/PrintsAnalytic, RC/AppF/Prints.lean, the shared layer's Prints) and add only the prints named in this brief. No network is needed and you have none: mark page and theorem numbers you give from memory UNVERIFIED. If a source has a known issue, document it. Report any error you find in the manuscript or a source at once, first in the report and in .fleet/rc-o12-local.md.
+
+Hygiene, for everything bound for the fork (Lean, report, commit messages): no session names, host names or user paths. Write paths relative to the repository root, and refer to people by role ("the lead", "the reviewer", "the cloud agent").
+
+The stop rule, for this unattended run: if a step needs a large missing theory, build only the minimal faithful pieces the next step needs. Otherwise finish what can be finished and write a scoped report: what is missing, how large it is, the smallest faithful statement of it, and what would follow once it exists. Never add a leaf beyond the prints named here, and never weaken a statement to make it provable.
+
+Deliverables: new files only, under ZInQKernel/Contrib/OneProof/RC/O12Local/. Never import ZInQKernel.OneProof.Main, and edit nothing outside that directory except the report, .fleet/rc-o12-local.md and scratch/rc-o12-local/. Do not use local notation; write abbreviations with explicit arguments (the merge rule blocks local notation). Compile each file with lake env lean (one Lean process at a time), with no sorry and no axiom, and give #print axioms of each new theorem (only propext, Classical.choice and Quot.sound). The report docs/research/rc-o12-local.md needs:
+- the main result, or the scoped stop, first;
+- the statement of each new theorem, and which field of LocalBlocks (or UpAtOne) it supplies;
+- each printed-form or ELLIOT input, with its tex lines and locator;
+- a Known-issues section;
+- a section "Manuscript check": one line per manuscript step you formalize or rely on, with its tex lines and one verdict: OK (right as written), gap filled (what was missing), error (what is wrong), or unverified (why).
+Commit on your branch wip/rc-o12-local (only that branch) with the report (a background job pushes it; do not run git push), and give the final SHA in your last message and in .fleet/rc-o12-local.md.
+
+Output and commits: besides the report, keep a results log at scratch/rc-o12-local/log.md (statements, findings, compile outcomes; no narrative), and at the end write .fleet/rc-o12-local.md (half a page: main result or scoped stop, what compiles, what remains). Commit as you go with git add of your own paths and git commit (never git add -A). Commit .fleet/rc-o12-local.md last. Resuming: if scratch/rc-o12-local/log.md exists, an earlier run was interrupted; read it and the report, and continue where it stopped. Keep working until .fleet/rc-o12-local.md is written and committed.
