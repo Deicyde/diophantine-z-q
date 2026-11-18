@@ -1,0 +1,6 @@
+- Base: `23d66f067d7f047ecc7ef687d2307d3164124de8`.
+- Interface: `DivisionCoordinates` and `DivisionLocalModel` in the unchanged local-weights modules.
+- Manuscript inputs: tex 8437 (prime congruence), 8462–8465 (global algebra and order), 8551–8566 (local weight and support).
+- Devserver resource checks use `uptime` and `free -g`; Linux does not expose `vm.swapusage`.
+- `Valuation.lean`: `‖a²+b²‖ = max(‖a‖,‖b‖)²`; even valuation. The two nonzero terms of the four-coordinate norm have opposite valuation parity. Compiled; 8 axiom checks passed.
+- `Algebra.lean`: rank four, product topology, trace and norm, anisotropy, explicit inverse and division ring. Compiled; 18 axiom checks passed.
