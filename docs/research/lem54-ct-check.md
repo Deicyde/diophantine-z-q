@@ -108,3 +108,33 @@ In particular, `hRC` concludes analytic rank one under a corank premise, `hB` su
 `hK` concludes rank one and finiteness of Sha under its modularity and analytic rank premises.
 Finiteness is compatible with `hCT`: for finite Sha its maximal divisible subgroup is zero, so the
 pairing is nondegenerate on Sha itself (`CTCheck.nondegenerate_of_finite_sha`).
+
+## 5. Proposed kinds row
+
+Proposed rating after reviewer approval: **published, LEAF/LEAF, provenance (b)**. This is a
+specialization of the cited print over genuine Sha. The conditional route through Lemma 5.4
+is GLUE, and its disappearance from the headline does not discharge the pairing theorem itself.
+If entered before the reviewer rates it, use `GLUE/GLUE` with a `pending-review` flag until that
+decision is recorded. The row below is the proposed rated form; it has not been entered in
+`docs/one-proof/kinds.tsv`.
+
+```tsv
+bundle	field	kind	flag	strict	strictest	source	rated_by	packet	label	tier	flag_class	area_issue
+frozenTarget	hCT	published	Secondary print: Cassels for elliptic curves as stated in Poonen-Stoll; author-version pagination. Milne I.6.13(a) corroborates the primary kernels. Alternation here is for elliptic curves. Statement checked against recorded quotes only; Cassels 1962 not read.	LEAF	LEAF	Provenance (b): Poonen-Stoll, Ann. of Math. (2) 150 (1999), 1109-1149, Introduction, first paragraph (author version p. 2), cited at diophantine_zq.tex L1081 (bibitem L11098-11100); Milne, Arithmetic Duality Theorems, 2nd ed., I.6.13(a), p. 82 (primary kernels), and p. 81 (rational-divisor polarization).	proposed; reviewer decision required				note	Deicyde/diophantine-z-q#83
+```
+
+## Known issues
+
+- **VERIFIED:** In the reviewed manuscript lines there is no false inference after supplying the
+  stated details. The decomposition needs finiteness of 2-torsion, the quotient pairing must be
+  passed to the finite 2-primary summand, and the proof omits the step that identifies the
+  Selmer corank with `r+t`. The Lean proof supplies all three.
+- **VERIFIED from the quotation record:** Milne's footnote 17, p. 82, corrects the older blanket
+  assertion that the pairing is always alternating. Alternation for elliptic curves is unaffected.
+  Nondegeneracy of the restriction to `F[2]` would also be false in general; the manuscript
+  explicitly avoids it.
+- **UNVERIFIED:** The original Cassels and Tate publications, journal pagination for the
+  Poonen–Stoll locator, and the broader section locators in the existing square-property
+  docstrings were not checked. The proposed docstring gives only the locators supported by the
+  record. In particular, `SelmerCorankFam.lean` names L1077 as the citation; the actual line is
+  L1081. The square property is derived from the pairing in Lean.

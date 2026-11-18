@@ -27,3 +27,6 @@
    adding the pairing preserves any conjunction of retained hypotheses relative to the print,
    and finite Sha has zero pairing radical. All four proofs use only the three standard
    axioms. Full output: `NonVacuity-output.txt` in this directory.
+7. **VERIFIED:** The proposed `hCT` row has the columns of `docs/one-proof/kinds.tsv` and passes
+   its row validator. It proposes `published, LEAF/LEAF` after review, provenance (b),
+   `diophantine_zq.tex` L1081. No registry or production Lean file changed.
