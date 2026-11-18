@@ -1,0 +1,13 @@
+- Base: 2481181053ae50cea6b6c2b9118de0f2e17f09ae.
+- 8476–8494, 9077–9089: exact coefficient lift; Brandt and (O.6) hold modulo integer 2^M.
+- 9647–9654: no citation for the product/constituent assertion. Weil cited later in the theta-source proof (8626 onward), Carayol at 9778.
+- 9660–9668: integrality does not show preservation of the diamond span; use the span of Hecke and diamond translates.
+- 9745–9750: constructor uses common good-operator avoidance also as stationary support. The manuscript instead covers added level primes by the active set's bits.
+- `Hecke.lean`: compiled with `lake env lean`; `GoodRec.degeneracy`, `eisenstein_pow`, `eisenstein_at_prime`, `eisenstein_rec` and helpers audited; only standard axioms.
+- `Forms.lean`: compiled with `lake env lean`; all declarations with `#print axioms` use only the standard axioms. Integral (O.11) holds at zero, on the good unary shells, on the sieved indices, and off unary support.
+- Resource log: host load/memory checked before each Lean invocation. One early check was launched before cancellation of the initial dependency queue was confirmed; possible overlap there. Subsequent invocations were serialized.
+- `Lattice.lean`: compiled with `lake env lean`. The integral restriction agrees with the characteristic-zero expansion, satisfies `HeckeFourier`, and is continuous. A finite spanning set of Fourier rows proves finite generation. All theorem audits use only the standard axioms.
+- `Blocks.lean`: compiled with `lake env lean`; all theorem audits use only the standard axioms. Exact expansion and diamond correction proved coefficientwise. Block realization and character action are inputs.
+- `Operators.lean`: compiled with `lake env lean`; all audits use only the standard axioms. Verified good trace and determinant on the lattice, `D U`, `hD`, and the trace equality under formwise inertia.
+- `Model.lean`: compiled with `lake env lean`. Verified the conditional constructor call, the stationary support obstruction, and the formwise inertia inclusion. `hdiam`, `read`, and `h2fresh` remain hypotheses.
+- Final serial verification: all six files passed `lake env lean`; 72 declaration audits passed with only `propext`, `Classical.choice`, and `Quot.sound`. `git diff --check` passed.
