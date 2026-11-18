@@ -1,0 +1,8 @@
+'HDec.G0Galois.C8Conrad.Bridges.ConradAppBPrint' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.Bridges.conradAbelianChar_artinLift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.Bridges.artinNearOnePrint_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.Bridges.conradIdentityWeight_of_print' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.G0Galois.C8Conrad.Bridges.conradAppBConcrete_of_print' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G0Galois.C8Conrad.Bridges.conradAppB_of_print' depends on axioms: [propext, Classical.choice, Quot.sound]

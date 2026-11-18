@@ -19,6 +19,8 @@
 
 **On-the-spot (arithmetic Artin quotient):** The old `exists_artinLift` is surjectivity of the quotient map at the Artin symbol; the old `artinNearOne_iff` compares neighborhoods with congruences. Neither states the descent of this character. The new `conradAbelianChar_artinLift` applies Tau Ceti's `TopologicalAbelianization.lift_mk` to the continuous character into the Hausdorff abelian group `Kˣ`. The map kills the closure of commutators, so its value at the Artin symbol equals the character on every lift. Conversely use `exists_artinLift` at each point. This is the equivalence `artinNearOnePrint_iff`, with no section of the quotient and with the same near-one filter on both sides; thus the old conclusion expresses exactly the p. 33 display at `L = ℚ_p`.
 
+The Lean row is specialized to finite Galois coefficient fields; this is a restriction of the printed domain. The existing adapter enlarges coefficients to a normal closure in the same algebraic closure while keeping the local base `ℚ_p`. No extra continuity or Hodge–Tate requirement is imposed by the B.3 conjunct beyond continuity of the character and the near-one formula. The latter gives local algebraicity in Definition B.1 via the algebraic power map and the scalar inclusion into the Weil restriction.
+
 ## Manuscript check
 
 **VERIFIED (source),** `sec:height`, L755–767: L758–762 uses a de Rham twisting character at five, hence a Hodge–Tate character for this local algebraicity argument. L763–765 needs the exponent matched to its local weight so that removing the corresponding cyclotomic power leaves finite inertia at five. The manuscript needs the common weight at local base `ℚ₅`; it does not need a separate choice of identity coefficient line over `G_K`. The identity-line reading is sufficient after the existing descent but is a Lean intermediate, rather than the statement the manuscript applies. At L755 the cyclotomic weight is −1; Conrad's is +1. In arithmetic normalization on a unit, Tau Ceti's `abelianizedLocalCyclotomicCharacter_artinMap_padic` gives `χ(Art(u)) = u⁻¹`, so the Conrad exponent `n` in `u^(-n)` matches the cyclotomic power `χ^n` and the manuscript weight `-n`. The rest of the finite ray-class argument and weight comparison are unchanged.
@@ -33,3 +35,5 @@ There is no recorded source gap or failed application condition at C8 in the sup
 
 - H strict LEAF/GLUE on N (cited preprint eligible): **5/27 on 32 → 6/26 on 32**.
 - H strict LEAF/GLUE on N (refereeing required): **5/27 on 32 → 5/27 on 32**.
+
+**VERIFIED (Lean contribution):** [ConradB3Verbatim.lean](../../ZInQKernel/Contrib/OneProof/ConradB3Verbatim.lean) compiles without warnings. The [verbatim copies](../../scratch/conrad-b3-verbatim/Original.lean) compile and match the original definitions by `Iff.rfl`. The [axiom output](../../scratch/conrad-b3-verbatim/axioms-out.txt) gives only `propext`, `Classical.choice`, and `Quot.sound`.
