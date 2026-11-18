@@ -4,6 +4,8 @@ article_id: af_c38e410c645b4cd568ed5d2b
 
 # The row-5b determinant
 
+> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+
 The certified rank hypothesis CR₃ rests, through Proposition 0, on the Selmer form CR₃^Sel:
 for squarefree $n\equiv5\pmod8$ with $|\mathrm{Sel}_2(C_n)|=8$ and a Selmer class with
 $|a|\equiv7\pmod8$, every 2-Selmer class of $C_n$ comes from a rational point. The route

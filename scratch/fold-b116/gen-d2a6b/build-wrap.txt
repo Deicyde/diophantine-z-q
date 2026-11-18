@@ -1,0 +1,9 @@
+info: ZInQKernel/Contrib/OneProof/A6Z30.lean:186:0: 'HDec.D2A6.qmModelG3U_of_z30' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/A6Z30.lean:187:0: 'HDec.D2A6.modelG3G6_of_leavesU_z30' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/D2A6Wrap.lean:139:0: 'HDec.G15Ram.raynaudPlace_of_R6U' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/D2A6Wrap.lean:140:0: 'HDec.G15Ram.torsFix_of_R6U' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/D2A6Wrap.lean:141:0: 'HDec.G15Ram.tateWildK_of_R6U' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/D2A6Wrap.lean:142:0: 'HDec.HSyn.modelG3G6_of_leaves3U' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/D2A6Wrap.lean:143:0: 'HDec.G0ModField.KernelField.good_of_QML3U' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (14424 jobs).
+(fold-b116: 100234-line build log truncated to its axioms/result lines)

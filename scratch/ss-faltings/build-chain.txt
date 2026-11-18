@@ -1,0 +1,8 @@
+info: ZInQKernel/OneProof/H/TailZ80.lean:3054:0: 'HDec.HSyn.sixContactMin_of_open73' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ81.lean:106:0: 'HDec.HSyn.sixContactMin_of_open74' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ82.lean:106:0: 'HDec.HSyn.sixContactMin_of_open75' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ83.lean:106:0: 'HDec.HSyn.sixContactMin_of_open76' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [15392/15394] Built ZInQKernel.Contrib.OneProof.SSFaltings (7.6s)
+✔ [15393/15394] Built ZInQKernel.Contrib.OneProof.SSFaltingsGR9 (4.7s)
+ℹ [15394/15394] Built ZInQKernel.Contrib.OneProof.SSFChain (6.7s)
+info: ZInQKernel/Contrib/OneProof/SSFChain.lean:3294:0: 'HDec.HSyn.sixContactMin_of_open76_sf' depends on axioms: [propext, Classical.choice, Quot.sound]

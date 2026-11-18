@@ -1,0 +1,52 @@
+'HDec.HSyn.sixContactMin_of_open77sf' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HDec.HSyn.sixContactMin_of_open77sf: closure 274265
+  GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34: absent
+  SGA33Steps.SGA7_IX_Cor3_3: absent
+  GaRigidity.SGA7.SGA7_IX_Cor3_3: absent
+  CToPrinted.SGA7_IX_3_3: absent
+  ReductB.SemistablePersistsSHcp: absent
+  ZInQ.HeightSplit.SemistableNeronBaseChange: absent
+  ZInQ.HeightSplit.SemistablePersists: absent
+  ZInQ.HeightSplit.SemistableReductionThm: PRESENT [ZInQ.HeightSplit.SemistableReductionThm]
+  GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34: PRESENT [GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34]
+  ZInQ.SSFaltings.FaltingsSemistableHeightBC: PRESENT [ZInQ.SSFaltings.FaltingsSemistableHeightBC]
+  ZInQ.SSFaltings.SemistableReductionThmIF: PRESENT [ZInQ.SSFaltings.SemistableReductionThmIF]
+  SZRaynaud.SilverbergZarhinThm35: PRESENT [SZRaynaud.SilverbergZarhinThm35]
+  sorryAx: absent
+== HDec.HSyn.sixContactMin_of_open76: closure 274529
+  GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34: PRESENT [GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34]
+  SGA33Steps.SGA7_IX_Cor3_3: PRESENT [SGA33Steps.SGA7_IX_Cor3_3]
+  GaRigidity.SGA7.SGA7_IX_Cor3_3: absent
+  CToPrinted.SGA7_IX_3_3: PRESENT [CToPrinted.SGA7_IX_3_3]
+  ReductB.SemistablePersistsSHcp: PRESENT [ReductB.SemistablePersistsSHcp]
+  ZInQ.HeightSplit.SemistableNeronBaseChange: PRESENT [ZInQ.HeightSplit.SemistableNeronBaseChange]
+  ZInQ.HeightSplit.SemistablePersists: PRESENT [ZInQ.HeightSplit.SemistablePersists]
+  ZInQ.HeightSplit.SemistableReductionThm: PRESENT [ZInQ.HeightSplit.SemistableReductionThm]
+  GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34: PRESENT [GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34]
+  ZInQ.SSFaltings.FaltingsSemistableHeightBC: absent
+  ZInQ.SSFaltings.SemistableReductionThmIF: absent
+  SZRaynaud.SilverbergZarhinThm35: PRESENT [SZRaynaud.SilverbergZarhinThm35]
+  sorryAx: absent
+HDec.HSyn.OpenResearchLeaves58SF.faltingsSemistableHeightBC: new true old false
+dead-field probe done
+'ZInQ.SSFaltings.faltingsSemistableHeightBC_of_ss2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.semistableReductionThm_of_IF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.exists_three_or_five_isUnit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.semistableReductionThmIF_of_raynaud' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.stableFaltingsHeight_eq_of_semistableF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.stableFaltingsHeight_eq_of_isStableFaltingsHeightF' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.SSFaltings.isStableFaltingsHeight_uniqueF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.exists_semistable_neronF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.isStableFaltingsHeight_iffF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.stableFaltingsHeight_ne_botF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.stableHeightFinite_ofF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.r21_of_leavesF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.r18_of_leavesF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.r22_of_upperF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.r19_of_leavesF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.r20Lower_of_leavesF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.r21_of_grBostF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SSFaltings.r21_of_grBostF'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open76_sf' depends on axioms: [propext, Classical.choice, Quot.sound]

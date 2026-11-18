@@ -21,7 +21,8 @@ namespace Sylow
 variable {p : ℕ} {G : Type*} [Group G]
 
 /-- A Sylow `p`-subgroup is a maximal `p`-subgroup. -/
-theorem maximal_isPGroup (P : Sylow p G) : Maximal (fun Q : Subgroup G ↦ IsPGroup p Q) (P : Subgroup G) :=
+theorem maximal_isPGroup (P : Sylow p G) :
+    Maximal (fun Q : Subgroup G ↦ IsPGroup p Q) (P : Subgroup G) :=
   ⟨P.isPGroup', fun _ hQ hle => (P.is_maximal' hQ hle).le⟩
 
 end Sylow

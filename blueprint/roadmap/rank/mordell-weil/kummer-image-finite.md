@@ -6,7 +6,7 @@ origin: background
 
 # The Kummer image over $\mathbb Q$ is finite
 
-> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
+> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](../../main/main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
 
 Let $c$ be a nonzero integer. Then the Kummer image
 $\alpha_c(E_c(\mathbb Q))\subseteq\mathbb Q^\times/\mathbb Q^{\times2}$ of $E_c:y^2=x^3+cx$ is

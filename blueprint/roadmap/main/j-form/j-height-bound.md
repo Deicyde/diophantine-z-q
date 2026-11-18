@@ -20,7 +20,7 @@ For a finite set $S$ of natural numbers, the $j$-form of the height hypothesis a
 assertion that for every $u\in\mathbb Q\setminus\mathcal C$,
 $$h(J(u))\le(40\cdot10^4\cdot2^{24}+22)\,X(D)\,M_S(u)^{24}.$$
 
-The main theorems use it at $S=S_{\rm mul}$.
+At $S=S_{\rm mul}$ it can replace the minimal height hypothesis in the main theorem.
 
 The constant comes from combining three bounds of the manuscript's proof of the six-contact
 estimate, for $j=J(u)$, the projective height $h([z_m])$ of the even theta constants of an abelian
@@ -36,9 +36,8 @@ the main theorems use.
 The $j$-form is not a published theorem; it rests on the steps of the trust statement for H before
 the last one, some of which replace or re-source the manuscript's steps and some of which no
 referee has checked. At $S=S_{\rm mul}$ it implies the minimal height hypothesis
-([proved here](six-contact-min-of-j-height-bound.md)). Here it is a hypothesis of two variants of
-the main theorem
-([the main theorem from the $j$-form and the L-series statements](../main-theorem-literature.md)).
+([proved here](six-contact-min-of-j-height-bound.md)), so the [main theorem](../main-theorem.md) also
+holds with the $j$-form in place of the minimal height hypothesis.
 
 ## Depends on
 

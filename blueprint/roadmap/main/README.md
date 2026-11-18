@@ -5,40 +5,23 @@ article_id: af_bd6481b675c042d993b6365d
 # The main theorem and its hypotheses
 
 Throughout, $K_0=\mathbb Q(s)$ with $s^2=2$, $d=75-53s$, and $E:y^2=x^3-d^2x$ over $K_0$.
-For a reduced fraction $a/b$ with $b>0$, $h(a/b)=\log\max(|a|,b)$. In the rank hypotheses and the
-articles that state them, $d$ instead denotes a positive integer and $C_d$ the congruent number
-curve $y^2=x^3-d^2x$ over $\mathbb Q$; the row-5b chapter writes $n$ and $C_n$ for these.
+For a reduced fraction $a/b$ with $b>0$, $h(a/b)=\log\max(|a|,b)$.
 
 The target is the manuscript's Theorem 1.1, in the exact form frozen by the upstream
 project.
 
 - [The target statement](frozen-target.md)
 
-The main theorem proves the target from five hypotheses: the minimal
-height hypothesis below (not proved here; the one instance of the manuscript's Theorem 4.1 that the proof uses; not a
-published theorem, its proof combines refereed theorems and exact computations with new arguments,
-the manuscript's and this project's, reviewed only by AI models), and four statements about L-series
-of elliptic curves over $\mathbb Q$, from which the certified rank hypothesis CR₃ below follows.
-Three of the four are textbook theorems: the positive-rank half of Gross–Zagier, the functional
-equation of $L(C_d,s)$ for squarefree $d\equiv5\pmod8$, with conductor $32d^2$ and root number $-1$,
-stated on the strip $0<\operatorname{Re}s<2$, and Hecke's continuation of $L(C_d,s)$ to an entire
-function for every $d\ne0$. The last two are proved outright, from Gauss's count of the points
-of $y^2=x^3-x$ over finite fields, which is itself proved here; so the target follows from the
-minimal height hypothesis, Gross–Zagier and the fourth statement, none of which is proved here. The
-fourth is a
-consequence of Tian–Yuan–Zhang's Theorem 3.5(2) in one reading of its genus sums, reading A: for
-squarefree $d\equiv5\pmod8$, if $L(C_d,s)$ vanishes to order at least $2$ at $s=1$, two genus sums
-of class numbers are even. No refereed text found by the project's literature search, which AI
-agents carried out, states reading A explicitly; Tian–Yuan–Zhang's introductory theorem with the
-same parity criteria, read literally, is false; and their proof passes through their Proposition
-3.4, whose proof is only sketched in the arXiv version; the journal's proof was not assessed on this
-point. A new argument written for this project, Proposition N, reviewed twice by AI models and never
-by a human, derives reading A from unambiguous results of that version; its derivation from a
-restatement of those results is proved here, but no proof checks that the restatement matches the paper, and only AI models have compared it with the paper, and it is supporting evidence, not a hypothesis of the main theorem. The rest of this
-chapter follows the manuscript's inputs and ends with the other forms of the theorem: from the
-minimal height hypothesis, CR₃ and the manuscript's prime pattern; from the minimal height
-hypothesis and CR₃ alone; and from other forms of the rank hypothesis, among them those through
-which the proof passes.
+The main theorem proves the target from two hypotheses, both inputs of the manuscript. The first is
+the minimal height hypothesis below. It is not proved here: it is the one instance of the manuscript's
+Theorem 4.1 that the proof uses, and it is not a published theorem, since its proof combines refereed
+theorems and exact computations with new arguments, the manuscript's and this project's, reviewed only
+by AI models. The second is pole completeness, the manuscript's Theorem 5.2 for its own pole polynomial.
+The manuscript derives it from its restricted converse theorem (Theorem 5.3); that derivation is not yet
+formalized here. The manuscript's other inputs are proved, two of them by routes that differ from the
+manuscript's: route AP replaces the twenty-two-prime pattern, and the catalogue bound is proved with a
+larger cutoff. The rest of this chapter follows the manuscript's inputs, gives the form of the theorem closest to
+them, which also assumes the twenty-two-prime pattern, and ends with the retired forms of Route K.
 
 - [The main theorem](main-theorem.md)
 
@@ -61,32 +44,16 @@ $J(u)=-57600F(u)^2/G(u)^6$, where $F(u)=u(u+15)(u+20)(u+24)(u+30)(u+60)$ and
 $G(u)=7u^2+300u+3600$ (the manuscript does not display that bound). This bound, at $R=D$, is the
 $j$-form of the height hypothesis; it is not proved here and is not a published theorem. The
 manuscript's last step returns from $J(u)$ to $u$. That return is replaced here by a proved
-inequality, so the $j$-form at $S=S_{\rm mul}$ implies the minimal height hypothesis; the target
-holds under the $j$-form together with CR₃^TYZ_Cl,Rk or with the three statements about L-series
-below.
+inequality, so the $j$-form at $S=S_{\rm mul}$ implies the minimal height hypothesis.
 
 - [The height hypothesis in its $j$-form](j-form/README.md)
 
 Pole completeness asserts the rational solubility of one explicit polynomial for all
-suitably prepared inputs. The polynomial here is the Route K one, whose curves are congruent
-number curves, and pole completeness is no longer assumed: the
-[Route K chapter](../route-k/README.md) proves it from a narrower hypothesis, CR₃, which turns an
-explicit 2-Selmer certificate of a congruent number curve into a rational point.
+suitably prepared inputs. A rational zero puts two points on curves $y^2=x(x-\ell)(x+3\ell)$. It is the
+manuscript's Theorem 5.2 and a hypothesis of the main theorem; the manuscript derives it from its
+restricted converse theorem by a simultaneous 2-descent (Section 5.1), which is not yet formalized here.
 
 - [Pole completeness](pole-completeness.md)
-- [The certified rank hypothesis](certified-rank.md)
-
-CR₃ follows from a form stated with the 2-Selmer group itself, CR₃^Sel, because the explicit system
-is that Selmer group ([Proposition 0](../selmer/README.md)). CR₃^Sel in turn follows from a
-hypothesis in the terms of Smith's row-5b determinant, CR₃^5b, and CR₃^5b from one in Tian, Yuan and
-Zhang's terms, CR₃^TYZ ([the row-5b chapter](../rank-5b/README.md)); by Rédei's formula, CR₃^TYZ is
-equivalent to its form CR₃^TYZ_Cl with their class numbers ([the Rédei chapter](../redei/README.md)).
-Each of CR₃^Sel, CR₃^5b, CR₃^TYZ and CR₃^TYZ_Cl concludes that every Selmer class comes from a
-rational point; CR₃ itself concludes only that $C_d$ has a rational point $(x,y)$ with $x\ne0$ and
-$x/a$ a square, for the one given $a$. CR₃^Sel, CR₃^TYZ and CR₃^TYZ_Cl also
-have forms that conclude only that the curve has positive rank. These imply narrower hypotheses
-still, which ask for positive rank only on the two curves of a slot choice
-([the positive-rank chapter](../rank/README.md)).
 
 The generator argument uses the Mordell–Weil theorem for $E$ over $K_0$. It was a
 hypothesis until the two-isogeny descent of the model chapter proved it.
@@ -116,39 +83,29 @@ of the good slope primes, [Proposition D](../density/README.md).
 
 The catalogue bound is no longer an assumption of substance: the
 [progressions chapter](../progressions/README.md) proves it from an effective Dirichlet
-theorem. Under the remaining hypotheses (the minimal form of the height estimate, the certified
-rank hypothesis CR₃ and the twenty-two-prime pattern) the target holds; this is the form of the
-theorem closest to the manuscript's inputs. It also holds with pole completeness in place of CR₃,
-or with the two-slope pattern in place of the twenty-two-prime pattern.
+theorem. Under the minimal form of the height estimate, pole completeness and the twenty-two-prime
+pattern the target holds; this is the form of the theorem closest to the manuscript's inputs.
 
 - [The main theorem from three hypotheses](main-theorem-three-hypotheses.md)
 
-With route AP the prime pattern drops out, and the target holds under the minimal height
-hypothesis and CR₃ alone, or under the minimal height hypothesis and CR₃^Sel or CR₃^5b.
+Until fork issue #77 the project did not assume pole completeness. It used Route K instead: a
+different pole polynomial, whose curves are the congruent number curves $y^2=x(x-\ell)(x+\ell)$, with
+its pole completeness proved from a certified rank hypothesis CR₃. CR₃ in turn came from four
+statements about L-series: Tian–Yuan–Zhang's Theorem 3.5(2) in reading A, the positive-rank half of
+Gross–Zagier, Hecke's continuation and the functional equation. Route K is retired. Its Lean is kept at
+the tag `route-k-final`, and the project note `docs/research/rs-pole.md` records why it was adopted.
+The pages that described it are kept and marked as retired:
+- [the certified rank hypothesis](certified-rank.md);
+- the [Route K chapter](../route-k/README.md), and the chapters on
+  [Proposition 0](../selmer/README.md), [the row-5b determinant](../rank-5b/README.md),
+  [Rédei's formula](../redei/README.md) and [positive rank](../rank/README.md);
+- the earlier forms of the main theorem below.
 
 - [The main theorem from two hypotheses](main-theorem-two-hypotheses.md)
 - [The main theorem from the Selmer form of the rank hypothesis](main-theorem-selmer.md)
-
-Under the minimal height hypothesis the target also holds with CR₃ replaced by CR₃^TYZ or
-CR₃^TYZ_Cl, by any of the positive-rank forms, by positive rank on the two curves of a slot
-choice (for every input of the descent, or only for the inputs of admissible numbers), or by
-any of the equivalent forms that ask for infinitely many rational points instead of positive rank.
-
 - [The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis](main-theorem-tyz.md)
 - [The main theorem from the positive-rank forms of the rank hypothesis](main-theorem-positive-rank.md)
 - [The main theorem from positive rank on the two curves of a slot choice](main-theorem-two-curves.md)
 - [The main theorem from the infinitely-many-points forms of the rank hypothesis](main-theorem-infinitely-many-points.md)
-
-The positive-rank form of CR₃^TYZ_Cl, CR₃^TYZ_Cl,Rk, follows from three statements about L-series:
-two standard theorems (the functional equation of $L(C_d,s)$ with root number $-1$, stated on the
-strip $0<\operatorname{Re}s<2$ and proved, and the
-positive-rank half of Gross–Zagier) and Tian–Yuan–Zhang's row 5b, which follows from the main
-theorem's other two L-series statements, Theorem 3.5(2) in reading A and Hecke's continuation ([the
-literature section of the positive-rank chapter](../rank/literature/README.md)). The target holds
-under the minimal height hypothesis or its $j$-form together with those three statements, and under
-the $j$-form and CR₃^TYZ_Cl,Rk; the first of these forms is the step through which the main theorem
-is proved. Since the functional equation and Hecke's continuation are proved, the target holds
-under the minimal height hypothesis, reading A and Gross–Zagier alone.
-
 - [The main theorem from the $j$-form and the L-series statements](main-theorem-literature.md)
 - [The main theorem from the minimal height hypothesis, reading A and Gross–Zagier](main-theorem-reading-a-gross-zagier.md)

@@ -6,7 +6,7 @@ origin: bridged
 
 # Compatible partitions with one or two roots per block
 
-> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
+> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](../../main/main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
 
 Let $f$ be a forest on a finite set $V$ with root set $R$, and let $E\subseteq R$. The set
 partitions compatible with $f$ in which every root in $E$ is the only root of its block and every

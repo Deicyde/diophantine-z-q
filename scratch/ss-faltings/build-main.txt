@@ -1,0 +1,8 @@
+info: ZInQKernel/Contrib/OneProof/IgusaDrop.lean:107:0: 'AfTateLam.r16CoreY_of_printed_x0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/IgusaDrop.lean:108:0: 'AfTateLam.r16CoreY_of_ds965_x0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ79.lean:118:0: 'HDec.HSyn.sixContactMin_of_open72' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ80.lean:3054:0: 'HDec.HSyn.sixContactMin_of_open73' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ81.lean:106:0: 'HDec.HSyn.sixContactMin_of_open74' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ82.lean:106:0: 'HDec.HSyn.sixContactMin_of_open75' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ83.lean:106:0: 'HDec.HSyn.sixContactMin_of_open76' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/Main.lean:139:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]

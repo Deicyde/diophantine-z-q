@@ -9,7 +9,7 @@ lean: ZInQ.RouteK.Rank5b.Sec3.genusSum5b_eq_marked, ZInQ.RouteK.Rank5b.Sec3.mark
 
 # Partition sums with marked blocks
 
-> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank5b.Sec3.markW'`, `ZInQ.RouteK.Rank5b.Sec3.class73_eq_marked`. The page is kept until the blueprint rewrite (#81).
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank5b.Sec3.markW'`, `ZInQ.RouteK.Rank5b.Sec3.class73_eq_marked`. The page belongs to Route K, which the [main theorem](../../main/main-theorem.md) no longer uses.
 
 Let $a,y,z$ be bits on a finite set $V$, and let $w_7,w_3,w_1$ be the block weights: $w_c(B)$ is
 $g(B)$ if $B$ has class $c$ and $0$ otherwise.

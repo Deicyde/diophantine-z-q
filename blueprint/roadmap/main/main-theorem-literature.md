@@ -6,7 +6,7 @@ origin: bridged
 
 # The main theorem from the $j$-form and the L-series statements
 
-> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
+> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
 
 The target statement holds under each of the following three sets of hypotheses:
 
@@ -51,8 +51,8 @@ both are due to Hecke and Deuring, with the sign from Birch–Stephens. Gross–
 $d\equiv5\pmod8$ in reading A, in contrapositive form and for the row $(7,3)$ only, with Hecke's
 continuation for the existence of the continuation
 ([row 5b from reading A and Hecke's continuation](../rank/literature/tyz-row-5b-of-reading-a.md)).
-[The main theorem](main-theorem.md) replaces row 5b by reading A and Hecke's continuation, from
-which row 5b follows, and its proof goes through the first form here. No refereed text found by
+The former main theorem (tag `route-k-final`) replaced row 5b by reading A and Hecke's continuation,
+from which row 5b follows, and its proof went through the first form here. No refereed text found by
 the project's literature search, which AI agents carried out, states reading A explicitly; the one
 statement found is in an unrefereed preprint. Tian, Yuan and Zhang's introductory theorem with the same parity
 criteria (Theorem 1.2 of the arXiv version, Theorem 1.4 of the journal version) requires every

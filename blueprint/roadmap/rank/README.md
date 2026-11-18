@@ -4,6 +4,8 @@ article_id: af_7e4dd9c7081349458077d6b1
 
 # The rank hypothesis as positive rank
 
+> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+
 The forms CR₃^Sel, CR₃^5b, CR₃^TYZ and CR₃^TYZ_Cl of the certified rank hypothesis met so far
 conclude that every 2-Selmer class of $C_d:y^2=x^3-d^2x$ comes from a rational point, and CR₃
 itself that one given class does. The theorems behind them (Tian–Yuan–Zhang as completed by
