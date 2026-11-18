@@ -11,3 +11,4 @@
 - `ThetaGauss.lean`: compiled. Even frequencies by square completion, odd frequencies cancel, numerator changes by a unit square for `4m² ∣ c`.
 - `Translation.lean`, `ThetaGauss.lean`: `#print axioms` reports only `propext`, `Classical.choice`, `Quot.sound`.
 - `ThetaNonvanishing.lean`: compiled. Theta duplication by parity separation and upper-half-plane nonvanishing by iteration; all four axiom checks are standard.
+- `ThetaPoisson.lean`: compiled. Residue splitting and the two-variable Jacobi equation give the rational Poisson expansion; at denominators divisible by four the even modes reduce it to the original theta. All five axiom checks are standard.
