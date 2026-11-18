@@ -21,9 +21,43 @@ artifact contains the build marker, swap status, samples and timing/resource
 records, without compiled outputs or full compilation logs. It is uploaded
 between the build and audit steps, including partial records after an ordinary
 build failure. A runner lost during the audit therefore leaves the completed
-build evidence. A runner lost during compilation may leave no build artifact;
-the separately uploaded `kernel-swap-<attempt>` artifact still records the
-pre-build configuration if that upload completed.
+build evidence. During both compilation and audit, an optional background observer uploads
+resource chunks immediately and then every two minutes after the preceding
+upload finishes. Each finalized artifact has a unique name
+`kernel-progress-<attempt>-<sequence>` and is downloadable while the kernel
+step is still running. Completed chunks remain if the runner later disappears.
+An ordinary job ending asks for a final chunk. Existing swap, completed-build
+and audit uploads still read the original files with their existing actions.
+
+Chunks bind the run, attempt, event SHA, actual checkout SHA, capture time,
+file byte ranges and hashes. Only named memory, timing, resource-usage, swap
+and build-marker files are copied. Complete JSONL lines start at the last
+confirmed offset. A failed or uncertain upload leaves that offset unchanged;
+a later unique chunk may overlap it. Use byte ranges to avoid counting samples
+twice. The 2 MiB per-file and 8 MiB per-chunk limits expose any remainder.
+Partial chunks are not evidence of build completion or kernel acceptance.
+
+The observer never launches or controls a kernel command. Both commands retain
+their original workflow steps, arguments, environment and failure handling.
+Installation or observer startup failure is nonfatal and explicitly reported
+in the step summary. The observer uses only first-party code and Node built-ins.
+Only its bounded upload child imports the exact locked GitHub artifact client;
+installation scripts are disabled. Contract pins cover the action, its code,
+tests and dependency lock. Upload children use the snapshot directory as their
+working directory and workspace, receive only snapshot paths, and do not
+receive workflow command-file paths. The first-party observer writes no source
+or proof-status file. This confines the intended reads and writes, but is not
+an operating-system sandbox for the client dependency, which runs as the job
+user and remains part of the reviewed toolchain.
+
+Uploads are serial with one transfer worker, a 45-second deadline and a maximum
+of 200 per job. They expire after 14 days. Temporary copies are removed after
+each attempt; original diagnostics remain. Upload errors cannot replace a
+kernel result. The stop step records whether any upload was confirmed in
+`periodic-upload-status.json` and the summary. No workflow permission, secret,
+proof check or resource setting changes. A runner or network failure can still
+lose samples since the last confirmed upload. Step summaries alone would not
+solve that problem because GitHub uploads them only after a step completes.
 
 The swap step requests 24 GiB additional swap with a 28 GiB free-disk
 threshold, leaving 4 GiB of headroom as described in
