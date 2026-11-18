@@ -4,7 +4,7 @@
   "scope": "Conditional original existential polynomial; no claim of a formalized explicit quartic or proved premises.",
   "files": {
     ".gitattributes": "f13fc3c2a2713aa59b982575269ebba17b83111ff4a2cc6dcb7b89ad38f33c63",
-    ".github/workflows/kernel-lean.yml": "d0ee99fee071dd7718d919f20b7d92e687395fde999e5d8efcd964733fdbf88f",
+    ".github/workflows/kernel-lean.yml": "2745cabc1cebb8b55f08ec2c1c8a713498795bf0ea38792b56f408adc8479eee",
     ".github/workflows/kernel-reuse-validation.yml": "93b6c6ade1123bcc2e4bee745be4b7d86acc04cb295fbd9f612bbe49e488b613",
     "ThirdParty/GreenTao/ChallengeDeps.lean": "996bfc179f93078686a6a805adfc072727bbad1b7dbb59a87b2a0adafdb9fafe",
     "ThirdParty/GreenTao/Submission.lean": "6c01d0d42973f587d95e1731860910584ddaba17b92c9a170c3d22ea882724df",
@@ -960,7 +960,7 @@
     "scripts/kernel_build_session.py": "02310ebc6e3ccae8ec637eb7b50d7eb9772660ef4d0977c951d513ee9b4165b0",
     "scripts/kernel_build_source.py": "fb5d0a157b8695c255d01f102fd4c1eee2cfd19dfb93691d9dbf581268b05fd5",
     "scripts/kernel_diagnostics.py": "ffc04c91168d0bfd04a83e681cd073809839bab651337bb343dd0f2ad9bdee7e",
-    "scripts/kernel_pr_scope.py": "29b53e3cb72c99cc12740858312260e5909fb84bc260b016b8261c0a9ee9a67b",
+    "scripts/kernel_pr_scope.py": "017027ba09bf357535f937f1069f329042953305a48899c191fb5ba86743d9db",
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
     "scripts/test_kernel_audit.py": "12e9be4df09488e37f48984676941d508f7c0b35a70b2db4f76acb1e99cf7122",
     "scripts/test_kernel_build_binding.py": "b0d6563c3826097d2f06d943c44ac01f6875c5f11aee6acc485d770210c2a155",
@@ -984,8 +984,8 @@
     "scripts/test_kernel_cache.py": "b9136bc019d42307a92cc4d001dc1f772b1b22e223fa11a5908bfe1a291e0903",
     "scripts/test_kernel_contract.py": "c678d0204deb42b716097eb6fb3f08d682035061d74c75154ca1f12491371888",
     "scripts/test_kernel_diagnostics.py": "eba53120942f60a2da99a672c9ef596d400e185e6202e9d4c20a33236d909815",
-    "scripts/test_kernel_phases.py": "42cb9d4c145e4e48c9060f9f91e8bdeea89f72bae25393c95c4f92fad7c74db5",
-    "scripts/test_kernel_pr_scope.py": "5d4dbdf17c5cd497fe9df924cf0a739cbad02d4bae7678c1c034002ae6c5b00a",
+    "scripts/test_kernel_phases.py": "081d9ac142adcfde0ea0cf10af61bf195f3ba3ca1dd2787832c618f2744fcdd5",
+    "scripts/test_kernel_pr_scope.py": "dabffdf4fc151738fa8de5d4ba51c9152a146f0a2c6d3849be3fe12ca6af338a",
     "scripts/validate_kernel_reuse_linux.py": "fc6a20de21fd92c66a15ab360fb8b7e33717246433938f7e2e59b93395f4c1e6"
   },
   "targets": [
