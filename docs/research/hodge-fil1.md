@@ -45,6 +45,8 @@ The pointwise proof moves the two input clauses along `milneE`. The generic proo
 
 The [dependency check](../../scratch/hodge-fil1/dependencies.txt) traverses declaration types and proof values recursively. For the pointwise proof it includes the type and rejects the old row, the old Hodge-number Prop and their consumers. For the two row assemblers it starts at their proof values, omitting the root types because those explicitly name the target rows. It audits the two generated instance proofs (scalar action and the numeral 2); neither has Hodge content. No dependency on a clause-3 consumer was found.
 
+The [headline discharge check](../../scratch/hodge-fil1/discharges.txt) ran against the actual base `frozenTarget`. It recognizes `fil1_of_dR` as a conditional match for `OpenAddedLeaves28.scholzeH1AbVar` and lists all three assumptions explicitly: the narrowed row, the existing T10 field, and the missing pairing. It certifies the conditional match only.
+
 ## Count and proposed row
 
 No row changes now. The conditional [autofold preview](../../scratch/hodge-fil1/autofold-dryrun.txt) gives strict **5 LEAF / 26 GLUE → 5 / 26** on 31 H rows and strictest **5 / 26 → 5 / 26**. The spec has an intentionally absent polarization provider; its successful `--dry-run` verifies the shape and count only. Do not run it as a fold.

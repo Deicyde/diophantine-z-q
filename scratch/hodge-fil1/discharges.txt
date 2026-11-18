@@ -1,0 +1,5 @@
+Relevant output of lake env lean scratch/hodge-fil1/Discharges.lean (exit 0):
+DISCHARGES [OpenAddedLeaves28.scholzeH1AbVar] by HodgeFil1.fil1_of_dR
+  still assumes: [HodgeFil1.ScholzeH1AbVarDR, T10Etale.T10_TateDuality, HodgeFil1.TatePolarizationSymmetry]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 35 open hypotheses, 15015 theorems checked, 391 discharge one
