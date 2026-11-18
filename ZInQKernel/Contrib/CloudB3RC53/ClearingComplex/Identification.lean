@@ -33,9 +33,14 @@ complex `D` over `𝒪[G]` that IS the remaining complex, i.e.
 **(6) Derived (PROVED):** `smithModel_of`, `entryPoles_of`, `budget_of`, and
 `clearingModelOver_of_identification`: RC0's `ClearingModelOver genuinePole` follows from the
 identification together with the generic patterns (E2, `ClearingPatterns`) and Elliot's
-coordinate identity (E1, `ClearingCoordIdentity`), the latter two still separately named GLUE
-until the torsion library (E1) and the semicontinuity argument (E2) land; `clearingModel_of`
-assembles `ClearingModel`.
+coordinate identity (E1, `ClearingCoordIdentity`), taken here as separate hypotheses;
+`clearingModel_of` assembles `ClearingModel`. (E2 is PROVED in `Patterns.lean`; E1b is PROVED for
+the Knudsen–Mumford coordinate in `CoordE1b.lean`, leaving E1a `CoordLink`.)
+
+This first version of the identification is superseded by `Identification2`
+(`ClearingComplex/NewLocalModel`): it admits an empty new-local family, so
+`Identification b 0 0 0 0` is always inhabited (`Consistency.lean`); the content sits in the
+coordinate identity E1.
 -/
 
 noncomputable section
@@ -163,7 +168,11 @@ def BudgetInputs {S : Type} [CommRing S] (B : SmithBlocks S OO) (dK hK cE tK : �
 /-- **The single identification of the remaining complex** (GLUE; see the module docstring):
 a block-form complex `D` over `𝒪[G]`, `G = 𝔽₂^b`, with augmentation the old complex over `Λ`
 (Smith blocks `A0` reducing centrally to the Smith entries `s`), sign-evaluated differentials given
-by one new-local Schur family, and the (5.7) counts for its central complex. -/
+by one new-local Schur family, and the (5.7) counts for its central complex.
+
+Superseded by `Identification2` (`ClearingComplex/NewLocalModel`): this first version admits an
+empty new-local family, so `Identification b 0 0 0 0` is always inhabited; the content sits in the
+coordinate identity E1. -/
 structure Identification (b : ℕ) (dK hK cE tK : ℕ) where
   /-- the remaining complex `D` over `𝒪[G]` -/
   D : BlockComplex (MonoidAlgebra OO (SignGroup b))

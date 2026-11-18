@@ -29,7 +29,6 @@ namespace ZInQ.Contrib.CloudB3RC53.RankCounts.KummerS
 section Transport
 variable {R A B : Type*} [CommRing R] [CommRing A] [CommRing B] [Algebra R A] [Algebra R B]
 
-set_option backward.isDefEq.respectTransparency.types false in
 /-- Ramification indices are invariant under algebra isomorphisms: for `e : A ≃ₐ[R] B`, the prime
 `q` of `A` and its image `e(q) = q.comap e⁻¹` of `B` have the same ramification index over `R`. -/
 theorem ramificationIdx_comap_symm (e : A ≃ₐ[R] B) (q : Ideal A) :
@@ -58,8 +57,9 @@ theorem ramificationIdx_comap_symm (e : A ≃ₐ[R] B) (q : Ideal A) :
     have : IsScalarTower R Sq Sq' := IsScalarTower.of_algHom f.toAlgHom
     let g : (Sq ⧸ p.map (algebraMap R Sq)) ≃ₐ[Sq] Sq' ⧸ p.map (algebraMap R Sq') :=
       Ideal.quotientEquivAlg _ _ (AlgEquiv.ofBijective (Algebra.ofId Sq Sq') f.bijective)
-        (by rw [IsScalarTower.algebraMap_eq R Sq Sq', Ideal.map_map,
-          ← AlgEquiv.toAlgHom_toRingHom, AlgEquiv.toAlgHom_ofBijective, Algebra.toRingHom_ofId])
+        (by
+          rw [IsScalarTower.algebraMap_eq R Sq Sq', ← Ideal.map_map]
+          rfl)
     rw [Ideal.ramificationIdx_eq p q, Ideal.ramificationIdx_eq p q',
       g.toLinearEquiv.length_eq, Module.length_eq_of_surjective f.surjective]
 end Transport

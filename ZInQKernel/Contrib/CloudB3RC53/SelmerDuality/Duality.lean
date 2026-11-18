@@ -389,31 +389,34 @@ variable {D D' : SelData S} (Q : SelPairData D D') (tr : (coneCx Q.resE).X 3 →
 
 /-- **GLUE input: global duality for the abstract model** (the conclusion of Nekovář, *Selmer
 complexes*, Sections 5.1, 5.2.4 and 5.4.3, as cited at tex L3451–3452: global duality /
-Poitou–Tate in cochain form, assumed here for the abstract model). For a perfect coefficient pairing
-`P` (`M × M^*(1) → S`), the global duality map `G → Hom_S(G'_c, S)[−3]`,
+Poitou–Tate in cochain form, assumed here for the abstract model): the global duality map
+`G → Hom_S(G'_c, S)[−3]`,
 `a ↦ ((b, y) ↦ tr(a ∪ b, (−1)^i res a ∪ y))`, from the global complex to the dual of the
 compactly supported complex `G'_c = Cone(G' → L')[−1]` (`compactCx`), is a quasi-isomorphism.
 
 This is *not* a printed leaf: Nekovář's theorem is about the continuous cochains of `G_{K,S}`
 with coefficients `M` and `M^*(1)`, which the library does not provide in all degrees; the
 identification of `G, G', L, L'`, the cup products and the trace with those cochains (and of their
-coefficients with `P`) is left open. Classification: GLUE (assumed input). -/
+coefficients with a perfect coefficient pairing) is left open. The pairing argument `_P` is unused:
+it does not constrain the statement, which depends only on `Q`, `tr`, `htr`.
+Classification: GLUE (assumed input). -/
 def GlobalDualityInput (_P : PerfectCoefficientPairing S) : Prop :=
   QuasiIso (GHom.toCC (globalDualityMap Q tr htr))
 
 /-- **GLUE input: local orthogonality for the abstract model** (the conclusion of Nekovář,
-*Selmer complexes*, Sections 5.2.4 and 6.2–6.3, as cited at tex L3451–3452 and L3826–3836:
-local duality and orthogonal local conditions, assumed here for the abstract model). For a perfect
-coefficient pairing `P`, the local condition `U'` is the orthogonal complement of `U` in the derived
-sense, with the isotropy homotopy `h` of `Q` (`SelPairData.isotropy`: `ι u ∪ ι' v = d h(u, v) + …`):
-the local duality map `Cone(U → L)[−1] → Hom_S(U', S)[−3]`,
+*Selmer complexes*, Sections 5.2.4 and 6.2–6.3, as cited at tex L3451–3452 and L3826–3836: local
+duality and orthogonal local conditions, assumed here for the abstract model): the local condition
+`U'` is the orthogonal complement of `U` in the derived sense, with the isotropy homotopy `h` of `Q`
+(`SelPairData.isotropy`: `ι u ∪ ι' v = d h(u, v) + …`): the local duality map
+`Cone(U → L)[−1] → Hom_S(U', S)[−3]`,
 `(u, x) ↦ (v ↦ tr(0, x ∪ ι' v + h(u, v)))`, is a quasi-isomorphism.
 
 A degreewise (cochain-level) annihilator condition is deliberately not imposed: for the actual
 Galois cochains, `U'` is the orthogonal complement only up to the homotopy `h` and on cohomology,
 and a degreewise annihilator condition fails (it would make the input vacuous for the genuine
 data). The identification with the actual local cochains and Kummer conditions is left open.
-Classification: GLUE (assumed input). -/
+The pairing argument `_P` is unused: it does not constrain the statement, which depends only on
+`Q`, `tr`, `htr`. Classification: GLUE (assumed input). -/
 def LocalOrthogonalityInput (_P : PerfectCoefficientPairing S) : Prop :=
   QuasiIso (GHom.toCC (localDualityMap Q tr htr))
 

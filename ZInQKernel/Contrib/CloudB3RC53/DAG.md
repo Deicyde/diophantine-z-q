@@ -12,6 +12,10 @@ restrictedConverseGenuine_of_nodes :
   Prints → BranchPackageNode → MissingAddressNode → RestrictedConverseGenuine
 ```
 
+The status column below records the state when each row was written; several rows have since
+advanced, and the module headers of the area files are authoritative for the current status (e.g. the
+GenusOdd and Duality rows, updated below).
+
 Status keys: **PROVED** (Lean theorem, standard axioms); **OPEN** (Lean `Prop` stated, proof
 pending); **STATED-DEFS** (the manuscript statement needs objects that are not yet defined in
 Lean; the row names them); **PRINT** (cited published result).
@@ -66,7 +70,7 @@ RC2/RC11/RC13; `calibration`, `common_coordinate`, `base_zero`: RC15; `height_on
 | ex:sec7-one/two-symbol-address | 2222–2271 | ex:app-simultaneous-address | RC2 | finite cores OPEN |
 | ex:sec7-even-upper (3.3b) | 2295–2318 | (3.2), seeds, Boolean bit degree | RC11 | inequality core OPEN |
 | ex:sec7-rough-companion (3.3) | 2343–2401 | HL, forward rank zero, (3.3b) | RC13 | STATED-DEFS (`L_*`) |
-| ex:sec7-genus-lower (3.4)–(3.6) | 2418–2458 | CST ×2, index-≤2 glue, (3.5) | GenusOdd | (3.4) STATED-DEFS (genus and ring-class points, `j_gen`, `j_rc`, `L_*`); (3.3)+(3.4)+(3.5)⇒(3.6) inequality core OPEN |
+| ex:sec7-genus-lower (3.4)–(3.6) | 2418–2458 | CST ×2, index-≤2 glue, (3.5) | GenusOdd | (3.4) PROVED (`genusLower34_of_newform`, `GenusOdd/LocalFinal.lean`) from `Prints`, lane RC8's `HasseConvergence` (GLUE) and `ModularNewform` (PRINT), and the inert clause `LocalFactorInert` (GLUE); (3.3)+(3.4)+(3.5)⇒(3.6) core PROVED (`GenusOdd/Node34.lean`) |
 | fixed witness, theta forms, (3.7), (3.8) | 2460–2551 | App F, Cornut–Jetchev, CST | GenusOdd (D_w, (3.7), δ) / RC12 ((3.8)) | STATED-DEFS |
 | common family (Waldspurger) | 2553–2591 | Waldspurger Cor 2 | GenusOdd | STATED-DEFS |
 | Branch 1 (empty unit) | 2587–2592 | (O.8) at `D = 1` | RC0 | inside BranchPackageNode (left disjunct) |
@@ -81,7 +85,7 @@ RC2/RC11/RC13; `calibration`, `common_coordinate`, `base_zero`: RC15; `height_on
 |---|---|---|---|---|
 | ex:arith-conjugate-duality | 2761–2830 | Weil pairing; Nekovář | Duality | STATED-DEFS (Selmer complexes) |
 | ex:arith-finite-heegner (4.1)–(4.2) | 2858–3410 | Serre, CCL 2.15, Elkik, Nekovář 4.1.4.1/8.1/8.6.2, Lang, Silverman | RC10 (finite cores) / HeegnerCohomology (cohomology) | STATED-DEFS (Heegner points over ring class fields, Kolyvagin classes); finite cores (H1), matrix span, (H5), (H6), (H12), (H14)–(H18), self-cup, res/cor diagonals, 3-arrow homotopy identity: OPEN |
-| ex:arith-local-kummer | 3413–3468 | Milne ADT I.2.3, I.3.2–3.5; Nekovář 5.x, 6.3.4 | Duality | STATED-DEFS |
+| ex:arith-local-kummer | 3413–3468 | Milne ADT I.2.3, I.3.2–3.5; Nekovář 5.x, 6.3.4 | Duality | annihilator statement PROVED from the Milne print (`kummerAnnihilatorNode_proof`; Milne-scope form `kummerAnnihilatorNodeCharZero_of_print`); integral chain step ELLIOT (derived category) |
 | (4.4) support change | 3470–3496 | Nekovář 7.8.8(ii) | Duality | STATED-DEFS |
 | ex:arith-moving-character | 3500–3702 | Serre; Kummer; Chebotarev; `SL₂(ℤ₂)` | RC4 | trace bound `c_E = 16d + 21` and `SL₂(ℤ₂)` cores OPEN |
 | ex:arith-paired-functional | 3705–3880 | Nekovář 6.2.5–6.2.8, 6.3.4 | PairedFunctional | STATED-DEFS |

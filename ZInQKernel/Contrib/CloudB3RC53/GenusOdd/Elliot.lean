@@ -14,7 +14,8 @@ Formally: for `x` in the native lattice `M = E(H_c)^χ` and complex conjugation 
 line `E^{(d_R)}(ℚ)`), the second by the one attached to `√d_T`, so it comes from `E^{(d_T)}(ℚ)`, which
 is torsion ("conjugation fixes the free class": the other eigencomponent has rank zero). Hence
 `2M ⊆ ψ(E^{(d_R)}(ℚ)) + torsion` (`two_nsmul_mem_twist_add_torsion`). The Galois descent itself and
-the existence of `√d_R, √d_T ∈ H_c` are the GLUE `TwistDescent`, `GenusTheory` of `Glue.lean`.
+the existence of `√d_R, √d_T ∈ H_c` were the GLUE `TwistDescent`, `GenusTheory` of `Glue.lean`
+(since PROVED: `twistDescent_proof`, and `genusRoots_proof` on the route of `Artin34.lean`).
 
 * `eigen_decomp`: the abstract group-theoretic computation (PROVED).
 * `two_nsmul_mem_twist_add_torsion`: the statement for `E(H_c)` (PROVED from `TwistDescent`).

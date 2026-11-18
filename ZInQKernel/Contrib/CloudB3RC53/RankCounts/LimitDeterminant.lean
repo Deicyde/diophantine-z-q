@@ -19,7 +19,7 @@ valuation at most `c`, have equal determinant valuations; in particular the othe
 is nonzero. This file proves it (`DetValuationStable`), and its consequence for the singular
 disks `[ℤ₂² --(Φ − r)--> ℤ₂²]` of tex 5326–5334 (`SingularDiskLimit`): the limit matrix again has
 nonzero determinant of valuation at most `c_E`, which is what RC7's
-`singular_complexes_total_length_le` (Determinant/SmithLength.lean, draft commit 7481834f) takes as
+`singular_complexes_total_length_le` (Determinant/SmithLength.lean) takes as
 hypotheses `hX : X.det ≠ 0` and `hXc : X.det.valuation ≤ c`.
 
 Kinds: everything here is PROVED.
@@ -95,7 +95,7 @@ theorem detValuationStable_proof : DetValuationStable := by
 determinant of valuation at most `c` (`c = c_E`, tex 5331–5332), and let `Y` be its limit matrix,
 congruent to `X` modulo `2^{c+1}` entrywise (tex 5338–5343). Then `det Y ≠ 0` and
 `v₂(det Y) ≤ c`: the hypotheses `hY : Y.det ≠ 0` and `hYc : Y.det.valuation ≤ c` of RC7's
-`singular_complexes_total_length_le` (Determinant/SmithLength.lean, draft commit 7481834f) hold for
+`singular_complexes_total_length_le` (Determinant/SmithLength.lean) hold for
 the limit matrix. -/
 def SingularDiskLimit : Prop :=
   ∀ (X Y : Matrix (Fin 2) (Fin 2) ℤ_[2]) (c : ℕ),
