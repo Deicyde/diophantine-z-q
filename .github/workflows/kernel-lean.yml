@@ -318,6 +318,7 @@ jobs:
         with:
           mode: start
       - name: Report unavailable periodic diagnostics
+        continue-on-error: true
         if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false') && (steps.progress_install.outcome != 'success' || steps.progress_start.outcome != 'success')
         run: echo 'Periodic resource uploads unavailable. Running the original kernel checks with ordinary final evidence uploads.' >> "$GITHUB_STEP_SUMMARY"
       - name: Build all kernel modules
