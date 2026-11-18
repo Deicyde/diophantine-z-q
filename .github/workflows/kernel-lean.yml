@@ -19,9 +19,9 @@ jobs:
   kernel:
     name: Complete kernel build and exact-target audit
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 360
     env:
-      LEAN_NUM_THREADS: '4'
+      LEAN_NUM_THREADS: '2'
     steps:
       - name: Decide whether this PR affects the kernel
         id: scope
@@ -107,6 +107,29 @@ jobs:
               return PurePosixPath(path).suffix.lower() not in {'.md', '.tex', '.bib', '.pdf'}
 
 
+
+          def research_only_inputs(paths, locked):
+              """A complete PR of research notes/data/verifiers; kernel inputs stay protected."""
+              if not paths:
+                  return False
+              allowed = {'.md', '.tex', '.bib', '.pdf', '.json', '.py', '.txt', '.csv', '.tsv'}
+              forbidden = {'scripts', 'script', 'tests', 'test', '.github', '.lake', 'lean', 'zinqkernel', 'thirdparty'}
+              config = {'lakefile.toml', 'lakefile.lean', 'lake-manifest.json', 'lean-toolchain',
+                        'kernel_contract.json', '.gitattributes', '.gitmodules'}
+              for path in paths:
+                  if not valid_path(path) or not path.startswith('research/') or path in locked:
+                      return False
+                  item = PurePosixPath(path)
+                  if (any(part.lower() in forbidden for part in item.parts[1:-1])
+                          or item.name.lower() in config
+                          or item.name.lower().startswith(('test_', 'test-', 'kernel_'))
+                          or item.name.lower().endswith(('_test.json', '-test.json'))):
+                      return False
+                  if item.suffix.lower() not in allowed and item.name not in {'LICENSE', 'NOTICE', 'COPYING'}:
+                      return False
+              return True
+
+
           def decide(event_name, event, repo):
               if event_name != 'pull_request':
                   return True, 'Pushes and manual runs always perform the full kernel build.', []
@@ -144,6 +167,8 @@ jobs:
               locked = contract_paths(repo, base) | contract_paths(repo, head)
               if not same_revision(api(repo, f'/pulls/{number}')):
                   raise ValueError('PR changed during classification')
+              if research_only_inputs(paths, locked):
+                  return False, 'Only research notes, data and standalone verifiers changed; no Lean, workflow, protected script/test or kernel-contract input changed.', sorted(paths)
               affected = sorted(p for p in paths if affects_kernel(p, locked))
               if affected:
                   return True, 'Kernel inputs or unclassified files changed: ' + ', '.join(affected[:10]), sorted(paths)
@@ -233,7 +258,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python -B scripts/kernel_base_report.py
-      - name: Add 8 GiB swap for the kernel audit
+      - name: Add 24 GiB swap for the kernel audit
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         # Preserve existing swap. VM teardown releases this additional file.
         shell: bash
@@ -245,7 +270,7 @@ jobs:
             original_status=$?
             trap - EXIT
             set +e
-            args=(--record-swap build/kernel-ci/swap-status.json --disk-path "$RUNNER_TEMP" --allocation "$allocation")
+            args=(--record-swap build/kernel-ci/swap-status.json --disk-path "$RUNNER_TEMP" --allocation "$allocation" --requested-bytes 25769803776)
             if [[ -n "$swap_file" ]]; then args+=(--added-path "$swap_file"); fi
             python -B scripts/kernel_diagnostics.py "${args[@]}"
             record_status=$?
@@ -257,14 +282,14 @@ jobs:
           df -h "$RUNNER_TEMP"
           swapon --show
           available=$(df -B1 --output=avail "$RUNNER_TEMP" | tail -n 1)
-          if (( available < 12 * 1024 * 1024 * 1024 )); then
+          if (( available < 28 * 1024 * 1024 * 1024 )); then
             allocation='skipped-low-disk'
-            echo '::warning::Less than 12 GiB free; continuing the full kernel audit without additional swap.'
+            echo '::warning::Less than 28 GiB free; cannot add 24 GiB swap while leaving 4 GiB disk headroom. Continuing the full kernel audit with existing swap.'
             echo 'Additional audit swap skipped: insufficient disk space. All audit checks still run.' >> "$GITHUB_STEP_SUMMARY"
           else
             swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
             allocation='added'
-            sudo fallocate -l 8G "$swap_file"
+            sudo fallocate -l 24G "$swap_file"
             sudo chmod 600 "$swap_file"
             sudo mkswap "$swap_file"
             sudo swapon "$swap_file"
@@ -278,6 +303,24 @@ jobs:
           name: kernel-swap-${{ github.run_attempt }}
           path: build/kernel-ci/swap-status.json
           if-no-files-found: warn
+      - name: Install and test optional resource uploader
+        id: progress_install
+        if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
+        continue-on-error: true
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund --prefix .github/actions/kernel-progress
+          node --test .github/actions/kernel-progress/progress.test.cjs
+      - name: Start optional resource uploader
+        id: progress_start
+        if: steps.progress_install.outcome == 'success' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        continue-on-error: true
+        uses: ./.github/actions/kernel-progress
+        with:
+          mode: start
+      - name: Report unavailable periodic diagnostics
+        continue-on-error: true
+        if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false') && (steps.progress_install.outcome != 'success' || steps.progress_start.outcome != 'success')
+        run: echo 'Periodic resource uploads unavailable. Running the original kernel checks with ordinary final evidence uploads.' >> "$GITHUB_STEP_SUMMARY"
       - name: Build all kernel modules
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         run: python -B scripts/check_kernel.py --phase build
@@ -299,6 +342,12 @@ jobs:
           # Lower only the audit worker count; every replay and target check remains.
           LEAN_NUM_THREADS: '1'
         run: python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json
+      - name: Stop optional resource uploader
+        if: always() && env.KERNEL_PROGRESS_DIR != '' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        continue-on-error: true
+        uses: ./.github/actions/kernel-progress
+        with:
+          mode: stop
       - name: Upload proof-status evidence
         if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

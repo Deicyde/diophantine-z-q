@@ -8,6 +8,7 @@ import sys
 import tempfile
 import time
 import unittest
+from unittest.mock import patch
 
 from check_kernel import run
 from kernel_diagnostics import AuditDiagnostics, snapshot, swap_record, record_swap
@@ -101,6 +102,28 @@ class DiagnosticsTests(unittest.TestCase):
             self.assertFalse(result["additional_verified"])
             self.assertEqual(result["active_total_bytes"], 3 * 1024**3)
             self.assertEqual(result["allocation"], "skipped-low-disk")
+
+    def test_requested_24_gib_rejects_old_8_gib_and_records_real_capacity(self):
+        with tempfile.TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()):
+            proc = Path(tmp)
+            output = proc / "result.json"
+            requested = 24 * 1024**3
+            # Only a single header page may be missing from the usable size.
+            for kib, accepted in [(8388604, False), (25165819, False), (25165820, True), (25165824, True)]:
+                (proc / "swaps").write_text(f"Filename Type Size Used Priority\n/new file {kib} 0 -2\n")
+                result = swap_record(proc, "/new", requested_bytes=requested,
+                                     allocation="added", page_size=4096)
+                self.assertEqual(result["verified"], accepted)
+                self.assertEqual(result["requested_additional_bytes"], requested)
+                self.assertEqual(result["active_total_bytes"], kib * 1024)
+            with patch("kernel_diagnostics.os.sysconf", return_value=4096, create=True):
+                record_swap(output, proc, "/new", "added", proc=proc, requested_bytes=requested)
+            self.assertEqual(json.loads(output.read_text())["requested_additional_bytes"], requested)
+
+    def test_requested_swap_size_is_positive_and_integral(self):
+        for value in [0, -1, True, 24.0, "24"]:
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "positive integer"):
+                swap_record(requested_bytes=value)
 
     def test_missing_swap_fails_after_record_is_written(self):
         with tempfile.TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()):

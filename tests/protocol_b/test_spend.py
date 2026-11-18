@@ -205,24 +205,6 @@ class Spending(unittest.TestCase):
                 self.assertTrue(any(gate.FINISH_NOW_INSTRUCTION in str(m.get('content', ''))
                                     for m in model.call_args.args[2] if m.get('role') == 'system'))
 
-    def test_manuscript_profile_defaults_to_current_limits_and_scales_text(self):
-        for value in ['', 'standard', 'expanded']:
-            with patch.dict(os.environ, {'MANUSCRIPT_PROFILE': value}):
-                profile = gate.configure_budget([changed('manuscripts/new.tex')])
-            expanded = value == 'expanded'
-            self.assertEqual(profile['context_token_budget'], 900000 if expanded else 400000)
-            self.assertEqual(gate.TOOL_CHARACTER_BUDGET, 2700000 if expanded else 1200000)
-            self.assertEqual(profile['fable_web_max_uses'],
-                             {'web_search': 10, 'web_fetch': 20} if expanded else {'web_search': 3, 'web_fetch': 5})
-            self.assertEqual(profile['fable_web_fetch_max_content_tokens'], 50000 if expanded else 20000)
-        with patch.dict(os.environ, {'MANUSCRIPT_PROFILE': 'expanded'}):
-            profile = gate.configure_budget([changed('docs/readme.md')])
-        self.assertEqual(profile['context_token_budget'], 400000)
-        self.assertEqual(gate.TOOL_CHARACTER_BUDGET, 1200000)
-        with patch.dict(os.environ, {'MANUSCRIPT_PROFILE': 'typo'}):
-            with self.assertRaisesRegex(ValueError, 'standard or expanded'):
-                gate.configure_budget([changed('manuscripts/new.tex')])
-
     def test_unread_history_requires_an_explicit_scope_override(self):
         gh = FakeGH()
         prior_id = '1-1-astra-EARLIER'

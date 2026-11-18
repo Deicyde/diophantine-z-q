@@ -115,7 +115,9 @@ class AccessOverride(unittest.TestCase):
                         provider=lambda _: (_ for _ in ()).throw(AssertionError('No review call')))
                 self.assertTrue(errors)
                 self.assertEqual(app.final['conclusion'], 'failure')
-                self.assertIn('No deadlock needs overriding', state['summary'])
+                expected = ('unrecognised finding IDs: 1-1-astra-UNKNOWN'
+                            if 'UNKNOWN' in command_text else 'No deadlock needs overriding')
+                self.assertIn(expected, state['summary'])
                 self.assertFalse(gh.merge_requests)
                 self.assertIsNone(gh.graphql)
                 self.assertEqual(state['reports'], pair)

@@ -97,6 +97,35 @@ trigger escalation. Other changes receive both reviews. This is a conservative
 classification rule, not a proof that arbitrary natural language is harmless.
 Do not use the declaration to misclassify a change.
 
+### Live admission write test
+
+The `outside_admission` job grants the workflow token `pull-requests: write`
+for the intent comment on a pull request, alongside `issues: write`. A live
+[restricted-permission probe](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44126443347)
+on November 17, 2026 returned HTTP 403 with only `issues: write` and
+`pull-requests: read`; it created no comment.
+
+After this workflow is on main, manually dispatch `protocol-b-admission-test.yml`
+on `main`. It runs the production `outside_reserve` function in test mode,
+posts a real intent comment to closed, unmerged test PR69, creates a neutral
+reservation with the dedicated App, and reads both back. It records the source
+commit, workflow hash, exact write responses and readbacks in the
+`protocol-b-live-admission-test-<run>-<attempt>` artifact. Each write is attempted
+once. If a response is uncertain, inspect that run and its records before
+starting another test.
+
+The test has its own intent marker and check name, excluded from live quota
+accounting and review acceptance. It receives no provider keys, makes no model
+calls and cannot merge. It validates the real reservation writes and identity
+binding, not outside eligibility, triage or the complete review flow. The
+protected environment permits it only from main; no repository mode change
+is needed.
+A repeat dispatch creates a fresh test intent and neutral reservation on the
+same PR; it does not reuse or consume a live slot. Reconcile any uncertain
+previous write first. Authorized collaborators may dispatch this main-only
+test using the same App trust as the gate, but its distinct test check name
+can never satisfy the ruleset's required `Protocol B / review` check.
+
 ### Unattended outside reviews
 
 The mechanical stage makes no model call. It requires a complete textual diff,
@@ -252,13 +281,14 @@ The gate checks GitHub's edit metadata and the exact current body, so changing
 someone else's admin-authored comment cannot create an admin decision. Preserve substantive objections in the
 project's findings record as well as the PR discussion.
 
-Both reviewers default to a preflight context budget of 400,000 estimated tokens.
-The repository variable `PROTOCOL_B_MANUSCRIPT_PROFILE` defaults to `standard`
-when unset or empty. An owner can set it to `expanded` when the provider accounts
-allow the larger spending profile. Only then, if the complete GitHub diff changes
-a path under `manuscripts/`, including a rename out of that directory, both
-receive 900,000. Other PRs retain the standard profile. Unknown variable values
-stop before model calls. The expanded profile fits the published
+Both reviewers receive a preflight context budget of 900,000 estimated tokens
+when the complete GitHub diff changes a path under `manuscripts/`, `research/`
+or `data/`, or `docs/current-manuscript.json`. Both sides of renames and deleted
+paths count. Research paths are selected conservatively because they hold the
+manuscript's tables, certificates and verifiers. Other PRs receive 400,000.
+This selection is automatic; the former `PROTOCOL_B_MANUSCRIPT_PROFILE` variable
+is no longer read. It changes no authorization to start a paid review, spending
+guard, or acceptance rule. The expanded profile fits the published
 windows of [Astra 6](https://developers.openai.com/api/docs/models/gpt-6-astra)
 (1,050,000) and [Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview)
 (1,000,000), checked November 14, 2026. Both budgets are totals,
@@ -270,6 +300,48 @@ for the standard profile or 50,000 for the expanded manuscript profile
 for fetched text, 16,000 for a search result block, and 128,000 for a binary
 fetch result. These estimates do not change the actual conversation sent to
 the provider. Unknown block types and repository text receive no discount.
+
+`read_pdf` reads the actual committed PDF through GitHub's file/blob API and
+extracts 1-10 physical pages at a time. The result includes the commit, SHA256
+and page numbers, so the raw URL's `application/octet-stream` type does not
+prevent reading it. Ubuntu Poppler runs in a separate Bubblewrap namespace
+without network or host home access and with no inherited credentials. Only
+system libraries, the single input PDF and one writable output file are mounted;
+memory, CPU, output size and wall time are bounded. Installation comes from
+Ubuntu repositories, never from a candidate file. The privileged timeout kills
+the isolated process group after 35 seconds; the caller does not try to kill
+root-owned sudo. Tool versions are logged. Installation failure leaves the PDF
+reader unavailable and does not prevent unrelated reviews. Isolation or extraction
+failure returns a tool error, not a successful read, with no unisolated retry.
+Scanned pages, images and layout are not verified by text extraction. Relevant
+unread visual content remains an incomplete-scope item. Successful page reads
+use the existing context allowance and whole-file reuse binding.
+
+A reviewer may count a passing finite CI check as coverage of a printed table
+after inspecting its complete workflow, checker and necessary dependencies,
+and verifying that the executed check relates the actual printed table to the
+committed data. `read_ci_job` obtains the actual job, attempt, successful steps
+and execution commit. It accepts only direct `push` or `workflow_dispatch`
+executions of the exact reviewed head in this repository, on the run's latest
+attempt. Test-merge and fork runs are refused because their API head does not
+establish the executed tree. A branch without an eligible direct run has no CI
+table-coverage evidence through these tools. For workflow dispatch, the reviewer
+must verify the actual inputs and any resulting skip or narrowing; unverifiable
+inputs cannot support the claimed coverage. `record_table_coverage` requires complete admitted
+checker/workflow reads and at least one admitted read of the table source or PDF,
+a successful step and equal blob identities for the workflow, checkers, data
+and table at the reviewed and executed commits. The reviewer records the exact
+claim and limits, including checkout selection, generated inputs, caches and
+ignored failures. Mechanical identity checks do not establish that the command
+actually tests the table or that the checker proves what is needed; those remain
+the reviewer's responsibility. The reviewer report and run artifact retain this
+scoped CI reliance. The App stores a bounded summary with job/attempt/event/step,
+blob identities and claim digests; the full records remain in the original run
+artifact and reviewer report. The reviewer must actually inspect the relevant
+table passages; one admitted read does not mechanically prove full table coverage.
+This reliance cannot turn an error, missing argument or other incomplete
+review into acceptance. Such a review is not reused across a changed head without
+fresh CI inspection. Same-head retention still preserves its original evidence.
 
 Before the first request, if its estimate would exhaust the output and recovery
 reserves, the gate defers inline patches from that unsent packet. Every changed
@@ -395,7 +467,8 @@ repository admin may decide a deadlock:
 /protocol-b override FULL_HEAD_SHA RUN-ATTEMPT-REVIEWER-FINDING_ID Reason for this decision
 ```
 
-Post one command per finding or scope item, using its full displayed ID. A run
+Use each finding or scope item's full displayed ID. One command may name several
+IDs separated by commas without spaces, with one reason applying to them all. A run
 checks current admin access and the exact head. It takes the preserved review
 records from this App's check output, never from a bot comment claiming acceptance.
 If every blocking finding other than a qualified source-access limitation,
@@ -799,6 +872,27 @@ markers retained so reused notes are not duplicated.
 
 ### Unedited admin commands
 
+One command can name several full finding or scope IDs, separated by commas
+without spaces, followed by one reason applying to all of them:
+
+```text
+/protocol-b override <full-head-SHA> <full-ID-1>,<full-ID-2> <reason>
+```
+
+The single-ID form remains valid. Each listed item retains its own record,
+pointing to the same admin comment and reason. Use only the current head's
+full displayed IDs. An unrecognised ID rejects the whole comment; the reply names
+the comment and those IDs so the admin can post a correction. The summary lists the
+items actually applied from the authenticated App record. The command makes
+no model call.
+
+Scope IDs are recognized from the authenticated App record when processing an
+override command or rechecking a merge. The ordinary review-history path does
+not yet seed that scope set. A later review on the same head therefore ignores
+a stored multi-item command containing a scope ID, including its other items.
+This fails closed; the admin must post a fresh command against the resulting
+App record. A scope-shaped ID in a report comment alone is never sufficient.
+
 Only repository admins may override reviewer findings. The gate checks current
 admin permission when receiving a command and again when reading stored override
 comments. Edited comments are not accepted, including edits made by an admin;
@@ -813,6 +907,25 @@ computation, head-binding or merge requirement.
 
 ### Preserving findings when delivery fails
 
+Repeated final submissions with exactly the same finding content share one
+item, even if a correction shortens an overlong ID. The runtime preserves the
+original submissions and records the ID aliases. Different objections or
+locations are not combined by a similarity guess. Filling in the attempted
+argument for the same objection does not create another finding; all original
+attempts remain in the delivery record. Reusing an ID for a different objection
+creates a separate item, and the earlier objection still needs a disposition.
+
+An originating reviewer's validated resolution closes its own finding even
+when the other review did not complete. Automatic carry-forward copies do not
+require a second resolution. The original reports remain unchanged, and the
+App summary names the reviewer who resolved the item. An actual objection from
+the other reviewer remains blocking, as does a later reopening. An incomplete
+review still has its separate scope item and requires completed coverage or an
+explicit admin override; closing a finding does not imply a completed review.
+The runtime marks the positions of automatic copies in the App-authenticated
+envelope, outside the model's report. Matching text alone cannot classify an
+objection as an automatic copy, and completed reviews never use those markers.
+
 An absent or incomplete review carries unresolved obligations from the PR's
 App-authenticated earlier records across heads. An empty later record cannot
 erase a prior objection. These carried obligations are runtime metadata, separate
@@ -826,6 +939,12 @@ therefore stays outstanding, including across a return to an earlier head and
 when its report comment was not delivered. Retained acceptances need a supplement
 for these outstanding objections even if they previously resolved the same ID.
 Only a new completed disposition or an explicit admin decision covers them.
+
+An origin closure applies only on the head recorded with that resolution.
+It can relieve an automatic retained copy, but never hides a selected envelope's
+own fresh finding or genuine unresolved disposition, even at that same head.
+The override accounting and displayed summary use the same rule. Returning to
+an older commit does not import a resolution established only on a newer commit.
 
 An explicit finding ID in a selected report covers only that report's actual
 occurrence. Other unresolved occurrences retain their reviewer and observation

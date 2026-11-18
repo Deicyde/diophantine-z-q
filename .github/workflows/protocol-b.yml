@@ -1,5 +1,5 @@
 # MODE defaults to off unless the owner enables test/live.
-# No checkout, cache restore, dependency install, or candidate executable.
+# No checkout, cache restore, or candidate executable. PDF tools come from Ubuntu.
 name: Protocol B
 
 on:
@@ -76,6 +76,8 @@ jobs:
           import pathlib
           import re
           import sys
+          import subprocess
+          import tempfile
           import time
           import urllib.error
           import urllib.parse
@@ -112,6 +114,12 @@ jobs:
           WEB_BINARY_RESULT_RESERVE = 128_000
 
 
+          def manuscript_path(path):
+              # Research trees contain the manuscript's tables, certificates and verifiers.
+              # Prefer extra budget to missing a data-only change; this grants no review access.
+              return (path.startswith(('manuscripts/', 'research/', 'data/')) or
+                      path == 'docs/current-manuscript.json')
+
           def configure_budget(files):
               """Choose one profile from the complete GitHub diff, before reviewers start.
 
@@ -119,18 +127,15 @@ jobs:
               Both profiles include the output and formatting reserves within the cap.
               """
               global CONTEXT_TOKEN_BUDGET, TOOL_CHARACTER_BUDGET, WEB_MAX_USES, WEB_FETCH_MAX_CONTENT_TOKENS
-              configured = os.environ.get('MANUSCRIPT_PROFILE', '') or 'standard'
-              if configured not in {'standard', 'expanded'}:
-                  raise ValueError('MANUSCRIPT_PROFILE must be standard or expanded; no model call')
-              manuscript = any(path.startswith('manuscripts/') for file in files
+              manuscript = any(manuscript_path(path) for file in files
                                for path in (file['filename'], file.get('previous_filename', '')))
-              expanded = manuscript and configured == 'expanded'
+              expanded = manuscript
               CONTEXT_TOKEN_BUDGET = 900_000 if expanded else 400_000
               TOOL_CHARACTER_BUDGET = 1_200_000 * CONTEXT_TOKEN_BUDGET // 400_000
               WEB_MAX_USES = {'web_search': 10, 'web_fetch': 20} if expanded else {'web_search': 3, 'web_fetch': 5}
               WEB_FETCH_MAX_CONTENT_TOKENS = 50_000 if expanded else 20_000
               return {'profile': 'manuscript-expanded' if expanded else 'standard',
-                      'configured_manuscript_profile': configured, 'manuscript_changed': manuscript,
+                      'selection': 'automatic changed paths', 'manuscript_changed': manuscript,
                       'tool_character_budget': TOOL_CHARACTER_BUDGET,
                       'context_token_budget': CONTEXT_TOKEN_BUDGET,
                       'output_token_budget': OUTPUT_TOKEN_BUDGET,
@@ -257,7 +262,7 @@ jobs:
                   raise ValueError("Pagination limit reached; no partial review is allowed")
 
               @functools.lru_cache(maxsize=32)
-              def text(self, path, ref):
+              def blob(self, path, ref):
                   if not re.fullmatch(r"[0-9a-f]{40}", ref):
                       raise ValueError("Source ref must be a commit")
                   if path.startswith("/") or any(p in {"", ".", ".."} for p in path.split("/")):
@@ -276,7 +281,102 @@ jobs:
                       raise ValueError("File exceeds 16 MB; use its specification or request a smaller review")
                   if value.get("encoding") != "base64":
                       value = self.call("/git/blobs/" + value["sha"])
-                  return base64.b64decode(value["content"], validate=False).decode("utf-8")
+                  return base64.b64decode(value["content"], validate=False)
+
+              def text(self, path, ref):
+                  return self.blob(path, ref).decode("utf-8")
+
+
+          def pdf_command(source, output, start, count):
+              # Only system libraries, this one PDF and a fresh output directory are visible.
+              # No host home, /proc, credentials or network; no unisolated fallback.
+              return ['/usr/bin/sudo', '-n', '/usr/bin/timeout', '--signal=KILL', '35',
+                      '/usr/bin/bwrap', '--unshare-all',
+                      '--die-with-parent', '--new-session', '--uid', '65534', '--gid', '65534',
+                      '--cap-drop', 'ALL', '--clearenv', '--setenv', 'PATH', '/usr/bin',
+                      '--setenv', 'LC_ALL', 'C.UTF-8', '--ro-bind', '/usr', '/usr',
+                      '--ro-bind', '/lib', '/lib', '--ro-bind', '/lib64', '/lib64',
+                      '--dev', '/dev', '--ro-bind', str(source), '/input.pdf',
+                      '--bind', str(output/'pages.txt'), '/output.txt', '--chdir', '/',
+                      '/usr/bin/prlimit', '--as=536870912', '--cpu=25', '--fsize=1048576',
+                      '--nproc=16', '--', '/usr/bin/pdftotext', '-f', str(start),
+                      '-l', str(start+count-1), '-layout', '-enc', 'UTF-8',
+                      '/input.pdf', '/output.txt']
+
+
+          def pdf_pages(raw, start, count):
+              if type(start) is not int or type(count) is not int or start < 1 or not 1 <= count <= 10:
+                  raise ValueError('Read 1 to 10 PDF pages, starting at page 1 or later')
+              if len(raw) > 16_000_000 or not raw.startswith(b'%PDF-'):
+                  raise ValueError('Expected a PDF of at most 16 MB')
+              with tempfile.TemporaryDirectory(prefix='protocol-b-pdf-') as directory:
+                  directory = pathlib.Path(directory)
+                  # Namespace root cannot traverse a host user's 0700 directory.
+                  directory.chmod(0o755)
+                  source, output = directory/'input.pdf', directory/'output'
+                  source.write_bytes(raw)
+                  source.chmod(0o444)
+                  output.mkdir(mode=0o755)
+                  output.chmod(0o755)
+                  # Bind only this file writable. The parser cannot leave root-owned
+                  # subdirectories that would obstruct cleanup. Namespace uid 65534
+                  # is not an assertion about the mapped host uid.
+                  (output/'pages.txt').touch()
+                  (output/'pages.txt').chmod(0o666)
+                  try:
+                      result = subprocess.run(pdf_command(source, output, start, count),
+                          env={'PATH': '/usr/bin:/bin', 'LC_ALL': 'C.UTF-8'},
+                          stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL, check=False)
+                  except (OSError, subprocess.TimeoutExpired) as error:
+                      raise ValueError('PDF extraction unavailable or timed out; no pages were reviewed') from error
+                  extracted = output/'pages.txt'
+                  if result.returncode or not extracted.is_file() or extracted.is_symlink():
+                      raise ValueError('PDF extraction failed (invalid/encrypted PDF, page range or isolation failure); no pages were reviewed')
+                  if extracted.stat().st_size > 100_000:
+                      raise ValueError('PDF pages exceed 100,000 bytes; request fewer pages')
+                  pages = extracted.read_text(encoding='utf-8').split('\f')
+                  if pages and not pages[-1].strip():
+                      pages.pop()
+                  if len(pages) > count:
+                      raise ValueError('PDF extraction returned more pages than requested')
+                  if not pages or not any(page.strip() for page in pages):
+                      raise ValueError('PDF pages have no extractable text; scan or visual content remains unreviewed')
+                  return [{'page': start+i, 'text': page} for i, page in enumerate(pages)]
+
+
+          def ci_job_evidence(gh, pr, job_id):
+              if type(job_id) is not int or job_id < 1:
+                  raise ValueError('Expected a positive GitHub Actions job ID')
+              try:
+                  job = gh.call('/actions/jobs/'+str(job_id))
+              except RequestError as error:
+                  if error.status == 404:
+                      raise ValueError('No such Actions job in this repository; use list_ci_checks for job links') from None
+                  raise
+              if job.get('status') != 'completed' or job.get('conclusion') != 'success':
+                  raise ValueError('CI job did not complete successfully')
+              run = gh.call('/actions/runs/'+str(job['run_id'])+'/attempts/'+str(job['run_attempt']))
+              sha = job.get('head_sha')
+              if sha != run.get('head_sha'):
+                  raise ValueError('CI job/run commit mismatch')
+              # pull_request API head_sha is not the tree actually checked out.
+              # Accept only direct executions of this exact head in this repository.
+              if (run.get('event') not in {'push', 'workflow_dispatch'} or sha != pr['head']['sha']
+                      or (run.get('repository') or {}).get('full_name') != gh.repo
+                      or (run.get('head_repository') or {}).get('full_name') != gh.repo):
+                  raise ValueError('CI coverage requires a push or workflow_dispatch on this exact head in this repository; test-merge and fork runs are not eligible')
+              latest = gh.call('/actions/runs/'+str(job['run_id']))
+              if latest.get('run_attempt') != job['run_attempt']:
+                  raise ValueError('CI evidence is from an older attempt; read the latest attempt')
+              workflow = run.get('path', '')
+              if not re.fullmatch(r'\.github/workflows/[\w.-]+\.ya?ml', workflow):
+                  raise ValueError('Cannot identify the CI workflow source')
+              return {'job_id': job_id, 'job_url': job['html_url'], 'job_name': job['name'],
+                      'run_id': run['id'], 'run_attempt': job['run_attempt'],
+                      'executed_sha': sha, 'reviewed_head': pr['head']['sha'], 'event': run['event'],
+                      'workflow': workflow, 'steps': job.get('steps', []),
+                      'notice': 'Success alone is not table coverage. Read the workflow and checker, then record the exact claim with record_table_coverage.'}
 
 
           # BEGIN UNATTENDED HELPERS
@@ -1281,8 +1381,12 @@ jobs:
                       raise ValueError('Merge reports do not bind this head and policy')
               spend = review_spend_history(gh, gh, pr, state['name'], state['policy_ref'])
               pending = reconcile_obligations(gh, pr, reports, spend['candidates'])
-              discussion, prior, overrides, _ = history(gh, pr, {
-                  ident: {'objection': item['reason'], **item} for ident, item in pending.items()})
+              known = {ident: {'objection': item['reason'], **item} for ident, item in pending.items()}
+              # The successful App record can contain scope items whose original
+              # report comment was never posted. Keep that authority on merge recheck.
+              for ident in override_findings(reports, pr['head']['sha']):
+                  known.setdefault(ident, {'objection': 'Item recorded in the accepted App check.'})
+              discussion, prior, overrides, _ = history(gh, pr, known)
               if state.get('overrides'):
                   # Only the original admin acceptance may cover incomplete scope. A
                   # later merge command cannot silently extend it to new discussion.
@@ -1361,6 +1465,40 @@ jobs:
               state['outside_admission'] = {**receipt, 'stage': 'complete', 'provider_usage': usage}
 
           # END UNATTENDED HELPERS
+
+          def recoverable_read_tool(function):
+              @functools.wraps(function)
+              def wrapped(self, name, args):
+                  try:
+                      return function(self, name, args)
+                  except (RequestError, OSError, TypeError, KeyError) as error:
+                      if name not in {'read_pdf', 'list_ci_checks', 'read_ci_job', 'record_table_coverage'}:
+                          raise
+                      raise ValueError(name+' could not return evidence ('+type(error).__name__+
+                                       '). Correct the arguments or retry a smaller read. No coverage was recorded.') from None
+              return wrapped
+
+
+          def compact_ci_coverage(claims):
+              if isinstance(claims, dict):
+                  return claims  # Already compacted for a report comment.
+              raw = json.dumps(claims, sort_keys=True, ensure_ascii=False).encode()
+              result = {'schema': 'ci-table-coverage-summary/v1', 'count': len(claims),
+                        'sha256': hashlib.sha256(raw).hexdigest(), 'claims': [],
+                        'full_record': 'Original reviewer report and <reviewer>-ci-table-coverage.json in the original run artifact.'}
+              for claim in claims:
+                  row = {k: claim[k] for k in ('job_id', 'run_id', 'run_attempt', 'event',
+                         'executed_sha', 'reviewed_head', 'step_number', 'workflow', 'table_path', 'blobs')}
+                  # record_table validated this successful step before admitting the claim.
+                  row['step_name'] = next(s['name'] for s in claim['steps'] if s['number'] == claim['step_number'])
+                  row['claim_sha256'] = hashlib.sha256(claim['claim_and_limits'].encode()).hexdigest()
+                  row['record_sha256'] = hashlib.sha256(json.dumps(claim, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+                  if len(json.dumps({**result, 'claims': result['claims']+[row]}, ensure_ascii=False).encode()) > 12000:
+                      result['additional_claims_in_artifact'] = len(claims)-len(result['claims'])
+                      break
+                  result['claims'].append(row)
+              return result
+
 
           def classify(files, declaration):
               """Editorial paths plus a complete diff guard; ambiguous changes escalate."""
@@ -1537,7 +1675,7 @@ jobs:
           # secrets, GitHub-hosted runners and SHA-pinned actions. Project cache restore
           # is main-only, even for pre-existing reserved refs; save is push-on-main-only.
           # A change requires a reviewed pin update.
-          LEAN_WORKFLOW_SHA256 = '6c2213d6373c9ac6d142619c6326f2da233dcb6891e6be0f408f75fad340e10c'
+          LEAN_WORKFLOW_SHA256 = '2c628eeb59d5d860ec0161fcd9c1253972adf8a79642027f45d0d3f2e9160a23'
           LEAN_REF_PREFIX = 'refs/heads/codex/protocol-b-kernel/'
 
 
@@ -1802,7 +1940,7 @@ jobs:
                   if not lean_profile_eligible(files):
                       return
                   state.update(eligible=True, head=pr['head']['sha'], base=pr['base']['sha'])
-                  deadline = time.monotonic() + 180 * 60
+                  deadline = time.monotonic() + 355 * 60
                   provisioned = False
                   dispatch_receipt = {}
                   while True:
@@ -1818,7 +1956,7 @@ jobs:
                           dispatch_receipt = ensure_kernel_dispatch(gh, pr)
                           provisioned = True
                       if time.monotonic() >= deadline:
-                          raise ValueError('Kernel evidence was not ready within 180 minutes; no paid review started. An unresolved claim is retained, never replayed')
+                          raise ValueError('Kernel evidence was not ready within 355 minutes; no paid review started. An unresolved claim is retained, never replayed')
                       log('Lean profile: waiting for direct kernel evidence; no model call or repeated dispatch')
                       time.sleep(30)
               except Exception as error:
@@ -1860,10 +1998,27 @@ jobs:
               }, "required": ["decision", "scope_complete", "not_reviewed", "report", "findings", "prior_findings", "sources_read", "not_outside_reviewed", "source_checks", "access_limitations"],
           }
           TOOLS = [
-              {"name": "read_file", "description": "Read a pinned PR or base text file by lines; binary PDFs return a pinned public URL. Never executes content.",
+              {"name": "read_file", "description": "Read a pinned PR or base text file by lines. For PDFs use read_pdf. Never executes candidate content.",
                "parameters": {"type": "object", "properties": {"path": {"type": "string"},
                  "revision": {"type": "string", "enum": ["head", "base"]}, "start": {"type": "integer"}, "count": {"type": "integer"}},
                  "required": ["path", "revision", "start", "count"], "additionalProperties": False}},
+              {"name": "read_pdf", "description": "Read text extracted from 1-10 pages of the committed head/base PDF, with physical page numbers and SHA256. No raw web fetch needed. Images and layout are not verified by text extraction.",
+               "parameters": {"type": "object", "properties": {"path": {"type": "string"},
+                 "revision": {"type": "string", "enum": ["head", "base"]}, "start": {"type": "integer"}, "count": {"type": "integer"}},
+                 "required": ["path", "revision", "start", "count"], "additionalProperties": False}},
+              {"name": "list_ci_checks", "description": "List current CI checks and job links for the pinned head and its exact test merge, 20 at a time. The job ID is the number following /job/ in its details URL.",
+               "parameters": {"type": "object", "properties": {"offset": {"type": "integer"}},
+                 "required": ["offset"], "additionalProperties": False}},
+              {"name": "read_ci_job", "description": "Read successful direct push/dispatch job evidence for this exact head and repository. Test-merge and fork runs are refused. Obtain a job ID from list_ci_checks. Does not execute code or establish mathematical coverage.",
+               "parameters": {"type": "object", "properties": {"job_id": {"type": "integer"}},
+                 "required": ["job_id"], "additionalProperties": False}},
+              {"name": "record_table_coverage", "description": "After reading a successful CI job, its complete workflow and checkers, record reliance for one printed table. Explain exactly how the executed step checks the printed table against committed data, all checker dependencies, and limits. This is your scoped attestation, not automatic proof or general acceptance.",
+                 "parameters": {"type": "object", "properties": {"job_id": {"type": "integer"}, "step_number": {"type": "integer"},
+                 "table_path": {"type": "string"}, "table_location": {"type": "string"},
+                 "checker_paths": {"type": "array", "items": {"type": "string"}},
+                 "data_paths": {"type": "array", "items": {"type": "string"}},
+                 "claim_and_limits": {"type": "string"}},
+                   "required": ["job_id", "step_number", "table_path", "table_location", "checker_paths", "data_paths", "claim_and_limits"], "additionalProperties": False}},
               {"name": "list_files", "description": "List pinned head paths with a literal substring; results are paged, never silently truncated.",
                "parameters": {"type": "object", "properties": {"contains": {"type": "string"}, "offset": {"type": "integer"}},
                  "required": ["contains", "offset"], "additionalProperties": False}},
@@ -2210,9 +2365,107 @@ jobs:
               return render()
 
 
+          def delivered_content_key(finding):
+              # Supplying the required attempted argument enriches the same objection.
+              # Keep every original attempt in the delivery record, without a new ID.
+              content = json.dumps({k: v for k, v in finding.items() if k not in {'id', 'attempted_resolution'}},
+                                   sort_keys=True, ensure_ascii=False)
+              return hashlib.sha256(content.encode()).hexdigest()
+
+
+          def delivered_finding_aliases(payloads, identity):
+              """Match the same objection within this execution, without inferring equivalence."""
+              groups = {}
+              prefix = finding_id(identity, '')
+              for value in payloads:
+                  if not isinstance(value, dict) or not isinstance(value.get('findings'), list):
+                      continue
+                  for finding in value['findings']:
+                      if not isinstance(finding, dict) or (finding.get('severity') == 'note' and finding.get('kind') == 'editorial'):
+                          continue
+                      raw_id = str(finding.get('id', ''))
+                      local_id = raw_id[len(prefix):] if raw_id.startswith(prefix) else raw_id
+                      key = delivered_content_key(finding)
+                      group = groups.setdefault(key, {'ids': [], 'fallback': 'unvalidated-' + key[:24]})
+                      group['ids'].append((raw_id, local_id))
+              references, by_content, used = {}, {}, set()
+              for key, group in groups.items():
+                  valid = [local for _, local in group['ids']
+                           if re.fullmatch(r'[A-Za-z0-9_-]{1,40}', local) and local not in used]
+                  canonical = valid[0] if valid else group['fallback']
+                  salt = 0
+                  while canonical in used:
+                      salt += 1
+                      canonical = 'unvalidated-' + hashlib.sha256((key+':'+str(salt)).encode()).hexdigest()[:24]
+                  used.add(canonical)
+                  by_content[key] = canonical
+                  for ident in [group['fallback']] + [i for pair in group['ids'] for i in pair]:
+                      references.setdefault(ident, set()).add(canonical)
+              # A raw ID reused for different content has no global alias.
+              return {'by_id': {ident: next(iter(targets)) for ident, targets in references.items() if len(targets) == 1},
+                      'ambiguous_ids': sorted(ident for ident, targets in references.items() if len(targets) != 1),
+                      'by_content': by_content}
+
+
+          def normalize_delivered_finding_ids(value, aliases, identity, known_prior=(), *, references=True):
+              value = json.loads(json.dumps(value))
+              if not isinstance(value, dict):
+                  return value
+              prefix = finding_id(identity, '')
+              fresh, prior = {}, {}
+              findings = value.get('findings')
+              if isinstance(findings, list):
+                  seen, normalized = set(), []
+                  for finding in findings:
+                      if isinstance(finding, dict):
+                          ident = str(finding.get('id', ''))
+                          canonical = aliases['by_content'].get(delivered_content_key(finding),
+                              aliases['by_id'].get(ident, ident))
+                          local = ident[len(prefix):] if ident.startswith(prefix) else ident
+                          for ref in {ident, local, prefix + local}:
+                              fresh.setdefault(ref, set()).add(canonical)
+                          finding['id'] = canonical
+                      encoded = json.dumps(finding, sort_keys=True, ensure_ascii=False)
+                      if encoded not in seen:
+                          normalized.append(finding)
+                          seen.add(encoded)
+                  value['findings'] = normalized
+              if isinstance(value.get('prior_findings'), list):
+                  for item in value['prior_findings']:
+                      if not isinstance(item, dict) or not isinstance(item.get('id'), str):
+                          continue
+                      ident = item['id']
+                      # Actual pending obligations use canonical full IDs. A later
+                      # delivery reusing a local ID cannot rename that old obligation.
+                      if ident not in known_prior and ident.startswith(prefix):
+                          local = ident[len(prefix):]
+                          if local in aliases.get('ambiguous_ids', []):
+                              if references:
+                                  raise ValueError('Ambiguous prior finding reference: ' + ident)
+                          else:
+                              item['id'] = prefix + aliases['by_id'].get(local, local)
+                      prior[ident] = item['id']
+              if references and isinstance(value.get('access_limitations'), list):
+                  for item in value['access_limitations']:
+                      if not isinstance(item, dict) or not isinstance(item.get('finding_id'), str):
+                          continue
+                      ident = item['finding_id']
+                      targets = {prefix + local for local in fresh.get(ident, ())}
+                      if ident in prior:
+                          targets.add(prior[ident])
+                      if len(targets) != 1:
+                          raise ValueError('Missing or ambiguous access finding reference: ' + ident)
+                      target = next(iter(targets))
+                      # A fresh access reference follows this delivery's content,
+                      # not the global raw-ID alias from an earlier delivery.
+                      item['finding_id'] = prior[ident] if ident in prior else target[len(prefix):]
+              return value
+
           def delivered_obligations(payloads, identity, known_prior):
               """Failed submissions add objections; only a validated final can close them."""
               findings, dispositions = {}, {}
+              aliases = delivered_finding_aliases(payloads, identity)
+              payloads = [normalize_delivered_finding_ids(value, aliases, identity, known_prior, references=False) for value in payloads]
               for attempt, value in enumerate(payloads):
                   if not isinstance(value, dict) or not isinstance(value.get('findings'), list):
                       continue
@@ -2221,7 +2474,8 @@ jobs:
                           continue
                       ident = str(finding.get('id', ''))
                       if not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', ident):
-                          ident = f'unvalidated-{attempt+1}-{index+1}'
+                          content = json.dumps({k: v for k, v in finding.items() if k != 'id'}, sort_keys=True, ensure_ascii=False)
+                          ident = 'unvalidated-' + hashlib.sha256(content.encode()).hexdigest()[:24]
                       objection = 'Unvalidated delivered objection: '+str(finding.get('objection', finding))
                       if ident not in findings:
                           findings[ident] = {'id': ident, 'severity': 'blocking', 'kind': 'error',
@@ -2260,6 +2514,7 @@ jobs:
                   self.invalid_finish = None
                   self.discovery = {}
                   self.binary_dependencies = set()
+                  self.ci_jobs, self.table_coverage = {}, []
                   self.initial_files = files
                   self.initial_packet = None
                   self.original_files_digest = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
@@ -2281,6 +2536,13 @@ jobs:
               def remember_delivered(self):
                   identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'],
                               'reviewer': self.family}
+                  aliases = delivered_finding_aliases(self.pending_payloads(), identity)
+                  for old in list(self.pending_fresh_ids):
+                      local = old[len(finding_id(identity, '')):]
+                      new = finding_id(identity, aliases['by_id'].get(local, local))
+                      if old != new and old not in self.original_prior_ids:
+                          self.prior.pop(old, None)
+                          self.pending_fresh_ids.discard(old)
                   for finding in self.pending_obligations()['findings']:
                       ident = finding_id(identity, finding['id'])
                       self.prior.setdefault(ident, {**finding, 'origin': 'Unvalidated final delivered by this reviewer in this run'})
@@ -2296,7 +2558,86 @@ jobs:
                           if isinstance(f, dict) and isinstance(f.get('id'), str)
                           and f.get('severity') != 'note'} & self.pending_fresh_ids
 
+              def covered_file(self, path):
+                  ref = self.pr['head']['sha']
+                  lines = self.file_lines.get((path, ref))
+                  if lines is None:
+                      return False
+                  covered = set()
+                  for read in self.reads:
+                      if read['path'] == path and read['revision'] == ref:
+                          covered.update(range(read['start'], read['start']+read['count']))
+                  return set(range(1, len(lines)+1)) <= covered
+
+              def record_table(self, args):
+                  evidence = ci_job_evidence(self.gh, self.pr, args['job_id'])
+                  if evidence != self.ci_jobs.get(args['job_id']):
+                      raise ValueError('Read this exact successful CI job first')
+                  if type(args['step_number']) is not int or not any(step.get('number') == args['step_number'] and
+                             step.get('status') == 'completed' and step.get('conclusion') == 'success'
+                             for step in evidence['steps']):
+                      raise ValueError('Select the successful step that actually ran the finite checker, not a skipped step')
+                  checkers, data = args['checker_paths'], args['data_paths']
+                  if (not isinstance(checkers, list) or not isinstance(data, list)
+                          or not all(isinstance(p, str) and p for p in checkers+data)
+                          or not 1 <= len(checkers) <= 8 or not 1 <= len(data) <= 16):
+                      raise ValueError('Name 1-8 checker files and 1-16 committed data files')
+                  if (not isinstance(args.get('table_path'), str) or not args['table_path']
+                          or not isinstance(args.get('table_location'), str) or not args['table_location'].strip()
+                          or not isinstance(args.get('claim_and_limits'), str) or len(args['claim_and_limits'].strip()) < 80):
+                      raise ValueError('Describe the printed table, executed command, data binding and limits')
+                  required_reads = set(checkers + [evidence['workflow']])
+                  if any(not self.covered_file(path) for path in required_reads):
+                      raise ValueError('Read the complete workflow and checker files at head before claiming CI coverage')
+                  if not any(r['path'] == args['table_path'] and r['revision'] == self.pr['head']['sha'] for r in self.reads):
+                      raise ValueError('Read the printed table source or PDF before recording coverage')
+                  paths = sorted(required_reads | set(data) | {args['table_path']})
+                  blobs = {}
+                  for path in paths:
+                      sha = source_identity(self.gh, path, self.pr['head']['sha'])
+                      if source_identity(self.gh, path, evidence['executed_sha']) != sha:
+                          raise ValueError('CI checked different committed bytes for '+path)
+                      blobs[path] = sha
+                  claim = {**args, **evidence, 'blobs': blobs,
+                           'basis': 'Reviewer inspected checker/workflow and attests the successful step checks this printed table against these committed data. No broader proof claim.'}
+                  self.table_coverage.append(claim)
+                  return {'table_coverage': claim}
+
+              @recoverable_read_tool
               def tool(self, name, args):
+                  if name == 'list_ci_checks':
+                      offset = args['offset']
+                      if type(offset) is not int or offset < 0:
+                          raise ValueError('Expected a nonnegative offset')
+                      heads = [self.pr['head']['sha']]
+                      merge = self.pr.get('merge_commit_sha')
+                      if merge and merge not in heads:
+                          parents = [p['sha'] for p in self.gh.call('/commits/'+merge).get('parents', [])]
+                          if parents == [self.pr['base']['sha'], self.pr['head']['sha']]:
+                              heads.append(merge)
+                      rows = [{k: c.get(k) for k in ('id', 'name', 'head_sha', 'status', 'conclusion', 'details_url')}
+                              for sha in heads for c in head_checks(self.gh, sha)]
+                      return {'checks': rows[offset:offset+20], 'total': len(rows),
+                              'next_offset': offset+20 if offset+20 < len(rows) else None}
+                  if name == 'read_pdf':
+                      if (not isinstance(args.get('path'), str) or not isinstance(args.get('revision'), str)
+                              or args['revision'] not in {'head', 'base'} or not args['path'].lower().endswith('.pdf')):
+                          raise ValueError('Expected a PDF path and head/base revision')
+                      path, side = args['path'], args['revision']
+                      ref = self.pr[side]['sha']
+                      raw = self.gh.blob(path, ref)
+                      pages = pdf_pages(raw, args['start'], args['count'])
+                      self.binary_dependencies.add((path, side))
+                      self.reads.append({'path': path, 'revision': ref, 'start': args['start'],
+                                        'count': len(pages), 'kind': 'pdf_text_pages'})
+                      return {'path': path, 'revision': ref, 'sha256': hashlib.sha256(raw).hexdigest(),
+                              'pages': pages, 'scope': 'Extracted text only. Physical PDF page numbers; images, typography and extraction ambiguities require separate inspection.'}
+                  if name == 'read_ci_job':
+                      result = ci_job_evidence(self.gh, self.pr, args['job_id'])
+                      self.ci_jobs[args['job_id']] = result
+                      return result
+                  if name == 'record_table_coverage':
+                      return self.record_table(args)
                   if name == "read_history":
                       self.history_read = True
                       return {"discussion": self.history, "earlier_findings": self.prior, "authenticated_overrides": self.overrides}
@@ -2310,8 +2651,7 @@ jobs:
                           raise ValueError("Read 1 to 1000 lines, starting at line 1 or later")
                       if path.lower().endswith(".pdf"):
                           self.binary_dependencies.add((path, args["revision"]))
-                          return {"pdf_url": "https://raw.githubusercontent.com/" + self.gh.repo + "/" + ref + "/" + urllib.parse.quote(path),
-                                  "instruction": "Read via web tools; an unavailable source is not verified."}
+                          return {"instruction": "Use read_pdf with this path, physical start page and page count. This notice is not a source read."}
                       if (path, ref) not in self.file_lines:
                           self.file_lines[path, ref] = self.gh.text(path, ref).splitlines()
                       lines = self.file_lines[path, ref]
@@ -2485,6 +2825,13 @@ jobs:
                               record(self.family + '-delivered-final.json', value)
                               if len(calls) != 1:
                                   raise ValueError("Final review requires no concurrent tool calls")
+                              # Raw deliveries stay in the artifact. Exact-content aliases only
+                              # prevent a corrected ID from creating a second obligation.
+                              self.remember_delivered()
+                              identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'], 'reviewer': self.family}
+                              aliases = delivered_finding_aliases(self.pending_payloads(), identity)
+                              record(self.family+'-finding-aliases.json', aliases)
+                              value = normalize_delivered_finding_ids(value, aliases, identity, self.prior)
                               value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now,
                                                       retained_findings=self.retained_pending_findings(value))
                               if (not self.history_read or not self.reads) and not (self.finish_now and value['decision'] == 'changes_requested'):
@@ -2494,6 +2841,7 @@ jobs:
                                       item.update(resolution='unresolved', reason=
                                                   'Earlier finding history was not admitted to this review. Its disposition remains unresolved.')
                               record(self.family + "-source-reads.json", self.reads)
+                              record(self.family + "-ci-table-coverage.json", self.table_coverage)
                               self.invalid_finish = None
                               self.delivered_finals.clear()
                               return value
@@ -2533,11 +2881,14 @@ jobs:
                       for call_index, call in enumerate(calls):
                           args = json.loads(call["arguments"]) if self.family == "astra" else call["input"]
                           reads_before, history_before = len(self.reads), self.history_read
+                          coverage_before, ci_before = len(self.table_coverage), dict(self.ci_jobs)
                           try:
                               if call["name"] == 'finish_review' and finish_error:
                                   value = {'error': finish_error}
                               elif self.finish_now:
                                   raise ValueError('Read too large for the remaining review allowance. ' + FINISH_NOW_INSTRUCTION)
+                              elif call['name'] == 'record_table_coverage' and len(calls) != 1:
+                                  raise ValueError('Record table coverage in a separate turn after inspecting the returned sources and CI evidence')
                               else:
                                   value = self.tool(call["name"], args)
                           except (ValueError, UnicodeError) as error:
@@ -2557,6 +2908,8 @@ jobs:
                               # Fetching a source is not evidence that the reviewer saw it.
                               del self.reads[reads_before:]
                               self.history_read = history_before
+                              del self.table_coverage[coverage_before:]
+                              self.ci_jobs = ci_before
                           value['remaining_context_tokens'] = max(0, allowance(values) - 128)
                           if self.finish_now or value['remaining_context_tokens'] < REVIEWER_OUTPUT_RESERVE:
                               self.finish_now = True
@@ -2577,6 +2930,19 @@ jobs:
 
           def own_comment(gh, comment):
               return comment["user"]["login"] == "github-actions[bot]"
+
+
+          def parse_override_command(body):
+              """One exact head, a comma-separated ID list, and one explicit reason."""
+              match = re.fullmatch(r'/protocol-b override ([0-9a-f]{40}) ([A-Za-z0-9_-]+(?:,[A-Za-z0-9_-]+)*)\s+(.+)', body.strip(), re.S)
+              if not match or not match[3].strip():
+                  return None
+              return match[1], list(dict.fromkeys(match[2].split(','))), match[3].strip()
+
+          def unknown_override_ids(ids, prior, recorded_scope_ids=()):
+              return [ident for ident in ids if ident not in prior or
+                      (re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", ident)
+                       and ident not in recorded_scope_ids)]
 
 
           def history(gh, pr, known=None):
@@ -2621,13 +2987,18 @@ jobs:
                           # Do not turn an HTTP outage without observations into a
                           # permanent mathematical objection.
                           discussion.append({'incomplete_review': working, 'source': comment.get('html_url')})
-              pattern = re.compile(r"^/protocol-b override ([0-9a-f]{40}) ([A-Za-z0-9_-]+)\s+(.+)$", re.S)
               for comment in comments:
-                  match = pattern.fullmatch(comment["body"].strip())
-                  if match and match[1] == pr["head"]["sha"] and (match[2] in prior or re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", match[2])):
+                  command = parse_override_command(comment["body"])
+                  if command and command[0] == pr["head"]["sha"]:
+                      head, ids, reason = command
+                      # Scope IDs need the actual App-recorded set supplied by the
+                      # caller. A scope-shaped name or a report comment is not enough.
+                      if unknown_override_ids(ids, prior, known or {}):
+                          continue
                       login = comment["user"]["login"]
                       if administrator(gh, comment["user"]) and unedited_override_comment(gh, comment):
-                          overrides[match[2]] = {"collaborator": login, "reason": match[3], "url": comment["html_url"]}
+                          for ident in ids:
+                              overrides[ident] = {"collaborator": login, "reason": reason, "url": comment["html_url"]}
               return discussion, prior, overrides, latest
 
 
@@ -2687,16 +3058,24 @@ jobs:
                       'reason': '\n'.join(i['origin_reviewer']+': '+i['reason'] for i in items)}
 
 
-          def historical_obligations(candidates, current=None):
-              """Preserve App-authenticated findings across heads and empty later records."""
-              states, applied = {}, set()
+          def historical_obligations(candidates, current=None, include_resolutions=False):
+              """Preserve later objections; an origin reviewer can close its own older item."""
+              states, applied, owners, resolutions = {}, set(), {}, {}
               pairs = [pair for _, pair in sorted(candidates, key=lambda item: item[0])] + [current or {}]
+              for pair in pairs:
+                  for family, envelope in pair.items():
+                      if (family in MODELS and envelope.get('model') == MODELS[family]
+                              and envelope.get('reviewer') == family and not envelope.get('identity_error')):
+                          for f in blocking_findings(envelope.get('review', {})):
+                              owners.setdefault(finding_id(envelope, f['id']), family)
               for pair in pairs:
                   for family, envelope in pair.items():
                       value = envelope.get('review', {})
                       for ident, item in envelope.get('carried_findings', {}).items():
                           for source in obligation_sources(item):
-                              states.setdefault((source['origin_reviewer'], ident), source)
+                              key = (source['origin_reviewer'], ident)
+                              if key not in states:
+                                  states[key] = source
                       for f in blocking_findings(value):
                           event = obligation_event(envelope, 'finding', f)
                           if event in applied:
@@ -2705,9 +3084,20 @@ jobs:
                           ident = finding_id(envelope, f['id'])
                           states[family, ident] = {'origin_reviewer': family,
                               'resolution': 'unresolved', 'reason': f.get('objection', ''), 'observation': event}
-                      for f in value.get('prior_findings', []):
+                          if owners.get(ident) == family:
+                              resolutions.pop(ident, None)
+                      for index, f in enumerate(value.get('prior_findings', [])):
+                          # Runtime-only positions are authenticated with the App envelope,
+                          # outside the model's report. Identical text is not enough to skip
+                          # an actual disposition. Completed reports never use this marker.
+                          if (not envelope.get('complete') and index in
+                                  envelope.get('runtime_retained_prior_indices', [])):
+                              continue
                           # An incomplete execution cannot silently resolve old objections.
-                          resolution = f['resolution'] if envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False else 'unresolved'
+                          valid = (envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False
+                                   and not envelope.get('identity_error') and envelope.get('model') == MODELS.get(family)
+                                   and envelope.get('reviewer') == family)
+                          resolution = f['resolution'] if valid else 'unresolved'
                           event = obligation_event(envelope, 'prior', f, resolution)
                           if event in applied:
                               continue
@@ -2716,18 +3106,31 @@ jobs:
                           applied.add(event)
                           states[family, f['id']] = {'origin_reviewer': family,
                               'resolution': resolution, 'reason': f.get('reason', ''), 'observation': event}
+                          if owners.get(f['id']) == family:
+                              if resolution == 'resolved':
+                                  resolutions[f['id']] = {'reviewer': family, 'run': envelope['run'],
+                                      'attempt': envelope['attempt'], 'head': effective_head(envelope),
+                                      'reason': f.get('reason', '')}
+                              else:
+                                  resolutions.pop(f['id'], None)
                           if resolution == 'resolved' and ('history', f['id']) in states:
                               states['history', f['id']] = {'origin_reviewer': 'history',
                                   'resolution': 'resolved', 'reason': f.get('reason', '')}
               active = {}
-              for (_, ident), item in states.items():
+              for (family, ident), item in states.items():
                   if item['resolution'] != 'resolved':
                       active.setdefault(ident, []).append(item)
-              return {ident: pack_obligation(items) for ident, items in active.items()}
+              active = {ident: pack_obligation(items) for ident, items in active.items()}
+              closed = {ident: item for ident, item in resolutions.items() if ident not in active}
+              return (active, closed) if include_resolutions else active
 
 
           def carry_obligations(reports, candidates):
-              obligations = historical_obligations(candidates, reports)
+              obligations, closed = historical_obligations(candidates, reports, include_resolutions=True)
+              for envelope in reports.values():
+                  envelope.pop('closed_by_origin', None)
+                  if closed:
+                      envelope['closed_by_origin'] = closed
               explicit, explicit_ids = set(), set()
               for envelope in reports.values():
                   for f in blocking_findings(envelope.get('review', {})):
@@ -2770,10 +3173,13 @@ jobs:
                                       for f in prior['review'].get('prior_findings', [])
                                       if f['resolution'] != 'resolved'})
                       existing = {f['id'] for f in current['review'].get('prior_findings', [])}
-                      current['review'].setdefault('prior_findings', []).extend(
-                          {'id': ident, 'resolution': 'unresolved',
+                      retained = [{'id': ident, 'resolution': 'unresolved',
                            'reason': 'Retained from the earlier App record; the interrupted review did not resolve it. '+reason}
-                          for ident, reason in sorted(carried.items()) if ident not in existing)
+                          for ident, reason in sorted(carried.items()) if ident not in existing]
+                      dispositions = current['review'].setdefault('prior_findings', [])
+                      current.setdefault('runtime_retained_prior_indices', []).extend(
+                          range(len(dispositions), len(dispositions) + len(retained)))
+                      dispositions.extend(retained)
                   if family not in state['reports']:
                       state['reports'][family] = {
                           'reviewer': family, 'model': MODELS[family], 'reported_model': None,
@@ -2932,6 +3338,20 @@ jobs:
                       and (node.get('author') or {}).get('login') == comment['user']['login'])
 
 
+          def applicable_origin_closures(envelope):
+              """A historical resolution cannot hide a current reviewer objection."""
+              value = envelope.get('review', {})
+              protected = {finding_id(envelope, f['id']) for f in blocking_findings(value)}
+              runtime = set(envelope.get('runtime_retained_prior_indices', [])) if not envelope.get('complete') else set()
+              protected.update(f['id'] for index, f in enumerate(value.get('prior_findings', []))
+                               if f['resolution'] != 'resolved' and index not in runtime)
+              scope = review_scope_item(envelope)
+              if scope:
+                  protected.add(scope['id'])
+              return {ident: record for ident, record in envelope.get('closed_by_origin', {}).items()
+                      if record.get('head') == effective_head(envelope) and ident not in protected}
+
+
           def override_findings(latest, head):
               """Validate the trusted reports before classifying their findings."""
               if set(latest) != set(MODELS):
@@ -2948,7 +3368,7 @@ jobs:
                   scope = review_scope_item(envelope)
                   if scope:
                       here.add(scope['id'])
-                  unresolved.update(here)
+                  unresolved.update(here - set(applicable_origin_closures(envelope)))
               return unresolved
 
 
@@ -2979,7 +3399,7 @@ jobs:
                   for finding in blocking_findings(envelope['review']):
                       rows.append(f"- `{finding_id(envelope, finding['id'])}`: {finding.get('location', '')}: {finding.get('objection', '')}")
                   for prior in envelope['review'].get('prior_findings', []):
-                      if prior['resolution'] == 'unresolved':
+                      if prior['resolution'] == 'unresolved' and prior['id'] not in envelope.get('closed_by_origin', {}):
                           rows.append(f"- `{prior['id']}`: {prior['reason']}")
               return "\n\nFinding IDs for collaborator decisions:\n" + "\n".join(dict.fromkeys(rows)) if rows else ""
 
@@ -3102,6 +3522,8 @@ jobs:
 
 
           def make_reuse_binding(gh, pr, files, reviewer):
+              if reviewer.table_coverage:
+                  raise ValueError('CI table coverage is bound to its reviewed head; cross-head reuse requires fresh CI inspection')
               packet = reviewer.initial_packet or {}
               if packet.get('patches_deferred') and packet.get('merge_base') != pr['base']['sha']:
                   raise ValueError('Deferred merge-base context may be read through untracked web tools; cross-head reuse disabled on a diverged base')
@@ -3311,8 +3733,7 @@ jobs:
                       continue  # Attestation metadata is not a new discussion objection.
                   body = item.get('body', '')
                   if body.strip() == '/protocol-b review' or re.fullmatch(
-                          r'/protocol-b merge [0-9a-f]{40}', body.strip()) or re.fullmatch(
-                          r'/protocol-b override [0-9a-f]{40} [A-Za-z0-9_-]+\s+.+', body.strip(), re.S):
+                          r'/protocol-b merge [0-9a-f]{40}', body.strip()) or parse_override_command(body):
                       continue  # Authorization commands are revalidated separately.
                   if item.get('author') == 'github-actions[bot]' and body.startswith((ROUND_MARKER, SUMMARY_MARKER,
                           'Accepted by collaborator override, not by unanimous model acceptance.',
@@ -3336,6 +3757,8 @@ jobs:
 
 
           def bounded_report(envelope):
+              if len(json.dumps(envelope, ensure_ascii=False).encode()) > 45000 and envelope.get('ci_table_coverage'):
+                  envelope['ci_table_coverage'] = compact_ci_coverage(envelope['ci_table_coverage'])
               # Rebase metadata is optional. Keep every finding and the paid verdict.
               if len(json.dumps(envelope, ensure_ascii=False).encode()) > 60_000 and envelope.get('reuse_binding'):
                   record(envelope['reviewer'] + '-omitted-rebase-binding.json', envelope['reuse_binding'])
@@ -3362,6 +3785,8 @@ jobs:
           def decision_text(state, reports, limits):
               compact = json.loads(json.dumps(reports))
               for e in compact.values():
+                  if e.get('ci_table_coverage'):
+                      e['ci_table_coverage'] = compact_ci_coverage(e['ci_table_coverage'])
                   if (scope := review_scope_item(e)):
                       e['scope_coverage'] = scope
                       if scope.get('coverage_omitted'):
@@ -3730,6 +4155,15 @@ jobs:
                       for ident in override_findings(saved, pr['head']['sha']):
                           known.setdefault(ident, {'objection': 'Item recorded in the current App check.'})
                   discussion, prior, overrides, _ = history(gh, pr, known)
+                  if override_command:
+                      parsed = parse_override_command(command)
+                      unknown = unknown_override_ids(parsed[1], prior, known) if parsed else []
+                      if unknown:
+                          message = ('This override was ignored. Comment '+str(event['comment']['id'])+
+                                     ' contains unrecognised finding IDs: '+', '.join(unknown)+
+                                     '. No item from that comment was applied. Post a corrected new comment.')
+                          gh.call(f'/issues/{number}/comments', 'POST', {'body': message})
+                          raise ValueError(message)
                   record("context.json", {"head": pr["head"]["sha"], "base": pr["base"]["sha"],
                                          "trusted_workflow": trusted_ref, "class": change_class,
                                          "prior_findings": prior, "overrides": overrides, "discussion": discussion})
@@ -3828,6 +4262,7 @@ jobs:
                                               "attempt": os.environ["GITHUB_RUN_ATTEMPT"], "review": value,
                                               "read_prerequisites_complete": bool(reviewers[family].history_read and reviewers[family].reads),
                                               "finished_early": reviewers[family].finish_now,
+                                              "ci_table_coverage": reviewers[family].table_coverage,
                                               "initial_packet": reviewers[family].initial_packet,
                                               "complete": True, "policy_ref": os.environ['GITHUB_SHA'],
                                               "history_digest": passage_digest(sorted(history_coverage(discussion))) if reviewers[family].history_read else None,
@@ -4169,7 +4604,12 @@ jobs:
                               for ident, item in envelope.get('carried_findings', {}).items()]
                   entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
                               for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
+                  closures = applicable_origin_closures(envelope)
+                  for ident, record in closures.items():
+                      nonblocking[ident] = 'Resolved by its originating reviewer '+record['reviewer']+': '+record['reason']
                   for ident, location, detail, resolution in entries:
+                      if ident in closures:
+                          continue
                       if (ident, family) in relieved:
                           item = relieved[ident, family]
                           description = 'Source access: '+item['reviewer_who_checked']+' verified the named passage; '+item['reviewer_unable_to_open']+' could not open it.'
@@ -4419,7 +4859,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
-      pull-requests: read
+      pull-requests: write
       issues: write
       checks: read
       actions: read
@@ -4470,7 +4910,7 @@ jobs:
       pull-requests: read
       checks: read
       actions: write
-    timeout-minutes: 185
+    timeout-minutes: 360
     env:
       PROGRAM_ACTION: prepare-only
       ROUTED_PR: ${{ needs.route_request.outputs.number }}
@@ -4516,6 +4956,12 @@ jobs:
       ROUTED_PR: ${{ needs.route_request.outputs.number }}
     steps:
       - *prepare_program
+      - name: Install isolated PDF reader from Ubuntu
+        continue-on-error: true
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends poppler-utils bubblewrap
+          dpkg-query -W poppler-utils bubblewrap coreutils
       - name: Read this run's kernel preparation
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
@@ -4538,7 +4984,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           MODE: ${{ vars.PROTOCOL_B_MODE }}
-          MANUSCRIPT_PROFILE: ${{ vars.PROTOCOL_B_MANUSCRIPT_PROFILE }}
           TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR }}
           NOTES_ISSUE: ${{ vars.PROTOCOL_B_NOTES_ISSUE }}
         run: python3 "$RUNNER_TEMP/protocol-b.py" review

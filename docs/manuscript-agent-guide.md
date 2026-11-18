@@ -70,7 +70,7 @@ Mirror the latest release. At minimum: `README.md` (what the version contains, h
 
 - Fill in the pull request template. State what you verified and how, and what you did not. Never state that anything was reviewed or accepted without linking the record.
 - The gate's two reviewers will read it. A version is large; expect questions, and expect that reviewers may not finish. Incomplete review scope and findings are resolved by repair or by a repository admin's explicit override, never by the author.
-- Release approval is governed by `docs/release-policy.md` ("Approving a release"): a collaborator other than the principal author of the new result approves the exact head; credit changes are confirmed; one release at a time.
+- Release approval is governed by `docs/release-policy.md` ("Approving a release"): the owner may approve the exact head regardless of authorship or whose agent wrote the PR. Any other approving collaborator must be neither the principal author of the new result nor the person whose agent wrote the PR. Credit changes must be confirmed, and only one release is reviewed at a time.
 - After the merge: publish the GitHub release for the merge commit with the PDF, TeX, the plain-notation polynomial for an explicit record, the acceptance record and the cumulative archive, each with its hash; add a "Known corrections" section if anything was deferred; make sure the checks on `main` ran for the merge commit; update the pinned start-here issue.
 
 ## 11. Working with other agents
