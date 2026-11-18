@@ -189,22 +189,30 @@ are proved in the reduction, not hidden premises.
   not the full product span or the entire modular-form space.
 - Actual rectangular theta isogenies give rational diagonal and inverse-
   diagonal transport of every Good homogeneous torsion-product span to a
-  constructed common principal level. The scalar factors are derived from
-  the actual slash convention, including weight zero. All-label zero-
-  extended identities have separately proved bad-fibre cancellation.
+  constructed common principal level. A proved positive rational matrix
+  decomposition extends this to every positive-determinant A∈GL₂(Q), at
+  M=D(A)N with D(A)>0 independent of N and the input form. The scalar
+  factors are derived from the actual slash convention, including weight
+  zero. All-label zero-extended identities have separately proved bad-fibre
+  cancellation.
 - Ordinary Weierstrass pole cancellation determines the finite cyclic x
   corrections in both rectangular directions. All-label x transport then
   gives actual diagonal and inverse-diagonal preservation of the independently
   generated mixed x_P λ_Q span, with exact weight-three factors 1/n and
-  1/n². Bad shifted sums equal their cyclic corrections, not zero. This
-  does not identify the mixed span with all weight-three forms.
+  1/n². Bad shifted sums equal their cyclic corrections, not zero. Positive
+  rational matrix decomposition extends actual mixed transport to arbitrary
+  positive-determinant GL₂(Q), with M=D(A)N. The independently Good-generated
+  mixed span is proved equal to the all-label lower mixed span. This neither
+  identifies that span with all weight-three forms nor transports the extra
+  class-series summand merely by this result.
 - Every positive-level principal cusp form has an actual square-level
-  Gamma-one carrier with exact period-matched expansion. A nonzero input
-  yields a nonzero nebentypus component in its finite positive-rational
-  translate orbit. A further invariant-submodule construction gives an
-  actual nonzero joint eigenform for every good-prime Hecke operator in
-  that same orbit. Neither newness nor first-coefficient normalization
-  is asserted.
+  Gamma-one carrier with exact period-matched expansion. Nonzero character
+  and good-Hecke eigencomponents stay in the original finite positive-rational
+  translate orbit. A minimal-positive-level argument, with actual nonzero
+  adjoint lowering and center handling, then produces a genuine normalized
+  newform at some 0<L≤N² in that same orbit. The first coefficient is proved
+  nonzero before normalization; no newness or representation premise is
+  supplied.
 - Mixed weight-three addition and distribution retain the full derivative
   y=℘′, factor 1/2 and every degenerate class. Their series span is identified
   with the actual weight-three congruence-series span. For every prime p∣ℓ
@@ -213,7 +221,22 @@ are proved in the reduction, not hidden premises.
   integer-slope recursion supplies the earlier all-slope premise, with all
   higher-level series corrections and exact row divisions retained. This
   is repeated-prime mixed trace, not full weight-three spanning or trace
-  of arbitrary degree-three products.
+  of arbitrary degree-three products. The coprime-prime case is also proved,
+  with actual CRT orbit sums and second-factor Fourier reduction. Combining
+  these prime cases gives mixed-space trace and invariant descent for every
+  positive N∣M with N≥3. The space is lower mixed forms plus class-series
+  forms, not all homogeneous degree-three products.
+- For N,k≥3, every actual primitive Eisenstein modular form is Petersson-
+  orthogonal to every principal cusp form in both orientations. Actual
+  measure, faithful principal fundamental domain, oriented primitive-row
+  equivalence and absolute integrability are supplied before unfolding and
+  Fubini. This does not establish an Eisenstein–cusp splitting by itself.
+- A new convergent second-theta-moment series determines the actual weight-
+  two x constants. For every positive N and every integer label, including
+  bad zero classes, the period-N q-expansion constant and every SL₂(Z) slash
+  profile are proved. The axis value is −4π²w/(1−w)²−π²/3 and the non-axis
+  value is −π²/3; denominators are proved nonzero on good axis labels.
+  This is not a weight-two decomposition or residue-constraint theorem.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -238,22 +261,24 @@ correction and general lower-series-span trace closure are proved. This is
 not identification with a classical Petersson-Eisenstein subspace or full
 modular-form spanning. Degree-two all-level product trace, all-weight
 congruence-series trace closure and primitive-series generator inclusion
-are proved. Rational diagonal product transport and square-level cusp
-transport are also proved. The all-slope repeated-prime mixed trace and
-reverse good-Hecke eigenform extraction are proved. Coprime mixed trace,
-newform lowering/normalization, Rankin-Selberg detection, special-value
-nonvanishing and full principal spanning remain separate from this edition.
-The Γ₁ `(0,b)` family alone cannot replace the principal family.
+are proved. Arbitrary positive rational homogeneous and mixed transport,
+all-divisible mixed-space trace, normalized newform extraction and primitive
+Petersson orthogonality are also proved. A full Eisenstein–cusp splitting,
+Rankin–Selberg product detection, critical special-value nonvanishing,
+higher-weight multiplication and full principal spanning remain separate
+from this edition. The Γ₁ `(0,b)` family alone cannot replace the principal
+family.
 
-The current 154-module audit checks 1840 named public source proofs/instances,
-314 selected definitions, structures, aliases or inductive types and one
-additional capture of the derived row decision instance: 2155 selected source
-records. Ten additional literal-contract theorems give 2165 audited records,
+The current 177-module audit checks 2428 selected public source records.
+Ten additional literal-contract theorems give 2438 distinct audited records,
 all with at most `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`.
+The separate full literal inventory includes private declarations; it is not
+silently equated with the selected public audit list.
 **Auditing a predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `HeckeAnalyticProducersAudit.lean` for exact editions and
-commands. Earlier audit editions preserve the previous verified checkpoints.
+See `CHECKS.md` and `RationalMixedStructuralProducersAudit.lean` for exact
+editions and commands. Earlier audit editions preserve the previous verified
+checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or

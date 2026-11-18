@@ -1435,3 +1435,103 @@ special-value nonvanishing and higher-weight multiplication remain separate.
 `PrincipalProductSpanning`, the original unrestricted Hecke leaf and full
 Z-in-Q remain unproved here; the unconditional original extent stays N≤6.
 No original assembly premise or dependency pin is changed.
+
+## Rational structural transport and primitive orthogonality: 173 modules
+
+Nineteen new mathematical sources extend the preserved 154-module edition:
+positive-rational matrix reduction and homogeneous-product transport,
+coprime-prime mixed trace, actual normalized newform extraction, eleven
+primitive Petersson helpers, and arbitrary-divisible mixed-space trace.
+The homogeneous transport level is M=D(A)N with D(A)>0 independent of N and
+of the input form. The normalized newform is an actual Newform at a level
+0<L≤N² in a finite positive-rational translate orbit of the original cusp
+form. Its first coefficient is proved nonzero before it is scaled to one.
+
+The primitive Petersson theorem applies at N,k≥3 to every actual primitive
+Eisenstein modular form and every principal cusp form. Actual faithful
+principal fundamental domains, absolute integrability, oriented primitive
+rows, unfolding and finite and infinite interchanges are supplied. Both
+pairing orientations and the actual IntegrableOn conclusion are verified.
+This theorem does not instantiate an absolutely convergent weight-two series.
+
+The mixed all-level trace theorem applies to the genuine lower mixed span
+plus the actual class-series span. Repeated and coprime prime cases and strong
+induction prove trace and invariant descent for every positive N∣M,N≥3.
+This is not the whole homogeneous degree-three space.
+
+All nineteen sources received complete independent mathematical source review
+and ordinary independent recompilation. Component full-source audits have
+82 records for rational/coprime transport, 28 for normalized newform lowering,
+82 for primitive Petersson helpers, and 15 for all-level mixed trace. The
+preserved `HeckeStructuralProducersAudit.lean` co-imports all 173 mathematical
+modules, with 2362 selected public source records plus ten earlier literal
+contracts: 2372 distinct standard-axiom records. Its SHA256 is
+`151f83fbe03328681af1b830fdc489e02fcae767e135e13439d5c31b759fe3a7`.
+
+## Actual weight-two constants and slash profiles: 175 modules
+
+The two new sources are `WeightTwoConstants04.lean` and
+`WeightTwoProfiles02.lean`. Their exact SHA256 values are
+`fea1a0a9558a1af5fe39141212b4c7bfc71e225ee261c6be81a2c0b38e2a0d8c` and
+`84c88ef40e23bb1629a232d894e6c1af412ff35e73b9099c4c2d6460470a0783`.
+Both are preserved complete source editions, including their eight selected
+`#print axioms` commands; those commands are not counted as declarations.
+
+The 226+164 lines contain all 37 declarations: 8 definitions and 29 proofs.
+A genuinely convergent paired second-theta-moment series determines the
+actual x-value constant, without rearranging a raw two-dimensional inverse-
+square sum. With 0≤a<N, good non-axis labels have constant −π²/3 and good
+axis labels have −4π²w/(1−w)²−π²/3. Nonvanishing of the latter denominator is
+proved from the actual label. Positive remainder reduction before toNat and
+actual torsion periodicity give all integer labels, including the zero class.
+Uniqueness of actual vertical limits binds this to the period-N zeroth
+q-expansion coefficient of the independently defined division Eisenstein
+modular form. Its actual right SL₂(Z) label action proves every slash profile.
+This edition does not prove a weight-two residue constraint or splitting.
+
+Both sources received independent source review and independent ordinary
+recompilation. All 37 declarations and the literal actual slash coefficient
+contract passed the component audit. `WeightTwoStructuralProducersAudit.lean`
+checks 2399 selected source records and ten earlier literal contracts: 2409
+distinct standard-axiom records. Its SHA256 is
+`c509dda95cc4a22238238ba54495f54c406df2b19f27ee32c53e94ce81938bb3`.
+
+## Arbitrary positive-rational mixed transport: 177 modules
+
+`AllLevelPrincipalRationalMixedGL2Transport.lean` and
+`ActualMixedSpanBridge.lean` add 229+67 lines and 29 declarations. Exact SHA256:
+`04f8da62fc7b3f918bc0ad6f2651235b9fefb6cca7191db51328c4f697f75c97` and
+`b752709f6fb8952d74b080b3e420eb19efc4526cefee2efc8cb5e398fdfc526b`.
+
+The independently Good-generated actual x_P λ_Q span is preserved by every
+positive-determinant rational matrix at a constructed level M=D(A)N. Its
+weight-three scalar coefficient is t, and its rectangular forward and inverse
+coefficients are 1/n and 1/n². These are derived once at weight three, not by
+multiplying lower-weight slash laws. Both inclusions with the independently
+all-label `lowerMixedSpan` are proved, with actual bad-factor zero forms.
+This does not prove positive-rational closure of the additional class-series
+summand or whole M₃ spanning.
+
+All 29 new source declarations received full independent source review and
+independent ordinary recompilation, with a 29-record full component audit.
+The cumulative `RationalMixedStructuralProducersAudit.lean` checks 2428
+selected public source records and ten earlier literal-contract theorems:
+2438 distinct records, each with at most propext, Classical.choice, Quot.sound.
+The separate literal source inventory includes private declarations and is
+not silently equated to the selected public audit list. Current audit SHA256:
+`f3bf3888168645baa5d0d6625d9981a2a3b4c40ff8e4d38d732144176eaa6bb5`.
+
+```sh
+lake --no-cache --no-ansi env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/RationalMixedStructuralProducersAudit.lean
+```
+
+These are ordinary pinned warm-import compilations plus complete separate
+source reviews, not cold/native admission of all imported constants or a
+full-project acceptance certificate. All earlier mathematical sources and
+audit editions, pins, original assembly and published history are preserved.
+Unselected newer decomposition, Mellin, critical-period, adjunction and
+geometric candidates are not included or implicitly graded here.
+A full Eisenstein–cusp split, actual Rankin–Selberg product detector, critical
+weight-two/three nonvanishing selection and higher-weight multiplication remain
+separate. `PrincipalProductSpanning`, the original unrestricted Hecke contract
+and full Z-in-Q remain unproved; the unconditional original extent stays N≤6.
