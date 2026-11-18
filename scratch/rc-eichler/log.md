@@ -1,0 +1,6 @@
+- Base: `7c8dc74b5a9f9b2c477f22b12b89d08280637481`; branch `wip/rc-eichler`.
+- Existing dependencies `Visibility.Theta` and `AppF.Stage` compiled sequentially.
+- `Lattice.lean`: integer basis and ambient rational basis of a full lattice; common denominators; finite reduced norm balls; definite nonzero elements are units. Compiled.
+- `Order.lean`: norm-one order units; finite `Rˣ` and ambient subgroup; order divides `Odd.c0`; ramification predicate implies negative parameters. Compiled.
+- `Ideals.lean`: common multiples between full lattices; full left order of a full right ideal in a definite algebra. Compiled.
+- `Local.lean`: local normal forms use lower-left divisibility by `p^(v_p N)` with no restriction at 2; good-prime split extraction verified.
