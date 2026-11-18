@@ -1,0 +1,19 @@
+scratch/htmult-model/HTModelAx.lean:153:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HDec.PkgI4.HTModel.psi_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.mem_tensorInv_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.tensorInvEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.finrank_tensorInv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultU_eq_of_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_eq_of_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_eq_of_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_model_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTP_iff_of_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTP_iff_forall' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTU_iff_of_model' depends on axioms: [propext, Classical.choice, Quot.sound]

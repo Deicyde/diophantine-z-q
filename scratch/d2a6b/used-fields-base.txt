@@ -1,0 +1,37 @@
+# frozenTarget's bundle fields, USED or UNUSED (scratch/d2a6b PruneScan, root HDec.HSyn.sixContactMin_of_open76)
+
+## HDec.HSyn.OpenResearchLeaves57
+USED   r9a : PkgI3.FaltingsSemisimple
+USED   r9b : PkgI3.FaltingsTate
+USED   pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper
+USED   neronSchemeExtensionDedekind : ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
+USED   neronOggShafarevichSep : NOSSepDict.NeronOggShafarevichSep
+USED   dsThm965Printed : DSCoeffExt.DSThm965Printed
+USED   dsThm966Printed : DSThm966EV.DSThm966Printed
+USED   panPrintedF : HDec.PkgI4.PanDict.PanPrintedF
+USED   heckeJ1DS : AfTateLam.HeckeJ1DS
+USED   afShimura : AfTateLam.AfShimura
+USED   afCharpolyDS965 : AfTateLam.AfCharpolyDS965
+USED   deRhamVpAbVarDirect : DeRhamPrint.Direct.DeRhamVpAbVarDirect
+USED   hodgeTateDecompOr : ZInQ.Contrib.HodgeTateOr.HodgeTateDecompOr
+USED   x6CoarseModuliIdeal : X6ALIdeal.X6CoarseModuliIdeal
+USED   elkiesX6StarEveryIdeal : X6ALIdeal.ElkiesX6StarEveryIdeal
+USED   gonzalezRotgerThm512X6RCF : GR512Bridge.GonzalezRotgerThm512X6RCF
+USED   modularHTCoeff : HTNewAssembly.ModularHTCoeff
+USED   sga7_IX_Cor3_3_Def34 : GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34
+USED   sga7_IX_3_5_ForwardGeom_Def34 : GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34
+USED   bergerSurveyF : HDec.PkgI4.PanDict.BergerSurveyF
+USED   deligneCanonicalModelY3EveryPrint : Y3Hodge.DeligneCanonicalModelY3EveryPrint
+USED   gaudronRemondSec9LowerAnSS : ZInQ.BostGR9.GaudronRemondSec9LowerAnSS
+USED   gaudronRemondThm14AnSS : ZInQ.SemistabAssembly.GaudronRemondThm14AnSS
+USED   javanpeykarThm111An : JavanpeykarAnRetype.JavanpeykarThm111An
+USED   silverbergZarhinThm35 : SZRaynaud.SilverbergZarhinThm35
+USED   y3FullThreeRepZ30 : Y3RouteA.Y3FullThreeRepZ30
+USED   carayolThmAFrob : CarayolRefold.CarayolThmAFrob
+
+## HDec.HSyn.OpenTextbookLeaves18
+
+## HDec.HSyn.OpenAddedLeaves27
+USED   picRepresentableAbVar : T09Pic.PicRepresentableAbVar
+USED   kleimanPicZeroProper954SiteQ : KleimanSite.KleimanPicZeroProper954SiteQ
+

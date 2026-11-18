@@ -9,7 +9,7 @@ lean: ZInQ.Literature.LFunction_cd_apply_prime, ZInQ.Literature.LFunction_cd_app
 
 # The coefficients of $L(C_d,s)$ at primes as point counts
 
-> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.Contrib.PSide.cuspEquiv`, `ZInQ.Contrib.PSide.natCard_cusp`, `ZInQ.Contrib.PSide.natCard_cd_of_dvd`, `ZInQ.Contrib.PSide.natCard_cd_two`, `ZInQ.Contrib.PSide.LFunction_cd_apply_prime_eq_sub_card_of_dvd`, `ZInQ.Contrib.PSide.LFunction_cd_apply_prime_eq_sub_card_all`. The page is kept until the blueprint rewrite (#81).
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.Contrib.PSide.cuspEquiv`, `ZInQ.Contrib.PSide.natCard_cusp`, `ZInQ.Contrib.PSide.natCard_cd_of_dvd`, `ZInQ.Contrib.PSide.natCard_cd_two`, `ZInQ.Contrib.PSide.LFunction_cd_apply_prime_eq_sub_card_of_dvd`, `ZInQ.Contrib.PSide.LFunction_cd_apply_prime_eq_sub_card_all`. The page belongs to Route K, which the [main theorem](../../../main/main-theorem.md) no longer uses.
 
 With $a_n(C_d)$ the coefficients of $L(C_d,s)$ as in
 [the coefficients at prime powers](prime-power-coefficients.md), and $p$ a prime:

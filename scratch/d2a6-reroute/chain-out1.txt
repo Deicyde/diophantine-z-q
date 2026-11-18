@@ -1,0 +1,256 @@
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:41:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:79:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:125:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:170:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:208:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.G15Ram`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:244:5: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:244:17: warning: Ambiguous namespace `GlueC10`: it is interpreted as `_root_.HDec.GlueC10` because this `open` occurs inside `namespace HDec`, while `_root_.GlueC10` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueC10`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:244:25: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:248:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:290:5: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:290:17: warning: Ambiguous namespace `GlueC10`: it is interpreted as `_root_.HDec.GlueC10` because this `open` occurs inside `namespace HDec`, while `_root_.GlueC10` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueC10`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:290:25: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:294:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:339:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:362:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTLocal`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:383:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:383:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:383:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:383:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:383:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:385:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:416:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:416:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:416:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:416:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:416:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:418:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:436:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:436:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:436:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:436:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:436:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:438:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:438:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:438:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:438:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:438:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:440:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:459:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:459:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:459:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:459:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:459:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:461:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:461:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:461:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:461:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:461:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:463:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:463:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:463:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:463:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:463:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:465:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:483:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:483:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:483:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:483:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:483:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:485:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:485:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:485:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:485:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:485:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:487:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:487:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:487:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:487:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:487:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:489:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:507:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:507:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:507:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:507:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:507:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:509:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:509:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:509:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:509:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:509:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:511:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:511:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:511:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:511:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+ZInQKernel/Contrib/OneProof/D2A6Chain.lean:511:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+'HDec.HSyn.sixContactMin_of_open72_u' depends on axioms: [propext, Classical.choice, Quot.sound]

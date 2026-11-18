@@ -1,0 +1,9 @@
+info: ZInQKernel/OneProof/H/LF4T5.lean:1291:0: 'T5Torsion.torsionStructure_numberField' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/LF4T5.lean:1292:0: 'T5Torsion.torsionStructure_subfieldQbar' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/LF4T5.lean:1358:0: 'T5Torsion.TateFree.tate_surj_of_torsionStructure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/LF4T5.lean:1375:0: 'T5Torsion.tate_surj_numberField' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/LF4T5.lean:1641:0: 'T5Torsion.torsionStructure_of_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/LF4T5.lean:1642:0: 'T5Torsion.tateModuleFree_of_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/LF4T5.lean:1643:0: 'T5Torsion.torsionStructureCharZero_of_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (10718 jobs).
+(fold-b116: 3941-line build log truncated to its axioms/result lines)

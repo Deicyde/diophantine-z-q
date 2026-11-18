@@ -1,0 +1,10 @@
+⚠ [14376/14376] Built ZInQKernel.Contrib.OneProof.A6Z30 (6.3s)
+warning: ZInQKernel/Contrib/OneProof/A6Z30.lean:107:2: Try this: 
+warning: ZInQKernel/Contrib/OneProof/A6Z30.lean:154:5: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.D2A6`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+warning: ZInQKernel/Contrib/OneProof/A6Z30.lean:163:2: Try this: 
+info: ZInQKernel/Contrib/OneProof/A6Z30.lean:182:0: 'D2A6.spec_to_Z30_ext' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/A6Z30.lean:183:0: 'D2A6.z30ToLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/A6Z30.lean:184:0: 'D2A6.hasGoodReduction_of_z30' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/A6Z30.lean:185:0: 'HDec.D2A6.qmModelG3U_of_z30' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/A6Z30.lean:186:0: 'HDec.D2A6.modelG3G6_of_leavesU_z30' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (14376 jobs).

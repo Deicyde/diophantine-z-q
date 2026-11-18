@@ -4,11 +4,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.RingTheory.MvPolynomial.Homogeneous), Apache-2.0.
--- Modified for the Z-in-Q kernel: `MvPolynomial.IsHomogeneous.eval₂_const_mul` made private: a declaration
--- of the same name is loaded with ZInQKernel.OneProof.Main (from
--- ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.MvPolynomial.HomogeneousCharts), so the two
--- modules could not be imported together. The lemma is now internal to this file (the docstring's
--- `hp.eval₂_const_mul` works only here); `aeval_smul` and `eval_smul` stay public.
 module
 
 public import Mathlib.Algebra.Polynomial.Degree.Operations
@@ -40,7 +35,7 @@ namespace MvPolynomial.IsHomogeneous
 by `a ^ n`, after any change of coefficient ring.
 
 This is not a global `simp` lemma: the degree `n` cannot be inferred from its left-hand side. -/
-private theorem eval₂_const_mul {σ R S : Type*} [CommSemiring R] [CommSemiring S]
+theorem eval₂_const_mul {σ R S : Type*} [CommSemiring R] [CommSemiring S]
     {p : MvPolynomial σ R} {n : ℕ} (hp : p.IsHomogeneous n)
     (f : R →+* S) (g : σ → S) (a : S) :
     _root_.MvPolynomial.eval₂ f (fun i ↦ a * g i) p =

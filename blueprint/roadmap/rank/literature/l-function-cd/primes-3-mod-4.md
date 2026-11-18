@@ -6,7 +6,7 @@ origin: background
 
 # The coefficients of $L(C_d,s)$ at the primes $p\equiv3\pmod4$
 
-> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
+> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](../../../main/main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
 
 Let $p$ be a prime with $p\equiv3\pmod4$, $\chi$ the quadratic character of $\mathbb F_p$,
 $c_d(n)$ the numbers of [the standard Euler product](l-series.md), and $a_n(C_d)$ the coefficients

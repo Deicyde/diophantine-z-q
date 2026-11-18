@@ -19,7 +19,7 @@ theorem X_pow_sub_X_ne_zero {R : Type*} [Ring R] [Nontrivial R] {n : ℕ} (hn : 
   intro h
   have h1 := congrArg (fun p : R[X] ↦ p.coeff n) h
   simp only [coeff_sub, coeff_X_pow_self, coeff_X, coeff_zero] at h1
-  rw [if_neg hn.ne, sub_zero] at h1
+  rw [ite_eq_right hn.ne, sub_zero] at h1
   exact one_ne_zero h1
 
 end Polynomial

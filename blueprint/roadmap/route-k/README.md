@@ -4,6 +4,8 @@ article_id: af_227585a2d1d47bd1ca422fc3
 
 # Pole completeness from certified rank (Route K)
 
+> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+
 The manuscript's pole polynomial puts two points on curves $y^2=x(x-\ell)(x+3\ell)$, and the
 manuscript derives pole completeness from its restricted converse theorem, whose proof uses
 Kato's Euler system, Waldspurger's formula, Bump–Friedberg–Hoffstein and Nekovář's Selmer

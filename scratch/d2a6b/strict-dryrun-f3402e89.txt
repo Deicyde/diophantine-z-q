@@ -1,0 +1,2 @@
+$ python3 scripts/one_proof/autofold.py scratch/d2a6b/tailz79/autofold.json --dry-run   # on f3402e89
+autofold: not a field of the current bundles: ['raynaudSemistableSHOr', 'y3FineModuliAbP']

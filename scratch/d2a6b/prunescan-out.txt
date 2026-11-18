@@ -1,0 +1,18 @@
+PRUNE[base] closure=274529 relevant=1659 visited=422 edgeTargets=1504 used=6951 casesOn=3 [HDec.LeafQCheck.HM.QMSplit.IsCocompactFuchsian,
+ HDec.LeafQCheck.QMSplitVB.IsCocompactFuchsian,
+ HDec.HSyn.GluePieces]
+PRUNE[base] bundle HDec.HSyn.OpenResearchLeaves57: 27 fields, unused 0: []
+PRUNE[base] bundle HDec.HSyn.OpenTextbookLeaves18: 0 fields, unused 0: []
+PRUNE[base] bundle HDec.HSyn.OpenAddedLeaves27: 2 fields, unused 0: []
+PRUNE[base] total unused top-level fields: 0
+PRUNE[base] bundles with unused fields: 238
+PRUNE[base] prune set: 0 entries
+PRUNE[bypass] closure=274360 relevant=1597 visited=416 edgeTargets=1446 used=6834 casesOn=3 [HDec.LeafQCheck.HM.QMSplit.IsCocompactFuchsian,
+ HDec.LeafQCheck.QMSplitVB.IsCocompactFuchsian,
+ HDec.HSyn.GluePieces]
+PRUNE[bypass] bundle HDec.HSyn.OpenResearchLeaves58: 27 fields, unused 0: []
+PRUNE[bypass] bundle HDec.HSyn.OpenTextbookLeaves18: 0 fields, unused 0: []
+PRUNE[bypass] bundle HDec.HSyn.OpenAddedLeaves27: 2 fields, unused 0: []
+PRUNE[bypass] total unused top-level fields: 0
+PRUNE[bypass] bundles with unused fields: 240
+PRUNE[bypass] prune set: 0 entries

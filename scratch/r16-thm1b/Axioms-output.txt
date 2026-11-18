@@ -1,0 +1,6 @@
+'R16Thm1b.afShimura_of_thm1Af' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R16Thm1b.r16CoreY_of_thm1Af' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R16Thm1.heckeJ1DS_of_bSh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R16Thm1.afShimura_of_shimura73' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R16Thm1.euler_of_shimura73_li' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R16ShimuraLi.r16CoreY_of_shimura_li' depends on axioms: [propext, Classical.choice, Quot.sound]

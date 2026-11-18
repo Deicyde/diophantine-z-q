@@ -1,0 +1,15 @@
+'HDec.PkgI4.PstModel.localIsPstF_iff_forall' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTP_iff_forall' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_model_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanDict.panBerger_of_F' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.PkgI4.FontaineSt.IsPstF : (p : ℕ) →
+  [hp : Fact (Nat.Prime p)] →
+    {E : Type u_1} →
+      [inst : Field E] →
+        [Algebra ℚ_[p] E] →
+          {n : ℕ} →
+            {ε₀ : PreTilt (↥𝓞_ℂ_[p]) p} →
+              HDec.PkgI4.BmaxOne.IsGenEps p ε₀ →
+                (w : HDec.PkgI4.PanBergerSplit.Ainf p) →
+                  (WittVector.fontaineTheta (↥𝓞_ℂ_[p]) p) w = 0 → (PkgI4.GQp p →* GL (Fin n) E) → Prop

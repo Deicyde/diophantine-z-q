@@ -1,0 +1,61 @@
+scratch/htmult-model/HTModelAx.lean:117:66: error: unexpected token 'include'; expected 'lemma'
+scratch/htmult-model/HTModelAx.lean:119:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI4.HTModel.htMultU_eq_of_basis`:
+  [FiniteDimensional ℚ_[p] E]
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] E] [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/htmult-model/HTModelAx.lean:132:82: error: unexpected token 'include'; expected 'lemma'
+scratch/htmult-model/HTModelAx.lean:152:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:153:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:154:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:155:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/htmult-model/HTModelAx.lean:164:32: error: failed to synthesize
+  Free ↥E ↥L
+(deterministic) timeout at `typeclass`, maximum number of heartbeats (20000) has been reached
+
+Note: Use `set_option synthInstance.maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+'HDec.PkgI4.HTModel.psi_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.mem_tensorInv_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.tensorInvEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.finrank_tensorInv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultU_eq_of_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_eq_of_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_eq_of_le' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.htMultE_model_eq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTP_iff_of_model' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTP_iff_forall' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HDec.PkgI4.HTModel.localDistinctHTU_iff_of_model' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

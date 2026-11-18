@@ -98,8 +98,17 @@ jobs:
           ./elan-init -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
+      # One stalled download held this step for almost six hours (run 44115543349). Each attempt gets ten minutes;
+      # a retry downloads every file again, since a stopped download can leave a truncated archive.
       - name: Fetch the Mathlib build cache
-        run: lake exe cache get
+        timeout-minutes: 35
+        run: |
+          timeout -k 30 600 lake exe cache get && exit 0
+          for attempt in 2 3; do
+            echo "::warning::lake exe cache get did not finish; attempt $attempt downloads every file again."
+            timeout -k 30 600 lake exe cache get! && exit 0
+          done
+          exit 1
 
       # The newest earlier build of main for the same toolchain and Lake configuration, if any.
       - name: Restore the previous build of main

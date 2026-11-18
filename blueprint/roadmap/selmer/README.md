@@ -4,6 +4,8 @@ article_id: af_e32388e618d70d75466eb859
 
 # Proposition 0: the explicit system is the 2-Selmer group
 
+> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+
 The certified rank hypothesis CR₃, which the main theorem derives from four statements about
 L-series, is stated on the explicit linear system
 $\Sigma(\mathcal C_d)$ of the [Route K chapter](../route-k/README.md), built from classes modulo

@@ -1,0 +1,41 @@
+== HDec.HSyn.sixContactMin_of_open77: closure 274360
+  GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34: absent
+  SGA33Steps.SGA7_IX_3_5_ForwardGeom: absent
+  GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34: PRESENT [GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34]
+  HDec.PkgI2.RaynaudCriterionNF: absent
+  PkgI2.RaynaudCriterionNF: absent
+  GapNeron.RaynaudCriterionNF: absent
+  HDec.LeafQM.AV.QML3.goodReduction: absent
+  HDec.G15Ram.raynaudPlace_of_R6: absent
+  HDec.G15Ram.torsFix_of_descent: absent
+  HDec.HSyn.modelG3G6_of_leaves3: absent
+  HDec.G0ModField.KernelField.good_of_QML3: absent
+  SZRaynaud.RaynaudWildNF: PRESENT [SZRaynaud.RaynaudWildNF]
+  SZRaynaud.ElliotWildInertiaTrivial: PRESENT [SZRaynaud.ElliotWildInertiaTrivial]
+  SZRaynaud.SilverbergZarhinThm35: PRESENT [SZRaynaud.SilverbergZarhinThm35]
+  SGRSplit.ShimuraIntegralModelRep: absent
+  DictModels.RaynaudOr.RaynaudSemistableSHOr: PRESENT [DictModels.RaynaudOr.RaynaudSemistableSHOr]
+  Y3RouteA.Y3FullThreeRepZ30: PRESENT [Y3RouteA.Y3FullThreeRepZ30]
+  Y3Fix.Y3FineModuliAbP: PRESENT [Y3Fix.Y3FineModuliAbP]
+  sorryAx: absent
+== HDec.HSyn.sixContactMin_of_open76: closure 274529
+  GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34: PRESENT [GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34]
+  SGA33Steps.SGA7_IX_3_5_ForwardGeom: absent
+  GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34: PRESENT [GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34]
+  HDec.PkgI2.RaynaudCriterionNF: PRESENT [HDec.PkgI2.RaynaudCriterionNF]
+  PkgI2.RaynaudCriterionNF: PRESENT [HDec.PkgI2.RaynaudCriterionNF]
+  GapNeron.RaynaudCriterionNF: PRESENT [GapNeron.RaynaudCriterionNF]
+  HDec.LeafQM.AV.QML3.goodReduction: PRESENT [HDec.LeafQM.AV.QML3.goodReduction]
+  HDec.G15Ram.raynaudPlace_of_R6: PRESENT [HDec.G15Ram.raynaudPlace_of_R6]
+  HDec.G15Ram.torsFix_of_descent: PRESENT [HDec.G15Ram.torsFix_of_descent]
+  HDec.HSyn.modelG3G6_of_leaves3: PRESENT [HDec.HSyn.modelG3G6_of_leaves3]
+  HDec.G0ModField.KernelField.good_of_QML3: PRESENT [HDec.G0ModField.KernelField.good_of_QML3]
+  SZRaynaud.RaynaudWildNF: absent
+  SZRaynaud.ElliotWildInertiaTrivial: absent
+  SZRaynaud.SilverbergZarhinThm35: PRESENT [SZRaynaud.SilverbergZarhinThm35]
+  SGRSplit.ShimuraIntegralModelRep: absent
+  DictModels.RaynaudOr.RaynaudSemistableSHOr: PRESENT [DictModels.RaynaudOr.RaynaudSemistableSHOr]
+  Y3RouteA.Y3FullThreeRepZ30: PRESENT [Y3RouteA.Y3FullThreeRepZ30]
+  Y3Fix.Y3FineModuliAbP: PRESENT [Y3Fix.Y3FineModuliAbP]
+  sorryAx: absent
+open77 closure names with ForwardGeom/SemistableUnipotent: 1 [ReductSplit.SemistableUnipotent._proof_2]

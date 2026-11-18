@@ -1,0 +1,48 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves60 →
+  HDec.HSyn.OpenTextbookLeaves18 → HDec.HSyn.OpenAddedLeaves27 → ZInQ.PoleCompleteness → ZInQ.FrozenTarget
+ZInQ.OneProof.frozenTarget: closure 292708
+  contains sorryAx: false
+  contains GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34: false
+  contains SGA33Steps.SGA7_IX_3_5_ForwardGeom: false
+  contains HDec.PkgI2.RaynaudCriterionNF: false
+  contains PkgI2.RaynaudCriterionNF: false
+  contains GapNeron.RaynaudCriterionNF: false
+  contains HDec.G15Ram.raynaudPlace_of_R6: false
+  contains HDec.G15Ram.torsFix_of_descent: false
+  contains HDec.HSyn.modelG3G6_of_leaves3: false
+  contains HDec.G0ModField.KernelField.good_of_QML3: false
+  contains SGRSplit.ShimuraIntegralModelRep: false
+  contains GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34: false
+  contains SGA33Steps.SGA7_IX_Cor3_3: false
+  contains GaRigidity.SGA7.SGA7_IX_Cor3_3: false
+  contains CToPrinted.SGA7_IX_3_3: false
+  contains ZInQ.HeightSplit.SemistableNeronBaseChange: false
+  contains ZInQ.HeightSplit.SemistablePersists: false
+  contains HDec.HSyn.OpenResearchLeaves58: false
+  contains HDec.HSyn.sixContactMin_of_open77: false
+  contains HDec.HSyn.OpenResearchLeaves59: true
+  contains HDec.HSyn.sixContactMin_of_open78: true
+  contains HDec.HSyn.OpenResearchLeaves60: true
+  contains HDec.HSyn.sixContactMin_of_open79: true
+  contains SZRaynaud.RaynaudWildNF: true
+  contains SZRaynaud.ElliotWildInertiaTrivial: true
+  contains SZRaynaud.SilverbergZarhinThm35: true
+  contains Y3RouteA.Y3FullThreeRepZ30: true
+  contains ZInQ.SSFaltings.FaltingsSemistableHeightBC: true
+  contains HDec.D2A6.R6U: true
+  contains HDec.HSyn.sixContactMin_of_open73_sf_u: true
+  contains HDec.HSyn.OpenResearchLeaves59: true
+  contains HDec.HSyn.sixContactMin_of_open78: true
+  contains ZInQ.SemistabAssembly.BostLowerBoundAnSS: false
+  contains ZInQ.BostGR9.GaudronRemondSec9LowerAnSS: true
+  contains CarayolRefold.CarayolThmAFrob: true
+  contains AfTateLam.AfShimura: true
+  contains AfTateLam.HeckeJ1DS: true
+  contains R16Thm1b.ShimuraThm1Af: true
+  contains R16Thm1.BShStandardModel: true
+  contains R16Thm1.ShimuraTotalToComponents: false
+  contains R16ShimuraLi.ShimuraTotalToComponents: false
+  SGA7-named constants in the closure: 0 []
+field check: HDec.HSyn.OpenResearchLeaves59 27 fields, HDec.HSyn.OpenResearchLeaves60 27 fields; only in old: [heckeJ1DS,
+ afShimura]; only in new: [bShStandardModel, shimuraThm1Af]

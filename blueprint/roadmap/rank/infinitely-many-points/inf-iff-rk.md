@@ -6,7 +6,7 @@ origin: bridged
 
 # The infinitely-many-points forms are equivalent to the positive-rank forms
 
-> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
+> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](../../main/main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
 
 The hypotheses CR₃^Inf and CR₃^Rk are equivalent. Likewise CR₃^TYZ,Inf is equivalent to CR₃^TYZ,Rk,
 CR₃^TYZ_Cl,Inf to CR₃^TYZ_Cl,Rk, and CR₃^DL,Inf to CR₃^DL,Rk.

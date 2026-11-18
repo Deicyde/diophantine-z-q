@@ -26,7 +26,7 @@ needed: [route AP](../route-ap/README.md) changes the completeness proof of the 
 template, not the polynomial, so that it needs only arithmetic progressions of good slope primes
 ([the statement 22P_AP](../route-ap/good-prime-ap.md)), and these follow from Szemerédi's theorem
 in the primes and Proposition D, both proved
-([the main theorem from two hypotheses](main-theorem-two-hypotheses.md)).
+([the main theorem](main-theorem.md)).
 
 ## Depends on
 

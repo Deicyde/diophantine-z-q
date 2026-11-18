@@ -63,7 +63,7 @@ lemma IsHomogeneous.eval₂Hom_const_mul {indeterminates baseRing targetRing : T
 
 /-- Evaluating a polynomial that is homogeneous of degree `n` at `c • g` gives `c ^ n` times
 its value at `g`. The `eval₂` form of `MvPolynomial.IsHomogeneous.eval₂Hom_const_mul`. -/
-theorem IsHomogeneous.eval₂_const_mul {indeterminates baseRing targetRing : Type*} [CommSemiring baseRing] [CommSemiring targetRing]
+theorem IsHomogeneous.eval₂_const_mul_chart {indeterminates baseRing targetRing : Type*} [CommSemiring baseRing] [CommSemiring targetRing]
     {polynomial : MvPolynomial indeterminates baseRing} {degree : ℕ} (hφ : polynomial.IsHomogeneous degree) (coefficientMap : baseRing →+* targetRing) (scalar : targetRing) (values : indeterminates → targetRing) :
     _root_.MvPolynomial.eval₂ coefficientMap (fun coordinate ↦ scalar * values coordinate) polynomial = scalar ^ degree * _root_.MvPolynomial.eval₂ coefficientMap values polynomial :=
   hφ.eval₂Hom_const_mul coefficientMap scalar values
