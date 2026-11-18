@@ -12,7 +12,7 @@ of the imaginary quadratic field `K = ℚ(√k)`:
 * tex 4516–4517: "The bound on `|S_T|` counts one prime over each ramified rational prime and at most
   two over each other prime."
 
-Lane RC6 (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit `7481834f`)
+Lane RC6 (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`)
 takes these three facts as GLUE fields of the structure `ResidualRankCounts`, verbatim:
 
 ```
@@ -239,7 +239,7 @@ end Ramified
 For a quadratic number field `K`, every rational prime `p` has at most two prime ideals of `𝓞 K`
 above it. Discharges RC6's GLUE field
 `nPlaces_le_two : ∀ p ∈ primeSetT N r D Ram, nPlaces p ≤ 2` of `ResidualRankCounts`
-(`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit `7481834f`) with
+(`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`) with
 `nPlaces := nPlaces K` (it holds for every natural number `p`). -/
 def QuadraticPlacesLeTwo : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 → ∀ p : ℕ, nPlaces K p ≤ 2
@@ -252,8 +252,7 @@ theorem quadraticPlacesLeTwo_proof : QuadraticPlacesLeTwo :=
 
 For a quadratic number field `K`, a rational prime ramified in `K` has exactly one prime of `𝓞 K`
 above it. Discharges RC6's GLUE field `nPlaces_ram : ∀ p ∈ Ram, nPlaces p = 1` of
-`ResidualRankCounts` (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit
-`7481834f`) with `nPlaces := nPlaces K`, for any `Ram` consisting of ramified primes. -/
+`ResidualRankCounts` (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`) with `nPlaces := nPlaces K`, for any `Ram` consisting of ramified primes. -/
 def QuadraticRamifiedOnePlace : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 →
     ∀ p : ℕ, IsRamifiedPrime K p → nPlaces K p = 1
@@ -267,8 +266,7 @@ proof of `ex:limits-residual-bound`: the primes ramified in `K = ℚ(√k)` are 
 
 A rational prime ramified in `ℚ(√k)` is `2` or divides `k`. Discharges RC6's GLUE field
 `ram_sub : Ram ⊆ k.natAbs.primeFactors ∪ {2}` ("ramified primes divide `4k`") of
-`ResidualRankCounts` (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit
-`7481834f`), pointwise; see `rc6RamifiedFields_proof` for the field shape. -/
+`ResidualRankCounts` (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`), pointwise; see `rc6RamifiedFields_proof` for the field shape. -/
 def QuadraticRamifiedDvdTwoK : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (k : ℤ) (α : 𝓞 K), IsQuadraticRadicand K k α →
     ∀ p : ℕ, IsRamifiedPrime K p → p ∈ k.natAbs.primeFactors ∪ {2}
@@ -280,7 +278,7 @@ theorem quadraticRamifiedDvdTwoK_proof : QuadraticRamifiedDvdTwoK :=
 `nPlaces_ram` of RC6's `ResidualRankCounts` (tex 4470, 4516–4517), in their Lean shape, for
 `K = ℚ(√k)`, `nPlaces := nPlaces K`, any finite set `Ram` of ramified primes, and any finite set
 `T` of naturals (in RC6, `T = primeSetT N r D Ram`). Source of the field texts:
-`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit `7481834f`. PROVED. -/
+`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`. PROVED. -/
 def RC6RamifiedFields : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (k : ℤ) (α : 𝓞 K), IsQuadraticRadicand K k α →
     ∀ (Ram T : Finset ℕ), (∀ p ∈ Ram, IsRamifiedPrime K p) →

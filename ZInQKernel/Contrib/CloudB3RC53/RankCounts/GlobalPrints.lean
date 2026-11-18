@@ -13,7 +13,7 @@ Manuscript `diophantine_zq.tex`, Lemma `ex:limits-residual-bound`, tex 4519–45
 Here `W = E[2] = 𝔽₂²` with trivial action (tex 4479–4480) and `S₀` contains the places above
 `2N`, in particular those above `2`.
 
-Lane RC6 (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit 7481834f)
+Lane RC6 (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`)
 takes these counts as the fields `h0_eq : h0 = 2` and `euler : (h0 : ℤ) - h1 + h2 = -2` of its
 structure `ResidualRankCounts`, without a Galois group, because "`G_{K,S}` … not available in
 Mathlib". This file supplies:
@@ -186,8 +186,7 @@ and the trivial module `W = 𝔽₂²` (`W = E[2]`, tex 4479–4480), with
 
 * `h⁰ = 2` (tex 4522) — RC6's field `h0_eq : h0 = 2`;
 * `h⁰ − h¹ + h² = −2` (tex 4528) — RC6's field `euler : (h0 : ℤ) - h1 + h2 = -2`
-  (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, structure `ResidualRankCounts`,
-  draft commit 7481834f);
+  (`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, structure `ResidualRankCounts`);
 * `H^n = 0` for `n > 2` (tex 4529, `H^{>2} = 0`);
 * `H⁰, H¹, H²` are finite-dimensional.
 

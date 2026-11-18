@@ -22,10 +22,16 @@ by instantiation:
 * `selmerIdentification_trivial`: consistency, the trivial complex with Selmer data
   `G = D, U = L = 0` (PROVED).
 
+Caveat: `sel` is unconstrained (the identity quasi-isomorphism with zero local complexes inhabits
+`SelmerIdentification`), so it does not pin `D` to a genuine Selmer complex; superseded by the
+`Identification2` route (`ClearingComplex/NewLocalModel`).
+
 The remaining fields (augmentation, poles, central counts) stay as in `Identification`; they are
 statements about `D` and its Smith data, which a Selmer construction supplies through the
 quasi-isomorphism (central counts) and the new-local cancellation (poles; lane SelmerDuality's
-`SupportChangeData` / `UnramifiedNewPlace` are the interfaces of the new local places).
+`SupportChangeData` / `UnramifiedNewPlace` are the interfaces of the new local places;
+`UnramifiedNewPlace` is not instantiable by genuine continuous cochains, and re-pointing to the
+genuine Galois support data is pending).
 -/
 
 noncomputable section
@@ -89,7 +95,11 @@ end BlockComplex
 /-- **The single identification, phrased against `SelData`** (GLUE): the fields of
 `Identification`, together with Selmer data `sel` over `𝒪[G]` and a quasi-isomorphism from the
 remaining complex `D` to the Selmer complex of `sel` (the new-local cancellation is a homotopy
-equivalence, tex 5509–5513). -/
+equivalence, tex 5509–5513).
+
+Caveat: `sel` is unconstrained (the identity quasi-isomorphism with zero local complexes inhabits
+it, `selmerIdentification_trivial`), so this adds nothing to `Identification`; superseded by the
+`Identification2` route (`ClearingComplex/NewLocalModel`). -/
 structure SelmerIdentification (b : ℕ) (dK hK cE tK : ℕ) extends Identification b dK hK cE tK where
   /-- the Selmer data over `𝒪[G]` (global cochains, local conditions, full local complexes) -/
   sel : SelData (MonoidAlgebra OO (SignGroup b))

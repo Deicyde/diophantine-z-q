@@ -19,8 +19,9 @@ import ZInQKernel.Contrib.CloudB3RC53.Calibration.Bookkeeping
   `v₂ a(0) = v₂ b(0) = j + v₂L + v₂m`).
 
 The identification of the ordinary Kummer complex with `kummerModel` (core plus disks, in the
-retained bases) is the remaining model input; it is to be stated against the Selmer-complex
-interfaces (`SelData`, `SupportChangeData`) so that it can be discharged by instantiation.
+retained bases) is the remaining model input; it is stated against the Selmer-complex interface
+`SelData` as `KummerModelIdentification` (`KummerIdentification.lean`), so that it can be
+discharged by instantiation.
 
 **Classification.** PROVED.
 -/

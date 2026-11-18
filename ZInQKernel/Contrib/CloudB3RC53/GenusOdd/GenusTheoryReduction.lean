@@ -12,7 +12,9 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.HeightDischarge
 Claim 3 is PROVED here from 1 and 2 (`genusTheory_of`): `s₁ s₂` is fixed by `Gal(H_c/K)`, hence
 lies in `K`; its square `d₁ d₂ = disc(K) c²` is negative (`disc K < 0`, Mathlib's `sign_discr`), so
 `s₁ s₂ ∉ ℚ` and the nontrivial automorphism of `K`, lifted to `H_c` (`restrictNormalHom_surjective`),
-negates it. What remains GLUE:
+negates it. What remained GLUE at this stage (`GenusRoots` has since been PROVED,
+`genusRoots_proof` in `GenusRootsProof.lean`, and `RingClassGalois` is no longer needed on the route
+of `Artin34.lean`):
 
 * `RingClassGalois` (claim 1): standard (Cox, Lemma 9.3: `Gal(H_c/ℚ)` is generalized dihedral).
   Missing in Tau Ceti: functoriality of the global class field correspondence under
@@ -22,7 +24,8 @@ negates it. What remains GLUE:
   (`isArithFrobAt_ringClassArtinEquiv_picClass`), Frobenius generation
   (`closure_isArithFrobAt_eq_top`, `finrank_eq_one_of_stabilizer_eq_bot`) and Euler's criterion in
   residue fields, applied to `H_c(√d₁)/H_c`; this is a substantial formalization (residue fields
-  of primes of `H_c`, decomposition groups, Frobenius on `√d₁`), not done here.
+  of primes of `H_c`, decomposition groups, Frobenius on `√d₁`), not done here (done in
+  `GenusAction.lean`, `GenusSqrtMem.lean`, `GenusRootsProof.lean`).
 -/
 
 noncomputable section
@@ -35,12 +38,12 @@ namespace ZInQ.Contrib.CloudB3RC53.GenusOdd
 open ZInQ.Contrib.CloudB3RC53.CST
 
 /-- **The ring class field of an imaginary quadratic order is Galois over `ℚ`** (GLUE; Cox,
-*Primes of the form x² + ny²*, Lemma 9.3). -/
+*Primes of the form x² + ny²*, Lemma 9.3). Not needed on the route of `Artin34.lean`. -/
 def RingClassGalois : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 → IsTotallyComplex K →
     ∀ (c : ℕ) [NeZero c], IsGalois ℚ (ringClassField (conductorOrder K c))
 
-/-- **Genus square roots** (GLUE; genus theory): under the hypotheses of `GenusTheory`, `√d₁` and
+/-- **Genus square roots** (introduced as GLUE; **PROVED**: `genusRoots_proof`, `GenusRootsProof.lean`; genus theory): under the hypotheses of `GenusTheory`, `√d₁` and
 `√d₂` lie in `H_c` and `Gal(H_c/K)` acts on them through `χ = χ_{d₁} ∘ N`. -/
 def GenusRoots : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 → IsTotallyComplex K →

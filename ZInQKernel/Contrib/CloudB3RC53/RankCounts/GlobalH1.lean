@@ -9,7 +9,7 @@ the residual coefficient module is `W = E[2] = 𝔽₂²` with trivial action, a
 `h¹(G_{K,S₀}, W) ≤ 4s` is read off from `h¹(G_{K,S₀}, 𝔽₂) ≤ 2s` by `h¹(W) = 2 h¹(𝔽₂)`.
 
 Lane RC6 takes this as the GLUE field `h1_eq : h1 = 2 * h1S0F2` of `ResidualRankCounts`
-(`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit 79c2699a5). Here it is
+(`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`). Here it is
 PROVED for Mathlib's `continuousCohomology` of any topological group, in particular for
 `G_{K,S}` (`GaloisGroupS`, `GlobalPrints.lean`): `H1TrivialF2Square`, `RC6H1Eq`.
 
@@ -108,7 +108,7 @@ theorem h1TrivialF2Square_proof : H1TrivialF2Square := fun G _ _ _ => h1_eq_two_
 /-- **RC6's field `h1_eq : h1 = 2 * h1S0F2` for `G_{K,S}` (tex 4523; PROVED).** With
 `h1 = dim H¹(G_{K,S}, W)`, `W = 𝔽₂²` trivial, and `h1S0F2 = dim H¹(G_{K,S}, 𝔽₂)`, for every number
 field `K` and every set `S` of primes (RC6: `S = S₀`). Source of the field text:
-`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`, draft commit 79c2699a5. -/
+`ZInQKernel/Contrib/OneProof/RC/Limits/ResidualBound.lean`. -/
 def RC6H1Eq : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))),
     Module.finrank (ZMod 2) (continuousCohomology 1 (trivialRepS (GaloisGroupS K S) (ZMod 2 × ZMod 2))) =

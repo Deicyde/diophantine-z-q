@@ -233,7 +233,12 @@ step over `K_out = Frac 𝒪_∞` (Plug's `SelmerNonquadStep`: the relaxed local
 duality and detection as GLUE) whose side cohomology dimensions are the outer dimensions of the old
 and new configurations, and, on an outer-large set, switch coordinate data whose volume
 normalizations `μ_F, μ_S` are images of units of `R` and whose finite and singular coordinates are
-the old and new inner coordinates. -/
+the old and new inner coordinates.
+
+Caveat: the stages are not tied to the genuine fibre models; a one-stage datum of fibre dimension 1
+(no switch demanded, so no `OuterSwitchStep` is required) satisfies the data built from these steps
+(`exOuterOfIntegralModels`), so as a hypothesis it is equivalent to its conclusion (compare RC's
+`regularityInputsS_iff`). Linking the stages to the genuine fibre models is pending. -/
 structure OuterSwitchStep (S S' : OuterStage (FractionRing (OInf 𝒰 ϖ)) K J) where
   X : SelmerNonquadStep (FractionRing (OInf 𝒰 ϖ))
   hs : S.outerDim = finrank (FractionRing (OInf 𝒰 ϖ)) ((selCx X.SF.Dside).toCC.homology 1)

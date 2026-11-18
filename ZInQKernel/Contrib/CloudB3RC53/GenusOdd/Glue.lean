@@ -1,18 +1,24 @@
 import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.Defs
 
 /-!
-# GenusOdd: the textbook GLUE behind (3.4) (stated, not proved; each one flagged)
+# GenusOdd: the textbook GLUE behind (3.4) (stated here; current status of each below)
 
 The proof of (3.4) (tex L2427–2439) cites Cai–Shu–Tian Theorem 1.1 twice (the printed leaf
 `CST.CSTThm11Split` of `Prints`) and then compares the two outputs. Between the print as it is stated
 over Lean objects (`Prints/CST.lean`) and that comparison, five standard facts are used that are
 neither in Mathlib nor in Tau Ceti. Each is stated here as a `Prop`, in the most standard form that
-suffices, with a docstring saying why it is true and where it enters. **None is proved; each counts
-as GLUE.** None is a step of Elliot's argument: Elliot's step (the index-at-most-two comparison,
+suffices, with a docstring saying why it is true and where it enters; they were introduced as GLUE.
+**Current status:** `NeronTateTwist`, `TwistDescent` and `SplittingCriterion` are PROVED;
+`GenusTheory` is no longer needed on the current route (`Artin34.lean`: `genusRoots_proof` and the
+normal-closure form of Elliot's step); `ArtinFactorization` is PROVED from lane RC8's
+`HasseConvergence` (GLUE) and `ModularNewform` (PRINT) and the local GLUE `LocalFactorInert`
+(`artinFactorization_of_newform`, `LocalFinal.lean`). None is a step of Elliot's argument: Elliot's step (the index-at-most-two comparison,
 tex L2433–2435) is PROVED in `GenusLower.lean` from these.
 
 * `ArtinFactorization` (tex L2432 "The two Rankin products have the common factor `L(E^{(h)},s)`"):
-  `L(E/K, χ_{d₁} ∘ N, s) = L(E^{(d₁)}, s) L(E^{(d₂)}, s)` for `d₁ d₂ = disc(K) c²`.
+  `L(E/K, χ_{d₁} ∘ N, s) = L(E^{(d₁)}, s) L(E^{(d₂)}, s)` for `d₁ d₂ = disc(K) c²`. Reduced to the
+  inert clause `LocalFactorInert` with `HasseConvergence` and `ModularNewform`
+  (`artinFactorization_of_newform`, `LocalFinal.lean`).
 * `NeronTateTwist` (implicit at tex L2433–2436, mcheck K3 item (d)): the Néron–Tate height of the
   image of a rational point of the twist `E^{(d)}` in `E(H)` is `[H : ℚ]` times its height.
   **PROVED** from lane RC19's height results in `HeightDischarge.lean` (`neronTateTwist_proof`).
@@ -22,8 +28,11 @@ tex L2433–2435) is PROVED in `GenusLower.lean` from these.
 * `GenusTheory` (tex L8211–8215, L8257–8259 "The conductor-one genus character … cuts out
   `F_D = ℚ(√D, √h_*)`"): the ring class field is Galois over `ℚ` and contains `√d₁`, `√d₂`, on
   which `Gal(H_c/K)` acts by `χ`, and complex conjugation fixes one and negates the other.
+  Reduced to `RingClassGalois` and `GenusRoots` (`genusTheory_of`, `GenusTheoryReduction.lean`;
+  `GenusRoots` PROVED); not needed on the route of `Artin34.lean`.
 * `SplittingCriterion` (tex L2428 "All level primes split", from the squareclass conditions of
   tex L2405–2406, L2350–2352): a prime `p ∤ disc K` at which `disc K` is a square splits in `K`.
+  **PROVED** in the Splitting area (`Splitting.splittingCriterion_proof`).
 -/
 
 noncomputable section
@@ -44,7 +53,8 @@ by `χ` (CST's `twistedLFunction`, `χ(𝔭) = 0` at `𝔭 ∣ c`) is `L(E^{(d�
 `Re s > 3/2`. At `𝔭 ∣ c` both sides have trivial factor (`E^{(d₁)}`, `E^{(d₂)}` are additive there);
 at a ramified `𝔭 ∤ c` the factor of `E/K` matches the good one of the unramified twist. In the two
 uses: genus point `c = 1`, `d₁ = h_*`, `d₂ = h`; ring-class point `c = |h|`, `d₁ = h`,
-`d₂ = h k'`. -/
+`d₂ = h k'`. Status: reduced (`artinFactorization_of_newform`, `LocalFinal.lean`) to lane RC8's
+`HasseConvergence` (GLUE) and `ModularNewform` (PRINT) and the inert clause `LocalFactorInert`. -/
 def ArtinFactorization : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (K : Type) [Field K] [NumberField K],
     Module.finrank ℚ K = 2 → IsTotallyComplex K → Odd (discr K) →
@@ -98,7 +108,9 @@ generalized dihedral group, and the quadratic character `χ = χ_{d₁} ∘ N` o
 under the Artin map to the Kummer character of `√d₁` (equivalently of `√d₂`, as
 `√(d₁ d₂) = c √(disc K) ∈ K`); complex conjugation fixes the real one of `√d₁`, `√d₂` and negates
 the imaginary one, since `d₁ d₂ < 0`). Hypotheses as in `ArtinFactorization`. Used for the genus
-field `F_D = ℚ(√D, √h_*)` of tex L8257–8259 and for `K(√h) ⊆ H_{|h|}`. -/
+field `F_D = ℚ(√D, √h_*)` of tex L8257–8259 and for `K(√h) ⊆ H_{|h|}`. Status: follows from
+`RingClassGalois` (GLUE) and `GenusRoots` (PROVED) by `genusTheory_of`; not needed on the route of
+`Artin34.lean`. -/
 def GenusTheory : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 → IsTotallyComplex K →
     Odd (discr K) →
@@ -118,7 +130,7 @@ def GenusTheory : Prop :=
 /-- **The splitting criterion** (GLUE, textbook: Dedekind–Kummer for `𝓞_K = ℤ[(1 + √D)/2]`, or
 `K ⊗ ℚ_p ≅ ℚ_p(√D)`): a prime `p` at which the discriminant `D` of the quadratic field `K` is a
 unit square (`SquareAt p D`: `p ∤ D` and `D` a square mod `p`, or `D ≡ 1 mod 8` at `p = 2`) splits
-in `K`. -/
+in `K`. Status: **PROVED** (`Splitting.splittingCriterion_proof`, `Splitting/Criterion.lean`). -/
 def SplittingCriterion : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 →
     ∀ p : ℕ, p.Prime → SquareAt p (discr K) → SplitsIn K p

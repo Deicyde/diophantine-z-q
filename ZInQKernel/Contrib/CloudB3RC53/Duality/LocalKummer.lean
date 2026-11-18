@@ -29,7 +29,10 @@ Genuine objects:
   `B(F) × H¹(F, B) → ℚ/ℤ` is nondegenerate on `H¹(F, B)`, and the Kummer map is adjoint to
   `H¹(F, B[m]) → H¹(F, B)` for it and the local duality pairing on `H¹(F, B[m])`. The library
   has no Tate pairing `B(F) × H¹(F, B) → ℚ/ℤ`, so it enters as data: the print says one exists
-  with the printed properties (its sign convention absorbed in it).
+  with the printed properties (its sign convention absorbed in it). The type allows every
+  nonarchimedean local field; Milne's I.3 is stated for `p`-adic fields, and the version in that
+  scope (`[CharZero F]`) is `MilneLocalTateDualityKummerCharZero` in `LocalKummerChar0.lean`, with
+  the lemma `KummerAnnihilatorNodeCharZero` and the bridge `kummerAnnihilatorNodeCharZero_of_print`.
 * `KummerAnnihilatorNode` (PROVED, `kummerAnnihilatorNode_proof`): from the print, the Kummer
   image equals its annihilator under `localTatePairing`.
 
@@ -120,7 +123,9 @@ L3439–3441): for an elliptic curve `B` over a nonarchimedean local field `F` a
 in `F`, Tate's local duality pairing `B(F) × H¹(F, B) → ℚ/ℤ` is nondegenerate on `H¹(F, B)`
 (Milne I.3.4; used on `H¹(F, B)[m]`), and the Kummer map is adjoint to `H¹(F, B[m]) → H¹(F, B)`
 for it and the local duality pairing `localTatePairing` on `H¹(F, B[m])` (Milne I.2.3, I.3.2,
-I.3.5; up to the sign absorbed in the Tate pairing). -/
+I.3.5; up to the sign absorbed in the Tate pairing). Milne states I.3 for `p`-adic fields; the
+quantified version in that scope is `MilneLocalTateDualityKummerCharZero`
+(`LocalKummerChar0.lean`). -/
 structure MilneLocalTateDualityKummer : Prop where
   out : ∃ tate : W.toAffine.Point →+ H1 (AbsoluteGaloisGroup F) W.PointCoeff →+
       AddCircle (1 : ℚ),

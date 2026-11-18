@@ -12,8 +12,11 @@ at `p` and the splitting type of `𝔭`:
 * `N𝔭 = p²`, `𝔭` unramified: `L_𝔭(T²) = L_p(T) L_p(−T)`, i.e. for good `p`
   `L_𝔭(T) = 1 − (a_p² − 2p) T + p² T²` (`#Ẽ(𝔽_{p²}) = p² + 1 − (a_p² − 2p)`).
 
-`GoodReductionOffLevel` (GLUE): a prime not dividing the level of the newform of `E` is a prime of
-good reduction (Carayol: the level is the conductor).
+`GoodReductionOffLevel` (introduced as GLUE): a prime not dividing the level of the newform of `E` is
+a prime of good reduction (Carayol: the level is the conductor). **PROVED** from lane RC8's printed
+leaf `ModularNewform` (`goodReductionOffLevel_of_modularNewform`, `LevelGood.lean`). Clauses 1 and 2
+of `LocalFactorK` are PROVED (`LocalClauses.lean`); its third clause is the GLUE
+`LocalFactorInert`.
 
 The power-series identities used in the comparison of Euler factors are PROVED here
 (`invC_comp_C_mul_X`, `invC_mul`, `invC_expand_two`, and the three local identities
@@ -45,7 +48,9 @@ under unramified base change). Let `E/ℚ` be elliptic, `K` a number field, `v` 
    characteristic polynomial `T² − a_p T + p`, eigenvalues squared), split multiplicative stays
    split, non-split becomes split over `𝔽_{p²}`, additive stays additive. In each case
    `L_𝔭(T²) = L_p(T) L_p(−T)`.
-`expand ℤ 2 L` is `L(T²)` and `L.comp (C (-1) * X)` is `L(−T)`. -/
+`expand ℤ 2 L` is `L(T²)` and `L.comp (C (-1) * X)` is `L(−T)`. Status: clauses 1 and 2 PROVED
+(`localFactorK_clause_split`, `localFactorK_clause_good`); clause 3 is `LocalFactorInert` (GLUE);
+`localFactorK_of_inert`. -/
 def LocalFactorK : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (K : Type) [Field K] [NumberField K]
     (𝔭 : HeightOneSpectrum (𝓞 K)) (v : HeightOneSpectrum (𝓞 ℚ)),
@@ -62,7 +67,8 @@ def LocalFactorK : Prop :=
 /-- **Good reduction off the level** (GLUE, textbook: Carayol, the level of the newform of `E` is
 the conductor `N_E`, and `p ∤ N_E` exactly when `E` has good reduction at `p`; with the newform of
 level `N_E` and no lower level, `newformLevel E = N_E`). If `p = natGenerator v` does not divide
-`newformLevel E`, the minimal model of `E` over `ℚ_v` has good reduction. -/
+`newformLevel E`, the minimal model of `E` over `ℚ_v` has good reduction. Status: **PROVED** from
+`ModularNewform` (`goodReductionOffLevel_of_modularNewform`, `LevelGood.lean`). -/
 def GoodReductionOffLevel : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (v : HeightOneSpectrum (𝓞 ℚ)),
     ¬ Rat.HeightOneSpectrum.natGenerator v ∣ newformLevel E → GoodAt E v

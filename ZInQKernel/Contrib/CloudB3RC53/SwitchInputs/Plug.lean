@@ -491,7 +491,12 @@ the Selmer level — a `SelmerNonquadStep`, `SelmerQuadMixedStep` or `SelmerQuad
 with the identification of the stage dimensions with the Selmer cohomology dimensions (the stage's
 two-term model computes the fiber cohomology of the Selmer complex of that configuration: GLUE
 identification, stated per step). The coordinate steps (`CoordStep`) and the sign decomposition
-of the stage dimensions stay as in `HeightOneSwitchData`. -/
+of the stage dimensions stay as in `HeightOneSwitchData`.
+
+Caveat: the stages are not tied to the genuine fibre models; a one-stage datum of fibre dimension 1
+(no switch demanded) satisfies the structure, so as a hypothesis it is equivalent to its conclusion
+(compare RC's `regularityInputsS_iff`). Linking the stages to the genuine fibre models is pending.
+The free `Nonempty (CoordStep …)` inputs reduce to bookkeeping. -/
 structure SelmerSwitchData (ι : A →+* F) (ρ : A →+* k) where
   Stage : Type
   stage : Stage → TwoTermStage ι

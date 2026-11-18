@@ -17,7 +17,7 @@ with (same file) `OddEmptyUnit := ∀ᶠ θ in (D.stages : Filter ℕ), vZ (D.a�
 D.prepared (F.h x) ∧ AnalyticRank (Etw ℓ (F.h x)) 1 ∧ D.Lstar (F.h x * D.kfin) ≠ 0 ∧
 D.jgen (F.h x) ≤ omega (F.h x) + Co ∧ padicValRat 2 (D.Lstar (F.h x * D.kfin)) ≤ 2 * omega (F.h x) + Ce`.
 
-These files may not import that draft, so `FinalFamilyField` is the same statement with the
+These files may not import that file, so `FinalFamilyField` is the same statement with the
 interface data abstracted: instantiate `prepared := D.prepared`,
 `simpleZero := fun h => AnalyticRank (Etw ℓ h) 1`, `Lstar := D.Lstar`, `jgen := D.jgen`,
 `jrc := D.jrc`, `hstar := D.hstar`, `stages := D.stages`, `Mθ := D.Mθ`,
@@ -40,7 +40,9 @@ Inputs, as hypotheses:
   `oddMinimumF6_proof` (which produces the minimum from (F.5) and the fixed witness `D_w`):
   `odd_minimum : IsLeast {r : ℤ | ∃ (W : ℕ) (Ds : ℕ → ℤ), ∀ᶠ θ in (D.stages : Filter ℕ),
   D.admissible θ (Ds θ) ∧ omega (Ds θ) ≤ W ∧ vZ (D.aθ θ (Ds θ)) < D.Mθ θ ∧
-  vZ (D.aθ θ (Ds θ)) = ((omega (Ds θ) : ℤ) + r : ℤ)} D.δo`;
+  vZ (D.aθ θ (Ds θ)) = ((omega (Ds θ) : ℤ) + r : ℤ)} D.δo`. (RC0 round 2 resolves this in
+  `RC/Wiring/OddMinimum.lean`: `exists_oddMinimum` is PROVED and the skeleton's `δ_o` is chosen as
+  that least element, so `odd_minimum` is a theorem there.)
 * in Branch 2, the address input (`AddressInput`, see `FinalFamily.lean`) at `δ_o`, for one
   constant `C_{e,final}` and the coarse constant `C_coarse = C_gen/2 + C_det`.
 

@@ -4,7 +4,7 @@ import ZInQKernel.Contrib.CloudB3RC53.Splitting.Core
 # Splitting in a quadratic field, part 2: the splitting criterion
 
 `splittingCriterion_proof : GenusOdd.SplittingCriterion` (stated in
-`CloudB3RC53/GenusOdd/Glue.lean` as a GLUE input of (3.4), tex L2428 "All level primes split",
+`CloudB3RC53/GenusOdd/Glue.lean`, where it was introduced as a GLUE input of (3.4), tex L2428 "All level primes split",
 from the squareclass conditions of tex L2405–2406, L2350–2352, and used for the final companion,
 tex L2604–2613): for a quadratic field `K` and a prime `p` at which `D = disc K` is a unit square
 (`SquareAt p D`: `p ∤ D` and `D` a square mod `p` for odd `p`, `D ≡ 1 mod 8` for `p = 2`), `p`

@@ -32,6 +32,12 @@ active comparison cone after inverting `t`. Here:
 
 Universe: the cone lemmas of `SelmerCone.lean` are stated for `ModuleCat.{0}`, so the last two
 nodes take `S : Type` (the text's `𝔽₂((t))[G]` and `𝔽₂((t))` are such).
+
+Caveat: `SupportChangeInput` takes `SupportChangeUnramified` (through `UnramifiedNewPlace`), which
+requires degreewise isomorphisms of the full local complex at `q` with the 3-term tame model;
+genuine continuous cochains are only quasi-isomorphic to it, so `transferOfSupportChange_final` and
+`transfer_final` are not instantiable by genuine continuous cochains; re-pointing to the genuine
+Galois support data is pending.
 -/
 
 namespace ZInQ.Contrib.CloudB3RC53.ResidualTransfer
@@ -57,7 +63,10 @@ theorem transferOfModels_final {S : Type u} [CommRing S] [IsLocalRing S]
   transferOfModels (minimalModelsExist_proof S) L K₀ a b hLmin e s genericRank rankTot hgen htot
 
 /-- **The field `transfer` from the support change, `MinimalModelsExist` discharged** (tex
-L4598–4647). Remaining inputs: `SupportChangeInput` (GLUE) and `hact`. Classification: PROVED. -/
+L4598–4647). Remaining inputs: `SupportChangeInput` (GLUE) and `hact`. Caveat: the hypothesis
+`SupportChangeUnramified` (through `UnramifiedNewPlace`) is not instantiable by genuine continuous
+cochains; re-pointing to the genuine Galois support data is pending.
+Classification: PROVED. -/
 theorem transferOfSupportChange_final {S : Type u} [CommRing S] [IsLocalRing S]
     (T : SupportChangeData S) (H : SupportChangeUnramified T)
     (hSC : SupportChangeInput T H) (a b : ℤ)
@@ -204,7 +213,14 @@ data in the type.
 
 *Correction note.* An earlier version of this theorem had the modelling direction reversed: it took
 the minimal model `L` of `C(U')` (the unramified side) as the original-support complex. This version
-follows tex L4612–4631. Classification: PROVED (from the inputs in its type). -/
+follows tex L4612–4631.
+
+Caveat: the hypothesis `SupportChangeUnramified` (through `UnramifiedNewPlace`) requires degreewise
+isomorphisms of the full local complex at `q` with the 3-term tame model `M → M ⊕ M → M`; genuine
+continuous cochains `C^•(G_{K_q}, M)` are only quasi-isomorphic to it (they are nonzero in every
+degree `≥ 0`), so the hypotheses are consistent (zero witnesses, `transfer_final_nonvacuous`) but
+not instantiable by genuine continuous cochains; re-pointing to the genuine Galois support data is
+pending. Classification: PROVED (from the inputs in its type). -/
 theorem transfer_final {S : Type} [CommRing S] [IsLocalRing S]
     (T : SupportChangeData S) (H : SupportChangeUnramified T)
     (hSC : SupportChangeInput T H) (a b : ℤ)

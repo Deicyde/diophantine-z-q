@@ -17,7 +17,7 @@ and "with the ordinary inhomogeneous differential, the relation for `h` above gi
 `d𝒯_θ = 𝒯_θ d`" (tex 3243–3244).
 
 RC10 proves this identity in degrees `0 → 1`, `1 → 2`, `2 → 3` (`T0_comm_d`, `T1_comm_d`,
-`T2_comm_d` in `ZInQKernel/Contrib/OneProof/RC/HeegnerAlgebra/Transfer.lean`, commit 7481834f).
+`T2_comm_d` in `ZInQKernel/Contrib/OneProof/RC/HeegnerAlgebra/Transfer.lean`).
 Here it is proved in every degree (`dT_eq_Td`), `PROVED`, for an arbitrary group `G`, normal
 subgroup `H` of finite index, section `r` of `G → G/H`, representation `ρ` of `G` on an
 `A`-module `M` and character `θ` of `G/H` with values in `Aˣ`.  The differential is Mathlib's

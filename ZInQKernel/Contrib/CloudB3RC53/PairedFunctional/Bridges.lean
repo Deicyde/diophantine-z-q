@@ -6,11 +6,11 @@ import ZInQKernel.Contrib.CloudB3RC53.PairedFunctional.MatrixForm
 
 Proposition `ex:arith-paired-functional` (tex L3704–3880) is consumed by the determinant clearing
 (5.9), the central lemmas (base zero, (4.6), (4.7)) and the uniform lower bound (5.5). The consumer
-drafts take the functional's integrality through argument types rather than through a separate
+interfaces take the functional's integrality through argument types rather than through a separate
 hypothesis. This file restates those argument shapes verbatim, as conclusions about the closed
 functional `λ_z = pairedFunctional pd2 e.inv (c z)` produced by `PairedFunctionalIntegral`. The
-drafts are not imported; the copied text and its source are recorded in each docstring (draft
-interfaces snapshot `79c2699a5`, 2026-11-17T23:13Z).
+interface files are not imported; the copied text and its source are recorded in each docstring
+(RC interface files at `79c2699a5`).
 
 Nodes (GLUE, PROVED):
 * `exists_closed_pairedFunctional`: the hypotheses of `PairedFunctionalIntegral` give an

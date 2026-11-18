@@ -43,7 +43,8 @@ theorem neronTateTwist_proof : NeronTateTwist := by
   · exact (twistVC_smul E h₁ h₃ hs hsd).symm
 
 /-- The remaining GLUE of (3.4) after RC19: `ArtinFactorization`, `GenusTheory`,
-`SplittingCriterion` (each a `Prop` of `Glue.lean`, flagged GLUE). -/
+`SplittingCriterion` (each a `Prop` of `Glue.lean`; `SplittingCriterion` has since been PROVED, and
+the current route is `Artin34.lean` / `LocalFinal.lean`). -/
 structure GlueAfterRC19 : Prop where
   artin : ArtinFactorization
   genus : GenusTheory

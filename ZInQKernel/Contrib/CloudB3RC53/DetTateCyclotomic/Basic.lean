@@ -7,7 +7,7 @@ import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByI
 # `det ρ₂ = χ₂` in the direction used: determinant one fixes the `2`-power roots of unity
 
 Target: lane RC9's GLUE `ZInQ.Manuscript.RC.PrintsArith.DetTateTwoCyclotomic E`
-(`ZInQKernel/Contrib/OneProof/RC/PrintsArith/Serre.lean`, integrated branch @ 1f2243fd):
+(`ZInQKernel/Contrib/OneProof/RC/PrintsArith/Serre.lean`):
 
 ```
 ∀ σ : GalQ, LinearMap.det (tateRep E 2 σ) = 1 →

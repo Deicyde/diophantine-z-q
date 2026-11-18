@@ -15,11 +15,11 @@ L5509–5617. RC0's E1 (`ClearingCoordIdentity`) combines two different statemen
   pattern `c_x = α_x β_x T_x` (`T = ε ∏ δ_i^{(-1)^i}`), in the acyclic pattern `α_x = 0` and
   `c_x = 0`.
 
-Here `c : Addr b → Frac 𝒪` is a PARAMETER. The determinant-line (Knudsen–Mumford / torsion)
-coordinate is being defined in lane Torsion (`CloudB3RC53/Torsion/`); once it lands, `c` is
-instantiated by it, E1b becomes a theorem of that library and E1a is the remaining identification.
-Until then, with `c` existential, the split adds no content beyond E1 itself (it is equivalent to
-E1 when `η_x κ_x` is invertible); it fixes the interface.
+Here `c : Addr b → Frac 𝒪` is a PARAMETER. With `c` existential, the split adds no content beyond
+E1 itself (it is equivalent to E1 when `η_x κ_x` is invertible); it fixes the interface. The
+determinant-line (Knudsen–Mumford / torsion) coordinate of lane Torsion (`CloudB3RC53/Torsion/`)
+instantiates `c` in `CoordE1b.lean`, where E1b is PROVED (`coordComputation_km`) and E1a is the
+remaining identification.
 
 * `coordIdentity_of_coord` (PROVED): E1a and E1b give `ClearingCoordIdentity`;
 * `clearingModel_of_coord` (PROVED): RC0's `ClearingModel` from the Selmer-phrased identification,

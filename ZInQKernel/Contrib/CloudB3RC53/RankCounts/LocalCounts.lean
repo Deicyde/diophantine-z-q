@@ -16,7 +16,9 @@ residual dimension `condDim w`. For it, RC6's fields `places_length` (one entry 
 and Elliot's table, ELLIOT) are PROVED.
 
 Kinds: PROVED (the table value of each condition is the ELLIOT input `hcond`; the derived local
-conditions themselves are not defined in Lean).
+conditions themselves are not defined in Lean). Downstream, `LocalConditions.hcond_genuine` proves
+`hcond` for condition dimensions computed from genuine cohomology, given the old-Kummer dimension
+input `kummerDim = 4 + d_w`.
 -/
 
 open IsDedekindDomain NumberField

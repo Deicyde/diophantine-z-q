@@ -6,7 +6,8 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.TwistDescentProof
 
 `TwistDescent` is PROVED (`twistDescent_proof`), so the GLUE of (3.4) reduces to four inputs:
 `ArtinFactorization`, `NeronTateTwist` (to be discharged by the RC lane proving Néron–Tate
-functoriality), `GenusTheory`, `SplittingCriterion`.
+functoriality), `GenusTheory`, `SplittingCriterion`. (Since then `NeronTateTwist` and
+`SplittingCriterion` are PROVED and the current route is `Artin34.lean` / `LocalFinal.lean`.)
 -/
 
 namespace ZInQ.Contrib.CloudB3RC53.GenusOdd

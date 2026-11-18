@@ -31,6 +31,8 @@ Fields of `OuterSwitchProcess`:
   outer-large set from RC16's `switch_equal_valuation` applied to per-instance switch data
   `SwitchCoordData` with unit volume normalizations (tex 4940–4950).
 
+The stages are not yet tied to the genuine fibre models (see the caveat on `OuterSwitchData`).
+
 Round 3 change (lane RC0, field shape): `minor_link` asks the inner minors to be nonzero on an
 outer-large set (`∀ᶠ j in 𝒰`) instead of at every instance. This is Elliot's statement ("Its inner
 minors have one finite valuation `b` on an outer-large set", tex 4958–4959), and it is what the
@@ -124,7 +126,12 @@ cores in its type:
 * `switch`: for `s > 1`, a next configuration whose outer dimension satisfies (5.5a) with the
   relaxed image the finite plane (`NonquadDims`), and per-instance switch data identifying the old and
   new inner coordinates with the finite and singular switch coordinates, with unit normalizations,
-  on an outer-large set. -/
+  on an outer-large set.
+
+Caveat: the stages are not tied to the genuine fibre models; a one-stage datum of fibre dimension 1
+(no switch demanded) satisfies the structure (`exampleOuterData`), so as a hypothesis it is
+equivalent to its conclusion (compare RC's `regularityInputsS_iff`). Linking the stages to the
+genuine fibre models is pending. -/
 structure OuterSwitchData (a : ℕ) where
   Stage : Type
   stage : Stage → OuterStage Kout K J
