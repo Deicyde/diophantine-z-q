@@ -127,6 +127,7 @@ theorem lambda_frobenius_plus {B : Type*} [AddCommGroup B]
       (b.comp (kappa F n hdiv htriv)) P := by
   simp only [AddMonoidHom.comp_apply, kappa_equivariant, hb]
 
+#print axioms kappaValue_apply
 #print axioms mem_fixedSq
 #print axioms kappa
 #print axioms kappa_apply

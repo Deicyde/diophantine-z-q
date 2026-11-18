@@ -66,6 +66,28 @@ theorem multiplier_character {X : Type*} [AddCommGroup X] (B L₀ : ℕ) (P Y : 
     rw [mul_nsmul', mul_nsmul, h]
   rw [he, map_nsmul, map_nsmul, hY, smul_comm B χ, smul_comm L₀ χ]
 
+/-- A torsion error killed by the common bound gives exact equality with a
+multiple of the rational twist point. Nonzero scaling preserves nontorsion. -/
+theorem exact_scaled_witness {X Y : Type*} [AddCommGroup X] [AddCommGroup Y]
+    (j : Y →+ X) {m B L₀ : ℕ} (hL : L₀ * (m * B) ≠ 0)
+    (P : X) (R : Y) (hP : ¬ IsOfFinAddOrder P) (hkill : B • (m • P - j R) = 0) :
+    j ((L₀ * B) • R) = (L₀ * (m * B)) • P ∧ ¬ IsOfFinAddOrder ((L₀ * B) • R) := by
+  have h : B • (m • P) = B • j R := sub_eq_zero.mp (by simpa only [nsmul_sub] using hkill)
+  have he : j ((L₀ * B) • R) = (L₀ * (m * B)) • P := by
+    calc
+      _ = L₀ • (B • j R) := by rw [map_nsmul, mul_nsmul']
+      _ = L₀ • (B • (m • P)) := by rw [h]
+      _ = _ := by
+        rw [show (L₀ * (m * B)) • P = L₀ • ((m * B) • P) from mul_nsmul' P L₀ (m * B)]
+        rw [mul_nsmul]
+  refine ⟨he, fun ht => ?_⟩
+  obtain ⟨n, hn, hh⟩ := isOfFinAddOrder_iff_nsmul_eq_zero.mp ht
+  have hz := congrArg j hh
+  rw [map_nsmul, he, map_zero, ← mul_nsmul'] at hz
+  exact hP (isOfFinAddOrder_iff_nsmul_eq_zero.mpr
+    ⟨n * (L₀ * (m * B)), mul_pos hn (Nat.pos_of_ne_zero hL), hz⟩)
+
+#print axioms exact_scaled_witness
 #print axioms count_dvd_reductionBound
 #print axioms two_good_prime_bound
 #print axioms multiplier_character
