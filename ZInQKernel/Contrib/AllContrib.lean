@@ -3181,3 +3181,5 @@ import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomolog
 import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Hom
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.Tower
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.SelmerGroup
+import ZInQKernel.Contrib.OneProof.SelmerSplit
+import ZInQKernel.Contrib.OneProof.SelmerExplicit

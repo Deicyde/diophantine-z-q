@@ -64,7 +64,32 @@ after M. Stoll's `EllipticCurves`); its 7 missing modules are vendored (`scratch
 (Lemma 5.4) and `kummerSelmerMap_surjective_of_restrictedConverse'` drop it as a hypothesis. Lemma 5.4's
 remaining printed input is the Cassels–Tate square property.
 
-**Next (not done).**
-1. Connect `ZInQ.Manuscript.PoleRC.SelM` (explicit `2`-Selmer system, `wip/pc-from-rc`) with `selmerAt E 1`
-   (Tau Ceti's `EtaleTwoDescent`, Silverman X.1.4): then that lane's `Lemma54At SelmerCorankOne` follows
-   from this Lemma 5.4.
+**Cohomological = explicit `Sel₂`, and the manuscript's `SelM` (compiled).** Tau Ceti main (commit
+0642eae2) proves that the cohomological descent map identifies the cohomological `2`-Selmer group with the
+explicit one of the étale algebra (`WeierstrassCurve.selmerGroupTwoMulEquivSelmerGroup₂`); it is backported
+under `ZInQKernel/Contrib/TauCeti/Backport/Main0642/` (`scratch/selmer-2infty/backport/`). The places of `ℚ`
+are now `HeightOneSpectrum ℤ ⊕ Unit` with the `v`-adic completions (Mathlib's
+`Rat.HeightOneSpectrum.adicCompletion.padicEquiv` identifies them with `ℚ_p`), so that comparison applies
+verbatim:
+
+* `ZInQKernel/Contrib/OneProof/SelmerExplicit.lean`: `selmerGroup_emb_eq_inf` (`Sel₂` is the meet of the
+  conditions at the finite places and at `ℝ`), `selmerTwoMulEquivSelmerGroup₂` and `card_selmerAt_one_eq`
+  (`#Sel₂(E/ℚ) = #selmerGroup₂ ℤ ℝ` for every elliptic `E/ℚ` in the form `y² = f(x)`).
+* `ZInQKernel/Contrib/OneProof/SelmerSplit.lean`: for `E_ℓ` over a field of characteristic zero, the étale
+  algebra is `K³` (evaluation at the roots `−3ℓ, ℓ, 0`; `coord_injective`, `coord_surjective`), the norm is
+  the product of the coordinates, restriction is coordinatewise, the `x − T` map is `x ↦ (x + 3ℓ, x − ℓ, x)`
+  with the corrected values at the roots, and the class with coordinates `(a, b, ab)` is a local image
+  exactly when the manuscript's x-form condition `LocM K ℓ a b` holds (`exists_coord_μ_iff_locM`). Over
+  `ℚ`, square classes are squarefree integers and the condition at `v = (p)` is the one over `ℚ_p`; this
+  gives `selMEquiv : SelM ℓ ≃ selmerGroup₂ ℤ ℝ` and `ncard_selM`, where `SelM` and `LocM` have the same
+  definitions as the descent lane's `ZInQ.Manuscript.PoleRC.SelM` and `PoleRC.LocM`.
+* Consequences (`SelmerExplicit.lean`): `card_selmerAt_curve_eq_ncard_selM` (`#Sel₂(E_ℓ/ℚ) = #SelM ℓ`);
+  `lemma54At_selmerCorankOne` (the descent lane's `Lemma54At SelmerCorankOne` with the genuine predicate,
+  from the Cassels–Tate square property); `locM_of_restrictedConverse` (Theorem 5.3 over the genuine
+  Selmer condition, Lemma 5.4, Mordell–Weil (proved) and the printed Cassels–Tate and Kolyvagin inputs give
+  `LocM ℚ ℓ a b` for every `(a, b) ∈ SelM ℓ` when `#SelM ℓ = 8`: the descent lane's `CR_M`, for every
+  class).
+
+**Remaining inputs of this lane.** Theorem 5.3 itself (`RestrictedConverseGenuine`), the Cassels–Tate square
+property (`CasselsTateSquare`) and the rank half of Lemma 5.5 (`KolyvaginRankOne`) are hypotheses; nothing
+here proves them.

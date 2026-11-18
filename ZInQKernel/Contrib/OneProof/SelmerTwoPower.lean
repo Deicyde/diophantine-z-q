@@ -17,10 +17,11 @@ The definitions follow Silverman, *The Arithmetic of Elliptic Curves*, X.4, as f
 `ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/`), with Galois cohomology
 the continuous cohomology of `G_ℚ = Gal(ℚˢ/ℚ)` in discrete modules:
 
-* the places of `ℚ` are `Place = Nat.Primes ⊕ Unit` (the primes and the infinite place), with
-  completions `Completion v` (`ℚ_p`, `ℝ`) and a fixed `ℚ`-embedding of separable closures at each
-  place (`emb`); the Selmer and Shafarevich–Tate groups do not depend on that choice (Tau Ceti
-  `EmbeddingIndependence`);
+* the places of `ℚ` are `Place = HeightOneSpectrum ℤ ⊕ Unit` (the finite places `v = (p)` and the
+  infinite place), with completions `Completion v` (the `v`-adic completion `ℚ_v`, which is `ℚ_p` by
+  Mathlib's `Rat.HeightOneSpectrum.padicEquiv`, and `ℝ`) and a fixed `ℚ`-embedding of separable
+  closures at each place (`emb`); the Selmer and Shafarevich–Tate groups do not depend on that choice
+  (Tau Ceti `EmbeddingIndependence`);
 * `TwoPowerCoeff E = E(ℚˢ)[2^∞]`, the `2`-primary torsion of `E(ℚˢ)` (`AddCommGroup.primaryComponent`),
   a discrete `G_ℚ`-module;
 * `sha E = Sha(E/ℚ)`: Tau Ceti's Shafarevich–Tate group for the completions at all places;
@@ -46,23 +47,30 @@ open TauCeti TauCeti.ContCohomology
 
 /-! ### The places of `ℚ` and their completions -/
 
-/-- Every `p : Nat.Primes` is prime, so `ℚ_p` is a field. -/
-instance (p : Nat.Primes) : Fact (p : ℕ).Prime := ⟨p.2⟩
+open IsDedekindDomain in
+/-- **The places of `ℚ`**: the finite places, the height-one primes `v = (p)` of `ℤ` (`Sum.inl v`),
+and the infinite place (`Sum.inr ()`). -/
+abbrev Place : Type := HeightOneSpectrum ℤ ⊕ Unit
 
-/-- **The places of `ℚ`**: the primes `p` (`Sum.inl p`) and the infinite place (`Sum.inr ()`). -/
-abbrev Place : Type := Nat.Primes ⊕ Unit
-
-/-- **The completion of `ℚ` at a place**: `ℚ_p` at `p`, `ℝ` at the infinite place. -/
+open IsDedekindDomain in
+/-- **The completion of `ℚ` at a place**: the `v`-adic completion `ℚ_v` at a finite place
+`v = (p)` (it is `ℚ_p`: Mathlib's `Rat.HeightOneSpectrum.padicEquiv`), `ℝ` at the infinite place. -/
 abbrev Completion : Place → Type :=
-  Sum.elim (fun p : Nat.Primes => ℚ_[(p : ℕ)]) (fun _ : Unit => ℝ)
+  Sum.elim (fun v : HeightOneSpectrum ℤ => v.adicCompletion ℚ) (fun _ : Unit => ℝ)
 
 instance instFieldCompletion : ∀ v, Field (Completion v) := fun v =>
-  Sum.rec (motive := fun v => Field (Completion v)) (fun p => (inferInstance : Field ℚ_[(p : ℕ)]))
+  Sum.rec (motive := fun v => Field (Completion v))
+    (fun v => IsDedekindDomain.HeightOneSpectrum.adicCompletion.instField ℚ v)
     (fun _ => (inferInstance : Field ℝ)) v
 
+/-- The `ℚ`-algebra structure of the completions: at a finite place, the one of the `v`-adic
+completion of the fraction field `ℚ` of `ℤ` (the one Tau Ceti's comparison of Selmer groups uses,
+`IsDedekindDomain.HeightOneSpectrum.instAlgebraAdicCompletion`; any two `ℚ`-algebra structures on a
+ring agree, but only propositionally). -/
 instance instAlgebraCompletion : ∀ v, Algebra ℚ (Completion v) := fun v =>
   Sum.rec (motive := fun v => Algebra ℚ (Completion v))
-    (fun p => (inferInstance : Algebra ℚ ℚ_[(p : ℕ)])) (fun _ => (inferInstance : Algebra ℚ ℝ)) v
+    (fun v => IsDedekindDomain.HeightOneSpectrum.instAlgebraAdicCompletion ℤ ℚ v)
+    (fun _ => (inferInstance : Algebra ℚ ℝ)) v
 
 /-- A `K`-embedding of separable closures `Kˢ → Lˢ` for a field extension `L/K`, elaborated over
 a general `K` so that its type carries the algebra structure `Algebra K Lˢ` induced by `L/K`, the
@@ -78,6 +86,17 @@ not depend on this choice (Tau Ceti `WeierstrassCurve.shafarevichTateGroup_eq_sh
 `EmbeddingIndependence.lean`). -/
 def emb (v : Place) :=
   sepClosureEmb ℚ (Completion v)
+
+open IsDedekindDomain in
+/-- `emb` at the finite places, as a family over `HeightOneSpectrum ℤ` with the completions
+`v.adicCompletion ℚ` (definitionally `emb (Sum.inl v)`). -/
+def embFin (v : HeightOneSpectrum ℤ) :=
+  @sepClosureEmb ℚ (v.adicCompletion ℚ) _ (HeightOneSpectrum.adicCompletion.instField ℚ v)
+    (HeightOneSpectrum.instAlgebraAdicCompletion ℤ ℚ v)
+
+/-- `emb` at the infinite place, as a family over `Unit` (definitionally `emb (Sum.inr i)`). -/
+def embInf (_ : Unit) :=
+  sepClosureEmb ℚ ℝ
 
 /-! ### `E(ℚˢ)[2^∞]` as a discrete Galois module -/
 

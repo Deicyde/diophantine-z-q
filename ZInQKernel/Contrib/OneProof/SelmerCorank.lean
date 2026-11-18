@@ -56,8 +56,9 @@ theorem isPPrimary_selmerTwoPower : IsPPrimary 2 (selmerTwoPower E) := fun c => 
 
 /-! ### Mordell–Weil and the torsion of `E(ℚ)` -/
 
-/-- **The Mordell–Weil theorem for `E/ℚ`** (Mordell 1922; Silverman VIII.4.1): `E(ℚ)` is finitely
-generated. A printed input. -/
+/-- **The statement of the Mordell–Weil theorem for `E/ℚ`** (Mordell 1922; Silverman VIII.4.1):
+`E(ℚ)` is finitely generated. Proved below for every elliptic `E/ℚ` (`mordellWeilQ`, from Tau Ceti's
+`WeierstrassCurve.Affine.fg_point_of_numberField`). -/
 abbrev MordellWeilQ : Prop := AddGroup.FG E.toAffine.Point
 
 /-- A finitely generated abelian group is `ℤ^r × T` with `T` finite (Mathlib's structure theorem). -/
