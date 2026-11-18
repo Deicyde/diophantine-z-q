@@ -22,3 +22,12 @@
   General local Artin conductors and actual elliptic Tate actions are
   available in `HDecomp/Conductor/LadicCond.lean` and vendored Tau Ceti's
   `AlgebraicGeometry/EllipticCurve/TateModule/Galois.lean`, respectively.
+- **VERIFIED (Lean):** `Parametrization.lean` compiled. It reuses the rational
+  (X₀(N)) function field, and encodes the nonconstant map as a ℚ-algebra map
+  from the elliptic function field. `IsConductor` equates the factorization of
+  the positive level with the Artin conductor of the actual rational Tate
+  action at each prime. `IsConductor.unique` proves uniqueness of such a level.
+- **VERIFIED (tool):** stock `autofold.py … --dry-run` rejects `hK` with
+  `not a field of the current bundles: ['hK']`. It only folds H bundle fields.
+  `autofold.json` records the exact `hK` proof and the manual consumer
+  substitution that drops both old top-level binders.

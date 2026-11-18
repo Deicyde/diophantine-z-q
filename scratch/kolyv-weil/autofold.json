@@ -1,0 +1,35 @@
+{
+  "name": "kolyv-weil",
+  "imports": ["ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness"],
+  "discharges": [
+    {
+      "field": "hK",
+      "proof": "_root_.ZInQ.Manuscript.KolyvWeil.kolyvaginThm1_of_prints hB6 hKPrint",
+      "leaves": [
+        {
+          "name": "hB6",
+          "type": "_root_.ZInQ.Manuscript.KolyvWeil.BCDTThmA6",
+          "doc": "BCDT Theorem A, in the form of Introduction condition (6)",
+          "source": "CITED, lem:forward-rank L1092; BCDT author manuscript, Theorem A p. 1 and Introduction (6) p. 3 (JAMS 14 (2001), 843–939)",
+          "kind": "published",
+          "flag": "AI read, fork issue #83 comment 6962416523"
+        },
+        {
+          "name": "hKPrint",
+          "type": "_root_.ZInQ.Manuscript.KolyvWeil.KolyvaginThm1Print",
+          "doc": "Kolyvagin Theorem 1, with the conductor-level weak Weil hypothesis",
+          "source": "CITED, lem:forward-rank L1093; MPIM preprint MPI/90-69, weak Weil hypothesis p. 3, Theorem 1 p. 4",
+          "kind": "cited preprint",
+          "flag": "AI read, fork issue #83 comment 6962416523; cited version is a preprint"
+        }
+      ]
+    }
+  ],
+  "headline_bypass": {
+    "drops": ["hB", "hK"],
+    "add": ["hB6", "hKPrint"],
+    "old_call": "ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final hRC h54 hB hK",
+    "new_call": "ZInQ.Manuscript.KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print hRC h54 hB6 hKPrint"
+  },
+  "integration": "Manual top-level binder and call replacement; the stock autofold.py accepts only H bundle fields."
+}
