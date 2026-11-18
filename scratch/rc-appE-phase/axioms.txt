@@ -21,4 +21,5 @@
 'ZInQ.Manuscript.RC.AppE.hcond_primeFactors' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.RC.AppE.evenPhaseData_Ecurve' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.RC.AppE.exists_rootNumberAt_Ecurve' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppE.evenPhaseData_of_prints_levelFilter' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.RC.AppE.evenPhaseData_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]

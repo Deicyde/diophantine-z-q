@@ -23,3 +23,4 @@ open ZInQ.Manuscript.RC.AppE
 #print axioms hcond_primeFactors
 #print axioms evenPhaseData_Ecurve
 #print axioms exists_rootNumberAt_Ecurve
+#print axioms ZInQ.Manuscript.RC.AppE.evenPhaseData_of_prints_levelFilter

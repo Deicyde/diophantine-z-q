@@ -126,6 +126,47 @@ theorem evenPhaseData_of_prints (hWN : WaldspurgerNonvanishingTwoPower) (hW : Wa
     exact rational_of_ramsey hR hTw hW hE hcont hσ hF₀ hN ψ η hψη hg ha₀ hD₀ hsq₀ hc₀ hD0 hsq hc
       hcl
 
+/-- **The same with the retained set the whole filter at the level** (PROVED, same inputs): the
+retained set may be taken to be every positive squarefree `D` prime to the level `P.N` in the unit
+squareclasses of `D₀` at the primes of `P.N` (a superset of the `S₀` filter, since the level has
+prime support in `S₀`; the Galois comparison only uses the primes of the level). -/
+theorem evenPhaseData_of_prints_levelFilter (hWN : WaldspurgerNonvanishingTwoPower)
+    (hW : WaldspurgerCor2) (hR : RamseyAlgebraicModel) (hTw : HalfIntegralTwist)
+    (hB : PoleS12.BCDTThmA) (hH : HasseConvergence) {E : WeierstrassCurve ℚ} [hE : E.IsElliptic]
+    (L : ZInQ.Manuscript.RC.Even.CentralNormalization E) {σ : ℤ} (hσ : σ = 1 ∨ σ = -1)
+    (S₀ : Finset ℕ) (hS₀ : ∀ p ∈ S₀, p.Prime) (h2 : 2 ∈ S₀)
+    (hcond : ∀ (N : ℕ) (w : ℤ), RootNumberAt E N w → ∀ p : ℕ, p.Prime → p ∣ N → p ∈ S₀)
+    {D₀ : ℕ} (hD₀ : 0 < D₀) (hsq₀ : Squarefree D₀) (hD₀S : ∀ p ∈ S₀, ¬ p ∣ D₀)
+    (hL₀ : L.Lstar (σ * D₀) ≠ 0) :
+    ∃ P : ZInQ.Manuscript.RC.Even.EvenPhaseData E L σ D₀,
+      P.retained = {D | 0 < D ∧ Squarefree D ∧ D.Coprime P.N ∧ SameUnitClassesAtLevel P.N D D₀} ∧
+      (∀ p : ℕ, p.Prime → p ∣ P.N → p ∈ S₀) ∧ P.z = phase P.N P.η D₀ := by
+  have hσD₀ := ZInQ.Manuscript.RC.Even.sigma_mul_ne_zero hσ hD₀
+  have hA : AnalyticRank (qtwist E ((σ * D₀ : ℤ) : ℚ)) 0 :=
+    (ZInQ.Manuscript.RC.GlueSweep.Even.lstar_ne_zero_iff_of_bcdt hB hH L hσD₀).mp hL₀
+  obtain ⟨N, hN, hNS, ψ, η, hψη, ⟨k, hψk⟩, g, hg, ha₀⟩ :=
+    hWN E hE σ hσ S₀ hS₀ h2 hcond D₀ hD₀ hsq₀ hD₀S hA
+  have hN0 : N ≠ 0 := by
+    rintro rfl
+    obtain ⟨p, hp1, hp⟩ := Nat.exists_infinite_primes (S₀.sup id + 1)
+    have hpS := hNS p hp (dvd_zero p)
+    have := Finset.le_sup (f := id) hpS
+    simp only [id] at this
+    omega
+  have : NeZero N := ⟨hN0⟩
+  have hcont := ZInQ.Manuscript.RC.GlueSweep.Even.twistContinuation_of_bcdt hB hH E
+  have hF₀ := F_one_ne_zero_of_lstar L hσD₀ hL₀
+  have hself := S0Filter.spec hNS (S0Filter.self h2 hD₀ hsq₀ hD₀S)
+  refine ⟨{ N := N, hN := hN, ψ := ψ, η := η, hψη := hψη, g := g, hg := hg, ha₀ := ha₀,
+            retained := {D | 0 < D ∧ Squarefree D ∧ D.Coprime N ∧ SameUnitClassesAtLevel N D D₀},
+            retained_spec := fun D hD => hD,
+            D₀_mem := hself,
+            z := phase N η D₀,
+            z_root := fun D hD => phase_root hN0 hN ψ η hσ hψη hψk hself.2.2.1 hD.2.2.1 hD.2.2.2,
+            z_sq := fun D hD => phase_sq hN0 hN ψ η hσ hψη hself.2.2.1 hD.2.2.1 hD.2.2.2,
+            rational := fun D hD => rational_of_ramsey hR hTw hW hE hcont hσ hF₀ hN ψ η hψη hg ha₀
+              hD₀ hsq₀ hself.2.2.1 hD.1 hD.2.1 hD.2.2.1 hD.2.2.2 }, rfl, hNS, rfl⟩
+
 /-- **The primes of the level of every functional equation of `L(E, s)` lie in `primes(2N₀)`**
 (PROVED from `ModularNewform` via `rootNumberAt_unique`), for any level `N₀` of one functional
 equation: the hypothesis `hcond` of the print for `S₀ = primes(2N₀)`. -/
