@@ -6,3 +6,4 @@
 | Lean census of base headline | VERIFIED | 113147 project constants; 18 marked declarations: three projection readers, eight Scholze readers, five bundle forwarders, and the projection and constructor. No other T10 instance. |
 | Local statement | VERIFIED | `T10Etale.T10_TateDualityLocal` compiles using the original coefficient, Tate-module, and transport definitions. |
 | Specialization | VERIFIED | `t10Local_of_tateDuality` compiles; `#print axioms` reports only the three standard axioms. |
+| Local readers and compatibility | VERIFIED | All eight readers in the live route and two adjacent compatibility readers compile with `_loc`; the ten examples compile with the old statements. All ten axiom reports are standard. |

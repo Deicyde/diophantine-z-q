@@ -1,0 +1,16 @@
+'DeRhamScholze.HTMerge.dual_of_H1_loc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.htDecomp_of_H1_loc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.dual_deRham_of_scholzeH1_loc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.deRhamVpAbVarDirect_of_scholzeH1_loc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.deRhamVpAbVarDirect_of_scholzeH1Milne_loc' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompHom_of_scholzeH1_loc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompOr_of_scholzeH1Milne_loc' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompAbVar_of_scholzeH1_loc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompAbVar_of_old_loc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeRhamScholze.HTMerge.hodgeTateDecompAbSurf_of_scholzeH1AbSurf_loc' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
