@@ -343,7 +343,7 @@ jobs:
           LEAN_NUM_THREADS: '1'
         run: python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json
       - name: Stop optional resource uploader
-        if: always() && env.KERNEL_PROGRESS_DIR != ''
+        if: always() && env.KERNEL_PROGRESS_DIR != '' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         continue-on-error: true
         uses: ./.github/actions/kernel-progress
         with:

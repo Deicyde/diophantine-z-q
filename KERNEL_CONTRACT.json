@@ -13,7 +13,7 @@
     ".github/actions/kernel-progress/progress.cjs": "a13567f5699be8fe992acf4b5a8e8a7d9d245713df6d8adb5d947992eac2edd3",
     ".github/actions/kernel-progress/progress.test.cjs": "eeab19872addcd3c47e7b6541bb85578a3864db04481ee0b5eb95884ce14a2e9",
     ".github/actions/kernel-progress/upload.cjs": "1d6ce41701264cbfaf4e471e53b935b485876fb1bd7e03ff28f834efb25dc612",
-    ".github/workflows/kernel-lean.yml": "096a91d6b7bc00cbe9dd767f42e912c39e29727d1db65492800c955453835a60",
+    ".github/workflows/kernel-lean.yml": "2c628eeb59d5d860ec0161fcd9c1253972adf8a79642027f45d0d3f2e9160a23",
     "ThirdParty/GreenTao/ChallengeDeps.lean": "996bfc179f93078686a6a805adfc072727bbad1b7dbb59a87b2a0adafdb9fafe",
     "ThirdParty/GreenTao/Submission.lean": "6c01d0d42973f587d95e1731860910584ddaba17b92c9a170c3d22ea882724df",
     "ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean": "9e3ac01ce10d186a1fbbb25202f8ce66fb8a0518563c09d91f5d4ddb719985b2",
