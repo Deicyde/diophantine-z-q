@@ -1,0 +1,7 @@
+`O12.inputs_of_theta` proves both halves of `GaloisConstituentModel.Inputs` on coefficientwise reduced expansions: the added-vertex reading and (O.12) at coefficient one. The local pair is formed at one prime above p, and all its required character conditions follow from existing Galois facts. The proof uses characteristic-zero block identities, evaluates integral coefficients, then removes the determinant using `det_orbit`. The fresh omission representatives are taken modulo the same `N_U`, retaining both forms and the bit at p.
+
+`Local.lean`, `Fourier.lean`, `Theta.lean`, and `Inputs.lean` required only sequential `lake env lean -j1`. All compile; their 27 theorem axiom checks report only `propext`, `Classical.choice`, and `Quot.sound`. The result is ready for `o12_of_constituents` and `fixedU_of_constituents`.
+
+Remaining inputs are the actual theta form comparisons and the local blocks in the manuscript's Casselman/Carayol normalization, including the separate Eisenstein comparison. The good Hecke formula must hold on the individual form at its fresh primes; the base constructor's simultaneous ambient unramifiedness condition does not cover all of those primes. The named data, scope of the prints, and manuscript check are in `docs/research/rc-o12.md`.
+
+Result commit (proof, report and log): `87a0ab5db244a90d18a66027abb61195e99b1ddb`. This note is committed separately after the result.
