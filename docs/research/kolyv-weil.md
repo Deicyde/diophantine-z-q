@@ -118,6 +118,19 @@ It cannot replace a pair of top-level binders. The spec records the exact
 `python3 scratch/kolyv-weil/preview_fold.py` to see the proposed
 import, binders and pole call as a diff without touching `Main.lean`.
 
+**VERIFIED (Lean 4.35.0).** All three modules under
+`ZInQKernel/Contrib/OneProof/KolyvWeil/` compiled. `Original.lean` checked the
+verbatim copies against the old Props by `rfl`. `DryRun.lean` compiled the
+replacement pole call and checked the absence of any `TYZGenus` import.
+It runs the stock `#discharges` against a fixture with the four exact pole
+binders of `frozenTarget`, without the unrelated H import chain. It
+reported one match among 360 candidates: `DISCHARGES [hK]` by
+`kolyvaginThm1_of_prints`, assuming exactly `BCDTThmA6` and
+`KolyvaginThm1Print`. There is no `[hB]` match: the checked replacement
+call removes the only use of the old `hB`. All six axiom queries list
+only `propext`, `Classical.choice`, and `Quot.sound`. See
+[the original checker output](../../scratch/kolyv-weil/discharges-output.txt).
+
 ## Known issues
 
 - The old `KolyvaginThm1` had a weaker premise (a matching cusp form at

@@ -38,3 +38,12 @@
   cited Props and `rankOne_and_finiteSha_of_prints`. The latter identifies
   the original analytic-rank-one input with the specialization at
   `r = 1` by unfolding and simplifying the natural number casts.
+- **VERIFIED (Lean):** the serial build of the existing pole dependencies
+  and all three new modules completed. `Original.lean` passed its three
+  definitional equality checks. `DryRun.lean` passed both the original
+  and replacement pole calls and its transitive `TYZGenus` import check.
+  Stock `#discharges` against the exact four pole binders found
+  `DISCHARGES [hK]` from the two new leaves. The old `hB` is eliminated
+  at the consumer; there is no separate proof of the old cusp form Prop.
+  The six axiom queries and the discharge report are all standard;
+  see `discharges-output.txt`.
