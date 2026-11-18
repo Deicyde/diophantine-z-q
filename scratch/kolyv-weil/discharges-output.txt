@@ -1,0 +1,10 @@
+'ZInQ.Manuscript.KolyvWeil.IsConductor.unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.KolyvWeil.BCDTThmA6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.KolyvWeil.KolyvaginThm1Print' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.KolyvWeil.kolyvaginThm1_of_prints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.KolyvWeil.kolyvaginRankOne_of_prints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.poleArgumentKolyvWeilDryRun' depends on axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hK] by ZInQ.Manuscript.KolyvWeil.kolyvaginThm1_of_prints
+  still assumes: [ZInQ.Manuscript.KolyvWeil.BCDTThmA6, ZInQ.Manuscript.KolyvWeil.KolyvaginThm1Print]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 4 open hypotheses, 360 theorems checked, 1 discharge one
