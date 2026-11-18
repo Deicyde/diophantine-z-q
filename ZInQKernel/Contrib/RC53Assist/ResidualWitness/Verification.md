@@ -1,5 +1,12 @@
 # Residual non-vacuity verification
 
+
+## Scope after independent review (2026-11-18)
+
+This is a **degenerate-case** non-vacuity witness: full local conditions, S' = S, no derivative labels. At this instance the following inputs hold vacuously or degenerately: `hUm` and `hLm` (only as `0 ≤ _`, because the local parts of the model are zero); `hD`, `hDodd`, `hcondD` and `ψ`/`hψ` (quantified over empty sets); the premise of `hfull` never fires (its conclusion is proved separately). The change of condition is the identity, the quotient is zero, and the transfer is not exercised (`L = P₀`; the Nekovář input is used only with S' = S), so `genericRank = rankTot` for every witness. Genuinely witnessed: `eG`/`eGact` in degrees 0–2, `pP`, `L`/`hLmin`/`pL`, the bounds and finiteness. The witness must not be cited for the old-Kummer or active-support cases.
+
+The bounds say `6 ≤ h⁰ + h¹ + h² ≤ 238` for the continuous cohomology of G_{Q(i),S} with coefficients F₂²: h⁰ = 2 holds unconditionally, h¹ ≥ 4 uses Milne, ADT I.5.1, and 238 = 56·3 + 70 is the consumers' general constant (the classical value is 22, not formalized here). Of the printed Milne inputs, only I.4.10 and I.5.1 carry an unverified-locator flag; the I.2.8 and I.2.3 statements record checked locators. The checking file cited below (`Audit.lean`) is not shipped.
+
 ## Result and scope
 
 Both RC53 residual-count constructors compile on one genuine nonzero
