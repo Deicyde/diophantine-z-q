@@ -11,3 +11,4 @@
 - AppE/Phase.lean: compiles, no warnings (S0Filter, S0Filter.spec, S0Filter.self, isSquare_zmod_of_local [Hensel via Mathlib hensels_lemma + CRT], sqrtRatio, phase, phase_sq_eta, phase_sq, phase_root).
 - AppE/Linear.lean: compiles, no warnings (period 1 of a Shimura form, analyticity at ∞, hiwCoeff linear, spaces/eigenspaces closed under +, •, Σ; proportional_of_waldspurgerCor2).
 - AppE/Ramsey.lean: compiles, no warnings. PRINT `RamseyAlgebraicModel` (R-span, R-conj); PROVED exists_algebraic_normalized (algebraic g' in V with a(D₀)=1), dirichlet_mem_Qbar, heckeT3_sum, unary_eigenvalue_ne (2√p < p+1).
+- AppE/Galois.lean (part 1): compiles, no warnings. GLUE hypothesis `HalfIntegralTwist` (stated, not proved: needs the theta-multiplier formula). PROVED: level raising (hiwForm_changeLevel, eigen_changeLevel), η²=ψ², ψν²=ψ^e, ην²=η^e, exists_odd_exponent (autToPow), tau_dirichlet, conj_mem_eigenspace (from R-conj), twist_mem_eigenspace (from HalfIntegralTwist).
