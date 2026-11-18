@@ -1,0 +1,7 @@
+Both coefficient readings now check for the actual odd-stage expansions at a realized set and its omitted subset. The first-shell proof uses the Brandt recurrence at the retained precision with `ψ/η = (-1/p)`. The coefficient-one functional and `FourierData` are built on the actual finite-window lattice. Formwise inertia separates the Kummer support from the ambient Hecke exclusions, so the constructor no longer forces the pool to be empty.
+
+The unchanged `O12.inputs_of_theta` is applied conditionally in `inputs_of_stage`. Its exact recurrence on arbitrary integral lifts is stronger than the odd-stage calculation. `inputs_at_precision` gives the same `Inputs` conclusion at stage precision. Both global paths still need a compatible realization across every tested set. For a budget of at least two, a good singleton is always tested outside any finite pool. The remaining inputs are the formwise attachment and good Hecke comparisons, stage weights and valuation comparison, two fresh traces, and the same-lattice cuspidal and Eisenstein local input. The base does not require `hdiam`; the inherited theta coefficient wrapper still passes that obsolete argument and is bypassed.
+
+All ten new files compile; 37 axiom audits use only `propext`, `Classical.choice`, and `Quot.sound`. The details and manuscript checks are in `docs/research/rc-o12-theta.md`.
+
+Final proof and report commit: `c65aadefb59718062c0f21b4f775707171303ed2`.
