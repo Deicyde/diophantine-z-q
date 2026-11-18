@@ -1,0 +1,2 @@
+'HDec.HSyn.sixContactMin_of_open84' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.frozenTarget_conradB3Print' depends on axioms: [propext, Classical.choice, Quot.sound]

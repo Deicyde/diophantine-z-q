@@ -37,3 +37,13 @@ There is no recorded source gap or failed application condition at C8 in the sup
 - H strict LEAF/GLUE on N (refereeing required): **5/27 on 32 → 5/27 on 32**.
 
 **VERIFIED (Lean contribution):** [ConradB3Verbatim.lean](../../ZInQKernel/Contrib/OneProof/ConradB3Verbatim.lean) compiles without warnings. The [verbatim copies](../../scratch/conrad-b3-verbatim/Original.lean) compile and match the original definitions by `Iff.rfl`. The [axiom output](../../scratch/conrad-b3-verbatim/axioms-out.txt) gives only `propext`, `Classical.choice`, and `Quot.sound`.
+
+**VERIFIED (merged top):** `lake env lean scratch/conrad-b3-verbatim/Discharges.lean` checked 36 hypotheses (32 H and four outside H). The [C8 match](../../scratch/conrad-b3-verbatim/discharges-out.txt#L92) is:
+
+```text
+DISCHARGES [OpenAddedLeaves28.conradAppB] by HDec.G0Galois.C8Conrad.Bridges.conradAppB_of_print
+  still assumes: [HDec.G0Galois.C8Conrad.Bridges.ConradAppBPrint]
+  axioms: [propext, Classical.choice, Quot.sound]
+```
+
+The generated conversion and an [end-to-end scratch fold](../../scratch/conrad-b3-verbatim/DryRun.lean) compile. [Their output](../../scratch/conrad-b3-verbatim/dryrun-out.txt) records the same three axioms for `sixContactMin_of_open84` and `ZInQ.OneProof.frozenTarget_conradB3Print`. The fold is ready for integration; this branch leaves it unapplied.
