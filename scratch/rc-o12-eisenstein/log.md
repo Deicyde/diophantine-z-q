@@ -1,0 +1,4 @@
+- Base: `71d379283cea3d3650e7bd8c2b23ecb58163a7e7`, branch `wip/rc-o12-eisenstein`.
+- Normalization: `ρ` abstract at `RC/AddressGenuine/Constituents.lean:264–267`; arithmetic Frobenius at 288–291 and `RC/O12/Local.lean:34–42`. Tex 9795–9796 and 10358–10360 are consistent with twisting the divisor character by the cyclotomic character.
+- Divisor sum: (a_{pn}=\chi_1(p)a_n) when the second character is ramified and (a_{pn}=p\chi_2(p)a_n) when the first is ramified. For (d\) prime to (p\), the (d\)-th degeneracy has the same scalar.
+- `DivisorSum.lean`: `lake env lean -j1` passed; all six theorem checks permit only `propext`, `Classical.choice`, and `Quot.sound`.
