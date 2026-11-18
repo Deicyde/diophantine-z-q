@@ -4,3 +4,6 @@
 - Source scope: `ThetaStage.recAt` is at precision `2^M`; the integral lifts only have the reduction comparisons in `Lift`.
 - Rebuilt base O12/Inputs, O12/Build, and the theta coefficient operator dependencies sequentially.
 - Source: `ratio_sign`, `signed_recur_stage`, `lift_depth`, `lift_source`, `normalized_congr`; first Lean run passed, only allowed axioms.
+- Reading: residue characteristic, additive decoder, evaluation at one; passed, only allowed axioms.
+- Model: split support Kummer argument, model and FourierData construction; passed, only allowed axioms.
+- Window: same lattice, actual theta seed coefficient reduction; passed, only allowed axioms.
