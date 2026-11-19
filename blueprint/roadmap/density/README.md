@@ -25,6 +25,7 @@ The point counts of the two reductions of $E$ at a split prime are expressed thr
 Jacobsthal's identity writes $p=c_p^2+e_p^2$ with $c_p=\varphi_p(1)/2$. For the primes in the class
 $p\equiv1\pmod8$, $(p/7)=-1$, being a good slope prime becomes $\gcd(c_p,p+1)=1$.
 
+- [Cubic character sums over a finite field](cubic-character-sums.md)
 - [Character sums for the curves $y^2=x^3+ax$](character-sums.md)
 - [Jacobsthal's identity](jacobsthal.md)
 - [Four divides the point count of $y^2=x^3-D^2x$](four-divides-point-count.md)

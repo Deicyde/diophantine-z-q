@@ -21,6 +21,11 @@ Proposition 5.3; the full natural density of `nt-22p.md` §2.2 is not needed.
 products), 1.4 (Jacobsthal's identity, with evenness) and 1.5 (divisibility by four through the
 involution $x\mapsto-D^2/x$).
 
+## Cubic character sums
+
+`docs/research/nt-prop0.md` §2.3 (a project-authored note, not a published source): Lemma Q and
+Jacobsthal's bound (Lemma J).
+
 ## The description of good primes
 
 `docs/research/pd-paper.md` §1.3: Proposition 1.6, the description of the good slope primes in the

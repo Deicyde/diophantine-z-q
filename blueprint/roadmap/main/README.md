@@ -17,11 +17,12 @@ the minimal height hypothesis below. It is not proved here: it is the one instan
 Theorem 4.1 that the proof uses, and it is not a published theorem, since its proof combines refereed
 theorems and exact computations with new arguments, the manuscript's and this project's, reviewed only
 by AI models. The second is pole completeness, the manuscript's Theorem 5.2 for its own pole polynomial.
-The manuscript derives it from its restricted converse theorem (Theorem 5.3); that derivation is not yet
-formalized here. The manuscript's other inputs are proved, two of them by routes that differ from the
+The manuscript derives it from its restricted converse theorem (Theorem 5.3); that derivation is
+formalized, with Theorem 5.3 and three statements from the literature as its hypotheses. The manuscript's
+other inputs are proved, two of them by routes that differ from the
 manuscript's: route AP replaces the twenty-two-prime pattern, and the catalogue bound is proved with a
-larger cutoff. The rest of this chapter follows the manuscript's inputs, gives the form of the theorem closest to
-them, which also assumes the twenty-two-prime pattern, and ends with the retired forms of Route K.
+larger cutoff. The rest of this chapter follows the manuscript's inputs and gives the form of the theorem closest to
+them, which also assumes the twenty-two-prime pattern.
 
 - [The main theorem](main-theorem.md)
 
@@ -50,8 +51,9 @@ inequality, so the $j$-form at $S=S_{\rm mul}$ implies the minimal height hypoth
 
 Pole completeness asserts the rational solubility of one explicit polynomial for all
 suitably prepared inputs. A rational zero puts two points on curves $y^2=x(x-\ell)(x+3\ell)$. It is the
-manuscript's Theorem 5.2 and a hypothesis of the main theorem; the manuscript derives it from its
-restricted converse theorem by a simultaneous 2-descent (Section 5.1), which is not yet formalized here.
+manuscript's Theorem 5.2 and a hypothesis of the main theorem. The manuscript derives it from its
+restricted converse theorem by a simultaneous 2-descent (Section 5.1); that descent is formalized, with
+Theorem 5.3 and three statements from the literature as its hypotheses.
 
 - [Pole completeness](pole-completeness.md)
 
@@ -87,25 +89,3 @@ theorem. Under the minimal form of the height estimate, pole completeness and th
 pattern the target holds; this is the form of the theorem closest to the manuscript's inputs.
 
 - [The main theorem from three hypotheses](main-theorem-three-hypotheses.md)
-
-Until fork issue #77 the project did not assume pole completeness. It used Route K instead: a
-different pole polynomial, whose curves are the congruent number curves $y^2=x(x-\ell)(x+\ell)$, with
-its pole completeness proved from a certified rank hypothesis CR₃. CR₃ in turn came from four
-statements about L-series: Tian–Yuan–Zhang's Theorem 3.5(2) in reading A, the positive-rank half of
-Gross–Zagier, Hecke's continuation and the functional equation. Route K is retired. Its Lean is kept at
-the tag `route-k-final`, and the project note `docs/research/rs-pole.md` records why it was adopted.
-The pages that described it are kept and marked as retired:
-- [the certified rank hypothesis](certified-rank.md);
-- the [Route K chapter](../route-k/README.md), and the chapters on
-  [Proposition 0](../selmer/README.md), [the row-5b determinant](../rank-5b/README.md),
-  [Rédei's formula](../redei/README.md) and [positive rank](../rank/README.md);
-- the earlier forms of the main theorem below.
-
-- [The main theorem from two hypotheses](main-theorem-two-hypotheses.md)
-- [The main theorem from the Selmer form of the rank hypothesis](main-theorem-selmer.md)
-- [The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis](main-theorem-tyz.md)
-- [The main theorem from the positive-rank forms of the rank hypothesis](main-theorem-positive-rank.md)
-- [The main theorem from positive rank on the two curves of a slot choice](main-theorem-two-curves.md)
-- [The main theorem from the infinitely-many-points forms of the rank hypothesis](main-theorem-infinitely-many-points.md)
-- [The main theorem from the $j$-form and the L-series statements](main-theorem-literature.md)
-- [The main theorem from the minimal height hypothesis, reading A and Gross–Zagier](main-theorem-reading-a-gross-zagier.md)

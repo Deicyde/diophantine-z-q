@@ -32,18 +32,24 @@ Everything else is proved in Lean, with every finite computation checked by the 
   Proved, including the Mordell–Weil theorem for the generator curve.
 - **Section 4, the six-contact height estimate** (`sec:height`, L377-972) and **Appendix H, the de Rham comparison**
   (L10936-11250): a hypothesis of the main theorem. [The statements of the literature it reduces
-  to](height-decomposition/README.md) are listed by theory.
+  to](height-decomposition/README.md) are listed by theory; standard facts about the fields $\mathbb Q(\sqrt{-n})$
+  of its CM points are in [the quadratic fields chapter](quadratic-fields/README.md).
 - **Section 5, the pole predicate and its converse input** (`sec:pole`, L973-1122): [pole
   completeness](main/pole-completeness.md), Theorem 5.2, for the manuscript's polynomial; the [pole
-  obstruction](multiplication/pole-obstruction.md), Lemma 5.1, is proved.
+  obstruction](multiplication/pole-obstruction.md), Lemma 5.1, is proved. Lean derives Theorem 5.2 from
+  Theorem 5.3 by the simultaneous 2-descent of Section 5.1 (L1019-1122), taking as further hypotheses the
+  Cassels–Tate pairing on the curves $y^2=x(x-\ell)(x+3\ell)$, from which it proves Lemma 5.4, and consequences
+  of the modularity theorem and of Kolyvagin's Theorem 1, the inputs of Lemma 5.5; [the pole-completeness
+  chapter](pole-completeness/README.md) describes the descent and collects the proved facts about square
+  classes and 2-descent that this Lean uses.
 - **Section 6, multiplication and the finite false-triple guard** (`sec:mult`, L1123-1759):
   [multiplication](multiplication/README.md). Proved. The manuscript's twenty-two-prime pattern (Proposition 6.2)
   is checked but not formalized: the Lean proves the completeness of multiplication by a different route,
   [long progressions of good primes](route-ap/README.md), which uses [Szemerédi's theorem in the
   primes](green-tao/README.md) and [the density of good slope primes](density/README.md).
 - **Sections 7-9 and Appendices E-G, the restricted converse** (`sec:rc`, L1760-5744; L6825-10935): [the proof of
-  Theorem 5.3](restricted-converse/README.md). Not formalized in Lean; the main theorem takes Theorem 5.3 as a
-  hypothesis.
+  Theorem 5.3](restricted-converse/README.md). Not proved in Lean; the Lean derivation of pole completeness
+  takes Theorem 5.3 as a hypothesis.
 - **Section 10, exact precision computation and polynomial compilation** (`sec:compiler`, L5745-6093):
   [compilation](compiler/README.md). Proved.
 - **Section 11, a variable-shift relation for ordinary values** (`sec:bridge`, L6094-6271):
@@ -59,4 +65,7 @@ Everything else is proved in Lean, with every finite computation checked by the 
 
 Until fork issue #77 the project replaced pole completeness by Route K, a variant of the pole polynomial whose
 pole completeness followed from a rank hypothesis built on Tian–Yuan–Zhang and Gross–Zagier. Route K is retired:
-its chapters are removed from this blueprint, and its Lean is kept at the tag `route-k-final`.
+its chapters are removed from this blueprint, and its Lean is kept at the tag `route-k-final`. The results of its
+Lean that the current proof uses are stated on [the cubic character sums page](density/cubic-character-sums.md) of
+the Proposition D chapter and in [the pole-completeness chapter](pole-completeness/README.md); its facts about
+$\mathbb Q(\sqrt{-n})$ are kept in [the quadratic fields chapter](quadratic-fields/README.md).

@@ -44,24 +44,18 @@ Two of these proofs depart from the manuscript:
 theorem (Theorem 5.3) by a simultaneous 2-descent (Section 5.1). Theorem 5.3 says: for every positive
 squarefree $\ell\equiv11\pmod{12}$, if the $2^\infty$-Selmer group of $y^2=x(x-\ell)(x+3\ell)$ has
 $\mathbb Z_2$-corank $1$, then its L-function vanishes to order exactly $1$ at $s=1$. That derivation is
-not yet formalized here (fork issue #83), so pole completeness is a hypothesis of this theorem. The
-proof of Theorem 5.3 itself (Sections 7–9 and Appendices E–G) is not formalized here. It uses Kato's
+formalized: pole completeness is proved from Theorem 5.3, the Cassels–Tate pairing on these curves (from
+which Lemma 5.4 is proved) and consequences of the modularity theorem and of Kolyvagin's Theorem 1 (the
+inputs of Lemma 5.5). This theorem keeps pole completeness as its hypothesis. Theorem 5.3 itself is not
+proved here; proving it in Lean is fork issue #83. Its proof (Sections 7–9 and Appendices E–G) uses Kato's
 Euler system, Waldspurger's formula, Bump–Friedberg–Hoffstein, Nekovář's Selmer complexes and
 Gross–Zagier–Kolyvagin.
 
 **The open statements.** `ZInQ.OneProof.frozenTarget` is this theorem with the minimal height hypothesis
 replaced by the statements from the literature that imply it
 ([the height-decomposition chapter](../height-decomposition/README.md); the current list is
-`docs/one-proof/OPEN.md`).
-
-**Route K, retired.** Until fork issue #77 the project used Route K in place of pole completeness:
-- a different pole polynomial, whose curves are the congruent number curves $y^2=x(x-\ell)(x+\ell)$;
-- a proof of its pole completeness from the certified rank hypothesis CR₃;
-- a derivation of CR₃ from four statements about L-series: Tian–Yuan–Zhang's Theorem 3.5(2) in reading A,
-  the positive-rank half of Gross–Zagier, Hecke's continuation and the functional equation.
-
-The theorem no longer uses any of them. Route K's Lean is kept at the tag `route-k-final`, and the
-project note `docs/research/rs-pole.md` records why it was adopted.
+`docs/one-proof/OPEN.md`), and with pole completeness replaced by Theorem 5.3, the Cassels–Tate pairing and
+the consequences of the modularity theorem and of Kolyvagin's Theorem 1.
 
 **Proof sketch.** Route AP needs the progression hypothesis 22P_AP, which follows from Szemerédi's
 theorem in the primes and Proposition D, both proved. Route AP then gives the slope representation

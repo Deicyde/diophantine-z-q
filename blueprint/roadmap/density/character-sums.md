@@ -23,12 +23,16 @@ $c=x^3+ax$. (2) Substitute $x=kX$: $(kX)^3+k^2a\,kX=k^3(X^3+aX)$ and $\chi(k^3)=
 $\varphi_p(0)=\sum\chi(x)^3=\sum\chi(x)=0$. (3) For $t\ne-\beta$ the summand is
 $\chi\bigl((t+\alpha)/(t+\beta)\bigr)$, and $t\mapsto(t+\alpha)/(t+\beta)$ is a bijection of
 $\mathbb F_p\setminus\{-\beta\}$ onto $\mathbb F_p\setminus\{1\}$, so the sum is
-$\sum_{w\ne1}\chi(w)=-1$. The Lean proofs reuse the character sums of the Selmer chapter, since
-$\varphi_p(a)$ is the cubic character sum at $-a$.
+$\sum_{w\ne1}\chi(w)=-1$. The Lean proofs reuse [the cubic character sums over a finite
+field](cubic-character-sums.md), since $\varphi_p(a)$ is the cubic character sum at $-a$.
 
 ## Depends on
 
 None.
+
+## Proof depends on
+
+- [Cubic character sums over a finite field](cubic-character-sums.md)
 
 ## Sources
 

@@ -34,13 +34,12 @@ input $B$ as above, the descent works in four steps:
 - So the 2-part of the Tate–Shafarevich group vanishes, and the class $(\beta,1)$ comes from a rational
   point on each curve. Rescaled to abscissas $A$ and $Az^2$, those points give the witnesses.
 
-That derivation is not yet formalized here (fork issue #83). The [pole obstruction](../multiplication/pole-obstruction.md),
-the manuscript's Lemma 5.1, is proved for this polynomial.
-
-Until fork issues #76 and #77 the project used another polynomial here, with the factors $A+e$ and $Az^2+eH$
-and the congruent number curves $y^2=x(x-\ell)(x+\ell)$. Its pole completeness was proved from the
-certified rank hypothesis CR₃ (Route K). That route is retired; its Lean is kept at the tag
-`route-k-final`.
+That derivation is formalized from Theorem 5.3, the Cassels–Tate pairing on the curves $E_\ell$ (from which
+Lemma 5.4 is proved) and consequences of the modularity theorem and of Kolyvagin's Theorem 1 (the inputs of
+Lemma 5.5); proving Theorem 5.3 itself in Lean is fork issue #83. [The pole-completeness
+chapter](../pole-completeness/README.md) collects the proved facts about square classes and 2-descent that
+this formalization uses. The [pole obstruction](../multiplication/pole-obstruction.md), the manuscript's Lemma 5.1, is proved for
+this polynomial.
 
 ## Depends on
 
