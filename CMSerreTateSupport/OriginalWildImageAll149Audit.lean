@@ -1,0 +1,307 @@
+import OriginalWildImageAllNamedAudit
+
+/-!
+# Complete named-declaration audit for original wild-image finiteness
+
+Inline attributed declarations are included. This audit adds no mathematical
+proof declarations and leaves every previously verified proof source unchanged.
+-/
+
+#check ActualDivisionField.divisionField
+#print axioms ActualDivisionField.divisionField
+#check ActualDivisionField.divisionField_finiteDimensional
+#print axioms ActualDivisionField.divisionField_finiteDimensional
+#check ActualDivisionField.divisionField_isGalois
+#print axioms ActualDivisionField.divisionField_isGalois
+#check ActualDivisionField.exists_common_field
+#print axioms ActualDivisionField.exists_common_field
+#check ActualDivisionField.factoredAction
+#print axioms ActualDivisionField.factoredAction
+#check ActualDivisionField.factoredAction_comp
+#print axioms ActualDivisionField.factoredAction_comp
+#check ActualDivisionField.factoredAction_injective
+#print axioms ActualDivisionField.factoredAction_injective
+#check ActualDivisionField.factoredAction_restriction
+#print axioms ActualDivisionField.factoredAction_restriction
+#check ActualDivisionField.finiteDivisionField
+#print axioms ActualDivisionField.finiteDivisionField
+#check ActualDivisionField.fixingSubgroup_eq_kernel
+#print axioms ActualDivisionField.fixingSubgroup_eq_kernel
+#check ActualDivisionField.kernel_isClosed
+#print axioms ActualDivisionField.kernel_isClosed
+#check ActualDivisionField.kernel_isOpen
+#print axioms ActualDivisionField.kernel_isOpen
+#check ActualDivisionField.point_fixed_of_field
+#print axioms ActualDivisionField.point_fixed_of_field
+#check ActualDivisionField.restriction
+#print axioms ActualDivisionField.restriction
+#check ActualDivisionField.restriction_continuous
+#print axioms ActualDivisionField.restriction_continuous
+#check ActualDivisionField.restriction_ker
+#print axioms ActualDivisionField.restriction_ker
+#check ActualDivisionField.restriction_surjective
+#print axioms ActualDivisionField.restriction_surjective
+#check ActualFiniteLevel.action
+#print axioms ActualFiniteLevel.action
+#check ActualFiniteLevel.action_apply_coe
+#print axioms ActualFiniteLevel.action_apply_coe
+#check ActualFiniteLevel.galAct_mul
+#print axioms ActualFiniteLevel.galAct_mul
+#check ActualFiniteLevel.galAct_one
+#print axioms ActualFiniteLevel.galAct_one
+#check ActualFiniteLevel.level_zero_subsingleton
+#print axioms ActualFiniteLevel.level_zero_subsingleton
+#check ActualFiniteLevel.mem_action_ker
+#print axioms ActualFiniteLevel.mem_action_ker
+#check ActualFiniteLevel.mem_torsionSubgroup
+#print axioms ActualFiniteLevel.mem_torsionSubgroup
+#check ActualFiniteLevel.tateEvaluation
+#print axioms ActualFiniteLevel.tateEvaluation
+#check ActualFiniteLevel.tateEvaluation_coe
+#print axioms ActualFiniteLevel.tateEvaluation_coe
+#check ActualFiniteLevel.tateEvaluation_galois
+#print axioms ActualFiniteLevel.tateEvaluation_galois
+#check ActualFiniteLevel.torsionSubgroup
+#print axioms ActualFiniteLevel.torsionSubgroup
+#check ActualFiniteLevel.transition
+#print axioms ActualFiniteLevel.transition
+#check ActualFiniteLevel.transition_galois
+#print axioms ActualFiniteLevel.transition_galois
+#check ActualFiniteLevel.transition_tateEvaluation
+#print axioms ActualFiniteLevel.transition_tateEvaluation
+#check ActualFiniteRamification.restricted_order_coprime
+#print axioms ActualFiniteRamification.restricted_order_coprime
+#check ActualFiniteRamification.restriction_strict
+#print axioms ActualFiniteRamification.restriction_strict
+#check ActualFiniteRamification.valuation_comap_equiv
+#print axioms ActualFiniteRamification.valuation_comap_equiv
+#check ActualFiniteRamification.wildImage
+#print axioms ActualFiniteRamification.wildImage
+#check ActualFiniteRamification.wildImage_isPGroup
+#print axioms ActualFiniteRamification.wildImage_isPGroup
+#check ActualFiniteRamification.wildImage_le
+#print axioms ActualFiniteRamification.wildImage_le
+#check ActualWildProPrime.continuous_wild_discrete_image_isPGroup
+#print axioms ActualWildProPrime.continuous_wild_discrete_image_isPGroup
+#check ActualWildProPrime.numberField_actual_wild_pro_prime
+#print axioms ActualWildProPrime.numberField_actual_wild_pro_prime
+#check FiniteProjectionTate.TT
+#print axioms FiniteProjectionTate.TT
+#check FiniteProjectionTate.approximate_level
+#print axioms FiniteProjectionTate.approximate_level
+#check FiniteProjectionTate.ell_smul_succ
+#print axioms FiniteProjectionTate.ell_smul_succ
+#check FiniteProjectionTate.firstImage
+#print axioms FiniteProjectionTate.firstImage
+#check FiniteProjectionTate.firstImage_killed
+#print axioms FiniteProjectionTate.firstImage_killed
+#check FiniteProjectionTate.firstProjection
+#print axioms FiniteProjectionTate.firstProjection
+#check FiniteProjectionTate.integral_coeff_apply
+#print axioms FiniteProjectionTate.integral_coeff_apply
+#check FiniteProjectionTate.lifted_coeff_dvd
+#print axioms FiniteProjectionTate.lifted_coeff_dvd
+#check FiniteProjectionTate.linearCombination_continuous
+#print axioms FiniteProjectionTate.linearCombination_continuous
+#check FiniteProjectionTate.linearCombination_injective
+#print axioms FiniteProjectionTate.linearCombination_injective
+#check FiniteProjectionTate.linearCombination_surjective
+#print axioms FiniteProjectionTate.linearCombination_surjective
+#check FiniteProjectionTate.tate_equiv_of_finite_first_torsion
+#print axioms FiniteProjectionTate.tate_equiv_of_finite_first_torsion
+#check FiniteProjectionTate.tate_finite_free_of_finite_first_torsion
+#print axioms FiniteProjectionTate.tate_finite_free_of_finite_first_torsion
+#check IntegralCongruence.adic_kernel_level_isPGroup
+#print axioms IntegralCongruence.adic_kernel_level_isPGroup
+#check IntegralCongruence.adic_kernel_level_power
+#print axioms IntegralCongruence.adic_kernel_level_power
+#check IntegralCongruence.adic_kernel_principal
+#print axioms IntegralCongruence.adic_kernel_principal
+#check IntegralCongruence.allLevels
+#print axioms IntegralCongruence.allLevels
+#check IntegralCongruence.allLevels_continuous
+#print axioms IntegralCongruence.allLevels_continuous
+#check IntegralCongruence.allLevels_injective
+#print axioms IntegralCongruence.allLevels_injective
+#check IntegralCongruence.allLevels_isClosedEmbedding
+#print axioms IntegralCongruence.allLevels_isClosedEmbedding
+#check IntegralCongruence.congruence_powers_tendsto
+#print axioms IntegralCongruence.congruence_powers_tendsto
+#check IntegralCongruence.continuous_discrete_image_isPGroup
+#print axioms IntegralCongruence.continuous_discrete_image_isPGroup
+#check IntegralCongruence.finiteReduction
+#print axioms IntegralCongruence.finiteReduction
+#check IntegralCongruence.finite_image_of_finite_level_pGroups
+#print axioms IntegralCongruence.finite_image_of_finite_level_pGroups
+#check IntegralCongruence.finite_kernel_isPGroup
+#print axioms IntegralCongruence.finite_kernel_isPGroup
+#check IntegralCongruence.finite_kernel_principal
+#print axioms IntegralCongruence.finite_kernel_principal
+#check IntegralCongruence.iterated_depth
+#print axioms IntegralCongruence.iterated_depth
+#check IntegralCongruence.kernel_trivial_of_finite_level_pGroups
+#print axioms IntegralCongruence.kernel_trivial_of_finite_level_pGroups
+#check IntegralCongruence.level
+#print axioms IntegralCongruence.level
+#check IntegralCongruence.level_continuous
+#print axioms IntegralCongruence.level_continuous
+#check IntegralCongruence.level_separates
+#print axioms IntegralCongruence.level_separates
+#check IntegralCongruence.power_increases_depth
+#print axioms IntegralCongruence.power_increases_depth
+#check IntegralCongruence.power_quadratic_remainder
+#print axioms IntegralCongruence.power_quadratic_remainder
+#check IntegralCongruence.principal_unit_power
+#print axioms IntegralCongruence.principal_unit_power
+#check IntegralCongruence.residual
+#print axioms IntegralCongruence.residual
+#check IntegralCongruence.residual_continuous
+#print axioms IntegralCongruence.residual_continuous
+#check IntegralCongruence.toZModPow_continuous
+#print axioms IntegralCongruence.toZModPow_continuous
+#check IntegralCongruence.toZMod_continuous
+#print axioms IntegralCongruence.toZMod_continuous
+#check NativeTateCongruence.divisionMatrix
+#print axioms NativeTateCongruence.divisionMatrix
+#check NativeTateCongruence.divisionMatrix_comp
+#print axioms NativeTateCongruence.divisionMatrix_comp
+#check NativeTateCongruence.divisionMatrix_restriction
+#print axioms NativeTateCongruence.divisionMatrix_restriction
+#check NativeTateCongruence.level_identity_of_original_points_fixed
+#print axioms NativeTateCongruence.level_identity_of_original_points_fixed
+#check NativeTateCongruence.matrixLevel
+#print axioms NativeTateCongruence.matrixLevel
+#check NativeTateCongruence.matrixLevel_continuous
+#print axioms NativeTateCongruence.matrixLevel_continuous
+#check NativeTateCongruence.originalTateMatrix
+#print axioms NativeTateCongruence.originalTateMatrix
+#check NativeTateCongruence.originalTateMatrix_continuous
+#print axioms NativeTateCongruence.originalTateMatrix_continuous
+#check NativeTateCongruence.originalTateRep
+#print axioms NativeTateCongruence.originalTateRep
+#check NativeTateCongruence.original_matrix_entry
+#print axioms NativeTateCongruence.original_matrix_entry
+#check NativeTateCongruence.original_matrix_eq_iff
+#print axioms NativeTateCongruence.original_matrix_eq_iff
+#check NativeTateCongruence.original_rep_eq_galT
+#print axioms NativeTateCongruence.original_rep_eq_galT
+#check NativeTateCongruence.point_kernel_le_matrix_kernel
+#print axioms NativeTateCongruence.point_kernel_le_matrix_kernel
+#check NativeTateCongruence.projectPointTate
+#print axioms NativeTateCongruence.projectPointTate
+#check NativeTateCongruence.projection_zero_iff_divisible
+#print axioms NativeTateCongruence.projection_zero_iff_divisible
+#check NativeTateCongruence.scalar_power_apply
+#print axioms NativeTateCongruence.scalar_power_apply
+#check NativeTateCongruence.wildIntegralMatrix
+#print axioms NativeTateCongruence.wildIntegralMatrix
+#check NativeTateCongruence.wild_matrix_image_finite
+#print axioms NativeTateCongruence.wild_matrix_image_finite
+#check NativeTateCongruence.wild_matrix_level_isPGroup
+#print axioms NativeTateCongruence.wild_matrix_level_isPGroup
+#check OriginalCompatibleTate.basis_of_card
+#print axioms OriginalCompatibleTate.basis_of_card
+#check OriginalCompatibleTate.dvd_of_sum_eq_zero
+#print axioms OriginalCompatibleTate.dvd_of_sum_eq_zero
+#check OriginalCompatibleTate.exists_basis
+#print axioms OriginalCompatibleTate.exists_basis
+#check OriginalCompatibleTate.exists_coeffs
+#print axioms OriginalCompatibleTate.exists_coeffs
+#check OriginalCompatibleTate.exists_lift
+#print axioms OriginalCompatibleTate.exists_lift
+#check OriginalCompatibleTate.exists_tate_lift
+#print axioms OriginalCompatibleTate.exists_tate_lift
+#check OriginalCompatibleTate.finite_tb
+#print axioms OriginalCompatibleTate.finite_tb
+#check OriginalCompatibleTate.lc_apply
+#print axioms OriginalCompatibleTate.lc_apply
+#check OriginalCompatibleTate.lc_bijective
+#print axioms OriginalCompatibleTate.lc_bijective
+#check OriginalCompatibleTate.mem_tb
+#print axioms OriginalCompatibleTate.mem_tb
+#check OriginalCompatibleTate.pow_smul_add
+#print axioms OriginalCompatibleTate.pow_smul_add
+#check OriginalCompatibleTate.tate_linearEquiv
+#print axioms OriginalCompatibleTate.tate_linearEquiv
+#check OriginalCompatibleTate.tb
+#print axioms OriginalCompatibleTate.tb
+#check OriginalCompatibleTate.zsmul_emod_of
+#print axioms OriginalCompatibleTate.zsmul_emod_of
+#check OriginalWildImageContracts.basis_original
+#print axioms OriginalWildImageContracts.basis_original
+#check OriginalWildImageContracts.continuous_original
+#print axioms OriginalWildImageContracts.continuous_original
+#check OriginalWildImageContracts.integral_inertia_wild
+#print axioms OriginalWildImageContracts.integral_inertia_wild
+#check OriginalWildImageContracts.integral_original
+#print axioms OriginalWildImageContracts.integral_original
+#check OriginalWildImageContracts.lattice_original
+#print axioms OriginalWildImageContracts.lattice_original
+#check OriginalWildImageContracts.rational_inertia_wild
+#print axioms OriginalWildImageContracts.rational_inertia_wild
+#check OriginalWildImageContracts.rational_original
+#print axioms OriginalWildImageContracts.rational_original
+#check OriginalWildImageContracts.residue_prime_original
+#print axioms OriginalWildImageContracts.residue_prime_original
+#check OriginalWildTateImage.original_continuous_tate_basis
+#print axioms OriginalWildTateImage.original_continuous_tate_basis
+#check OriginalWildTateImage.original_integral_wild_image_finite
+#print axioms OriginalWildTateImage.original_integral_wild_image_finite
+#check OriginalWildTateImage.original_rational_wild_image_finite
+#print axioms OriginalWildTateImage.original_rational_wild_image_finite
+#check OriginalWildTateImage.original_tate_basis
+#print axioms OriginalWildTateImage.original_tate_basis
+#check OriginalWildTateImage.original_tate_finite_free
+#print axioms OriginalWildTateImage.original_tate_finite_free
+#check OriginalWildTateImage.original_torsion_finite
+#print axioms OriginalWildTateImage.original_torsion_finite
+#check SchemePointField.exists_finiteGalois_point
+#print axioms SchemePointField.exists_finiteGalois_point
+#check SchemePointField.finiteGalois_contains_image
+#print axioms SchemePointField.finiteGalois_contains_image
+#check ValuationResidueCharacteristic.comapMap
+#print axioms ValuationResidueCharacteristic.comapMap
+#check ValuationResidueCharacteristic.comapMap_isLocalHom
+#print axioms ValuationResidueCharacteristic.comapMap_isLocalHom
+#check ValuationResidueCharacteristic.comap_valuation_equiv
+#print axioms ValuationResidueCharacteristic.comap_valuation_equiv
+#check ValuationResidueCharacteristic.numberField_residue_prime
+#print axioms ValuationResidueCharacteristic.numberField_residue_prime
+#check ValuationResidueCharacteristic.prime_ne_of_isUnit
+#print axioms ValuationResidueCharacteristic.prime_ne_of_isUnit
+#check ValuationResidueCharacteristic.residueMap
+#print axioms ValuationResidueCharacteristic.residueMap
+#check ValuationResidueCharacteristic.residue_charP_iff
+#print axioms ValuationResidueCharacteristic.residue_charP_iff
+#check WildFiniteGroup.prime_unit_of_ne_residue_char
+#print axioms WildFiniteGroup.prime_unit_of_ne_residue_char
+#check WildFiniteGroup.strictDisplacementGroup
+#print axioms WildFiniteGroup.strictDisplacementGroup
+#check WildFiniteGroup.strictDisplacementGroup_isPGroup
+#print axioms WildFiniteGroup.strictDisplacementGroup_isPGroup
+#check WildFiniteRestriction.exists_restriction_coprime_period
+#print axioms WildFiniteRestriction.exists_restriction_coprime_period
+#check WildFiniteRestriction.restriction_continuous
+#print axioms WildFiniteRestriction.restriction_continuous
+#check WildFiniteRestriction.restriction_order_coprime
+#print axioms WildFiniteRestriction.restriction_order_coprime
+#check WildFiniteRestriction.valuationRingMap
+#print axioms WildFiniteRestriction.valuationRingMap
+#check WildFiniteRestriction.valuation_natCast_eq_one
+#print axioms WildFiniteRestriction.valuation_natCast_eq_one
+#check WildTrace.algEquiv_pow_apply
+#print axioms WildTrace.algEquiv_pow_apply
+#check WildTrace.fixed_of_unit_period
+#print axioms WildTrace.fixed_of_unit_period
+#check WildTrace.iterate_displacement_lt
+#print axioms WildTrace.iterate_displacement_lt
+#check WildTrace.orderOf_coprime_unit_prime
+#print axioms WildTrace.orderOf_coprime_unit_prime
+#check WildTrace.pow_displacement_lt
+#print axioms WildTrace.pow_displacement_lt
+#check WildTrace.sum_iterate_displacement
+#print axioms WildTrace.sum_iterate_displacement
+#check WildTrace.valuation_apply_eq
+#print axioms WildTrace.valuation_apply_eq
+#check WildTrace.valuation_iterate_eq
+#print axioms WildTrace.valuation_iterate_eq

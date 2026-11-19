@@ -1,0 +1,114 @@
+import OriginalTateLatticeContinuity
+import ActualWildProPrimeKrull
+
+/-! # Types and axioms of the original wild Tate image finiteness proof -/
+
+#check PkgI3.AbVar.T
+#check PkgI3.AbVar.V
+#check PkgI3.AbVar.galT
+#check PkgI3.AbVar.galRep
+
+#check IntegralCongruence.power_quadratic_remainder
+#print axioms IntegralCongruence.power_quadratic_remainder
+#check IntegralCongruence.power_increases_depth
+#print axioms IntegralCongruence.power_increases_depth
+#check IntegralCongruence.iterated_depth
+#print axioms IntegralCongruence.iterated_depth
+#check IntegralCongruence.principal_unit_power
+#print axioms IntegralCongruence.principal_unit_power
+#check IntegralCongruence.finite_kernel_principal
+#print axioms IntegralCongruence.finite_kernel_principal
+#check IntegralCongruence.finite_kernel_isPGroup
+#print axioms IntegralCongruence.finite_kernel_isPGroup
+#check IntegralCongruence.adic_kernel_principal
+#print axioms IntegralCongruence.adic_kernel_principal
+#check IntegralCongruence.adic_kernel_level_power
+#print axioms IntegralCongruence.adic_kernel_level_power
+#check IntegralCongruence.adic_kernel_level_isPGroup
+#print axioms IntegralCongruence.adic_kernel_level_isPGroup
+#check IntegralCongruence.level_separates
+#print axioms IntegralCongruence.level_separates
+#check IntegralCongruence.kernel_trivial_of_finite_level_pGroups
+#print axioms IntegralCongruence.kernel_trivial_of_finite_level_pGroups
+#check IntegralCongruence.finite_image_of_finite_level_pGroups
+#print axioms IntegralCongruence.finite_image_of_finite_level_pGroups
+#check IntegralCongruence.toZModPow_continuous
+#print axioms IntegralCongruence.toZModPow_continuous
+#check IntegralCongruence.toZMod_continuous
+#print axioms IntegralCongruence.toZMod_continuous
+#check IntegralCongruence.level_continuous
+#print axioms IntegralCongruence.level_continuous
+#check IntegralCongruence.residual_continuous
+#print axioms IntegralCongruence.residual_continuous
+#check IntegralCongruence.allLevels_isClosedEmbedding
+#print axioms IntegralCongruence.allLevels_isClosedEmbedding
+#check IntegralCongruence.congruence_powers_tendsto
+#print axioms IntegralCongruence.congruence_powers_tendsto
+#check IntegralCongruence.continuous_discrete_image_isPGroup
+#print axioms IntegralCongruence.continuous_discrete_image_isPGroup
+
+#check ValuationResidueCharacteristic.residue_charP_iff
+#print axioms ValuationResidueCharacteristic.residue_charP_iff
+#check ValuationResidueCharacteristic.prime_ne_of_isUnit
+#print axioms ValuationResidueCharacteristic.prime_ne_of_isUnit
+#check ValuationResidueCharacteristic.numberField_residue_prime
+#print axioms ValuationResidueCharacteristic.numberField_residue_prime
+#check ActualWildProPrime.continuous_wild_discrete_image_isPGroup
+#print axioms ActualWildProPrime.continuous_wild_discrete_image_isPGroup
+#check ActualWildProPrime.numberField_actual_wild_pro_prime
+#print axioms ActualWildProPrime.numberField_actual_wild_pro_prime
+
+#check NativeTateCongruence.scalar_power_apply
+#print axioms NativeTateCongruence.scalar_power_apply
+#check NativeTateCongruence.projection_zero_iff_divisible
+#print axioms NativeTateCongruence.projection_zero_iff_divisible
+#check NativeTateCongruence.projectPointTate
+#print axioms NativeTateCongruence.projectPointTate
+#check NativeTateCongruence.originalTateRep
+#print axioms NativeTateCongruence.originalTateRep
+#check NativeTateCongruence.original_rep_eq_galT
+#print axioms NativeTateCongruence.original_rep_eq_galT
+#check NativeTateCongruence.original_matrix_entry
+#print axioms NativeTateCongruence.original_matrix_entry
+#check NativeTateCongruence.original_matrix_eq_iff
+#print axioms NativeTateCongruence.original_matrix_eq_iff
+#check NativeTateCongruence.level_identity_of_original_points_fixed
+#print axioms NativeTateCongruence.level_identity_of_original_points_fixed
+#check NativeTateCongruence.divisionMatrix_comp
+#print axioms NativeTateCongruence.divisionMatrix_comp
+#check NativeTateCongruence.matrixLevel_continuous
+#print axioms NativeTateCongruence.matrixLevel_continuous
+#check NativeTateCongruence.wild_matrix_level_isPGroup
+#print axioms NativeTateCongruence.wild_matrix_level_isPGroup
+#check NativeTateCongruence.originalTateMatrix_continuous
+#print axioms NativeTateCongruence.originalTateMatrix_continuous
+
+#check FiniteProjectionTate.approximate_level
+#print axioms FiniteProjectionTate.approximate_level
+#check FiniteProjectionTate.linearCombination_continuous
+#print axioms FiniteProjectionTate.linearCombination_continuous
+#check FiniteProjectionTate.linearCombination_surjective
+#print axioms FiniteProjectionTate.linearCombination_surjective
+#check FiniteProjectionTate.lifted_coeff_dvd
+#print axioms FiniteProjectionTate.lifted_coeff_dvd
+#check FiniteProjectionTate.linearCombination_injective
+#print axioms FiniteProjectionTate.linearCombination_injective
+#check FiniteProjectionTate.firstImage_killed
+#print axioms FiniteProjectionTate.firstImage_killed
+#check FiniteProjectionTate.tate_equiv_of_finite_first_torsion
+#print axioms FiniteProjectionTate.tate_equiv_of_finite_first_torsion
+#check FiniteProjectionTate.tate_finite_free_of_finite_first_torsion
+#print axioms FiniteProjectionTate.tate_finite_free_of_finite_first_torsion
+
+#check OriginalWildTateImage.original_torsion_finite
+#print axioms OriginalWildTateImage.original_torsion_finite
+#check OriginalWildTateImage.original_tate_basis
+#print axioms OriginalWildTateImage.original_tate_basis
+#check OriginalWildTateImage.original_tate_finite_free
+#print axioms OriginalWildTateImage.original_tate_finite_free
+#check OriginalWildTateImage.original_continuous_tate_basis
+#print axioms OriginalWildTateImage.original_continuous_tate_basis
+#check OriginalWildTateImage.original_integral_wild_image_finite
+#print axioms OriginalWildTateImage.original_integral_wild_image_finite
+#check OriginalWildTateImage.original_rational_wild_image_finite
+#print axioms OriginalWildTateImage.original_rational_wild_image_finite

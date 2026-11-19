@@ -1,0 +1,96 @@
+/-
+NOS-CORE PROBE STAGING COPY (lane C4, 2026-11-17). NOT an H5 edition:
+probe world only; it enters H5 only by the lead binding plus C6 review. No recorded port
+SHA exists for this module (lead 2026-11-17T06:06Z). Generated deterministically from the pinned
+upstream file by the documented lane4 port transform, as reproduced by the located C5 conformance
+pair (Thm/S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_of_iso), numeric options
+omitted. SOURCE ONLY, UNCOMPILED. Native HELD.
+
+Vendored, unmodified in substance, from the Fermat's Last Theorem Lean development.
+
+  Source project : https://github.com/anthropics/fermats-last-theorem
+  Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
+  Source file    : P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_exists_basicOpen_forall_exists_frame_of_frame_pullback.lean
+  Source sha256  : 8c9eb8bfb9d1c1c2efef1df6a952ad54599137b8a61ad0d1ef3f68a533e090f5
+  Retrieved      : pinned read-only clone of the upstream FLT sources (6e837e75), byte-for-byte
+  Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
+  Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
+
+NOTICE OF MODIFICATION (Apache-2.0 §4(b)). This file has been changed from the original
+(H5 lane4 port to Lean 4.35.0 / Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679).
+Mechanical changes; no statement, hypothesis, definition or proof term was weakened or omitted:
+  * 1 `r2nos_namespace_dual` shim line(s) after source `namespace` commands (Mathlib names of the same source namespace stay visible, as in the unprefixed original).
+  * 1 `r2nos_open_dual`/`r2nos_open_scoped_dual` shim line(s) after source `open` commands (completes each opened namespace by its other half where the port splits one source root namespace between Mathlib root and the prefix).
+  * 1 import of the lane4 Mathlib-db584 compatibility module `ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal` added (as in every located lane4 port copy).
+  * 4 internal `import`(s) retargeted to `ZInQKernel.Contrib.CloudR2NOS.Source.*` / `ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.*` (published W03 duals bound, see ledger) / port utilities.
+  * 2 scope(s) the source leaves open at EOF closed explicitly so the port namespace can be closed (no-op in the original).
+  * file-level `set_option`s inserted after the port namespace: autoImplicit false; backward.isDefEq.respectTransparency.types false; backward.isDefEq.respectTransparency.instanceSearchTypes false (non-numeric, as in the located C5 conformance copies). NO maxHeartbeats/synthInstance option (numeric options omitted).
+  * `import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt` added (port commands) and `open ZInQ.Contrib.CloudW03NeronSurj.FLT` inserted so the source's generalized field notation resolves the isolated declarations exactly as in the unprefixed original.
+  * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
+-/
+
+import Mathlib
+import ZInQKernel.Contrib.CloudR2NOS.Source.Definitions.Def_AlgebraicGeometry_RelativePicardFunctor
+import ZInQKernel.Contrib.CloudR2NOS.Source.Theorems.Thm_AlgebraicGeometry_Scheme_Modules_exists_frame_of_frame_pullback
+import ZInQKernel.Contrib.CloudR2NOS.Source.Theorems.Thm_AlgebraicGeometry_Scheme_Modules_exists_basicOpen_forall_exists_frame
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal
+import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt
+
+namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+open ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency.types false
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_basicOpen_forall_exists_frame_of_frame_pullback
+r2nos_namespace_dual
+
+universe u
+
+set_option autoImplicit false
+section beta_solution
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry TopologicalSpace
+r2nos_open_dual "CategoryTheory CategoryTheory.Limits AlgebraicGeometry TopologicalSpace"
+
+theorem solution
+    {R : Type u} [CommRing R] {X : Scheme.{u}} (f : X ⟶ Spec (.of R)) [UniversallyClosed f]
+    (M : X.Modules) (hM : Scheme.Modules.IsInvertible M) {ι : Type*} [Finite ι] (m : ι → Γ(M, ⊤))
+    (K : Type u) [Field K] [Algebra R K] (𝔭 : PrimeSpectrum R) (h𝔭 : RingHom.ker (algebraMap R K) = 𝔭.asIdeal)
+    (hgen : ∀ z : ↑(Limits.pullback f (Spec.map (CommRingCat.ofHom (algebraMap R K)))),
+      ∃ (i : ι) (U' : (Limits.pullback f (Spec.map (CommRingCat.ofHom (algebraMap R K)))).Opens), z ∈ U' ∧
+        ∀ V' : (Limits.pullback f (Spec.map (CommRingCat.ofHom (algebraMap R K)))).Opens, V' ≤ U' →
+          Function.Bijective fun g : Γ(Limits.pullback f (Spec.map (CommRingCat.ofHom (algebraMap R K))), V') =>
+            g • (((Scheme.Modules.pullback
+                    (Limits.pullback.fst f (Spec.map (CommRingCat.ofHom (algebraMap R K))))).obj M).presheaf.map
+                  (homOfLE (le_top : V' ≤ ⊤)).op
+              ((((Scheme.Modules.pullbackPushforwardAdjunction
+                  (Limits.pullback.fst f (Spec.map (CommRingCat.ofHom (algebraMap R K))))).unit.app M).app ⊤) (m i)) :
+              Γ((Scheme.Modules.pullback
+                    (Limits.pullback.fst f (Spec.map (CommRingCat.ofHom (algebraMap R K))))).obj M, V'))) :
+    ∃ g : R, g ∉ 𝔭.asIdeal ∧ ∀ x : X, f x ∈ PrimeSpectrum.basicOpen g →
+      ∃ (i : ι) (U : X.Opens), x ∈ U ∧ ∀ V : X.Opens, V ≤ U →
+        Function.Bijective fun g : Γ(X, V) => g • (M.presheaf.map (homOfLE (le_top : V ≤ ⊤)).op (m i) : Γ(M, V)) := by
+  classical
+  apply Scheme.Modules.exists_basicOpen_forall_exists_frame f M m 𝔭
+  intro x hx
+  have hpt : f x = (Spec.map (CommRingCat.ofHom (algebraMap R K))) (⊥ : PrimeSpectrum K) := by
+    rw [hx]
+    apply PrimeSpectrum.ext
+    rw [Spec.map_apply, PrimeSpectrum.comap_asIdeal]
+    change 𝔭.asIdeal = Ideal.comap (algebraMap R K) ⊥
+    rw [← RingHom.ker_eq_comap_bot, h𝔭]
+  obtain ⟨z, hz, -⟩ := Scheme.Pullback.exists_preimage_pullback
+    (f := f) (g := Spec.map (CommRingCat.ofHom (algebraMap R K))) x _ hpt
+  obtain ⟨i, U', hzU', hU'⟩ := hgen z
+  obtain ⟨U, hxU, hU⟩ := Scheme.Modules.exists_frame_of_frame_pullback
+    (Limits.pullback.fst f (Spec.map (CommRingCat.ofHom (algebraMap R K)))) M hM (m i) z ⟨U', hzU', hU'⟩
+  exact ⟨i, U, hz ▸ hxU, hU⟩
+
+end beta_solution
+end S_AlgebraicGeometry_Scheme_Modules_exists_basicOpen_forall_exists_frame_of_frame_pullback
+end P2MW
+
+end ZInQ.Contrib.CloudW03NeronSurj.FLT
