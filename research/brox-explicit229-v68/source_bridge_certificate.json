@@ -1,0 +1,83 @@
+{
+  "schema": "brox-explicit229-source-bridge-manual-reconstruction/v69",
+  "status": "PASS",
+  "checked_on": "2026-11-17",
+  "execution": "Exact JavaScript BigInt arithmetic on authenticated GitHub source data; Python checker check_source_bridge.py independently supplied but not executed in this session.",
+  "scope": "Finite source-table and field-component identities only. No global prime-pattern, elliptic rank, modular height, simultaneous witness or pole realization proof is certified.",
+  "source195_blob_sha1": "5d6c4a4b482a4065b87a79d03426b0dcfff0f593",
+  "source229_blob_sha1": "ac9d6da105c6897efcf44436891e4deb846fa18e",
+  "source195_upstream_byte_identical": true,
+  "source195_sha256": "304f94843c1a4ac94fcd5f1295fee8b532e7f0424e638314d892c556e2fbfdf9",
+  "source229_sha256": "f0e6fc3f62525d7b251a10fc5f4cf0e6663c3f6f08beeef3cb28092b2e1555a8",
+  "source195_rows": 175,
+  "source229_rows": 207,
+  "input_coordinate": 1,
+  "contact_helper_uses": {
+    "74": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "75": [
+      23,
+      24,
+      25
+    ],
+    "76": [
+      24,
+      25
+    ],
+    "87": [
+      34,
+      35,
+      36,
+      37
+    ],
+    "88": [
+      35,
+      36,
+      37
+    ],
+    "89": [
+      36,
+      37
+    ],
+    "201": [
+      176,
+      177,
+      178,
+      179
+    ],
+    "202": [
+      177,
+      178,
+      179
+    ],
+    "203": [
+      178,
+      179
+    ]
+  },
+  "secant_field_component_rows": [
+    111,
+    112,
+    127,
+    128,
+    143,
+    144
+  ],
+  "secant_components_exact": true,
+  "third_fourth_pair_f_terms_c_scaling_checked": true,
+  "inverse_vieta_p_field_component_rows": [
+    155,
+    156
+  ],
+  "inverse_vieta_r_field_component_rows": [
+    157,
+    158
+  ],
+  "x193_same_product_imaginary_component_checked": true,
+  "physical_component_signs_checked": true,
+  "remaining_independent_review": "Complete coefficient/literal artifacts, fully traced supplier interfaces and assembled N15 arithmetic construction require official Protocol B completion."
+}
