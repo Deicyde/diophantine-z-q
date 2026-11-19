@@ -37,7 +37,12 @@ lift `j z_S = e_q^c z_{P⊥}` with `e_q^c = e_q`, and `λ_R ∘ i = e_q λ_P`), 
   `i + 1` follows from `hR` at the step `i`.
 
 Kinds: definitions, PROVED; GLUE inputs `DualCupInputs`, `OrthComparisonInverse` and
-`RetainedHomotopyStep`.
+`RetainedHomotopyStep`. For the text's old orthogonal conditions (Kummer above `2N`, zero
+elsewhere) with the comparison identity at `Pk` and zero into the full conditions elsewhere, the
+inverse `OrthComparisonInverse` is uninhabited at the finite stages once two places outside `Pk`
+carry a nonzero invariant (lane E1's chain-level counterexample, the obstruction
+`⊕_{v ∈ Z} H⁰(K_v, M)`); the text's inverse exists after the inner limit, over `𝒪[G]`, with the
+retained lattice comparison at the old places (tex 3704–3790).
 -/
 
 noncomputable section
@@ -296,7 +301,8 @@ structure DualStepS (i : ℕ) (hp : P.pidx i ∉ chainT P.pidx i) where
   /-- it vanishes on boundaries (tex 3829–3833) -/
   htr : ∀ y, tr ((coneCx (dualCupResE C.K (P.S₀ s) (P.S s) (StageRing s) (P.place s) Tm)).d 2 3
     rfl y) = 0
-  /-- lane E2's inverse of the orthogonal comparison (GLUE; tex 3740–3745) -/
+  /-- lane E2's inverse of the orthogonal comparison (GLUE; tex 3740–3745; at the finite stages
+  with the text's old orthogonal conditions it is uninhabited, see the module docstring) -/
   orth : OrthComparisonInverse C.K (P.S₀ s) (P.S s) (StageRing s) (famM' P s s) Δo
     (famCondsT P s s) (P.place s) (famX' P s s) (famEU' P s s)
   /-- the transported relaxed class (tex 4169–4171) -/
