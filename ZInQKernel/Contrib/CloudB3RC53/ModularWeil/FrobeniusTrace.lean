@@ -138,11 +138,13 @@ def FrobeniusTateDetForm : Prop :=
           (p : ℤ_[ℓ]) * n ^ 2
 
 open scoped Classical in
-/-- **(R) The reduction comparison of Tate modules** at a good prime `p ≠ ℓ` (Silverman VII.3.1
-and VII.7.1): an arithmetic Frobenius `σ` of `ℚ_p` acts on `T_ℓ(E/\bar ℚ_p)` as the `p`-power
+/-- **(R) The reduction comparison of Tate modules** at a good prime `p ≠ ℓ` (Silverman, *The
+Arithmetic of Elliptic Curves*, 2nd ed., Proposition VII.3.1(b), p. 192, and Proposition VII.4.1,
+p. 195): an arithmetic Frobenius `σ` of `ℚ_p` acts on `T_ℓ(E/\bar ℚ_p)` as the `p`-power
 Frobenius `π` acts on `T_ℓ` of the reduction `Et/\bar 𝔽_p`, through a `ℤ_ℓ`-linear isomorphism.
 (Reduction is injective on prime-to-`p` torsion at good reduction, bijective by counting, and
-carries the arithmetic Frobenius to the `p`-power map on coordinates.) Stated, not proved. -/
+carries the arithmetic Frobenius to the `p`-power map on coordinates.) True as stated; standard.
+Stated here, not proved. -/
 def TateReductionComparison : Prop :=
   ∀ (E : WeierstrassCurve ℚ), E.IsElliptic →
     ∀ (p : ℕ) (hp : p.Prime), GoodReductionAt E (primeIdealQ p hp) →
@@ -247,9 +249,10 @@ theorem mapLinearMap_id {ℓ : ℕ} [Fact ℓ.Prime] {A : Type*} [AddCommGroup A
   rw [TauCeti.TateModule.mapLinearMap_apply, TauCeti.TateModule.map_id]
   rfl
 
-/-- **(D) The determinant of an endomorphism on `T_ℓ` is its degree** (Silverman III.8.6), for an
-elliptic curve over `𝔽_p`, `ℓ ≠ p`, over `\bar 𝔽_p`. Here `f` is a homomorphism of the curve
-(`TauCeti.Isogeny.Hom`, with `deg 0 = 0`) and `α` its additive point map. Stated, not proved. -/
+/-- **(D) The determinant of an endomorphism on `T_ℓ` is its degree** (Silverman, *The Arithmetic
+of Elliptic Curves*, 2nd ed., Proposition III.8.6, p. 99), for an elliptic curve over `𝔽_p`,
+`ℓ ≠ p`, over `\bar 𝔽_p`. Here `f` is a homomorphism of the curve (`TauCeti.Isogeny.Hom`, with
+`deg 0 = 0`) and `α` its additive point map. True as stated; standard. Stated here, not proved. -/
 def DetEqDegree : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (Et : WeierstrassCurve (ZMod p)) [Et.IsElliptic],
     ∀ (ℓ : ℕ) [Fact ℓ.Prime], ℓ ≠ p →

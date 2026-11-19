@@ -36,7 +36,8 @@ import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate6
 import ZInQKernel.Contrib.OneProof.RC.Wiring.CalibrationLeaf3
 import ZInQKernel.Contrib.OneProof.RC.Wiring.StageData
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35H
-import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate8
+import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35R
+import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate9
 
 /-!
 # Theorem 5.3, Lane RC0: every remaining hypothesis in one structure
@@ -118,14 +119,14 @@ witnesses:
   the local-block Kummer model is equivalent to the pre-Milne valuation formula, and the Milne,
   period, moving-prime and Kummer-model data are existential witnesses;
 * `PostLeaves.common_coordinate`: over the text's objects with the actual Frobenius
-  (`CommonCoordinateInputsRD`: the local objects, `η_x` and the matrix of `ρ_T(Fr_q)` in lane RC28's
+  (`CommonCoordinateInputsNF`: the local objects, `η_x` and the matrix of `ρ_T(Fr_q)` in lane RC28's
   basis are definitions, evaluated in `F = Frac Λ`; only the primitive coordinate and the product
-  `η_x u_{rel,x}` are regular; `tr ρ_T(Fr_q) = a_q` is PROVED from the two classical inputs (R)
-  `TateReductionComparison` and (D) `DetEqDegree`, `frobeniusTrace_of_RD_only`); for `ℓ > 0`
-  and a support containing `S₀` (PROVED, `PreDataSpec.support_base`) it is equivalent to (R) and
-  (D) together with (4.7), `ε_x = 1` where no graph prime is unused, and `u_{prim,x} ∈ F`
-  (`commonCoordinateInputsRD_iff_of_support`; the pinned Frobenius adds nothing else), and its
-  step models are existential;
+  `η_x u_{rel,x}` are regular; `tr ρ_T(Fr_q) = a_q` is PROVED with no input,
+  `frobeniusTrace_proved`); for `ℓ > 0` and a support containing `S₀` (PROVED,
+  `PreDataSpec.support_base`) it is equivalent to (4.7), `ε_x = 1` where no graph prime is unused,
+  and `u_{prim,x} ∈ F` (`commonCoordinateInputsLF_iff_NF` with
+  `commonCoordinateInputsLF_iff_of_support`; the pinned Frobenius adds nothing else), and its step
+  models are existential;
 * `PreLeaves.eq35` and `PostLeaves.prim_regular`: the configuration families are existential and
   only required to be some genuine Galois Selmer data with `t = X`. Under existence of a genuine
   one-stage residue fibre at every height-one prime (one genuine complex of the homotopy type of
@@ -139,9 +140,16 @@ witnesses:
   the finite-dimensional cochain modules `fG`, `fL`, `fF`, `fS` of the earlier steps), so the
   infinite dimension of `C¹_cont` is no obstruction there; the stage models are, as before,
   existential homotopy equivalences from the fibres' Selmer complexes to the stages' two-term
-  fibres. The outer models of the eq35 leaf are unchanged: their switch steps (`OuterSwitchStep`)
-  carry an existential Selmer-level datum (`SelmerNonquadStep`) with finite-dimensional cochain
-  modules, not tied to the genuine complexes and met by finite models;
+  fibres. The outer models of the eq35 leaf have model classes required only to be nonzero
+  (`RetainedOuterModels`; tex 4927–4953, 4948–4950), so the primitivity of the selected outer
+  model's class (`InstanceModel.hprim`) is no longer asked and a divisible class is admitted; the
+  classes, functionals and matrices remain existential model data, not identified with the
+  instance's actual retained classes, and the leaf is equivalent to the earlier form
+  (`eq35InputsGenuineABoundedR_iff`; on realization the class is replaced by a primitive kernel
+  vector and the scalar is moved into the functional); their switch input on the model data
+  (`RetainedOuterSwitchData`) still carries an existential Selmer-level datum
+  (`SelmerNonquadStep`) with finite-dimensional cochain modules, not tied to the genuine complexes
+  and met by finite models;
 * `PostLeaves.clearing_model`: the full-condition triangle (5.6) is modelled, with the two
   conjugate new places over each prime of the family (`Identification3Q2`), but
   `clearingInputsG3_of_G3Q2` discards the two-place data, so their faithfulness carries no weight
@@ -162,10 +170,19 @@ witnesses:
   reads the odd source on its own filter (lane RC24's intrinsic odd filter), so the fresh prime of
   `k` no longer vetoes the odd readings (fixed);
 * closed: the model family of (3.5) is chosen for each `A`, at the companion pairs with
-  `ω(k') ≤ A`, with sizes at most the cap of (5.1) (`Eq35InputsGenuineABoundedH`, whose outer clause
-  is that of `Eq35InputsGenuineABounded`; tex
+  `ω(k') ≤ A`, with sizes at most the cap of (5.1) (`Eq35InputsGenuineABoundedR`, equivalent to
+  `Eq35InputsGenuineABoundedH`; tex
   2442–2446, 4453–4460, 4910); before, one family with one size function was fixed for all ring
   instances before `A`, a bound the text does not state;
+* closed (form only): the outer models of (3.5) have model classes required only to be nonzero
+  (`RetainedOuterModels`; tex 4927–4953, 4948–4950: "The actual inner class is a nonzero scalar
+  multiple of `v_j`"), instead of a primitive class (`InstanceModel.hprim`, batch 3's departure);
+  the classes remain existential and are not identified with the instance's actual retained
+  classes; on realization the scalar is carried by the functional
+  (`RetainedInstanceModel.ofPrimitiveVector`,
+  the same class-functional tensor and coordinate) and the primitive vector is proved to exist;
+  the form with retained models is equivalent to the form with batch 3's models
+  (`eq35InputsGenuineABoundedR_iff`), so the leaf's strength is unchanged;
 * closed: the coefficient dictionary's input (O.9) is consumed in the manuscript's form
   `a_p ≡ p + 1 (mod 4)` at every good prime (tex 9585, 9593–9594), proved for the actual curves
   (batch 3's `apModFour_curve_typeData`) and passed to the dictionary's weaker `ApEven` by
@@ -281,7 +298,7 @@ structure PreLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   theta models are supplied, and away from the selected datum the fields do not identify `ev` with
   reduction at the constructed primes. -/
   odd_staged : Nonempty (OddStagedInstance W)
-  /-- The inputs of (3.5) in the text's quantifier order and form (`Eq35InputsGenuineABoundedH`):
+  /-- The inputs of (3.5) in the text's quantifier order and form (`Eq35InputsGenuineABoundedR`):
   chosen before `A`, the primitive coordinates at the companion pairs with homology-level switch
   data `HomologySwitchDataPK` (each stage model a homotopy equivalence from the fibre's Selmer
   complex to the stage's two-term fibre, as in the earlier form; the actual classes nonzero instead
@@ -291,12 +308,18 @@ structure PreLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   configuration families genuine at every height-one prime
   (`RegularityInputsHPK`: lane RC26's Galois fibers, the genuine moving variable) and (4.6) at the
   companion pairs; then for every `A`,
-  a family of switched models over `𝒪` for the companion pairs with `ω(k') ≤ A`, of size at most the
-  cap of (5.1) at each configuration (`eq51Cap`; equivalent to the sizes equal to the cap, by
+  a family of retained switched models over `𝒪` for the companion pairs with `ω(k') ≤ A`
+  (`RetainedOuterModels`: at every configuration a model class, required only to be nonzero, and a
+  closed integral functional, in the roles of the text's retained class and paired functional but
+  existential and not tied to the instance; tex 4927–4953, 4948–4950), of size at most the
+  cap of (5.1) at each configuration (`eq51Cap`; for the equivalent form with batch 3's models,
+  equivalent to the sizes equal to the cap, by
   padding with contractible blocks `[𝒪 --(-1)--> 𝒪]`: `eq35InputsGenuineA_iff_bounded`, which keeps
-  the coordinates, the outer dimensions and the switch steps), each a two-term model of genuine
-  Galois Selmer data over `𝒪`, the actual models' coordinates having the valuations of `ι_𝒪 u_prim`,
-  with batch 3's `GenuineOuterSwitchData` (switch GLUE between the determined stages) for every
+  the coordinates, the outer dimensions and the switch steps), each model matrix a two-term model
+  of genuine Galois Selmer data over `𝒪` (`IsGenuineTwoTermModel`), the coordinates of the
+  starting models (computed from their classes and functionals) having the valuations of
+  `ι_𝒪 u_prim`, with the switch input `RetainedOuterSwitchData` on these model data (switch GLUE
+  between the configurations of the family) for every
   sequence of those pairs (ELLIOT + GLUE; tex 2441–2446, 3987–4047, 4453–4460, 4909–5202; owners
   RC16, RC15, RC6, RC26, batch 3 SwitchInputs). The bound is on the matrix index `nOf`; each free
   term has rank `nOf + 1`. The text's total-rank estimate `2 * (nOf + 1) ≤ eq51Cap` implies this
@@ -307,21 +330,32 @@ structure PreLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   `exists_primitiveKernelVector`), `pos` from them, `minor_link`, the integral cycles and
   functionals, the nonzero outer class, the Cramer terminal step, the equal inner valuations,
   regularity (`regular_of_homologyPK`, through the RC53 group's `regular_of_switchDataPK`), and
-  RC16's (3.5) over RC20's genuine valuation (`eq35Target_of_inputsAH`). The earlier form, whose
-  switch steps demand finite-dimensional cochain modules (`fG`, `fL`, `fF`, `fS`) and cochain-level
-  local coordinates, implies this one (`Eq35InputsGenuineABounded.toH`). Caveats: the
+  RC16's (3.5) over RC20's genuine valuation (`eq35Target_of_inputsAR`, through
+  `eq35InputsGenuineABoundedR_iff`: this form is equivalent to `Eq35InputsGenuineABoundedH`, with
+  batch 3's outer models whose classes are primitive; realization `toGenuine` at the primitive
+  kernel vectors, the scalar moved into the functional, one way, and the reading `ofGenuine` of an
+  old family the other). The earlier form, whose regularity switch steps demand finite-dimensional
+  cochain modules (`fG`, `fL`, `fF`, `fS`) and cochain-level local coordinates, implies this one
+  (`Eq35InputsGenuineABounded.toR`). Caveats: the
   configuration family is existential and only required to be some genuine Galois Selmer data with
   `t = X`. With one genuine complex of the homotopy type of `[k --0--> k]` at each `𝔭` (true, not
   formalized), its regularity part is equivalent to `uprim h k' ∈ Λ[1/2]` at the companion pairs,
   Elliot's regularity assertion (ELLIOT). The homology-level steps need only finite cohomology, so
   the infinite-dimensional continuous cochains of the genuine fibres are allowed in the regularity
   part; its homotopy equivalences are existential, not tied to the text's finite free models (the
-  intended source is the graded finite free models of `RC/Limits`). The outer model family is
-  existential as well: the genuine Galois Selmer data in `IsGenuineInstanceModel` are not tied to
-  the instance `i`, and the outer switch steps (`OuterSwitchStep`) carry an existential Selmer-level
-  datum `SelmerNonquadStep` with finite-dimensional cochain modules (`fG`, `fL`, `fF`, `fS`), not
-  tied to the genuine complexes and met by finite models (unchanged from the earlier form). -/
-  eq35 : Eq35InputsGenuineABoundedH W
+  intended source is the graded finite free models of `RC/Limits`). The outer model classes are
+  required only to be nonzero (tex 4948–4950), so batch 3's primitivity departure
+  (`InstanceModel.hprim`) no longer applies in the sense that a divisible class is admitted. The
+  strength is unchanged (`eq35InputsGenuineABoundedR_iff`; on realization the class becomes a
+  primitive kernel vector and the scalar moves into the functional), and every witness can be
+  replaced by one whose classes are primitive, so the model classes are not identified with the
+  instance's actual retained classes. The outer model family is
+  existential as well: the genuine Galois Selmer data in `IsGenuineTwoTermModel` are not tied to
+  the instance `i`, and the switch input on the model data (`RetainedSwitchStep`, transported to
+  batch 3's `OuterSwitchStep`) carries an existential Selmer-level datum `SelmerNonquadStep` with
+  finite-dimensional cochain modules (`fG`, `fL`, `fF`, `fS`), not tied to the genuine complexes
+  and met by finite models (unchanged from the earlier form). -/
+  eq35 : Eq35InputsGenuineABoundedR W
 
 /-- **The data specification from the leaves** (PROVED: the fixed support and the stage link of the
 staged odd instance, by the stage construction's `preDataSpec_preparedStages`; formerly the leaf
@@ -387,25 +421,22 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   in the remaining branch (see `RC/Skeleton/Steps.lean`). -/
   calibration : CalibrationInputsH W.toRCData
   /-- The inputs of (4.7) over the text's objects with the actual Frobenius
-  (`CommonCoordinateInputsRD`; Lemma `ex:arith-common-coordinate`, tex 4142–4328): `E_ℓ` elliptic,
+  (`CommonCoordinateInputsNF`; Lemma `ex:arith-common-coordinate`, tex 4142–4328): `E_ℓ` elliptic,
   a coefficient datum of `𝕋` (a number field `K`, a set `S` of its primes, `K̄ ≃ ℚ̄`,
-  `E[2^∞] ⊆ E(K_S)`; definition + GLUE Néron–Ogg–Shafarevich, AEC VII.7.1), the two classical
-  GLUE inputs (R) `TateReductionComparison` (for an elliptic curve `E/ℚ` with good reduction at
-  `p`, and a prime `m ≠ p`, an arithmetic Frobenius of `ℚ_p` acts on `T_m(E/ℚ̄_p)` as the `p`-power
-  Frobenius on the Tate module of the reduction of the chosen minimal local equation; Silverman AEC
-  VII.3.1(b), p. 192, VII.4.1, p. 195; also VII.7.1) and (D) `DetEqDegree` (for an elliptic curve
-  over `𝔽_p` and a prime `m ≠ p`, every geometric endomorphism of its base change to `𝔽̄_p` acts on
-  `T_m` with determinant equal to its total degree, including inseparable endomorphisms and the
-  convention `degree 0 = 0`; AEC III.8.6, p. 99), both stated in the RC53 group's
-  `ModularWeil/FrobeniusTrace.lean` (here `m = 2`), from which `tr ρ_T(Fr_q) = a_q` at good odd
-  primes is PROVED (`frobeniusTrace_of_RD_only`, through `decompositionFrobeniusQ_proof`), and at
-  every address of a final
+  `E[2^∞] ⊆ E(K_S)`; definition + GLUE Néron–Ogg–Shafarevich, AEC VII.7.1), and at every address
+  of a final
   family: the graph primes good (definition), the class-functional coordinates in `F = Frac Λ`
   relaxed at the subsets of the unused primes `U_x`, the primitive one regular at `t = 0` with
   `t`-expansion `u_{prim,x}` (definition + ELLIOT), (4.7) at each relaxation step at an unused
   prime, as an existential triangular model over `F` (`NaturalStep`; ELLIOT), with the actual
   matrix `frobMat C p` of `ρ_T(Fr_p)` in lane RC28's basis of `T₂E` over `K_S` (`det = p` PROVED,
-  `tr = a_p` PROVED from (R) and (D)), the actual `z = x(ε(F̃r_q))(1 + t)`, `a_q`
+  `tr = a_p` PROVED with no input: `frobeniusTrace_proved`, from the reduction comparison of Tate
+  modules (Silverman AEC VII.3.1(b), VII.4.1; PROVED in `RC53Assist/TateReduction`), the
+  determinant form `det(1 − nπ) = 1 − a n + p n²` (AEC V.2.3.1, III.8.6; PROVED in
+  `RC53Assist/DetDegree`), hence the trace dictionary (`RC53Assist/FrobeniusTraceDictionary`),
+  and the decomposition-group lift `decompositionFrobeniusQ_proof`), the actual
+  `z = x(ε(F̃r_q))(1 + t)`,
+  `a_q`
   (Mathlib's coefficient of
   `L(E, s)`) and `q` in its two-place block, and the product `ũ_x = η_x u_{rel,x}`
   regular with `t`-expansion `ũ_x` (definition). No free ring and no free Frobenius matrix: `g_q`,
@@ -414,21 +445,20 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   (`etaF_not_regular_single`); `ι(η_x) = x(η)` in `Frac 𝒪` for the universal `η ∈ 𝒪[G]`
   (`eval_etaU`; no ring map `𝒪[G] → F` fixes `t`);
   `ē_q = t²/(1+t)` (`resG_eU_mul`) (tex 4148–4149, 4196–4231, 4297–4327; owners RC32, RC28, RC17,
-  RC15, RC20, RC7, batch 3 CommonCoordinate). PROVED from it: the round-two leaf
-  (`commonCoordinateInputsLF_of_RD`) and the round-one leaf, hence (4.7) at each step, the
-  multi-prime (4.7), `ũ_x = ε_x u_{prim,x}` in `F`, and (4.7) for the interface's power series
-  (`commonCoordinateTarget_of_RD`). Conclusion-shaped: for `ℓ > 0` and a support containing `S₀`
-  (PROVED, `PreDataSpec.support_base`) the leaf is equivalent to (R) and (D) together with (4.7),
-  `ε_x = 1` where no graph prime is unused, and `u_{prim,x} ∈ F` (the pinned Frobenius adds
-  nothing else; `commonCoordinateInputsRD_iff_of_support`, and in general
-  `commonCoordinateInputsRD_iff_exact`, PROVED in `CommonCoordinate8.lean`, through
-  `commonCoordinateInputsL_iff_exact` of `CommonCoordinate6Exact.lean`); it is not
-  implied by (4.7) alone (`commonCoordinateInputsRD_not_of_target`) (only through `ε_x = 1` at the
-  empty family); the step models are existential and not tied to the actual Selmer complexes; the
-  coefficient datum is existential (the text's is `K = ℚ(√k)`; only `tr` and `det` of
-  `ρ_T(Fr_q)` enter (4.7)). Scope departure: this field is also requested in Branch 1 (see
-  `RC/Skeleton/Steps.lean`). -/
-  common_coordinate : CommonCoordinateInputsRD W.toRCData
+  RC15, RC20, RC7, batch 3 CommonCoordinate). PROVED from it: the round-two leaf, to which it is
+  equivalent (`commonCoordinateInputsLF_iff_NF`), and the round-one leaf, hence (4.7) at each step,
+  the multi-prime (4.7), `ũ_x = ε_x u_{prim,x}` in `F`, and (4.7) for the interface's power series
+  (`commonCoordinateTarget_of_NF`). Conclusion-shaped: for `ℓ > 0` and a support containing `S₀`
+  (PROVED, `PreDataSpec.support_base`) the leaf is equivalent to (4.7), `ε_x = 1` where no graph
+  prime is unused, and `u_{prim,x} ∈ F` (the pinned Frobenius adds nothing else;
+  `commonCoordinateInputsLF_iff_NF` with `commonCoordinateInputsLF_iff_of_support` and
+  `commonCoordinateInputsL_iff_exact` of `CommonCoordinate6Exact.lean`); it is not implied by
+  (4.7) alone (`commonCoordinateInputsLF_not_of_target` with `commonCoordinateInputsLF_iff_NF`)
+  (only through `ε_x = 1` at the empty family); the step models are existential and not tied to
+  the actual Selmer complexes; the coefficient datum is existential (the text's is `K = ℚ(√k)`;
+  only `tr` and `det` of `ρ_T(Fr_q)` enter (4.7)). Scope departure: this field is also requested
+  in Branch 1 (see `RC/Skeleton/Steps.lean`). -/
+  common_coordinate : CommonCoordinateInputsNF W.toRCData
   /-- The inputs of height-one regularity of the primitive coordinates (`PrimRegularityInputsHPK`):
   at every height-one prime `𝔭 ≠ (2)`, a configuration family genuine at `𝔭` (lane RC26's Galois
   Selmer fibers with finite support and subcomplex conditions, the genuine moving variable) and
@@ -631,7 +661,7 @@ theorem rcSteps_of_leaves (P : Prints) (L : RCLeaves) {ℓ : ℕ} (hadm : Adm �
   obtain ⟨A, CE, h33⟩ := hF3
   obtain ⟨Cper, h34, h34k⟩ := gz34Target_of_genusOdd P L.artin L.rootNumberExists I
   have h35 : Eq35Target W₁ :=
-    eq35Target_of_inputsAH W₁ hp.eq35
+    eq35Target_of_inputsAR W₁ hp.eq35
   obtain ⟨CR, h35A⟩ := h35 A
   obtain ⟨δ, hδ⟩ := exists_oddMinimum W₁ h33 h34 h35A hCdet hglue
     (witnessLeaf_of_oddInstance Io hstages)
@@ -649,13 +679,13 @@ theorem rcSteps_of_leaves (P : Prints) (L : RCLeaves) {ℓ : ℕ} (hadm : Adm �
         ⟨hp.data_spec.support_prime, hp.data_spec.support_base, hp.data_spec.stages_hyper,
           hp.data_spec.stages_index, hp.data_spec.admissible_split, hp.data_spec.prepared_one⟩
         hp.prepared_spec hδ.1 hq.address)
-  have h47 : CommonCoordinateTarget W₂.toRCData := commonCoordinateTarget_of_RD hq.common_coordinate
+  have h47 : CommonCoordinateTarget W₂.toRCData := commonCoordinateTarget_of_NF hq.common_coordinate
   have hheight : HeightOneTarget W₂.toRCData :=
     heightOneTarget_of_HPK _ hq.prim_regular h47
   have hclear : ClearingTarget W₂.toRCData :=
     clearingTarget_of_G3Q2 _ hheight hq.clearing_model
   have hbz : BaseZeroTarget W₂.toRCData :=
-    baseZeroTarget_of_RD P hq.common_coordinate
+    baseZeroTarget_of_LF P (commonCoordinateInputsLF_of_NF hq.common_coordinate)
       (primRegularityInputs_of_HPK _ hq.prim_regular)
       (baseZeroLeafInputs_of_text L.artin hq.base_zero)
   exact rcSteps_of_targets _ hL₂ hG₂ hvis₂ hstages hone

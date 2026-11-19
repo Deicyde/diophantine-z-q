@@ -88,14 +88,14 @@ curves of `lem:forward-rank` (tex 1092–1093). -/
 def ModularToWeakWeil : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → IsModular E → HasWeakWeilParametrization E
 
-/-- **The old `IsModular`-premise form of Kolyvagin's Theorem 1** (PROVED) from the gap
+/-- **The old `IsModular`-premise form of Kolyvagin's Theorem 1** (PROVED) from the GLUE
 `ModularToWeakWeil` and Kolyvagin's Theorem 1 with its own premise. -/
 theorem kolyvaginThm1Printed_of_weilParam (hG : ModularToWeakWeil)
     (hK : KolyvaginThm1WeilParam) : KolyvaginThm1Printed :=
   fun E hE hM r hr hA => hK E hE (hG E hE hM) r hr hA
 
 /-- **The printed leaves with Kolyvagin's own premise** (PROVED): `Prints` from BCDT Theorem A,
-the gap `ModularToWeakWeil`, Kolyvagin's Theorem 1 with the weak Weil parametrization premise,
+the GLUE `ModularToWeakWeil`, Kolyvagin's Theorem 1 with the weak Weil parametrization premise,
 Dokchitser–Dokchitser Theorem 1.8 and Cai–Shu–Tian Theorem 1.1. -/
 theorem prints_of_weilParam (hB : BCDTThmA) (hG : ModularToWeakWeil)
     (hK : KolyvaginThm1WeilParam) (hdd : DokchitserThm18) (hcst : CST.CSTThm11Split) : Prints :=

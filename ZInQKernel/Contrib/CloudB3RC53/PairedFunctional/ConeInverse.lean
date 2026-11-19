@@ -4,7 +4,7 @@ import Mathlib
 # Paired functional: integral homotopy inverses and closedness (homological cores)
 
 Proposition `ex:arith-paired-functional` of `diophantine_zq.tex` (tex L3704–3880). Its proof builds
-the closed degree-two functional `λ_z = PD(−, j⁻¹ c(z))` (tex L3752–3754, L3850–3858) from an
+the closed degree-two functional `λ_z = PD(−, j⁻¹ c(z))` (tex L3742–3749, L3845–3860) from an
 *integral* homotopy inverse `j⁻¹` of the comparison `j : C_{U^⊥} → τ^* C_U`, obtained by contracting
 an acyclic cone of bounded free complexes (tex L3790–3794, L3846–3863). This file proves the
 homological-algebra cores of that construction over an arbitrary commutative ring `S` (in the
@@ -138,8 +138,9 @@ section Functional
 variable {S : Type u} [CommRing S]
 variable {CU C' C : CochainComplex (ModuleCat.{u} S) ℤ}
 
-/-- The paired functional `λ(w) = PD(w, ψ(c))` on `C_U^2` (tex L3752–3754), for a chain map
-`ψ : τ^* C_U → C_{U^⊥}` (a homotopy inverse `j⁻¹`) and a degree-one element `c` of `τ^* C_U`. -/
+/-- The paired functional `λ(w) = PD(w, ψ(c))` on `C_U^2` (tex L3742–3749, L3845–3849), for a
+chain map `ψ : τ^* C_U → C_{U^⊥}` (a homotopy inverse `j⁻¹`) and a degree-one element `c` of
+`τ^* C_U`. -/
 noncomputable def pairedFunctional (pd2 : CU.X 2 →ₗ[S] C'.X 1 →ₗ[S] S) (ψ : C ⟶ C')
     (cz : C.X 1) : CU.X 2 →ₗ[S] S :=
   pd2.flip ((ψ.f 1).hom cz)
