@@ -21,7 +21,7 @@ class NestedFetch(unittest.TestCase):
     def test_fetch_response_excludes_completed_nested_payloads_only(self):
         for profile in ('standard', 'expanded'):
             with self.subTest(profile=profile), patch.dict(os.environ, {'MANUSCRIPT_PROFILE': profile}):
-                gate.configure_budget([{'filename': 'manuscripts/test.tex'}])
+                gate.configure_budget([{'filename': 'manuscripts/test.tex' if profile == 'expanded' else 'docs/readme.md'}])
                 messages = [{'role': 'user', 'content': 'Read the sources.'}]
                 body = gate.model_body('fable', 'trusted', messages)
                 fetch = next(t for t in body['tools'] if t['name'] == 'web_fetch')
