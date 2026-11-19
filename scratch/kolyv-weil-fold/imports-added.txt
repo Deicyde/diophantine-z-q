@@ -1,0 +1,8 @@
+ZInQKernel.Contrib.OneProof.KolyvWeil.Leaves
+ZInQKernel.Contrib.OneProof.KolyvWeil.Parametrization
+ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness
+ZInQKernel.Contrib.TauCeti.Algebra.Module.Torsion.TateModule
+ZInQKernel.Contrib.TauCeti.Algebra.Ring.GeomSum
+ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.TateModule.Basic
+ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.TateModule.Galois
+ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Congruence

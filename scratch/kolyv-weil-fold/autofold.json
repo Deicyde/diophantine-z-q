@@ -1,0 +1,57 @@
+{
+  "name": "kolyv-weil-fold",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness"
+  ],
+  "discharges": [
+    {
+      "field": "hK",
+      "proof": "_root_.ZInQ.Manuscript.KolyvWeil.kolyvaginThm1_of_prints hB6 hKPrint",
+      "leaves": [
+        {
+          "name": "hB6",
+          "type": "_root_.ZInQ.Manuscript.KolyvWeil.BCDTThmA6",
+          "doc": "Conductor-level X0 parametrization, a consequence of BCDT Theorem A",
+          "source": "BCDT cited author manuscript, Theorem A p. 1 and Introduction (6) p. 3 (JAMS 14 (2001), 843–939); diophantine_zq.tex lem:forward-rank L1092 and sec:rc L1779–1784; Milne MF v1.31, Thm. 11.19 and Rmk. 11.18 (p. 117)",
+          "kind": "consequence",
+          "flag": "AI read (fork issue #83 and A066/A070 audits): BCDT (6), p. 3, is X1(N(E)) → E. X0(N_E) needs trivial nebentypus, Shimura's J0 quotient and Faltings; tex L1779–1784 cites Milne MF Thm. 11.19 and Rmk. 11.18 for this step.",
+          "strict": "GLUE",
+          "strictest": "GLUE",
+          "flag_class": "note"
+        },
+        {
+          "name": "hKPrint",
+          "type": "_root_.ZInQ.Manuscript.KolyvWeil.KolyvaginThm1Print",
+          "doc": "Kolyvagin Theorem 1, printed form with the conductor-level weak Weil hypothesis",
+          "source": "Kolyvagin, MPIM preprint MPI/90-69 (1990), weak Weil hypothesis p. 3, Thm. 1 p. 4; diophantine_zq.tex lem:forward-rank L1093",
+          "kind": "cited preprint",
+          "flag": "pending review of eligibility: AI-read printed form (fork issue #83 comment 6962416523); cited unrefereed preprint, GLUE pending the owner's ruling.",
+          "strict": "GLUE",
+          "strictest": "GLUE",
+          "flag_class": "pending-review"
+        }
+      ]
+    }
+  ],
+  "headline_bypass": {
+    "drops": [
+      "hB",
+      "hK"
+    ],
+    "add": [
+      "hB6",
+      "hKPrint"
+    ],
+    "old_call": "ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing hRC hCT hB hK",
+    "new_call": "ZInQ.Manuscript.KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print hRC hCT hB6 hKPrint",
+    "keep": [
+      "r",
+      "t",
+      "l",
+      "hRC",
+      "hCT"
+    ],
+    "patch": "scratch/kolyv-weil-fold/main-splice.patch"
+  },
+  "integration": "Manual headline bypass, not a bundle fold: stock autofold.py does not handle plain top-level binders. Check the old hK reduction, then apply the patch; hB leaves the headline because its consumer is bypassed."
+}

@@ -1,0 +1,8 @@
+✔ [16473/16544] Built ZInQKernel.OneProof.Discharges (30s)
+✔ [16527/16552] Built ZInQKernel.Contrib.OneProof.KolyvWeil.Parametrization (25s)
+✔ [16540/16552] Built ZInQKernel.Contrib.OneProof.KolyvWeil.Leaves (14s)
+✔ [16550/16552] Built ZInQKernel.Contrib.OneProof.CasselsTatePairing (11s)
+✔ [16551/16552] Built ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness (4.0s)
+ℹ [16552/16552] Built ZInQKernel.OneProof.Main (8.8s)
+info: ZInQKernel/OneProof/Main.lean:215:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (16552 jobs).
