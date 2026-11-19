@@ -1,5 +1,10 @@
 # Side-identification audit
 
+
+## Scope note (2026-11-18)
+
+The frame of `InnerLimitSwitchInputsIso` keeps the field `primitive` (some coordinate of the class is nonzero modulo the maximal ideal), which is residue-primitivity. The manuscript only has the class nonzero, with the primitive kernel vector proved over the discrete valuation ring (tex 4987-4992); residue-primitivity is a departure from the text. The structure also keeps no side-to-fibre tie beyond the constructed H^1 equivalences. A repaired structure with a nonvanishing class and chain-level side homotopy equivalences is being built on the integration branch; this interface maps into it.
+
 ## Exact consumers
 
 The complete structure-name search in `CloudB3RC53/SwitchInputs/` finds
