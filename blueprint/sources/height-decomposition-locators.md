@@ -10,198 +10,243 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the thirty-one statements of the chapter in the
+The minimal height hypothesis is proved from the twenty-nine statements of the chapter in the
 project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
 is the project-authored note `docs/research/h-trust.md`.
 
 ## Faltings semisimplicity
 
 G. Faltings, *Endlichkeitssätze für abelsche Varietäten über Zahlkörpern*, Invent. Math. 73 (1983),
-Satz 3. Locator unverified.
+349–366, §5, Satz 3, p. 360. Locator unverified.
 
 ## Faltings Tate conjecture
 
-G. Faltings, Invent. Math. 73 (1983), Satz 4 (the case $A=B$) and Korollar 1 (Tate's conjecture).
-Locators unverified.
-
-## Hodge-Tate decomposition
-
-J.-M. Fontaine, *Formes différentielles et modules de Tate des variétés abéliennes sur les corps
-locaux*, Invent. Math. 65 (1982), 379–409, Théorème principal; with J. Tate (1967), §4, Corollary 2
-of Theorem 3, for good reduction, and G. Faltings, J. Amer. Math. Soc. 1 (1988), for étale $H^1$.
-Locators unverified.
-
-## de Rham comparison
-
-G. Faltings (1989); T. Tsuji (1999); P. Scholze, Forum Math. Pi 1 (2013), Corollary 1.8; J.-M.
-Fontaine (1982) for abelian varieties; L. Berger, *An introduction to the theory of $p$-adic
-representations* (2004), I.3, records it. Locators unverified.
-
-## Pan and Berger
-
-L. Pan, *The Fontaine–Mazur conjecture in the residually reducible case*, J. Amer. Math. Soc.
-(2022), Theorem 1.0.4; L. Berger, *Représentations $p$-adiques et équations différentielles*, Invent. Math. 148 (2002),
-Théorème 0.7, which is Corollaire 5.22 of the published version. An AI reader read the arXiv text of
-Pan's theorem (1901.07166v2) and the author's copy of Berger's paper; Pan's journal locators are
-unverified, and no person has read either.
-
-## Kato Hodge-Tate weights
-
-The existence form, as recorded by R. Taylor, *Galois representations*, Ann. Fac. Sci. Toulouse
-Math. (6) 13 (2004), Theorem 3.6, and T. Gee, *Modularity lifting theorems*, Essent. Number Theory 1
-(2022), Fact 4.20, both for automorphic representations; the content is due to Deligne, Faltings, T. Saito and K. Kato (Astérisque 295 (2004),
-9.2–9.4). Locators unverified.
-
-## Carayol conductor
-
-H. Carayol, *Sur les représentations $\ell$-adiques associées aux formes modulaires de Hilbert*,
-Ann. Sci. ÉNS 19 (1986), Théorème (A), read by the locator audit; with W. Casselman, Math. Ann. 201
-(1973), for the conductor of a newform, and K. Ribet, LNM 601 (1977), for irreducibility. These
-locators are unverified. The package is H. Darmon, F. Diamond and R. Taylor, *Fermat's Last
-Theorem*, Theorem 3.1, read in the authors' copy by an AI reader.
-
-## Bost lower bound
-
-É. Gaudron and G. Rémond, *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math.
-Helv. 89 (2014), Corollary 8.4, p. 400: $h(A)\ge-\frac g2\log2\pi$ in Deligne's normalization, with
-a proof; read in the authors' copy by an AI reader. J.-B. Bost, Sém. Bourbaki 795, Astérisque 237
-(1996), the usual citation: display and locator unverified.
-
-## Javanpeykar bound
-
-A. Javanpeykar, *Polynomial bounds for Arakelov invariants of Belyi curves*, Algebra Number Theory 8
-(2014), Theorem 1.1.1, read by the locator audit, with the identification of the height with the
-stable Faltings height of the Jacobian (his section 2.3); taken for a given Belyi map and a model of
-the Jacobian over the number field.
+G. Faltings, Invent. Math. 73 (1983), §5, Satz 4 (the case $A=B$), p. 360, and Korollar 1 (Tate's
+conjecture), pp. 360–361. Locators unverified.
 
 ## Pazuki bound
 
 F. Pazuki, *Theta height and Faltings height*, Bull. SMF 140 (2012), Corollary 1.3(2), upper half,
 read by the locator audit. The level-$2$ coordinates are a risk (project note height-split, §8).
 
-## Gaudron-Remond isogeny bound
-
-É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), Theorem 1.4, read
-by the locator audit, over the stable height.
-
-## Gonzalez-Rotger Theorem 5.12
-
-J. González and V. Rotger, *Non-elliptic Shimura curves of genus one*, J. Math. Soc. Japan 58
-(2006), Theorem 5.12, on the residue fields of the CM points of $X_0(6,1)$, in its printed form; the
-theorem number was read by the locator audit, and an AI reader read the arXiv text (math/0612732,
-pp. 18–19); no person has read it.
-
-## SGA 7 IX 3.5
-
-SGA 7 I, Exposé IX, Proposition 3.5, forward direction at $\sigma=\tau$, over a strictly henselian
-discrete valuation ring. Number unverified.
-
-## Shimura Main Theorem I in Deligne form
-
-G. Shimura, Ann. of Math. 85 (1967), Main Theorem I (reciprocity at CM points); P. Deligne, Sém.
-Bourbaki 389 (1971), sections 4.9–4.21 and 5 (the adelic form and the canonical model; the PEL model
-is Corollary 5.7 and Example 5.8, not Theorem 4.21, which is the Siegel case); J. S. Milne,
-*Introduction to Shimura varieties*, sections 12–14; with the fine moduli of QM abelian surfaces
-with level-$3$ structure. Locators unverified.
-
-## Shimura abelian varieties
-
-G. Shimura, J. Math. Soc. Japan 25 (1973), Theorem 1, unconditional clauses ($A_f$, the action of
-$K_f$, $\dim A_f=[K_f:\mathbb Q]$); Diamond–Shurman, Theorem 9.5.4, and G. Shimura, *Introduction to
-the arithmetic theory of automorphic functions* (1971), Theorem 7.11 (the characteristic polynomial
-of Frobenius on $V_\ell(A_f)$, from the congruence relation, Theorem 7.9). Numbers unverified.
-
-## Elkies coordinate
-
-N. D. Elkies, *Shimura curve computations*, ANTS-III, LNCS 1423 (1998), section 3, on $X^*(6)=X_6/W$
-with coordinate $t$: the function-field form $\mathbb Q(X_6)^W=\mathbb Q(t)$, the CM values and the
-equations of $X_6$ over the $t$-line. An AI reader read the arXiv text (math/0005160, section 3.1
-and Table 1) and found the discriminants $-24$, $-4$, $-3$ at $t=0,1,\infty$; no person has read it.
-
-## SGA 7 IX 3.3
-
-SGA 7 I, Exposé IX, Corollaire 3.3 (p. 348), second assertion ($N^0\times_SS'\cong N'^0$ for semistable
-reduction), over strictly henselian traits. Number unverified.
-
-## Raynaud criterion
-
-SGA 7 I, Exposé IX, Proposition 4.7 (Raynaud's criterion), over a strictly henselian discrete
-valuation ring, with semistability read over the residue field or over its algebraic closure. Number
-unverified.
-
 ## Neron models exist
 
 S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models* (1990), §1.4, Theorem 3, with §1.2,
 Definition 1, the existence half over an affine Dedekind base. Numbers unverified.
 
-## Neron-Ogg-Shafarevich
-
-J.-P. Serre and J. Tate, *Good reduction of abelian varieties*, Ann. of Math. 88 (1968), 492–517,
-§1, Theorem 1, over a separable closure. Serre and Tate assume a perfect residue field there, which
-the statement does not; for a general discrete valuation ring see Bosch–Lütkebohmert–Raynaud, §7.4,
-Theorem 5. Numbering from memory, unverified.
-
 ## Deligne representations
 
-F. Diamond and J. Shurman, *A First Course in Modular Forms*, GTM 228 (2005), Theorem 9.6.5 (P.
-Deligne 1971; G. Shimura 1971, Theorem 7.14, for $k=2$), as printed over $K_{f,\lambda}$, with their
-Definition 5.8.1 of eigenforms. Numbering unverified.
-
-## Coefficient field
-
-G. Shimura, *Introduction to the arithmetic theory of automorphic functions* (1971), Theorem 3.52:
-$S_k(\Gamma_1(N))$ has a basis with integral Fourier coefficients. Locator unverified.
+F. Diamond and J. Shurman, *A First Course in Modular Forms*, GTM 228 (2005), Theorem 9.6.5, p. 393
+(fourth printing, 2016: p. 404; AI-read), stated over $K_{f,\lambda}$, with their Definition 5.8.1
+of normalized eigenforms; P. Deligne, Sém. Bourbaki 355 (1969); G. Shimura 1971, Theorem 7.14, for
+$k=2$. The numbers of Definition 5.8.1 and of Shimura's theorem are unverified.
 
 ## Deligne-Serre
 
-P. Deligne and J.-P. Serre, *Formes modulaires de poids 1*, Ann. Sci. ÉNS (4) 7 (1974), Theorem 4.1
-with display (4.1.1), p. 514; Diamond–Shurman, Theorem 9.6.6. Locator unverified.
+P. Deligne and J.-P. Serre, *Formes modulaires de poids 1*, Ann. Sci. ÉNS (4) 7 (1974), Théorème 4.1
+with display (4.1.1), pp. 513–514 (AI-read). The form for normalized eigenforms is F. Diamond and J.
+Shurman, GTM 228 (2005), Theorem 9.6.6 (numbering unverified).
 
-## Mumford torsion
+## Pan Theorem 1.0.4
 
-D. Mumford, *Abelian varieties* (1970; 2nd ed. 1974), §4, Application 2 (iv). Locator unverified.
+L. Pan, *The Fontaine–Mazur conjecture in the residually reducible case*, J. Amer. Math. Soc. 35
+(2022), 1031–1169, Theorem 1.0.4, read in arXiv:1901.07166v2, the version the manuscript cites:
+Conjecture 1.0.1, p. 2; Theorem 1.0.4, p. 5; conventions (geometric Frobenius, Hodge–Tate weight
+$-1$ for the cyclotomic character), pp. 6–7. The journal numbering is unverified. Potential
+semistability in the sense of Fontaine as in O. Brinon and B. Conrad, *CMI summer school notes on
+$p$-adic Hodge theory* (preliminary version, June 24, 2009): admissibility in the dimension form,
+§5.2, pp. 67–68; $A_{\rm cris}$, p. 128, and its image in $B_{\rm dR}^+$, p. 129; $B_{\rm cris}$,
+Definition 9.1.4, p. 131; $B_{\rm st}$, Definition 9.2.3, p. 138, its embedding in $B_{\rm dR}$, pp.
+140–142, injective by Theorem 9.2.10, p. 143; potential semistability, Theorem 9.3.5, p. 148.
 
-## Mumford characteristic polynomial
+## Diamond-Shurman 9.6.5 on Af
 
-D. Mumford, *Abelian varieties* (1970), §19, Theorem 4, specialized. Locator unverified.
+F. Diamond and J. Shurman, *A First Course in Modular Forms*, GTM 228 (2005), Theorem 9.6.5 and the
+paragraph after it, p. 393 (fourth printing, 2016: p. 404); Lemma 9.5.3, Theorem 9.5.4 and Exercise
+9.5.2(a), pp. 389–391; $A_f$ and the action of $K_f$, Definition 6.6.3, p. 241, and Proposition
+6.6.4, p. 242 (all AI-read).
 
-## GAGA for homomorphisms
+## Kato Hodge-Tate weights
 
-J.-P. Serre, *Géométrie algébrique et géométrie analytique* (1956); SGA 1 XII 4.4
-($\operatorname{Hom}(X,Y)\to\operatorname{Hom}(X^{\rm an},Y^{\rm an})$ is bijective for $X$ proper
-over $\mathbb C$). Locators unverified.
+P. Deligne, Sém. Bourbaki 355 (1969); G. Faltings, Math. Ann. 278 (1987); T. Saito, Invent. Math.
+129 (1997); K. Kato, Astérisque 295 (2004), §§9.2–9.4, (9.2.2), pp. 187–188 (read by the locator
+audit) and §11.3; T. Gee, *Modularity lifting theorems*, Essent. Number Theory 1 (2022), read in
+arXiv:2202.05818v2: Fact 4.20 in §4.19, p. 28, with the conventions on pp. 2–3 (AI-read); R. Taylor,
+*Galois representations*, Ann. Fac. Sci. Toulouse Math. (6) 13 (2004). Kato's §11.3, Taylor and the
+journal numbering of Gee are unverified.
 
-## Picard scheme
+## Wild inertia on Tate modules
 
-J. P. Murre (1964) and F. Oort (1962); A. Grothendieck, FGA, Exposé 232, Theorem 3.1; S. Kleiman,
-*The Picard scheme*, Theorem 9.4.8 with 9.2.5. Locators unverified.
+The 11/5 manuscript (`diophantine_zq.tex`, lines 817–818), without citation, right after its
+citation of Silverberg and Zarhin's Theorem 3.5 (line 816). For the standard argument: SGA 7 I,
+Exposé IX (A. Grothendieck), LNM 288 (1972), Proposition 3.5, p. 350, read in the MSRI/SLMath scan;
+that wild inertia is pro-$p$, J.-P. Serre, *Corps locaux*, Chapter IV, §2 (numbers unverified).
 
-## Kleiman Picard proper
+## Berger monodromy theorem
 
-S. Kleiman, *The Picard scheme*, in *Fundamental Algebraic Geometry: Grothendieck's FGA Explained*,
-Theorem 9.5.4, stated for $X$ projective and geometrically integral, and Remark 9.5.6 for the proper
-case; read in the arXiv text (math/0504020) by an AI reader. Locator unverified.
+O. Brinon and B. Conrad, *CMI summer school notes on $p$-adic Hodge theory* (preliminary version,
+June 24, 2009), Theorem 9.3.5, p. 148, the "only if" half; admissibility by dimension, §5.2, pp.
+67–68; $A_{\rm cris}$, p. 128, and its image in $B_{\rm dR}^+$, p. 129; $B_{\rm cris}$, Definition
+9.1.4, p. 131; $B_{\rm st}$, Definition 9.2.3, p. 138, its embedding in $B_{\rm dR}$, pp. 140–142,
+and Theorem 9.2.10, p. 143; $B_{\rm dR}^{G_K}=K$, Theorem 4.4.13, p. 64 (AI-read; in the
+manuscript's bibliography, which cites it for other results). The manuscript cites L. Berger,
+*Représentations $p$-adiques et équations différentielles*, Invent. Math. 148 (2002), 219–284,
+Théorème 0.6 = Théorème 5.19 (arXiv math/0102179v3, pp. 6 and 56, AI-read; Théorème 0.7 there is
+Sen's theorem); the journal numbering is unverified.
 
-## Chevalley structure theorem
+## Shimura Main Theorem I in Deligne form
 
-B. Conrad, *A modern proof of Chevalley's theorem on algebraic groups*, J. Ramanujan Math. Soc. 17
-(2002), Theorem 1.1; J. S. Milne, *Algebraic Groups* (2017), Theorem 8.27. Numbers unverified.
+G. Shimura, Ann. of Math. 85 (1967), Main Theorem I; P. Deligne, *Travaux de Shimura*, Sém. Bourbaki
+389 (1971), §§4–5 (Corollaire 5.7, Exemple 5.8); J. Milne, *Introduction to Shimura varieties*
+(2005), §§5–8 and 12–14. Numbers unverified.
 
-## Galois invariants of the de Rham period ring
+## Bost lower bound
 
-J.-M. Fontaine, *Le corps des périodes $p$-adiques*, Astérisque 223 (1994), Exposé II; O. Brinon and
-B. Conrad, *CMI summer school notes on $p$-adic Hodge theory*, 4.3–4.4. Locators unverified.
+É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057–2108, §9,
+proof of Lemme 9.1, p. 2098, with the normalization of $h_F$ on p. 2058; the manuscript's citation.
+É. Gaudron and G. Rémond, *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math.
+Helv. 89 (2014), 343–403, Corollaire 8.4 and §2.3, as numbered in arXiv 1105.1230v1 (pp. 37 and
+6–7), which was read; the numbering of the published version is unverified. J.-B. Bost, Sém.
+Bourbaki 795, Astérisque 237 (1996) (unread).
 
-## Hecke operators and integrality
+## Gaudron-Remond isogeny bound
 
-G. Shimura, *Introduction to the arithmetic theory of automorphic functions* (1971), §3.5 with
-Theorem 3.52; F. Diamond and J. Im, *Modular forms and modular curves* (1995), §§12.3–12.4. Locators
-unverified; where the stability of rational Fourier coefficients under the diamond operators of
-$\Gamma_1(N)$ is printed has not been checked.
+É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057–2108,
+Théorème 1.4, p. 2060, with $\kappa$ on p. 2058.
 
-## Coarse moduli of QM abelian surfaces
+## Javanpeykar bound
 
-G. Shimura, Ann. of Math. 85 (1967), sections 2–3 and Main Theorem I (the canonical model of
-$X_0(D,N)$); P. Deligne, Sém. Bourbaki 389 (1971), sections 4–5 (the moduli interpretation); K.
-Buzzard, Duke Math. J. 87 (1997), section 1 (the coarse moduli space of QM abelian surfaces).
-Locators unverified.
+A. Javanpeykar, *Polynomial bounds for Arakelov invariants of Belyi curves*, Algebra Number Theory 8
+(2014), Theorem 1.1.1, p. 90 (arXiv:1403.6404v1, p. 1), and §2.3, p. 98 (arXiv p. 9); the
+manuscript's citation. AI-read: arXiv:1403.6404v1, pp. 1 and 9, and p. 90; p. 98 not checked.
+Independence of the height: G. Faltings, Invent. Math. 73 (1983), 349–366; P. Deligne, Sém. Bourbaki
+616 (1983/84); locators unverified.
+
+## Raynaud criterion
+
+A. Silverberg and Yu. G. Zarhin, *Semistable reduction and torsion subgroups of abelian varieties*,
+Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.5, p. 406 (proof: SGA 7 I, IX, Proposition 4.7),
+with semistable reduction as defined in §3, p. 405.
+
+## Y3 over Z[1/30]
+
+The 11/5 manuscript (`diophantine_zq.tex`, lines 443–477), the construction of the integral model of
+$Y_3$; K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), Theorem 2.1
+and Corollary 2.3, read in the author's preprint (Theorem 2.1, p. 5; Corollary 2.3, p. 7; the moduli
+problem, without a polarization, p. 2; the canonical principal polarization, p. 3). The journal
+pages are unverified.
+
+## Carayol conductor
+
+H. Darmon, F. Diamond and R. Taylor, *Fermat's Last Theorem*, Current Developments in Mathematics
+1995 (1997), Theorem 3.1 (a)–(d), pp. 85–86, and the conductor in §2, p. 54 (read in Darmon's copy);
+H. Carayol, Ann. Sci. ÉNS (4) 19 (1986), 409–468, Théorème (A), pp. 409–411, the manuscript's
+citation, with §0.8, p. 411 (read in the numdam copy); W. Casselman, Math. Ann. 201 (1973), Theorem
+1; K. Ribet, LNM 601 (1977), Theorem 2.3. The numbers of Casselman's and Ribet's theorems are
+unverified.
+
+## Hecke operators on J1(N)
+
+G. Shimura, *On the factors of the jacobian variety of a modular function field*, J. Math. Soc.
+Japan 25 (1973), 523–544: the Hecke operators $\xi_n$, p. 525; the standard model over $\mathbb Q$,
+by citation of his 1971 book, §7.3, and the rationality of the Hecke ring over $\mathbb Q$, p. 526
+(AI page read). G. Shimura, *Introduction to the Arithmetic Theory of Automorphic Functions* (1971),
+§§7.2–7.3 (unread). The double-coset formulas: F. Diamond and J. Shurman, *A First Course in Modular
+Forms*, GTM 228 (2005), §6.3, pp. 226–227, Proposition 5.2.1, p. 171, and §7.9, p. 300 (AI-read).
+
+## Shimura abelian varieties
+
+G. Shimura, *On the factors of the jacobian variety of a modular function field*, J. Math. Soc.
+Japan 25 (1973), 523–544, Theorem 1, p. 526, with its construction and proof, pp. 525–527 (AI page
+read): $C=\operatorname{Ker}(\nu)$, p. 525; $C$ from the ideal annihilating $f$ intersected with
+$\operatorname{End}(J)$, and uniqueness under (i) and (ii) up to isomorphisms over $\mathbb Q$, p.
+526; multiplicity one from $q$-expansions, p. 527. A sentence on p. 526 that the statement does not
+use has a harmless misprint, "$f_\sigma\mid T_n=a_n^\sigma f$" for
+"$f_\sigma\mid T_n=a_n^\sigma f_\sigma$". F. Diamond and J. Shurman, *A First Course in Modular
+Forms*, GTM 228 (2005), Definition 6.6.3, p. 241 (AI-read).
+
+## Fowler Proposition 2.7
+
+G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
+Proc. Cambridge Philos. Soc. 180 (2026), 607–641, Proposition 2.7, printed pp. 615–616 (article pp.
+9–10), read in the publisher's full text by the upstream review of the manuscript's CM argument
+(project note `docs/reviews/height-replacement/height/AUDIT.md`, item 1); the manuscript's citation
+(`diophantine_zq.tex`, lines 588–593). Discriminants and class numbers of orders: D. A. Cox, *Primes
+of the form $x^2+ny^2$*, Lemma 7.2 and Theorem 7.7 (numbers unverified).
+
+## Degree of singular moduli
+
+The 11/5 manuscript (`diophantine_zq.tex`, lines 585–587), without a citation. D. A. Cox, *Primes of
+the form $x^2+ny^2$*, Theorem 11.1 (number unverified). The upstream audit of the manuscript's
+citations (project note `docs/theorem-application-audit/FINDINGS.md`) attributes the degree and the
+integrality of the class polynomial of an order to G. Fowler, Math. Proc. Cambridge Philos. Soc. 180
+(2026), 607–641, §2.1 (not read).
+
+## CM potential good reduction
+
+The 11/5 manuscript (`diophantine_zq.tex`, lines 596–597), without a citation. J.-P. Serre and J.
+Tate, *Good reduction of abelian varieties*, Ann. of Math. 88 (1968), 492–517 (locator unverified);
+J. H. Silverman, *The Arithmetic of Elliptic Curves*, Proposition VII.5.5 (number unverified); A.
+Barquero-Sanchez, L. Cadwallader, O. Cannon, T. Genao and R. Masri, *Faltings heights of CM elliptic
+curves and special Gamma values*, Res. Number Theory 3 (2017), art. 13, proof of Theorem 1.3, p. 15,
+read by the upstream review of the manuscript's CM argument (project note
+`docs/reviews/height-replacement/height/AUDIT.md`, item 2).
+
+## Barquero-Sanchez et al. Eq. (6.2)
+
+A. Barquero-Sanchez, L. Cadwallader, O. Cannon, T. Genao and R. Masri, *Faltings heights of CM
+elliptic curves and special Gamma values*, Res. Number Theory 3 (2017), art. 13, §6, Eq. (6.2), pp.
+13–14, with the metric on p. 1, read in the published article by the upstream review of the
+manuscript's CM argument (project note `docs/reviews/height-replacement/height/AUDIT.md`, item 2);
+the manuscript's citation (`diophantine_zq.tex`, lines 595–605). The paper attributes the formula to
+Silverman, Proposition 1.1 (not read).
+
+## Y3 to P1j
+
+The 11/5 manuscript (`diophantine_zq.tex`, lines 420–440), in the proof of its Theorem 4.1: the
+normalizer quotient $\mathbf P^1_j$, with branch values $0,\infty,-16/27$ and indices $4,6,2$, cited
+to Baba–Granath and Lin–Yang (lines 420–422), and the action of $N/(\mathbb A_f^\times K_3)$ on
+$Y_3$ with the degree bound (lines 423–440). S. Baba and H. Granath, *Genus 2 curves with
+quaternionic multiplication*, Canad. J. Math. 60 (2008), Theorem 2.1, p. 737, and Lemma 3.1, pp.
+739–740, read by the locator audit; the table of §3.1, p. 740, is unverified. The manuscript's
+bibliography cites the 2005 preprint of that paper (MPI für Mathematik), Sections 2.1 and 3 and
+Proposition 10, which was not located. Y.-H. Lin and Y. Yang, *Quaternionic loci in Siegel's modular
+threefold*, arXiv:1807.00466v1 (2018), the version the manuscript cites (journal version Math. Z.
+295 (2020), 775–819, unverified); not read for this statement. The count
+$|(\mathcal O/3\mathcal O)^\times|=72$ is a computation of the project.
+
+## Faltings 1983 Lemma 1
+
+G. Faltings, *Endlichkeitssätze für abelsche Varietäten über Zahlkörpern*, Invent. Math. 73 (1983),
+349–366, §2, the Definition and Lemma 1, p. 350, read from the page image of the GDZ scan; the paper
+is in the manuscript's bibliography (`diophantine_zq.tex`, lines 11084–11086) and cited at lines 621
+and 733 for other results.
+
+## Conrad Appendix B
+
+B. Conrad, *Lifting global representations with local properties*, author preprint, December 11,
+2011, Appendix B: p. 32 (Definition B.1; the sentence after it, that $\psi$ is locally algebraic if
+and only if its underlying $\mathbb Q_p$-representation is Hodge–Tate, citing J.-P. Serre, *Abelian
+$\ell$-adic representations and elliptic curves*, III, A6, Corollary 2; the arithmetic normalization
+of the Artin map) and p. 33, Proposition B.3, with its proof on pp. 33–34 (AI-read); the
+manuscript's citation, Appendix B, pp. 32–33 (`diophantine_zq.tex`, lines 760–762). Serre's book is
+not read.
+
+## Scholze comparison
+
+P. Scholze, *$p$-adic Hodge theory for rigid-analytic varieties*, Forum Math. Pi 1 (2013), e1,
+Corollary 1.8, pp. 5–6, and Theorems 9.1 and 9.3, pp. 74–75 (arXiv:1205.3463v2, p. 4 and pp. 53–54),
+with the corrigendum, Forum Math. Pi 4 (2016), e6; read by the locator audit; the manuscript's
+citation. The 11/5 manuscript (`diophantine_zq.tex`): the lemma on de Rham comparison and finite
+descent, lines 10939–10965, and the Hodge numbers $2,2$, line 10996. For general $g$,
+$\dim_FH^0(A,\Omega^1_A)=g$: D. Mumford, *Abelian varieties*, §4; locator unverified.
+
+## Milne Theorem 12.1
+
+J. S. Milne, *Abelian varieties*, course notes, version 2.0 (March 16, 2008), Part I, Theorem
+12.1(a), p. 55, and Remark 12.5, p. 56, read in the author's PDF; this is the version the manuscript
+cites (`diophantine_zq.tex`, lines 10966–10970). The 1986 chapter *Abelian varieties* in G. Cornell
+and J. H. Silverman (eds.), *Arithmetic Geometry*, Theorem 15.1(a), is not read. Pro-étale
+cohomology and its comparison with étale cohomology: B. Bhatt and P. Scholze, *The pro-étale
+topology for schemes*, Astérisque 369 (2015), Definition 6.8.1 and §5.6; these two numbers are
+unverified.
