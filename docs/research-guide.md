@@ -1,5 +1,10 @@
 # Research guide
 
+The [Version21 candidate](../CURRENT_VERSION21.md) incorporates the explicit
+229-variable result. Its [source and consumer map](../research/version21/DEPENDENCIES.md)
+and [preparation guide](../research/version21/README.md) record what is ready
+and what still needs review. Version20 remains the published release.
+
 The current manuscript is [*Z is Diophantine in Q*, Version 20](../manuscripts/quartic_v20.pdf), dated November 17, 2026, with [TeX source](../manuscripts/quartic_v20.tex). Start with the [195-variable Busy Beaver quartic and explicit 247-variable result](../CURRENT_VERSION20.md), [reproduction instructions](../research/version20/README.md#reproduction) and [source and review index](../research/version20/ARTIFACT-INDEX.md). The original construction and earlier quartics remain in the manuscript. The material below describes earlier editions; its historical scope is preserved.
 
 Version 14 is [*Z is Diophantine in Q*, Version 14](../manuscripts/quartic_v14.pdf), dated November 9, 2026, with [TeX source](../manuscripts/quartic_v14.tex). Start with the [299/314-variable constructions and review scopes](manuscript-revisions/version14/GUIDE.md), [application inventory](manuscript-revisions/version14/APPLICATIONS.json) and [cumulative supplement](../research/version14/README.md). The original construction and earlier proof baselines remain in the manuscript.

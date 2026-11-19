@@ -1,0 +1,234 @@
+{
+  "schema": "version21-corrections/v1",
+  "scope": "All six selected Version20 notes and nineteen PR158 notes from issue129, including repeated observations under distinct IDs. Original text and URLs retained. Classification C records nonblocking exposition or tooling notes; it is not a reviewer acceptance.",
+  "items": [
+    {
+      "id": "44075047861-1-astra-V20-N1",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6947118757",
+      "text": "### README.md:84, 107–110, 148\n\nThe opening section points to Version 20, but the construction table omits the new 247-variable row, the current-handoff navigation still starts with Version 19, and the verification paragraph calls the Version 18 index current. Updating those navigation points would make the new release easier to follow. The correctly stated older rows are not mathematical errors.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "README.md construction table, current handoff and verification navigation"
+    },
+    {
+      "id": "44075047861-1-fable-v20-n1-ratio",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6947118757",
+      "text": "### research/version20/construction/verify247.py lines 24-29, 69-77\n\nThe comparison of the 247 rows with the permuted normalized rows accepts any nonzero ratio and only records it. That suffices for the zero-set equality the proof consumes, but the manuscript says the printed rows are the rows of TQ. Asserting ratio 1 would check the literal statement; the nine hand-checked rows have ratio 1.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "construction/verify247_retained.py: all 216 transformed rows and three ladder rows must agree literally"
+    },
+    {
+      "id": "44075047861-1-fable-v20-n2-start-cite",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6947118757",
+      "text": "### quartic_v20.tex lines 126-138\n\nThe direct justification for the 244-coordinate starting system is the last paragraph of v19:250-construction (lines 1973-1987): the 250 table is the 244 system with A replaced by c_5 plus a uniquely solvable ladder. Citing it would make the step, and the absence of other ladder coordinates, immediate. The argument is already present.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "retained v20:overview: exact v19:250-construction citation and ladder deletion"
+    },
+    {
+      "id": "44075047861-1-fable-v20-n3-det-m6",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6947118757",
+      "text": "### quartic_v20.tex lines 205-213\n\ndet M_6 is stated without derivation. Nonvanishing follows from three 2x2 minors: rows 179-180 on columns 183-184 (-1/82369), rows 181-182 on columns 179-180 (1/201141449), and rows 183-184 on columns 181-182, whose numerator is a sum of two same-sign products. One sentence would let a reader confirm invertibility without the certificate. I confirmed the magnitude of the printed value, not its sign.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "retained v20:normalization: signed three-block determinant calculation"
+    },
+    {
+      "id": "44106224232-1-fable-v20-n1-hosted-checks",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6951650148",
+      "text": "### research/version20/construction/check.py; RELEASE-MANIFEST.json line 63; PR description\n\nHosted CI still runs only the Version 19 finite checks. The byte-level agreement of the six Version 20 data files with the printed tables therefore rests on an author-run check.py. My own recomputation from the committed PDF confirms the printed rows, the expansion, the height and the 96,712-byte rendering, but not the bytes of the JSON files. Registering check.py in the Research workflow would close this for later heads.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "deferred",
+      "disposition": "CI registration in a separate follow-up, as required by docs/manuscript-agent-guide.md section 9",
+      "reason": "Workflow registration must be a separate PR under the manuscript guide. The new entry point includes the retained Version20 checks; author-run results are preserved and hosted coverage is not asserted."
+    },
+    {
+      "id": "44106224232-1-fable-v20-n2-starting-system-derivation",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6951650148",
+      "text": "### manuscripts/quartic_v20.tex lines 126-138\n\nThe step from Theorem v19:250-fixed to the 216-row system at A = 149^20441 is left implicit. The short argument: rows 1-216 of the 250 table contain no y_245..y_249; the six ladder rows force y_250 = 149^20441 uniquely; so the theorem's projection statement is the statement for q(149^20441; u). An optional sentence would make the consumed statement exact.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "retained v20:overview: unique ladder value and absence of coordinates 245..249"
+    },
+    {
+      "id": "44115113273-1-fable-N1-arithmetic-certificates-absent",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6952860551",
+      "text": "### paper.tex Sections 5-6 ('exact finite factorizations are supplied with the coefficient and arithmetic certificates'; 'The exact arithmetic checker verifies...')\n\nThe cited arithmetic checker and certificates are not in the package. The facts hold by my own exact computation: the support of contact denominators, differences and c/2-theta is exactly Gamma; the residues 59, 97, 109, 108 are nonsquares mod 149; J_* = 30366775457346956958330 &lt; 2^75; the constant C is about 2^299.21 &lt; 2^300; the Euler product over primes &lt;= 1000 outside Gamma is about 2.0397 &lt; 21/10; 220.137 > 219.769; (23/22)log(256036*2^304) is about 233.3 &lt; 240. Include a checker or drop the references.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "construction/verify_arithmetic.py and v21:effective-soundness: exact factorizations and rational log bounds"
+    },
+    {
+      "id": "44115113273-1-fable-N2-status-wording",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6952860551",
+      "text": "### PR_DESCRIPTION.md, README.md, REVIEW_NOTE.md ('retained arithmetic premises', 'no new conditions', 'self-contained')\n\nRelative to Version 20, which proves the 195 family only at the Busy Beaver parameter and explicit quartics at N=10220, the N>=15 theorem of the source construction is a new arithmetic result, not an inherited premise. The notes should say so and should list the sum-height corollary and the cutoff-free extraction as items needing proof and review. The candidate label and the absence of a record claim are correct; a record needs a complete Version 21 TeX/PDF pair.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:overview and DEPENDENCIES.md: the N=15 arithmetic is new and its proof is included"
+    },
+    {
+      "id": "44126365630-1-astra-N1-artifact-paths",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6954525147",
+      "text": "### research/brox-explicit229-v68/paper.tex:80–86, 903–907; 973–1005\n\nThe retained main-body paths still point to upstream computation/quartic directories and use quadratic.json for the unnormalized family, whereas the local root quadratic.json is the final compact table. The new appendix explains the distinction, so this is navigation ambiguity rather than a missing definition. Updating the earlier references to the local source/ and final-artifact paths would help readers.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "construction/README.md: explicit distinction between source and normalized quadratic tables"
+    },
+    {
+      "id": "44126365630-1-astra-N2-command-numbering",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6954525147",
+      "text": "### research/brox-explicit229-v68/PR_DESCRIPTION.md:27–36\n\nAfter the command list grew to six commands, the following sentence still says the fourth command requires SymPy. Only the final check_independent.py command requires SymPy; the preceding five use the standard library.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "construction/README.md: one standard-library entry point, no SymPy command or stale ordinal"
+    },
+    {
+      "id": "44126365630-1-fable-N1-citation-precision-and-stale-paths",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6954525147",
+      "text": "### research/brox-explicit229-v68/paper.tex lines 84-86, 306-312, 587, 630, 659, 698-702, 906-907, 1242-1257\n\nRetained results are cited to ExplicitParent as a whole. Naming the labels would let a reader check each application: q198:reciprocal-pairs, q198:pair-ratios, q198:scalar-ratios, q198:affine-lucas, q198:half-generator-reduction, q198:half-generator-progression, v19:250-local, v5:preparation-zero-bridge, thm:v5-simultaneous-primes, v15:dependencies:lem:arbitrary-avoidance, v15:dependencies:cor:compatible-progressions. The paths computation/quartic/explicit229_v62/ and computation/quartic/explicit229_compact_v68/ and the Parent195 path refer to the external repository, not to this package. Section 7 compresses the avoidance modulus, the Gaussian residue condition and the gcd conditions that v20 lines 2246-2270 spell out.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "DEPENDENCIES.md and v21:completeness: exact supplier labels, avoidance modulus, Gaussian residues and gcd checks"
+    },
+    {
+      "id": "44126365630-1-fable-N2-graft-checker-coverage",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6954525147",
+      "text": "### research/brox-explicit229-v68/check_graft.py lines 139-218\n\nThe checker does not assert that the contact helper coordinates (74-76, 87-89, 201-203) occur only in the twelve contact rows, and it does not pin the SHA-256 of source/quadratic229-v62.json (check.py does). The rho-component of eq:components is tied to the parent only through the rational component and the .0/.1 naming; x_193 and the signs of the s.1 coordinates are not otherwise certified. Adding these assertions would close the table-level items I list as not reviewed.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "construction/verify229.py: authenticated source, nine-helper isolation and both field components"
+    },
+    {
+      "id": "44126365630-1-fable-N3-premise-list-height-inputs",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6954525147",
+      "text": "### research/brox-explicit229-v68/paper.tex lines 47-54 and 1027-1028; suppliers/effective_torsion_sums_20261117_v62.tex lines 212-223\n\nCorollary 4.1 of the supplier uses hat h(P_0) >= 1/2 and h(x(2Q)) &lt;= 4h(x(Q)) + log 676. Section 1 lists only 'the elliptic group description' among the premises of thm:source. Naming these two quantitative inputs there, with their repository location, would make the conditional status of the constant 40 explicit. The Delta contradiction has about 0.37 nats of slack, so this constant matters.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:finite-sum-height: both duplication constants and the lower canonical height are derived"
+    },
+    {
+      "id": "44126365630-1-fable-N4-reconstructed-short-steps",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6954525147",
+      "text": "### research/brox-explicit229-v68/paper.tex lines 1092-1096, 1164-1167, 1180-1183\n\nShort derivations I reconstructed and which could be stated: (a) the pole obstruction follows from the five rows for every prime outside {2,3,17}: (17-e)(3e+17) = 17 b p^2 forces v(e) >= 0 and e = 17 or -17/3 modulo the prime, since 3(17-e)+(3e+17) = 68; then e(17-b) = 17sv makes v(s)+v(v) odd, while (s-17v)(s+51v) = 17 b q^2 needs v(s) = v(v) or q = 0, both impossible. (b) v(I) > 9mu/8 gives order at least two, stronger than the stated one. (c) v_p(Tr(W^{-1})) >= -l holds at inert primes because both conjugates have the same valuation.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:five-pole-obstruction and v21:local-extraction: parity, valuation rounding and inert trace derivations"
+    },
+    {
+      "id": "44152402106-1-fable-N1-helper-isolation-not-in-paper",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6958065432",
+      "text": "### paper.tex Section 'The reflected contact equations' (lines 173-253) and proof of Theorem thm:coefficients (763-789); check_source_bridge.py lines 79-94; source_bridge_certificate.json line 5\n\nCompleteness fills the nine contact helper coordinates 74-76, 87-89, 201-203 with the new centre-3/11 values. That needs them to occur in no row other than the four contact rows of their detector. The assertion exists only in check_source_bridge.py, not in paper.tex. The stored certificate says that script was not executed and that its PASS comes from a separate manual reconstruction. Suggest stating the isolation in paper.tex and attaching an actual run.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:contacts and construction/verify229.py: helper isolation stated and independently executed"
+    },
+    {
+      "id": "44152402106-1-fable-N2-no-ci-execution-of-package-checkers",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6958065432",
+      "text": "### research/brox-explicit229-v68/ (check.py, check_graft.py, check_source_bridge.py, check_independent.py); README.md lines 29-41\n\nThe PR adds no CI job for its checkers, and the stored certificates are author receipts. The finite claims (207 rows as grafted, 3,312 monomials, height 149^30, 74,007 bytes, literal SHA-256) therefore have no execution evidence inside the gate. Before any record claim, maintainers should run the checkers in CI at the exact head.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "deferred",
+      "disposition": "CI registration in the separate follow-up; no hosted finite-check execution is claimed",
+      "reason": "Workflow registration must be a separate PR under the manuscript guide. The new entry point includes the retained Version20 checks; author-run results are preserved and hosted coverage is not asserted."
+    },
+    {
+      "id": "44152402106-1-fable-N3-upstream-paths-in-paper",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6958065432",
+      "text": "### paper.tex lines 84-86, 906-907, 1242-1246\n\npaper.tex cites computation/quartic/explicit229_v62/, computation/quartic/explicit229_compact_v68/ and papers/quartic/quartic195_20261116_v45.tex. These are upstream paths that do not exist in this repository. DEPENDENCY_INDEX.md gives the local equivalents; the paper should too.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "construction/README.md and DEPENDENCIES.md: local paths and retained labels replace upstream navigation"
+    },
+    {
+      "id": "44152402106-1-fable-N4-short-steps-left-implicit",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6958065432",
+      "text": "### paper.tex lines 429, 538-545, 706-708, 712-717; supplier lines 212-223\n\nFour short steps are used without proof. I reconstructed each. (a) E(M) &lt;= 1 + log M for squarefree M: E(M) = sigma(M)/M is at most the M-th harmonic number. (b) gcd(u,w) = 1 for the selected pair: a common prime would divide every p_{j,theta}, forcing them all equal, which contradicts distinct coefficients. (c) Trace residue 1 or 2 at a selected prime: at the conjugate place each factor is congruent to 1 or has negative valuation, because no nonconstant term can have valuation 0; so the conjugate inverse is 1 or 0 modulo the place. (d) hat_h(P_0) >= 1/2: from h(x(P_0)) = log 41 and the lower duplication inequality, 2 hat_h(P_0) >= log 41 - log(392)/3 > 1.7.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:effective-soundness, v21:completeness and v21:finite-sum-height: harmonic bound, gcd, trace residue and canonical-height steps"
+    },
+    {
+      "id": "44152402106-1-fable-N5-premise-list-not-itemized",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6958065432",
+      "text": "### paper.tex Theorem thm:source (lines 88-99) and lines 47-54, 308-312, 1229-1235\n\nTheorem thm:source is stated 'under the stated arithmetic inputs', which are spread over three passages. An itemized list at the theorem would make the conditional status unambiguous. The items are: the parent 195 algebraic correspondence, E(K) = Z R_0 + E[2](K), the H4.1/H4.2 height theorem, thm:v5-simultaneous-primes with its progression lemmas, the preparation-zero pole bridge, and the q198 chart, ratio and Lucas lemmas.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "DEPENDENCIES.md: all retained inputs and all new connecting arguments are itemized"
+    },
+    {
+      "id": "44420323106-1-astra-N1-physical-coordinate-summary",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6995177928",
+      "text": "### research/brox-explicit229-v68/paper.tex:119–137; source/transformation195.json:1205–1339,1503–1546,2964–3031; retained family196/balancing.json:155–199\n\nOptional exposition: a short table of the composed physical coordinate scalings would make eq:recovery easier to audit. The current sources already imply them, so no prose edit is a condition of acceptance.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:point-recovery: table of stored components and displayed physical scalings"
+    },
+    {
+      "id": "44420323106-1-fable-N1-recovery-point-of-use",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6995177928",
+      "text": "### paper.tex lines 130-147 (eq:recovery, eq:components) and Section 9.1 (lines 973-1005)\n\nThe identification A_j = q^2 S_j rests on the stored-to-physical scalings, which the paper asserts by reference to the parent's substitutions without deriving them at the point of use. Reconstruction from existing material: Version 20 Corollary q198:shifted-aggregate (lines 5169-5197) with Lemma q198:reciprocal-pairs gives the physical row 2(t_0 - t_1) + 14 + (rational part of the sum of x(Q_i)) = 0, where x(Q_i) = s^2 + D(f+g) and x(Q_2) = p. The 196-to-195 passage (v45 paper lines 111-179) is an affine change on x50, x72, x73 only, followed by monomial rescalings by w and C. The byte-verified parent row 175 is 2q(x2 - x86) + 14q^2 + A_0, so matching monomials forces t_j = x_j/q, s = s_st/q, f = C^e f_st/q, g = g_st/q, p_0 = x192/q. Rows 155/156 are the two components of one K-product with identical multipliers, which forces the same scaling for x193. Hence eq:recovery holds componentwise. Recommend adding this derivation or a precise citation at integration.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:point-recovery and v21:aggregate-components: both components identified before either aggregate is consumed"
+    },
+    {
+      "id": "44420323106-1-fable-N2-paths-and-filenames",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6995177928",
+      "text": "### paper.tex lines 80-86, 905-907, 1242-1246\n\nPaths such as computation/quartic/explicit229_v62/ and computation/quartic/explicit229_compact_v68/ are the upstream author's layout and do not exist in this repository. In Section 1, 'quadratic.json' means the 207-row source table, which this package stores as source/quadratic229-v62.json; the package's quadratic.json is the compact table. Use local paths when integrating.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "construction/README.md: source/quadratic229-v62.json and final quadratic.json are distinguished"
+    },
+    {
+      "id": "44420323106-1-fable-N3-checkers-not-in-hosted-CI",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6995177928",
+      "text": "### research/brox-explicit229-v68/check.py, check_graft.py, check_source_bridge.py, check_arithmetic.py, check_independent.py; source_bridge_certificate.json; REVIEW_RESPONSE.md\n\nNo hosted workflow executes these checkers, and two package files say their checker was not executed. This review relied on my own byte-level recomputation instead. For the eventual release, add a CI job running them on the committed data so that table coverage can be recorded under rule 6.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "deferred",
+      "disposition": "CI registration in the separate follow-up; author-run results are not gate coverage",
+      "reason": "Workflow registration must be a separate PR under the manuscript guide. The new entry point includes the retained Version20 checks; author-run results are preserved and hosted coverage is not asserted."
+    },
+    {
+      "id": "44420323106-1-fable-N4-dependency-index-labels",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6995177928",
+      "text": "### research/brox-explicit229-v68/DEPENDENCY_INDEX.md\n\nThe index does not name several consumed items explicitly: q198:recovery-order (reference exclusions at 149), q198:pair-ratios, q198:nonzero-scale, q198:shifted-aggregate (the physical meaning of the parent aggregate row), and the parity-soundness lemma behind the pole obstruction. Some are covered only by line ranges. Add the labels when the inventory is integrated.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "DEPENDENCIES.md: recovery-order, pair-ratios, nonzero-scale, shifted-aggregate and parity labels named"
+    },
+    {
+      "id": "44420323106-1-fable-N5-minor-wording",
+      "comment": "https://github.com/elliotglazer/diophantine-z-q/issues/129#issuecomment-6995177928",
+      "text": "### paper.tex lines 429, 626-627, title and abstract\n\n(a) Line 429 uses E(M) &lt;= 1 + log M without proof. It is true: add the primes of M in increasing order and use theta(p) &lt; p log p - 1. (b) Line 627 says 'the sufficient soundness parameter below'; it is above. (c) The title and abstract do not carry the 'candidate' label that README.md and REVIEW_NOTE.md carry; keep the label until a release, as docs/release-policy.md line 14 asks.",
+      "state": "to account for in Version21",
+      "class": "C",
+      "status": "implemented; independent acceptance pending",
+      "disposition": "v21:effective-soundness proves E(M)<=1+log M; no stale above/below wording; README and release records identify preparation status"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "version21-construction-inputs/v1",
+  "accepted_commit": "b013ec5319c25d427b55a1f18e9be753ed392bf7",
+  "contributor_head": "1358a662254b4122b14e6da980ba63ff3af2368d",
+  "scope": "Selected data only. No contributor program is executed.",
+  "files": [
+    {
+      "path": "inputs/brox229/source/quadratic195.json",
+      "source": "research/brox-explicit229-v68/source/quadratic195.json",
+      "sha256": "304f94843c1a4ac94fcd5f1295fee8b532e7f0424e638314d892c556e2fbfdf9",
+      "bytes": 186004
+    },
+    {
+      "path": "inputs/brox229/source/quadratic229-v62.json",
+      "source": "research/brox-explicit229-v68/source/quadratic229-v62.json",
+      "sha256": "f0e6fc3f62525d7b251a10fc5f4cf0e6663c3f6f08beeef3cb28092b2e1555a8",
+      "bytes": 215244
+    },
+    {
+      "path": "inputs/brox229/source/transformation195.json",
+      "source": "research/brox-explicit229-v68/source/transformation195.json",
+      "sha256": "5ac9fdcb6becd504d5e698373f52a5bddc99afe9c93614705b07efd3ff4f4e2f",
+      "bytes": 64892
+    },
+    {
+      "path": "inputs/brox229/transformation.json",
+      "source": "research/brox-explicit229-v68/transformation.json",
+      "sha256": "d55d6ab5364e8e7e0247d2c4e4dff020e34efca2bdf636920e984494c0f3f8e0",
+      "bytes": 4825
+    },
+    {
+      "path": "inputs/brox229/quadratic.json",
+      "source": "research/brox-explicit229-v68/quadratic.json",
+      "sha256": "a346ad2487348b6cb54b5f7acf73510b3b4219f35fda6439587d95987c2f031f",
+      "bytes": 157785
+    },
+    {
+      "path": "inputs/brox229/polynomial.json",
+      "source": "research/brox-explicit229-v68/polynomial.json",
+      "sha256": "849f280abb47aac06f75333ad3b6ab33ccc923d268536a138f1628ad7ba2ea3e",
+      "bytes": 401176
+    },
+    {
+      "path": "inputs/brox229/quartic229-N15.txt",
+      "source": "research/brox-explicit229-v68/quartic229-N15.txt",
+      "sha256": "45bdea1ea7876bf6ec10b5427f9403cf1f94c144fab35817aa545bcb2cea1975",
+      "bytes": 74007
+    },
+    {
+      "path": "inputs/brox229/graft.json",
+      "source": "research/brox-explicit229-v68/graft.json",
+      "sha256": "a54cb3d20fe4c2f0a9478661946596c0fefb24e2338dfbc2af0ad22ed75b7fbf",
+      "bytes": 8198
+    },
+    {
+      "path": "inputs/brox229/contact-change.json",
+      "source": "research/brox-explicit229-v68/contact-change.json",
+      "sha256": "2bd80b10730d086292eca389c480ab0a39fba5be23f59e7b2e2eda9c398c8525",
+      "bytes": 1074
+    }
+  ]
+}

@@ -1,6 +1,12 @@
 # Manuscripts
 
-The current manuscript is **Version 20**, dated November 17, 2026:
+Version 21 adds José Brox's explicit 229-variable result, with
+its complete proof and the unchanged 195-variable Busy Beaver polynomial:
+
+- [Candidate PDF](quartic_v21.pdf), [TeX](quartic_v21.tex)
+- [Preparation, finite checks and review limits](../research/version21/README.md)
+
+The current published manuscript is **Version 20**, dated November 17, 2026:
 
 - [PDF: quartic_v20.pdf](quartic_v20.pdf)
 - [TeX: quartic_v20.tex](quartic_v20.tex)

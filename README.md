@@ -10,7 +10,24 @@ See also [Jose Brox's repository](https://github.com/JoseBrox/diophantine-z-q_im
 
 Cite this work as "ℤℚ Diophantine Project contributors. ℤ _is Diophantine in_ ℚ. 2026. https://github.com/elliotglazer/diophantine-z-q"  
 
-## Version 20
+## Version 21
+
+[Read the manuscript](manuscripts/quartic_v21.pdf) or [open the TeX source](manuscripts/quartic_v21.tex).
+Version 21 adopts José Brox's explicit 229-variable quartic, built on
+Gemini 4 Carbon's three-detector construction: 3,312 nonzero
+monomials, largest absolute coefficient `149^30 < 2^217`, and
+[74,007 bytes in plain decimal notation](research/version21/construction/inputs/brox229/quartic229-N15.txt).
+The 195-variable polynomial with Busy Beaver coefficients is unchanged.
+Both counts include the rational input. The 247- and 250-variable
+constructions remain as intermediate results with their original credits.
+
+See the [preparation and reproduction guide](research/version21/README.md),
+[artifact index](research/version21/ARTIFACT-INDEX.md),
+[source and consumer map](research/version21/DEPENDENCIES.md),
+[corrections](research/version21/CORRECTIONS.md), and
+[cumulative handoff](research/version21/CUMULATIVE-HANDOFF.md).
+
+## Version 20 history
 
 [Read the manuscript](manuscripts/quartic_v20.pdf) or [open the TeX source](manuscripts/quartic_v20.tex).
 Version 20 gives Gemini 4 Carbon's explicit 247-variable quartic, built on
@@ -79,9 +96,9 @@ This repository also preserves *Z is Diophantine in Q*, Version 14, dated Novemb
 | Review requirements for pull requests | [Contributor guide](docs/research-review/README.md) |
 | Inspect the Version 11 repair and repository audit integration | [Version 11 source audit](docs/manuscript-revisions/version11/README.md), [audit integration protocol](docs/audit-history/PROTOCOL.md) |
 | Inspect the nine earlier review corrections | [Version 10 response and inventory](docs/manuscript-revisions/version10/README.md) |
-| Inspect theorem applications and conventions | [Version 18 source and review index](research/version18/ARTIFACT-INDEX.md), [Version 16 source-use inventory](research/version16/protocol/DOSSIER.json), [Version 16 corrections](research/version16/APPLICATIONS.json), [Version 9 extension](docs/quartic-523-540/README.md), [inherited proof inventory](docs/quartic-962/README.md) |
+| Inspect theorem applications and conventions | [Version 21 candidate source map](research/version21/DEPENDENCIES.md), [Version 20 published index](research/version20/ARTIFACT-INDEX.md), [Version 18 source and review index](research/version18/ARTIFACT-INDEX.md), [Version 16 source-use inventory](research/version16/protocol/DOSSIER.json), [Version 16 corrections](research/version16/APPLICATIONS.json), [Version 9 extension](docs/quartic-523-540/README.md), [inherited proof inventory](docs/quartic-962/README.md) |
 | Build the manuscript or run the checks | [Current manuscript build](docs/current-manuscript-build.md), [historical construction checks](docs/building.md) |
-| Download the current research handoff | [Version 19 cumulative handoff](research/version19/CUMULATIVE-HANDOFF.md), [Version 18 cumulative handoff and reconstruction](research/version18/CUMULATIVE-HANDOFF.md), [Version 17 historical handoff](research/version17/CUMULATIVE-HANDOFF.md), [Version 16 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-16/z-in-q-version16-cumulative.zip), [reconstruction and checksum](research/version16/CUMULATIVE-HANDOFF.md), [Version 15 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-15/z-in-q-version15-cumulative.zip), [contents and verification](research/version15/CUMULATIVE-HANDOFF.md), [Version 14 archive](research/version14/CUMULATIVE-HANDOFF.md) |
+| Download the current research handoff | [Version 21 candidate handoff](research/version21/CUMULATIVE-HANDOFF.md), [Version 20 published handoff](research/version20/CUMULATIVE-HANDOFF.md), [Version 19 cumulative handoff](research/version19/CUMULATIVE-HANDOFF.md), [Version 18 cumulative handoff and reconstruction](research/version18/CUMULATIVE-HANDOFF.md), [Version 17 historical handoff](research/version17/CUMULATIVE-HANDOFF.md), [Version 16 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-16/z-in-q-version16-cumulative.zip), [reconstruction and checksum](research/version16/CUMULATIVE-HANDOFF.md), [Version 15 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-15/z-in-q-version15-cumulative.zip), [contents and verification](research/version15/CUMULATIVE-HANDOFF.md), [Version 14 archive](research/version14/CUMULATIVE-HANDOFF.md) |
 | Download the Version 7 research handoffs | [Full handoff](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-962-version-7/z-in-q-version7-full-handoff.zip), [current-only handoff](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-962-version-7/z-in-q-version7-current-handoff.zip), [contents and verification](handoff/README.md) |
 | Read collaborator notes and the height replacement | [Research update](research/2026-11-06-collaborator-notes/README.md) |
 | Read the October 11 manuscript | [Manuscript and provenance](October%2011%20Manuscript/README.md) |
@@ -106,6 +123,8 @@ $$
 
 | Construction | Total variables, including input | Degree | Nonzero monomials | Coefficient magnitude |
 | --- | ---: | ---: | ---: | --- |
+| Version 21 candidate, explicit decimal polynomial | 229 | 4 | 3,312 | `149^30 < 2^217` |
+| Version 20, explicit decimal polynomial | 247 | 4 | 3,385 | Less than `2^73780` |
 | Version 19, fixed Busy Beaver specification | 195 | 4 | 2,956 | `149^(2*BB(2^1000)+2) < BB(2^2000)` |
 | Version 19, explicit decimal polynomial | 250 | 4 | 3,362 | Less than `2^6483` |
 | Version 18, fixed Busy Beaver specification | 196 | 4 | 2,943 | `A^2 = 149^(4*BB(2^1000)+2) < BB(2^2000)` |
@@ -145,9 +164,9 @@ and the manuscript's explicit quartic have distinct proof status.
 
 The finite checks verify the source program, algebraic coordinate changes, projection-preserving eliminations, complete sum-of-squares expansion and coefficient statistics. Independent checks and rejection tests accompany the package. These checks do not prove the source system's arithmetic characterization of the integers.
 
-The manuscript supplies that arithmetic argument. The [Version 18 research index](research/version18/README.md) records the current selection and its review scope. The [Version 17 research index](research/version17/README.md) retains that earlier edition. The [Version 15 research index](research/version15/README.md) preserves that earlier selection. The [Version 14 guide](docs/manuscript-revisions/version14/GUIDE.md) records that edition's constructions and separates the finite checks from their mathematical review. The [Version 13 guide](docs/manuscript-revisions/version13/GUIDE.md) separates the new component and composition reviews, the finite table checks, and the 39-application inventory. These internal reviews retain the inherited arithmetic inputs and source qualifications. The [Version 12 application inventory and reviews](docs/manuscript-revisions/version12/README.md) cover that edition's reductions while retaining the prior arithmetic inputs and their source qualifications. The [Version 9 extension](docs/quartic-523-540/README.md) connects the new arithmetic arguments to the inherited proofs. The [Version 7 inventory](docs/quartic-962/README.md) records exact theorem applications, source versions, hypotheses, conventions and translations. Version 6 proves the needed Gaussian ray-field estimate within the manuscript, following the method of Frei–Tinková without assuming their theorem. The replacement uses Mitsui's published prime-ideal estimate, Green–Tao's one-parameter results, and ordinary-prime transference.
+The manuscript supplies that arithmetic argument. The [Version 21 candidate index](research/version21/README.md) records the new preparation and its review limits. The [Version 20 index](research/version20/README.md) records the published release; the [Version 18 index](research/version18/README.md) retains that edition. The [Version 17 research index](research/version17/README.md) retains that earlier edition. The [Version 15 research index](research/version15/README.md) preserves that earlier selection. The [Version 14 guide](docs/manuscript-revisions/version14/GUIDE.md) records that edition's constructions and separates the finite checks from their mathematical review. The [Version 13 guide](docs/manuscript-revisions/version13/GUIDE.md) separates the new component and composition reviews, the finite table checks, and the 39-application inventory. These internal reviews retain the inherited arithmetic inputs and source qualifications. The [Version 12 application inventory and reviews](docs/manuscript-revisions/version12/README.md) cover that edition's reductions while retaining the prior arithmetic inputs and their source qualifications. The [Version 9 extension](docs/quartic-523-540/README.md) connects the new arithmetic arguments to the inherited proofs. The [Version 7 inventory](docs/quartic-962/README.md) records exact theorem applications, source versions, hypotheses, conventions and translations. Version 6 proves the needed Gaussian ray-field estimate within the manuscript, following the method of Frei–Tinková without assuming their theorem. The replacement uses Mitsui's published prime-ideal estimate, Green–Tao's one-parameter results, and ordinary-prime transference.
 
-Historical inventories retain their original source-version qualifications, including the earlier Dodos–Kanellopoulos and Kollár applications. Those citations are absent from the Version 14 manuscript. Consult the [Version 18 source and application records](research/version18/ARTIFACT-INDEX.md) for the current selection; a historical acceptance is limited to its recorded source and argument.
+Historical inventories retain their original source-version qualifications, including the earlier Dodos–Kanellopoulos and Kollár applications. Those citations are absent from the Version 14 manuscript. Consult the [Version 21 candidate source map](research/version21/DEPENDENCIES.md) for the new selection and the [Version 20 records](research/version20/ARTIFACT-INDEX.md) for the published release; a historical acceptance is limited to its recorded source and argument.
 
 The [Version 4 inventory](docs/quartic-4973/README.md) and the [earlier 82-record inventory](docs/theorem-application-audit/README.md) retain their own frozen scopes. Structural inventory checks detect stale or mismatched records; they are not proofs of mathematical theorems.
 
