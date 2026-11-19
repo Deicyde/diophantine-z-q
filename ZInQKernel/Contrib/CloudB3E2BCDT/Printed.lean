@@ -5,8 +5,6 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Recurrenc
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Operators
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.TrivialNebentypus
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.Basic
-import Mathlib.NumberTheory.LSeries.Injectivity
-import Mathlib.NumberTheory.LSeries.PrimesInAP
 
 /-!
 # Breuil–Conrad–Diamond–Taylor, Theorem A, with the Introduction's condition (2), as printed
@@ -127,7 +125,8 @@ def BCDTThmAPrinted : Prop :=
       IsBCDTEigenform f ∧ LFunctionsAgree E f
 
 /-- **Theorem A with condition (2) at a prescribed level**: as `BCDTThmAPrinted`, with the level
-of `f` equal to `level E`. With `level` the conductor this is the print word for word. -/
+of `f` equal to `level E`. With `level` the conductor this is the printed condition (2), up to the
+formal translations of cusp forms and of `L(E, s) = L(f, s)` described in the module docstring. -/
 def BCDTThmAPrintedAtLevel (level : WeierstrassCurve ℚ → ℕ) : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic →
     ∃ (_ : NeZero (level E)) (f : CuspForm ((Gamma1 (level E)).map (mapGL ℝ)) 2),
