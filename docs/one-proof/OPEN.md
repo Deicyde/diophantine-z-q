@@ -150,7 +150,7 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`panPrintedF`](#panprintedf) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`pazukiCor13Upper`](#pazukicor13upper) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`shimuraThm1Af`](#shimurathm1af) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
-| [`silverbergZarhinThm33`](#silverbergzarhinthm33) | research | published | GLUE | pending-review |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
+| [`silverbergZarhinThm33`](#silverbergzarhinthm33) | research | published | GLUE | note |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`y3FullThreeRepZ30`](#y3fullthreerepz30) | research | consequence | GLUE | unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`y3ToP1j`](#y3top1j) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`dsThm966Printed`](#dsthm966printed) | research | published | LEAF | note | good-first | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
@@ -447,7 +447,7 @@ R16Thm1b.ShimuraThm1Af
 
 ### silverbergZarhinThm33
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves69.silverbergZarhinThm33`; kind **published**, strict **GLUE**; flag: pending review: AI page read 11-17; provenance (b). Full criterion at the separable closure with the semistability-at-finite-subextension reading; GLUE until rated.
+* Bundle field `HDec.HSyn.OpenResearchLeaves69.silverbergZarhinThm33`; kind **published**, strict **GLUE**; flag: glue (rated): a two-lens skeptic pass (print fidelity, Lean semantics) refuted the printed-form rating. Def. 3.1 defines semistable at w only for a discrete valuation, so reading it at the separable closure is an interpretation; the algebraic closure stands in for F^s with no Lean comparison of automorphism groups, inertia or torsion, and K is any field. A page reading alone would not change the rating. Re-route within a cited source: the manuscript cites Theorem 3.5 at L816, this row uses Theorem 3.3; a count-neutral swap of the uncited step at L817-818 for a cited print.
 * Source: Silverberg–Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.3, p. 405; paper cited at diophantine_zq.tex L816 and L11077–11080; fills the uncited step at L817–818
 * discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
