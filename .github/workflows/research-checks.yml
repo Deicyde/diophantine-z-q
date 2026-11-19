@@ -187,12 +187,17 @@ jobs:
       - run: python scripts/check_construction.py --report build/construction-checks.json
       - run: python -B docs/audit-history/issue3/replay_row_hash.py
       - run: python scripts/check_lean.py
+      - name: Test the manuscript-pole copy derivation and require the tracked copy to be current
+        run: |
+          python -B scripts/test_manuscript_pole_copy.py
+          python -B scripts/check_manuscript_pole_copy.py --report build/manuscript-pole-copy.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: construction-checks
           path: |
             build/construction-checks.json
+            build/manuscript-pole-copy.json
             build/precision-call-arguments.json
             build/v18-predecessor-transport.json
             build/version18/*.json

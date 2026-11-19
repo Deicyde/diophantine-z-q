@@ -23,6 +23,15 @@ plan; its named propositions are not automatically proved or independent leaves.
 The scratch leaf file described in `docs/research/h-decomposition.md` is not in
 this checkout. This registry does not claim to expose its contents.
 
+A second result is stated beside the headline and is not part of it. The modules of
+`ZInQKernel/Contrib/ManuscriptPole/` prove the same frozen target by the pole route of the
+5 November 2026 manuscript (pole curve `y² = x(x - ℓ)(x + 3ℓ)`) from two premises,
+`ZInQ.SixContactMin` and `ManuscriptPole.ZInQ.PoleCompleteness` (the manuscript's Theorem 5.2);
+the exact type is `ManuscriptPole.expectedHeadline` in `ZInQKernel/Contrib/ManuscriptPole/Statement.lean`.
+It proves neither premise, and the kernel contract and its Route K headline are unchanged. The
+directory is derived from the Route K modules: change it only with
+`python -B scripts/check_manuscript_pole_copy.py --write`, which `Research checks` verifies.
+
 ## Submit a focused proof
 
 Put new proof modules under `ZInQKernel/Contrib/`, with imports of the specific
