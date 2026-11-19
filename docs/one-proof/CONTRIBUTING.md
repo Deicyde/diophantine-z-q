@@ -183,7 +183,7 @@ DISCHARGES [OpenResearchLeaves69.dsThm965Printed] by DSCoeffExt.dsThm965Printed_
                                              (↥(DSCoeffExt.coeffField f)) lam))
                                          b)]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves29.scholzeH1AbVar] by DeRhamScholze.HTMerge.scholzeH1AbVar_of_old
+DISCHARGES [OpenAddedLeaves30.scholzeH1AbVar] by DeRhamScholze.HTMerge.scholzeH1AbVar_of_old
   still assumes: [DeRhamScholze.ScholzeDeRhamAlg, DeRhamScholze.HTAbVar.HodgeNumberH1AbVar]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves69.cmHeight62] by HDec.CMBranch.CMInputs2.cmHeight62
@@ -1189,7 +1189,7 @@ DISCHARGES [OpenResearchLeaves69.pazukiCor13Upper] by ZInQ.SemiAbDescend.pazukiC
  AvSplit.MumfordTorsionAlgClosed,
  ZInQ.SemiAbDescend.ChevalleyPerfect]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 32 open hypotheses, 15321 theorems checked, 334 discharge one
+#discharges: 32 open hypotheses, 15339 theorems checked, 334 discharge one
 ```
 <!-- worked-example:end -->
 

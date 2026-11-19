@@ -1,0 +1,21 @@
+{
+  "name": "conrad-appb-weil",
+  "imports": ["ZInQKernel.Contrib.OneProof.ConradAppBWeil"],
+  "discharges": [
+    {
+      "field": "conradAppBPrint",
+      "proof": "_root_.HDec.G0Galois.C8Conrad.Bridges.conradAppBPrint_of_weil {n}.conradAppBWeil",
+      "leaves": [
+        {
+          "name": "conradAppBWeil",
+          "type": "_root_.HDec.G0Galois.C8Conrad.Bridges.ConradAppBWeil",
+          "doc": "C8: Conrad Appendix B at local base Q_p, as printed: the p. 32 equivalence (locally algebraic in the sense of Definition B.1, a Q_p-homomorphism of tori G_m -> R_{K/Q_p} G_m agreeing with psi o r near 1, iff Hodge-Tate in Conrad's line form) and Proposition B.3 for Hodge-Tate psi with the (B.1) display.",
+          "kind": "published",
+          "flag": "pending review: printed form with Definition B.1 over tori and B.3 under Hodge-Tate; verbatim quotes of pp. 32-33 in docs/research/conrad-appb-b1-b3-quotes.md (AI read from the page images); awaiting the two-lens rating; the citation is an unrefereed author preprint (eligibility open); Definition B.1's torus homomorphism is a natural transformation of unit functors on Q_p-algebras (Yoneda stated, not proved)",
+          "flag_class": "pending-review",
+          "source": "Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32-33, Definition B.1 and Proposition B.3 (proof pp. 33-34); diophantine_zq.tex sec:height L760-764, conrad-local-characters L11046-11049"
+        }
+      ]
+    }
+  ]
+}
