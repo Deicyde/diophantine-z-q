@@ -1,0 +1,268 @@
+{
+  "id": "Passage size: Proof of Proposition 12.1, cutoff",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed.",
+  "relation": "narrowMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.107843,
+          0.467523,
+          0.784314,
+          0.110628
+        ]
+      },
+      "title": "Passage (size): Proof of Proposition 12.1, cutoff",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Proof of Proposition 12.1, cutoff"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.D_bounds",
+        "module": "ZInQKernel.Size.Constants.D"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.D_bounds@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/D.lean",
+            "fragment": "L48"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.closedT_lt",
+        "module": "ZInQKernel.Size.Constants.T"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.closedT_lt@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/T.lean",
+            "fragment": "L211"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.closedT_lt_of",
+        "module": "ZInQKernel.Size.Constants.T"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.closedT_lt_of@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/T.lean",
+            "fragment": "L172"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.formal_multiple_size",
+        "module": "ZInQKernel.Size.Constants.FormalMultiple"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.formal_multiple_size@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/FormalMultiple.lean",
+            "fragment": "L39"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.r_equals_d",
+        "module": "ZInQKernel.Size.Constants.T"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.r_equals_d@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/T.lean",
+            "fragment": "L60"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.small_constant_bounds",
+        "module": "ZInQKernel.Size.Constants.Small"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.small_constant_bounds@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/Small.lean",
+            "fragment": "L44"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.t_identity",
+        "module": "ZInQKernel.Size.Constants.T"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.t_identity@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/T.lean",
+            "fragment": "L158"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It states c_* < 2^2^4617 where [M] has c_* < 2^(2^2059), a consequence of the 2^(W^8) cutoff; the D, R = D, C_cm, G0 and T bounds match, and `CatalogueBound8` is proved, not assumed."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; note corrected after an independent review; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "formal_multiple_size gives only cstar < 2^2^4617, and the Size directory proves no sharper cstar bound (cstar_lt and cstar_lt_D are the only ones). D_bounds, r_equals_d, t_identity (Ccm < 2^(50000 D^2) < Q^17), G0 < 2^37 and closedT_lt (T < 2^(D^8) < 2^2^2^9013) match, with the D^4, D^5 steps inside closedT_lt_of. The claim is accurate.",
+            "formal_multiple_size proves only cstar < 2^2^4617, and no stronger cstar bound exists (cstar_lt_D is weaker still); D_bounds, r_equals_d, t_identity and closedT_lt match [M]'s other claims, with the D^5 and D^8 steps inside closedT_lt_of. The weakness is exactly the c_* exponent."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "ndep's Size directory is identical to the fork's, so it has the same weaker c_* < 2^2^4617 and matching D, R, C_cm, G0 and T bounds. No nasqret declaration restates or names them, so the claim holds.",
+            "ndep's FormalMultiple.lean, T.lean and D.lean are identical to [F]'s, so it too proves only cstar < 2^2^4617 against [M]'s c_* < 2^(2^2059); nasqret has no own size declaration that would supply the sharper bound."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

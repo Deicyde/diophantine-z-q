@@ -1,0 +1,88 @@
+{
+  "id": "Passage assembly: Section 4 height constants",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: Defines all constants with [M]'s values, G as `GlueRepo.PR.Gq` and the default H6(S) as `HeightConstantComparison.h6` in the separate lean/ library. `heightH6` is defined for every real R, with the range R >= max(D, max S, 10^12) moved into `SixContactEstimate`, so H6(S;R) is packaged with a changed range.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.740697,
+          0.794118,
+          0.177897
+        ]
+      },
+      "title": "Passage (assembly): Section 4 height constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 4 height constants#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 8,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.229394
+        ]
+      },
+      "title": "Passage (assembly): Section 4 height constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 4 height constants#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.heightG0",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.heightG0@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def heightG0 : ℕ := 116064000000",
+            "line": 136,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L136"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7,
+          8
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

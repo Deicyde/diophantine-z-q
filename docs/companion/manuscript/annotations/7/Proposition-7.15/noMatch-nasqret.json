@@ -1,0 +1,47 @@
+{
+  "id": "Proposition 7.15",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [N] replaces the restricted converse by Tian's genus-sum rows on y^2=x^3-d^2x (PublishedTian47, SimpleZeroRank) and only types Theorem 5.3 as ManuscriptV15.Arithmetic.RestrictedConverse; no [N] or ndep declaration states this genus lower bound (3.4)-(3.6) with index valuations j_gen, j_rc.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 34,
+        "rect": [
+          0.107843,
+          0.130798,
+          0.784314,
+          0.098686
+        ]
+      },
+      "title": "Proposition 7.15",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 7.15"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          34
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

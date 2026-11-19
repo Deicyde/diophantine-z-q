@@ -4,10 +4,12 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.LevelGood
 /-!
 # GenusOdd: the Artin factorization and (3.4) with the reduction hypothesis discharged
 
-With `GoodReductionOffLevel` proved from lane RC8's printed leaf `ModularNewform`
+With `GoodReductionOffLevel` proved from the printed leaf `ModularNewform`
 (`goodReductionOffLevel_of_modularNewform`), the Artin factorization of the ring-class
-`L`-function needs only `HasseConvergence` (lane RC8's GLUE, Hasse's bound), `ModularNewform` (PRINT,
-BCDT) and the inert clause `LocalFactorInert` (GLUE, Frobenius characteristic polynomial).
+`L`-function needs only `HasseConvergence` (Hasse's bound), `ModularNewform` (PRINT, BCDT) and the
+inert clause `LocalFactorInert` (Frobenius characteristic polynomial). Since then `HasseConvergence`
+is proved and the inert clause is not needed (`ArtinUnconditional.lean`), so `ArtinFactorization`
+needs only `ModularNewform` (`artinFactorization_unconditional`, `Hasse/Final.lean`).
 -/
 
 namespace ZInQ.Contrib.CloudB3RC53.GenusOdd

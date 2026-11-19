@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Second descent image",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: kummer_E'_trivial states that the x-squareclass map of y^2 = x^3 + 4d^2x over K0 is trivial, the passage's conclusion, with the valuation and mod 7 steps as lemmas. Proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.598376,
+          0.784314,
+          0.054265
+        ]
+      },
+      "title": "Passage (model): Second descent image",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Second descent image"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.even_vp_x_E'",
+        "module": "ZInQKernel.Model.Descent.SecondImage"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.even_vp_x_E'@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem even_vp_x_E' {x y : K0} (hx : x ≠ 0) (h : y ^ 2 = x ^ 3 + 4 * genD ^ 2 * x) {π : Zs}\n    (hπ : Prime π) : Even (vp π x) := by",
+            "line": 84,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Descent/SecondImage.lean",
+            "fragment": "L84"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

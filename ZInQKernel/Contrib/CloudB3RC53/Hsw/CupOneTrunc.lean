@@ -17,7 +17,7 @@ the `hsw` descent runs on truncated Selmer pairing data (`SelPairDataTrunc`, as 
   datum and a strict condition vanishing in degree two. Then the truncated `hsw` left-hand side
   `tr0((0, s, −ι u) ∪ (0, t, 0))` is `P(eR[g t], eR[g u])`.
 * `localPairCupOne`: the genuine cup-one datum of `⊕_v C^•_cont(G_v, −)` for a `c`-symmetric
-  equivariant self-pairing. RC26's truncated data, with local cup product `localSumPair`, plugs in
+  equivariant self-pairing. Any truncated data whose local cup product is `localSumPair` plug in
   with `hP := fun _ _ => rfl`.
 * Non-vacuity: `exGenuine_trunc_residuePairing`, all hypotheses at once on the example
   genuine switch (via `SelPairData.toTrunc`).

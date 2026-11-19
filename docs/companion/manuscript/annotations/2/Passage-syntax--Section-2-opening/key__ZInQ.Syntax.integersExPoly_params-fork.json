@@ -1,0 +1,86 @@
+{
+  "id": "Passage syntax: Section 2 opening",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The passage defines P_* and asserts facts about it: [F] builds P_* as a Lean term and proves the 23 templates, the seven recipes, the single parameter of the root recipe integers and the reading of X_0 as input with every other variable existential (the specified-circuit form assumes HaltingAddMulBound; the general PrecisionShape form is unconditional). The file name, byte counts, hashes and the provenance normalization are claims about external files, not compared in Lean; [F]'s map leaves them to an external script.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 4,
+        "rect": [
+          0.107843,
+          0.510264,
+          0.784314,
+          0.325179
+        ]
+      },
+      "title": "Passage (syntax): Section 2 opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 2 opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.integersExPoly_params",
+        "module": "ZInQKernel.Syntax.Recipes.Polynomial"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.integersExPoly_params@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem integersExPoly_params : (integersExPoly I cstar ell T c3 N).params = 1 := by",
+            "line": 63,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Recipes/Polynomial.lean",
+            "fragment": "L63"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          4
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep proves 23 templates (length_templateLibrary), 7 recipes (length_specRecipes), one root parameter (integersExPoly_params) and the zero projection, but for a P_* whose pole templates are A(A-e)(A+e); grep finds no [N] use of specPstar or PstarOf_zero_projection, and [N]'s own polynomial objects (IntegerPolynomial, the V15 tables) are not [M]'s P_*. The file byte and hash identities are not formalized.",
+            "ndep's length_templateLibrary (23), length_specRecipes (7), integersExPoly_params (1) and PstarOf_zero_projection are proved for a library whose pole template uses A(A-e)(A+e), so the specified polynomial differs from [M]'s; grep finds no use of Pstar, specPstar or PstarOf_zero_projection in nasqret, whose own polynomial is the existential IntegerPolynomial."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

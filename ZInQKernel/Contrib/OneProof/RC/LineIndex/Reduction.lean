@@ -4,7 +4,7 @@ import ZInQKernel.Contrib.OneProof.RC.LineIndex.Matrix
 /-!
 # Reduction of a locally principal right ideal
 
-Tex 9040–9042. The integral-to-local reduction argument is on-the-spot (c).
+Tex 9040–9042. The integral-to-local reduction argument is proved here.
 -/
 
 noncomputable section

@@ -1,0 +1,118 @@
+{
+  "id": "Passage syntax: Appendix C.2 recipes and counts",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; ManuscriptV15.Saved.compositions a definition; confirmed finding (weaker): ndep's Syntax files, identical to [F]'s except the pole templates of Templates/Core.lean (A+e where [M] has A+3e), carry the recipe semantics and counts with [F]'s weakness: precision and the outer recipes are bounded above, not exact, and root nodes are absent. [N]'s ManuscriptV15.Saved restates the declared counts of five composition recipes and the multiply allocation as decoded data, and its closeParams proves that entry 2 of ndep's precision library has 11 parameters; no [N] declaration uses ndep's count theorems.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.102941,
+          0.342252,
+          0.794118,
+          0.557455
+        ]
+      },
+      "title": "Passage (syntax): Appendix C.2 recipes and counts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C.2 recipes and counts#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 91,
+        "rect": [
+          0.107843,
+          0.095757,
+          0.784314,
+          0.395816
+        ]
+      },
+      "title": "Passage (syntax): Appendix C.2 recipes and counts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C.2 recipes and counts#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Saved.compositions",
+        "module": "Lean.Lemmas.original-syntax.SavedOriginalSurface"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Saved.compositions@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def compositions : Array Recipe := #[\n  ⟨\"close\",false,11,292890196199,[(11,5),(16,5),(21,5),(26,5),(31,5),(36,5),(41,5),(46,5)],[⟨.library 13,[0,1,2,3,4,26,27,28,29,30],51,140654⟩,\n    ⟨.library 13,[5,6,7,8,9,31,32,33,34,35],140705,140654⟩,\n    ⟨.library 13,[11,12,13,14,15,36,37,38,39,40],281359,140654⟩,\n    ⟨.library 13,[16,17,18,19,20,41,42,43,44,45],422013,140654⟩,\n    ⟨.library 13,[21,22,23,24,25,46,47,48,49,50],562667,140654⟩,\n    ⟨.recipe \"precision\",[26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],703321,292889492836⟩,\n    ⟨.library 15,[11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,10],292890196157,53⟩]⟩,\n  ⟨\"main\",false,6,292890231486,[(6,5)],[⟨.recipe \"close\",[0,1,2,3,4,6,7,8,9,10,5],11,292890196199⟩,\n    ⟨.library 16,[0,1,2,3,4,6,7,8,9,10,5],292890196210,35282⟩]⟩,\n  ⟨\"value_union\",true,6,292890231892,[],[⟨.library 17,[0,1,2,3,4,5],6,406⟩,\n    ⟨.recipe \"main\",[0,1,2,3,4,5],412,292890231486⟩]⟩,\n  ⟨\"value\",false,6,292890231899,[],[⟨.library 0,[0,1,2,3,4],6,7⟩,\n    ⟨.recipe \"value_union\",[0,1,2,3,4,5],13,292890231892⟩]⟩,\n  ⟨\"integers\",false,1,292890231904,[(1,5)],[⟨.recipe \"value\",[1,2,3,4,5,0],6,292890231899⟩]⟩]",
+            "line": 129,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/original-syntax/SavedOriginalSurface.lean",
+            "fragment": "L129"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          90,
+          91
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; note corrected after an independent review; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "The precision count is only an upper bound: PrecisionShape bounds adds, muls, calls and explicit variables from above, and no exact node count of the actual circuit or exact 292,889,492,836 appears. The outer rows are therefore exact only as offsets from precision, power_value and the template parameter and witness lists are exact, and templateLibrary is a list of ExPoly with no root indices (no Template instance records root 149, 308, ...).",
+            "Template parameter and witness lists are proved exactly, but the precision and integers counts are only upper bounds under PrecisionShape, whose fields are themselves inequalities (adds <= 125327 etc.); the exact table values appear only as closed arithmetic in Recipes/Arith.lean, and the outer recipes are exact only relative to precision's witness count. Templates are ExPoly values built by Build.template, so no root-node indices are stated."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "ndep's Syntax recipe and count files match the fork's (only Templates/Core.lean differs, in the pole T1/T2 factors, which do not concern these counts), so precision is bounded above only. ManuscriptV15.Saved.compositions holds the five outer witness counts, including the call to precision with 292889492836, as decoded literals checked only by decide on that data; multiplyOuterRoot is row 83, matching multiply's root-node entry, but the other 22 root nodes and the power_value and precision rows have no proved [N] counterpart, so the claim stands.",
+            "ndep's syntax files are identical to [F]'s and have the same upper-bound weakness. [N]'s Saved.compositions record the exact table counts for close, main, value_union, value and integers only as decoded data, and no nasqret Lean file uses ndep's count theorems. One small correction: [N] does fix multiply's root as node 83 (multiplyOuterRoot, saved_multiply_formula), which matches [M]'s column, but the other 22 root nodes are absent, so the finding still holds."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

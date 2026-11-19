@@ -7,13 +7,13 @@ import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Valuat
 # RC53 SwitchInputs: the genuine derivative sides wired into the Galois switching family
 
 Proposition `ex:limits-uniform-lower-bound`, height-one regularity, tex L4976–5195, with the switch
-exact sequences (5.5a), tex L5055–5086, and the derivative conditions, tex L5068–5072.
+exact sequences (5.5a), tex L5055–5086, and the derivative conditions, tex L5060–5061.
 
-`DerivativeCoords.lean` builds the switch families `switchFam` (strict ≤ side ≤ relaxed at the switch
-place, the old conditions elsewhere) on families of genuine local complexes `C^•_cont(G_v, M_v)`, with
-the coordinates `eRAt` and the plane equation, and the quasi sides `switchQuasiSide` over the
-side-independent relaxed localization `relLoc`. Here they are placed at the genuine decomposition
-groups inside `G_{K,S}`:
+`DerivativeCoords.lean` builds the switch families `switchFam` (strict ≤ side ≤ relaxed at the
+switch place, the old conditions elsewhere) on families of genuine local complexes
+`C^•_cont(G_v, M_v)`, with the coordinates `eRAt` and the plane equation, and the quasi sides
+`switchQuasiSide` over the side-independent relaxed localization `relLoc`. Here they are placed at
+the genuine decomposition groups inside `G_{K,S}`:
 
 * `gGv`, `gMv`, `locCx_eq_galLv` (PROVED, `rfl`): with `G_v = Gloc K v` and
   `M_v = ResMod (locMap v) M`, the local complexes of `DerivativeCoords` are the genuine local
@@ -75,14 +75,14 @@ theorem locCx_eq_galLv : locCx (gGv K S) (gMv K S M) = galLv (k := ZMod 2) K S M
 
 open Classical in
 /-- The local conditions of a configuration `c`: `A_d v` at the places of `c` (the derivative
-places, singular side), `A₀ v` elsewhere (tex L5068–5072). -/
+places, singular side), `A₀ v` elsewhere (tex L5060–5061). -/
 def condFam (A₀ Ad : ∀ v, SubFam (galLv (k := ZMod 2) K S M v)) (c : Finset (Places K S))
     (v : Places K S) : SubFam (galLv (k := ZMod 2) K S M v) :=
   if v ∈ c then Ad v else A₀ v
 
 omit [DiscreteTopology M] in
 open Classical in
-/-- **The configuration conditions of `GaloisFamily` are `galCond` of `condFam`** (tex L5068–5072).
+/-- **The configuration conditions of `GaloisFamily` are `galCond` of `condFam`** (tex L5060–5061).
 PROVED. -/
 theorem condAt_galCond (A₀ Ad : ∀ v, SubFam (galLv (k := ZMod 2) K S M v))
     (c : Finset (Places K S)) :
@@ -108,8 +108,9 @@ theorem condAt_galCond (A₀ Ad : ∀ v, SubFam (galLv (k := ZMod 2) K S M v))
 
 /-- The per-place tame data at the places of `S`: inertia `I_v`, a Frobenius lift `φ_v`, a tame
 generator `σ_v`, and coordinates `M ≃ 𝔽₂²` (tex L5027–5037). Specialised to residue field `𝔽₂`;
-not applicable at height-one primes `≠ (2)` where switching runs (`isEmpty_ringHom_zmod_two_heightOne`);
-see `GaloisWiringQuad.lean` for the field-generic version. -/
+not applicable at height-one primes `≠ (2)` where switching runs
+(`isEmpty_ringHom_zmod_two_heightOne`); see `GaloisWiringQuad.lean` for the field-generic version.
+-/
 structure PlaceTame where
   /-- Inertia at `v`. -/
   I : ∀ v : Places K S, Subgroup (Gloc K v.1)
@@ -123,7 +124,7 @@ structure PlaceTame where
 variable {K S M} (D : PlaceTame K S M)
 
 /-- The finite side conditions at the places: `sideOfSet I_v` (cocycles vanishing on inertia,
-`A = M^{I_v}`; tex L5068–5072, the unramified condition). -/
+`A = M^{I_v}`; tex L5057–5058, the unramified condition). -/
 def PlaceTame.finCond (v : Places K S) : SubFam (galLv (k := ZMod 2) K S M v) :=
   sideSub (Gv := gGv K S) (Mv := gMv K S M) v (sideOfSet ((D.I v : Set (Gloc K v.1))))
 
@@ -143,7 +144,7 @@ abbrev PlaceTame.finSet : ∀ v : Places K S, Set (Gloc K v.1) := fun v => (D.I 
 abbrev PlaceTame.singSet : ∀ v : Places K S, Set (Gloc K v.1) := fun v => {D.φ v}
 
 open Classical in
-/-- **Switching at `q ∉ c` with the finite side gives the side family of `c`** (tex L5068–5083).
+/-- **Switching at `q ∉ c` with the finite side gives the side family of `c`** (tex L5060–5082).
 PROVED. -/
 theorem finSwitch_side (c : Finset (Places K S)) (q : Places K S) (hq : q ∉ c) :
     (switchFam (gGv K S) (gMv K S M) q (D.old c) D.finSet).side = condFam K S M D.finCond D.singCond c := by
@@ -157,7 +158,7 @@ theorem finSwitch_side (c : Finset (Places K S)) (q : Places K S) (hq : q ∉ c)
 
 open Classical in
 /-- **Switching at `q ∉ c` with the singular side gives the side family of `insert q c`** (tex
-L5068–5083). PROVED. -/
+L5060–5082). PROVED. -/
 theorem singSwitch_side (c : Finset (Places K S)) (q : Places K S) :
     (switchFam (gGv K S) (gMv K S M) q (D.old c) D.singSet).side =
       condFam K S M D.finCond D.singCond (insert q c) := by
@@ -187,26 +188,26 @@ variable (c : Finset (Places K S)) (q : Places K S)
   (T : TameCoordinates (M := gMv K S M q) (D.I q) (D.φ q) (D.σ q))
 
 /-- **The genuine relaxed localization at the switch place `q`** for the configuration `c`
-(tex L5068–5086): global complex `C^•_cont(G_{K,S}, M)`, `res_S`, the relaxed condition at `q`, the
+(tex L5060–5086): global complex `C^•_cont(G_{K,S}, M)`, `res_S`, the relaxed condition at `q`, the
 conditions of `c` elsewhere, the relaxed quotient `W_rel` and the coordinates `eRAt`. -/
 def galRel : QuasiRelaxedLocalization (ZMod 2) :=
   relLoc (Gv := gGv K S) (Mv := gMv K S M) q galG galRes (D.old c)
     (eRAt (switch_hsr q (D.old c)) (switch_relAt q (D.old c)) (D.φ q) (D.σ q) (D.eM q) T)
 
-/-- **The genuine finite quasi side at `q`** (tex L5068–5086). PROVED. -/
+/-- **The genuine finite quasi side at `q`** (tex L5060–5086). PROVED. -/
 def galFinSide : QuasiSwitchSide (galRel D c q T) (finPlane (ZMod 2) (Fin 2 → ZMod 2) (Fin 2 → ZMod 2)) :=
   switchQuasiSide (Gv := gGv K S) (Mv := gMv K S M) (q := q) (D.φ q) (D.σ q) (D.eM q) galG galRes
     (D.old c) D.finSet T _
     (finite_side_iff (Gv := gGv K S) (Mv := gMv K S M) (q := q) (D.φ q) (D.σ q) (D.eM q) T)
 
 /-- **The genuine singular quasi side at `q`**, over the same relaxed localization (tex
-L5068–5086). PROVED. -/
+L5060–5086). PROVED. -/
 def galSingSide : QuasiSwitchSide (galRel D c q T) (singPlane (ZMod 2) (Fin 2 → ZMod 2) (Fin 2 → ZMod 2)) :=
   switchQuasiSide (Gv := gGv K S) (Mv := gMv K S M) (q := q) (D.φ q) (D.σ q) (D.eM q) galG galRes
     (D.old c) D.singSet T _
     (singular_side_iff (Gv := gGv K S) (Mv := gMv K S M) (q := q) (D.φ q) (D.σ q) (D.eM q))
 
-/-- **The finite side's Selmer data is the genuine fibre of `c`** (tex L5068–5083):
+/-- **The finite side's Selmer data is the genuine fibre of `c`** (tex L5060–5082):
 `galoisSelData K S 𝔽₂ M (condAt Δ₀ Δ_d c)` with `Δ₀ = galCond finCond`, `Δ_d = galCond singCond`.
 PROVED. -/
 theorem galFinSide_Dside (hq : q ∉ c) :
@@ -219,7 +220,7 @@ theorem galFinSide_Dside (hq : q ∉ c) :
     (galois_relaxedData_eq (k := ZMod 2) K S M
       (switchFam (gGv K S) (gMv K S M) q (D.old c) D.finSet)).2
 
-/-- **The singular side's Selmer data is the genuine fibre of `insert q c`** (tex L5068–5083).
+/-- **The singular side's Selmer data is the genuine fibre of `insert q c`** (tex L5060–5082).
 PROVED. -/
 theorem galSingSide_Dside :
     (galSingSide D c q T).Dside = galoisSelData K S (ZMod 2) M
@@ -237,7 +238,8 @@ def strData {ι : Type} {Lv : ι → GCx (ZMod 2)} (G : GCx (ZMod 2)) (res : GHo
     (str : ∀ v, SubFam (Lv v)) : SelData (ZMod 2) :=
   ⟨G, piCx fun v => (str v).cx, piCx Lv, res, piMap fun v => (str v).incl⟩
 
-/-- **The strict data of a quasi side depend only on the strict family** (tex L5072–5083). PROVED. -/
+/-- **The strict data of a quasi side depend only on the strict family** (tex L5072–5083). PROVED.
+-/
 theorem DerivFamily.Dstr_eq {ι : Type} {Lv : ι → GCx (ZMod 2)} (F : DerivFamily Lv)
     (G : GCx (ZMod 2)) (res : GHom G (piCx Lv))
     (eR : F.Wrel.toCC.homology 1 ≃ₗ[ZMod 2] (Fin 2 → ZMod 2) × (Fin 2 → ZMod 2))
@@ -280,8 +282,9 @@ open Classical
 nonquadratic step whose relaxed localization, finite side and singular side are the genuine
 `galRel`, `galFinSide`, `galSingSide`; the strict dimensions agree by `galSides_Dstr`. The duality
 input `hdual`, the detection `hdet` and the fibre isomorphisms `φ`, `φ'` are the stated inputs.
-PROVED (from the inputs). Residual-field (`𝔽₂`) instance only; not applicable at height-one primes `≠ (2)`, see
-`isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the field-generic chain. -/
+PROVED (from the inputs). Residual-field (`𝔽₂`) instance only; not applicable at height-one primes
+`≠ (2)`, see `isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the
+field-generic chain. -/
 def galNonquadStep (c : Finset (Places K S)) (q : Places K S)
     (T : TameCoordinates (M := gMv K S M q) (D.I q) (D.φ q) (D.σ q)) (S₀ S₁ : TwoTermStage ι)
     (ε σ : ZMod 2) (J : Matrix (Fin 2) (Fin 2) (ZMod 2)) (hε : ε ≠ 0) (hσ : σ ≠ 0)
@@ -306,8 +309,8 @@ def galNonquadStep (c : Finset (Places K S)) (q : Places K S)
   φ' := φ'
 
 variable (A) in
-/-- The genuine Galois switching family of `D`: fibres `galoisSelData K S 𝔽₂ M (condAt Δ₀ Δ_d c)` with
-`Δ₀ = galCond finCond` (finite sides) and `Δ_d = galCond singCond` (singular sides at the
+/-- The genuine Galois switching family of `D`: fibres `galoisSelData K S 𝔽₂ M (condAt Δ₀ Δ_d c)`
+with `Δ₀ = galCond finCond` (finite sides) and `Δ_d = galCond singCond` (singular sides at the
 derivative places of `c`). -/
 abbrev galΦ (c₀ : Finset (Places K S)) (t : A)
     (zAct : (selCx (galoisSelData K S (ZMod 2) M
@@ -345,8 +348,9 @@ configuration of fibre dimension `> 1`, a new place `q ∉ c` with tame coordina
 the duality input and the detection for the genuine relaxed localization `galRel D c q T`. The sides
 of the switch steps are NOT inputs: they are the genuine `galFinSide`, `galSingSide`, whose Selmer
 data are the fibres of `c` and `insert q c` by construction (`galFinSide_Dside`,
-`galSingSide_Dside`). Residual-field (`𝔽₂`) instance only; not applicable at height-one primes `≠ (2)`, see
-`isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the field-generic chain. -/
+`galSingSide_Dside`). Residual-field (`𝔽₂`) instance only; not applicable at height-one primes
+`≠ (2)`, see `isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the
+field-generic chain. -/
 structure GaloisNonquadInputs (ι : A →+* F) (u : F) where
   /-- The stage two-term models. -/
   stage : Finset (Places K S) → TwoTermStage ι
@@ -377,8 +381,9 @@ variable {D ρ c₀ t zAct hzAct lamAct hlamAct}
 
 /-- **Galois switching data from the nonquadratic inputs** (tex L4976–5195): the switch steps are
 `galNonquadStep` with the genuine sides, so `hF`, `hS` are `galFinSide_Dside`, `galSingSide_Dside`;
-the fibre isomorphisms come from the stage models. PROVED. Residual-field (`𝔽₂`) instance only; not applicable at height-one primes `≠ (2)`, see
-`isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the field-generic chain. -/
+the fibre isomorphisms come from the stage models. PROVED. Residual-field (`𝔽₂`) instance only; not
+applicable at height-one primes `≠ (2)`, see `isEmpty_ringHom_zmod_two_heightOne`; the
+characteristic-zero version is the field-generic chain. -/
 noncomputable def GaloisNonquadInputs.toGaloisSwitchData {u : F}
     (X : GaloisNonquadInputs D ρ c₀ t zAct hzAct lamAct hlamAct ι u) :
     GaloisSwitchData (galΦ D A c₀ t zAct hzAct lamAct hlamAct) ι ρ u where
@@ -407,8 +412,9 @@ noncomputable def GaloisNonquadInputs.toGaloisSwitchData {u : F}
   switch_single _ _ h := absurd h X.hnq
 
 /-- **Regularity from the nonquadratic Galois switching inputs** (tex L4976–5195): `∃ a, ι a = u`.
-PROVED (from the inputs). Residual-field (`𝔽₂`) instance only; not applicable at height-one primes `≠ (2)`, see
-`isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the field-generic chain. -/
+PROVED (from the inputs). Residual-field (`𝔽₂`) instance only; not applicable at height-one primes
+`≠ (2)`, see `isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the
+field-generic chain. -/
 theorem regular_of_galoisNonquadInputs [IsLocalRing A] (hι : Function.Injective ι)
     (hρ : ∀ x ∈ IsLocalRing.maximalIdeal A, ρ x = 0) {u : F}
     (X : GaloisNonquadInputs D ρ c₀ t zAct hzAct lamAct hlamAct ι u) : ∃ a : A, ι a = u :=

@@ -8,7 +8,7 @@ import ZInQKernel.Contrib.OneProof.RC.Wiring.ClearingComplex3
 Manuscript `diophantine_zq.tex`, Proposition `ex:limits-fixed-field-clearing` (tex 5487–5645), with
 Lemma `ex:limits-fixed-field-budget` (tex 5394–5425), the support change (tex 3470–3499), the
 class-functional coordinate (Definition `ex:arith-coordinate`, tex 3877–3892) and the corrected
-coordinate of Lemma `ex:arith-common-coordinate` (tex 4219–4222).
+coordinate of Lemma `ex:arith-common-coordinate` (tex 4219–4224).
 
 The round-3 leaf `ClearingInputsCx D` (`ClearingComplex3.lean`) asks, at every final family, for
 the Selmer-phrased identification `SelmerIdentification` (with ANY Selmer data), scalar data, a
@@ -23,16 +23,19 @@ coordinate `c`, Elliot's determinant computation E1b and the coordinate link E1a
   (5.7) counts; on the Selmer side lane RC26's GENUINE continuous-cochain Selmer complexes:
   the family Selmer complex `galoisSelData K S' 𝒪[G] M Δ` (through RC26's
   `selmerIdentificationOfGenuine`), the genuine support change `galoisSupportData` (Nekovář
-  7.8.8(ii); its quasi-isomorphy is the PRINT `NekovarProp788ii`, so it is not an input), and the
+  7.8.8(ii); `Identification2G.support_qis` derives its quasi-isomorphy from the PRINT
+  `NekovarProp788ii`; the deduction does not use it), and the
   tame model as a quasi-isomorphic model of the genuine local cochains (no degreewise
   `SupportChangeUnramified`, which genuine cochains can never satisfy);
 * the actual cycle `z` of `D¹ = C¹` and the closed functional `λ` on `C² = D² ⊕ N` over `𝒪[G]`
   (tex 5513–5516), and the universal correction `η`;
-* ONE identification of the coordinate (`OrigCoordLink`, GLUE): where `Δ_x ≠ 0`, the corrected
+* ONE identification of the coordinate (`OrigCoordLink`; ELLIOT, Elliot's E1 in the original
+  basis, tex 5605–5608; definitional only for the genuine relaxed complex, which is not
+  enforced): where `Δ_x ≠ 0`, the corrected
   coordinate is `ũ_x = η_x · c^{orig}_x`, with `c^{orig}_x` the coordinate of `[z] ⊗ [λ]` of the
   sign-evaluated ORIGINAL complex `C_x` in the original determinant basis (tex 5605–5608: "its
   coordinate in the original determinant basis is exactly `ũ_x = η_x κ_x …`", with
-  `ũ = η u_rel`, tex 4219–4222, and `u_rel` that coordinate, tex 3877–3892).
+  `ũ = η u_rel`, tex 4219–4224, and `u_rel` that coordinate, tex 3877–3892).
 
 PROVED from them (no new input): the remaining complex `D` is the new-local cancellation of `C` over
 `𝒪[G]`; the determinant comparison factor is `κ = det B` (an `S`-unit, tex 5509–5513), by batch 3's
@@ -143,18 +146,18 @@ theorem coordLink_of_orig {ℓ : ℕ} (D : RCData ℓ) (F : Family)
 end Coordinate
 
 /-- **The inputs of (5.9) over the genuine Selmer complexes** (tex 5487–5645, 5394–5425,
-3470–3499, 3877–3892, 4219–4222). Fields, with tex lines, kind and owner:
+3470–3499, 3877–3892, 4219–4224). Fields, with tex lines, kind and owner:
 
 | field | tex | kind | owner |
 |---|---|---|---|
 | `K` a number field (the fixed field) | 5641–5643 | definition | RC0 |
 | `dK hK cE tK`, before the family | 5251–5267, 5641–5643 | definition | (content in (5.7)) |
 | per final family `F`: `S ⊆ S'`, the new places `S' − S` finite | 5394–5403, 3483–3489 | definition | batch 3 ClearingComplex |
-| `M : Identification2G K S S' hS F.b dK hK cE tK` | 5394–5463, 5486–5538, 3470–3499 | GLUE (cancellation data + genuine Selmer comparisons + `TameModelQIso`); the support change quasi-isomorphy is the PRINT `NekovarProp788ii` (not an input) | batch 3 ClearingComplex / RankCounts, RC26 |
+| `M : Identification2G K S S' hS F.b dK hK cE tK` | 5394–5463, 5486–5538, 3470–3499 | GLUE (cancellation data + genuine Selmer comparisons + `TameModelQIso`); `Identification2G.support_qis` derives the support change quasi-isomorphy from the PRINT `NekovarProp788ii`; the deduction does not use it | batch 3 ClearingComplex / RankCounts, RC26 |
 | `z`, `hz`: the actual cycle of `D¹ = C¹` over `𝒪[G]` (integral, tex 5515–5516) | 5513–5516 | definition (data; its content is carried by `OrigCoordLink`) | batch 3 PairedFunctional / RC7 |
 | `lam`, `hlam`: the closed paired functional on `C² = D² ⊕ N` over `𝒪[G]`, transported to `μ = λ ∘ incl` | 5513–5516, 3704–3880 | definition (data; exponent `a = 0`, tex 3864–3866; content via `OrigCoordLink`) | batch 3 PairedFunctional |
 | `η`: the universal correction | 4194–4222 | definition | RC15 |
-| `OrigCoordLink D F M z lam hz hlam η` (`ũ_x = η_x c^{orig}_x` where `Δ_x ≠ 0`, every representation `ũ = g/2^e`) | 5605–5608, 4219–4222, 3877–3892 | GLUE (interface identification) | RC7 / RC15 / batch 3 CoordLink |
+| `OrigCoordLink D F M z lam hz hlam η` (`ũ_x = η_x c^{orig}_x` where `Δ_x ≠ 0`, every representation `ũ = g/2^e`) | 5605–5608, 4219–4224, 3877–3892 | ELLIOT (Elliot's E1 in the original basis, tex 5605–5608; definitional only for the genuine relaxed complex, which is not enforced) | RC7 / RC15 / batch 3 CoordLink |
 
 Only the cancellation part of `M` (its `toIdentification`), `z`, `λ`, `η` and `OrigCoordLink` are
 consumed by the conversion; the Selmer-side fields of `M` (the genuine family model, the genuine

@@ -1,0 +1,9 @@
+strict count: 4/25 on 29 -> 5/24 on 29; strictest 4/25 -> 5/24
+import ZInQKernel.OneProof.H.TailZ92
+import ZInQKernel.Contrib.OneProof.FowlerBridges
+Fields added (new leaves): `fowlerProp27Print`. -/
+/-- `OpenResearchLeaves66` without `fowlerProp27`, with the leaves `fowlerProp27Print` (fowler-bridges). -/
+  fowlerProp27Print : HDec.CMBranch.FowlerBridges.FowlerProp27Print
+theorem openResearchLeaves66_of_OpenResearchLeaves67 (n : OpenResearchLeaves67) : OpenResearchLeaves66 where
+  fowlerProp27 := HDec.CMBranch.FowlerBridges.fowlerProp27_of_print n.fowlerProp27Print
+theorem sixContactMin_of_open86 (r : OpenResearchLeaves67) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves28) : ZInQ.SixContactMin :=

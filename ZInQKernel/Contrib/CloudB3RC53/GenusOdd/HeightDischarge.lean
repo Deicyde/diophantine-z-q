@@ -3,18 +3,18 @@ import ZInQKernel.Contrib.OneProof.RC.Height.Isomorphism
 import ZInQKernel.Contrib.OneProof.RC.Height.BaseChange
 
 /-!
-# GenusOdd: `NeronTateTwist` discharged from lane RC19's height results
+# GenusOdd: `NeronTateTwist` discharged from the RC height results
 
-`NeronTateTwist` (stated in `Glue.lean`) is PROVED here from lane RC19
-(`ZInQ.Manuscript.RC.Height`): a change of variables preserves `ĥ`
+`NeronTateTwist` (stated in `Glue.lean`) is PROVED here from the height results of
+`ZInQ.Manuscript.RC.Height`: a change of variables preserves `ĥ`
 (`canonicalHeight_addEquivVariableChange`), transport along an equality of curves preserves `ĥ`
 (`canonicalHeight_cast`), and base change from `ℚ` multiplies `ĥ` by the degree
-(`canonicalHeight_baseChange`). Hence the GLUE of (3.4) reduces to `ArtinFactorization` (RC19's G2,
-`L(E/K, s) = L(E, s) L(E^{(k)}, s)` in its ring-class form), `GenusTheory` and
+(`canonicalHeight_baseChange`). Hence the GLUE of (3.4) reduces to `ArtinFactorization` (the
+factorization `L(E/K, s) = L(E, s) L(E^{(k)}, s)` in its ring-class form), `GenusTheory` and
 `SplittingCriterion`.
 
 Naming: `ArtinFactorization` is the ring-class generalization (character `χ_{d₁} ∘ N` on `Pic(O_c)`)
-of RC19's GLUE `ZInQ.Manuscript.RC.Height.LFactorizationConductorOne` (character one, `c = 1`), which
+of the GLUE `ZInQ.Manuscript.RC.Height.LFactorizationConductorOne` (character one, `c = 1`), which
 is its case `d₁ = 1` up to the model `qtwist E 1` of `E`.
 -/
 
@@ -24,7 +24,7 @@ namespace ZInQ.Contrib.CloudB3RC53.GenusOdd
 
 open WeierstrassCurve WeierstrassCurve.Affine ZInQ.Contrib.CloudB3RC53.CST
 
-/-- **`NeronTateTwist`, PROVED** from RC19's height functoriality. -/
+/-- **`NeronTateTwist`, PROVED** from the height functoriality of `RC/Height`. -/
 theorem neronTateTwist_proof : NeronTateTwist := by
   intro E _ h₁ h₃ d H _ _ _ s hs hsd P
   have hd : d ≠ 0 := by
@@ -42,9 +42,9 @@ theorem neronTateTwist_proof : NeronTateTwist := by
     congr 1
   · exact (twistVC_smul E h₁ h₃ hs hsd).symm
 
-/-- The remaining GLUE of (3.4) after RC19: `ArtinFactorization`, `GenusTheory`,
-`SplittingCriterion` (each a `Prop` of `Glue.lean`; `SplittingCriterion` has since been PROVED, and
-the current route is `Artin34.lean` / `LocalFinal.lean`). -/
+/-- The remaining GLUE of (3.4) after `neronTateTwist_proof`: `ArtinFactorization`, `GenusTheory`,
+`SplittingCriterion` (each a `Prop` of `Glue.lean`; `SplittingCriterion` has since been PROVED,
+`Splitting/Criterion.lean`, and the current route is `Artin34.lean` / `LocalFinal.lean`). -/
 structure GlueAfterRC19 : Prop where
   artin : ArtinFactorization
   genus : GenusTheory
@@ -53,16 +53,16 @@ structure GlueAfterRC19 : Prop where
 theorem glueReduced_of_RC19 (G : GlueAfterRC19) : GlueReduced :=
   ⟨G.artin, neronTateTwist_proof, G.genus, G.split⟩
 
-/-- **(3.4)** from the printed leaves and the GLUE left after RC19. -/
+/-- **(3.4)** from the printed leaves and the GLUE left after `neronTateTwist_proof`. -/
 theorem genusLower34_of_RC19 (P : Prints) (G : GlueAfterRC19) : GenusLower34 :=
   genusLower34_of_reduced P (glueReduced_of_RC19 G)
 
-/-- **The fixed witness** from the printed leaves and the GLUE left after RC19. -/
+/-- **The fixed witness** from the printed leaves and the GLUE left after `neronTateTwist_proof`. -/
 theorem fixedWitness_of_RC19 (P : Prints) (G : GlueAfterRC19) : FixedWitness :=
   fixedWitness_proof P (glueReduced_of_RC19 G)
 
 /-- **(3.4) at every `(h, k')`** (AppGEndpoints `FinalFamilyField` form) from the printed leaves
-and the GLUE left after RC19. -/
+and the GLUE left after `neronTateTwist_proof`. -/
 theorem gzEveryCompanion_of_RC19 (P : Prints) (G : GlueAfterRC19) {E : WeierstrassCurve ℚ}
     [E.IsElliptic] (h₁ : E.a₁ = 0) (h₃ : E.a₃ = 0)
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}
@@ -80,11 +80,11 @@ theorem gzEveryCompanion_of_RC19 (P : Prints) (G : GlueAfterRC19) {E : Weierstra
   gzEveryCompanion_genuine P (glue34_of_reduced (glueReduced_of_RC19 G)) h₁ h₃ hf hLat hNC hκ hgp
     hElkikMD selG selR hselG hselR
 
-/-- **`RCSteps.gz_comparison`** from the printed leaves and the GLUE left after RC19. The
-conditions on `kfin` (odd, `≡ 1 mod 4`, unit square at `2N`, prime to `h_*`) are NOT derivable from
-the other `RCData`/`RCSteps` fields (`RCSteps.companion` gives only `kfin < 0`, squarefree,
-`≠ -1, -3`, primes in `S`, `L(E^{(k)},1) ≠ 0`); they are the manuscript's conditions on the final
-companion (tex L2604–2613 with L2349–2352) and stay hypotheses. -/
+/-- **`RCSteps.gz_comparison`** from the printed leaves and the GLUE left after
+`neronTateTwist_proof`. The conditions on `kfin` (odd, `≡ 1 mod 4`, unit square at `2N`, prime to
+`h_*`) are NOT derivable from the other `RCData`/`RCSteps` fields (`RCSteps.companion` gives only
+`kfin < 0`, squarefree, `≠ -1, -3`, primes in `S`, `L(E^{(k)},1) ≠ 0`); they are the manuscript's
+conditions on the final companion (tex L2595–2603 with L2349–2352) and stay hypotheses. -/
 theorem gzComparison_of_RC19 (P : Prints) (G : GlueAfterRC19) {ℓ : ℕ} [(Ecurve ℓ).IsElliptic]
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel (Ecurve ℓ)) :
       Subgroup (GL (Fin 2) ℝ)) 2}

@@ -4,9 +4,11 @@ import Mathlib.Topology.Algebra.Group.Basic
 /-!
 # Lane RC28 round 2, part 1: continuity criteria for linearly topologized modules
 
-Manuscript `diophantine_zq.tex` (11/5), tex 2780–2830 and 4976–5200: the coefficient module
-`T_2E ⊗ Λ(α)` and its height-one fibres are linearly topologized (a basis of neighbourhoods of
-zero by subgroups), and the Galois action is continuous. Two general criteria:
+Manuscript `diophantine_zq.tex` (11/5), tex 2747 (`Λ = ℤ₂[[t]]`), 2836–2838 (`T = T₂E`) and
+4976–5200 (height-one fibres): the conditional fixed-character module `T_2E ⊗ Λ(α)` (not a
+global moving-character module asserted at tex 2780–2785) and its height-one fibres are linearly
+topologized (a basis of neighbourhoods of zero by subgroups), and the Galois action is
+continuous. Two general criteria:
 
 * `continuousSMul_of_hasBasis`: a group `G` acting by additive maps on a topological additive group
   `M` whose neighbourhoods of zero have a basis of subgroups `U n` stable under `G`, such that every

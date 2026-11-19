@@ -1,0 +1,70 @@
+{
+  "id": "Eq (RC)",
+  "kind": "equation",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, assumed, not proved; ZInQ.Manuscript.SelmerTwoPower.SelmerCorankOne a definition: RestrictedConverseGenuine states the implication for the curves y^2 = x(x-l)(x+3l), positive squarefree l = 11 mod 12, with the genuine 2-primary Selmer corank and analytic order at 1 via an entire continuation. It is assumed: a hypothesis (hRC) of ZInQ.OneProof.frozenTarget and listed open in OPEN.md, not proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.633671,
+          0.784314,
+          0.03116
+        ]
+      },
+      "title": "Eq. (RC)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (RC)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.SelmerTwoPower.SelmerCorankOne",
+        "module": "ZInQKernel.Contrib.OneProof.SelmerTwoPower"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.SelmerTwoPower.SelmerCorankOne@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def SelmerCorankOne : Prop :=\n  Z2Corank (selmerTwoPower E) 1",
+            "line": 206,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean",
+            "fragment": "L206"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -7,11 +7,12 @@ import Mathlib.NumberTheory.LSeries.Convolution
 /-!
 # `HasseConvergence` from Hasse's bound
 
-`HasseConvergence` (lane RC8's GLUE: `∑ a_n n^{-s}` converges absolutely for `Re s > 3/2`, for every
-elliptic curve `E/ℚ`) follows from Hasse's bound over finite fields:
+`HasseConvergence` (`RC/PrintsAnalytic`: `∑ a_n n^{-s}` converges absolutely for `Re s > 3/2`, for
+every elliptic curve `E/ℚ`) follows from Hasse's bound over finite fields:
 
-* `HasseBound` (PRINT; Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., Theorem V.1.1): for
-  an elliptic curve `E` over a finite field with `q` elements, `| |E(𝔽_q)| − q − 1 | ≤ 2√q`.
+* `HasseBound` (statement; PROVED in `WeilIsogeny/HasseProof.lean`; not a print; reference:
+  Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., Theorem V.1.1): for an elliptic curve `E`
+  over a finite field with `q` elements, `| |E(𝔽_q)| − q − 1 | ≤ 2√q`.
 * `exists_localPolynomial_roots`: at every prime `p`, Mathlib's local polynomial of `E` is
   `(1 − αT)(1 − βT)` with `|α|, |β| ≤ √p` (good reduction: `HasseBound` for the reduction;
   multiplicative or additive reduction: `1 ∓ T` or `1`).
@@ -20,7 +21,10 @@ elliptic curve `E/ℚ`) follows from Hasse's bound over finite fields:
 * `hasseConvergence_of_hasseBound`: `∑ d(n) n^{-t}` is the `L`-series of `ζ ∗ ζ`, summable for
   `Re t > 1`; with `t = s − 1/2` it dominates `∑ |a_n| n^{-Re s}`.
 
-Classification: `hasseConvergence_of_hasseBound` PROVED; `HasseBound` PRINT.
+Classification: `hasseConvergence_of_hasseBound` PROVED. `HasseBound`: statement; PROVED
+(`WeilIsogeny/HasseProof.lean`, `hasseBoundProved_proof`); not a print — the manuscript uses
+Hasse's bound uncited (tex 1590, 6323); Silverman V.1.1 given as a reference only. Hence
+`HasseConvergence` holds outright (`Hasse/Final.lean`).
 -/
 
 noncomputable section
@@ -29,10 +33,11 @@ open Polynomial WeierstrassCurve IsDedekindDomain Rat.HeightOneSpectrum Arithmet
 
 namespace ZInQ.Contrib.CloudB3RC53.Hasse
 
-/-- **Node `HasseBound`** (PRINT: J. Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., GTM
-106, Theorem V.1.1 (Hasse); the manuscript uses Hasse's bound uncited at tex 1590 and 6323): for an
-elliptic curve `E` over a finite field `𝔽_q`, `| |E(𝔽_q)| − q − 1 | ≤ 2√q`. Here `|E(𝔽_q)|` counts the
-point at infinity (`W.toAffine.Point` is the affine points together with `O`). -/
+/-- **Node `HasseBound`** (statement; PROVED (`WeilIsogeny/HasseProof.lean`); not a print — the
+manuscript uses Hasse's bound uncited (tex 1590, 6323); Silverman V.1.1 given as a reference only:
+J. Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., GTM 106, Theorem V.1.1): for an elliptic
+curve `E` over a finite field `𝔽_q`, `| |E(𝔽_q)| − q − 1 | ≤ 2√q`. Here `|E(𝔽_q)|` counts the point
+at infinity (`W.toAffine.Point` is the affine points together with `O`). -/
 def HasseBound : Prop :=
   ∀ (F : Type) [Field F] [Fintype F] (W : WeierstrassCurve F) [W.IsElliptic],
     |(Nat.card W.toAffine.Point : ℝ) - Fintype.card F - 1| ≤ 2 * √(Fintype.card F : ℝ)
@@ -152,8 +157,8 @@ theorem hasseConvergence_of_hasseBound (hB : HasseBound) :
         mul_le_mul_of_nonneg_right hb (by positivity)
     _ = _ := by ring
 
-/-- **`HasseConvergence` from the printed Hasse bound** (PROVED reduction; the GLUE becomes the
-PRINT `HasseBound`). -/
+/-- **`HasseConvergence` from Hasse's bound** (PROVED reduction; the GLUE becomes the statement
+`HasseBound`, itself PROVED in `WeilIsogeny/HasseProof.lean`). -/
 theorem hasseConvergence_proof (hB : HasseBound) :
     ZInQ.Manuscript.RC.PrintsAnalytic.HasseConvergence :=
   hasseConvergence_of_hasseBound hB

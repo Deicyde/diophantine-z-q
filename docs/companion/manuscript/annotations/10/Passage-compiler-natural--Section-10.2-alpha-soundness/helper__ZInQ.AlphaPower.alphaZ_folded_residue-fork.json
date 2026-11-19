@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 alpha soundness",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: alphaEqns_sound states that (C.2) forces X = U_N (and b > 3), and its proof follows [M]'s argument: Pell shapes, u | m by (C.1), parameter congruence, reflection and the bounds 2X < v, 2N < u. Proved without assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.724372,
+          0.784314,
+          0.085981
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 alpha soundness",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 alpha soundness"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.alphaZ_folded_residue",
+        "module": "ZInQKernel.Compiler.Exponential.AlphaPeriod"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.alphaZ_folded_residue@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem alphaZ_folded_residue (b m n l j : ℕ) (hb : 2 < b)\n    (hf : n = 2 * l * m + j ∨ (n = 2 * l * m - j ∧ 0 < j ∧ j < 2 * l * m)) :\n    (alphaZ b (m + 1) - alphaZ b (m - 1)) ∣ alphaZ b n - alphaZ b j ∨\n      (alphaZ b (m + 1) - alphaZ b (m - 1)) ∣ alphaZ b n + alphaZ b j := by",
+            "line": 51,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/AlphaPeriod.lean",
+            "fragment": "L51"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

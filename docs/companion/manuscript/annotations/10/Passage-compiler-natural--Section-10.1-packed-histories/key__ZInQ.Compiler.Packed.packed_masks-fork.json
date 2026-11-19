@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 packed histories",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: PackedConditions fixes [M]'s parameters and conditions (F and D through B F + 1 = F + B T and D + F = K F, which packed_masks proves equal to the sums), and packed_masks and one_active_state prove the digit consequences; proved, no assumed hypothesis.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.223068,
+          0.784314,
+          0.248629
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 packed histories",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 packed histories"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Packed.packed_masks",
+        "module": "ZInQKernel.Compiler.Circuits.Packed.Masks"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Packed.packed_masks@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem packed_masks {c q K B T F D : ℕ} (_hc : 0 < c) (hK : K = 2 ^ c) (hB : B = 4 * K)\n    (hT : T = B ^ q) (hF : B * F + 1 = F + B * T) (hD : D + F = K * F) :\n    (F = ∑ t ∈ range (q + 1), B ^ t ∧ D = ∑ t ∈ range (q + 1), (K - 1) * B ^ t) ∧\n    (∀ R, (Nat.land R D = R ∧ R < T) ↔\n      ∃ ρ : ℕ → ℕ, (∀ t ≤ q, ρ t < K) ∧ ρ q = 0 ∧ R = ∑ t ∈ range (q + 1), ρ t * B ^ t) ∧\n    (∀ S, Nat.land S F = S ↔\n      ∃ σ : ℕ → ℕ, (∀ t ≤ q, σ t ≤ 1) ∧ S = ∑ t ∈ range (q + 1), σ t * B ^ t) := by",
+            "line": 52,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Packed/Masks.lean",
+            "fragment": "L52"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

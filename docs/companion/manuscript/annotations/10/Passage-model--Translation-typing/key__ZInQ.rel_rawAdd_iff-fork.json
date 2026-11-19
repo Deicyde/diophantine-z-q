@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Translation typing",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: member forces a code in D, raw addition on canonical codes gives the code of the sum for all points, the fixed scalar template gives [n]P for P in D, and height_certificate forces its three roots to be codes; all proved with no assumed hypothesis. rel_rawAdd_iff holds on all of E(K0), which includes [M]'s canonical inputs.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.416119,
+          0.784314,
+          0.121715
+        ]
+      },
+      "title": "Passage (model): Translation typing",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Translation typing"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.rel_rawAdd_iff",
+        "module": "ZInQKernel.Model.Generator.RawAddition"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.rel_rawAdd_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem rel_rawAdd_iff (P Q : genCurve.toAffine.Point) (r : Fin 5 → ℚ) :\n    rawAddTemplate.Rel (Fin.append (Fin.append (pointCode P) (pointCode Q)) r) ↔\n      r = pointCode (P + Q) := by",
+            "line": 249,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Generator/RawAddition.lean",
+            "fragment": "L249"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -128,7 +128,7 @@ variable (K : Type) [Field K] [NumberField K] (S : Set (HeightOneSpectrum (𝓞 
   (hlamAct : ∀ y, lamAct
     (((selCx (galoisSelData K S k M (condAt K S k M Δ₀ Δd c₀))).toCC.d 1 2).hom y) = 0)
 
-/-- **The collapse check over the genuine Galois family** (GlueTruth D1): a genuine switching datum
+/-- **The collapse check over the genuine Galois family**: a genuine switching datum
 over `galoisSwitchFamily` whose starting stage has fibre dimension one forces the genuine first
 cohomology of the actual Galois Selmer complex `galoisSelData K S k M (condAt Δ₀ Δd c₀)` to have
 dimension one. Classification: PROVED. -/

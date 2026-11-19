@@ -5,16 +5,17 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.CongruenceSubgroups.
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Degeneracy
 
 /-!
-# GenusOdd: `GoodReductionOffLevel` from lane RC8's `ModularNewform` (PROVED reduction)
+# GenusOdd: `GoodReductionOffLevel` from `ModularNewform` (PROVED reduction)
 
 `newformLevel E` is the least `M > 0` such that some `g ∈ S₂(Γ₀(M))` has the Dirichlet
 coefficients of `L(E, s)` as `q`-expansion. Let `f` be the newform of `E`, of level `N`
 (`ModularNewform`, BCDT). Then `g = f` as functions (same `q`-expansion), so `f` is invariant under
 `Γ₀(M)` and `Γ₁(N)`, hence under `Γ(M) ⊔ Γ(N) = Γ(gcd(M, N))` (Tau Ceti's `Gamma_gcd_eq_sup`) and
 `T`, hence under `Γ₁(d)`, `d = gcd(M, N)`. If `d ≠ N`, `f = V₁(f)` would be old at level `N`
-(`levelRaise_mem_cuspFormsOld`), while it is new and normalised (`disjoint_cuspFormsOld_cuspFormsNew`):
-so `N ∣ M` (`dvd_of_hasCuspFormAtLevel`). A prime `p ∤ newformLevel E` therefore does not divide
-`N`, and `E` has good reduction at `p` (lane RC18's `hasGoodReduction_of_isNewformOf`).
+(`levelRaise_mem_cuspFormsOld`), while it is new and normalised
+(`disjoint_cuspFormsOld_cuspFormsNew`): so `N ∣ M` (`dvd_of_hasCuspFormAtLevel`). A prime
+`p ∤ newformLevel E` therefore does not divide `N`, and `E` has good reduction at `p`
+(`hasGoodReduction_of_isNewformOf`, `RC/TwistDictionary`).
 -/
 
 noncomputable section
@@ -124,8 +125,8 @@ theorem eq_of_le_slashStab {N : ℕ} [NeZero N] (f : Newform N 2) {d : ℕ} [NeZ
   rw [hz, UpperHalfPlane.qExpansion_zero, map_zero] at h1'
   exact zero_ne_one h1'
 
-/-- **`g = f`** (PROVED): a cusp form on `Γ₀(M)` with the coefficients of `L(E, s)` is the newform of
-`E` as a function on `ℍ`. -/
+/-- **`g = f`** (PROVED): a cusp form on `Γ₀(M)` with the coefficients of `L(E, s)` is the newform
+of `E` as a function on `ℍ`. -/
 theorem coe_eq_of_coeff {E : WeierstrassCurve ℚ} {N : ℕ} [NeZero N] {f : Newform N 2}
     (hf : IsNewformOf E f) {M : ℕ} [NeZero M]
     (g : CuspForm (CongruenceSubgroup.Gamma0 M : Subgroup (GL (Fin 2) ℝ)) 2)
@@ -164,7 +165,7 @@ theorem dvd_of_hasCuspFormAtLevel {E : WeierstrassCurve ℚ} {N : ℕ} [NeZero N
   rw [← heq]
   exact Nat.gcd_dvd_left M N
 
-/-- **`GoodReductionOffLevel` from `ModularNewform`** (PROVED): lane RC8's printed leaf
+/-- **`GoodReductionOffLevel` from `ModularNewform`** (PROVED): the printed leaf
 `ModularNewform` (BCDT Theorem A, newform form) implies that `E` has good reduction at every prime
 not dividing `newformLevel E`. -/
 theorem goodReductionOffLevel_of_modularNewform (hMN : ModularNewform) : GoodReductionOffLevel := by

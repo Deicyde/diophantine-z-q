@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10 reference program and IR",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.IR.precisionProgram a definition: decide5 and the big-step-semantics program precisionProgram compute accepts on every c in N^5, the program is total, and the Jacobian identities and halving scalar multiplication are proved, all without assumed hypotheses; [F] groups the Jacobian identities as items 1-8 rather than nine.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.465115,
+          0.784314,
+          0.135098
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10 reference program and IR",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10 reference program and IR"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.IR.precisionProgram",
+        "module": "ZInQKernel.Compiler.Programs.PrecisionIR"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.IR.precisionProgram@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def precisionProgram : Program where\n  body := decodeInputs precRegT ;; precisionZ.compile precOff precRegT\n  bound := precRegT + precisionZ.temps + 8\n  inputs := 5",
+            "line": 110,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Programs/PrecisionIR.lean",
+            "fragment": "L110"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

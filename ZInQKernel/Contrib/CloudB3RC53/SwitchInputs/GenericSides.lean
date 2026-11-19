@@ -59,7 +59,7 @@ def relaxedDK : (contCochains k G M).X 0 →ₗ[k] Z1K k G M :=
         at h
     exact h)
 
-/-- A side condition `[A_F → B_F]` inside the relaxed one over `k` (tex L5068–5072):
+/-- A side condition `[A_F → B_F]` inside the relaxed one over `k` (tex L5060–5061):
 `Z⁰ ⊆ A_F ⊆ C⁰`,
 `B_F ⊆ Z¹`, `d(A_F) ⊆ B_F`, and the inertia property `d a ∈ B_F → a ∈ A_F`. -/
 structure SideCondK where
@@ -119,7 +119,7 @@ theorem relaxedDK_ev (a : (contCochains k G M).X 0) (g : G) :
 
 variable (k M) in
 /-- **The side condition of a set `T ⊆ G`** over `k`: `A = M^T`, `B = {z ∈ Z¹ | z(h) = 0, h ∈ T}`
-(tex L5068–5083). `hcob` holds since `(d⁰a)(h) = h • a − a`. PROVED. -/
+(tex L5060–5082). `hcob` holds since `(d⁰a)(h) = h • a − a`. PROVED. -/
 def sideOfSetK (T : Set G) : SideCondK k G M where
   AF := ⨅ h : T, LinearMap.ker ((DistribSMul.toLinearMap k M (h : G) - LinearMap.id) ∘ₗ ev0LK)
   BF := ⨅ h : T, LinearMap.ker (ev1LK (h : G) ∘ₗ (Z1K k G M).subtype)
@@ -154,7 +154,7 @@ theorem mem_sideOfSetK_BF (T : Set G) (z : Z1K k G M) :
 
 variable (k M) in
 /-- **The finite side** over `k`: cocycles vanishing on the inertia subgroup `I`, `A_F = M^I`
-(tex L5027–5037, L5068–5072). PROVED. -/
+(tex L5027–5037, L5060–5061). PROVED. -/
 def finiteSideK (I : Subgroup G) : SideCondK k G M := sideOfSetK k M (I : Set G)
 
 variable (k M) in

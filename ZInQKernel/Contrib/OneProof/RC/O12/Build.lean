@@ -59,7 +59,15 @@ variable [ContinuousSMul O K] [Finite (O ⧸ m)]
 /-- **The formwise good Hecke formula for the shared constructor.** For the model of
 `buildConstituentModel`, Fourier data `A` on its coefficient family give
 `FourierData.FormwiseHecke` from one extra input: the good Hecke formula on `F_U` at the good
-primes `q ∉ U` in `avoid` (`hexcl`; tex 9660–9674, 9754–9769). Kind: PROVED. -/
+primes `q ∉ U` in `avoid` (`hexcl`; tex 9660–9674, 9754–9769). Kind: PROVED.
+
+This constructor is not a discharge for the genuine added-prime packets.
+`htyp`, `hS` and `hlevel` force `avoid` to contain no good prime; together
+with `hunr` they make every constituent unramified at every good added prime.
+Thus it cannot carry the ramified blocks of tex 9754–9758 and 9866–9873.
+Tex 9649–9668 also supplies finiteness only at each fixed packet. A genuine
+family discharge must assemble separate packets with per-U openness and
+inertia support S ∪ U; it is not constructed here. -/
 theorem formwiseHecke_of_buildConstituentModel (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : ℕ)
     (chiType : GalQ →* Multiplicative L) (hchi : OpenTypeKernel chiType)
     (htyp : IsTypeChar T chiType)

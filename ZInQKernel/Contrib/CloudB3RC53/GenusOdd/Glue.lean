@@ -4,25 +4,29 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.Defs
 # GenusOdd: the textbook GLUE behind (3.4) (stated here; current status of each below)
 
 The proof of (3.4) (tex L2427–2439) cites Cai–Shu–Tian Theorem 1.1 twice (the printed leaf
-`CST.CSTThm11Split` of `Prints`) and then compares the two outputs. Between the print as it is stated
-over Lean objects (`Prints/CST.lean`) and that comparison, five standard facts are used that are
-neither in Mathlib nor in Tau Ceti. Each is stated here as a `Prop`, in the most standard form that
-suffices, with a docstring saying why it is true and where it enters; they were introduced as GLUE.
+`CST.CSTThm11Split` of `Prints`) and then compares the two outputs. Between the print as it is
+stated over Lean objects (`Prints/CST.lean`) and that comparison, five standard facts are used that
+are neither in Mathlib nor in Tau Ceti. Each is stated here as a `Prop`, in the most standard form
+that suffices, with a docstring saying why it is true and where it enters; they were introduced as
+GLUE.
 **Current status:** `NeronTateTwist`, `TwistDescent` and `SplittingCriterion` are PROVED;
 `GenusTheory` is no longer needed on the current route (`Artin34.lean`: `genusRoots_proof` and the
-normal-closure form of Elliot's step); `ArtinFactorization` is PROVED from lane RC8's
-`HasseConvergence` (GLUE) and `ModularNewform` (PRINT) and the local GLUE `LocalFactorInert`
-(`artinFactorization_of_newform`, `LocalFinal.lean`). None is a step of Elliot's argument: Elliot's step (the index-at-most-two comparison,
-tex L2433–2435) is PROVED in `GenusLower.lean` from these.
+normal-closure form of Elliot's step); `ArtinFactorization` is PROVED from
+`ModularNewform` (PRINT) alone (`artinFactorization_unconditional`, `Hasse/Final.lean`;
+`HasseConvergence` is proved there and the inert clause in `ArtinUnconditional.lean`). None is a
+step of Elliot's argument: Elliot's step (the index-at-most-two comparison, tex L2433–2435) is
+PROVED in `GenusLower.lean` from these.
 
 * `ArtinFactorization` (tex L2432 "The two Rankin products have the common factor `L(E^{(h)},s)`"):
   `L(E/K, χ_{d₁} ∘ N, s) = L(E^{(d₁)}, s) L(E^{(d₂)}, s)` for `d₁ d₂ = disc(K) c²`. Reduced to the
   inert clause `LocalFactorInert` with `HasseConvergence` and `ModularNewform`
-  (`artinFactorization_of_newform`, `LocalFinal.lean`).
+  (`artinFactorization_of_newform`, `LocalFinal.lean`); PROVED from `ModularNewform` alone
+  (`artinFactorization_unconditional`, `Hasse/Final.lean`).
 * `NeronTateTwist` (implicit at tex L2433–2436): the Néron–Tate height of the
   image of a rational point of the twist `E^{(d)}` in `E(H)` is `[H : ℚ]` times its height.
-  **PROVED** from lane RC19's height results in `HeightDischarge.lean` (`neronTateTwist_proof`).
-* `TwistDescent` (tex L8313–8314 "the standard twist identification"): a point of `E(H)` on which
+  **PROVED** from the height results of `RC/Height` in `HeightDischarge.lean`
+  (`neronTateTwist_proof`).
+* `TwistDescent` (tex L8298–8299 "the standard twist identification"): a point of `E(H)` on which
   `Gal(H/ℚ)` acts through the character of `√d` comes from `E^{(d)}(ℚ)`. **PROVED** in
   `TwistDescentProof.lean` (`twistDescent_proof`); no longer an input.
 * `GenusTheory` (tex L8211–8215, L8257–8259 "The conductor-one genus character … cuts out
@@ -53,8 +57,9 @@ by `χ` (CST's `twistedLFunction`, `χ(𝔭) = 0` at `𝔭 ∣ c`) is `L(E^{(d�
 `Re s > 3/2`. At `𝔭 ∣ c` both sides have trivial factor (`E^{(d₁)}`, `E^{(d₂)}` are additive there);
 at a ramified `𝔭 ∤ c` the factor of `E/K` matches the good one of the unramified twist. In the two
 uses: genus point `c = 1`, `d₁ = h_*`, `d₂ = h`; ring-class point `c = |h|`, `d₁ = h`,
-`d₂ = h k'`. Status: reduced (`artinFactorization_of_newform`, `LocalFinal.lean`) to lane RC8's
-`HasseConvergence` (GLUE) and `ModularNewform` (PRINT) and the inert clause `LocalFactorInert`. -/
+`d₂ = h k'`. Status: reduced (`artinFactorization_of_newform`, `LocalFinal.lean`) to
+`HasseConvergence`, `ModularNewform` (PRINT) and the inert clause `LocalFactorInert`; PROVED from
+`ModularNewform` alone (`artinFactorization_unconditional`, `Hasse/Final.lean`). -/
 def ArtinFactorization : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (K : Type) [Field K] [NumberField K],
     Module.finrank ℚ K = 2 → IsTotallyComplex K → Odd (discr K) →
@@ -68,7 +73,7 @@ def ArtinFactorization : Prop :=
         (qtwist E d₁).LSeries s * (qtwist E d₂).LSeries s
 
 /-- **Néron–Tate height of a twisted rational point** (stated here as GLUE; PROVED in
-`HeightDischarge.lean`, `neronTateTwist_proof`, from lane RC19. Textbook: the canonical height is
+`HeightDischarge.lean`, `neronTateTwist_proof`, from `RC/Height`. Textbook: the canonical height is
 invariant under isomorphism over `H` and multiplies by `[H : F]` under base change, heights being
 relative to the field; Silverman VIII.9). For `E` with `a₁ = a₃ = 0`, `s ∈ H` with `s² = d ≠ 0`
 and `P ∈ E^{(d)}(ℚ)`: `ĥ_H(ψ_s P) = [H : ℚ] ĥ_ℚ(P)` (Tau Ceti's canonical heights, Mathlib's

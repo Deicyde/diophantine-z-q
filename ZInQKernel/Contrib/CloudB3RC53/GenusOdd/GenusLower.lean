@@ -8,17 +8,17 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.Arith
 **Known issue K3**: (3.4) needs Cai–Shu–Tian
 Theorem 1.1 in a form whose conductor factor is `c √|disc K|` with no other dependence on `c` or
 `K`, with the unaveraged sum and the height relative to `K`. That form is exactly the printed leaf
-`Prints.cst` (`CST.CSTThm11Split`), stated in `Prints/CST.lean` (Theorem 1.1 read, arXiv:1408.1733v2,
-p. 2); it is used here as stated and is **not** reconstructed or re-proved.
+`Prints.cst` (`CST.CSTThm11Split`), stated in `Prints/CST.lean` (Theorem 1.1 read,
+arXiv:1408.1733v2, p. 2); it is used here as stated and is **not** reconstructed or re-proved.
 No Gross–Zagier argument of our own enters.
 
-## The objects (tex L2403–2415)
+## The objects (tex L2403–2416)
 
 For a positive squarefree `h` in the prepared filter containing one (`Prepared`), a fixed negative
 genus partner `h_*` (`GenusPartner`) and a rough companion `k'` (`Companion`):
 
 * the genus point `P_h^gen`: the unaveraged conductor-one genus sum over `ℚ(√(h h_*))`, weighted by
-  `χ_{h_*}(N𝔞)` ((O.1), tex L8212–8215): `heegnerSum` of a `HeegnerDatum` with `D = h h_*`,
+  `χ_{h_*}(N𝔞)` ((O.1), tex L8213–8217): `heegnerSum` of a `HeegnerDatum` with `D = h h_*`,
   `c = 1`, `d₁ = h_*`;
 * the ring-class point `P_{h,k'}^rc`: the unaveraged conductor-`|h|` sum over `ℚ(√k')` weighted by
   `χ_h`: `heegnerSum` of a `HeegnerDatum` with `D = k'`, `c = |h|`, `d₁ = h`;
@@ -26,9 +26,9 @@ genus partner `h_*` (`GenusPartner`) and a rough companion `k'` (`Companion`):
   `eigenLattice`).
 
 A `HeegnerDatum` carries the field, the character, a Heegner form, an embedding `ι : H_c → ℂ` and a
-point `y ∈ E(H_c)` with `ι(y) = φ(τ)`: the complex-analytic model of `Prints/CST.lean` (the algebraic
-Heegner point on `X₀(N)` is not available). `jgenOf`, `jrcOf` read the index off a selection of
-data (one datum per `h`, resp. `(h, k')`).
+point `y ∈ E(H_c)` with `ι(y) = φ(τ)`: the complex-analytic model of `Prints/CST.lean` (the
+algebraic Heegner point on `X₀(N)` is not available). `jgenOf`, `jrcOf` read the index off a
+selection of data (one datum per `h`, resp. `(h, k')`).
 
 ## The proof (tex L2427–2439)
 
@@ -81,7 +81,7 @@ structure HeegnerDatum (D : ℤ) (c : ℕ) (d₁ : ℤ) where
 
 variable {E f Lat κ}
 
-/-- The index valuation of `P_χ` in its native lattice (`j` of tex L2415). -/
+/-- The index valuation of `P_χ` in its native lattice (`j` of tex L2416). -/
 def nativeIndex (E : WeierstrassCurve ℚ) {K : Type} [Field K] [NumberField K] {c : ℕ} [NeZero c]
     (χ : Pic (conductorOrder K c) →* ℂˣ)
     (y : (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point) : ℕ∞ :=
@@ -95,7 +95,7 @@ def HeegnerDatum.index {D : ℤ} {c : ℕ} {d₁ : ℤ} (dat : HeegnerDatum E f 
 
 variable (E f Lat κ)
 
-/-- **`j_gen(h)`** (tex L2411–2415) read off a selection of genus data (`D = h h_*`, `c = 1`,
+/-- **`j_gen(h)`** (tex L2411–2416) read off a selection of genus data (`D = h h_*`, `c = 1`,
 `χ = χ_{h_*} ∘ N`); `0` where no datum is selected. -/
 def jgenOf (hstar : ℤ) (selG : (h : ℤ) → Option (HeegnerDatum E f Lat κ (h * hstar) 1 hstar))
     (h : ℤ) : ℤ :=
@@ -103,7 +103,7 @@ def jgenOf (hstar : ℤ) (selG : (h : ℤ) → Option (HeegnerDatum E f Lat κ (
   | some dat => (dat.index.toNat : ℤ)
   | none => 0
 
-/-- **`j_rc(h, k')`** (tex L2411–2415) read off a selection of ring-class data (`D = k'`,
+/-- **`j_rc(h, k')`** (tex L2411–2416) read off a selection of ring-class data (`D = k'`,
 `c = |h|`, `χ = χ_h ∘ N`); `0` where no datum is selected. -/
 def jrcOf (selR : (h k : ℤ) → Option (HeegnerDatum E f Lat κ k h.natAbs h)) (h k : ℤ) : ℤ :=
   match selR h k with
@@ -181,10 +181,11 @@ theorem coprime_of_squareAt {N : ℕ} {d : ℤ} (h : ∀ p : ℕ, p.Prime → p 
 
 open Classical in
 /-- **One application of Cai–Shu–Tian, with Elliot's comparison** (PROVED from `Prints.cst` and the
-GLUE). For a field `K` of discriminant `D`, `χ = χ_{d₁} ∘ N` on `Pic(O_c)`, `d₁ d₂ = D c²`, a Heegner
-point `y` and entire continuations `F₁, F₂` of `L(E^{(d₁)}, s)`, `L(E^{(d₂)}, s)`: if `E^{(d_T)}(ℚ)` is
-torsion for the one of `d₁, d₂` called `d_T`, there is `Q` on the rational line `E^{(d_R)}(ℚ)` (the
-other one) with `(F₁F₂)'(1) = C/(c√|D|) · ĥ(Q)/2` and `j(P_χ) ≤ j(Q) ≤ j(P_χ) + 1`. -/
+GLUE). For a field `K` of discriminant `D`, `χ = χ_{d₁} ∘ N` on `Pic(O_c)`, `d₁ d₂ = D c²`, a
+Heegner point `y` and entire continuations `F₁, F₂` of `L(E^{(d₁)}, s)`, `L(E^{(d₂)}, s)`: if
+`E^{(d_T)}(ℚ)` is torsion for the one of `d₁, d₂` called `d_T`, there is `Q` on the rational line
+`E^{(d_R)}(ℚ)` (the other one) with `(F₁F₂)'(1) = C/(c√|D|) · ĥ(Q)/2` and
+`j(P_χ) ≤ j(Q) ≤ j(P_χ) + 1`. -/
 theorem datum_facts_core (G : Glue34) {E : WeierstrassCurve ℚ} [E.IsElliptic] (h₁ : E.a₁ = 0)
     (h₃ : E.a₃ = 0)
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}

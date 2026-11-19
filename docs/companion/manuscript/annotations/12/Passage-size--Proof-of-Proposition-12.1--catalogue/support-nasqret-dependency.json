@@ -1,0 +1,240 @@
+{
+  "id": "Passage size: Proof of Proposition 12.1, catalogue",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It proves at least 22 primes above 324 per unit class only below 2^(W^8) (`ZInQ.catalogueBound8`), so it states Hmax < 2^(W^8) and Ns < 2^2^4613 where [M] has X = 2^(W^3) and log2 Ns < 2^2054; `CatalogueBound` is never proved.",
+  "relation": "narrowMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 83,
+        "rect": [
+          0.107843,
+          0.726693,
+          0.784314,
+          0.148339
+        ]
+      },
+      "title": "Passage (size): Proof of Proposition 12.1, catalogue",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Proof of Proposition 12.1, catalogue"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.CatalogueBound",
+        "module": "ZInQKernel.Hypotheses.PrimePattern"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.CatalogueBound@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Hypotheses/PrimePattern.lean",
+            "fragment": "L165"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It proves at least 22 primes above 324 per unit class only below 2^(W^8) (`ZInQ.catalogueBound8`), so it states Hmax < 2^(W^8) and Ns < 2^2^4613 where [M] has X = 2^(W^3) and log2 Ns < 2^2054; `CatalogueBound` is never proved."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.CatalogueBound8",
+        "module": "ZInQKernel.Hypotheses.PrimePattern"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.CatalogueBound8@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Hypotheses/PrimePattern.lean",
+            "fragment": "L190"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It proves at least 22 primes above 324 per unit class only below 2^(W^8) (`ZInQ.catalogueBound8`), so it states Hmax < 2^(W^8) and Ns < 2^2^4613 where [M] has X = 2^(W^3) and log2 Ns < 2^2054; `CatalogueBound` is never proved."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.catalogue_bounds",
+        "module": "ZInQKernel.Size.Constants.Catalogue"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.catalogue_bounds@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/Catalogue.lean",
+            "fragment": "L50"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It proves at least 22 primes above 324 per unit class only below 2^(W^8) (`ZInQ.catalogueBound8`), so it states Hmax < 2^(W^8) and Ns < 2^2^4613 where [M] has X = 2^(W^3) and log2 Ns < 2^2054; `CatalogueBound` is never proved."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.catalogue_size",
+        "module": "ZInQKernel.Size.Constants.Catalogue"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.catalogue_size@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/Catalogue.lean",
+            "fragment": "L117"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It proves at least 22 primes above 324 per unit class only below 2^(W^8) (`ZInQ.catalogueBound8`), so it states Hmax < 2^(W^8) and Ns < 2^2^4613 where [M] has X = 2^(W^3) and log2 Ns < 2^2054; `CatalogueBound` is never proved."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.small_constant_bounds",
+        "module": "ZInQKernel.Size.Constants.Small"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.small_constant_bounds@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Constants/Small.lean",
+            "fragment": "L44"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It proves at least 22 primes above 324 per unit class only below 2^(W^8) (`ZInQ.catalogueBound8`), so it states Hmax < 2^(W^8) and Ns < 2^2^4613 where [M] has X = 2^(W^3) and log2 Ns < 2^2054; `CatalogueBound` is never proved."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.catalogueBound8",
+        "module": "ZInQKernel.Progressions.Final.Instance"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.catalogueBound8@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Progressions/Final/Instance.lean",
+            "fragment": "L34"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (weaker): ndep carries it with files identical to [F]'s; [N] has no declaration of its own. It proves at least 22 primes above 324 per unit class only below 2^(W^8) (`ZInQ.catalogueBound8`), so it states Hmax < 2^(W^8) and Ns < 2^2^4613 where [M] has X = 2^(W^3) and log2 Ns < 2^2054; `CatalogueBound` is never proved."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          83
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "CatalogueBound (the 2^(W^3) form) is only a def, used as a hypothesis of catalogueBound8_of_catalogueBound and cataloguePrime_lt_of_catalogueBound. Every proved catalogue estimate uses the 2^(W^8) cutoff: Hmax < 2^W^8, Hcat <= (2^W^8)^(22W), Ns < 2^2^4613. The small bounds W > 10^5, W < 2^435 and 2^2000 < F0 < 2^2250 match [M] or are sharper, so the claim holds.",
+            "catalogue_bounds and catalogue_size state Hmax < 2^(W^8), Hcat <= (2^(W^8))^(22W), Ns < 2^2^4613, all from CatalogueBound8; the 2^(W^3) CatalogueBound is a definition only used as a premise of catalogueBound8_of_catalogueBound and is never proved, so [M]'s X = 2^(W^3) estimates and log2 Ns < 2^2054 have no proved counterpart. small_constant_bounds gives W > 10^5, W < 2^435 and 2^2000 < F < 2^2250 as claimed."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "ndep's PrimePattern.lean, Progressions/Final/Instance.lean and Size files are identical to the fork's, with the same 2^(W^8) cutoff and no proof of CatalogueBound. Grepping nasqret/ for CatalogueBound, catalogueBound8, Hcat, Hmax and the Size.* names found no [N] statement, so the claim holds.",
+            "ndep's PrimePattern.lean, Catalogue.lean and Small.lean are identical to [F]'s, so the same 2^(W^8) weakening holds, and [N] adds no declaration of its own on the catalogue (its PrimorialCertificate.lean bounds a different primorial for predecessor heights)."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

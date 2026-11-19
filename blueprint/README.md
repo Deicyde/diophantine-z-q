@@ -8,6 +8,9 @@ hypotheses and its finite computations checked by the Lean kernel.
   dependencies.
 - [Coverage](coverage/README.md) — what counts as done, and what is out of
   scope.
+- [The manuscript, annotated](https://deicyde.github.io/diophantine-z-q/companion/pdf-overlay/viewer/index.html)
+  — the 11/5 manuscript page by page, each passage linked to the Lean that
+  states it. An unreviewed machine audit.
 
 <!-- Reference material goes in sources/. It is vault material rather than a
      chapter, so the site does not publish it: a statement's "## Sources" list

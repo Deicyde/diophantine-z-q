@@ -1,0 +1,47 @@
+{
+  "id": "Definition 8.7",
+  "kind": "definition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: No definition of the class-functional coordinate u in the determinant line det^{-1} C; the lexical seeds (TauCeti.ClassFunction etc.) are class functions on groups, unrelated.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 52,
+        "rect": [
+          0.107843,
+          0.763849,
+          0.784314,
+          0.15044
+        ]
+      },
+      "title": "Definition 8.7",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 8.7"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          52
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "Passage syntax: Appendix C.1 scalar nodes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: Node semantics in stored order, calls, fixed integer expressions, the 22-prime catalogue and psi_component have matching definitions; the fixed point codes (iota_eq_psi_unconditional) and the zero set of the finite guard product (guardPoly_eval_eq_zero_iff) are proved. [F]'s templates are built from formulas rather than stored node lists, so Node.denote is the semantics, not the source of the library.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.107843,
+          0.666475,
+          0.784314,
+          0.223546
+        ]
+      },
+      "title": "Passage (syntax): Appendix C.1 scalar nodes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C.1 scalar nodes#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.24959
+        ]
+      },
+      "title": "Passage (syntax): Appendix C.1 scalar nodes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C.1 scalar nodes#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.guardPoly_eval_eq_zero_iff",
+        "module": "ZInQKernel.Syntax.Constants.Guard"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.guardPoly_eval_eq_zero_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem guardPoly_eval_eq_zero_iff (T : ℤ) (x : Fin 15 → ℚ) :\n    eval₂ (Int.castRingHom ℚ) x (guardPoly T) = 0 ↔\n      ∃ a b c : ℤ, |a| ≤ T ∧ |b| ≤ T ∧ |c| ≤ T ∧ a * b ≠ c ∧ x = tripleCode (a, b, c) := by",
+            "line": 128,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Constants/Guard.lean",
+            "fragment": "L128"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89,
+          90
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

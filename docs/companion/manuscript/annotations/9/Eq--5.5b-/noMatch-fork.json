@@ -1,0 +1,47 @@
+{
+  "id": "Eq (5.5b)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] formalizes none of Section 9; it states no counterpart of the evaluation identity c_delta((tau h)^2) = (1 + delta J) c_delta(h) for sign-delta cocycles on the exact kernel. It takes the theorem this section proves (Theorem 5.3, RC) whole as the assumed Prop RestrictedConverseGenuine, so this step has no formal counterpart.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 68,
+        "rect": [
+          0.107843,
+          0.176524,
+          0.784314,
+          0.024033
+        ]
+      },
+      "title": "Eq. (5.5b)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (5.5b)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          68
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

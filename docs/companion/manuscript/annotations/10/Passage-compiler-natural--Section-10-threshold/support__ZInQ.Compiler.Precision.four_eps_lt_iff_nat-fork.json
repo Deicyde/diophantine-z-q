@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10 threshold",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: four_eps_lt_iff states the equivalence for natural U, V > 0 and natural B, which is [M]'s hypothesis eps = U/V > 0 with B >= 0; proved, no assumed hypothesis.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.600212,
+          0.784314,
+          0.070849
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10 threshold",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10 threshold"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.four_eps_lt_iff_nat",
+        "module": "ZInQKernel.Compiler.Precision.Threshold"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.four_eps_lt_iff_nat@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem four_eps_lt_iff_nat (U V B : ℕ) (hV : 0 < V) :\n    4 * ((U : ℚ) / V) < ((4 : ℚ) ^ B)⁻¹ ↔ 4 * U * 4 ^ B < V := by",
+            "line": 17,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/Threshold.lean",
+            "fragment": "L17"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

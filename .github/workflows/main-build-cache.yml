@@ -8,6 +8,10 @@
 # axioms of ZInQ.OneProof.frozenTarget and fails unless they are among propext, Classical.choice and Quot.sound
 # (scripts/one_proof/check_axioms.py). A run that passes is the evidence that this commit's proof compiles on a
 # hosted runner; blueprint-pages.yml deploys the site only for such a commit.
+#
+# For that reason it also runs after a push that changes what the site is built from besides Lean and the
+# blueprint: the formal companion, the theme and mkdocs.yml. Such a change would otherwise wait, unpublished, for
+# the next Lean change. Its run restores the cache, has nothing new to compile, and checks the axioms again.
 
 name: main build cache
 
@@ -21,6 +25,11 @@ on:
       - 'lean-toolchain'
       - 'lean/lakefile.toml'
       - '.github/workflows/main-build-cache.yml'
+      # Site inputs that are not Lean (see the note above). blueprint/ is not listed: it changes with nearly
+      # every pull request, almost always beside the Lean it describes.
+      - 'docs/companion/**'
+      - 'theme/**'
+      - 'mkdocs.yml'
       # scratch/ is outside every build target.
       - '!scratch/**'
   workflow_dispatch:

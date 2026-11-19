@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Appendix C opening",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.Syntax.specIntegers_variableCount_le proved: Point references and the three generator equations of every model recipe agree with [M] (references below -3 are junk zeros). [F] builds the root integers and P_* in Lean rather than reading them from the bytes of the JSON file, and it fixes the range X_0..X_292890231904 by truncation while proving only that integers has at most 292890231904 witnesses, not exactly that many.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.107843,
+          0.446036,
+          0.784314,
+          0.220438
+        ]
+      },
+      "title": "Passage (syntax): Appendix C opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.specIntegers_variableCount_le",
+        "module": "ZInQKernel.Syntax.Recipes.Accounting"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.specIntegers_variableCount_le@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem specIntegers_variableCount_le {N : NatCircuit} {c3 : ℤ} (hN : PrecisionShape N c3) :\n    (specIntegers N c3).variableCount ≤ 292890231905 := by",
+            "line": 148,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Recipes/Accounting.lean",
+            "fragment": "L148"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

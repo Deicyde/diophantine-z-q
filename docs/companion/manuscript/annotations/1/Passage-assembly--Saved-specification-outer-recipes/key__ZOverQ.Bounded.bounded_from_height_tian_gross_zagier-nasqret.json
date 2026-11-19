@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Saved specification outer recipes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.SixContactMin, ZInQBlueprint.OriginalRank.PublishedGenusRows.PublishedTian47 and ZOverQ.Bounded.SimpleZeroRank; through its dependency's ZInQ.FrozenTarget: The passage is Theorem 1.1 with its notation; [N]'s headline concludes ndep's FrozenTarget, the exact statement. It is conditional on ndep's SixContactMin, PublishedTian47 and SimpleZeroRank (Gross-Zagier), and its witness is ndep's P_*, built with the Route K pole curves, not the saved P_* of [M].",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.102941,
+          0.431768,
+          0.794118,
+          0.330292
+        ]
+      },
+      "title": "Passage (assembly): Saved specification outer recipes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Saved specification outer recipes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Bounded.bounded_from_height_tian_gross_zagier",
+        "module": "bounded.BoundedFromGenus"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Bounded.bounded_from_height_tian_gross_zagier@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem bounded_from_height_tian_gross_zagier (height : ZInQ.SixContactMin)\n    (criterion : PublishedTian47) (rank : SimpleZeroRank) : ZInQ.FrozenTarget :=",
+            "line": 101,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/BoundedFromGenus.lean",
+            "fragment": "L101"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

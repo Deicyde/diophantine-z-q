@@ -4,8 +4,8 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.GenusRootsProof
 /-!
 # GenusOdd: Elliot's index-at-most-two comparison without `H_c/ℚ` Galois (PROVED)
 
-`two_nsmul_mem_twist_add_torsion` (`Elliot.lean`) uses that the ring class field `H_c` is Galois over
-`ℚ` (the GLUE `RingClassGalois`) to have complex conjugation act on `E(H_c)`. Here the same
+`two_nsmul_mem_twist_add_torsion` (`Elliot.lean`) uses that the ring class field `H_c` is Galois
+over `ℚ` (the GLUE `RingClassGalois`) to have complex conjugation act on `E(H_c)`. Here the same
 conclusion is proved inside any finite Galois extension `H̃/ℚ` containing `H_c` (e.g. its normal
 closure): the eigen-decomposition `2x = (x + ε ρx) + (x − ε ρx)` is carried out in `E(H̃)`, with `ρ`
 a lift to `H̃` of the nontrivial automorphism of `K`, and the Galois descent (`twistDescent_proof`)
@@ -60,8 +60,8 @@ variable {K : Type} [Field K] [NumberField K] {c : ℕ} [NeZero c]
 
 /-- **Elliot's index-at-most-two comparison inside a Galois closure** (PROVED; tex L2433–2435).
 Same conclusion as `two_nsmul_mem_twist_add_torsion`, with `H_c/ℚ` Galois replaced by a finite
-Galois extension `H̃/ℚ` containing `H_c` (`Ht`), and complex conjugation by any lift of the nontrivial
-automorphism of `K`; the hypothesis `d_R d_T < 0` makes `√d_R √d_T ∈ K` irrational. -/
+Galois extension `H̃/ℚ` containing `H_c` (`Ht`), and complex conjugation by any lift of the
+nontrivial automorphism of `K`; the hypothesis `d_R d_T < 0` makes `√d_R √d_T ∈ K` irrational. -/
 theorem two_nsmul_mem_twist_add_torsion_closure (E : WeierstrassCurve ℚ) [E.IsElliptic]
     (h₁ : E.a₁ = 0) (h₃ : E.a₃ = 0) (hK2 : Module.finrank ℚ K = 2)
     (H : Type) [Field H] [DecidableEq H] [Algebra K H] [Algebra ℚ H] [IsScalarTower ℚ K H]

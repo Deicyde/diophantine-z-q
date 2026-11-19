@@ -1,0 +1,70 @@
+{
+  "id": "Eq (H8)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; TauCeti.ContCohomology.fiveTerm_exact_H1N proved: [F] has the general five-term inflation-restriction-transgression sequence for a closed normal subgroup of a profinite group in its vendored Tau Ceti copy (support links), but no declaration applies it to Gal(M_I/H_f) with coefficients E[2^a], and the descent of Proposition 8.3 that uses (H8) is absent.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 41,
+        "rect": [
+          0.107843,
+          0.589943,
+          0.784314,
+          0.033573
+        ]
+      },
+      "title": "Eq. (H8)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (H8)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "TauCeti.ContCohomology.fiveTerm_exact_H1N",
+        "module": "ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Transgression"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "TauCeti.ContCohomology.fiveTerm_exact_H1N@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem fiveTerm_exact_H1N (hN : IsClosed (N : Set G)) :\n    (explicitResConj1 G M N).range = (transgression G M N hN).ker := by",
+            "line": 780,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/Transgression.lean",
+            "fragment": "L780"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          41
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

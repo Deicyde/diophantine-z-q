@@ -111,7 +111,10 @@ parent.
   restoring the scripts from `BASE` covers the scripts, not the workflow. Read the pull request's file list
   first.
 - A run uses hosted runner time, and an outside file can make it long. The job limit is 300 minutes, a build
-  stops after 270 and the reporter step after 20; no cold build of the OneProof target has finished on a hosted runner: before the build cache existed, five pull-request runs stopped at the 270-minute limit (see below).
+  stops after 270 and the reporter step after 20. A cold build of the OneProof target does not fit in that time:
+  before the build cache existed, five pull-request runs stopped at the 270-minute limit, and the first cold
+  build to finish on a hosted runner took 451 minutes of build time over two runs of `main-build-cache.yml` (the
+  build-cost table of `docs/one-proof/CONTRIBUTING.md` has both).
 
 ## Reading the result
 

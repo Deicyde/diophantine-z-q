@@ -1,0 +1,86 @@
+{
+  "id": "Passage compiler-translation: Section 3.1 natural predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.SixContactMin and ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation), through its dependency; ZOverQ.Qualitative.multiplication_exact proved only from ZOverQ.Qualitative.UniformHeight and ZInQ.PoleCompleteness; confirmed finding (differs): ndep's raw-addition theorems are textually [F]'s and proved with no hypotheses; but ndep's multiplication template reaches a pole template on y^2=x(x-l)(x+l) instead of [M]'s x(x-l)(x+3l), so multiply_sound (from assumed ZInQ.SixContactMin) and natural_rel_iff (from ZInQ.Translation.MultiplicationExact) state the soundness and natural-predicate claims for different polynomials. [N] has no declaration of its own; it uses only MultiplicationExact, via ZOverQ.Qualitative.multiplication_exact at another guard cutoff.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.622659,
+          0.794118,
+          0.118038
+        ]
+      },
+      "title": "Passage (compiler-translation): Section 3.1 natural predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Section 3.1 natural predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.multiplication_exact",
+        "module": "bounded.QualitativeMultiplication"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.multiplication_exact@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem multiplication_exact {m : ℕ} (hm : 1 ≤ m) (height : UniformHeight (m : ℝ))\n    (pole : PoleCompleteness) :\n    Translation.MultiplicationExact specConstructors FixedConst.cstar.value FixedConst.ell.value\n      (guardCutoff m) := by",
+            "line": 78,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativeMultiplication.lean",
+            "fragment": "L78"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "natural_rel_iff (Rel_natural A iff A = iota n for n in N) is proved from MultiplicationExact for naturalTemplate, whose multiplication calls reach poleTemplate with A(A-e)(A+e). So it is a statement about another polynomial. [N] supplies MultiplicationExact only through multiplication_exact at guardCutoff m.",
+            "natural_rel_iff and multiply_sound are stated for ndep's multiplyTemplate, which reaches the pole template with T1 = A(A-e)(A+e), so the natural predicate and multiplication soundness concern a different polynomial from [M]'s; nasqret has no natural-predicate declaration of its own and uses only MultiplicationExact through its multiplication_exact at guardCutoff m."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

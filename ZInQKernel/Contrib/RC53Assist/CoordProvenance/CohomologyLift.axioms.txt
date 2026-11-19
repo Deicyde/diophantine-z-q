@@ -1,0 +1,673 @@
+@ZInQ.Contrib.RC53Assist.CoordProvenance.liftCycle_cochain.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  (C : CochainComplex.{u_1, u_1 + 1, 0} (ModuleCat.{u_1, u_1} R) ℤ) (n : ℤ)
+  (x :
+    ↥(LinearMap.ker.{u_1, u_1, u_1, u_1}
+        (ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C n (HAdd.hAdd.{0, 0, 0} n 1))))),
+  Eq.{u_1 + 1}
+    ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.iCycles.{u_1, u_1 + 1, 0} C n))
+      ((ModuleCat.Hom.hom.{u_1, u_1} (ZInQ.Contrib.RC53Assist.CoordProvenance.liftCycle.{u_1} C n)) x))
+    ↑x
+'ZInQ.Contrib.RC53Assist.CoordProvenance.liftCycle_cochain' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.classOf_surjective.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  (C : CochainComplex.{u_1, u_1 + 1, 0} (ModuleCat.{u_1, u_1} R) ℤ) (n : ℤ),
+  Function.Surjective.{u_1 + 1, u_1 + 1} ⇑(ZInQ.Contrib.RC53Assist.CoordProvenance.classOf.{u_1} C n)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.classOf_surjective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.boundary_of_classOf_zero.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  (C : CochainComplex.{u_1, u_1 + 1, 0} (ModuleCat.{u_1, u_1} R) ℤ) (n : ℤ)
+  (x :
+    ↥(LinearMap.ker.{u_1, u_1, u_1, u_1}
+        (ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C n (HAdd.hAdd.{0, 0, 0} n 1))))),
+  Eq.{u_1 + 1} ((ZInQ.Contrib.RC53Assist.CoordProvenance.classOf.{u_1} C n) x) 0 →
+    ∃ b,
+      Eq.{u_1 + 1}
+        ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C (HSub.hSub.{0, 0, 0} n 1) n)) b) ↑x
+'ZInQ.Contrib.RC53Assist.CoordProvenance.boundary_of_classOf_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.classOf_natural.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {C D : CochainComplex.{u_1, u_1 + 1, 0} (ModuleCat.{u_1, u_1} R) ℤ} (f : Quiver.Hom.{u_1, u_1 + 1} C D) (n : ℤ)
+  (x :
+    ↥(LinearMap.ker.{u_1, u_1, u_1, u_1}
+        (ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C n (HAdd.hAdd.{0, 0, 0} n 1)))))
+  (hf :
+    Eq.{u_1 + 1}
+      ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} D n (HAdd.hAdd.{0, 0, 0} n 1)))
+        ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.Hom.f.{u_1, u_1 + 1, 0} f n)) ↑x))
+      0),
+  Eq.{u_1 + 1}
+    ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.homologyMap.{u_1, u_1 + 1, 0} f n))
+      ((ZInQ.Contrib.RC53Assist.CoordProvenance.classOf.{u_1} C n) x))
+    ((ZInQ.Contrib.RC53Assist.CoordProvenance.classOf.{u_1} D n)
+      (Subtype.mk.{u_1 + 1} ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.Hom.f.{u_1, u_1 + 1, 0} f n)) ↑x) ⋯))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.classOf_natural' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.exists_lift_with_boundary.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {C D : CochainComplex.{u_1, u_1 + 1, 0} (ModuleCat.{u_1, u_1} R) ℤ} (f : Quiver.Hom.{u_1, u_1 + 1} C D),
+  QuasiIso.{u_1, u_1 + 1, 0} f →
+    ∀ (n : ℤ) (z : ↑(HomologicalComplex.X.{u_1, u_1 + 1, 0} D n)),
+      Eq.{u_1 + 1}
+          ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} D n (HAdd.hAdd.{0, 0, 0} n 1))) z) 0 →
+        ∃ a,
+          Eq.{u_1 + 1}
+              ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C n (HAdd.hAdd.{0, 0, 0} n 1))) a)
+              0 ∧
+            ∃ b,
+              Eq.{u_1 + 1}
+                (HSub.hSub.{u_1, u_1, u_1}
+                  ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.Hom.f.{u_1, u_1 + 1, 0} f n)) a) z)
+                ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} D (HSub.hSub.{0, 0, 0} n 1) n))
+                  b)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.exists_lift_with_boundary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.lifts_differ_by_boundary.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {C D : CochainComplex.{u_1, u_1 + 1, 0} (ModuleCat.{u_1, u_1} R) ℤ} (f : Quiver.Hom.{u_1, u_1 + 1} C D),
+  QuasiIso.{u_1, u_1 + 1, 0} f →
+    ∀ (n : ℤ) (a a' : ↑(HomologicalComplex.X.{u_1, u_1 + 1, 0} C n)),
+      Eq.{u_1 + 1}
+          ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C n (HAdd.hAdd.{0, 0, 0} n 1))) a) 0 →
+        Eq.{u_1 + 1}
+            ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C n (HAdd.hAdd.{0, 0, 0} n 1))) a')
+            0 →
+          ∀ (b : ↑(HomologicalComplex.X.{u_1, u_1 + 1, 0} D (HSub.hSub.{0, 0, 0} n 1))),
+            Eq.{u_1 + 1}
+                (HSub.hSub.{u_1, u_1, u_1}
+                  ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.Hom.f.{u_1, u_1 + 1, 0} f n)) a)
+                  ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.Hom.f.{u_1, u_1 + 1, 0} f n)) a'))
+                ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} D (HSub.hSub.{0, 0, 0} n 1) n))
+                  b) →
+              ∃ c,
+                Eq.{u_1 + 1} (HSub.hSub.{u_1, u_1, u_1} a a')
+                  ((ModuleCat.Hom.hom.{u_1, u_1} (HomologicalComplex.d.{u_1, u_1 + 1, 0} C (HSub.hSub.{0, 0, 0} n 1) n))
+                    c)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.lifts_differ_by_boundary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf_apply.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R] {ι : Type u_1}
+  [inst_1 : Fintype.{u_1} ι] [inst_2 : DecidableEq.{u_1 + 1} ι]
+  (L : LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) (ι → R) R) (x : ι → R),
+  Eq.{u_1 + 1} (L x) (dotProduct.{u_1, u_1} (ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf.{u_1} L) x)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf_apply' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf_closed.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {ι κ : Type u_1} [inst_1 : Fintype.{u_1} ι] [inst_2 : DecidableEq.{u_1 + 1} ι] [inst_3 : Fintype.{u_1} κ]
+  [DecidableEq.{u_1 + 1} κ] (L : LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) (ι → R) R)
+  (A : Matrix.{u_1, u_1, u_1} ι κ R),
+  (∀ (x : κ → R), Eq.{u_1 + 1} (L (Matrix.mulVec.{u_1, u_1, u_1} A x)) 0) →
+    Eq.{u_1 + 1} (Matrix.vecMul.{u_1, u_1, u_1} (ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf.{u_1} L) A) 0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf_closed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf_scalar_value.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {ι : Type u_1} [inst_1 : Fintype.{u_1} ι] [inst_2 : DecidableEq.{u_1 + 1} ι] {F : Type u_1}
+  [inst_3 : CommRing.{u_1} F] (φ : RingHom.{u_1, u_1} R F)
+  (L : LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) (ι → R) R) (x : ι → R),
+  Eq.{u_1 + 1}
+    (dotProduct.{u_1, u_1}
+      (Function.comp.{u_1 + 1, u_1 + 1, u_1 + 1} (⇑φ) (ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf.{u_1} L))
+      (Function.comp.{u_1 + 1, u_1 + 1, u_1 + 1} (⇑φ) x))
+    (φ (L x))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.rowOf_scalar_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.pairedFun_closed.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {D D' : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData.{u_1} R}
+  (P : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.{u_1} D D')
+  (tr :
+    LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R)
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+          (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{u_1}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{u_1} P))
+          3))
+      R),
+  (∀
+      (c :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{u_1}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{u_1} P))
+            2)),
+      Eq.{u_1 + 1}
+        (tr
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{u_1}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{u_1}
+                (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{u_1} P))
+              2 3 ⋯)
+            c))
+        0) →
+    ∀
+      (z :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1} D) 1)),
+      Eq.{u_1 + 1}
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{u_1}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1} D) 1 2 ⋯)
+            z)
+          0 →
+        ∀
+          (w :
+            ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+                (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1} D') 1)),
+          Eq.{u_1 + 1}
+            ((ZInQ.Contrib.CloudB3RC53.CommonCoordinate.pairedFun.{u_1} P tr z)
+              ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{u_1}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1} D') 1 2 ⋯)
+                w))
+            0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.pairedFun_closed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actual_class_has_model_cycle : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1)),
+  Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0 →
+    ∃ z,
+      Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.d1.{0} M.D) z) 0 ∧
+        ∃ c,
+          Eq.{1} (HSub.hSub.{0, 0, 0} ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.Hom.f.{0, 1, 0} M.ψf 1)) z) zSel)
+            ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 0 1 ⋯)
+              c)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actual_class_has_model_cycle' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG_value : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+  (v :
+    Sum.{0, 0} (Sum.{0, 0} (Fin M.C.m1) (Sum.{0, 0} Unit (Fin M.C.m2))) M.C.N →
+      MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)),
+  Eq.{1} (L ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.Hom.f.{0, 1, 0} M.ψf 2)) v))
+    (dotProduct.{0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L) v)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG_closed : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b))),
+  (∀
+      (w :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1)),
+      Eq.{1}
+        (L
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1 2 ⋯)
+            w))
+        0) →
+    Eq.{1}
+      (Matrix.vecMul.{0, 0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L)
+        (Matrix.fromRows.{0, 0, 0, 0} (M.C.map (ZInQ.Contrib.CloudB3RC53.ClearingComplex.φO b)).X
+          (M.C.map (ZInQ.Contrib.CloudB3RC53.ClearingComplex.φO b)).Y))
+      0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG_closed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.same_class_and_functional_in_model : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1)),
+  Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0 →
+    ∀
+      (L :
+        LinearMap.{0, 0, 0, 0}
+          (RingHom.id.{0}
+            (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+          (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 2))
+          (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b))),
+      (∀
+          (w :
+            ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1)),
+          Eq.{1}
+            (L
+              ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                  (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1 2 ⋯)
+                w))
+            0) →
+        ∃ z lam,
+          Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.d1.{0} M.D) z) 0 ∧
+            Eq.{1}
+                (Matrix.vecMul.{0, 0, 0} lam
+                  (Matrix.fromRows.{0, 0, 0, 0} (M.C.map (ZInQ.Contrib.CloudB3RC53.ClearingComplex.φO b)).X
+                    (M.C.map (ZInQ.Contrib.CloudB3RC53.ClearingComplex.φO b)).Y))
+                0 ∧
+              (∃ c,
+                  Eq.{1}
+                    (HSub.hSub.{0, 0, 0} ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.Hom.f.{0, 1, 0} M.ψf 1)) z)
+                      zSel)
+                    ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                        (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 0 1 ⋯)
+                      c)) ∧
+                ∀
+                  (v :
+                    ↑(HomologicalComplex.X.{0, 1, 0}
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+                          (M.C.map (ZInQ.Contrib.CloudB3RC53.ClearingComplex.φO b)).toGCx)
+                        2)),
+                  Eq.{1} (L ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.Hom.f.{0, 1, 0} M.ψf 2)) v))
+                    (dotProduct.{0, 0} lam v)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.same_class_and_functional_in_model' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG_spec : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0),
+  Eq.{1}
+      (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.d1.{0} M.D)
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel))
+      0 ∧
+    ∃ c,
+      Eq.{1}
+        (HSub.hSub.{0, 0, 0}
+          ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.Hom.f.{0, 1, 0} M.ψf 1))
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel))
+          zSel)
+        ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 0 1 ⋯)
+          c)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG_spec' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG_provenance : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b))),
+  ZInQ.Contrib.RC53Assist.CoordLink.RankOneCoordinateProvenanceG M
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG M zSel hzSel L)
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel)
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG_provenance' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG_convention : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b))),
+  ZInQ.Contrib.RC53Assist.CoordLink.AcyclicCoordinateConventionG M
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG M zSel hzSel L)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG_convention' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.relIsKMG_actualCoordinateG : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+  (hL :
+    ∀
+      (w :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1)),
+      Eq.{1}
+        (L
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1 2 ⋯)
+            w))
+        0),
+  ZInQ.Contrib.CloudB3RC53.CoordLink.RelIsKMG M
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG M zSel hzSel L)
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel)
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L) ⋯ ⋯
+'ZInQ.Contrib.RC53Assist.CoordProvenance.relIsKMG_actualCoordinateG' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.alphaB_add_boundary : ∀ {F : Type} [inst : Field.{0} F]
+  (E : ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.{0} F),
+  IsUnit.{0} (Matrix.det.{0, 0} (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.A0.{0} E)) →
+    ∀
+      (z :
+        Sum.{0, 0} (Fin (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.m0.{0} E))
+            (Sum.{0, 0} Unit (Fin (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.m1.{0} E))) →
+          F)
+      (c : Fin (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.m0.{0} E) → F),
+      Eq.{1}
+        (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.alphaB.{0} E
+          (HAdd.hAdd.{0, 0, 0} z
+            (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.d0.{0} E) c)))
+        (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.alphaB.{0} E z)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.alphaB_add_boundary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG_of_lift : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+  (hL :
+    ∀
+      (w :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1)),
+      Eq.{1}
+        (L
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1 2 ⋯)
+            w))
+        0)
+  (z :
+    Sum.{0, 0} (Fin (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.m0.{0} M.D))
+        (Sum.{0, 0} Unit (Fin (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.m1.{0} M.D))) →
+      MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b))
+  (hz : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.ClearingComplex.BlockComplex.d1.{0} M.D) z) 0)
+  (c :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+        0)),
+  Eq.{1} (HSub.hSub.{0, 0, 0} ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.Hom.f.{0, 1, 0} M.ψf 1)) z) zSel)
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          0 1 ⋯)
+        c) →
+    ∀ (x : ZInQ.Manuscript.RC.Addr b),
+      Ne.{1}
+          ((ZInQ.Manuscript.RC.Determinant.evK.{0, 0} (ZInQ.Manuscript.RC.Determinant.sgnChar x))
+            (ZInQ.Manuscript.RC.Determinant.SmithBlocks.Δ.{0, 0} M.toIdentification.B))
+          0 →
+        Eq.{1}
+          (ZInQ.Contrib.CloudB3RC53.CoordLink.kmOrig M z (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L)
+            hz ⋯ x)
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG M zSel hzSel L x)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG_of_lift' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.provenance_of_actual_dictionary : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {b dK hK cE tK : ℕ}
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup b)))
+  (hL :
+    ∀
+      (w :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1)),
+      Eq.{1}
+        (L
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1 2 ⋯)
+            w))
+        0)
+  (urel : ZInQ.Manuscript.RC.Addr b → FractionRing.{0} ZInQ.Manuscript.RC.Determinant.OO),
+  (∀ (x : ZInQ.Manuscript.RC.Determinant.Addr b),
+      Ne.{1}
+          ((ZInQ.Manuscript.RC.Determinant.evK.{0, 0} (ZInQ.Manuscript.RC.Determinant.sgnChar x))
+            (ZInQ.Manuscript.RC.Determinant.SmithBlocks.Δ.{0, 0} M.toIdentification.B))
+          0 →
+        Eq.{1} (urel x) (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG M zSel hzSel L x)) →
+    ZInQ.Contrib.RC53Assist.CoordLink.RankOneCoordinateProvenanceG M urel
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel)
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L) ∧
+      ZInQ.Contrib.RC53Assist.CoordLink.AcyclicCoordinateConventionG M urel ∧
+        ZInQ.Contrib.CloudB3RC53.CoordLink.RelIsKMG M urel
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel)
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L) ⋯ ⋯
+'ZInQ.Contrib.RC53Assist.CoordProvenance.provenance_of_actual_dictionary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.origCoordLink_of_actual_dictionary : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {dK hK cE tK ℓ : ℕ}
+  (Dd : ZInQ.Manuscript.RC.RCData ℓ) (F : ZInQ.Manuscript.RC.Family)
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS F.b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup F.b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup F.b)))
+  (hL :
+    ∀
+      (w :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1)),
+      Eq.{1}
+        (L
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1 2 ⋯)
+            w))
+        0)
+  (η : MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup F.b))
+  (urel : ZInQ.Manuscript.RC.Addr F.b → FractionRing.{0} ZInQ.Manuscript.RC.Determinant.OO),
+  ZInQ.Contrib.CloudB3RC53.CoordLink.CorrectedIsEta Dd F η urel →
+    (∀ (x : ZInQ.Manuscript.RC.Determinant.Addr F.b),
+        Ne.{1}
+            ((ZInQ.Manuscript.RC.Determinant.evK.{0, 0} (ZInQ.Manuscript.RC.Determinant.sgnChar x))
+              (ZInQ.Manuscript.RC.Determinant.SmithBlocks.Δ.{0, 0} M.toIdentification.B))
+            0 →
+          Eq.{1} (urel x) (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG M zSel hzSel L x)) →
+      ZInQ.Manuscript.RC.Wiring.OrigCoordLink Dd F M (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel)
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L) ⋯ ⋯ η
+'ZInQ.Contrib.RC53Assist.CoordProvenance.origCoordLink_of_actual_dictionary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.origCoordLink_iff_actual_dictionary : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K]
+  {S S' : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))} {hS : S ⊆ S'}
+  [inst_2 : Fintype.{0} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')]
+  [inst_3 : DecidableEq.{1} (ZInQ.Manuscript.RC.SelmerComplex.NewPlaces K S S')] {dK hK cE tK ℓ : ℕ}
+  (Dd : ZInQ.Manuscript.RC.RCData ℓ) (F : ZInQ.Manuscript.RC.Family)
+  (M : ZInQ.Contrib.CloudB3RC53.ClearingComplex.Identification2G K S S' hS F.b dK hK cE tK)
+  (zSel :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M))
+        1))
+  (hzSel :
+    Eq.{1}
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          1 2 ⋯)
+        zSel)
+      0)
+  (L :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup F.b)))
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M)
+          2))
+      (MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup F.b)))
+  (hL :
+    ∀
+      (w :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1)),
+      Eq.{1}
+        (L
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualSelmerCxG M) 1 2 ⋯)
+            w))
+        0)
+  (η : MonoidAlgebra.{0, 0} ZInQ.Manuscript.RC.Determinant.OO (ZInQ.Manuscript.RC.Determinant.SignGroup F.b))
+  (urel : ZInQ.Manuscript.RC.Addr F.b → FractionRing.{0} ZInQ.Manuscript.RC.Determinant.OO),
+  ZInQ.Contrib.CloudB3RC53.CoordLink.CorrectedIsEta Dd F η urel →
+    ∀ (e₀ : ZInQ.Manuscript.RC.Addr F.b → ℕ) (g₀ : ZInQ.Manuscript.RC.Addr F.b → ZInQ.Manuscript.RC.Determinant.Lam),
+      ZInQ.Manuscript.RC.Wiring.UTildeRep Dd F e₀ g₀ →
+        (∀ (x : ZInQ.Manuscript.RC.Determinant.Addr F.b),
+            Ne.{1}
+                ((ZInQ.Manuscript.RC.Determinant.evK.{0, 0} (ZInQ.Manuscript.RC.Determinant.sgnChar x))
+                  (ZInQ.Manuscript.RC.Determinant.SmithBlocks.Δ.{0, 0} M.toIdentification.B))
+                0 →
+              Ne.{1} ((ZInQ.Manuscript.RC.Determinant.evK.{0, 0} (ZInQ.Manuscript.RC.Determinant.sgnChar x)) η) 0) →
+          (ZInQ.Manuscript.RC.Wiring.OrigCoordLink Dd F M
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCycleG M zSel hzSel)
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualModelRowG M L) ⋯ ⋯ η ↔
+            ∀ (x : ZInQ.Manuscript.RC.Determinant.Addr F.b),
+              Ne.{1}
+                  ((ZInQ.Manuscript.RC.Determinant.evK.{0, 0} (ZInQ.Manuscript.RC.Determinant.sgnChar x))
+                    (ZInQ.Manuscript.RC.Determinant.SmithBlocks.Δ.{0, 0} M.toIdentification.B))
+                  0 →
+                Eq.{1} (urel x) (ZInQ.Contrib.RC53Assist.CoordProvenance.actualCoordinateG M zSel hzSel L x))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.origCoordLink_iff_actual_dictionary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+
+Compiler exit code: 0

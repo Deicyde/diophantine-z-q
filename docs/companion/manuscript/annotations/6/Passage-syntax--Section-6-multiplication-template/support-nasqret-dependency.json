@@ -1,0 +1,258 @@
+{
+  "id": "Passage syntax: Section 6 multiplication template",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): [N] reaches the template only through ndep, whose slope predicate imposes Phi with the Route K pole polynomial (curves x + l) instead of [M]'s Q_pole (curves x + 3l), so the template, the slope predicate, the height certificate and the local congruence are about different objects; the pole-free parts (formal group, log series, tests) agree with [F]'s text, with the same weaker 'inverse exponential'. [N]'s own ZOverQ.Qualitative.multiplication_exact uses ndep's multiply_rel_iff_cert.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.098039,
+          0.172819,
+          0.803922,
+          0.730785
+        ]
+      },
+      "title": "Passage (syntax): Section 6 multiplication template",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 6 multiplication template#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.102941,
+          0.080538,
+          0.794118,
+          0.385307
+        ]
+      },
+      "title": "Passage (syntax): Section 6 multiplication template",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 6 multiplication template#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Mult.SlopePred",
+        "module": "ZInQKernel.Multiplication.Certificate.SlopePredicate"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.SlopePred@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean",
+            "fragment": "L52"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): [N] reaches the template only through ndep, whose slope predicate imposes Phi with the Route K pole polynomial (curves x + l) instead of [M]'s Q_pole (curves x + 3l), so the template, the slope predicate, the height certificate and the local congruence are about different objects; the pole-free parts (formal group, log series, tests) agree with [F]'s text, with the same weaker 'inverse exponential'. [N]'s own ZOverQ.Qualitative.multiplication_exact uses ndep's multiply_rel_iff_cert."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Mult.local_congruence",
+        "module": "ZInQKernel.Multiplication.Soundness.LocalCongruence"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.local_congruence@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Multiplication/Soundness/LocalCongruence.lean",
+            "fragment": "L35"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): [N] reaches the template only through ndep, whose slope predicate imposes Phi with the Route K pole polynomial (curves x + l) instead of [M]'s Q_pole (curves x + 3l), so the template, the slope predicate, the height certificate and the local congruence are about different objects; the pole-free parts (formal group, log series, tests) agree with [F]'s text, with the same weaker 'inverse exponential'. [N]'s own ZOverQ.Qualitative.multiplication_exact uses ndep's multiply_rel_iff_cert."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Mult.log25_truncation_error",
+        "module": "ZInQKernel.Multiplication.Local.TruncationError"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.log25_truncation_error@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Multiplication/Local/TruncationError.lean",
+            "fragment": "L130"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): [N] reaches the template only through ndep, whose slope predicate imposes Phi with the Route K pole polynomial (curves x + l) instead of [M]'s Q_pole (curves x + 3l), so the template, the slope predicate, the height certificate and the local congruence are about different objects; the pole-free parts (formal group, log series, tests) agree with [F]'s text, with the same weaker 'inverse exponential'. [N]'s own ZOverQ.Qualitative.multiplication_exact uses ndep's multiply_rel_iff_cert."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Mult.multiply_rel_iff_cert",
+        "module": "ZInQKernel.Multiplication.Certificate.Multiply"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.multiply_rel_iff_cert@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Multiplication/Certificate/Multiply.lean",
+            "fragment": "L263"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): [N] reaches the template only through ndep, whose slope predicate imposes Phi with the Route K pole polynomial (curves x + l) instead of [M]'s Q_pole (curves x + 3l), so the template, the slope predicate, the height certificate and the local congruence are about different objects; the pole-free parts (formal group, log series, tests) agree with [F]'s text, with the same weaker 'inverse exponential'. [N]'s own ZOverQ.Qualitative.multiplication_exact uses ndep's multiply_rel_iff_cert."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Mult.testValues",
+        "module": "ZInQKernel.Multiplication.Certificate.Tests"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.testValues@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Multiplication/Certificate/Tests.lean",
+            "fragment": "L40"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): [N] reaches the template only through ndep, whose slope predicate imposes Phi with the Route K pole polynomial (curves x + l) instead of [M]'s Q_pole (curves x + 3l), so the template, the slope predicate, the height certificate and the local congruence are about different objects; the pole-free parts (formal group, log series, tests) agree with [F]'s text, with the same weaker 'inverse exponential'. [N]'s own ZOverQ.Qualitative.multiplication_exact uses ndep's multiply_rel_iff_cert."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.PoleSoluble",
+        "module": "ZInQKernel.Hypotheses.Pole"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.PoleSoluble@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Hypotheses/Pole.lean",
+            "fragment": "L52"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): [N] reaches the template only through ndep, whose slope predicate imposes Phi with the Route K pole polynomial (curves x + l) instead of [M]'s Q_pole (curves x + 3l), so the template, the slope predicate, the height certificate and the local congruence are about different objects; the pole-free parts (formal group, log series, tests) agree with [F]'s text, with the same weaker 'inverse exponential'. [N]'s own ZOverQ.Qualitative.multiplication_exact uses ndep's multiply_rel_iff_cert."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17,
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "All listed declarations exist and [F]'s pole polynomial uses [M]'s curves x+3l (fork Hypotheses/Pole.lean), the template has 35134 witnesses, and SlopePred.poleInput_ne_zero covers the nonvanishing remark; the one gap I could not close is the inverse exponential, since [F] has no surjectivity or exponential for its formal logarithm, only ellLog_injOn.",
+            "All the listed declarations exist and state the claimed parts with [M]'s curve and x+3l pole curves (fork poleT1/poleT2 use A+3e). I found no surjectivity or exponential for the formal logarithm anywhere in [F]; it proves only v(log)=v(z) and InjOn, so the inverse exponential really is missing."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's polePoly has factors A+e and Az^2+eH (curves x+l) where [M]'s Q_pole has x+3l, and ndep's SlopePred imposes PoleSoluble of that polynomial, so the template, certificate and congruence hypotheses concern a different object; [N] has no own copy of [M]'s pole polynomial or slope predicate (its saved specification abstracts the callees), and multiplication_exact rewrites with ndep's multiply_rel_iff_cert.",
+            "ndep's SlopePred conjoins PoleSoluble, whose polePoly uses the curves x(x-e)(x+e), while [M]'s Q_pole uses x+3e; ndep's multiplication files are otherwise identical to [F]'s. [N] has its own x+3l pole definition (ManuscriptV15.Arithmetic.pole) but no slope predicate, certificate or template built on it, and multiplication_exact rewrites with ndep's multiply_rel_iff_cert."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

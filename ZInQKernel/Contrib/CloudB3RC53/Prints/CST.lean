@@ -40,8 +40,8 @@ A special case (never stronger) of Theorem 1.1, in the domain the manuscript use
 
 Conclusion: there is `C > 0` depending only on `(E, f, Lat, κ)` such that
 `L'(1, E, χ) = C / (c √|D|) · ĥ_K(P_χ)` for all such `(K, c, χ, [A,B,C], ι, y)`. The print has
-`C = 8π² (f, f)_{Γ₀(N)} / deg φ` (Theorem 1.1 of arXiv:1408.1733v2, p. 2, with `µ(N,D) = 0` and `u = 1`):
-the Petersson norm and `deg φ` are fixed by `(E, f, Lat, κ)`, so the existential `C`
+`C = 8π² (f, f)_{Γ₀(N)} / deg φ` (Theorem 1.1 of arXiv:1408.1733v2, p. 2, with `µ(N,D) = 0` and
+`u = 1`): the Petersson norm and `deg φ` are fixed by `(E, f, Lat, κ)`, so the existential `C`
 is a consequence of the print, and it is what both manuscript uses need (L2428: the ratio of two
 instances, L2433–2436; L8269: nonvanishing ⇔ nontorsion).
 
@@ -51,16 +51,16 @@ instances, L2433–2436; L8269: nonvanishing ⇔ nontorsion).
   `φ : X₀(N) → E` over `ℚ`** are absent from Mathlib and Tau Ceti. The statement replaces them by
   the complex-analytic model and quantifies over every algebraic `y` with `ι(y) = φ(τ)`. The
   dictionary (Shimura's theory of CM points and the Eichler–Shimura construction) is a
-  translation, not a Lean theorem: provenance (c), on the spot. For non-CM `E` every analytic `φ`
-  allowed here is `n β ∘ φ₀` with `φ₀` algebraic over `ℚ` and `β` a `ℚ`-isogeny (the reason for
-  the non-CM hypothesis).
+  translation, not a Lean theorem (translation GLUE), on the spot. For non-CM `E` every analytic
+  `φ` allowed here is `n β ∘ φ₀` with `φ₀` algebraic over `ℚ` and `β` a `ℚ`-isogeny (the reason
+  for the non-CM hypothesis).
 * **The Rankin–Selberg `L(s, f × θ_χ)`** is absent; `twistedLFunction` is the Euler product of
   `E/K` twisted by `χ`. Their equality (automorphic induction of `χ`; local factors at `𝔭 ∣ c`
-  equal to `1` for primitive `χ`) is a translation, provenance (c), SPECULATIVE at `𝔭 ∣ c`.
-* **The constant** `8π²(f, f)/deg φ` (Tau Ceti has Petersson products, `CuspForm.peterssonInnerCosets`,
-  but `deg φ` needs `X₀(N)`): replaced by the existential `C > 0`, a consequence. This is WEAKER
-  than the printed exact constant: fixed rescalings of the height are absorbed into `C`, but there
-  is no exact numerical identity.
+  equal to `1` for primitive `χ`) is a translation (translation GLUE), SPECULATIVE at `𝔭 ∣ c`.
+* **The constant** `8π²(f, f)/deg φ` (Tau Ceti has Petersson products,
+  `CuspForm.peterssonInnerCosets`, but `deg φ` needs `X₀(N)`): replaced by the existential `C > 0`,
+  a consequence. This is WEAKER than the printed exact constant: fixed rescalings of the height are
+  absorbed into `C`, but there is no exact numerical identity.
 * **The height normalisation.** Tau Ceti's canonical height is the full-`x` height, twice the
   common half-`x` convention; whether the printed `ĥ` is half-`x` is not settled by the text, and
   the exact normalisation port is unwritten (the existential `C` absorbs a fixed rescaling).
@@ -90,7 +90,8 @@ section ConductorOrder
 
 variable (K : Type) [Field K] [NumberField K]
 
-/-- `ℤ + c 𝓞_K` as a `ℤ`-subalgebra of `K` (copy of `TYZGenus.RingClass.conductorOrderSubalgebra`). -/
+/-- `ℤ + c 𝓞_K` as a `ℤ`-subalgebra of `K` (copy of `TYZGenus.RingClass.conductorOrderSubalgebra`).
+-/
 def conductorOrderSubalgebra (f : ℕ) : Subalgebra ℤ K where
   carrier := {x | ∃ a : ℤ, ∃ y : 𝓞 K, x = a + f * (y : K)}
   mul_mem' := by
@@ -286,10 +287,10 @@ def heightK (E : WeierstrassCurve ℚ) [E.IsElliptic] (K : Type) [Field K] [Numb
 open Classical in
 /-- **Cai–Shu–Tian, Theorem 1.1, split case (stated, not proved).** See the module docstring for
 the objects. For every non-CM elliptic curve `E/ℚ` with newform `f` of level `N`, period lattice
-`Lat` and analytic parametrization scale `κ`, there is `C > 0` such that for every imaginary quadratic
-`K` with discriminant `D ∉ {−3, −4}` in which every prime of `N` splits, every `c ≥ 1` prime to
-`N`, every primitive ring class character `χ` of `Pic(O_c)`, every Heegner form `[A, B, C]` of
-level `N` and discriminant `Dc²`, every embedding `ι : H_c → ℂ` and every `y ∈ E(H_c)` with
+`Lat` and analytic parametrization scale `κ`, there is `C > 0` such that for every imaginary
+quadratic `K` with discriminant `D ∉ {−3, −4}` in which every prime of `N` splits, every `c ≥ 1`
+prime to `N`, every primitive ring class character `χ` of `Pic(O_c)`, every Heegner form `[A, B, C]`
+of level `N` and discriminant `Dc²`, every embedding `ι : H_c → ℂ` and every `y ∈ E(H_c)` with
 `ι(y) = φ(τ_{[A,B,C]})`, and every entire continuation `F` of `L(s, E, χ)`:
 `F'(1) = C / (c √|D|) · ĥ_K(Σ_t χ(t) σ_t y)`, with
 `ĥ_K(Σ_t χ(t) P_t) = [H_c : K]⁻¹ Σ_{t,t'} χ(t) conj χ(t') ⟨P_t, P_{t'}⟩_{H_c}`.

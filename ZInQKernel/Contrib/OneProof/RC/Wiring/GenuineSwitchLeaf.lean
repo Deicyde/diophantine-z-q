@@ -40,8 +40,11 @@ Selmer data with `t = X`. With one genuine complex of the homotopy type of `[k -
 `𝔭` (true, not formalized), the leaf is equivalent to `∀ F x, InLamHalf (D.uPrim F x)`, i.e.
 Elliot's regularity assertion (ELLIOT). Over the address's own genuine complexes no switch step can
 be formed (`fG`: `C¹_cont` is infinite-dimensional), so the address's family witnesses the leaf only
-when `s(𝔭) = 1`. UNCLEAR/DEPARTURE: batch 3's `GenuineSwitchData.primitive` requires the actual
-class to be primitive, which the text does not supply.
+when `s(𝔭) = 1`. UNCLEAR/DEPARTURE of this leaf: batch 3's `GenuineSwitchData.primitive` requires
+the actual class to be primitive, which the text does not supply. `Leaves.lean` uses instead
+`RegularityInputsGPK` (`GenuineSwitchPK.lean`): the actual classes are only asked to be nonzero, the
+text's primitive kernel vector is PROVED from them over the DVR `Λ_𝔭`, and this leaf implies it
+(`RegularityInputsG.toPK`).
 
 The `Ties` section records structural facts of the witnesses (`RegularityInputsG.fiberDim_forced`,
 `RegularityInputsG.oneStage_forces`, `isEmpty_genuineSwitchData_of_h1_eq_zero`); they constrain the

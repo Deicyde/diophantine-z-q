@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Rational constants and inverses",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.genP0 a definition: Rational constants as fresh variables with global equations qc = p (ev_globals_eq_zero_iff), the three P0 equations (generator_values), their place outside the internal disjunctions of the multiplication, signed-encoding and exception templates (the three *_rel_iff), and inverses as uv = 1 (exists_mul_eq_one_iff) are each proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.107843,
+          0.274555,
+          0.784314,
+          0.114848
+        ]
+      },
+      "title": "Passage (model): Rational constants and inverses",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Rational constants and inverses"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.genP0",
+        "module": "ZInQKernel.Model.Field.Curve"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.genP0@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def genP0 : genCurve.toAffine.Point := Point.mk genP0_equation",
+            "line": 118,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Field/Curve.lean",
+            "fragment": "L118"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

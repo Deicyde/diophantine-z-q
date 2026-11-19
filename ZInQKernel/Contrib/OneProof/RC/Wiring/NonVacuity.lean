@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.OneProof.RC.Wiring.Leaves
 import ZInQKernel.Contrib.CloudB3RC53.AppGEndpoints.NonVacuity
+import ZInQKernel.Contrib.OneProof.RC.Wiring.StageDataNonVacuity
 
 /-!
 # Theorem 5.3, Lane RC0 round 2: non-vacuity checks for the leaves
@@ -12,6 +13,11 @@ import ZInQKernel.Contrib.CloudB3RC53.AppGEndpoints.NonVacuity
 * The quantifier of `RCLeaves.pre` and `RCLeaves.post` over genus partners is not empty under the
   printed leaves: `exists_genusPartner` (lane RC13) produces one.
 * The two stage leaves are satisfiable (`toyW_stages`).
+* The stage clauses of `PreLeaves` (`StageSupport`, and the stage link `StagesFrom` of
+  `OddStagedInstance`) hold for the data built with separated intrinsic unit support and later
+  prime exclusions. The intrinsic unit support is disjoint from the primes of the chosen `k`.
+  Actual sequences exist unconditionally; the detector value requires a nontorsion rational point (`StageDataNonVacuity.lean`: `stageClauses_concrete`,
+  `stageClauses_of_detector`).
 -/
 
 noncomputable section

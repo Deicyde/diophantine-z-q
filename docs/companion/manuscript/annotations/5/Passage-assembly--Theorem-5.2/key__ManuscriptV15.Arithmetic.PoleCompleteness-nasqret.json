@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Theorem 5.2",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, stated, neither proved nor assumed: The passage is the statement of Theorem 5.2: [N] states it for [M]'s Q_pole only as an unproved, unassumed Prop; the pole completeness [N] proves and uses is ndep's, for the curves x+l.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.504299,
+          0.784314,
+          0.044848
+        ]
+      },
+      "title": "Passage (assembly): Theorem 5.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Theorem 5.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Arithmetic.PoleCompleteness",
+        "module": "Lean.Lemmas.blueprint-manuscript.ManuscriptArithmetic"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Arithmetic.PoleCompleteness@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def PoleCompleteness : Prop := ∀ B : ℚ, (∃ d : ℕ, B.den = d^2) → 0 < B → B < 1/2 →\n  (∀ p ∈ ({2,3,5,7,13} : Finset ℕ), 4 ≤ ratOrder p B) → pole B",
+            "line": 155,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/blueprint-manuscript/ManuscriptArithmetic.lean",
+            "fragment": "L155"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

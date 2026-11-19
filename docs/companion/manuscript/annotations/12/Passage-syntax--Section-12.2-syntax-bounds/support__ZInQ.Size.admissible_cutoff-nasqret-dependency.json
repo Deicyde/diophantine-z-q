@@ -1,0 +1,83 @@
+{
+  "id": "Passage syntax: Section 12.2 syntax bounds",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency: ndep carries it with files identical to [F]'s; [N] has no declaration of its own. The claims are stated in parts, but the artifact counts 173 and 50 are not; `CatalogueBound8` and `HaltingAddMulBound` are proved, not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.098039,
+          0.578151,
+          0.803922,
+          0.336138
+        ]
+      },
+      "title": "Passage (syntax): Section 12.2 syntax bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 12.2 syntax bounds#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.102941,
+          0.090238,
+          0.794118,
+          0.621838
+        ]
+      },
+      "title": "Passage (syntax): Section 12.2 syntax bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 12.2 syntax bounds#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Size.admissible_cutoff",
+        "module": "ZInQKernel.Size.Majorants.Cutoff"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.admissible_cutoff@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Size/Majorants/Cutoff.lean",
+            "fragment": "L86"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84,
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

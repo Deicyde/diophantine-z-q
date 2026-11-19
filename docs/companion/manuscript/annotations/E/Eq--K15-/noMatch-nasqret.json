@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K15)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [N] and ndep have no declaration about the Iwasawa index bound on H^2(T chi)_0 from Kato Theorem 13.4(2); [N] has no Kato Euler system, Iwasawa cohomology or even-scalar construction.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 97,
+        "rect": [
+          0.107843,
+          0.487173,
+          0.784314,
+          0.030096
+        ]
+      },
+      "title": "Eq. (K15)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K15)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          97
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

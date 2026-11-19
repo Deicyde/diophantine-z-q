@@ -4,8 +4,8 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.Artin34
 /-!
 # GenusOdd: consistency of `LocalFactorK` and the downstream form of (3.4)
 
-non-vacuity checks for the GLUE `LocalFactorK` (each clause is a standard local theorem; here we check
-that the clauses do not contradict Mathlib's definitions on a genuine example):
+non-vacuity checks for the GLUE `LocalFactorK` (each clause is a standard local theorem; here we
+check that the clauses do not contradict Mathlib's definitions on a genuine example):
 
 * `localFactorK_rat`: the statement of `LocalFactorK` with `K = ℚ` is PROVED (the only prime of `ℚ`
   above `p` is `v` itself, where the local polynomial of `E/ℚ` over `ℚ_v` is computed twice; the
@@ -85,7 +85,7 @@ theorem localFactorK_rat (E : WeierstrassCurve ℚ) [E.IsElliptic]
   omega
 
 /-- **(3.4) from the printed leaves and the local GLUE** (PROVED reduction): `GenusLower34` from
-`Prints`, lane RC8's `HasseConvergence`, `GoodReductionOffLevel` and `LocalFactorK`. -/
+`Prints`, `HasseConvergence`, `GoodReductionOffLevel` and `LocalFactorK`. -/
 theorem genusLower34_of_local (P : Prints) (hH : HasseConvergence) (hG : GoodReductionOffLevel)
     (hL : LocalFactorK) : GenusLower34 :=
   genusLower34_of_artin P (artinFactorization_of_local hH hG hL)

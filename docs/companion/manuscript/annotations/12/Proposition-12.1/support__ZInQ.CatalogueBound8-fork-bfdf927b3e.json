@@ -1,0 +1,70 @@
+{
+  "id": "Proposition 12.1",
+  "kind": "proposition",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.CatalogueBound8 a definition: literal_cutoff states R = D, T = (96*10^13)^13*D^(2210*G0^2*D^3) and T < 2^2^2^9013, and also the formal-multiple success for M0. The hypothesis CatalogueBound8 is proved in the repository (ZInQ.catalogueBound8), so it is not an assumption.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 83,
+        "rect": [
+          0.107843,
+          0.619415,
+          0.784314,
+          0.107278
+        ]
+      },
+      "title": "Proposition 12.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 12.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.CatalogueBound8",
+        "module": "ZInQKernel.Hypotheses.PrimePattern"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.CatalogueBound8@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def CatalogueBound8 : Prop :=\n  ∀ r : ℕ, r < catalogueModulus → Nat.Coprime r catalogueModulus →\n    22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 8) |\n      p.Prime ∧ p % catalogueModulus = r}).card",
+            "line": 190,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/PrimePattern.lean",
+            "fragment": "L190"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          83
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

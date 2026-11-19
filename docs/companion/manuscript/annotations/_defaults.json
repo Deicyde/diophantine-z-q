@@ -1,0 +1,31 @@
+{
+  "subject": {
+    "type": "pdf",
+    "uri": "https://raw.githubusercontent.com/elliotglazer/diophantine-z-q/97cec7fdd757d9a8e4f468151a47a6d3610fb2f2/diophantine_zq.pdf",
+    "sha256": "dfe8f60c88a6e7a05d0f16ee46063eb6b30163dd238670beca5147bf898abb15",
+    "citation": {
+      "id": "z-in-q-2026-11-05",
+      "type": "manuscript",
+      "title": "ℤ is Diophantine in ℚ",
+      "author": [],
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            11,
+            5
+          ]
+        ]
+      },
+      "version": "manuscript dated November 5, 2026, commit 97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+      "URL": "https://github.com/elliotglazer/diophantine-z-q/tree/97cec7fdd757d9a8e4f468151a47a6d3610fb2f2"
+    },
+    "extensions": {
+      "org.mathlib-initiative.formal-companion.overlay": {
+        "source_id": "z-in-q-2026-11-05",
+        "bytes": 892753,
+        "physical_page_count": 148
+      }
+    }
+  }
+}

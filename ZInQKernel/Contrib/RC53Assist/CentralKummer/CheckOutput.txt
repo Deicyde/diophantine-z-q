@@ -1,0 +1,1025 @@
+Elaborated statements (#check, proofs elided) and axiom reports (#print axioms) for every declaration.
+Produced by single-file elaboration of a copy of each module followed by the audit commands;
+both runs finished with exit status 0 and no errors or warnings.
+
+=== Module ZInQKernel.Contrib.RC53Assist.CentralKummer.RationalKummer ===
+@ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_quasiIsoAt_one_iff : ∀ {k : Type} [inst : Field k]
+  (K C : CochainComplex (ModuleCat k) ℤ),
+  (∃ i, QuasiIsoAt i 1) ↔ Nonempty (↑(HomologicalComplex.homology K 1) ≃ₗ[k] ↑(HomologicalComplex.homology C 1))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.homologyMap_comparisonMap : ∀ {k : Type} [inst : Field k]
+  {K C : CochainComplex (ModuleCat k) ℤ}
+  (φ : ↑(HomologicalComplex.homology K 1) ≃ₗ[k] ↑(HomologicalComplex.homology C 1))
+  (x : ↑(HomologicalComplex.homology K 1)),
+  (ModuleCat.Hom.hom (HomologicalComplex.homologyMap (ZInQ.Manuscript.RC53Assist.CentralKummer.comparisonMap φ) 1)) x =
+    φ x
+@ZInQ.Manuscript.RC53Assist.CentralKummer.quasiIsoAt_comparisonMap : ∀ {k : Type} [inst : Field k]
+  {K C : CochainComplex (ModuleCat k) ℤ}
+  (φ : ↑(HomologicalComplex.homology K 1) ≃ₗ[k] ↑(HomologicalComplex.homology C 1)),
+  QuasiIsoAt (ZInQ.Manuscript.RC53Assist.CentralKummer.comparisonMap φ) 1
+@ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel : {m : ℕ} →
+  Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT →
+    CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ
+@ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel_d_zero_one : ∀ {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT),
+  (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm).d 0 1 = 0
+@ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel_hd : ∀ {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT)
+  (x : ↑((ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm).X 1)),
+  (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModelE2 Dm)
+      ((ModuleCat.Hom.hom ((ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm).d 1 2)) x) =
+    Dm.mulVec ((ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModelE1 Dm) x)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.d_zero_one_of_isZero : ∀ {R : Type} [inst : CommRing R]
+  (CU : CochainComplex (ModuleCat R) ℤ), CategoryTheory.Limits.IsZero (CU.X 0) → CU.d 0 1 = 0
+@ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermCentralH1 : {m : ℕ} →
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT) →
+    ↑(HomologicalComplex.homology
+          (ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm))
+          1) ≃ₗ[ℚ_[2]]
+      ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker
+@ZInQ.Manuscript.RC53Assist.CentralKummer.kummerModelMap : {m : ℕ} →
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} →
+    (K : CochainComplex (ModuleCat ℚ_[2]) ℤ) →
+      (↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker) →
+        (K ⟶
+          ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.quasiIsoAt_kummerModelMap : ∀ {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} (K : CochainComplex (ModuleCat ℚ_[2]) ℤ)
+  (φ : ↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker),
+  QuasiIsoAt (ZInQ.Manuscript.RC53Assist.CentralKummer.kummerModelMap K φ) 1
+@ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_input_one_iff : ∀ {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+  CU.d 0 1 = 0 →
+    (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+      ∀ (K : CochainComplex (ModuleCat ℚ_[2]) ℤ),
+        (∃ i, QuasiIsoAt i 1) ↔
+          Nonempty (↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_input_one_iff_finrank : ∀ {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+  CU.d 0 1 = 0 →
+    (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+      ∀ (K : CochainComplex (ModuleCat ℚ_[2]) ℤ) [FiniteDimensional ℚ_[2] ↑(HomologicalComplex.homology K 1)],
+        (∃ i, QuasiIsoAt i 1) ↔
+          Module.finrank ℚ_[2] ↑(HomologicalComplex.homology K 1) =
+            Module.finrank ℚ_[2] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker
+@ZInQ.Manuscript.RC53Assist.CentralKummer.centralSelmerComparisonOfKummerIdentification : {ℓ : ℕ} →
+  {k : ℤ} →
+    {m r : ℕ} →
+      (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT) →
+        (K : CochainComplex (ModuleCat ℚ_[2]) ℤ) →
+          (↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker) →
+            (↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] Fin r → ℚ_[2]) →
+              {S : Type} →
+                [inst : AddCommGroup S] →
+                  (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ S) →
+                    ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+                      (f :
+                          S →+
+                            ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct
+                                (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (ZInQ.Manuscript.RC.Etw ℓ k))) →
+                        ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+                          ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+                            (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+                            (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k))) Dm
+ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower : (F : Type) →
+  [inst : Field F] →
+    [DecidableEq F] →
+      (B : WeierstrassCurve F) → B.toAffine.Point → (ℕ → ZInQ.Manuscript.RC.CoefModules.PtAlg F B) → Prop
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf : {K : Type} →
+  [inst : Field K] →
+    [inst_1 : NumberField K] →
+      {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} →
+        (W : WeierstrassCurve K) →
+          [W.IsElliptic] →
+            (∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) →
+              (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) →
+                [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)] →
+                  {P : (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)).toAffine.Point} →
+                    {R :
+                        ℕ →
+                          ZInQ.Manuscript.RC.CoefModules.PtAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+                            (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))} →
+                      ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower
+                          (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+                          (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P R →
+                        ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v)
+                            (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S v)
+                              (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W))
+                            1)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_isCocycle : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)]
+  {P : (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)).toAffine.Point}
+  {R :
+    ℕ →
+      ZInQ.Manuscript.RC.CoefModules.PtAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+        (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))}
+  (h :
+    ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+      (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P R),
+  (ZInQ.Manuscript.RC.CoefModules.contD ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v)
+        (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S v)
+          (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W))
+        1)
+      (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf W hFull v h) =
+    0
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_sub_mem : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)]
+  {P : (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)).toAffine.Point}
+  {R R' :
+    ℕ →
+      ZInQ.Manuscript.RC.CoefModules.PtAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+        (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))}
+  (h :
+    ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+      (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P R)
+  (h' :
+    ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+      (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P R'),
+  ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf W hFull v h -
+      ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf W hFull v h' ∈
+    ZInQ.Manuscript.RC.CoefModules.contB1 ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v)
+      (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S v)
+        (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_add : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)]
+  {P P' : (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)).toAffine.Point}
+  {R R' :
+    ℕ →
+      ZInQ.Manuscript.RC.CoefModules.PtAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+        (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))}
+  (h :
+    ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+      (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P R)
+  (h' :
+    ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+      (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P' R'),
+  ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf W hFull v ⋯ =
+    ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf W hFull v h +
+      ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf W hFull v h'
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_mem_sup : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)]
+  {P : (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)).toAffine.Point}
+  {R :
+    ℕ →
+      ZInQ.Manuscript.RC.CoefModules.PtAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+        (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))}
+  (h :
+    ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+      (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P R),
+  ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf W hFull v h ∈
+    ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerZ W hFull v ⊔
+      ZInQ.Manuscript.RC.CoefModules.contB1 ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v)
+        (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S v)
+          (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle_add_sub_mem : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)]
+  (P P' : (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)).toAffine.Point),
+  ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle W hFull v (P + P') -
+        ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle W hFull v P -
+      ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle W hFull v P' ∈
+    ZInQ.Manuscript.RC.CoefModules.contB1 ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v)
+      (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S v)
+        (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition : {K : Type} →
+  [inst : Field K] →
+    [inst_1 : NumberField K] →
+      {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} →
+        (W : WeierstrassCurve K) →
+          [W.IsElliptic] →
+            (∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) →
+              (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) →
+                [DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)] →
+                  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx ℤ_[2]
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition_isIso_homologyMap_zero : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)],
+  CategoryTheory.IsIso
+    (HomologicalComplex.homologyMap
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+        (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerConditionι W hFull v))
+      0)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition_mono_homologyMap_one : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)],
+  CategoryTheory.Mono
+    (HomologicalComplex.homologyMap
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+        (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerConditionι W hFull v))
+      1)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerLocalConditions : {K : Type} →
+  [inst : Field K] →
+    [inst_1 : NumberField K] →
+      (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+        (W : WeierstrassCurve K) →
+          [W.IsElliptic] →
+            (∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) →
+              ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions K S ℤ_[2]
+                (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerLocalConditions_injective : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (n : ℤ),
+  Function.Injective ⇑(((ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerLocalConditions S W hFull).i v).f n n ⋯)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerSelData : {K : Type} →
+  [inst : Field K] →
+    [NumberField K] →
+      (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+        (W : WeierstrassCurve K) →
+          [W.IsElliptic] →
+            (∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) →
+              ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData ℤ_[2]
+@ZInQ.Manuscript.RC53Assist.CentralKummer.isGaloisSelData_tateKummerSelData : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)),
+  S.Finite →
+    ZInQ.Manuscript.RC.Wiring.IsGaloisSelData (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerSelData S W hFull)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex : {K : Type} →
+  [inst : Field K] →
+    [NumberField K] →
+      (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+        (W : WeierstrassCurve K) →
+          [W.IsElliptic] →
+            (∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) → CochainComplex (ModuleCat ℤ_[2]) ℤ
+@ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex : {K : Type} →
+  [inst : Field K] →
+    [NumberField K] →
+      (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+        (W : WeierstrassCurve K) →
+          [W.IsElliptic] →
+            (∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) → CochainComplex (ModuleCat ℚ_[2]) ℤ
+ZInQ.Manuscript.RC53Assist.CentralKummer.rationalizationHomologyIso : (C : CochainComplex (ModuleCat ℤ_[2]) ℤ) →
+  (n : ℤ) →
+    HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex PadicInt.Coe.ringHom C)
+        n ≅
+      (ModuleCat.extendScalars PadicInt.Coe.ringHom).obj (HomologicalComplex.homology C n)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerHomologyIso : {K : Type} →
+  [inst : Field K] →
+    [inst_1 : NumberField K] →
+      (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+        (W : WeierstrassCurve K) →
+          [inst_2 : W.IsElliptic] →
+            (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) →
+              (n : ℤ) →
+                HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex S W hFull)
+                    n ≅
+                  (ModuleCat.extendScalars PadicInt.Coe.ringHom).obj
+                    (HomologicalComplex.homology
+                      (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) n)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummer_reduction : ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  [inst_2 : W.IsElliptic] (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n))
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  [inst_3 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)]
+  {P : (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)).toAffine.Point}
+  {R :
+    ℕ →
+      ZInQ.Manuscript.RC.CoefModules.PtAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+        (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))}
+  (h :
+    ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+      (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) P R)
+  (n : ℕ),
+  (∀ (σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K v),
+      (ZInQ.Manuscript.RC.KummerMaps.compTors W (2 ^ n) v)
+          ((ZInQ.Manuscript.RC.LambdaCoef.projLev n)
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerFunOf W hFull v h σ)) =
+        ZInQ.Manuscript.RC.CoefModules.kummerFunOf (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+          (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) (2 ^ n) ⋯ σ) ∧
+    ZInQ.Manuscript.RC.CoefModules.kummerCocycleOf (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+        (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) (2 ^ n) ⋯ ∈
+      ZInQ.Manuscript.RC.CoefModules.kummerZ (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+          (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) (2 ^ n) ⊔
+        ZInQ.Manuscript.RC.CoefModules.contB1 ℤ (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v)
+          (ZInQ.Manuscript.RC.CoefModules.TorsAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)
+            (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) (2 ^ n))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.genuineKummerModelMap : {K : Type} →
+  [inst : Field K] →
+    [inst_1 : NumberField K] →
+      (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+        (W : WeierstrassCurve K) →
+          [inst_2 : W.IsElliptic] →
+            (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) →
+              {m : ℕ} →
+                (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT) →
+                  (↑(HomologicalComplex.homology
+                          (ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex S W hFull) 1) ≃ₗ[ℚ_[2]]
+                      ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker) →
+                    (ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex S W hFull ⟶
+                      ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT
+                        (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.quasiIsoAt_genuineKummerModelMap : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT)
+  (φ :
+    ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex S W hFull)
+          1) ≃ₗ[ℚ_[2]]
+      ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker),
+  QuasiIsoAt (ZInQ.Manuscript.RC53Assist.CentralKummer.genuineKummerModelMap S W hFull Dm φ) 1
+@ZInQ.Manuscript.RC53Assist.CentralKummer.genuine_input_one_iff : ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (W : WeierstrassCurve K)
+  [inst_2 : W.IsElliptic] (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT),
+  (∃ i, QuasiIsoAt i 1) ↔
+    Nonempty
+      (↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex S W hFull)
+            1) ≃ₗ[ℚ_[2]]
+        ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.genuine_input_one_iff_finrank : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)) {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT)
+  [FiniteDimensional ℚ_[2]
+      ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex S W hFull) 1)],
+  (∃ i, QuasiIsoAt i 1) ↔
+    Module.finrank ℚ_[2]
+        ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex S W hFull) 1) =
+      Module.finrank ℚ_[2] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker
+@ZInQ.Manuscript.RC53Assist.CentralKummer.input_one_iff_hcentral : ∀ {ℓ : ℕ} {k : ℤ} {m r : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT)
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+  CU.d 0 1 = 0 →
+    (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+      ∀ (K : CochainComplex (ModuleCat ℚ_[2]) ℤ) (eK : ↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] Fin r → ℚ_[2])
+        {Sg : Type} [inst : AddCommGroup Sg] (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg),
+        ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+          ∀
+            (f :
+              Sg →+
+                ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+                    (ZInQ.Manuscript.RC.Etw ℓ k))),
+            ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+              ZInQ.Manuscript.RC.SelmerCorankOneOverK ℓ k →
+                ((∃ i, QuasiIsoAt i 1) ↔ (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).rank = m)
+ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex : (ℓ : ℕ) →
+  (K : Type) →
+    [inst : Field K] →
+      [inst_1 : NumberField K] →
+        (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic →
+          (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+            (∀ (n : ℕ),
+                ZInQ.Manuscript.RC.CoefModules.FullTorsion K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange K)
+                  (2 ^ n)) →
+              CochainComplex (ModuleCat ℚ_[2]) ℤ
+ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne : (ℓ : ℕ) →
+  (K : Type) →
+    [inst : Field K] →
+      [NumberField K] →
+        (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic →
+          {m : ℕ} → Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT → Type
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.map : {ℓ : ℕ} →
+  {K : Type} →
+    [inst : Field K] →
+      [inst_1 : NumberField K] →
+        {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} →
+          {m : ℕ} →
+            {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} →
+              (I : ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm) →
+                ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE I.S ⋯ ⟶
+                  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT
+                    (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.quasiIsoAt_map : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (I : ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm), QuasiIsoAt I.map 1
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.hzero : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (_I : ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm),
+  (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel Dm).d 0 1 = 0
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.homologyMap_map : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (I : ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm)
+  (x : ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE I.S ⋯) 1)),
+  (ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermCentralH1 Dm)
+      ((ModuleCat.Hom.hom (HomologicalComplex.homologyMap I.map 1)) x) =
+    I.φ x
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.isGaloisSelData : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (I : ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm),
+  ZInQ.Manuscript.RC.Wiring.IsGaloisSelData
+    (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerSelData I.S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange K)
+      ⋯)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.central : {ℓ : ℕ} →
+  {K : Type} →
+    [inst : Field K] →
+      [inst_1 : NumberField K] →
+        {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} →
+          {m : ℕ} →
+            {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} →
+              (I : ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm) →
+                (k : ℤ) →
+                  {r : ℕ} →
+                    (↑(HomologicalComplex.homology
+                            (ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE I.S ⋯) 1) ≃ₗ[ℚ_[2]]
+                        Fin r → ℚ_[2]) →
+                      {Sg : Type} →
+                        [inst : AddCommGroup Sg] →
+                          (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg) →
+                            ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+                              (f :
+                                  Sg →+
+                                    ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct
+                                        (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (ZInQ.Manuscript.RC.Etw ℓ k))) →
+                                ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+                                  ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+                                    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower
+                                        (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+                                    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k))) Dm
+@ZInQ.Manuscript.RC53Assist.CentralKummer.selmerSideEquiv : {ℓ : ℕ} →
+  {Kc : CochainComplex (ModuleCat ℚ_[2]) ℤ} →
+    (k : ℤ) →
+      {r : ℕ} →
+        (↑(HomologicalComplex.homology Kc 1) ≃ₗ[ℚ_[2]] Fin r → ℚ_[2]) →
+          {Sg : Type} →
+            [inst : AddCommGroup Sg] →
+              (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg) →
+                ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+                  (f :
+                      Sg →+
+                        ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+                            (ZInQ.Manuscript.RC.Etw ℓ k))) →
+                    ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+                      ↑(HomologicalComplex.homology Kc 1) ≃ₗ[ℚ_[2]]
+                        ZInQ.Manuscript.RC.BaseZeroLimit.RatTate
+                            ↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)) ×
+                          ZInQ.Manuscript.RC.BaseZeroLimit.RatTate
+                            ↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.central_cmp_apply : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (I : ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm) (k : ℤ) {r : ℕ}
+  (eK :
+    ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE I.S ⋯)
+          1) ≃ₗ[ℚ_[2]]
+      Fin r → ℚ_[2])
+  {Sg : Type} [inst_2 : AddCommGroup Sg] (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg)
+  (hj : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j)
+  (f :
+    Sg →+
+      ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+          (ZInQ.Manuscript.RC.Etw ℓ k)))
+  (hf : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f)
+  (x : ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker),
+  (I.central k eK j hj f hf).cmp x =
+    (ZInQ.Manuscript.RC53Assist.CentralKummer.selmerSideEquiv k eK j hj f hf) (I.φ.symm x)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.ofCentral : {ℓ : ℕ} →
+  {K : Type} →
+    [inst : Field K] →
+      [inst_1 : NumberField K] →
+        {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} →
+          {m : ℕ} →
+            {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} →
+              (k : ℤ) →
+                (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) →
+                  S.Finite →
+                    (hFull :
+                        ∀ (n : ℕ),
+                          ZInQ.Manuscript.RC.CoefModules.FullTorsion K S
+                            ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange K) (2 ^ n)) →
+                      {r : ℕ} →
+                        (↑(HomologicalComplex.homology
+                                (ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE S hFull)
+                                1) ≃ₗ[ℚ_[2]]
+                            Fin r → ℚ_[2]) →
+                          {Sg : Type} →
+                            [inst_2 : AddCommGroup Sg] →
+                              (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg) →
+                                ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+                                  (f :
+                                      Sg →+
+                                        ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct
+                                            (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (ZInQ.Manuscript.RC.Etw ℓ k))) →
+                                    ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+                                      ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+                                          (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower
+                                              (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+                                          (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower
+                                              (ZInQ.Manuscript.RC.Etw ℓ k)))
+                                          Dm →
+                                        ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne ℓ K hE Dm
+@ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.central_ofCentral : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} (k : ℤ)
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (hS : S.Finite)
+  (hFull :
+    ∀ (n : ℕ),
+      ZInQ.Manuscript.RC.CoefModules.FullTorsion K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange K) (2 ^ n))
+  {r : ℕ}
+  (eK :
+    ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE S hFull)
+          1) ≃ₗ[ℚ_[2]]
+      Fin r → ℚ_[2])
+  {Sg : Type} [inst_2 : AddCommGroup Sg] (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg)
+  (hj : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j)
+  (f :
+    Sg →+
+      ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+          (ZInQ.Manuscript.RC.Etw ℓ k)))
+  (hf : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f)
+  (C :
+    ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+      (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+      (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k))) Dm),
+  ((ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.ofCentral k S hS hFull eK j hj f hf C).central k eK j hj f
+        hf).cmp =
+    C.cmp
+@ZInQ.Manuscript.RC53Assist.CentralKummer.curve_input_one_iff : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (hFull :
+    ∀ (n : ℕ),
+      ZInQ.Manuscript.RC.CoefModules.FullTorsion K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange K) (2 ^ n)),
+  (∃ i, QuasiIsoAt i 1) ↔
+    Nonempty
+      (↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE S hFull)
+            1) ≃ₗ[ℚ_[2]]
+        ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_kummerInputOne_iff : ∀ {ℓ : ℕ} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {hE : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic} {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} (k : ℤ)
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))),
+  S.Finite →
+    ∀
+      (hFull :
+        ∀ (n : ℕ),
+          ZInQ.Manuscript.RC.CoefModules.FullTorsion K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange K) (2 ^ n))
+      {r : ℕ}
+      (eK :
+        ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex ℓ K hE S hFull)
+              1) ≃ₗ[ℚ_[2]]
+          Fin r → ℚ_[2])
+      {Sg : Type} [inst_2 : AddCommGroup Sg] (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg),
+      ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+        ∀
+          (f :
+            Sg →+
+              ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+                  (ZInQ.Manuscript.RC.Etw ℓ k))),
+          ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+            ZInQ.Manuscript.RC.SelmerCorankOneOverK ℓ k →
+              ((∃ I, I.S = S) ↔ (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).rank = m)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.leafKummerComplex : {ℓ : ℕ} →
+  {D : ZInQ.Manuscript.RC.RCData ℓ} →
+    {Fam : ZInQ.Manuscript.RC.Family} →
+      (M : ZInQ.Manuscript.RC.Wiring.BaseZeroLeafModelText D Fam) →
+        (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers M.K))) →
+          (∀ (n : ℕ),
+              ZInQ.Manuscript.RC.CoefModules.FullTorsion M.K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange M.K)
+                (2 ^ n)) →
+            CochainComplex (ModuleCat ℚ_[2]) ℤ
+@ZInQ.Manuscript.RC53Assist.CentralKummer.leaf_input_one_iff : ∀ {ℓ : ℕ} {D : ZInQ.Manuscript.RC.RCData ℓ}
+  {Fam : ZInQ.Manuscript.RC.Family} (M : ZInQ.Manuscript.RC.Wiring.BaseZeroLeafModelText D Fam)
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers M.K)))
+  (hFull :
+    ∀ (n : ℕ),
+      ZInQ.Manuscript.RC.CoefModules.FullTorsion M.K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange M.K) (2 ^ n)),
+  (∃ i, QuasiIsoAt i 1) ↔
+    Nonempty
+      (↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.leafKummerComplex M S hFull) 1) ≃ₗ[ℚ_[2]]
+        ↥(M.core.Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.leaf_input_one_iff_ownModel : ∀ {ℓ : ℕ} {D : ZInQ.Manuscript.RC.RCData ℓ}
+  {Fam : ZInQ.Manuscript.RC.Family} (M : ZInQ.Manuscript.RC.Wiring.BaseZeroLeafModelText D Fam)
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers M.K)))
+  (hFull :
+    ∀ (n : ℕ),
+      ZInQ.Manuscript.RC.CoefModules.FullTorsion M.K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange M.K) (2 ^ n)),
+  CategoryTheory.Limits.IsZero (M.core.CU.X 0) →
+    ((∃ i, QuasiIsoAt i 1) ↔
+      Nonempty
+        (↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.leafKummerComplex M S hFull)
+              1) ≃ₗ[ℚ_[2]]
+          ↥(M.core.Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker))
+@ZInQ.Manuscript.RC53Assist.CentralKummer.LeafKummerInputOne : {ℓ : ℕ} →
+  {D : ZInQ.Manuscript.RC.RCData ℓ} →
+    {Fam : ZInQ.Manuscript.RC.Family} → ZInQ.Manuscript.RC.Wiring.BaseZeroLeafModelText D Fam → Type
+@ZInQ.Manuscript.RC53Assist.CentralKummer.leafCentral : {ℓ : ℕ} →
+  {D : ZInQ.Manuscript.RC.RCData ℓ} →
+    {Fam : ZInQ.Manuscript.RC.Family} →
+      (M : ZInQ.Manuscript.RC.Wiring.BaseZeroLeafModelText D Fam) →
+        (I : ZInQ.Manuscript.RC53Assist.CentralKummer.LeafKummerInputOne M) →
+          {r : ℕ} →
+            (↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.leafKummerComplex M I.S ⋯)
+                    1) ≃ₗ[ℚ_[2]]
+                Fin r → ℚ_[2]) →
+              {Sg : Type} →
+                [inst : AddCommGroup Sg] →
+                  (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg) →
+                    ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+                      (f :
+                          Sg →+
+                            ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct
+                                (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (ZInQ.Manuscript.RC.Etw ℓ D.kfin))) →
+                        ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+                          ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+                            (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+                            (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ D.kfin)))
+                            M.core.Dm
+@ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_leafKummerInputOne : ∀ {ℓ : ℕ} {D : ZInQ.Manuscript.RC.RCData ℓ}
+  {Fam : ZInQ.Manuscript.RC.Family} (M : ZInQ.Manuscript.RC.Wiring.BaseZeroLeafModelText D Fam)
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers M.K)))
+  (hFull :
+    ∀ (n : ℕ),
+      ZInQ.Manuscript.RC.CoefModules.FullTorsion M.K S ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange M.K) (2 ^ n)),
+  S.Finite →
+    ∀ {r : ℕ}
+      (eK :
+        ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.leafKummerComplex M S hFull)
+              1) ≃ₗ[ℚ_[2]]
+          Fin r → ℚ_[2])
+      {Sg : Type} [inst : AddCommGroup Sg] (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ Sg),
+      ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j →
+        ∀
+          (f :
+            Sg →+
+              ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+                  (ZInQ.Manuscript.RC.Etw ℓ D.kfin))),
+          ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f →
+            ZInQ.Manuscript.RC.SelmerCorankOneOverK ℓ D.kfin → ∃ I, I.S = S
+'ZInQ.Manuscript.RC53Assist.CentralKummer.iCycles_ker_eq_bot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.homologyπ_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.projective_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.cyclesRetraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.cyclesRetraction_iCycles' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.homologySection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.homologyπ_homologySection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.toH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.fromH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.d_toH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.fromH1_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.comparisonMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.comparisonMap_f_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.cyclesMap_comparisonMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.homologyMap_comparisonMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.quasiIsoAt_comparisonMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_quasiIsoAt_one_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.rel_one_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.modelHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModelE1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModelE2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel_isZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel_d_zero_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermModel_hd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.d_zero_one_of_isZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermCentralH1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.kummerModelMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.quasiIsoAt_kummerModelMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.twoTermCentralH1_homologyMap_kummerModelMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_input_one_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_input_one_iff_finrank' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.centralSelmerComparisonOfKummerIdentification' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.continuousConstSMul_tateS' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.divTower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.two_smul_divTower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.isDivTower_divTower' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower.two_pow_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.IsDivTower.add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.towerKummerOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.coe_towerKummerOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.continuous_towerKummerOf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.towerKummerOf_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.two_smul_towerKummerOf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.towerKummerOf_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.towerDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.two_smul_towerDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.towerKummerOf_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateOfLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.compTors_tateOfLocal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerFunOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.compTors_tateKummerFunOf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerFunOf_mul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerFunOf_add' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateTowerDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerFunOf_sub' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.continuous_tateKummerFunOf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_isCocycle' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_sub_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_add' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerZ_cocycle' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycleOf_mem_sup' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle_add_sub_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerConditionι' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition_isIso_homologyMap_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition_mono_homologyMap_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerLocalConditions' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerLocalConditions_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerSelData' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.isGaloisSelData_tateKummerSelData' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerComplex' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.flat_padicIntCoe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.rationalizationHomologyIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.rationalKummerHomologyIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummer_reduction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.genuineKummerModelMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.quasiIsoAt_genuineKummerModelMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.genuine_input_one_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.genuine_input_one_iff_finrank' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.input_one_iff_hcentral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.curveKummerComplex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.quasiIsoAt_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.hzero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.homologyMap_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.isGaloisSelData' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.central' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.chain_apply_of_comp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.apply_trans_symm_symm' depends on axioms: [propext, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.selmerSideEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.central_cmp_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.ofCentral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.KummerInputOne.central_ofCentral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.curve_input_one_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_kummerInputOne_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.leafKummerComplex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.leaf_input_one_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.leaf_input_one_iff_ownModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.LeafKummerInputOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.leafCentral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.nonempty_leafKummerInputOne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+=== Module ZInQKernel.Contrib.RC53Assist.CentralKummer.FiniteLevel ===
+ZInQ.Manuscript.RC53Assist.CentralKummer.acoef_two_pow_eq_zero : ∀ (i : ℕ), ↑(2 ^ i) = 0
+ZInQ.Manuscript.RC53Assist.CentralKummer.isEmpty_ringHom_acoef : ∀ (i : ℕ),
+  IsEmpty (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i →+* ℚ_[2])
+@ZInQ.Manuscript.RC53Assist.CentralKummer.tensor_eq_zero_of_divisible_of_torsion : ∀ {Q M : Type}
+  [inst : AddCommGroup Q] [inst_1 : Module ℤ Q] [inst_2 : AddCommGroup M] [inst_3 : Module ℤ M] (N : ℕ),
+  (∀ (q : Q), ∃ q', N • q' = q) → (∀ (x : M), N • x = 0) → ∀ (t : TensorProduct ℤ Q M), t = 0
+@ZInQ.Manuscript.RC53Assist.CentralKummer.integralRationalization : {R : Type} →
+  [inst : CommRing R] → CochainComplex (ModuleCat R) ℤ → CochainComplex (ModuleCat ℚ_[2]) ℤ
+@ZInQ.Manuscript.RC53Assist.CentralKummer.isZero_integralRationalization_X : ∀ {R : Type} [inst : CommRing R] (N : ℕ),
+  N ≠ 0 →
+    ↑N = 0 →
+      ∀ (C : CochainComplex (ModuleCat R) ℤ) (n : ℤ),
+        CategoryTheory.Limits.IsZero ((ZInQ.Manuscript.RC53Assist.CentralKummer.integralRationalization C).X n)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.isZero_integralRationalization_homology : ∀ {R : Type} [inst : CommRing R]
+  (N : ℕ),
+  N ≠ 0 →
+    ↑N = 0 →
+      ∀ (C : CochainComplex (ModuleCat R) ℤ) (n : ℤ),
+        CategoryTheory.Limits.IsZero
+          (HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.integralRationalization C) n)
+@ZInQ.Manuscript.RC53Assist.CentralKummer.finrank_ker_eq_zero_of_finiteLevel : ∀ {R : Type} [inst : CommRing R] {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+  CU.d 0 1 = 0 →
+    (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+      ∀ (N : ℕ),
+        N ≠ 0 →
+          ↑N = 0 →
+            ∀ (C : CochainComplex (ModuleCat R) ℤ)
+              (i :
+                ZInQ.Manuscript.RC53Assist.CentralKummer.integralRationalization C ⟶
+                  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT CU)
+              [QuasiIsoAt i 1], Module.finrank ℚ_[2] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker = 0
+@ZInQ.Manuscript.RC53Assist.CentralKummer.finiteLevel_input_one_refuted : ∀ {R : Type} [inst : CommRing R] {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT}
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+  CU.d 0 1 = 0 →
+    (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+      (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).rank = m →
+        ∀ (N : ℕ), N ≠ 0 → ↑N = 0 → ∀ (C : CochainComplex (ModuleCat R) ℤ), ¬∃ i, QuasiIsoAt i 1
+@ZInQ.Manuscript.RC53Assist.CentralKummer.finiteLevel_kummer_input_one_refuted : ∀ {m : ℕ}
+  {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT} {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (hS : S₀ ⊆ S) (W : WeierstrassCurve K) [inst_2 : W.IsElliptic] (i : ℕ) (s : ZInQ.Manuscript.RC.CoefModules.KS K S₀)
+  {h : K} (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S₀)) h) (hs0 : s ≠ 0)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+  (hFull : ZInQ.Manuscript.RC.CoefModules.FullTorsion K S₀ W (2 ^ i))
+  [inst_3 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α]
+  (P : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (hα : ∀ v ∈ P, ZInQ.Manuscript.RC.KummerMaps.IsLocallyQuadAt i α (ZInQ.Manuscript.RC.CoefModules.quadChar s hs hs0) v)
+  (c :
+    (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) →
+      ↑v ∈ S₀ →
+        ↑v ∉ P →
+          ZInQ.Manuscript.RC.CoefModules.CondAt K S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+            (ZInQ.Manuscript.RC.CoefModules.MinS hS W i α) v)
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+  CU.d 0 1 = 0 →
+    (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+      (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).rank = m → ¬∃ ι, QuasiIsoAt ι 1
+@ZInQ.Manuscript.RC53Assist.CentralKummer.baseZeroCoreText_finiteLevel_refuted : ∀ {R : Type} [inst : CommRing R]
+  {ℓ : ℕ} {D : ZInQ.Manuscript.RC.RCData ℓ} {Fam : ZInQ.Manuscript.RC.Family} {G : Type} [inst_1 : AddCommGroup G]
+  {Pt : G} (M : ZInQ.Manuscript.RC.Wiring.BaseZeroCoreText D Fam Pt),
+  ZInQ.Manuscript.RC.SelmerCorankOneOverK ℓ D.kfin →
+    ∀ (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+      (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (M.m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+      (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (M.m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+      CU.d 0 1 = 0 →
+        (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = M.Dm.mulVec (e1 x)) →
+          ∀ (N : ℕ), N ≠ 0 → ↑N = 0 → ∀ (C : CochainComplex (ModuleCat R) ℤ), ¬∃ i, QuasiIsoAt i 1
+'ZInQ.Manuscript.RC53Assist.CentralKummer.acoef_two_pow_eq_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.isEmpty_ringHom_acoef' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.tensor_eq_zero_of_divisible_of_torsion' depends on axioms: [propext,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.integralRationalization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.isZero_integralRationalization_X' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.isZero_integralRationalization_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.finrank_ker_eq_zero_of_finiteLevel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.finiteLevel_input_one_refuted' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.finiteLevel_kummer_input_one_refuted' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralKummer.baseZeroCoreText_finiteLevel_refuted' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 alpha formula",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: AlphaEqns (also AlphaFormula) is the formula (C.2); the gadget lemmas state the replacements of <, | and congruence by equations with fresh witnesses, including the zero-modulus case, and alpha_spec that the compiled macro means the formula. The lemmas are proved without assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.102941,
+          0.556739,
+          0.794118,
+          0.167633
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 alpha formula",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 alpha formula"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Natural.lt_gadget_iff",
+        "module": "ZInQKernel.Compiler.Circuits.Gadgets"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Natural.lt_gadget_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem lt_gadget_iff (a b : ℕ) : (∃ d : ℕ, b = a + 1 + d) ↔ a < b := by",
+            "line": 18,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Gadgets.lean",
+            "fragment": "L18"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

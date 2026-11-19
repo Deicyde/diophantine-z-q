@@ -6,17 +6,17 @@ import ZInQKernel.Contrib.CloudB3RC53.SwitchInputs.OuterIntegral
 Proposition `ex:limits-uniform-lower-bound`, proof, tex L4927–4972 (the outer switching), with the
 outer ring (5.3) of tex L4706–4714.
 
-**Why this file.** The truth check of the switch area (review `GlueTruth`, Part B, item D2) found
-`OuterSwitchData` / `OuterSwitchStep` conclusion-shaped: their stages are free, so a one-stage
-datum (outer dimension one, inner functional chosen so that the coordinate is `uprim (inst j)`)
-inhabits the hypothesis of `uniform_lower_bound_of_switchData` for every sequence, i.e. the
-hypothesis is equivalent to the uniform bound itself. Here the stages are no longer data of the
-hypothesis:
+**Why this file.** `OuterSwitchData` / `OuterSwitchStep` alone are conclusion-shaped: their stages
+are free, so a one-stage datum (outer dimension one, inner functional chosen so that the coordinate
+is `uprim (inst j)`) inhabits the hypothesis of `uniform_lower_bound_of_switchData` for every
+sequence, i.e. the hypothesis is equivalent to the uniform bound itself. Here the stages are no
+longer data of the hypothesis:
 
 * `InstanceModel ϖ K n`: the minimal-model data of ONE instance — an integral two-term model `M`
-  over the DVR `R`, the actual class `zR` (an integral cycle, primitive: some coordinate is not
-  divisible by `ϖ`), the actual paired functional `lamR` (integral and closed, exponent `a = 0`
-  from `ex:arith-paired-functional`), and an admissible complement `(w, y)` for the coordinate.
+  over the DVR `R`, the selected outer model's class `zR` (an integral cycle, primitive: some
+  coordinate is not divisible by `ϖ`), the actual paired functional `lamR` (integral and closed,
+  exponent `a = 0` from `ex:arith-paired-functional`), and an admissible complement `(w, y)` for
+  the coordinate.
   Its class-functional coordinate `coordOf` is COMPUTED (`classFunctionalCoordWith`), not chosen.
 * `GenuineOuterModels`: a FIXED family of switched minimal models, `model i l` for every instance
   `i` and every list `l` of derivative-prime labels (the minimal model of the actual Selmer
@@ -26,9 +26,9 @@ hypothesis:
   field that a proof could fill in at will.
 * `configStage`: the outer stage of a sequence of instances at the configuration `l`. Its inner
   models are `model (inst j) l`, its outer model is RC6's genuine outer matrix in `Frac 𝒪_∞`, and
-  its outer kernel vector is the outer image of the actual classes. That this vector is nonzero is
-  PROVED from primitivity (tex L4938–4940: "the inner kernels have primitive vectors whose outer
-  image is nonzero").
+  its outer kernel vector is the outer image of the selected model classes. That this vector is
+  nonzero is PROVED from primitivity (tex L4938–4940: "the inner kernels have primitive vectors
+  whose outer image is nonzero").
 * `GenuineOuterSwitchData G inst`: the only remaining input is, for each configuration `l` of outer
   dimension `> 1`, a CHOICE OF PRIME `p` together with the switch GLUE `OuterSwitchStep` between the
   DETERMINED stages `l` and `l ++ [p]`. These are Elliot's switch lemma (dimension drop, unit
@@ -55,6 +55,13 @@ DEPARTURE (form only): the switched models of one configuration are taken to hav
 `nOf l` (the sizes are bounded by (5.1), so they are constant on an outer-large set, tex
 L4936–4937 "fixing the bounded `n` on an outer-large set"), and the derivative primes of a switch
 are recorded by a label `p : P` common to the instances of the sequence.
+
+DEPARTURE: `hprim` requires the selected outer model's class itself to be primitive. The text
+normalizes a separate kernel vector and permits the actual inner class to be a divisible scalar
+multiple (tex 4948–4950). These existential model classes are therefore not identified with the
+actual retained classes.
+The text's separate primitive kernel vector, of which the actual class is a nonzero multiple, is
+modelled in `UniformSwitch/PrimitiveKernel.lean`.
 -/
 
 noncomputable section
@@ -73,9 +80,15 @@ set_option linter.unusedSectionVars false
 
 variable (ϖ K) in
 /-- **The minimal-model data of one instance** (tex L4927–4940, L4957–4961): an integral two-term
-model `M` over `R`, the actual class `zR` (an integral cycle, primitive), the actual paired
-functional `lamR` (integral and closed, `ex:arith-paired-functional` with `a = 0`), and an
-admissible complement `(w, y)`. -/
+model `M` over `R`, the selected outer model's class `zR` (an integral cycle, primitive), the actual
+paired functional `lamR` (integral and closed, `ex:arith-paired-functional` with `a = 0`), and an
+admissible complement `(w, y)`.
+
+DEPARTURE: `hprim` requires the selected outer model's class itself to be primitive. The text
+normalizes a separate kernel vector and permits the actual inner class to be a divisible scalar
+multiple (tex 4948–4950). These existential model classes are therefore not identified with the
+actual retained classes. (See `UniformSwitch/PrimitiveKernel.lean` for the text's separate
+kernel vector.) -/
 structure InstanceModel (n : ℕ) where
   M : Matrix (Fin (n + 1)) (Fin (n + 1)) R
   zR : Fin (n + 1) → R
@@ -120,7 +133,8 @@ theorem InstanceModel.map_vecMul {n : ℕ} (X : InstanceModel ϖ K n) :
 
 variable {J : Type} (𝒰 : Ultrafilter J)
 
-/-- The outer image of the actual classes of a sequence of instance models (tex L4938–4940). -/
+/-- The outer image of the selected model classes of a sequence of instance models (tex
+L4938–4940). -/
 def outerClass {n : ℕ} (X : J → InstanceModel ϖ K n) : Fin (n + 1) → FractionRing (OInf 𝒰 ϖ) :=
   fun a => algebraMap (OInf 𝒰 ϖ) (FractionRing (OInf 𝒰 ϖ)) (outerVec 𝒰 ϖ (fun j => (X j).zR) a)
 
@@ -141,8 +155,8 @@ theorem outerClass_mem_ker {n : ℕ} (X : J → InstanceModel ϖ K n) :
   exact Finset.sum_congr rfl fun b _ => (map_mul _ _ _).symm
 
 /-- **The outer class is nonzero** (tex L4938–4940: "the inner kernels have primitive vectors whose
-outer image is nonzero"): primitivity of the actual classes makes some coordinate sequence not
-infinitesimal. PROVED. -/
+outer image is nonzero"): primitivity of the selected outer model's classes (`hprim`) makes some
+coordinate sequence not infinitesimal. PROVED. -/
 theorem outerClass_ne_zero {n : ℕ} (X : J → InstanceModel ϖ K n) : outerClass 𝒰 X ≠ 0 := by
   choose idx hidx using fun j => (X j).hprim
   -- one coordinate is primitive on an outer-large set
@@ -246,10 +260,11 @@ theorem GenuineOuterSwitchData.start_outerDim {Inst P : Type} {G : GenuineOuterM
           (algebraMap (OInf 𝒰 ϖ) (FractionRing (OInf 𝒰 ϖ)))).mulVecLin) :=
   rfl
 
-/-- **The one-stage collapse is no longer available** (review `GlueTruth` D2): if the genuine data
-need no switch at the start (outer dimension one), then the outer kernel of the ACTUAL minimal models
-of the instances has dimension one — a condition on the instances, not a free choice of stage.
-PROVED. -/
+/-- **The one-stage collapse is no longer available**: with free stages, a one-stage datum (outer
+dimension one) would inhabit the switching hypothesis for every sequence; here, if the genuine data
+need no switch at the start (outer dimension one), then the outer kernel of the ACTUAL minimal
+models of the instances has dimension one — a condition on the instances, not a free choice of
+stage. PROVED. -/
 theorem GenuineOuterSwitchData.outer_collapse_forces {Inst P : Type}
     {G : GenuineOuterModels ϖ K Inst P} {inst : J → Inst} (H : GenuineOuterSwitchData 𝒰 G inst)
     (hinj : Function.Injective (algebraMap R K)) (hv : IsPiAdicOn ϖ v) (a : ℕ)

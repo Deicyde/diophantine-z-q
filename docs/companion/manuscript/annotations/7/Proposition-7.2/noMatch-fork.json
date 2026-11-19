@@ -1,0 +1,47 @@
+{
+  "id": "Proposition 7.2",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: No declaration constructs a scalar in Z_2[[t]][1/2][G] for a binary character family or relates its central coordinate to v_2 L_*(h), omega(h) and Sha; Kato occurs only in docstrings of hypotheses about other statements.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 26,
+        "rect": [
+          0.107843,
+          0.476973,
+          0.784314,
+          0.146103
+        ]
+      },
+      "title": "Proposition 7.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 7.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          26
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

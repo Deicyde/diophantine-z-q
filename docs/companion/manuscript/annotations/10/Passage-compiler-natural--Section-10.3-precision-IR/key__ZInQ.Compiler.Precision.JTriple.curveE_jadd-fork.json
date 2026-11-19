@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 precision IR",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The norm-zero lemma, the Jacobian identities and branches, the fixed point, capped arithmetic, totality and agreement of the IR with accepts on all of N^5 are stated and proved; no assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.107843,
+          0.664019,
+          0.784314,
+          0.205291
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 precision IR",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 precision IR"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.JTriple.curveE_jadd",
+        "module": "ZInQKernel.Compiler.Precision.Jacobian"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.JTriple.curveE_jadd@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem curveE_jadd (A : R) (P Q : JTriple R) :\n    curveE A (jadd P Q) = addCofactor₁ A P Q * curveE A P + addCofactor₂ A P Q * curveE A Q := by",
+            "line": 115,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/Jacobian.lean",
+            "fragment": "L115"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

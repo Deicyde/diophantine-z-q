@@ -1,0 +1,12 @@
+# Fowler uniqueness results
+
+- VERIFIED (repository): the starting tree is `b64a56395`, with `fowlerProp27` live and rated GLUE in both columns.
+- VERIFIED (source): `NumberFieldOrder.discr_eq_index_sq_mul` and `toOrder_index_eq_conductor` already give the square-index formula. The field discriminant is invariant under ring isomorphism by `NumberField.discr_eq_discr_of_ringEquiv`.
+- VERIFIED (manuscript and recorded reading): L586–593 apply Fowler at the full geometric endomorphism order and parameter `D`; the reading in `docs/research/fowler-bridges.md` records the proper ideal count on p. 613 and the bound on p. 615.
+- VERIFIED (Mathlib source): `QuadraticAlgebra.nonempty_algEquiv_int_iff` classifies standard integral quadratic algebras by their polynomial discriminants. The order bridge compares that discriminant with the trace discriminant.
+- VERIFIED (dry run): replacing `fowlerProp27` by `fowlerProp27PrintCanonical` gives 4 LEAF / 25 GLUE → 5 LEAF / 24 GLUE on 29 H rows, strict and strictest. The preview made no edits.
+- VERIFIED (Lean): `FowlerUniqueDiscriminant.lean` compiled. Equality of trace discriminants gives a ring isomorphism and equality of the field discriminants and conductor indices. Dividing by the field discriminant gives the square of the index. Projection along a basis of the maximal order proves `O = ℤ + f · 𝓞 k`, also for the kernel's finite-index subring, and the formula is preserved by field isomorphisms.
+- VERIFIED (Lean): `FowlerUnique.lean` compiled. The explicit quadratic algebra with coefficients `(Δ / 4, Δ % 4)` realizes every valid negative `Δ`; its class number agrees with that of every order of discriminant `Δ`. The printed bound with this class number is equivalent to `FowlerProp27Print` and implies the live row. The fraction-field description as `ℚ(√Δ)` and fundamentality of the field discriminant also compile.
+- VERIFIED (Lean): both new modules and the unchanged live main module compiled with `lake env lean`. All 34 public and private declarations audited by `Axioms.lean` use only `propext`, `Classical.choice` and `Quot.sound`.
+- VERIFIED (Lean): `#discharges` checked 33 open hypotheses and matched `fowlerProp27_of_canonical` to `OpenResearchLeaves66.fowlerProp27`, assuming only `FowlerProp27PrintCanonical`; the three axioms are standard.
+- VERIFIED (dry run): the final autofold preview reproduced the one-row substitution and the two 4/25 → 5/24 counts.

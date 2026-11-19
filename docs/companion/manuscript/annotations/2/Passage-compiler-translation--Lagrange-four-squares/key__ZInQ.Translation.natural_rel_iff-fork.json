@@ -1,0 +1,88 @@
+{
+  "id": "Passage compiler-translation: Lagrange four squares",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation): The positivity display and its four-square proof are proved outright; the fragment at line 370 (the natural predicate is exactly iota(N) by Lagrange) is natural_rel_iff, which takes multiplication exactness MultiplicationExact as hypothesis, as [M] says.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.107843,
+          0.389403,
+          0.784314,
+          0.107727
+        ]
+      },
+      "title": "Passage (compiler-translation): Lagrange four squares",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Lagrange four squares#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.107843,
+          0.695126,
+          0.784314,
+          0.017108
+        ]
+      },
+      "title": "Passage (compiler-translation): Lagrange four squares",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Lagrange four squares#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.natural_rel_iff",
+        "module": "ZInQKernel.Compiler.Translation.NaturalCode"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.natural_rel_iff@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem natural_rel_iff {I : Constructors E} {cstar ell T : ℤ}\n    (hM : MultiplicationExact I cstar ell T) (A : Fin 5 → ℚ) :\n    (naturalTemplate I cstar ell T).Rel A ↔ ∃ n : ℕ, A = iota n := by",
+            "line": 81,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/NaturalCode.lean",
+            "fragment": "L81"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5,
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

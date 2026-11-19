@@ -49,6 +49,33 @@ lift and a tame generator of `G_{K_q}` satisfy this relation modulo the wild ine
 phenomenon, not available as stated at the characteristic-zero fibres. The duality input
 (`LocalizationDualityInput`, `DualityFromSelmer` in the quadratic candidates) is a named input; no
 finite-discrete duality is used.
+
+**Modelling constraint (the switch coordinates at a single derivative prime).** The `2 + 2`
+switch coordinates (finite and singular planes `F`, `S` of dimension two each, the shape used by
+`QuasiNonquadStep`, (5.5a) and `RelaxedImageFinite`) exist only when `q ≡ 1` in the coefficient
+field. At a single inert derivative prime `ℓ` the Frobenius of the completion is `Φ = J² = 1` and
+the residue norm is `q = ℓ²` (tex L3298–3300), so `H¹ ≅ coker(Φ − 1) × ker(Φ − q)`
+(`UnrCoords.coordEquivUnr`). With `k = k(𝔭)` of characteristic zero, `q = ℓ² ≠ 1` kills the singular
+part (`singular_zero_of_q_ne_one`), and `two_plus_two_iff_q_eq_one` / `two_plus_two_iff_ell` show
+the `2 + 2` shape holds iff `(q : k) = 1`. Elliot's shape is reached in the inner limit, where the
+retained congruences give `ℓᵢ → −1` (tex L5030–5032). So the switch must be formalised on
+inner-limit / `Λ`-adic objects across the derivative primes, not on `V_𝔭` at one prime. Planned
+duality route: the named duality input of this chain can be discharged by the fibre duality five
+lemma `selmerDuality_of_global_local` (modulo the print `NekovarFibreGlobalDuality`, Nekovář
+5.6.3(ii) localised at `Λ/𝔭`) once it lands, provided the inner-limit objects are `k(𝔭)`-linear and
+lattice-topologised.
+
+**The inner-limit counterpart, and a limitation of `GaloisInputsK`.** The inner-limit switching
+objects are built in a separate lane (`RC53Assist.InnerLimit.Objects`, not imported here): the limit
+`H¹` identified with the `H¹` of the limiting tame complex, closed complementary rank-two switch
+planes, a fixed-`𝔭` specialisation to `V_𝔭 × V_𝔭`, both `QuasiSwitchSide` values, the connecting map
+with exactness and a conditional `QuasiNonquadStep (ResAt 𝔭)` wiring; their duality is the explicit
+hypothesis `FibreInnerLimitPairingCertificate`. That is the counterpart of this file's fixed-place
+chain. The family `GaloisInputsK` used here works at a FIXED place `q ∈ S` of one arithmetic field:
+it cannot identify a MOVING derivative label (the inner-limit index `ℓᵢ → −1`) with one arithmetic
+prime. A consumer passing from the inner-limit objects to these steps needs actual side-to-stage
+equivalences and the arithmetic Galois/cochain comparisons; neither is supplied here. (Comments
+only.)
 -/
 
 noncomputable section
@@ -123,7 +150,7 @@ variable {W P α}
 
 /-- **The unramified condition is the finite derivative side** at a place `q` where `G_{K_q}` acts
 trivially on `V_𝔭` and `I_q` is the inertia group (the kernel of `G_{K_q} → Gal(K_q^ur/K_q)`):
-`urSubK q = finCond q` (tex 3479–3498, L5068–5072). PROVED. -/
+`urSubK q = finCond q` (tex 3479–3498, L5057–5058). PROVED. -/
 theorem urSubK_eq_finCond (D : PlaceTameK K S) (q : Places K S)
     (htriv : ∀ (g : Gloc K q.1) (m : gMvK K S (VP K S W P α) q), g • m = m)
     (hI : ∀ h : Gloc K q.1, h ∈ D.I q ↔ resUr K q.1 h = 1) :
@@ -185,7 +212,7 @@ singular derivative sides `singCond` as the singular conditions. -/
 def fibreConds (D : PlaceTameK K S) : SwitchCondsK (ResAt P) K S (VP K S W P α) :=
   ⟨D, urSubK W P α, D.singCond (ResAt P) (VP K S W P α)⟩
 
-/-- **The fibre conditions are admissible at a trivial switch place** (tex L5068–5072): if
+/-- **The fibre conditions are admissible at a trivial switch place** (tex L5060–5061): if
 `G_{K_q}` acts trivially on `V_𝔭` and `I_q` is the inertia group, the finite and singular
 conditions at `q` are the derivative sides. PROVED. -/
 theorem fibreConds_admissibleAt (D : PlaceTameK K S) (q : Places K S)
@@ -213,7 +240,7 @@ theorem tameCoordinatesTrivialK_fibre [W.IsElliptic] [HasFullTwoTorsion K S W] (
     TameCoordinatesTrivialK (ResAt P) (gMvK K S (VP K S W P α) q) I φ σ :=
   ⟨htriv, ⟨fibreEquivFin2 W P α q⟩, hσI, hbij, hI⟩
 
-/-- **The finite quasi side at `V_𝔭` has the fibre Selmer data of `c`** (tex L5068–5083): with tame
+/-- **The finite quasi side at `V_𝔭` has the fibre Selmer data of `c`** (tex L5060–5082): with tame
 coordinates `T` at `q ∉ c` and `I_q` the inertia group, the side Selmer data of the genuine finite
 quasi side is `fibreSelData W 𝔭 α (condAt Δ₀ Δ_d c)`, `Δ₀` the unramified conditions. PROVED. -/
 theorem fibreFinSideK_Dside (D : PlaceTameK K S) (c : Finset (Places K S)) (q : Places K S)
@@ -226,7 +253,7 @@ theorem fibreFinSideK_Dside (D : PlaceTameK K S) (c : Finset (Places K S)) (q : 
 
 open Classical in
 /-- **The singular quasi side at `V_𝔭` has the fibre Selmer data of `insert q c`** (tex
-L5068–5083). PROVED. -/
+L5060–5082). PROVED. -/
 theorem fibreSingSideK_Dside (D : PlaceTameK K S) (c : Finset (Places K S)) (q : Places K S)
     (T : TameCoordinatesTrivialK (ResAt P) (gMvK K S (VP K S W P α) q) (D.I q) (D.φ q) (D.σ q)) :
     (galSingSideK (fibreConds W P α D) c q T).Dside =

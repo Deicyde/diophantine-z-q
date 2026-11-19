@@ -1,0 +1,86 @@
+{
+  "id": "Lemma 11.1",
+  "kind": "lemma",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Assembly.Test a definition: test_dvd states Test(n,kappa,t) => M_{S_ht}(t) | kappa F(n), with contactSupport heightPrimes t the product over primes p > 324 with v_p(t-c) odd and positive. Proved, with no assumed hypothesis.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 81,
+        "rect": [
+          0.107843,
+          0.86882,
+          0.784314,
+          0.027276
+        ]
+      },
+      "title": "Lemma 11.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 11.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.Test",
+        "module": "ZInQKernel.Assembly.Local.SixLocalTests"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.Test@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Test (n κ : ℤ) (t : ℚ) : Prop :=\n  κ ≠ 0 ∧ t ∉ contactSet ∧ ∃ (h s₀ : ℤ) (η q : ℚ), h ≠ 0 ∧ h ≠ κ ∧ η ^ 2 = 1 ∧\n    1 - testR₀ η t * q ^ 2 ≠ 0 ∧ poleW (testR η q t) (testC n κ t h s₀) ≠ 0 ∧\n    poleTheta (testR η q t) (testC n κ t h s₀) ≠ 0 ∧\n    PoleSoluble (testR η q t / poleTheta (testR η q t) (testC n κ t h s₀) ^ 2)",
+            "line": 66,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Local/SixLocalTests.lean",
+            "fragment": "L66"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          81
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "test_dvd proves M_{S_ht}(t) | kF(n) from ndep's Test, whose pole clause is the Route K Phi. The two Test relations differ only in which pole polynomial is soluble, and neither PoleSoluble implies the other, so the hypotheses are incomparable. [N] uses test_dvd at QualitativePrecision.lean:146 and has no statement of its own.",
+            "test_dvd proves M_{S_ht}(t) | kF(n) from ndep's Test, whose pole clause is PoleSoluble for x(x-l)(x+l) rather than [M]'s Phi; [N] has no own statement and uses test_dvd in height_le_scaled_bound."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

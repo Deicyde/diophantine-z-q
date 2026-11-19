@@ -1,0 +1,86 @@
+{
+  "id": "Passage syntax: Section 3.1 membership and natural codes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin and ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Translation.natural_rel_iff proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation): rel_member_iff (and rel_member_iff_iota) is the all-input membership statement for 2E(K0), proved; rel_rawAdd_iota is the raw addition contract on canonical codes, proved. The multiplication soundness (multiply_sound) is conditional on the assumed ZInQ.SixContactMin, and natural_rel_iff (Rel_natural iff iota(N), by Lagrange) is conditional on MultiplicationExact, as [M] says.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.098039,
+          0.448167,
+          0.803922,
+          0.292529
+        ]
+      },
+      "title": "Passage (syntax): Section 3.1 membership and natural codes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 3.1 membership and natural codes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.natural_rel_iff",
+        "module": "ZInQKernel.Compiler.Translation.NaturalCode"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.natural_rel_iff@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem natural_rel_iff {I : Constructors E} {cstar ell T : ℤ}\n    (hM : MultiplicationExact I cstar ell T) (A : Fin 5 → ℚ) :\n    (naturalTemplate I cstar ell T).Rel A ↔ ∃ n : ℕ, A = iota n := by",
+            "line": 81,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/NaturalCode.lean",
+            "fragment": "L81"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "rel_member_iff, rel_member_iff_iota and rel_rawAdd_iota are proved with no hypotheses and match [M]. multiply_sound (hH : SixContactMin) and natural_rel_iff (hM : MultiplicationExact) concern multiplyTemplate and naturalTemplate, which embed poleTemplate with x+l, so they are statements about other polynomials. Grep confirms [N] names only MultiplicationExact among these.",
+            "ndep's Membership.lean and RawAddition.lean are byte-identical to [F]'s (diff), and rel_member_iff and rel_rawAdd_iota state [M]'s membership and raw-addition contracts; but multiply_sound (under SixContactMin) and natural_rel_iff (under MultiplicationExact) concern ndep's multiplyTemplate, whose slope tests call the Route K poleTemplate. nasqret has no membership, raw-addition or natural-predicate declaration of its own (name search and grep), and uses only MultiplicationExact."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

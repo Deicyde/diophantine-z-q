@@ -1,0 +1,23 @@
+{
+  "name": "fowler-fold",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.FowlerUnique"
+  ],
+  "discharges": [
+    {
+      "field": "fowlerProp27",
+      "proof": "HDec.CMBranch.FowlerBridges.fowlerProp27_of_canonical {n}.fowlerProp27PrintCanonical",
+      "leaves": [
+        {
+          "name": "fowlerProp27PrintCanonical",
+          "type": "HDec.CMBranch.FowlerBridges.FowlerProp27PrintCanonical",
+          "doc": "Fowler, Proposition 2·7: for an imaginary quadratic order discriminant Δ < 0 congruent to 0 or 1 modulo 4 and positive n, h(Δ) ≤ n implies √|Δ| ≤ 2n² exp(21000n²), with h(Δ) the proper ideal class number of the unique order of discriminant Δ.",
+          "kind": "published",
+          "flag": "p. 615: \"Proposition 2·7. Let Δ < 0 be such that Δ ≡ 0, 1 mod 4 and let k ∈ Z>0. If h(Δ) ≤ k, then |Δ|^{1/2} ≤ 2k²e^{21000k²}.\" p. 613: \"where cl(Δ) denotes the class group of the unique imaginary quadratic order of discriminant Δ\" and \"where h(Δ) denotes the class number of the imaginary quadratic order of discriminant Δ.\" Lean proves the order and its proper class number are determined by Δ (orders_ringEquiv_of_discr_eq, properClassNumber_ringEquiv, hDelta_eq_properClassNumber)",
+          "flag_class": "note",
+          "source": "Fowler, Some uniform effective results on André–Oort for sums of powers in ℂⁿ, Math. Proc. Cambridge Philos. Soc. 180 (2026), Proposition 2·7, p. 615; definition p. 613; manuscript L588–593."
+        }
+      ]
+    }
+  ]
+}

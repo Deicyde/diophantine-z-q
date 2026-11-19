@@ -1,0 +1,86 @@
+{
+  "id": "Passage assembly: Lemma 11.2",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.PoleCompleteness; ZInQ.Assembly.Test a definition: `test_complete` states that every integer n not in C has kappa != 0 with Test(n,kappa,n), taking `ZInQ.PoleCompleteness` (Theorem 5.2), which [M]'s proof also invokes; conditional on that assumed hypothesis. The deep-multiple, local and real pole-input steps are `exists_common_smul_mem_Ek`, `poleInput_local` and `poleInput_real`, as in [M].",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 82,
+        "rect": [
+          0.102941,
+          0.556035,
+          0.794118,
+          0.320227
+        ]
+      },
+      "title": "Passage (assembly): Lemma 11.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Lemma 11.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.Test",
+        "module": "ZInQKernel.Assembly.Local.SixLocalTests"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.Test@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Test (n κ : ℤ) (t : ℚ) : Prop :=\n  κ ≠ 0 ∧ t ∉ contactSet ∧ ∃ (h s₀ : ℤ) (η q : ℚ), h ≠ 0 ∧ h ≠ κ ∧ η ^ 2 = 1 ∧\n    1 - testR₀ η t * q ^ 2 ≠ 0 ∧ poleW (testR η q t) (testC n κ t h s₀) ≠ 0 ∧\n    poleTheta (testR η q t) (testC n κ t h s₀) ≠ 0 ∧\n    PoleSoluble (testR η q t / poleTheta (testR η q t) (testC n κ t h s₀) ^ 2)",
+            "line": 66,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Local/SixLocalTests.lean",
+            "fragment": "L66"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          82
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "test_complete assumes ndep's PoleCompleteness and concludes Test n k n for ndep's Test. Both are stated for the Route K pole polynomial (x+l), whereas [M]'s Lemma 11.2 uses [M]'s PC and Test with the x+3l curves. So it is a different, conditional claim, which [N] uses at QualitativePrecision.lean:180.",
+            "test_complete concludes ndep's Test (Route K pole clause) from ndep's PoleCompleteness, which by its own docstring concerns the x(x-l)(x+l) polynomial, not [M]'s Theorem 5.2; [N] has no own copy and calls it in main_iff."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Lemma 7.7",
+  "kind": "lemma",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.Manuscript.PoleS12.exists_prime_lsym proved: The realization of prescribed forward residue bits and types for many new vertices by distinct fresh primes is not stated. The closest lemma, ZInQ.Manuscript.PoleS12.exists_prime_lsym, gives one prime outside a finite set in a class mod 12 with prescribed Legendre symbols, for Section 5's construction.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 30,
+        "rect": [
+          0.107843,
+          0.612545,
+          0.784314,
+          0.113797
+        ]
+      },
+      "title": "Lemma 7.7",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 7.7"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.PoleS12.exists_prime_lsym",
+        "module": "ZInQKernel.Contrib.OneProof.PoleS12.Primes"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.PoleS12.exists_prime_lsym@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem exists_prime_lsym (r : ℕ) (hr : Nat.Coprime r 12) (Q : Finset ℕ)\n    (hQ : ∀ q ∈ Q, Odd3 q) (e : ℕ → ZMod 2) (F : Finset ℕ) :\n    ∃ p, p.Prime ∧ p % 12 = r % 12 ∧ p ∉ F ∧ ∀ q ∈ Q, lsym (p : ℤ) q = e q := by",
+            "line": 61,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/PoleS12/Primes.lean",
+            "fragment": "L61"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          30
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

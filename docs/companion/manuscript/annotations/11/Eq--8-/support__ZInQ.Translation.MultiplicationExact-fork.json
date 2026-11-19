@@ -1,0 +1,86 @@
+{
+  "id": "Eq (8)",
+  "kind": "equation",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Translation.MultiplicationExact a definition: close_sound states Close(iota n, iota kappa, t) => |t-n| < e^{-B(n,kappa)} with B = A0|kappa F(n)|^24, adding n not in C and kappa != 0, which the precision predicate enforces. Proved from MultiplicationExact, so conditional on it.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 81,
+        "rect": [
+          0.107843,
+          0.337886,
+          0.784314,
+          0.028068
+        ]
+      },
+      "title": "Eq. (8)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (8)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.MultiplicationExact",
+        "module": "ZInQKernel.Compiler.Translation.NaturalCode"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.MultiplicationExact@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def MultiplicationExact (I : Constructors E) (cstar ell T : ℤ) : Prop :=\n  ∀ p q r : Fin 5 → ℚ, (multiplyTemplate I cstar ell T).Rel (Fin.append (Fin.append p q) r) ↔\n    ∃ a b : ℤ, p = iota a ∧ q = iota b ∧ r = iota (a * b)",
+            "line": 30,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/NaturalCode.lean",
+            "fragment": "L30"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          81
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "closeAt_sound states |t-n|<exp(-bound n k) with bound = A0|kF(n)|^24, A0 = H_6, matching [M]'s B, but for CloseAt T, whose compiled polynomial uses ndep's Route K pole template (x+l), and only under MultiplicationExact at T; no guard T gives [M]'s polynomial. No [N] file uses ndep's close_sound, as grep shows.",
+            "closeAt_sound gives (8) with [M]'s B but for CloseAt T, whose polynomial contains ndep's Route K pole template (x+l) at every guard T, not [M]'s Q_pole (x+3l); it is proved under ndep's MultiplicationExact, which is a statement about that other polynomial."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

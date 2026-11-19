@@ -1,0 +1,47 @@
+{
+  "id": "Eq (5.10)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] fixes no constants M and b with M > max(c_det, B + 2c_det) and b > (L_T(M)+2)(2^M - 1).",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 75,
+        "rect": [
+          0.107843,
+          0.509168,
+          0.784314,
+          0.031203
+        ]
+      },
+      "title": "Eq. (5.10)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (5.10)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          75
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

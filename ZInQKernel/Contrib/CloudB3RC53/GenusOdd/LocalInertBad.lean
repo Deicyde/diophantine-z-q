@@ -218,7 +218,8 @@ def LocalFactorInertBadTame : Prop :=
 theorem localFactorInertBadTame_proof : LocalFactorInertBadTame :=
   fun E _ _ _ _ 𝔭 v h𝔭 hN hu hb hc => localFactorInert_bad E 𝔭 v h𝔭 hN hu hb hc
 
-/-- **Node `LocalFactorInertAdditive23`** (GLUE; the remaining local input of (3.4)): the inert
+/-- **Node `LocalFactorInertAdditive23`** (GLUE; not needed for `ArtinFactorization`
+or (3.4), see `ArtinUnconditional.lean`): the inert
 clause of `LocalFactorK` when `E` has additive reduction at `p ∈ {2, 3}`. For `N𝔭 = p²`, `𝔭² ∤ p`
 (`K_𝔭/ℚ_p` unramified quadratic), `p = 2` or `p = 3`, and `E` neither good nor multiplicative at
 `p`: `L_𝔭(T²) = L_p(T) L_p(−T)`, i.e. the reduction stays additive over `K_𝔭` (both sides are `1`).

@@ -1,0 +1,88 @@
+{
+  "id": "Passage multiplication: Generator height",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The span repeats the duplication bounds and the height comparison: archimedean and local bounds give hx_two_smul_bounds, hence hx_le_two_canonHeight; two_smul_pointR and hx_two_R give x(2R)=(57-28s)/8 of height log 41; hx_lt_log_nine_of_multiple and height_comparisons give h_x(S)<log 9 for |m|>=3. All proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.805243,
+          0.784314,
+          0.111194
+        ]
+      },
+      "title": "Passage (multiplication): Generator height",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Generator height#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.086121,
+          0.794118,
+          0.144271
+        ]
+      },
+      "title": "Passage (multiplication): Generator height",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Generator height#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.not_isSquare_neg_one_zmod_seven",
+        "module": "ZInQKernel.Model.Field.Residues"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.not_isSquare_neg_one_zmod_seven@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem not_isSquare_neg_one_zmod_seven : ¬ IsSquare (-1 : ZMod 7) := by",
+            "line": 20,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Field/Residues.lean",
+            "fragment": "L20"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6,
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

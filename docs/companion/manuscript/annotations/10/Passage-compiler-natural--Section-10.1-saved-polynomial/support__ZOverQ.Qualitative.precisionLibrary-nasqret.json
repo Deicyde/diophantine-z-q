@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 saved polynomial",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; ZOverQ.Qualitative.precisionLibrary a definition: ndep's `precisionCircuit_counts` proves the 1,305,811 variables and five inputs; the SHA256 is not stated. [N] has no declaration of its own and ndep's file is identical to [F]'s; [N]'s `ZOverQ.Qualitative.precisionLibrary` uses `precisionCircuitOf` at the same code c3.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.771289,
+          0.784314,
+          0.097189
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 saved polynomial",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 saved polynomial"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.precisionLibrary",
+        "module": "bounded.QualitativePrecision"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.precisionLibrary@nasqret",
+            "kind": "abbrev · nasqret"
+          },
+          "snippet": {
+            "text": "noncomputable abbrev precisionLibrary (T : ℤ) : List ExPoly :=\n  specLib specConstructors FixedConst.cstar.value FixedConst.ell.value T\n    (Compiler.Universal.c3 : ℤ) (precisionCircuitOf (Compiler.Universal.c3 : ℤ))",
+            "line": 23,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativePrecision.lean",
+            "fragment": "L23"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

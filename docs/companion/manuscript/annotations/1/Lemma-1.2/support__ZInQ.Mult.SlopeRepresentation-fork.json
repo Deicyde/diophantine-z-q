@@ -1,0 +1,87 @@
+{
+  "id": "Lemma 1.2",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation, or by another key from other hypotheses; ZInQ.Mult.SlopeRepresentation a definition: Pstar_spec and assembly prove that specPstar satisfies Theorem 1.1 from SixContactMin, PoleCompleteness, the slope representation SR and the halting-circuit node bound HaltingAddMulBound; the node bound is proved separately (haltingAddMulBound), and the rest of G, M, C and B is proved inside. SR (a consequence of [M]'s prime pattern) is a hypothesis that [M]'s list of inputs lacks; assembly_AP takes its route-AP form, which the headline derives from proved density results.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 4,
+        "rect": [
+          0.107843,
+          0.247923,
+          0.784314,
+          0.028429
+        ]
+      },
+      "title": "Lemma 1.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 1.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.SlopeRepresentation",
+        "module": "ZInQKernel.Multiplication.Completeness.PatternSlopes"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.SlopeRepresentation@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def SlopeRepresentation : Prop :=\n  ∀ A : ℤ, ∃ t : Fin 3 → ℚ, ∑ j, t j = A ∧ ∀ j, GoodSlope 0 (t j)",
+            "line": 314,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Completeness/PatternSlopes.lean",
+            "fragment": "L314"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          4
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; note corrected after a review of the headline statements; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "Pstar_spec and assembly state the target for ndep's specPstar, whose embedded pole template uses the curves x+l in place of [M]'s x+3l, so the polynomial differs; [N] has no assembly lemma for [M]'s P_* of its own. The hypotheses also include Compiler.NodeCheck.HaltingAddMulBound, not named in the note.",
+            "Survives: [N] never names the specified P_* (no Pstar/specPstar anywhere in nasqret/); its own assembly theorems conclude only IntegerPolynomial (some polynomial, no bounds or variable count) or ZInQ.FrozenTarget (some polynomial with [M]'s bounds), both existential and weaker than 'P_* satisfies Theorem 1.1'. The rank inputs replacing PC are theorem-standing hypotheses and do not rescue the conclusion; PublicAssembly.frozen_of_geometry_and_genus is also only FrozenTarget.",
+            "No [N] declaration names ndep's specPstar or Pstar_spec (grep of nasqret for Pstar finds nothing); [N]'s assembly theorems conclude only the existential IntegerPolynomial (no bounds) or ndep's existential FrozenTarget, under UniformHeight/SixContactMin and a Tian/Gross-Zagier rank input, so the conclusion about the specified P_* is indeed missing and the claim stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -10,8 +10,9 @@ bound."
 
 For a block-form complex `D` over `𝒪[G]` (`ClearingComplex.BlockComplex`) and a sign character `x`,
 the generic cohomology of `D_x` (over `K = Frac 𝒪`) has dimensions
-`h⁰ = m₀ − r₀`, `h¹ = (m₀ + 1 + m₁) − r₁ − r₀`, `h² = (m₁ + 1 + m₂) − r₂ − r₁`, `h³ = m₂ − r₂`, with `r_i`
-the rank of the sign-evaluated differential `d^i_x` over `K` (`BlockComplex.hdim`, rank–nullity).
+`h⁰ = m₀ − r₀`, `h¹ = (m₀ + 1 + m₁) − r₁ − r₀`, `h² = (m₁ + 1 + m₂) − r₂ − r₁`, `h³ = m₂ − r₂`,
+with `r_i` the rank of the sign-evaluated differential `d^i_x` over `K` (`BlockComplex.hdim`,
+rank–nullity).
 
 * `RankOnePattern x`: `(h⁰, h¹, h², h³) = (0, 1, 1, 0)`; `AcyclicPattern x`: all `h^i = 0`.
 * `hdim_le_central`: where the Smith blocks are invertible at `x` (`Δ_x ≠ 0`, the hypothesis under

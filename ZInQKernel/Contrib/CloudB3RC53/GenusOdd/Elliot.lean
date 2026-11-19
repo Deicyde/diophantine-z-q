@@ -6,16 +6,17 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.Twist
 
 "Each rational free line has index at most two in its native rank-one lattice: conjugation fixes
 the free class, and the norm makes twice the class rational." (tex L2433–2435; again at tex
-L9427–9428 for (O.8).)
+L9426–9427 for (O.8).)
 
 Formally: for `x` in the native lattice `M = E(H_c)^χ` and complex conjugation `ρ`,
 `2x = (x + ε ρx) + (x − ε ρx)`; the first summand is fixed by the twisted action of the whole
-`Gal(H_c/ℚ)` attached to `√d_R` ("the norm makes twice the class rational": it comes from the rational
-line `E^{(d_R)}(ℚ)`), the second by the one attached to `√d_T`, so it comes from `E^{(d_T)}(ℚ)`, which
-is torsion ("conjugation fixes the free class": the other eigencomponent has rank zero). Hence
-`2M ⊆ ψ(E^{(d_R)}(ℚ)) + torsion` (`two_nsmul_mem_twist_add_torsion`). The Galois descent itself and
-the existence of `√d_R, √d_T ∈ H_c` were the GLUE `TwistDescent`, `GenusTheory` of `Glue.lean`
-(since PROVED: `twistDescent_proof`, and `genusRoots_proof` on the route of `Artin34.lean`).
+`Gal(H_c/ℚ)` attached to `√d_R` ("the norm makes twice the class rational": it comes from the
+rational line `E^{(d_R)}(ℚ)`), the second by the one attached to `√d_T`, so it comes from
+`E^{(d_T)}(ℚ)`, which is torsion ("conjugation fixes the free class": the other eigencomponent has
+rank zero). Hence `2M ⊆ ψ(E^{(d_R)}(ℚ)) + torsion` (`two_nsmul_mem_twist_add_torsion`). The Galois
+descent itself and the existence of `√d_R, √d_T ∈ H_c` were the GLUE `TwistDescent`, `GenusTheory`
+of `Glue.lean` (since PROVED: `twistDescent_proof`, and `genusRoots_proof` on the route of
+`Artin34.lean`).
 
 * `eigen_decomp`: the abstract group-theoretic computation (PROVED).
 * `two_nsmul_mem_twist_add_torsion`: the statement for `E(H_c)` (PROVED from `TwistDescent`).
@@ -143,8 +144,8 @@ theorem map_mul_algEquiv (g h : (ringClassField (conductorOrder K c)) ≃ₐ[ℚ
 
 /-- **Elliot's index-at-most-two comparison** (tex L2433–2435; PROVED from the GLUE
 `TwistDescent`). Let `√d_R, √d_T ∈ H_c` be acted on by `Gal(H_c/K)` through `χ`, and complex
-conjugation `ρ` fix one and negate the other. If `E^{(d_T)}(ℚ)` is torsion, then twice every point of
-the native lattice `E(H_c)^χ` is, modulo torsion, the image of a point of the rational line
+conjugation `ρ` fix one and negate the other. If `E^{(d_T)}(ℚ)` is torsion, then twice every point
+of the native lattice `E(H_c)^χ` is, modulo torsion, the image of a point of the rational line
 `E^{(d_R)}(ℚ)`. -/
 theorem two_nsmul_mem_twist_add_torsion (hdesc : TwistDescent) [E.IsElliptic] (h₁ : E.a₁ = 0)
     (h₃ : E.a₃ = 0) (hK2 : Module.finrank ℚ K = 2) [IsGalois ℚ (ringClassField (conductorOrder K c))]

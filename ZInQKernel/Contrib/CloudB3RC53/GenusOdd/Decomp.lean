@@ -14,7 +14,7 @@ For a quadratic field `K` with odd discriminant `D`:
 
 * `discr_mod_four_of_odd`, `squarefree_discr_of_odd`: `D ≡ 1 (mod 4)` (`D = T² − 4N` from an
   integral basis) and `D` is squarefree (`K = ℚ(√m)`, `4m = D i²`);
-* `chiD_eq_kronecker`: GenusOdd's `χ_d(p) = (p/|d|)` is lane RC8's Kronecker symbol `(d/p)` for
+* `chiD_eq_kronecker`: GenusOdd's `χ_d(p) = (p/|d|)` is the Kronecker symbol `(d/p)` for
   `d ≡ 1 (mod 4)`;
 * `decomposition`: every prime `p` splits (two primes of norm `p`, `(D/p) = 1`), is inert (one prime
   of norm `p²`, `(D/p) = −1`) or ramifies (one prime of norm `p` with `𝔭² ∣ p`, `p ∣ D`).
@@ -42,7 +42,8 @@ namespace Decomp
 
 
 
-/-- `disc K = (b₀ τb₁ − b₁ τb₀)²` for an integral basis `b₀, b₁` and the nontrivial automorphism `τ` (PROVED; the explicit form of `exists_sq_eq_discr`). -/
+/-- `disc K = (b₀ τb₁ − b₁ τb₀)²` for an integral basis `b₀, b₁` and the nontrivial automorphism `τ`
+(PROVED; the explicit form of `exists_sq_eq_discr`). -/
 theorem discr_eq_sq_basis (hK2 : Module.finrank ℚ K = 2) :
     ∃ (b₀ b₁ : 𝓞 K) (τ : K ≃ₐ[ℚ] K), τ ≠ 1 ∧
       (discr K : K) = ((b₀ : K) * τ b₁ - (b₁ : K) * τ b₀) ^ 2 := by
@@ -186,7 +187,9 @@ theorem squarefree_discr_of_odd (hK2 : Module.finrank ℚ K = 2) (hodd : Odd (di
 
 
 
-/-- **`χ_d(p)` is the Kronecker symbol `(d/p)`** for `d ≡ 1 (mod 4)` and every prime `p` (PROVED): `(p/|d|) = (d/p)` by reciprocity for odd `p`; at `p = 2`, `(2/|d|) = χ₈(|d|)` matches `kroneckerTwo d` via `d mod 8`. -/
+/-- **`χ_d(p)` is the Kronecker symbol `(d/p)`** for `d ≡ 1 (mod 4)` and every prime `p` (PROVED):
+`(p/|d|) = (d/p)` by reciprocity for odd `p`; at `p = 2`, `(2/|d|) = χ₈(|d|)` matches
+`kroneckerTwo d` via `d mod 8`. -/
 theorem chiD_eq_kronecker {d : ℤ} (hd : d % 4 = 1) {p : ℕ} (hp : p.Prime) :
     chiD d p = kronecker d p := by
   unfold chiD
@@ -268,7 +271,8 @@ def primesOverEquiv (p : ℕ) (hp : p.Prime) :
   left_inv Q := rfl
   right_inv 𝔭 := rfl
 
-/-- **`Σ_{𝔭 | p} e(𝔭) f(𝔭) = 2`** in a quadratic field (PROVED; Mathlib's `sum_ramification_inertia_eq_finrank`). -/
+/-- **`Σ_{𝔭 | p} e(𝔭) f(𝔭) = 2`** in a quadratic field (PROVED; Mathlib's
+`sum_ramification_inertia_eq_finrank`). -/
 theorem sum_efAt (hK2 : Module.finrank ℚ K = 2) {p : ℕ} (hp : p.Prime) :
     ∑ 𝔭 ∈ (primesAbove_finite (K := K) p hp).toFinset, efAt 𝔭 = 2 := by
   classical

@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 12 literal constants",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: admissible_cutoff proves that all literal fixed constants (cstar, ell, T, c3 and the small integers) and all division-polynomial indices fit below T+1, for |c3| < 2^2^24, which c3_lt' proves; recipe_heights gives root height 256. The hypothesis CatalogueBound8 is proved in the repository (ZInQ.catalogueBound8), so it is not an assumption.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.107843,
+          0.727092,
+          0.784314,
+          0.049037
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 12 literal constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 12 literal constants"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.recipe_heights",
+        "module": "ZInQKernel.Size.Majorants.RecipeHeights"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.recipe_heights@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem recipe_heights (h : LibraryAdmissible B I cstar ell T c3) (hN : PrecisionShape N c3) :\n    Maj B 228 (getEx (specLib I cstar ell T c3 N) 0).poly ∧\n      Maj B 233 (getEx (specLib I cstar ell T c3 N) 1).poly ∧\n      Maj B 235 (getEx (specLib I cstar ell T c3 N) 2).poly ∧\n      Maj B 251 (getEx (specLib I cstar ell T c3 N) 3).poly ∧\n      Maj B 252 (getEx (specLib I cstar ell T c3 N) 4).poly ∧\n      Maj B 254 (getEx (specLib I cstar ell T c3 N) 5).poly ∧\n      Maj B 256 (getEx (specLib I cstar ell T c3 N) 6).poly :=",
+            "line": 438,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Majorants/RecipeHeights.lean",
+            "fragment": "L438"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Lemma 5.4",
+  "kind": "lemma",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, proved; Sun28.Corank.PrimaryData a definition: corank_one proves, for an abstract group A = Z^r x T with #A[2] = 4 and data K whose level-one Selmer group has 8 elements, that the reduced part vanishes and r + d = 1. The Selmer groups, Sha and the Cassels-Tate pairing are fields of PrimaryData rather than the curve's own objects, so the lemma holds for a curve once that data is supplied.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 16,
+        "rect": [
+          0.107843,
+          0.498042,
+          0.784314,
+          0.043686
+        ]
+      },
+      "title": "Lemma 5.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 5.4"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "Sun28.Corank.PrimaryData",
+        "module": "Lean.Topics.sun-28.global-descent.common-pair.selmer-realization.local-image.corank.PrimaryLayers"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "Sun28.Corank.PrimaryData@nasqret",
+            "kind": "structure · nasqret"
+          },
+          "snippet": {
+            "text": "structure PrimaryData (A : Type) [AddCommGroup A] where\n  sel : ℕ → Type\n  [groupSel : ∀ j, AddCommGroup (sel j)]\n  reduced : Type\n  [groupReduced : AddCommGroup reduced]\n  [finiteReduced : Finite reduced]\n  d : ℕ\n  bounded : ∃ j : ℕ, ∀ x : reduced, (2^j : ℕ) • x=0\n  values : Type\n  [groupValues : AddCommGroup values]\n  pair : reduced →+ reduced →+ values\n  alternating : ∀ x, pair x x=0\n  nondegenerate : ∀ x, (∀ y, pair x y=0) → x=0\n  kummer : ∀ j, quotientAt A (2^j) →+ sel j\n  boundary : ∀ j, sel j →+ (Fin d → ZMod (2^j)) × torsionAt reduced (2^j)\n  injective : ∀ j, Function.Injective (kummer j)\n  surjective : ∀ j, Function.Surjective (boundary j)\n  exactness : ∀ j, (kummer j).range=(boundary j).ker",
+            "line": 10,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/sun-28/global-descent/common-pair/selmer-realization/local-image/corank/PrimaryLayers.lean",
+            "fragment": "L10"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          16
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

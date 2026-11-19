@@ -11,8 +11,8 @@ tex L5394–5454, and the budget (5.7), tex L5251–5392).
 **(1) The block-form complex** (`BlockComplex S`, over any commutative ring `S`; for the clearing
 `S = 𝒪[G]`). After the central Smith decomposition (tex 5522–5532) the remaining complex `D` lives
 in degrees `0, …, 3` with `D⁰ = E₀`, `D¹ = B₁ ⊕ H₁ ⊕ E₁`, `D² = B₂ ⊕ H₂ ⊕ E₂`, `D³ = B₃`
-(`rank E_i = rank B_{i+1} = m_i`, `rank H₁ = rank H₂ = 1`, and `B₀ = H₀ = E₃ = H₃ = 0`). It is recorded
-by its three differentials as matrices over these block decompositions, with `d¹d⁰ = 0`,
+(`rank E_i = rank B_{i+1} = m_i`, `rank H₁ = rank H₂ = 1`, and `B₀ = H₀ = E₃ = H₃ = 0`). It is
+recorded by its three differentials as matrices over these block decompositions, with `d¹d⁰ = 0`,
 `d²d¹ = 0`. Its Smith blocks `A_i : E_i → B_{i+1}` are the submatrices `BlockComplex.A0`, `A1`, `A2`
 of the actual differentials (tex 5532–5535: "The entries in this definition are the original
 entries of `D`").
@@ -27,8 +27,9 @@ complex `D` over `𝒪[G]` that IS the remaining complex, i.e.
 * `aug`: its augmentation is the old complex over `Λ`, whose Smith blocks `A0 i` reduce centrally
   to the nonzero central Smith entries `s i` (tex 5517, 5530–5541: `D_c = D_0 ⊗_Λ ℤ₂`);
 * `poles`: at every sign character its differentials are a constant `Λ`-basis change of the Schur
-  complements `P_x − Q_x B_x⁻¹ T_x` of one new-local family (`B` with augmentation the block diagonal
-  of the new local blocks `A_q`, `det A_q = t^{d_q} v_q + 2w_q`, `d_q ≤ 4`; tex 5437–5454, 5517–5519);
+  complements `P_x − Q_x B_x⁻¹ T_x` of one new-local family (`B` with augmentation the block
+  diagonal of the new local blocks `A_q`, `det A_q = t^{d_q} v_q + 2w_q`, `d_q ≤ 4`;
+  tex 5437–5454, 5517–5519);
 * `budget`: the central complex of its Smith data satisfies the counts used in (5.7): total rank
   `≤ 2d_K + 12`, the exact sequence (5.7d) of `H²` with `H¹_C, H²_C, J, H³_C` of ranks `1, 1` and
   lengths `t_K, h_K, ≤ 2c_E, t_K` (tex 5355–5392).
@@ -129,8 +130,8 @@ variable {b : ℕ}
 /-- **A matrix family is a sign-evaluated new-local Schur complement** (tex 5437–5454, 5517–5519):
 there are a new-local family `B` over `Λ[G]` (augmentation the block diagonal of new local blocks
 `A_q` with `det A_q = t^{d_q} v_q + 2 w_q`, `d_q ≤ 4`), matrices `P, Q, T` over `Λ[G]` and constant
-`Λ`-basis changes `U, V` with `M_x = U (P_x − Q_x B_x⁻¹ T_x) V` at every sign character `x` (`·_x` the
-sign evaluation, mapped into `𝒪`). -/
+`Λ`-basis changes `U, V` with `M_x = U (P_x − Q_x B_x⁻¹ T_x) V` at every sign character `x`
+(`·_x` the sign evaluation, mapped into `𝒪`). -/
 def IsNewLocalSchur {r c : Type} (Mx : Addr b → Matrix r c OO) : Prop :=
   ∃ (Q ι : Type) (_ : Fintype Q) (_ : DecidableEq Q) (_ : Fintype ι) (_ : DecidableEq ι)
     (A : Q → Matrix ι ι Lam) (dq : Q → ℕ) (_ : ∀ q, dq q ≤ 4) (v : Q → Lamˣ) (w : Q → Lam)

@@ -1,0 +1,126 @@
+{
+  "id": "Passage multiplication: Contact prime sets",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: S_ht = heightPrimes is the primes <= 324 and S_mul = S_ht union the catalogue union the prime factors of c_*, as in [M]; the two sets are distinct definitions, and D bounds both.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.856078,
+          0.784314,
+          0.05821
+        ]
+      },
+      "title": "Passage (multiplication): Contact prime sets",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Contact prime sets"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.heightPrimes",
+        "module": "ZInQKernel.Compiler.Precision.HeightConstant"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.heightPrimes@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def heightPrimes : Finset ℕ := (Finset.range 325).filter Nat.Prime",
+            "line": 116,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/HeightConstant.lean",
+            "fragment": "L116"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.S_ht",
+        "module": "ZInQKernel.Multiplication.Certificate.Constants"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.S_ht@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def S_ht : Finset ℕ := Compiler.Precision.heightPrimes",
+            "line": 30,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Constants.lean",
+            "fragment": "L30"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.S_mul",
+        "module": "ZInQKernel.Multiplication.Certificate.Constants"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.S_mul@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def S_mul : Finset ℕ := S_ht ∪ catalogue ∪ Syntax.cstar.primeFactors",
+            "line": 40,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Constants.lean",
+            "fragment": "L40"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          14
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

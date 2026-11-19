@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Duplication bounds",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.F2 a definition: F2, G2 define the forms and x_two_smul_C gives x(2T)=F2/G2; duplication_bounds_emb gives the bounds M^4 and 676 M^4 at both embeddings (stated for all a,b in K0); duplication_common_divisor bounds the common divisor by valuations 6 at (s), 4 at (delta), none elsewhere; vS_sq_add_one and not_isSquare_neg_one_zmod_seven are the two local inputs; hx_two_smul_bounds is the displayed inequality. All proved.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.102941,
+          0.754844,
+          0.794118,
+          0.161593
+        ]
+      },
+      "title": "Passage (model): Duplication bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Duplication bounds"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.F2",
+        "module": "ZInQKernel.Model.Heights.DuplicationForms"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.F2@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def F2 (a b : Zs) : Zs := dupF deltaZ a b",
+            "line": 33,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Heights/DuplicationForms.lean",
+            "fragment": "L33"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

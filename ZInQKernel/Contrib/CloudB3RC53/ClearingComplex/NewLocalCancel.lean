@@ -21,9 +21,10 @@ complex `C^n = G^n ⊕ U^n ⊕ L^{n−1}`.
   `(P Q; T B)`;
 * `PreComplex.cancel`: for `B` invertible, the remaining block complex `d⁰ = c⁰`, `d¹ = X`,
   `d² = P − Q B⁻¹ T` (PROVED: `d² = 0`);
-* `PreComplex.incl`: the chain map `D → C`, `x ↦ (x, −B⁻¹ T x)` in degree two, `y ↦ (y, 0)` in degree
-  three, and `incl_quasiIso`: it is a quasi-isomorphism (PROVED: it is degreewise split injective with
-  cokernel the disk `N --B--> N`, which is acyclic; lane SelmerDuality's `quasiIso_τ₁`).
+* `PreComplex.incl`: the chain map `D → C`, `x ↦ (x, −B⁻¹ T x)` in degree two, `y ↦ (y, 0)` in
+  degree three, and `incl_quasiIso`: it is a quasi-isomorphism (PROVED: it is degreewise split
+  injective with cokernel the disk `N --B--> N`, which is acyclic; lane SelmerDuality's
+  `quasiIso_τ₁`).
 -/
 
 noncomputable section

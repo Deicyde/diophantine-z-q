@@ -321,11 +321,12 @@ theorem natCard_points_quadratic_trace {L : Type*} [Field L] [Fintype L] (ι : F
   rw [h1, Nat.cast_mul, h2']
   ring
 
-/-- **Node `QuadraticExtensionPointCount`** (the `n = 2` case of `|E(𝔽_{q^n})| = q^n + 1 − (α^n + β^n)`,
-cf. Silverman, Ch. V §2; infrastructure for the inert clause of `LocalFactorK`, not a manuscript line):
-for an elliptic curve `E` over `𝔽_q` and a field `L ⊇ 𝔽_q` with `q²` elements,
-`|E(L)| = |E(𝔽_q)| · (2q + 2 − |E(𝔽_q)|)`, i.e. `|E(L)| = q² + 1 − (a² − 2q)` with
-`a = q + 1 − |E(𝔽_q)|`. PROVED (`quadraticExtensionPointCount_proof`). -/
+/-- **Node `QuadraticExtensionPointCount`** (the `n = 2` case of
+`|E(𝔽_{q^n})| = q^n + 1 − (α^n + β^n)`, cf. Silverman, Ch. V §2; infrastructure for the inert clause
+of `LocalFactorK`, not a manuscript line): for an elliptic curve `E` over `𝔽_q` and a field
+`L ⊇ 𝔽_q` with `q²` elements, `|E(L)| = |E(𝔽_q)| · (2q + 2 − |E(𝔽_q)|)`, i.e.
+`|E(L)| = q² + 1 − (a² − 2q)` with `a = q + 1 − |E(𝔽_q)|`. PROVED
+(`quadraticExtensionPointCount_proof`). -/
 def QuadraticExtensionPointCount : Prop :=
   ∀ (F : Type) [Field F] [Fintype F] (W : WeierstrassCurve.Affine F) [W.IsElliptic]
     (L : Type) [Field L] [Fintype L] (ι : F →+* L), Fintype.card L = Fintype.card F ^ 2 →

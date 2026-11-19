@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Section 3 point codes",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.pointCode_injective proved: The point codes of the passage are ZInQ.pointCode and ZInQ.iota, matching (1,0,0,0,0) for O and (0,x0,x1,y0,y1) for affine points; the syntax layer reads coordinates as pairs u0 + u1 s (Pair.val). Definitions.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.258153,
+          0.784314,
+          0.173919
+        ]
+      },
+      "title": "Passage (syntax): Section 3 point codes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 3 point codes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.pointCode_injective",
+        "module": "ZInQKernel.Model.Field.Codes"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.pointCode_injective@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem pointCode_injective : Function.Injective pointCode := by",
+            "line": 66,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Field/Codes.lean",
+            "fragment": "L66"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

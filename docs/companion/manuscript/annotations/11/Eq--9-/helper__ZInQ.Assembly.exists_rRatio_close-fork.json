@@ -1,0 +1,86 @@
+{
+  "id": "Eq (9)",
+  "kind": "equation",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Assembly.exists_rRatio_close proved: close_complete states Close(iota n, iota kappa, n) for every integer n not in C and kappa != 0. Proved from MultiplicationExact, so conditional on it.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 81,
+        "rect": [
+          0.107843,
+          0.365954,
+          0.784314,
+          0.025176
+        ]
+      },
+      "title": "Eq. (9)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (9)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.exists_rRatio_close",
+        "module": "ZInQKernel.Assembly.Close.Completeness"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.exists_rRatio_close@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem exists_rRatio_close {n : ℤ} (hn : n ≠ 0) {η : ℝ} (hη : 0 < η) :\n    ∃ a : ℕ, 1 ≤ a ∧ |(rRatio a (n * a) : ℝ) - n| < η := by",
+            "line": 97,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Close/Completeness.lean",
+            "fragment": "L97"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          81
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "closeAt_complete gives CloseAt T (iota n)(iota k) n for n not in C and k != 0 under MultiplicationExact at T, using ndep's exists_rRatio_close. Its relation is built on the Route K pole template (curves x(x-l)(x+l)), not [M]'s x(x-l)(x+3l), so the stated difference holds.",
+            "closeAt_complete states (9) for CloseAt T under ndep's MultiplicationExact; the relation is built from templateLibrary whose pole template is the x(x-l)(x+l) polynomial for every T, so it is not [M]'s Close polynomial; the approximation comes from ndep's exists_rRatio_close as claimed."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

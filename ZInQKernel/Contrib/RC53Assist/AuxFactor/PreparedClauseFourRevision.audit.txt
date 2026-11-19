@@ -1,0 +1,145 @@
+Prepared clause 4: certificate repair verification
+
+Verified library source: 16884 bytes.
+SHA256: 89f6804165e5fdbc303abe986e1341c76d7f492662790d1776828ecf57498279
+
+The library compiled with exit code 0 and no warnings. The verification copy
+begins with the byte-exact entire library source, followed by diagnostic checks
+outside the library. That copy also compiled with exit code 0 and no warnings.
+All twelve theorem axiom reports contain exactly the standard three axioms.
+
+The source input has been renamed PreparedUnitCertificate. Its exact prime-unit
+equivalence is proved. The older type name is a compatibility abbreviation;
+the older projection names are compatibility wrappers. None specifies an
+actual Appendix E source, and none is a genuine-source-to-seed discharge.
+
+The separate genuine-source file binds actual EvenPhaseData, the original
+S0Filter, the genuine central values, the phase-removed coefficients and depth
+of the existing minimum_sieved theorem, and the actual dictionary symbol.
+Its theorem bodies have NOT yet been kernel-checked. No axiom output is reported
+for them. The missing module objects are:
+  ZInQKernel.Contrib.OneProof.RC.Even.EvenPhase
+  ZInQKernel.Contrib.RC53Assist.AuxFactor.PreparedClauseFour
+No dependency build was performed.
+
+Exact compiler output for the checked certificate library follows.
+
+leastCoefficientDepth_exists : ∀ (a : ℕ → ℚ_[2]) (F : ℕ → Prop) (c : ℤ),
+  (∃ D, F D ∧ a D ≠ 0) →
+    (∀ (D : ℕ), F D → a D ≠ 0 → c ≤ (a D).valuation - ↑D.primeFactors.card) → ∃ δ, LeastCoefficientDepth a F δ
+coefficientDepth_lowerBound_of_E9_E11 : ∀ (a : ℕ → ℚ_[2]) (F : ℕ → Prop) (vL : ℕ → ℤ) (κ C : ℤ),
+  (∀ (D : ℕ), F D → a D ≠ 0 → vL D = 2 * (a D).valuation + κ) →
+    (∀ (D : ℕ), F D → a D ≠ 0 → 2 * ↑D.primeFactors.card + C ≤ vL D) →
+      ∀ (D : ℕ), F D → a D ≠ 0 → (C - κ) / 2 ≤ (a D).valuation - ↑D.primeFactors.card
+@normalizedPrimeReading_of_dictionary : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2}
+  (T : CloudB3RC53.CoefficientDictionary.TypeData L ε) (τ : L) (a : ℕ → ℚ_[2]) (F : ℕ → Prop) (δ : ℤ),
+  NegativeCoefficientFilter T τ F →
+    (∀ (B : ℕ),
+        CloudB3RC53.CoefficientDictionary.FixedUFactorization T (CloudB3RC53.CoefficientDictionary.coeffReading a δ F)
+          B) →
+      NormalizedPrimeReading T
+        (CloudB3RC53.CoefficientDictionary.symb T (CloudB3RC53.CoefficientDictionary.coeffReading a δ F)) a F δ
+@preparedUnitCertificate_iff_primeUnits : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε)
+  (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+  PreparedUnitCertificate W T A ↔
+    ∀ (τ : L),
+      Manuscript.RC.Wiring.PreparedType W T τ →
+        ∃ D,
+          0 < D ∧
+            Squarefree D ∧
+              D % 8 = 7 ∧
+                (∀ p ∈ D.primeFactors, T.Good p) ∧
+                  (Manuscript.RC.Symbols.primeConfig D.primeFactors T.typ).total = τ ∧
+                    A τ (Manuscript.RC.Symbols.primeConfig D.primeFactors T.typ) = 1
+@preparedSeedInput_of_unitCertificate : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε)
+  (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+  PreparedUnitCertificate W T A →
+    ∀ (τ : L), Manuscript.RC.Wiring.PreparedType W T τ → ∃ Γ, Manuscript.RC.Symbols.IsUnitSeed ε (A τ) Γ
+@preparedType_sign_one : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) → ∀ {τ : L}, Manuscript.RC.Wiring.PreparedType W T τ → ε τ = 1
+@preparedClauseFour_of_preparedSeeds : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+    ∀ (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+      (∀ (τ : L), Manuscript.RC.Symbols.CoefficientRules ε (A τ)) →
+        (∀ (τ : L), Manuscript.RC.Symbols.VanishesOffFilter (A τ) τ) →
+          (∀ (τ : L), Manuscript.RC.Wiring.PreparedType W T τ → ∃ Γ, Manuscript.RC.Symbols.IsUnitSeed ε (A τ) Γ) →
+            PreparedClauseFour W T A
+@preparedSeedInput_of_clauseFour : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε)
+  (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+  PreparedClauseFour W T A →
+    ∀ (τ : L), Manuscript.RC.Wiring.PreparedType W T τ → ∃ Γ, Manuscript.RC.Symbols.IsUnitSeed ε (A τ) Γ
+@preparedClauseFour_of_unitCertificate : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+    ∀ (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+      (∀ (τ : L), Manuscript.RC.Symbols.CoefficientRules ε (A τ)) →
+        (∀ (τ : L), Manuscript.RC.Symbols.VanishesOffFilter (A τ) τ) →
+          PreparedUnitCertificate W T A → PreparedClauseFour W T A
+@auxFactor_of_clauseFour : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ),
+  (∀ p ∈ W.S, Nat.Prime p) →
+    2 ∈ W.S →
+      ∀ [Fintype L] (T : CloudB3RC53.CoefficientDictionary.TypeData L ε),
+        (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+          ∀ (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+            (∀ (τ : L), Manuscript.RC.Symbols.CoefficientRules ε (A τ)) →
+              (∀ (τ : L), Manuscript.RC.Symbols.VanishesOffFilter (A τ) τ) →
+                PreparedClauseFour W T A →
+                  (∀ d < 0,
+                      Squarefree d →
+                        (∀ p ∈ W.S, ¬↑p ∣ d) →
+                          Manuscript.RC.Symbols.IsPartitionable ε
+                              (A (Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ).total)
+                              (Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ) →
+                            W.Partitionable d) →
+                    ∃ A₀, Manuscript.RC.Wiring.AuxFactor W A₀
+@preparedSeedInput_of_evenSourceInput : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε)
+  (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+  PreparedEvenSourceInput W T A →
+    ∀ (τ : L), Manuscript.RC.Wiring.PreparedType W T τ → ∃ Γ, Manuscript.RC.Symbols.IsUnitSeed ε (A τ) Γ
+@preparedClauseFour_of_evenSourceInput : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : Manuscript.RC.Wiring.WData ℓ) (T : CloudB3RC53.CoefficientDictionary.TypeData L ε),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+    ∀ (A : L → Manuscript.RC.Symbols.Config L → ZMod 2),
+      (∀ (τ : L), Manuscript.RC.Symbols.CoefficientRules ε (A τ)) →
+        (∀ (τ : L), Manuscript.RC.Symbols.VanishesOffFilter (A τ) τ) →
+          PreparedEvenSourceInput W T A → PreparedClauseFour W T A
+'ZInQ.Contrib.RC53Assist.AuxFactor.leastCoefficientDepth_exists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.coefficientDepth_lowerBound_of_E9_E11' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.normalizedPrimeReading_of_dictionary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedUnitCertificate_iff_primeUnits' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedSeedInput_of_unitCertificate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedType_sign_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedClauseFour_of_preparedSeeds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedSeedInput_of_clauseFour' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedClauseFour_of_unitCertificate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.auxFactor_of_clauseFour' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedSeedInput_of_evenSourceInput' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedClauseFour_of_evenSourceInput' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+[exit code: 0]

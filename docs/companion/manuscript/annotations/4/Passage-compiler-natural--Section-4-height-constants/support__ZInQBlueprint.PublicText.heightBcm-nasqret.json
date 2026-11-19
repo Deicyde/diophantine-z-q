@@ -1,0 +1,88 @@
+{
+  "id": "Passage compiler-natural: Section 4 height constants",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, a definition; through its dependency's ZInQ.heightH6: [N]'s PublicText copies and SixContact.F, G define C, F, G, M_S, F0, D, G0, E0, Q_R, B_cm, C_cm and H6 with [M]'s values. heightH6 is defined for every real R and [N] states the range R >= max(D, max S, 10^12) nowhere, using only R = D (HeightInstance), and [N] has no definition of the default H6(S); ndep's separate lean/ library has one (ZInQ.HeightConstantComparison.h6), which no [N] file uses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.740697,
+          0.794118,
+          0.177897
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 4 height constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 4 height constants#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 8,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.191709
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 4 height constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 4 height constants#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.PublicText.heightBcm",
+        "module": "Lean.Topics.theorem-blueprint.PublicAssembly"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.PublicText.heightBcm@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "noncomputable def heightBcm : ℕ := heightD ^ 2 * 3 ^ (21000 * heightD ^ 2) + 1",
+            "line": 104,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/PublicAssembly.lean",
+            "fragment": "L104"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7,
+          8
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

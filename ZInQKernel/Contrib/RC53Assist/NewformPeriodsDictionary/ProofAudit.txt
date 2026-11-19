@@ -1,0 +1,874 @@
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomial_eq_of_good.{u_1, u_2} (R : Type u_1) [CommRing R]
+  [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (E : WeierstrassCurve K) (h : WeierstrassCurve.HasGoodReduction R (WeierstrassCurve.minimal R E)) :
+  WeierstrassCurve.localPolynomial R E =
+    1 - Polynomial.C (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reductionTrace R E) * Polynomial.X +
+      Polynomial.C ↑(Nat.card (IsLocalRing.ResidueField R)) * Polynomial.X ^ 2
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomial_eq_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomial_coeff_zero.{u_1, u_2} (R : Type u_1) [CommRing R]
+  [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (E : WeierstrassCurve K) : (WeierstrassCurve.localPolynomial R E).coeff 0 = 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomial_coeff_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPowerSeries_constantCoeff.{u_1, u_2} (R : Type u_1) [CommRing R]
+  [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (E : WeierstrassCurve K) : PowerSeries.constantCoeff (WeierstrassCurve.localPowerSeries R E) = 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPowerSeries_constantCoeff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.invOfUnit_coeff_one (f : PowerSeries ℤ) :
+  (PowerSeries.coeff 1) (f.invOfUnit 1) = -(PowerSeries.coeff 1) f
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.invOfUnit_coeff_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPowerSeries_coeff_one_of_good.{u_1, u_2} (R : Type u_1)
+  [CommRing R] [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (E : WeierstrassCurve K) (h : WeierstrassCurve.HasGoodReduction R (WeierstrassCurve.minimal R E)) :
+  (PowerSeries.coeff 1) (WeierstrassCurve.localPowerSeries R E) =
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reductionTrace R E
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPowerSeries_coeff_one_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localEulerFactor_at_residue_card_of_good.{u_1, u_2} (R : Type u_1)
+  [CommRing R] [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (E : WeierstrassCurve K) (hq : 1 < Nat.card (IsLocalRing.ResidueField R))
+  (h : WeierstrassCurve.HasGoodReduction R (WeierstrassCurve.minimal R E)) :
+  (WeierstrassCurve.localEulerFactor R E) (Nat.card (IsLocalRing.ResidueField R)) =
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reductionTrace R E
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localEulerFactor_at_residue_card_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPowerSeries_eq_of_good.{u_1, u_2} (R : Type u_1) [CommRing R]
+  [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (E : WeierstrassCurve K) (h : WeierstrassCurve.HasGoodReduction R (WeierstrassCurve.minimal R E)) :
+  WeierstrassCurve.localPowerSeries R E =
+    (↑(1 - Polynomial.C (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reductionTrace R E) * Polynomial.X +
+            Polynomial.C ↑(Nat.card (IsLocalRing.ResidueField R)) * Polynomial.X ^ 2)).invOfUnit
+      1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPowerSeries_eq_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.mem_maximalIdeal_completion_iff.{u_1, u_2} {A : Type u_1} [CommRing A]
+  [IsDedekindDomain A] {K : Type u_2} [Field K] [Algebra A K] [IsFractionRing A K]
+  (v : IsDedekindDomain.HeightOneSpectrum A) (z : ↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers K v)) :
+  z ∈ IsLocalRing.maximalIdeal ↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers K v) ↔ Valued.v ↑z < 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.mem_maximalIdeal_completion_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.ker_residueMapCompletion.{u_1, u_2} {A : Type u_1} [CommRing A]
+  [IsDedekindDomain A] {K : Type u_2} [Field K] [Algebra A K] [IsFractionRing A K]
+  (v : IsDedekindDomain.HeightOneSpectrum A) :
+  RingHom.ker (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.residueMapCompletion v) = v.asIdeal
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.ker_residueMapCompletion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.residueMapCompletion_surjective.{u_1, u_2} {A : Type u_1} [CommRing A]
+  [IsDedekindDomain A] {K : Type u_2} [Field K] [Algebra A K] [IsFractionRing A K]
+  (v : IsDedekindDomain.HeightOneSpectrum A) :
+  Function.Surjective ⇑(ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.residueMapCompletion v)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.residueMapCompletion_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_residueField_completion.{u_1, u_2} {A : Type u_1} [CommRing A]
+  [IsDedekindDomain A] {K : Type u_2} [Field K] [Algebra A K] [IsFractionRing A K]
+  (v : IsDedekindDomain.HeightOneSpectrum A) [Infinite A] :
+  Nat.card (IsLocalRing.ResidueField ↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers K v)) =
+    Ideal.absNorm v.asIdeal
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_residueField_completion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.absNorm_map_rational_integers
+  (I : Ideal (NumberField.RingOfIntegers ℚ)) : Ideal.absNorm (Ideal.map Rat.ringOfIntegersEquiv I) = Ideal.absNorm I
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.absNorm_map_rational_integers' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.prime_absNorm_rational
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) : Nat.Prime (Ideal.absNorm v.asIdeal)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.prime_absNorm_rational' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.absNorm_rational_injective :
+  Function.Injective fun v => Ideal.absNorm v.asIdeal
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.absNorm_rational_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.absNorm_span_rational (n : ℕ) : Ideal.absNorm (Ideal.span {↑n}) = n
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.absNorm_span_rational' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ_absNorm (p : ℕ) (hp : Nat.Prime p) :
+  Ideal.absNorm (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp).asIdeal = p
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ_absNorm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_residueField_primeIdealQ (p : ℕ) (hp : Nat.Prime p) :
+  Nat.card
+      (IsLocalRing.ResidueField
+        ↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ
+            (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))) =
+    p
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_residueField_primeIdealQ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.residueCard_northcott.{u_1} (K : Type u_1) [Field K] [NumberField K] :
+  Northcott fun v =>
+    Nat.card (IsLocalRing.ResidueField ↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers K v))
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.residueCard_northcott' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.convolution_at_prime.{u_2} {B : Type u_2} [CommSemiring B]
+  (f g : ArithmeticFunction B) {p : ℕ} (hp : Nat.Prime p) : (f * g) p = f 1 * g p + f p * g 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.convolution_at_prime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finsetProduct_at_one.{u_1, u_2} {ι : Type u_1} {B : Type u_2}
+  [CommSemiring B] (s : Finset ι) (f : ι → ArithmeticFunction B) (hf : ∀ (i : ι), (f i) 1 = 1) : (∏ i ∈ s, f i) 1 = 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finsetProduct_at_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finsetProduct_at_prime.{u_1, u_2} {ι : Type u_1} {B : Type u_2}
+  [CommSemiring B] (s : Finset ι) (f : ι → ArithmeticFunction B) (hf : ∀ (i : ι), (f i) 1 = 1) {p : ℕ}
+  (hp : Nat.Prime p) : (∏ i ∈ s, f i) p = ∑ i ∈ s, (f i) p
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finsetProduct_at_prime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.ofPowerSeries_at_other_prime.{u_2} {B : Type u_2} [CommSemiring B]
+  {p q : ℕ} (hp : Nat.Prime p) (hq : 1 < q) (hne : q ≠ p) (f : PowerSeries B) :
+  ((ArithmeticFunction.ofPowerSeries q) f) p = 0
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.ofPowerSeries_at_other_prime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eulerProduct_coeff_at_prime.{u_1, u_2} {ι : Type u_1} {B : Type u_2}
+  [CommSemiring B] (q : ι → ℕ) [Northcott q] (hq : ∀ (i : ι), Nat.Prime (q i)) (hinj : Function.Injective q)
+  (f : ι → PowerSeries B) (hf : ∀ (i : ι), PowerSeries.constantCoeff (f i) = 1) (i : ι) :
+  (ArithmeticFunction.eulerProduct fun j => (ArithmeticFunction.ofPowerSeries (q j)) (f j)) (q i) =
+    (PowerSeries.coeff 1) (f i)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eulerProduct_coeff_at_prime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_affinePoint_map.{u_1, u_2} {F : Type u_1} {K : Type u_2} [Field F]
+  [Field K] (W : WeierstrassCurve.Affine F) (e : F ≃+* K) : Nat.card (W.map e.toRingHom).Point = Nat.card W.Point
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_affinePoint_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_reducedCurveModP (E : WeierstrassCurve ℚ) (p : ℕ)
+  (hp : Nat.Prime p) :
+  Nat.card (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP E p hp).toAffine.Point =
+    Nat.card
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ E
+            (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)).toAffine.Point
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.card_reducedCurveModP' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finite_reducedCurveQ_points (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) :
+  Finite (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ E v).toAffine.Point
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finite_reducedCurveQ_points' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finite_reducedCurveModP_points (E : WeierstrassCurve ℚ) (p : ℕ)
+  (hp : Nat.Prime p) : Finite (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP E p hp).toAffine.Point
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finite_reducedCurveModP_points' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ_isElliptic (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E v) :
+  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ E v).IsElliptic
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ_isElliptic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP_isElliptic (E : WeierstrassCurve ℚ) (p : ℕ)
+  (hp : Nat.Prime p)
+  (h :
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)) :
+  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP E p hp).IsElliptic
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP_isElliptic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_at_primeIdeal (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) :
+  E.LFunction (Ideal.absNorm v.asIdeal) =
+    (PowerSeries.coeff 1)
+      (WeierstrassCurve.localPowerSeries (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+        (E.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)))
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_at_primeIdeal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_at_primeIdeal_of_good (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E v) :
+  E.LFunction (Ideal.absNorm v.asIdeal) =
+    ↑(Ideal.absNorm v.asIdeal) + 1 -
+      ↑(Nat.card (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ E v).toAffine.Point)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_at_primeIdeal_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_prime_eq_pointCount (E : WeierstrassCurve ℚ) (p : ℕ)
+  (hp : Nat.Prime p)
+  (h :
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)) :
+  E.LFunction p =
+    ↑p + 1 -
+      ↑(Nat.card
+          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ E
+                (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)).toAffine.Point)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_prime_eq_pointCount' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_prime_eq_card_ZMod (E : WeierstrassCurve ℚ) (p : ℕ)
+  (hp : Nat.Prime p)
+  (h :
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)) :
+  E.LFunction p =
+    ↑p + 1 - ↑(Nat.card (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP E p hp).toAffine.Point)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_prime_eq_card_ZMod' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ_eq_of_good (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E v) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E v =
+    1 - Polynomial.C (E.LFunction (Ideal.absNorm v.asIdeal)) * Polynomial.X +
+      Polynomial.C ↑(Ideal.absNorm v.asIdeal) * Polynomial.X ^ 2
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ_eq_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ_eq_iff (E₁ E₂ : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h₁ : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E₁ v)
+  (h₂ : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E₂ v) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E₁ v =
+      ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E₂ v ↔
+    E₁.LFunction (Ideal.absNorm v.asIdeal) = E₂.LFunction (Ideal.absNorm v.asIdeal)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ_eq_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactorValueQ_eq_of_good (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E v) (T : ℂ) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactorValueQ E v T =
+    (1 - ↑(E.LFunction (Ideal.absNorm v.asIdeal)) * T + ↑(Ideal.absNorm v.asIdeal) * T ^ 2)⁻¹
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactorValueQ_eq_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactors_eq_of_coeff_eq (E₁ E₂ : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h₁ : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E₁ v)
+  (h₂ : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E₂ v)
+  (h : E₁.LFunction (Ideal.absNorm v.asIdeal) = E₂.LFunction (Ideal.absNorm v.asIdeal)) :
+  WeierstrassCurve.localPowerSeries (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+        (E₁.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) =
+      WeierstrassCurve.localPowerSeries (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+        (E₂.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) ∧
+    WeierstrassCurve.localEulerFactor (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+          (E₁.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) =
+        WeierstrassCurve.localEulerFactor (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+          (E₂.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) ∧
+      ∀ (T : ℂ),
+        ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactorValueQ E₁ v T =
+          ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactorValueQ E₂ v T
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactors_eq_of_coeff_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.valuation_Δ_eq_one_of_integralModel_isUnit.{u_1, u_2} (R : Type u_1)
+  [CommRing R] [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (W : WeierstrassCurve K) [WeierstrassCurve.IsIntegral R W] (hΔ : IsUnit (WeierstrassCurve.integralModel R W).Δ) :
+  (IsDedekindDomain.HeightOneSpectrum.valuation K (IsDiscreteValuationRing.maximalIdeal R)) W.Δ = 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.valuation_Δ_eq_one_of_integralModel_isUnit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.hasGoodReduction_minimal_of_integral_unit_Δ.{u_1, u_2} (R : Type u_1)
+  [CommRing R] [IsDomain R] [IsDiscreteValuationRing R] {K : Type u_2} [Field K] [Algebra R K] [IsFractionRing R K]
+  (W : WeierstrassCurve K) [WeierstrassCurve.IsIntegral R W] (hΔ : IsUnit (WeierstrassCurve.integralModel R W).Δ) :
+  WeierstrassCurve.HasGoodReduction R (WeierstrassCurve.minimal R W)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.hasGoodReduction_minimal_of_integral_unit_Δ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.valued_algebraMap_Q
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) (x : ℚ) :
+  Valued.v ((algebraMap ℚ (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) x) =
+    (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) x
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.valued_algebraMap_Q' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localIntegral_of_valuation_le (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h₁ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₁ ≤ 1)
+  (h₂ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₂ ≤ 1)
+  (h₃ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₃ ≤ 1)
+  (h₄ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₄ ≤ 1)
+  (h₆ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₆ ≤ 1) :
+  WeierstrassCurve.IsIntegral (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+    (E.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v))
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localIntegral_of_valuation_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.goodReductionAt_of_valuation_data (E : WeierstrassCurve ℚ)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+  (h₁ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₁ ≤ 1)
+  (h₂ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₂ ≤ 1)
+  (h₃ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₃ ≤ 1)
+  (h₄ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₄ ≤ 1)
+  (h₆ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.a₆ ≤ 1)
+  (hΔ : (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) E.Δ = 1) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E v
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.goodReductionAt_of_valuation_data' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finite_primes_containing_integer (n : ℤ) (hn : n ≠ 0) :
+  {v | ↑n ∈ v.asIdeal}.Finite
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.finite_primes_containing_integer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eventually_integer_notMem (n : ℤ) (hn : n ≠ 0) :
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite, ↑n ∉ v.asIdeal
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eventually_integer_notMem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eventually_rational_valuation_le_one (x : ℚ) :
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+    (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) x ≤ 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eventually_rational_valuation_le_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eventually_rational_valuation_eq_one (x : ℚ) (hx : x ≠ 0) :
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+    (IsDedekindDomain.HeightOneSpectrum.valuation ℚ v) x = 1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eventually_rational_valuation_eq_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.goodReductionAt_cofinite (E : WeierstrassCurve ℚ) (hE : E.IsElliptic) :
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E v
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.goodReductionAt_cofinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.goodReductionAt_almost_all_primes (E : WeierstrassCurve ℚ)
+  (hE : E.IsElliptic) :
+  ∃ S,
+    ∀ (p : ℕ) (hp : Nat.Prime p),
+      p ∉ S →
+        ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.goodReductionAt_almost_all_primes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeCoefficients_cofinite (E₁ E₂ : WeierstrassCurve ℚ)
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere E₁ E₂) :
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+    E₁.LFunction (Ideal.absNorm v.asIdeal) = E₂.LFunction (Ideal.absNorm v.asIdeal)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeCoefficients_cofinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeCoefficients_of_cofinite (E₁ E₂ : WeierstrassCurve ℚ)
+  (h :
+    ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+      E₁.LFunction (Ideal.absNorm v.asIdeal) = E₂.LFunction (Ideal.absNorm v.asIdeal)) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere E₁ E₂
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeCoefficients_of_cofinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomials_cofinite_iff_primeCoefficients
+  (E₁ E₂ : WeierstrassCurve ℚ) (h₁ : E₁.IsElliptic) (h₂ : E₂.IsElliptic) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.LocalPolynomialsAgreeAlmostEverywhere E₁ E₂ ↔
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere E₁ E₂
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomials_cofinite_iff_primeCoefficients' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactors_equal_cofinite (E₁ E₂ : WeierstrassCurve ℚ)
+  (h₁ : E₁.IsElliptic) (h₂ : E₂.IsElliptic)
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere E₁ E₂) :
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+    WeierstrassCurve.localPowerSeries (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+          (E₁.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) =
+        WeierstrassCurve.localPowerSeries (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+          (E₂.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) ∧
+      WeierstrassCurve.localEulerFactor (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+            (E₁.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) =
+          WeierstrassCurve.localEulerFactor (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+            (E₂.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)) ∧
+        ∀ (T : ℂ),
+          ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactorValueQ E₁ v T =
+            ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactorValueQ E₂ v T
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localFactors_equal_cofinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.unitHom_one_apply (M d : ℕ) :
+  (MulChar.ofUnitHom 1) ↑d = if d.Coprime M then 1 else 0
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.unitHom_one_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.coe_heckeGamma0 (M : ℕ) [NeZero M] (n : ℕ)
+  (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2) :
+  ⇑((ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0 M n) g) =
+    ⇑↑(((HeckeRing.GL2.heckeRingHomCuspCharSpace 2 1) (HeckeRing.GL2.heckeTCompositeGamma0 M n))
+          ((TauCeti.cuspFormCharSpaceOneEquiv M 2).symm g))
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.coe_heckeGamma0' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.coe_restrict_trivial (M : ℕ) [NeZero M]
+  (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2) :
+  ⇑↑((TauCeti.cuspFormCharSpaceOneEquiv M 2).symm g) = ⇑g
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.coe_restrict_trivial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.qExpansion_heckeGamma0 (M : ℕ) [NeZero M] (n : ℕ) (hn : n ≠ 0)
+  (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2) (m : ℕ) :
+  (PowerSeries.coeff m)
+      (UpperHalfPlane.qExpansion 1 ⇑((ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0 M n) g)) =
+    ∑ d ∈ (m.gcd n).divisors,
+      (if d.Coprime M then ↑d else 0) * (PowerSeries.coeff (m * n / d ^ 2)) (UpperHalfPlane.qExpansion 1 ⇑g)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.qExpansion_heckeGamma0' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0_prime_coeff (M : ℕ) [NeZero M] (p : ℕ) (hp : Nat.Prime p)
+  (hpM : ¬p ∣ M) (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2)
+  (m : ℕ) :
+  (PowerSeries.coeff m)
+      (UpperHalfPlane.qExpansion 1 ⇑((ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0 M p) g)) =
+    (PowerSeries.coeff (m * p)) (UpperHalfPlane.qExpansion 1 ⇑g) +
+      if p ∣ m then ↑p * (PowerSeries.coeff (m / p)) (UpperHalfPlane.qExpansion 1 ⇑g) else 0
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0_prime_coeff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0_hasShimuraNormalization (M : ℕ) [NeZero M] :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.HasShimuraNormalization M
+    (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0 M)
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0_hasShimuraNormalization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0_unique (M : ℕ) [NeZero M]
+  (T : ℕ → Module.End ℂ (CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2))
+  (hT : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.HasShimuraNormalization M T) (n : ℕ) (hn : n ≠ 0) :
+  T n = ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0 M n
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.normalizedFullEigenform_isShimuraEigenform (M : ℕ) [NeZero M]
+  (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2)
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriods.IsNormalizedFullEigenformGamma0 M g) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsShimuraCommonEigenform M g
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.normalizedFullEigenform_isShimuraEigenform' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.shimuraEigenform_isNormalizedFull (M : ℕ) [NeZero M]
+  (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2)
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsShimuraCommonEigenform M g) :
+  ZInQ.Contrib.RC53Assist.NewformPeriods.IsNormalizedFullEigenformGamma0 M g
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.shimuraEigenform_isNormalizedFull' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.normalizedFullEigenform_iff_shimuraCommonEigenform (M : ℕ) [NeZero M]
+  (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2) :
+  ZInQ.Contrib.RC53Assist.NewformPeriods.IsNormalizedFullEigenformGamma0 M g ↔
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsShimuraCommonEigenform M g
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.normalizedFullEigenform_iff_shimuraCommonEigenform' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.nonempty_isogeny_iff_pointed_functionField_map
+  (E₁ E₂ : WeierstrassCurve ℚ) :
+  Nonempty (TauCeti.Isogeny E₁.toAffine E₂.toAffine) ↔
+    ∃ σ, (Valuation.comap σ.toRingHom E₁.toAffine.infinityPlace).IsEquiv E₂.toAffine.infinityPlace
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.nonempty_isogeny_iff_pointed_functionField_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.isogenyOfPointedFunctionFieldMap_fieldPullback
+  (E₁ E₂ : WeierstrassCurve ℚ) (σ : E₂.toAffine.FunctionField →ₐ[ℚ] E₁.toAffine.FunctionField)
+  (hσ : (Valuation.comap σ.toRingHom E₁.toAffine.infinityPlace).IsEquiv E₂.toAffine.infinityPlace) :
+  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.isogenyOfPointedFunctionFieldMap E₁ E₂ σ hσ).fieldPullback = σ
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.isogenyOfPointedFunctionFieldMap_fieldPullback' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactorQ_eq_of_good (E : WeierstrassCurve ℚ) (p : ℕ)
+  (hp : Nat.Prime p)
+  (h :
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))
+  (s : ℂ) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactorQ E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) s =
+    (1 - ↑(E.LFunction p) * ↑p ^ (-s) + ↑p ^ (1 - 2 * s))⁻¹
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactorQ_eq_of_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactors_equal_cofinite (E₁ E₂ : WeierstrassCurve ℚ)
+  (h₁ : E₁.IsElliptic) (h₂ : E₂.IsElliptic)
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere E₁ E₂) :
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+    ∀ (s : ℂ),
+      ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactorQ E₁ v s =
+        ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactorQ E₂ v s
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactors_equal_cofinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactors_equal_cofinite_finitePlaces (E₁ E₂ : WeierstrassCurve ℚ)
+  (h₁ : E₁.IsElliptic) (h₂ : E₂.IsElliptic)
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere E₁ E₂) :
+  ∀ᶠ (w : NumberField.FinitePlace ℚ) in Filter.cofinite,
+    ∀ (s : ℂ),
+      ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactorQ E₁ w.maximalIdeal s =
+        ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactorQ E₂ w.maximalIdeal s
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localLFactors_equal_cofinite_finitePlaces' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.nonempty_localTateBasisQ (E : WeierstrassCurve ℚ) (hE : E.IsElliptic)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) (ℓ : ℕ) [Fact (Nat.Prime ℓ)] :
+  Nonempty
+    (Module.Basis (Fin 2) ℤ_[ℓ]
+      (TauCeti.TateModule ℓ
+        ((E.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)).baseChange
+              (AlgebraicClosure (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v))).toAffine.Point))
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.nonempty_localTateBasisQ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.determinantEuler_polynomial.{u_1} {A : Type u_1} [CommRing A]
+  (M : Matrix (Fin 2) (Fin 2) A) :
+  (1 - Polynomial.X • M.map ⇑Polynomial.C).det =
+    1 - Polynomial.C M.trace * Polynomial.X + Polynomial.C M.det * Polynomial.X ^ 2
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.determinantEuler_polynomial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.tateEulerPolynomialQ_eq_localPolynomial_of_dictionary
+  (hD : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionFrobeniusTraceDictionaryQ)
+  (E : WeierstrassCurve ℚ) (hE : E.IsElliptic) (p : ℕ) (hp : Nat.Prime p)
+  (hgood :
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))
+  (ℓ : ℕ) [Fact (Nat.Prime ℓ)] (hℓ : ℓ ≠ p) (Γ : Type) [LinearOrderedCommGroupWithZero Γ]
+  (w :
+    Valuation
+      (AlgebraicClosure
+        (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)))
+      Γ)
+  (hw :
+    (Valuation.comap
+          (algebraMap
+            (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+              (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))
+            (AlgebraicClosure
+              (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))))
+          w).IsEquiv
+      Valued.v)
+  (σ :
+    Gal(AlgebraicClosure
+        (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p
+            hp))/IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)))
+  (hσ :
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsArithmeticFrobeniusOnClosureQ
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) Γ w σ)
+  (b :
+    Module.Basis (Fin 2) ℤ_[ℓ]
+      (TauCeti.TateModule ℓ
+        ((E.baseChange
+                  (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                    (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))).baseChange
+              (AlgebraicClosure
+                (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)))).toAffine.Point)) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.tateEulerPolynomialQ E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) ℓ σ b =
+    Polynomial.map (Int.castRingHom ℤ_[ℓ])
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E
+        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.tateEulerPolynomialQ_eq_localPolynomial_of_dictionary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.tateEulerPolynomials_equal_almost_all_primes
+  (hD : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionFrobeniusTraceDictionaryQ)
+  (E₁ E₂ : WeierstrassCurve ℚ) (h₁ : E₁.IsElliptic) (h₂ : E₂.IsElliptic)
+  (h : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere E₁ E₂) :
+  ∃ S,
+    ∀ (p : ℕ) (hp : Nat.Prime p),
+      p ∉ S → ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.TateEulerPolynomialsAgreeAtPrime E₁ E₂ p hp
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.tateEulerPolynomials_equal_almost_all_primes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_prime_eq_neg_localPolynomial_coeff (E : WeierstrassCurve ℚ)
+  (p : ℕ) (hp : Nat.Prime p) :
+  E.LFunction p =
+    -(ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E
+            (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)).coeff
+        1
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.lFunction_prime_eq_neg_localPolynomial_coeff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeCoefficient_eq_of_localPolynomial_form (E : WeierstrassCurve ℚ)
+  (p : ℕ) (hp : Nat.Prime p) (b : ℚ)
+  (hP :
+    Polynomial.map (Int.castRingHom ℚ)
+        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E
+          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)) =
+      1 - Polynomial.C b * Polynomial.X + Polynomial.C ↑p * Polynomial.X ^ 2) :
+  ↑(E.LFunction p) = b
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeCoefficient_eq_of_localPolynomial_form' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomial_form_of_primeCoefficient (E : WeierstrassCurve ℚ)
+  (p : ℕ) (hp : Nat.Prime p)
+  (hgood :
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))
+  (b : ℚ) (hc : ↑(E.LFunction p) = b) :
+  Polynomial.map (Int.castRingHom ℚ)
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E
+        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)) =
+    1 - Polynomial.C b * Polynomial.X + Polynomial.C ↑p * Polynomial.X ^ 2
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomial_form_of_primeCoefficient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.shimuraLeaf_of_eulerPolynomialForm
+  (hS : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Shimura1973EulerPolynomialFormQ) :
+  ZInQ.Contrib.RC53Assist.NewformPeriods.Shimura1973Thm1RationalGamma0
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.shimuraLeaf_of_eulerPolynomialForm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eulerPolynomialForm_of_shimuraLeaf
+  (hS : ZInQ.Contrib.RC53Assist.NewformPeriods.Shimura1973Thm1RationalGamma0) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Shimura1973EulerPolynomialFormQ
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.eulerPolynomialForm_of_shimuraLeaf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.shimura_eulerPolynomialForm_iff :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Shimura1973EulerPolynomialFormQ ↔
+    ZInQ.Contrib.RC53Assist.NewformPeriods.Shimura1973Thm1RationalGamma0
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.shimura_eulerPolynomialForm_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.faltingsLeaf_of_localPolynomialForm
+  (hF : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Faltings1983LocalPolynomialFormQ) :
+  ZInQ.Contrib.RC53Assist.NewformPeriods.Faltings1983Kor2EllipticQ
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.faltingsLeaf_of_localPolynomialForm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialForm_of_faltingsLeaf
+  (hF : ZInQ.Contrib.RC53Assist.NewformPeriods.Faltings1983Kor2EllipticQ) :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Faltings1983LocalPolynomialFormQ
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialForm_of_faltingsLeaf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.faltings_localPolynomialForm_iff :
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Faltings1983LocalPolynomialFormQ ↔
+    ZInQ.Contrib.RC53Assist.NewformPeriods.Faltings1983Kor2EllipticQ
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.faltings_localPolynomialForm_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.someLevelPeriodsRational_of_dictionaryLeaves
+  (hS : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Shimura1973EulerPolynomialFormQ)
+  (hF : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Faltings1983LocalPolynomialFormQ)
+  (h₀ : ZInQ.Contrib.RC53Assist.NewformPeriods.NewformOfModularCurveGlue)
+  (h₁ : ZInQ.Contrib.RC53Assist.NewformPeriods.ParametrizationPeriodsGlue)
+  (h₂ : ZInQ.Contrib.RC53Assist.NewformPeriods.IsogenyLatticeGlue) :
+  ZInQ.Contrib.RC53Assist.NewformPeriods.SomeLevelPeriodsRational
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.someLevelPeriodsRational_of_dictionaryLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.newformPeriodsRational_of_dictionaryLeaves
+  (hS : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Shimura1973EulerPolynomialFormQ)
+  (hF : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Faltings1983LocalPolynomialFormQ)
+  (h₀ : ZInQ.Contrib.RC53Assist.NewformPeriods.NewformOfModularCurveGlue)
+  (h₁ : ZInQ.Contrib.RC53Assist.NewformPeriods.ParametrizationPeriodsGlue)
+  (h₂ : ZInQ.Contrib.RC53Assist.NewformPeriods.IsogenyLatticeGlue) :
+  ZInQ.Contrib.CloudB3RC53.ModularWeil.NewformPeriodsRational
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.newformPeriodsRational_of_dictionaryLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.modularToWeakWeil_of_dictionaryLeaves
+  (hS : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Shimura1973EulerPolynomialFormQ)
+  (hF : ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Faltings1983LocalPolynomialFormQ)
+  (h₀ : ZInQ.Contrib.RC53Assist.NewformPeriods.NewformOfModularCurveGlue)
+  (h₁ : ZInQ.Contrib.RC53Assist.NewformPeriods.ParametrizationPeriodsGlue)
+  (h₂ : ZInQ.Contrib.RC53Assist.NewformPeriods.IsogenyLatticeGlue) : ZInQ.Contrib.CloudB3RC53.ModularToWeakWeil
+'ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.modularToWeakWeil_of_dictionaryLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt : WeierstrassCurve ℚ →
+  IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ) → Prop :=
+fun E v =>
+  WeierstrassCurve.HasGoodReduction (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+    (WeierstrassCurve.minimal (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+      (E.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)))
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ : WeierstrassCurve ℚ →
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) →
+    WeierstrassCurve (IsLocalRing.ResidueField ↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v)) :=
+fun E v =>
+  WeierstrassCurve.reduction (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+    (WeierstrassCurve.minimal (↥(IsDedekindDomain.HeightOneSpectrum.adicCompletionIntegers ℚ v))
+      (E.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ v)))
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP : WeierstrassCurve ℚ →
+  (p : ℕ) → Nat.Prime p → WeierstrassCurve (ZMod p) :=
+fun E p hp =>
+  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveQ E
+        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)).map
+    (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.residueFieldEquivZModQ p hp).toRingHom
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.PrimeCoefficientsAgreeAlmostEverywhere : WeierstrassCurve ℚ →
+  WeierstrassCurve ℚ → Prop :=
+fun E₁ E₂ => ∃ S, ∀ (p : ℕ), Nat.Prime p → p ∉ S → E₁.LFunction p = E₂.LFunction p
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.LocalPolynomialsAgreeAlmostEverywhere : WeierstrassCurve ℚ →
+  WeierstrassCurve ℚ → Prop :=
+fun E₁ E₂ =>
+  ∀ᶠ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) in Filter.cofinite,
+    ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E₁ v =
+      ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ E₂ v
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.HasShimuraNormalization : (M : ℕ) →
+  (ℕ → Module.End ℂ (CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2)) →
+    Prop :=
+fun M T =>
+  ∀ (n : ℕ),
+    n ≠ 0 →
+      ∀ (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2) (m : ℕ),
+        (PowerSeries.coeff m) (UpperHalfPlane.qExpansion 1 ⇑((T n) g)) =
+          ∑ d ∈ (m.gcd n).divisors,
+            (if d.Coprime M then ↑d else 0) * (PowerSeries.coeff (m * n / d ^ 2)) (UpperHalfPlane.qExpansion 1 ⇑g)
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsShimuraCommonEigenform : (M : ℕ) →
+  [NeZero M] → CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2 → Prop :=
+fun M [NeZero M] g =>
+  (PowerSeries.coeff 1) (UpperHalfPlane.qExpansion 1 ⇑g) = 1 ∧
+    ∀ (n : ℕ+),
+      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.heckeGamma0 M ↑n) g =
+        (PowerSeries.coeff ↑n) (UpperHalfPlane.qExpansion 1 ⇑g) • g
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionFrobeniusTraceDictionaryQ : Prop :=
+∀ (E : WeierstrassCurve ℚ),
+  E.IsElliptic →
+    ∀ (p : ℕ) (hp : Nat.Prime p),
+      ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt E
+          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) →
+        ∀ (ℓ : ℕ) [inst : Fact (Nat.Prime ℓ)],
+          ℓ ≠ p →
+            ∀ (Γ : Type) [inst_1 : LinearOrderedCommGroupWithZero Γ]
+              (w :
+                Valuation
+                  (AlgebraicClosure
+                    (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)))
+                  Γ),
+              (Valuation.comap
+                      (algebraMap
+                        (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))
+                        (AlgebraicClosure
+                          (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                            (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))))
+                      w).IsEquiv
+                  Valued.v →
+                ∀
+                  (σ :
+                    Gal(AlgebraicClosure
+                        (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                          (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p
+                            hp))/IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))),
+                  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsArithmeticFrobeniusOnClosureQ
+                      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) Γ w σ →
+                    ∀
+                      (b :
+                        Module.Basis (Fin 2) ℤ_[ℓ]
+                          (TauCeti.TateModule ℓ
+                            ((E.baseChange
+                                      (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                                        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))).baseChange
+                                  (AlgebraicClosure
+                                    (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                                      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p
+                                        hp)))).toAffine.Point)),
+                      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localTateMatrixQ E
+                              (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) ℓ σ b).trace =
+                          ↑↑p + 1 -
+                            ↑↑(Nat.card
+                                  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.reducedCurveModP E p
+                                        hp).toAffine.Point) ∧
+                        (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localTateMatrixQ E
+                              (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) ℓ σ b).det =
+                          ↑p
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.TateEulerPolynomialsAgreeAtPrime : WeierstrassCurve ℚ →
+  WeierstrassCurve ℚ → (p : ℕ) → Nat.Prime p → Prop :=
+fun E₁ E₂ p hp =>
+  ∀ (ℓ : ℕ) [inst : Fact (Nat.Prime ℓ)],
+    ℓ ≠ p →
+      ∀ (Γ : Type) [inst_1 : LinearOrderedCommGroupWithZero Γ]
+        (w :
+          Valuation
+            (AlgebraicClosure
+              (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)))
+            Γ),
+        (Valuation.comap
+                (algebraMap
+                  (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                    (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))
+                  (AlgebraicClosure
+                    (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                      (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))))
+                w).IsEquiv
+            Valued.v →
+          ∀
+            (σ :
+              Gal(AlgebraicClosure
+                  (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                    (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p
+                      hp))/IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))),
+            ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsArithmeticFrobeniusOnClosureQ
+                (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) Γ w σ →
+              ∀
+                (b₁ :
+                  Module.Basis (Fin 2) ℤ_[ℓ]
+                    (TauCeti.TateModule ℓ
+                      ((E₁.baseChange
+                                (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                                  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))).baseChange
+                            (AlgebraicClosure
+                              (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                                (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)))).toAffine.Point))
+                (b₂ :
+                  Module.Basis (Fin 2) ℤ_[ℓ]
+                    (TauCeti.TateModule ℓ
+                      ((E₂.baseChange
+                                (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                                  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp))).baseChange
+                            (AlgebraicClosure
+                              (IsDedekindDomain.HeightOneSpectrum.adicCompletion ℚ
+                                (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)))).toAffine.Point)),
+                ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.tateEulerPolynomialQ E₁
+                    (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) ℓ σ b₁ =
+                  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.tateEulerPolynomialQ E₂
+                    (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) ℓ σ b₂
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Shimura1973EulerPolynomialFormQ : Prop :=
+∀ (M : ℕ) [inst : NeZero M]
+  (g : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 M)) 2),
+  ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.IsShimuraCommonEigenform M g →
+    ∀ (b : ℕ → ℚ),
+      (∀ (n : ℕ), (PowerSeries.coeff n) (UpperHalfPlane.qExpansion 1 ⇑g) = ↑(b n)) →
+        ∃ A,
+          A.IsElliptic ∧
+            ∃ x y,
+              ZInQ.Contrib.RC53Assist.NewformPeriods.IsModularPointQ M A x y ∧
+                (∃ c,
+                    ZInQ.Contrib.RC53Assist.NewformPeriods.PullbackIsMultiple A x y (UpperHalfPlane.qExpansion 1 ⇑g)
+                      c) ∧
+                  ∃ S,
+                    ∀ (p : ℕ) (hp : Nat.Prime p),
+                      p ∉ S →
+                        ¬p ∣ M ∧
+                          ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.GoodReductionAt A
+                              (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp) ∧
+                            Polynomial.map (Int.castRingHom ℚ)
+                                (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.localPolynomialQ A
+                                  (ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.primeIdealQ p hp)) =
+                              1 - Polynomial.C (b p) * Polynomial.X + Polynomial.C ↑p * Polynomial.X ^ 2
+def ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.Faltings1983LocalPolynomialFormQ : Prop :=
+∀ (E₁ E₂ : WeierstrassCurve ℚ),
+  E₁.IsElliptic →
+    E₂.IsElliptic →
+      ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary.LocalPolynomialsAgreeAlmostEverywhere E₁ E₂ →
+        ∃ σ, (Valuation.comap σ.toRingHom E₁.toAffine.infinityPlace).IsEquiv E₂.toAffine.infinityPlace

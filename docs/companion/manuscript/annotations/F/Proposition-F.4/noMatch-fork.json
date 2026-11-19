@@ -1,0 +1,47 @@
+{
+  "id": "Proposition F.4",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The proposition bounds v_2 a_M(D) by the native genus index j_gen(D) with a constant C_det and derives ord_{s=1}L(E^D,s)=1 from v_2 a_M(D)<M; [F] defines no a_M, j_gen or C_det and states neither claim.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 124,
+        "rect": [
+          0.107843,
+          0.175906,
+          0.784314,
+          0.137993
+        ]
+      },
+      "title": "Proposition F.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition F.4"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          124
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

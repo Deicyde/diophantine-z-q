@@ -1,0 +1,47 @@
+{
+  "id": "Eq (3.1)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The group-ring Euler factor 1 - a_q chi(q) q^-1 sigma_q^-1 + q^-1 sigma_q^-2 of the Section 7 even calculation has no counterpart; Euler-product files are generic Dirichlet-series analysis.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 27,
+        "rect": [
+          0.107843,
+          0.114914,
+          0.784314,
+          0.045568
+        ]
+      },
+      "title": "Eq. (3.1)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (3.1)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          27
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

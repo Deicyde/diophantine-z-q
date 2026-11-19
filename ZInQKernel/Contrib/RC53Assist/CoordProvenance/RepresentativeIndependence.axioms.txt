@@ -1,0 +1,267 @@
+@ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryShear_det.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_2} ι0] [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3]
+  [inst_5 : DecidableEq.{u_2 + 1} ι0] [inst_6 : DecidableEq.{u_3 + 1} ι1] [inst_7 : DecidableEq.{u_4 + 1} ι2]
+  [inst_8 : DecidableEq.{u_5 + 1} ι3]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (z : ι1 → K) (lam : ι2 → K)
+  (hz :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) z) 0)
+  (hlam :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lam (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (b : ι0 → K),
+  Eq.{u_1 + 1}
+    (Matrix.det.{u_1, max u_2 u_4}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.GradedBasisChange.Qe.{u_1, max u_2 u_4, max u_3 u_5}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryShear.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam b)))
+    1
+'ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryShear_det' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryShear_rebase.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_2} ι0] [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3]
+  [inst_5 : DecidableEq.{u_2 + 1} ι0] [inst_6 : DecidableEq.{u_3 + 1} ι1] [inst_7 : DecidableEq.{u_4 + 1} ι2]
+  [inst_8 : DecidableEq.{u_5 + 1} ι3]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (z : ι1 → K) (lam : ι2 → K)
+  (hz :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) z) 0)
+  (hlam :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lam (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (b : ι0 → K)
+  (hz' :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)
+        (HAdd.hAdd.{max u_1 u_3, max u_1 u_3, max u_1 u_3} z
+          (Matrix.mulVec.{u_1, u_3, u_2} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_2, u_3, u_4, u_5} C) b)))
+      0),
+  Eq.{max (max (max (max (u_1 + 1) (u_2 + 1)) (u_3 + 1)) (u_4 + 1)) (u_5 + 1)}
+    (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_2, u_3, u_4, u_5}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_2, u_3, u_4, u_5} C
+        (HAdd.hAdd.{max u_1 u_3, max u_1 u_3, max u_1 u_3} z
+          (Matrix.mulVec.{u_1, u_3, u_2} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_2, u_3, u_4, u_5} C) b))
+        lam hz' hlam))
+    (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.rebase.{u_1, max u_2 u_4, max u_3 u_5}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_2, u_3, u_4, u_5}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam))
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryShear.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam b))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryShear_rebase' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.kmCoord_class_boundary.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_2} ι0] [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3]
+  [inst_5 : DecidableEq.{u_2 + 1} ι0] [inst_6 : DecidableEq.{u_3 + 1} ι1] [inst_7 : DecidableEq.{u_4 + 1} ι2]
+  [inst_8 : DecidableEq.{u_5 + 1} ι3]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (z : ι1 → K) (lam : ι2 → K)
+  (hz :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) z) 0)
+  (hlam :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lam (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (b : ι0 → K)
+  (hz' :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)
+        (HAdd.hAdd.{max u_1 u_3, max u_1 u_3, max u_1 u_3} z
+          (Matrix.mulVec.{u_1, u_3, u_2} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_2, u_3, u_4, u_5} C) b)))
+      0)
+  (σ :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit))),
+  Eq.{u_1 + 1}
+    (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C
+      (HAdd.hAdd.{max u_1 u_3, max u_1 u_3, max u_1 u_3} z
+        (Matrix.mulVec.{u_1, u_3, u_2} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_2, u_3, u_4, u_5} C) b))
+      lam hz' hlam σ)
+    (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam σ)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.kmCoord_class_boundary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryShear_det.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_2} ι0] [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3]
+  [inst_5 : DecidableEq.{u_2 + 1} ι0] [inst_6 : DecidableEq.{u_3 + 1} ι1] [inst_7 : DecidableEq.{u_4 + 1} ι2]
+  [inst_8 : DecidableEq.{u_5 + 1} ι3]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (z : ι1 → K) (lam : ι2 → K)
+  (hz :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) z) 0)
+  (hlam :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lam (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (r : ι3 → K),
+  Eq.{u_1 + 1}
+    (Matrix.det.{u_1, max u_3 u_5}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.GradedBasisChange.Po.{u_1, max u_2 u_4, max u_3 u_5}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryShear.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam r)))
+    1
+'ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryShear_det' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryShear_rebase.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_2} ι0] [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3]
+  [inst_5 : DecidableEq.{u_2 + 1} ι0] [inst_6 : DecidableEq.{u_3 + 1} ι1] [inst_7 : DecidableEq.{u_4 + 1} ι2]
+  [inst_8 : DecidableEq.{u_5 + 1} ι3]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (z : ι1 → K) (lam : ι2 → K)
+  (hz :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) z) 0)
+  (hlam :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lam (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (r : ι3 → K)
+  (hlam' :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3}
+        (HAdd.hAdd.{max u_1 u_4, max u_1 u_4, max u_1 u_4} lam
+          (Matrix.vecMul.{u_1, u_5, u_4} r (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C)))
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C))
+      0),
+  Eq.{max (max (max (max (u_1 + 1) (u_2 + 1)) (u_3 + 1)) (u_4 + 1)) (u_5 + 1)}
+    (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_2, u_3, u_4, u_5}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_2, u_3, u_4, u_5} C z
+        (HAdd.hAdd.{max u_1 u_4, max u_1 u_4, max u_1 u_4} lam
+          (Matrix.vecMul.{u_1, u_5, u_4} r (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C)))
+        hz hlam'))
+    (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.rebase.{u_1, max u_2 u_4, max u_3 u_5}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_2, u_3, u_4, u_5}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam))
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryShear.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam r))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryShear_rebase' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.kmCoord_functional_boundary.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_2} ι0] [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3]
+  [inst_5 : DecidableEq.{u_2 + 1} ι0] [inst_6 : DecidableEq.{u_3 + 1} ι1] [inst_7 : DecidableEq.{u_4 + 1} ι2]
+  [inst_8 : DecidableEq.{u_5 + 1} ι3]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (z : ι1 → K) (lam : ι2 → K)
+  (hz :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) z) 0)
+  (hlam :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lam (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (r : ι3 → K)
+  (hlam' :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3}
+        (HAdd.hAdd.{max u_1 u_4, max u_1 u_4, max u_1 u_4} lam
+          (Matrix.vecMul.{u_1, u_5, u_4} r (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C)))
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C))
+      0)
+  (σ :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit))),
+  Eq.{u_1 + 1}
+    (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C z
+      (HAdd.hAdd.{max u_1 u_4, max u_1 u_4, max u_1 u_4} lam
+        (Matrix.vecMul.{u_1, u_5, u_4} r (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C)))
+      hz hlam' σ)
+    (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C z lam hz hlam σ)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.kmCoord_functional_boundary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryCycle.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_2} ι0] [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (z : ι1 → K),
+  Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) z) 0 →
+    ∀ (b : ι0 → K),
+      Eq.{max (u_1 + 1) (u_4 + 1)}
+        (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)
+          (HAdd.hAdd.{max u_1 u_3, max u_1 u_3, max u_1 u_3} z
+            (Matrix.mulVec.{u_1, u_3, u_2} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_2, u_3, u_4, u_5} C) b)))
+        0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.classBoundaryCycle' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryClosed.{u_1, u_2, u_3, u_4,
+    u_5} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  [inst_1 : Fintype.{u_3} ι1] [inst_2 : Fintype.{u_4} ι2] [inst_3 : Fintype.{u_5} ι3]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3) (lam : ι2 → K),
+  Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lam (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0 →
+    ∀ (r : ι3 → K),
+      Eq.{max (u_1 + 1) (u_3 + 1)}
+        (Matrix.vecMul.{u_1, u_4, u_3}
+          (HAdd.hAdd.{max u_1 u_4, max u_1 u_4, max u_1 u_4} lam
+            (Matrix.vecMul.{u_1, u_5, u_4} r (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C)))
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C))
+        0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.functionalBoundaryClosed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.kmCoord_retained_cohomology_comparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_2} ι0]
+  [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3] [inst_5 : Fintype.{u_6} ι0']
+  [inst_6 : Fintype.{u_7} ι1'] [inst_7 : Fintype.{u_8} ι2'] [inst_8 : Fintype.{u_9} ι3']
+  [inst_9 : DecidableEq.{u_2 + 1} ι0] [inst_10 : DecidableEq.{u_3 + 1} ι1] [inst_11 : DecidableEq.{u_4 + 1} ι2]
+  [inst_12 : DecidableEq.{u_5 + 1} ι3] [inst_13 : DecidableEq.{u_6 + 1} ι0'] [inst_14 : DecidableEq.{u_7 + 1} ι1']
+  [inst_15 : DecidableEq.{u_8 + 1} ι2'] [inst_16 : DecidableEq.{u_9 + 1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'}
+  (F : ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C D) (zC : ι1 → K)
+  (lC : ι2 → K)
+  (hzC :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) zC) 0)
+  (hlC :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (zD : ι1' → K) (lD : ι2' → K)
+  (hzD :
+    Eq.{max (u_1 + 1) (u_8 + 1)}
+      (Matrix.mulVec.{u_1, u_8, u_7} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D) zD) 0)
+  (hlD :
+    Eq.{max (u_1 + 1) (u_7 + 1)}
+      (Matrix.vecMul.{u_1, u_8, u_7} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D)) 0)
+  (bD : ι0' → K) (rC : ι3 → K)
+  (hclass :
+    Eq.{max (u_1 + 1) (u_7 + 1)}
+      (Matrix.mulVec.{u_1, u_7, u_3}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f1.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} F) zC)
+      (HAdd.hAdd.{max u_1 u_7, max u_1 u_7, max u_1 u_7} zD
+        (Matrix.mulVec.{u_1, u_7, u_6} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_6, u_7, u_8, u_9} D) bD)))
+  (hfun :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.vecMul.{u_1, u_8, u_4} lD
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f2.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} F))
+      (HAdd.hAdd.{max u_1 u_4, max u_1 u_4, max u_1 u_4} lC
+        (Matrix.vecMul.{u_1, u_5, u_4} rC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C))))
+  (σC :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))
+  (σD :
+    Equiv.{max (u_8 + 1) (u_6 + 1), max (u_9 + 1) (u_7 + 1)} (Sum.{u_6, u_8} (Sum.{u_6, 0} ι0' Unit) ι2')
+      (Sum.{u_7, u_9} ι1' (Sum.{u_9, 0} ι3' Unit))),
+  Eq.{u_1 + 1}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.augMap.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} F zC
+            (HAdd.hAdd.{max u_1 u_4, max u_1 u_4, max u_1 u_4} lC
+              (Matrix.vecMul.{u_1, u_5, u_4} rC
+                (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C)))
+            hzC ⋯
+            (HAdd.hAdd.{max u_1 u_7, max u_1 u_7, max u_1 u_7} zD
+              (Matrix.mulVec.{u_1, u_7, u_6} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_6, u_7, u_8, u_9} D)
+                bD))
+            lD ⋯ hlD hclass hfun))
+        (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+          (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))
+      (HPow.hPow.{u_1, 0, u_1} (-1) (Fintype.card.{max u_5 u_3} (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))) →
+    Eq.{u_1 + 1} (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C zC lC hzC hlC σC)
+      (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_6, u_7, u_8, u_9} D zD lD hzD hlD σD)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.kmCoord_retained_cohomology_comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+
+Compiler exit code: 0

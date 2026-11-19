@@ -1,0 +1,190 @@
+{
+  "id": "Lemma H.1",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from HDec.PkgI4.DeRhamComparison and HDec.ZInQ.Contrib.G9.DeRhamComparisonWeights, or by another key from other hypotheses; confirmed finding (weaker): g9_hasHTWeights (with its Qbar_p form g9_local and their one-proof copies) states the lemma only for K = Q_l and F/Q_l finite Galois, not for arbitrary finite K/Q_l and F/K; for K = Q_l its htMult is the exact E-dimension of the Hodge-Tate space, so the weights {0,-1} hold at every coefficient embedding, and it omits continuity of r, which the hypothesis forces. The proofs are conditional on the named Props DeRhamComparison and DeRhamComparisonWeights, and the global forms g9GlueHT and g9GlueNoT23_of_deRhamComparisonHT are conditional on DeRhamComparisonHT.",
+  "relation": "narrowMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 143,
+        "rect": [
+          0.107843,
+          0.262973,
+          0.784314,
+          0.123759
+        ]
+      },
+      "title": "Lemma H.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma H.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "HDec.ZInQ.Contrib.G9.g9_hasHTWeights",
+        "module": "ZInQKernel.OneProof.H.TailC"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "HDec.ZInQ.Contrib.G9.g9_hasHTWeights@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem g9_hasHTWeights (hR10 : DeRhamComparison) (hR10w : DeRhamComparisonWeights)\n    (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]\n    (A : PkgI4.I3.AbVar F) (hA : A.dim = ((2 : ℕ) : WithBot ℕ∞))\n    (C : Type*) [Field C] [Algebra ℚ_[p] C] [FiniteDimensional ℚ_[p] C]\n    (r : GQp p →* GL (Fin 2) C)\n    (e : C ⊗[ℚ_[p]] A.V p ≃ₗ[C] (Fin 2 → C) × (Fin 2 → C))\n    (he : ∀ σ v, e (GlueI3.repBaseChange C (A.galRep p) σ v) =\n      ((r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) C).mulVec (e v).1,\n        (r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) C).mulVec (e v).2)) :\n    IsDeRham p r ∧ HasHTWeights p r {0, -1} := by",
+            "line": 13914,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/OneProof/H/TailC.lean",
+            "fragment": "L13914"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved only from HDec.PkgI4.DeRhamComparison and HDec.ZInQ.Contrib.G9.DeRhamComparisonWeights, or by another key from other hypotheses; confirmed finding (weaker): g9_hasHTWeights (with its Qbar_p form g9_local and their one-proof copies) states the lemma only for K = Q_l and F/Q_l finite Galois, not for arbitrary finite K/Q_l and F/K; for K = Q_l its htMult is the exact E-dimension of the Hodge-Tate space, so the weights {0,-1} hold at every coefficient embedding, and it omits continuity of r, which the hypothesis forces. The proofs are conditional on the named Props DeRhamComparison and DeRhamComparisonWeights, and the global forms g9GlueHT and g9GlueNoT23_of_deRhamComparisonHT are conditional on DeRhamComparisonHT."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "HDec.ZInQ.Contrib.G9.g9_local",
+        "module": "ZInQKernel.OneProof.H.TailC"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "HDec.ZInQ.Contrib.G9.g9_local@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem g9_local (hR10 : DeRhamComparison) (hR10w : DeRhamComparisonWeights)\n    (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]\n    (A : PkgI4.I3.AbVar F) (hA : A.dim = ((2 : ℕ) : WithBot ℕ∞))\n    (E : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] E]\n    (r : GQp p →* GL (Fin 2) E) (ρ : GQp p →* GL (Fin 2) (PadicAlgCl p))\n    (hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (r σ) = ρ σ)\n    (e : E ⊗[ℚ_[p]] A.V p ≃ₗ[E] (Fin 2 → E) × (Fin 2 → E))\n    (he : ∀ σ v, e (GlueI3.repBaseChange E (A.galRep p) σ v) =\n      ((r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) E).mulVec (e v).1,\n        (r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) E).mulVec (e v).2)) :\n    LocalIsDeRham p 2 ρ ∧ LocalHasHTWeights p ρ {0, -1} := by",
+            "line": 13935,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/OneProof/H/TailC.lean",
+            "fragment": "L13935"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved only from HDec.PkgI4.DeRhamComparison and HDec.ZInQ.Contrib.G9.DeRhamComparisonWeights, or by another key from other hypotheses; confirmed finding (weaker): g9_hasHTWeights (with its Qbar_p form g9_local and their one-proof copies) states the lemma only for K = Q_l and F/Q_l finite Galois, not for arbitrary finite K/Q_l and F/K; for K = Q_l its htMult is the exact E-dimension of the Hodge-Tate space, so the weights {0,-1} hold at every coefficient embedding, and it omits continuity of r, which the hypothesis forces. The proofs are conditional on the named Props DeRhamComparison and DeRhamComparisonWeights, and the global forms g9GlueHT and g9GlueNoT23_of_deRhamComparisonHT are conditional on DeRhamComparisonHT."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Contrib.G9.g9_hasHTWeights",
+        "module": "ZInQKernel.Contrib.G9.G9Weights"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Contrib.G9.g9_hasHTWeights@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem g9_hasHTWeights (hR10 : DeRhamComparison) (hR10w : DeRhamComparisonWeights)\n    (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]\n    (A : PkgI4.I3.AbVar F) (hA : A.dim = ((2 : ℕ) : WithBot ℕ∞))\n    (C : Type*) [Field C] [Algebra ℚ_[p] C] [FiniteDimensional ℚ_[p] C]\n    (r : GQp p →* GL (Fin 2) C)\n    (e : C ⊗[ℚ_[p]] A.V p ≃ₗ[C] (Fin 2 → C) × (Fin 2 → C))\n    (he : ∀ σ v, e (GlueI3.repBaseChange C (A.galRep p) σ v) =\n      ((r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) C).mulVec (e v).1,\n        (r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) C).mulVec (e v).2)) :\n    IsDeRham p r ∧ HasHTWeights p r {0, -1} := by",
+            "line": 92,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/G9/G9Weights.lean",
+            "fragment": "L92"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved only from HDec.PkgI4.DeRhamComparison and HDec.ZInQ.Contrib.G9.DeRhamComparisonWeights, or by another key from other hypotheses; confirmed finding (weaker): g9_hasHTWeights (with its Qbar_p form g9_local and their one-proof copies) states the lemma only for K = Q_l and F/Q_l finite Galois, not for arbitrary finite K/Q_l and F/K; for K = Q_l its htMult is the exact E-dimension of the Hodge-Tate space, so the weights {0,-1} hold at every coefficient embedding, and it omits continuity of r, which the hypothesis forces. The proofs are conditional on the named Props DeRhamComparison and DeRhamComparisonWeights, and the global forms g9GlueHT and g9GlueNoT23_of_deRhamComparisonHT are conditional on DeRhamComparisonHT."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Contrib.G9.g9_local",
+        "module": "ZInQKernel.Contrib.G9.G9Weights"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Contrib.G9.g9_local@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem g9_local (hR10 : DeRhamComparison) (hR10w : DeRhamComparisonWeights)\n    (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]\n    (A : PkgI4.I3.AbVar F) (hA : A.dim = ((2 : ℕ) : WithBot ℕ∞))\n    (E : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] E]\n    (r : GQp p →* GL (Fin 2) E) (ρ : GQp p →* GL (Fin 2) (PadicAlgCl p))\n    (hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (r σ) = ρ σ)\n    (e : E ⊗[ℚ_[p]] A.V p ≃ₗ[E] (Fin 2 → E) × (Fin 2 → E))\n    (he : ∀ σ v, e (GlueI3.repBaseChange E (A.galRep p) σ v) =\n      ((r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) E).mulVec (e v).1,\n        (r (gfToGqp p F σ) : Matrix (Fin 2) (Fin 2) E).mulVec (e v).2)) :\n    LocalIsDeRham p 2 ρ ∧ LocalHasHTWeights p ρ {0, -1} := by",
+            "line": 113,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/G9/G9Weights.lean",
+            "fragment": "L113"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved only from HDec.PkgI4.DeRhamComparison and HDec.ZInQ.Contrib.G9.DeRhamComparisonWeights, or by another key from other hypotheses; confirmed finding (weaker): g9_hasHTWeights (with its Qbar_p form g9_local and their one-proof copies) states the lemma only for K = Q_l and F/Q_l finite Galois, not for arbitrary finite K/Q_l and F/K; for K = Q_l its htMult is the exact E-dimension of the Hodge-Tate space, so the weights {0,-1} hold at every coefficient embedding, and it omits continuity of r, which the hypothesis forces. The proofs are conditional on the named Props DeRhamComparison and DeRhamComparisonWeights, and the global forms g9GlueHT and g9GlueNoT23_of_deRhamComparisonHT are conditional on DeRhamComparisonHT."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          143
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics, then by two more after a judge revised it; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "Survives: every de Rham/Hodge-Tate conclusion in [F] (g9_hasHTWeights, g9_local, their TailC copies, g9_deRham in G9.lean) is for r : G_{Q_p} -> GL_2 with F/Q_p finite Galois; IsDeRham and htMult are defined only over Q_p, so arbitrary finite K/Q_l and non-Galois F/K are not covered. Both are conditional on DeRhamComparison and DeRhamComparisonWeights, and G9GlueHT is a Prop whose first premise is DeRhamComparisonHT, so the global forms are conditional as stated.",
+            "g9_hasHTWeights and g9_local take r : G_{Q_p} -> GL_2(C) and F finite Galois over Q_p, and fork's IsDeRham/htMult are defined only for G_{Q_p}; the only over-F predicate (IsDeRhamOver) appears in hypotheses (DeRhamComparison, LocalCore), never as a conclusion for r on G_K with general K, so the restriction K = Q_l, F/Q_l Galois is real. Weights uniform across coefficient embeddings for K = Q_l and the omitted continuity being forced are accurate, and the conditional hypotheses are as named."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

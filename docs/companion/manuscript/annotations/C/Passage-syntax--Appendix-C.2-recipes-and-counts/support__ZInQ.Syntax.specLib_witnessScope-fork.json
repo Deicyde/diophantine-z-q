@@ -1,0 +1,118 @@
+{
+  "id": "Passage syntax: Appendix C.2 recipes and counts",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): Recipe constraints, composition semantics, disjoint private blocks and the template parameter and witness counts match. The recipe table is proved only as upper bounds from precision on (precisionRecipe_variableCount_le, specIntegers_variableCount_le), exact only for power_value and for the differences between rows; the root-node column of the template table has no counterpart.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.102941,
+          0.342252,
+          0.794118,
+          0.557455
+        ]
+      },
+      "title": "Passage (syntax): Appendix C.2 recipes and counts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C.2 recipes and counts#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 91,
+        "rect": [
+          0.107843,
+          0.095757,
+          0.784314,
+          0.395816
+        ]
+      },
+      "title": "Passage (syntax): Appendix C.2 recipes and counts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C.2 recipes and counts#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.specLib_witnessScope",
+        "module": "ZInQKernel.Syntax.Builder.Recipes"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.specLib_witnessScope@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem specLib_witnessScope {P : NatCircuit} {V : ℕ} (hwf : Translation.WellFormed P N V)\n    (hcmem : ∀ c, NatNode.const c ∈ N.nodes → Translation.Nontrivial c →\n      c ∈ integerConstants c3) :\n    ∀ τ ∈ specLib I cstar ell T c3 N, τ.WitnessScope := by",
+            "line": 339,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Builder/Recipes.lean",
+            "fragment": "L339"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          90,
+          91
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "The precision count is only an upper bound: PrecisionShape bounds adds, muls, calls and explicit variables from above, and no exact node count of the actual circuit or exact 292,889,492,836 appears. The outer rows are therefore exact only as offsets from precision, power_value and the template parameter and witness lists are exact, and templateLibrary is a list of ExPoly with no root indices (no Template instance records root 149, 308, ...).",
+            "Template parameter and witness lists are proved exactly, but the precision and integers counts are only upper bounds under PrecisionShape, whose fields are themselves inequalities (adds <= 125327 etc.); the exact table values appear only as closed arithmetic in Recipes/Arith.lean, and the outer recipes are exact only relative to precision's witness count. Templates are ExPoly values built by Build.template, so no root-node indices are stated."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "ndep's Syntax recipe and count files match the fork's (only Templates/Core.lean differs, in the pole T1/T2 factors, which do not concern these counts), so precision is bounded above only. ManuscriptV15.Saved.compositions holds the five outer witness counts, including the call to precision with 292889492836, as decoded literals checked only by decide on that data; multiplyOuterRoot is row 83, matching multiply's root-node entry, but the other 22 root nodes and the power_value and precision rows have no proved [N] counterpart, so the claim stands.",
+            "ndep's syntax files are identical to [F]'s and have the same upper-bound weakness. [N]'s Saved.compositions record the exact table counts for close, main, value_union, value and integers only as decoded data, and no nasqret Lean file uses ndep's count theorems. One small correction: [N] does fix multiply's root as node 83 (multiplyOuterRoot, saved_multiply_formula), which matches [M]'s column, but the other 22 root nodes are absent, so the finding still holds."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 nonzero and branch masks",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: nonzero_indicator proves the mask equation determines N_j, branch_split the split into nonzero and zero branch histories, and indicator_digits the zero-one digits of the indicators; proved, no assumed hypothesis.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.471697,
+          0.784314,
+          0.216235
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 nonzero and branch masks",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 nonzero and branch masks"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Packed.nonzero_indicator",
+        "module": "ZInQKernel.Compiler.Circuits.Packed.NonzeroIndicator"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Packed.nonzero_indicator@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem nonzero_indicator {c q K B F D : ℕ} (_hc : 0 < c) (hK : K = 2 ^ c) (hB : B = 4 * K)\n    (hF : F = ∑ t ∈ range (q + 1), B ^ t) (hD : D = (K - 1) * F) (ρ : ℕ → ℕ)\n    (hρ : ∀ t ≤ q, ρ t < K) :\n    Nat.land (∑ t ∈ range (q + 1), ρ t * B ^ t + D) (K * F) =\n        K * ∑ t ∈ range (q + 1), (if 0 < ρ t then 1 else 0) * B ^ t ∧\n      ∀ N, K * N = Nat.land (∑ t ∈ range (q + 1), ρ t * B ^ t + D) (K * F) ↔\n        N = ∑ t ∈ range (q + 1), (if 0 < ρ t then 1 else 0) * B ^ t := by",
+            "line": 44,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Packed/NonzeroIndicator.lean",
+            "fragment": "L44"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

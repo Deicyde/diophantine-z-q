@@ -1,0 +1,47 @@
+{
+  "id": "Proposition E.3",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] states the central calibration v_2 u_h^ev(0) = v_2 L_*(h) - 2 omega(h) - s(h) + eps_h and the lower bound for v_2 L_*(h) (Appendix E, part of the proof of Theorem 5.3). [F] formalizes no part of Appendix E: its main-theorem page says Sections 7-9 and Appendices E-G are not formalized, and Theorem 5.2 enters as the hypothesis ZInQ.PoleCompleteness.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 102,
+        "rect": [
+          0.107843,
+          0.262139,
+          0.784314,
+          0.172125
+        ]
+      },
+      "title": "Proposition E.3",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition E.3"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          102
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

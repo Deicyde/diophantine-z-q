@@ -1,0 +1,855 @@
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_eval : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {n : ℕ}
+  (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S) M S)
+  (z : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) n)) (v : Fin n → G),
+  Eq.{1}
+    (have this := ZInQ.Manuscript.RC.SelmerComplex.contFun (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f z) v;
+    this)
+    (f (ZInQ.Manuscript.RC.SelmerComplex.contFun z v))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_eval' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_add : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {n : ℕ}
+  (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S) M S)
+  (z w : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) n)),
+  Eq.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f (HAdd.hAdd.{0, 0, 0} z w))
+    (HAdd.hAdd.{0, 0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f z)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f w))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_add' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_zero : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {n : ℕ}
+  (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S) M S),
+  Eq.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f 0) 0
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_basis_expansion : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {ι : Type} [inst_13 : Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι S M) {n : ℕ} (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S) M S)
+  (z : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) n)),
+  Eq.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f z)
+    (∑ j : ι,
+      HSMul.hSMul.{0, 0, 0} (f (b j))
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain (Module.Basis.coord.{0, 0, 0} b j) z))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_basis_expansion' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientValue_functional : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {ι : Type} [inst_13 : Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι S M)
+  (c :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S)
+      (↑(HomologicalComplex.X.{0, 1, 0}
+          (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+          2))
+      S)
+  (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S) M S)
+  (z : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) 2)),
+  Eq.{1} (f (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientValue b c z))
+    (c (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f z))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientValue_functional' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientValue_coord : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {ι : Type} [inst_13 : Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι S M)
+  (c :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S)
+      (↑(HomologicalComplex.X.{0, 1, 0}
+          (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+          2))
+      S)
+  (j : ι) (z : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) 2)),
+  Eq.{1} ((Module.Basis.coord.{0, 0, 0} b j) (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientValue b c z))
+    (c (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain (Module.Basis.coord.{0, 0, 0} b j) z))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientValue_coord' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_d12 : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M],
+  (∀ (g : G) (m : M), Eq.{1} (HSMul.hSMul.{0, 0, 0} g m) m) →
+    ∀ (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S) M S)
+      (a : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) 1)),
+      Eq.{1}
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f
+          ((ModuleCat.Hom.hom.{0, 0}
+              (HomologicalComplex.d.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) 1 2))
+            a))
+        ((ModuleCat.Hom.hom.{0, 0}
+            (HomologicalComplex.d.{0, 1, 0}
+              (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G
+                (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+              1 2))
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f a))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_d12' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_d23 : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M],
+  (∀ (g : G) (m : M), Eq.{1} (HSMul.hSMul.{0, 0, 0} g m) m) →
+    ∀ (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S) M S)
+      (z : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) 2)),
+      Eq.{1}
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f
+          ((ModuleCat.Hom.hom.{0, 0}
+              (HomologicalComplex.d.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) 2 3))
+            z))
+        ((ModuleCat.Hom.hom.{0, 0}
+            (HomologicalComplex.d.{0, 1, 0}
+              (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G
+                (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+              2 3))
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain f z))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_d23' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cochain_eq_of_scalar_coordinates : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {ι : Type} (b : Module.Basis.{0, 0, 0} ι S M)
+  {n : ℕ} {z w : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) n)},
+  (∀ (j : ι),
+      Eq.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain (Module.Basis.coord.{0, 0, 0} b j) z)
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain (Module.Basis.coord.{0, 0, 0} b j) w)) →
+    Eq.{1} z w
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cochain_eq_of_scalar_coordinates' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_expand : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {ι : Type} [inst_13 : Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι S M) {n : ℕ}
+  (a :
+    ι →
+      ↑(HomologicalComplex.X.{0, 1, 0}
+          (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+          n))
+  (j : ι),
+  Eq.{1}
+    (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain (Module.Basis.coord.{0, 0, 0} b j)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.expandCochain b a))
+    (a j)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCochain_expand' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate_isCoordinate : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {ι : Type} [inst_13 : Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι S M)
+  (c :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S)
+      (↑(HomologicalComplex.X.{0, 1, 0}
+          (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+          2))
+      S)
+  [inst_14 : SMulCommClass.{0, 0, 0} R S M],
+  (∀ (g : G) (m : M), Eq.{1} (HSMul.hSMul.{0, 0, 0} g m) m) →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoCoordinate c →
+      ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoCoordinate
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate b c)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate_isCoordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate_normalized : ∀ {S R G M : Type} [inst : CommRing.{0} S]
+  [inst_1 : CommRing.{0} R] [inst_2 : Group.{0} G] [inst_3 : TopologicalSpace.{0} G] [inst_4 : IsTopologicalGroup.{0} G]
+  [inst_5 : AddCommGroup.{0} M] [inst_6 : Module.{0, 0} R M] [inst_7 : Module.{0, 0} S M]
+  [inst_8 : DistribMulAction.{0, 0} G M] [inst_9 : SMulCommClass.{0, 0, 0} G R M] [inst_10 : TopologicalSpace.{0} M]
+  [inst_11 : DiscreteTopology.{0} M] [inst_12 : ContinuousSMul.{0, 0} G M] {ι : Type} [inst_13 : Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι S M)
+  (c :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S)
+      (↑(HomologicalComplex.X.{0, 1, 0}
+          (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+          2))
+      S)
+  [inst_14 : SMulCommClass.{0, 0, 0} R S M] [inst_15 : Algebra.{0, 0} S R] [IsScalarTower.{0, 0, 0} S R M]
+  (u κ : G → S),
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoNormalized c u κ →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoNormalized
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate b c)
+      (fun (g : G) => (Algebra.algebraMap.{0, 0} S R) (u g)) fun (g : G) => (Algebra.algebraMap.{0, 0} S R) (κ g)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter_mul : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] (n : ℕ)
+  [inst_4 : NeZero.{0} n] (g h : TauCeti.AbsoluteGaloisGroup.{0} F),
+  Eq.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n (HMul.hMul.{0, 0, 0} g h))
+    (HAdd.hAdd.{0, 0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n g)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n h))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter_mul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter_continuous : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] (n : ℕ)
+  [inst_4 : NeZero.{0} n], Continuous.{0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter_continuous' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCircleCharacter_open : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] (n : ℕ)
+  [inst_4 : NeZero.{0} n],
+  IsOpen.{0} ↑(AddMonoidHom.ker.{0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCircleCharacter n))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCircleCharacter_open' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramified_characterCarry : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] (n : ℕ)
+  [inst_4 : NeZero.{0} n] (g h : TauCeti.AbsoluteGaloisGroup.{0} F),
+  Eq.{1}
+    (HMul.hMul.{0, 0, 0} (↑n)
+      (TauCeti.ContCohomology.characterCarry.{0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCircleCharacter n) g
+        h))
+    (HSub.hSub.{0, 0, 0}
+      (HAdd.hAdd.{0, 0, 0} ↑(ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n g).val
+        ↑(ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n h).val)
+      ↑(ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n (HMul.hMul.{0, 0, 0} g h)).val)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramified_characterCarry' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup_apply : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ : Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (g h : TauCeti.AbsoluteGaloisGroup.{0} F),
+  Eq.{1} (↑(ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup a β hβ hμ) (Prod.mk.{0, 0} g h))
+    (HSMul.hSMul.{0, 0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCharacter n g).val
+      (TauCeti.kummerCocycle.{0} hβ h))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup_apply' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cupCarryPrimitive_continuous : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (β : Units.{0} (SeparableClosure.{0} F)),
+  Continuous.{0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cupCarryPrimitive β)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cupCarryPrimitive_continuous' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cupCarryPrimitive_identity : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ : Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (g h : TauCeti.AbsoluteGaloisGroup.{0} F),
+  Eq.{1}
+    (HAdd.hAdd.{0, 0, 0}
+      ((TauCeti.ContCohomology.d1.{0, 0} (TauCeti.AbsoluteGaloisGroup.{0} F) (TauCeti.UnitsCoeff.{0} F))
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cupCarryPrimitive β) (Prod.mk.{0, 0} g h))
+      ((TauCeti.kummerCoeffIncl.{0} F n)
+        (↑(ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup a β hβ hμ) (Prod.mk.{0, 0} g h))))
+    (HSMul.hSMul.{0, 0, 0}
+      (TauCeti.ContCohomology.characterCarry.{0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCircleCharacter n) g
+        h)
+      ↑((TauCeti.baseUnitsEquivInvariants.{0} F) (Additive.ofMul.{0} a)))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.cupCarryPrimitive_identity' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup_carry : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ : Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x),
+  Eq.{1}
+    ((TauCeti.ContCohomology.explicitCoeff2.{0, 0, 0} (TauCeti.AbsoluteGaloisGroup.{0} F) (TauCeti.KummerCoeff.{0} F n)
+        (TauCeti.kummerCoeffInclHom.{0} F n) continuous_of_discreteTopology.{0, 0})
+      ((TauCeti.ContCohomology.H2pi.{0, 0} (TauCeti.AbsoluteGaloisGroup.{0} F) (TauCeti.KummerCoeff.{0} F n))
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup a β hβ hμ)))
+    ((TauCeti.ContCohomology.H2pi.{0, 0} (TauCeti.AbsoluteGaloisGroup.{0} F) (TauCeti.UnitsCoeff.{0} F))
+      ((TauCeti.ContCohomology.characterCarryCocycle.{0, 0}
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCircleCharacter n)
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedCircleCharacter_open n))
+        ((TauCeti.baseUnitsEquivInvariants.{0} F) (Additive.ofMul.{0} a))))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup_carry' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup_invariant : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ : Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x),
+  TauCeti.IsUniformizer.{0} F a →
+    Eq.{1}
+      ((TauCeti.ClassFieldTheory.invMap F)
+        ((ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr n)
+          ((TauCeti.ContCohomology.H2pi.{0, 0} (TauCeti.AbsoluteGaloisGroup.{0} F) (TauCeti.KummerCoeff.{0} F n))
+            (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup a β hβ hμ))))
+      ↑(HDiv.hDiv.{0, 0, 0} 1 ↑n)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup_invariant' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCup_eval : ∀ {G : Type} [inst : Group.{0} G]
+  [inst_1 : TopologicalSpace.{0} G] [inst_2 : IsTopologicalGroup.{0} G] (n : ℕ) (u κ : G → ZMod n)
+  (hu : Continuous.{0, 0} u) (hκ : Continuous.{0, 0} κ) (g h : G),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.InnerLimitArith.evalTwo (ZMod n)
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)) g h)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCup n u κ hu hκ))
+    ((LinearEquiv.symm.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff.equiv (ZMod n)))
+      (HMul.hMul.{0, 0, 0} (u g) (κ h)))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCup_eval' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCup_cycle : ∀ {G : Type} [inst : Group.{0} G]
+  [inst_1 : TopologicalSpace.{0} G] [inst_2 : IsTopologicalGroup.{0} G] (n : ℕ) (u κ : G → ZMod n)
+  (hu : Continuous.{0, 0} u) (hκ : Continuous.{0, 0} κ),
+  (∀ (g h : G), Eq.{1} (u (HMul.hMul.{0, 0, 0} g h)) (HAdd.hAdd.{0, 0, 0} (u g) (u h))) →
+    (∀ (g h : G), Eq.{1} (κ (HMul.hMul.{0, 0, 0} g h)) (HAdd.hAdd.{0, 0, 0} (κ g) (κ h))) →
+      Eq.{1}
+        ((ModuleCat.Hom.hom.{0, 0}
+            (HomologicalComplex.d.{0, 1, 0}
+              (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} (ZMod n) G
+                (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)))
+              2 3))
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCup n u κ hu hκ))
+        0
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCup_cycle' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarInvariant_torsion : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (q :
+    TauCeti.ContCohomology.H2.{0, 0} (Field.absoluteGaloisGroup.{0} F)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n))),
+  Eq.{1} (HSMul.hSMul.{0, 0, 0} n ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarInvariant η hμ) q)) 0
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarInvariant_torsion' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value_invariant : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (q :
+    TauCeti.ContCohomology.H2.{0, 0} (Field.absoluteGaloisGroup.{0} F)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n))),
+  Eq.{1} ((ZMod.toRatAddCircle n) ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value η hμ) q))
+    ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarInvariant η hμ) q)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value_invariant' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value_injective : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x),
+  Function.Injective.{1, 1} ⇑(ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr n) →
+    Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value η hμ)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarFundamentalClass_value : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ :
+    Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a)),
+  TauCeti.IsUniformizer.{0} F a →
+    Eq.{1}
+      ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value η hμ)
+        (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarFundamentalClass η hμ a β hβ))
+      1
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarFundamentalClass_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value_surjective : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F)),
+  Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a) →
+    TauCeti.IsUniformizer.{0} F a →
+      Function.Surjective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value η hμ)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value_surjective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter_continuous : ∀ {F : Type} [inst : Field.{0} F] {n : ℕ}
+  (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n)) (a : Units.{0} F)
+  (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ :
+    Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a)),
+  Continuous.{0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter η a β hβ)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter_continuous' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter_mul : ∀ {F : Type} [inst : Field.{0} F] {n : ℕ}
+  (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n)),
+  (∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x) →
+    ∀ (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+      (hβ :
+        Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a))
+      (g h : Field.absoluteGaloisGroup.{0} F),
+      Eq.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter η a β hβ (HMul.hMul.{0, 0, 0} g h))
+        (HAdd.hAdd.{0, 0, 0} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter η a β hβ g)
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter η a β hβ h))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter_mul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup_cycle : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n)),
+  (∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x) →
+    ∀ (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+      (hβ :
+        Eq.{1} (HPow.hPow.{0, 0, 0} β n)
+          ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a)),
+      Eq.{1}
+        ((ModuleCat.Hom.hom.{0, 0}
+            (HomologicalComplex.d.{0, 1, 0}
+              (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} (ZMod n) (Field.absoluteGaloisGroup.{0} F)
+                (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)))
+              2 3))
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup η a β hβ))
+        0
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup_cycle' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarKummerEquiv_cup : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ :
+    Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a)),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarKummerEquiv η hμ)
+      (ZInQ.Manuscript.RC.SelmerComplex.kerToH2
+        (Subtype.mk.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup η a β hβ)
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup_cycle η hμ a β hβ))))
+    ((TauCeti.ContCohomology.H2pi.{0, 0} (TauCeti.AbsoluteGaloisGroup.{0} F) (TauCeti.KummerCoeff.{0} F n))
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.unramifiedKummerCup a β hβ hμ))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarKummerEquiv_cup' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup_invariant : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ :
+    Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a)),
+  TauCeti.IsUniformizer.{0} F a →
+    Eq.{1}
+      ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarInvariant η hμ)
+        (ZInQ.Manuscript.RC.SelmerComplex.kerToH2
+          (Subtype.mk.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup η a β hβ)
+            (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup_cycle η hμ a β hβ))))
+      ↑(HDiv.hDiv.{0, 0, 0} 1 ↑n)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedScalarCup_invariant' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_extension_exists : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x),
+  ∃ (c :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} (ZMod n))
+      (↑(HomologicalComplex.X.{0, 1, 0}
+          (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} (ZMod n) (Field.absoluteGaloisGroup.{0} F)
+            (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)))
+          2))
+      (ZMod n)),
+    ∀
+      (z :
+        ↥(LinearMap.ker.{0, 0, 0, 0}
+            (ModuleCat.Hom.hom.{0, 0}
+              (HomologicalComplex.d.{0, 1, 0}
+                (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} (ZMod n) (Field.absoluteGaloisGroup.{0} F)
+                  (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)))
+                2 3)))),
+      Eq.{1} (c ↑z) ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCycleValue η hμ) z)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_extension_exists' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_cycles : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (z :
+    ↥(LinearMap.ker.{0, 0, 0, 0}
+        (ModuleCat.Hom.hom.{0, 0}
+          (HomologicalComplex.d.{0, 1, 0}
+            (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} (ZMod n) (Field.absoluteGaloisGroup.{0} F)
+              (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)))
+            2 3)))),
+  Eq.{1} ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate η hμ) ↑z)
+    ((ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value η hμ) (ZInQ.Manuscript.RC.SelmerComplex.kerToH2 z))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_cycles' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_isCoordinate : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F)),
+  Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a) →
+    Function.Injective.{1, 1} ⇑(ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr n) →
+      TauCeti.IsUniformizer.{0} F a →
+        ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoCoordinate
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate η hμ)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_isCoordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_normalized : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x)
+  (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ :
+    Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a)),
+  TauCeti.IsUniformizer.{0} F a →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoNormalized
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate η hμ)
+      (ZInQ.Contrib.RC53Assist.InnerLimitArith.urCharN F n)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter η a β hβ)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedCoefficientCoordinate_spec : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] {R M : Type} [inst_5 : CommRing.{0} R] [inst_6 : Algebra.{0, 0} (ZMod n) R]
+  [inst_7 : AddCommGroup.{0} M] [inst_8 : Module.{0, 0} R M] [inst_9 : Module.{0, 0} (ZMod n) M]
+  [IsScalarTower.{0, 0, 0} (ZMod n) R M] [inst_11 : DistribMulAction.{0, 0} (Field.absoluteGaloisGroup.{0} F) M]
+  [inst_12 : SMulCommClass.{0, 0, 0} (Field.absoluteGaloisGroup.{0} F) R M]
+  [inst_13 : SMulCommClass.{0, 0, 0} R (ZMod n) M] [inst_14 : TopologicalSpace.{0} M] [inst_15 : DiscreteTopology.{0} M]
+  [inst_16 : ContinuousSMul.{0, 0} (Field.absoluteGaloisGroup.{0} F) M] {ι : Type} [inst_17 : Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι (ZMod n) M) (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n))
+  (hμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x),
+  (∀ (g : Field.absoluteGaloisGroup.{0} F) (m : M), Eq.{1} (HSMul.hSMul.{0, 0, 0} g m) m) →
+    Function.Injective.{1, 1} ⇑(ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr n) →
+      ∀ (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+        (hβ :
+          Eq.{1} (HPow.hPow.{0, 0, 0} β n)
+            ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a)),
+        TauCeti.IsUniformizer.{0} F a →
+          ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoCoordinate
+              (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedCoefficientCoordinate b η hμ) ∧
+            ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoNormalized
+              (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedCoefficientCoordinate b η hμ)
+              (fun (g : Field.absoluteGaloisGroup.{0} F) =>
+                (Algebra.algebraMap.{0, 0} (ZMod n) R) (ZInQ.Contrib.RC53Assist.InnerLimitArith.urCharN F n g))
+              fun (g : Field.absoluteGaloisGroup.{0} F) =>
+              (Algebra.algebraMap.{0, 0} (ZMod n) R)
+                (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter η a β hβ g)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedCoefficientCoordinate_spec' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.residueScalarComm : ∀ {n : ℕ} [NeZero.{0} n] (R M : Type)
+  [inst : CommRing.{0} R] [inst_1 : AddCommGroup.{0} M] [inst_2 : Module.{0, 0} R M]
+  [inst_3 : Module.{0, 0} (ZMod n) M], SMulCommClass.{0, 0, 0} R (ZMod n) M
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.residueScalarComm' depends on axioms: [propext, Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.residueScalarTower : ∀ {n : ℕ} [NeZero.{0} n] (R M : Type)
+  [inst : CommRing.{0} R] [inst_1 : Algebra.{0, 0} (ZMod n) R] [inst_2 : AddCommGroup.{0} M]
+  [inst_3 : Module.{0, 0} R M] [inst_4 : Module.{0, 0} (ZMod n) M], IsScalarTower.{0, 0, 0} (ZMod n) R M
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.residueScalarTower' depends on axioms: [propext, Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.localizedMcoef_nsmul : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K] {S : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))}
+  (W : WeierstrassCurve.{0} K) (i : ℕ)
+  (α :
+    MonoidHom.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (Units.{0} (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (q : IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))
+  (m :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod.{0} (ZInQ.Manuscript.RC.SelmerComplex.locMap K S q)
+      (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α)),
+  Eq.{1} (HSMul.hSMul.{0, 0, 0} (HPow.hPow.{0, 0, 0} 2 i) m) 0
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.localizedMcoef_nsmul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.localizedMcoef_basis : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K] {S : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))}
+  (W : WeierstrassCurve.{0} K) [WeierstrassCurve.IsElliptic.{0} W] (i : ℕ) [NeZero.{0} i]
+  (α :
+    MonoidHom.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (Units.{0} (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (q : IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))
+  [inst_4 :
+    Module.{0, 0} (ZMod (HPow.hPow.{0, 0, 0} 2 i))
+      (ZInQ.Manuscript.RC.SelmerComplex.ResMod.{0} (ZInQ.Manuscript.RC.SelmerComplex.locMap K S q)
+        (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α))],
+  ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (HPow.hPow.{0, 0, 0} 2 i) →
+    Nonempty.{1}
+      (Module.Basis.{0, 0, 0} (Sum.{0, 0} (Fin i) (Fin i)) (ZMod (HPow.hPow.{0, 0, 0} 2 i))
+        (ZInQ.Manuscript.RC.SelmerComplex.ResMod.{0} (ZInQ.Manuscript.RC.SelmerComplex.locMap K S q)
+          (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α)))
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.localizedMcoef_basis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.kummerCoefficients_fixed : ∀ {F : Type} [inst : Field.{0} F] {n : ℕ},
+  (∀ (g : Gal(AlgebraicClosure.{0} F/F)) (ζ : AlgebraicClosure.{0} F),
+      Eq.{1} (HPow.hPow.{0, 0, 0} ζ n) 1 → Eq.{1} (g ζ) ζ) →
+    ∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n), Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.kummerCoefficients_fixed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.algebraicRoot_pow : ∀ {F : Type} [inst : Field.{0} F] {n : ℕ} (a : Units.{0} F)
+  (β : Units.{0} (SeparableClosure.{0} F)),
+  Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a) →
+    Eq.{1} (HPow.hPow.{0, 0, 0} (↑↑β) n) ((Algebra.algebraMap.{0, 0} F (AlgebraicClosure.{0} F)) ↑a)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.algebraicRoot_pow' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.algebraicRoot_ne_zero : ∀ {F : Type} [inst : Field.{0} F]
+  (β : Units.{0} (SeparableClosure.{0} F)), Ne.{1} (↑↑β) 0
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.algebraicRoot_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.kummerCocycle_algebraicValue : ∀ {F : Type} [inst : Field.{0} F] {n : ℕ}
+  (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ : Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a))
+  (g : Gal(AlgebraicClosure.{0} F/F)),
+  Eq.{1} (↑↑↑(Additive.toMul.{0} (TauCeti.kummerCocycle.{0} hβ ((TauCeti.absoluteGaloisGroupRestrictEquiv.{0} F) g))))
+    (ZInQ.Contrib.CloudB3RC53.TameQuotient.kummerVal.{0} (↑↑β) g)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.kummerCocycle_algebraicValue' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.kummerEquiv_algebraicPower : ∀ {F : Type} [inst : Field.{0} F] {n : ℕ}
+  [NeZero.{0} n] (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n)) (x : ZMod n),
+  Eq.{1} (↑↑↑(Additive.toMul.{0} (η x))) (HPow.hPow.{0, 0, 0} (↑↑↑(Additive.toMul.{0} (η 1))) x.val)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.kummerEquiv_algebraicPower' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter_eq_log : ∀ {F : Type} [inst : Field.{0} F] {n : ℕ}
+  [inst_1 : NeZero.{0} n] (a : Units.{0} F) (β : Units.{0} (SeparableClosure.{0} F))
+  (hβ : Eq.{1} (HPow.hPow.{0, 0, 0} β n) ((Units.map.{0, 0} ↑(Algebra.algebraMap.{0, 0} F (SeparableClosure.{0} F))) a))
+  (η : AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n)) {σ : Field.absoluteGaloisGroup.{0} F}
+  (hζ : IsPrimitiveRoot.{0} (ZInQ.Contrib.CloudB3RC53.TameQuotient.kummerVal.{0} (↑↑β) σ) n),
+  Eq.{1} (↑↑↑(Additive.toMul.{0} (η 1))) (ZInQ.Contrib.CloudB3RC53.TameQuotient.kummerVal.{0} (↑↑β) σ) →
+    ∀ (g : Field.absoluteGaloisGroup.{0} F),
+      Eq.{1} (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter η a β hβ g)
+        (ZInQ.Contrib.RC53Assist.InnerLimitArith.kummerLog
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.algebraicRoot_pow a β hβ)
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.algebraicRoot_ne_zero β) hζ g)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.tameKummerCharacter_eq_log' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.TameOrientation.character_values : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] (D : ZInQ.Contrib.RC53Assist.LocalDegreeTwo.TameOrientation F n) [Fact (LT.lt.{0} 1 n)],
+  Eq.{1} (D.unramified D.frobenius) 1 ∧
+    Eq.{1} (D.unramified D.inertia) 0 ∧ Eq.{1} (D.kummer D.frobenius) 0 ∧ Eq.{1} (D.kummer D.inertia) 1
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.TameOrientation.character_values' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.exists_normalizedLocalCoordinate : ∀ {F : Type} [inst : Field.{0} F]
+  [inst_1 : ValuativeRel.{0} F] [inst_2 : TopologicalSpace.{0} F] [inst_3 : IsNonarchimedeanLocalField.{0} F] {n : ℕ}
+  [inst_4 : NeZero.{0} n] {R M : Type} [inst_5 : CommRing.{0} R] [inst_6 : Algebra.{0, 0} (ZMod n) R]
+  [inst_7 : AddCommGroup.{0} M] [inst_8 : Module.{0, 0} R M] [inst_9 : Module.{0, 0} (ZMod n) M]
+  [IsScalarTower.{0, 0, 0} (ZMod n) R M] [inst_11 : DistribMulAction.{0, 0} (Field.absoluteGaloisGroup.{0} F) M]
+  [inst_12 : SMulCommClass.{0, 0, 0} (Field.absoluteGaloisGroup.{0} F) R M] [SMulCommClass.{0, 0, 0} R (ZMod n) M]
+  [inst_14 : TopologicalSpace.{0} M] [inst_15 : DiscreteTopology.{0} M]
+  [inst_16 : ContinuousSMul.{0, 0} (Field.absoluteGaloisGroup.{0} F) M] {ι : Type} [Fintype.{0} ι]
+  (b : Module.Basis.{0, 0, 0} ι (ZMod n) M),
+  n.Coprime (ringChar.{0} (IsLocalRing.ResidueField.{0} ↥(Valuation.integer.{0, 0} (ValuativeRel.valuation.{0} F)))) →
+    (∀ (g : Field.absoluteGaloisGroup.{0} F) (m : M), Eq.{1} (HSMul.hSMul.{0, 0, 0} g m) m) →
+      (∀ (g : Gal(AlgebraicClosure.{0} F/F)) (ζ : AlgebraicClosure.{0} F),
+          Eq.{1} (HPow.hPow.{0, 0, 0} ζ n) 1 → Eq.{1} (g ζ) ζ) →
+        Function.Injective.{1, 1} ⇑(ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr n) →
+          ∃ (D : ZInQ.Contrib.RC53Assist.LocalDegreeTwo.TameOrientation F n) (c₂ :
+            LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+              (↑(HomologicalComplex.X.{0, 1, 0}
+                  (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R (Field.absoluteGaloisGroup.{0} F) M) 2))
+              M),
+            ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoCoordinate c₂ ∧
+              ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoNormalized c₂
+                (fun (g : Field.absoluteGaloisGroup.{0} F) => (Algebra.algebraMap.{0, 0} (ZMod n) R) (D.unramified g))
+                fun (g : Field.absoluteGaloisGroup.{0} F) => (Algebra.algebraMap.{0, 0} (ZMod n) R) (D.kummer g)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.exists_normalizedLocalCoordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.exists_stageCoordinate : ∀ {K : Type} [inst : Field.{0} K]
+  [inst_1 : NumberField.{0} K] {S : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))}
+  (W : WeierstrassCurve.{0} K) [WeierstrassCurve.IsElliptic.{0} W] (i : ℕ) [NeZero.{0} i]
+  (α :
+    MonoidHom.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (Units.{0} (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  [inst_4 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α]
+  (q : IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K)),
+  2 ∉ IsDedekindDomain.HeightOneSpectrum.asIdeal.{0} q →
+    ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (HPow.hPow.{0, 0, 0} 2 i) →
+      (∀ (g : ZInQ.Manuscript.RC.SelmerComplex.Gloc K q)
+          (m :
+            ZInQ.Manuscript.RC.SelmerComplex.ResMod.{0} (ZInQ.Manuscript.RC.SelmerComplex.locMap K S q)
+              (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α)),
+          Eq.{1} (HSMul.hSMul.{0, 0, 0} g m) m) →
+        (∀
+            (g :
+              Gal(AlgebraicClosure.{0}
+                  (IsDedekindDomain.HeightOneSpectrum.adicCompletion.{0, 0} K
+                    q)/IsDedekindDomain.HeightOneSpectrum.adicCompletion.{0, 0} K q))
+            (ζ : AlgebraicClosure.{0} (IsDedekindDomain.HeightOneSpectrum.adicCompletion.{0, 0} K q)),
+            Eq.{1} (HPow.hPow.{0, 0, 0} ζ (HPow.hPow.{0, 0, 0} 2 i)) 1 → Eq.{1} (g ζ) ζ) →
+          Function.Injective.{1, 1} ⇑(ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr (HPow.hPow.{0, 0, 0} 2 i)) →
+            ∃ (D :
+              ZInQ.Contrib.RC53Assist.LocalDegreeTwo.TameOrientation
+                (IsDedekindDomain.HeightOneSpectrum.adicCompletion.{0, 0} K q) (HPow.hPow.{0, 0, 0} 2 i))
+              (c₂ :
+              LinearMap.{0, 0, 0, 0} (RingHom.id.{0} (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+                (↑(HomologicalComplex.X.{0, 1, 0}
+                    (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                      (ZInQ.Manuscript.RC.SelmerComplex.Gloc K q)
+                      (ZInQ.Manuscript.RC.SelmerComplex.ResMod.{0} (ZInQ.Manuscript.RC.SelmerComplex.locMap K S q)
+                        (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α)))
+                    2))
+                (ZInQ.Manuscript.RC.SelmerComplex.ResMod.{0} (ZInQ.Manuscript.RC.SelmerComplex.locMap K S q)
+                  (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α))),
+              ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoCoordinate c₂ ∧
+                ZInQ.Contrib.RC53Assist.InnerLimitArith.LocalDegreeTwoNormalized c₂
+                  (fun (g : ZInQ.Manuscript.RC.SelmerComplex.Gloc K q) =>
+                    (Algebra.algebraMap.{0, 0} (ZMod (HPow.hPow.{0, 0, 0} 2 i))
+                        (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+                      (D.unramified g))
+                  fun (g : ZInQ.Manuscript.RC.SelmerComplex.Gloc K q) =>
+                  (Algebra.algebraMap.{0, 0} (ZMod (HPow.hPow.{0, 0, 0} 2 i))
+                      (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+                    (D.kummer g)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.exists_stageCoordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate : {F : Type} →
+  [inst : Field.{0} F] →
+    [inst_1 : ValuativeRel.{0} F] →
+      [inst_2 : TopologicalSpace.{0} F] →
+        [IsNonarchimedeanLocalField.{0} F] →
+          {n : ℕ} →
+            [NeZero.{0} n] →
+              AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n) →
+                (∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n),
+                    Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x) →
+                  LinearMap.{0, 0, 0, 0} (RingHom.id.{0} (ZMod n))
+                    (↑(HomologicalComplex.X.{0, 1, 0}
+                        (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} (ZMod n) (Field.absoluteGaloisGroup.{0} F)
+                          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)))
+                        2))
+                    (ZMod n)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarCoordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedCoefficientCoordinate : {F : Type} →
+  [inst : Field.{0} F] →
+    [inst_1 : ValuativeRel.{0} F] →
+      [inst_2 : TopologicalSpace.{0} F] →
+        [IsNonarchimedeanLocalField.{0} F] →
+          {n : ℕ} →
+            [NeZero.{0} n] →
+              {R M : Type} →
+                [inst_5 : CommRing.{0} R] →
+                  [inst_6 : AddCommGroup.{0} M] →
+                    [inst_7 : Module.{0, 0} R M] →
+                      [inst_8 : Module.{0, 0} (ZMod n) M] →
+                        [inst_9 : DistribMulAction.{0, 0} (Field.absoluteGaloisGroup.{0} F) M] →
+                          [inst_10 : SMulCommClass.{0, 0, 0} (Field.absoluteGaloisGroup.{0} F) R M] →
+                            [SMulCommClass.{0, 0, 0} R (ZMod n) M] →
+                              [inst_12 : TopologicalSpace.{0} M] →
+                                [inst_13 : DiscreteTopology.{0} M] →
+                                  [inst_14 : ContinuousSMul.{0, 0} (Field.absoluteGaloisGroup.{0} F) M] →
+                                    {ι : Type} →
+                                      [Fintype.{0} ι] →
+                                        Module.Basis.{0, 0, 0} ι (ZMod n) M →
+                                          AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n) →
+                                            (∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F)
+                                                (x : TauCeti.KummerCoeff.{0} F n),
+                                                Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x) →
+                                              LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+                                                (↑(HomologicalComplex.X.{0, 1, 0}
+                                                    (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R
+                                                      (Field.absoluteGaloisGroup.{0} F) M)
+                                                    2))
+                                                M
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.normalizedCoefficientCoordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate : {S R G M : Type} →
+  [inst : CommRing.{0} S] →
+    [inst_1 : CommRing.{0} R] →
+      [inst_2 : Group.{0} G] →
+        [inst_3 : TopologicalSpace.{0} G] →
+          [inst_4 : IsTopologicalGroup.{0} G] →
+            [inst_5 : AddCommGroup.{0} M] →
+              [inst_6 : Module.{0, 0} R M] →
+                [inst_7 : Module.{0, 0} S M] →
+                  [inst_8 : DistribMulAction.{0, 0} G M] →
+                    [inst_9 : SMulCommClass.{0, 0, 0} G R M] →
+                      [inst_10 : TopologicalSpace.{0} M] →
+                        [inst_11 : DiscreteTopology.{0} M] →
+                          [inst_12 : ContinuousSMul.{0, 0} G M] →
+                            {ι : Type} →
+                              [Fintype.{0} ι] →
+                                Module.Basis.{0, 0, 0} ι S M →
+                                  LinearMap.{0, 0, 0, 0} (RingHom.id.{0} S)
+                                      (↑(HomologicalComplex.X.{0, 1, 0}
+                                          (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} S G
+                                            (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff S))
+                                          2))
+                                      S →
+                                    [SMulCommClass.{0, 0, 0} R S M] →
+                                      LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+                                        (↑(HomologicalComplex.X.{0, 1, 0}
+                                            (ZInQ.Manuscript.RC.SelmerComplex.contCochains.{0} R G M) 2))
+                                        M
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.coefficientCoordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value : {F : Type} →
+  [inst : Field.{0} F] →
+    [inst_1 : ValuativeRel.{0} F] →
+      [inst_2 : TopologicalSpace.{0} F] →
+        [IsNonarchimedeanLocalField.{0} F] →
+          {n : ℕ} →
+            [NeZero.{0} n] →
+              AddEquiv.{0, 0} (ZMod n) (TauCeti.KummerCoeff.{0} F n) →
+                (∀ (g : TauCeti.AbsoluteGaloisGroup.{0} F) (x : TauCeti.KummerCoeff.{0} F n),
+                    Eq.{1} (HSMul.hSMul.{0, 0, 0} g x) x) →
+                  AddMonoidHom.{0, 0}
+                    (TauCeti.ContCohomology.H2.{0, 0} (Field.absoluteGaloisGroup.{0} F)
+                      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.ScalarCoeff (ZMod n)))
+                    (ZMod n)
+'ZInQ.Contrib.RC53Assist.LocalDegreeTwo.scalarH2Value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

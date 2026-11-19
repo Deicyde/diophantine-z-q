@@ -1,0 +1,70 @@
+{
+  "id": "Lemma 5.4",
+  "kind": "lemma",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, proved: corank_one proves, for an abstract group A = Z^r x T with #A[2] = 4 and data K whose level-one Selmer group has 8 elements, that the reduced part vanishes and r + d = 1. The Selmer groups, Sha and the Cassels-Tate pairing are fields of PrimaryData rather than the curve's own objects, so the lemma holds for a curve once that data is supplied.",
+  "relation": "closeMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 16,
+        "rect": [
+          0.107843,
+          0.498042,
+          0.784314,
+          0.043686
+        ]
+      },
+      "title": "Lemma 5.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 5.4"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "Sun28.Corank.corank_one",
+        "module": "Lean.Topics.sun-28.global-descent.common-pair.selmer-realization.local-image.corank.PrimaryLayers"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "Sun28.Corank.corank_one@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem corank_one {A T : Type} [AddCommGroup A] [AddCommGroup T] [Finite T]\n    (K : PrimaryData A) {r : ℕ} (split : A ≃+ (Fin r → ℤ) × T)\n    (tors : Nat.card (torsionAt A 2)=4) (eight : Nat.card (K.sel 1)=8) :\n    Subsingleton K.reduced ∧ r + K.d = 1 := by",
+            "line": 43,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/sun-28/global-descent/common-pair/selmer-realization/local-image/corank/PrimaryLayers.lean",
+            "fragment": "L43"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          16
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@ import ZInQKernel.Contrib.OneProof.RC.LineIndex.Reduction
 # Lifting the column spaces
 
 Tex 9040–9042. The completion of an integral preimage and its local generators are
-on-the-spot (c). In the two slope charts the generators have determinant `p`.
+proved here. In the two slope charts the generators have determinant `p`.
 -/
 
 noncomputable section

@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10 reference program and IR",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: decide5 and the big-step-semantics program precisionProgram compute accepts on every c in N^5, the program is total, and the Jacobian identities and halving scalar multiplication are proved, all without assumed hypotheses; [F] groups the Jacobian identities as items 1-8 rather than nine.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.465115,
+          0.784314,
+          0.135098
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10 reference program and IR",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10 reference program and IR"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.JTriple.jdbl_affine",
+        "module": "ZInQKernel.Compiler.Precision.Jacobian"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.JTriple.jdbl_affine@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem jdbl_affine (A : F) (P : JTriple F) (h2 : (2 : F) ≠ 0) (hY : P.Y ≠ 0) (hZ : P.Z ≠ 0) :\n    let x := P.X / P.Z ^ 2\n    let y := P.Y / P.Z ^ 3\n    let l := (3 * x ^ 2 + A) / (2 * y)\n    (jdbl A P).Z ≠ 0 ∧ l = (3 * P.X ^ 2 + A * P.Z ^ 4) / (jdbl A P).Z ∧\n      (jdbl A P).X / (jdbl A P).Z ^ 2 = l ^ 2 - 2 * x ∧\n      (jdbl A P).Y / (jdbl A P).Z ^ 3 = l * (x - (jdbl A P).X / (jdbl A P).Z ^ 2) - y := by",
+            "line": 202,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/Jacobian.lean",
+            "fragment": "L202"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

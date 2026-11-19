@@ -3,10 +3,10 @@ import ZInQKernel.Contrib.CloudB3RC53.SwitchInputs.DerivativeSides
 /-!
 # RC53 SwitchInputs: the finite and singular derivative sides on the genuine cochains; coordinates
 
-Manuscript `diophantine_zq.tex`, tex L5027–5037 and L5068–5083: at a new inert derivative prime the
+Manuscript `diophantine_zq.tex`, tex L5027–5037 and L5060–5082: at a new inert derivative prime the
 local conditions are `D⁰ ⊂ D⁰ ⊕ F[−1], D⁰ ⊕ S[−1] ⊂ D⁰ ⊕ (F ⊕ S)[−1]`, with `F` the finite
-(unramified) plane and `S` the singular plane. `DerivativeSides.lean` proved the local homology facts
-of the quotient complexes for an abstract side condition `SideCond` (`A_F`, `B_F`, `hcob`).
+(unramified) plane and `S` the singular plane. `DerivativeSides.lean` proved the local homology
+facts of the quotient complexes for an abstract side condition `SideCond` (`A_F`, `B_F`, `hcob`).
 
 This file instantiates the sides on the genuine continuous cochains `C^•_cont(G, M)` of the other
 team's lane:
@@ -90,7 +90,7 @@ theorem relaxedD_ev (a : (contCochains (ZMod 2) G M).X 0) (g : G) :
   exact h
 
 /-- **The side condition of a set `T ⊆ G`**: `A = M^T`, `B = {z ∈ Z¹ | z(h) = 0, h ∈ T}`
-(tex L5068–5083). `hcob` holds since `(d⁰a)(h) = h • a − a`. PROVED. -/
+(tex L5060–5082). `hcob` holds since `(d⁰a)(h) = h • a − a`. PROVED. -/
 def sideOfSet (T : Set G) : SideCond G M where
   AF := ⨅ h : T, LinearMap.ker ((DistribSMul.toLinearMap (ZMod 2) M (h : G) - LinearMap.id) ∘ₗ ev0L)
   BF := ⨅ h : T, LinearMap.ker (ev1L (h : G) ∘ₗ (Z1 G M).subtype)
@@ -124,15 +124,15 @@ theorem mem_sideOfSet_BF (T : Set G) (z : Z1 G M) :
   rfl
 
 /-- **The finite side**: cocycles vanishing on the inertia subgroup `I` (the unramified cocycles),
-`A_F = M^I` (tex L5027–5037, L5068–5072). Its `hcob` is the inertia statement "an unramified
+`A_F = M^I` (tex L5027–5037, L5060–5061). Its `hcob` is the inertia statement "an unramified
 coboundary comes from an inertia invariant". PROVED. -/
 def finiteSide (I : Subgroup G) : SideCond G M := sideOfSet (I : Set G)
 
 /-- **The singular side** for a Frobenius lift `φ`: cocycles with `z(φ) = 0`, `A_S = M^φ`. -/
 def singularSide (φ : G) : SideCond G M := sideOfSet ({φ} : Set G)
 
-/-- **Both derivative sides have the quasi-side homology** (tex L5072–5083): `h0`, `hi`, `hpi` on the
-explicit `H¹` models. PROVED. -/
+/-- **Both derivative sides have the quasi-side homology** (tex L5072–5083): `h0`, `hi`, `hpi` on
+the explicit `H¹` models. PROVED. -/
 theorem derivativeSides_quotients (I : Subgroup G) (φ : G) :
     SideQuotientsGenuine (finiteSide (M := M) I) ∧ SideQuotientsGenuine (singularSide (M := M) φ) :=
   ⟨sideQuotientsGenuine_proof _, sideQuotientsGenuine_proof _⟩
@@ -235,8 +235,8 @@ theorem coordEquiv_mk {I : Subgroup G} {φ σ : G} (T : TameCoordinates (M := M)
 theorem H1i_mk (c : SideCond G M) (b : c.BF) :
     c.H1i (Submodule.Quotient.mk b) = Submodule.Quotient.mk (b : Z1 G M) := rfl
 
-/-- **The finite side is the finite plane** (tex L5027–5037): the image of `H¹` of the finite side in
-the coordinates is `finPlane`. PROVED (from the tame coordinates). -/
+/-- **The finite side is the finite plane** (tex L5027–5037): the image of `H¹` of the finite side
+in the coordinates is `finPlane`. PROVED (from the tame coordinates). -/
 theorem finite_plane {I : Subgroup G} {φ σ : G} (T : TameCoordinates (M := M) I φ σ)
     (eM : M ≃ₗ[ZMod 2] (Fin 2 → ZMod 2)) :
     (LinearMap.range (finiteSide (M := M) I).H1i).map (coordEquiv T eM).toLinearMap =
@@ -261,7 +261,8 @@ theorem finite_plane {I : Subgroup G} {φ σ : G} (T : TameCoordinates (M := M) 
         (mem_sideOfSet_BF (M := M) (I : Set G) z).mpr (T.hI z hz)
       exact ⟨_, ⟨Submodule.Quotient.mk ⟨z, hmem⟩, rfl⟩, rfl⟩
 
-/-- **The singular side is the singular plane** (tex L5027–5037). PROVED (from the tame coordinates). -/
+/-- **The singular side is the singular plane** (tex L5027–5037). PROVED (from the tame
+coordinates). -/
 theorem singular_plane {I : Subgroup G} {φ σ : G} (T : TameCoordinates (M := M) I φ σ)
     (eM : M ≃ₗ[ZMod 2] (Fin 2 → ZMod 2)) :
     (LinearMap.range (singularSide (M := M) φ).H1i).map (coordEquiv T eM).toLinearMap =

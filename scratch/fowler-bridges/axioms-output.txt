@@ -1,0 +1,37 @@
+ 02:55:50 up 2 days,  1:22,  6 users,  load average: 17.37, 22.06, 22.51
+               total        used        free      shared  buff/cache   available
+Mem:             235          86          40           0         111         149
+Swap:            255          77         178
+'HDec.CMBranch.FowlerBridges.toOrder' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.exists_intBasis_of_isImagQuadOrder' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.FowlerBridges.toOrder_index_eq_conductor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.orderDisc_eq_discr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.orderDisc_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.discr_intBasis_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.orderDisc_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.finite_pic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.card_pic_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.exists_fractionalIdeal_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.proper_iff_isUnit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.properIdealClassesEquivClassGroup' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.FowlerBridges.finite_properIdealClasses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.card_pic_eq_properClassNumber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.fowlerProp27_of_print' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.PrimitivePositiveForm.four_mul_eval' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.FowlerBridges.PrimitivePositiveForm.eval_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.properFormSetoid_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.card_pic_eq_card_properFormClasses_of' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerBridgesIdeals.0.HDec.CMBranch.FowlerBridges.exists_noninteger' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerBridgesIdeals.0.HDec.CMBranch.FowlerBridges.mul_mem_of_mem_pair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

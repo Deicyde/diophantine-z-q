@@ -1,0 +1,47 @@
+{
+  "id": "Eq (G.4a)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] does not formalize the proof of Theorem 5.3 (restricted converse); it takes that theorem as the assumed hypothesis RestrictedConverseGenuine, and no declaration states this congruence b_1 in 2O_coef inside the proof of Proposition G.4.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 135,
+        "rect": [
+          0.107843,
+          0.682051,
+          0.784314,
+          0.03024
+        ]
+      },
+      "title": "Eq. (G.4a)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (G.4a)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          135
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

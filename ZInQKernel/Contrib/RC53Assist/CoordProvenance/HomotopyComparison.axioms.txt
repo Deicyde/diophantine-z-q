@@ -1,0 +1,2054 @@
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+    u_9} : {K : Type u_1} →
+  [inst : Field.{u_1} K] →
+    {ι0 : Type u_2} →
+      {ι1 : Type u_3} →
+        {ι2 : Type u_4} →
+          {ι3 : Type u_5} →
+            {ι0' : Type u_6} →
+              {ι1' : Type u_7} →
+                {ι2' : Type u_8} →
+                  {ι3' : Type u_9} →
+                    [inst_1 : Fintype.{u_3} ι1] →
+                      [inst_2 : Fintype.{u_4} ι2] →
+                        [Fintype.{u_5} ι3] →
+                          [Fintype.{u_6} ι0'] →
+                            [inst_5 : Fintype.{u_7} ι1'] →
+                              [inst_6 : Fintype.{u_8} ι2'] →
+                                ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3 →
+                                  ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3' →
+                                    (ι1 → K) →
+                                      (ι2 → K) →
+                                        (ι1' → K) →
+                                          (ι2' → K) →
+                                            Type
+                                              (max
+                                                  (max (max (max (max (max (max (max u_1 u_2) u_3) u_4) u_5) u_6) u_7)
+                                                      u_8)
+                                                  u_9)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.class_discrepancy.{u_1, u_2, u_3, u_4, u_5, u_6,
+    u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_3} ι1]
+  [inst_2 : Fintype.{u_4} ι2] [inst_3 : Fintype.{u_5} ι3] [inst_4 : Fintype.{u_6} ι0'] [inst_5 : Fintype.{u_7} ι1']
+  [inst_6 : Fintype.{u_8} ι2'] {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD),
+  Eq.{max (u_1 + 1) (u_7 + 1)}
+    (HSub.hSub.{max u_1 u_7, max u_1 u_7, max u_1 u_7}
+      (Matrix.mulVec.{u_1, u_7, u_3}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f1.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+              u_8, u_9}
+            H))
+        zC)
+      zD)
+    (Matrix.mulVec.{u_1, u_7, u_6} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_6, u_7, u_8, u_9} D)
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.classBoundary.{u_1, u_2, u_3, u_4, u_5, u_6,
+          u_7, u_8, u_9}
+        H))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.class_discrepancy' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.functional_on_cycles.{u_1, u_2, u_3, u_4, u_5, u_6,
+    u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_3} ι1]
+  [inst_2 : Fintype.{u_4} ι2] [inst_3 : Fintype.{u_5} ι3] [inst_4 : Fintype.{u_6} ι0'] [inst_5 : Fintype.{u_7} ι1']
+  [inst_6 : Fintype.{u_8} ι2'] {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD)
+  (w : ι2 → K),
+  Eq.{max (u_1 + 1) (u_5 + 1)}
+      (Matrix.mulVec.{u_1, u_5, u_4} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C) w) 0 →
+    Eq.{u_1 + 1}
+      (dotProduct.{u_1, u_8} lD
+        (Matrix.mulVec.{u_1, u_8, u_4}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f2.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+                u_8, u_9}
+              H))
+          w))
+      (dotProduct.{u_1, u_4} lC w)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.functional_on_cycles' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f0aug.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+    u_9} : {K : Type u_1} →
+  [inst : Field.{u_1} K] →
+    {ι0 : Type u_2} →
+      {ι1 : Type u_3} →
+        {ι2 : Type u_4} →
+          {ι3 : Type u_5} →
+            {ι0' : Type u_6} →
+              {ι1' : Type u_7} →
+                {ι2' : Type u_8} →
+                  {ι3' : Type u_9} →
+                    [inst_1 : Fintype.{u_3} ι1] →
+                      [inst_2 : Fintype.{u_4} ι2] →
+                        [inst_3 : Fintype.{u_5} ι3] →
+                          [inst_4 : Fintype.{u_6} ι0'] →
+                            [inst_5 : Fintype.{u_7} ι1'] →
+                              [inst_6 : Fintype.{u_8} ι2'] →
+                                {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3} →
+                                  {D :
+                                      ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2'
+                                        ι3'} →
+                                    {zC : ι1 → K} →
+                                      {lC : ι2 → K} →
+                                        {zD : ι1' → K} →
+                                          {lD : ι2' → K} →
+                                            ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1,
+                                                  u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+                                                C D zC lC zD lD →
+                                              Matrix.{u_6, u_2, u_1} (Sum.{u_6, 0} ι0' Unit) (Sum.{u_2, 0} ι0 Unit) K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f0aug' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f3aug.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+    u_9} : {K : Type u_1} →
+  [inst : Field.{u_1} K] →
+    {ι0 : Type u_2} →
+      {ι1 : Type u_3} →
+        {ι2 : Type u_4} →
+          {ι3 : Type u_5} →
+            {ι0' : Type u_6} →
+              {ι1' : Type u_7} →
+                {ι2' : Type u_8} →
+                  {ι3' : Type u_9} →
+                    [inst_1 : Fintype.{u_3} ι1] →
+                      [inst_2 : Fintype.{u_4} ι2] →
+                        [inst_3 : Fintype.{u_5} ι3] →
+                          [inst_4 : Fintype.{u_6} ι0'] →
+                            [inst_5 : Fintype.{u_7} ι1'] →
+                              [inst_6 : Fintype.{u_8} ι2'] →
+                                {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3} →
+                                  {D :
+                                      ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2'
+                                        ι3'} →
+                                    {zC : ι1 → K} →
+                                      {lC : ι2 → K} →
+                                        {zD : ι1' → K} →
+                                          {lD : ι2' → K} →
+                                            ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1,
+                                                  u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+                                                C D zC lC zD lD →
+                                              Matrix.{u_9, u_5, u_1} (Sum.{u_9, 0} ι3' Unit) (Sum.{u_5, 0} ι3 Unit) K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f3aug' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f3aug_value.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+    u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_3} ι1]
+  [inst_2 : Fintype.{u_4} ι2] [inst_3 : Fintype.{u_5} ι3] [inst_4 : Fintype.{u_6} ι0'] [inst_5 : Fintype.{u_7} ι1']
+  [inst_6 : Fintype.{u_8} ι2'] {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD)
+  (r : ι3 → K) (a : K),
+  Eq.{max (u_1 + 1) (u_9 + 1)}
+    (Matrix.mulVec.{u_1, u_9, u_5}
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f3aug.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+          u_8, u_9}
+        H)
+      (Sum.elim.{u_5, 0, u_1 + 1} r fun x => a))
+    (Sum.elim.{u_9, 0, u_1 + 1}
+      (Matrix.mulVec.{u_1, u_9, u_5}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f3.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+              u_8, u_9}
+            H))
+        r)
+      fun x =>
+      HAdd.hAdd.{u_1, u_1, u_1} a
+        (dotProduct.{u_1, u_5}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.functionalBoundary.{u_1, u_2, u_3, u_4,
+              u_5, u_6, u_7, u_8, u_9}
+            H)
+          r))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f3aug_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.comm0_aug.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_3} ι1]
+  [inst_2 : Fintype.{u_4} ι2] [inst_3 : Fintype.{u_5} ι3] [inst_4 : Fintype.{u_6} ι0'] [inst_5 : Fintype.{u_7} ι1']
+  [inst_6 : Fintype.{u_8} ι2'] {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD),
+  Eq.{max (max (u_1 + 1) (u_2 + 1)) (u_7 + 1)}
+    (HMul.hMul.{max (max u_1 u_6) u_7, max (max u_1 u_2) u_6, max (max u_1 u_2) u_7}
+      (Matrix.fromCols.{u_1, u_7, u_6, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_6, u_7, u_8, u_9} D)
+        (Matrix.replicateCol.{u_1, u_7, 0} Unit zD))
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f0aug.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+          u_8, u_9}
+        H))
+    (HMul.hMul.{max (max u_1 u_3) u_7, max (max u_1 u_2) u_3, max (max u_1 u_2) u_7}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f1.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+            u_9}
+          H))
+      (Matrix.fromCols.{u_1, u_3, u_2, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{u_1, u_2, u_3, u_4, u_5} C)
+        (Matrix.replicateCol.{u_1, u_3, 0} Unit zC)))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.comm0_aug' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.comm2_aug.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_3} ι1]
+  [inst_2 : Fintype.{u_4} ι2] [inst_3 : Fintype.{u_5} ι3] [inst_4 : Fintype.{u_6} ι0'] [inst_5 : Fintype.{u_7} ι1']
+  [inst_6 : Fintype.{u_8} ι2'] {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD),
+  Eq.{max (max (u_1 + 1) (u_4 + 1)) (u_9 + 1)}
+    (HMul.hMul.{max (max u_1 u_8) u_9, max (max u_1 u_4) u_8, max (max u_1 u_4) u_9}
+      (Matrix.fromRows.{u_1, u_9, 0, u_8} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_6, u_7, u_8, u_9} D)
+        (Matrix.replicateRow.{u_1, u_8, 0} Unit lD))
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f2.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+            u_9}
+          H)))
+    (HMul.hMul.{max (max u_1 u_5) u_9, max (max u_1 u_4) u_5, max (max u_1 u_4) u_9}
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f3aug.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+          u_8, u_9}
+        H)
+      (Matrix.fromRows.{u_1, u_5, 0, u_4} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{u_1, u_2, u_3, u_4, u_5} C)
+        (Matrix.replicateRow.{u_1, u_4, 0} Unit lC)))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.comm2_aug' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8,
+    u_9} : {K : Type u_1} →
+  [inst : Field.{u_1} K] →
+    {ι0 : Type u_2} →
+      {ι1 : Type u_3} →
+        {ι2 : Type u_4} →
+          {ι3 : Type u_5} →
+            {ι0' : Type u_6} →
+              {ι1' : Type u_7} →
+                {ι2' : Type u_8} →
+                  {ι3' : Type u_9} →
+                    [inst_1 : Fintype.{u_2} ι0] →
+                      [inst_2 : Fintype.{u_3} ι1] →
+                        [inst_3 : Fintype.{u_4} ι2] →
+                          [inst_4 : Fintype.{u_5} ι3] →
+                            [inst_5 : Fintype.{u_6} ι0'] →
+                              [inst_6 : Fintype.{u_7} ι1'] →
+                                [inst_7 : Fintype.{u_8} ι2'] →
+                                  [inst_8 : Fintype.{u_9} ι3'] →
+                                    {C :
+                                        ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2
+                                          ι3} →
+                                      {D :
+                                          ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1'
+                                            ι2' ι3'} →
+                                        {zC : ι1 → K} →
+                                          {lC : ι2 → K} →
+                                            {zD : ι1' → K} →
+                                              {lD : ι2' → K} →
+                                                ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1,
+                                                      u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+                                                    C D zC lC zD lD →
+                                                  (hzC :
+                                                      Eq.{max (u_1 + 1) (u_4 + 1)}
+                                                        (Matrix.mulVec.{u_1, u_4, u_3}
+                                                          (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3,
+                                                              u_4, u_5}
+                                                            C)
+                                                          zC)
+                                                        0) →
+                                                    (hlC :
+                                                        Eq.{max (u_1 + 1) (u_3 + 1)}
+                                                          (Matrix.vecMul.{u_1, u_4, u_3} lC
+                                                            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3,
+                                                                u_4, u_5}
+                                                              C))
+                                                          0) →
+                                                      (hzD :
+                                                          Eq.{max (u_1 + 1) (u_8 + 1)}
+                                                            (Matrix.mulVec.{u_1, u_8, u_7}
+                                                              (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6,
+                                                                  u_7, u_8, u_9}
+                                                                D)
+                                                              zD)
+                                                            0) →
+                                                        (hlD :
+                                                            Eq.{max (u_1 + 1) (u_7 + 1)}
+                                                              (Matrix.vecMul.{u_1, u_8, u_7} lD
+                                                                (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6,
+                                                                    u_7, u_8, u_9}
+                                                                  D))
+                                                              0) →
+                                                          ZInQ.Contrib.CloudB3RC53.Torsion.ChainMapB.{u_1, max u_2 u_4,
+                                                              max u_3 u_5, max u_6 u_8, max u_7 u_9}
+                                                            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_2,
+                                                                u_3, u_4, u_5}
+                                                              (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_2,
+                                                                  u_3, u_4, u_5}
+                                                                C zC lC hzC hlC))
+                                                            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_6,
+                                                                u_7, u_8, u_9}
+                                                              (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_6,
+                                                                  u_7, u_8, u_9}
+                                                                D zD lD hzD hlD))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.kmCoord_eq_of_augmented_comparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+    u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_2} ι0]
+  [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3] [inst_5 : Fintype.{u_6} ι0']
+  [inst_6 : Fintype.{u_7} ι1'] [inst_7 : Fintype.{u_8} ι2'] [inst_8 : Fintype.{u_9} ι3']
+  [inst_9 : DecidableEq.{u_2 + 1} ι0] [inst_10 : DecidableEq.{u_3 + 1} ι1] [inst_11 : DecidableEq.{u_4 + 1} ι2]
+  [inst_12 : DecidableEq.{u_5 + 1} ι3] [inst_13 : DecidableEq.{u_6 + 1} ι0'] [inst_14 : DecidableEq.{u_7 + 1} ι1']
+  [inst_15 : DecidableEq.{u_8 + 1} ι2'] [inst_16 : DecidableEq.{u_9 + 1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (hzC :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) zC) 0)
+  (hlC :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (hzD :
+    Eq.{max (u_1 + 1) (u_8 + 1)}
+      (Matrix.mulVec.{u_1, u_8, u_7} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D) zD) 0)
+  (hlD :
+    Eq.{max (u_1 + 1) (u_7 + 1)}
+      (Matrix.vecMul.{u_1, u_8, u_7} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D)) 0)
+  (f :
+    ZInQ.Contrib.CloudB3RC53.Torsion.ChainMapB.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_2, u_3, u_4, u_5}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_2, u_3, u_4, u_5} C zC lC hzC hlC))
+      (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.toBased.{u_1, u_6, u_7, u_8, u_9}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.aug.{u_1, u_6, u_7, u_8, u_9} D zD lD hzD hlD)))
+  (σC :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))
+  (σD :
+    Equiv.{max (u_8 + 1) (u_6 + 1), max (u_9 + 1) (u_7 + 1)} (Sum.{u_6, u_8} (Sum.{u_6, 0} ι0' Unit) ι2')
+      (Sum.{u_7, u_9} ι1' (Sum.{u_9, 0} ι3' Unit))),
+  Ne.{u_1 + 1}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9} f)
+        (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+          (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))
+      0 →
+    Eq.{u_1 + 1} (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C zC lC hzC hlC σC)
+      (HMul.hMul.{u_1, u_1, u_1}
+        (HMul.hMul.{u_1, u_1, u_1}
+          (HPow.hPow.{u_1, 0, u_1} (-1) (Fintype.card.{max u_5 u_3} (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit))))
+          (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_6, u_7, u_8, u_9} D zD lD hzD hlD σD))
+        (Inv.inv.{u_1}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+            (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9} f)
+            (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+              (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.kmCoord_eq_of_augmented_comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_formula.{u_1, u_2, u_3, u_4, u_5, u_6,
+    u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_2} ι0]
+  [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3] [inst_5 : Fintype.{u_6} ι0']
+  [inst_6 : Fintype.{u_7} ι1'] [inst_7 : Fintype.{u_8} ι2'] [inst_8 : Fintype.{u_9} ι3']
+  [inst_9 : DecidableEq.{u_2 + 1} ι0] [inst_10 : DecidableEq.{u_3 + 1} ι1] [inst_11 : DecidableEq.{u_4 + 1} ι2]
+  [inst_12 : DecidableEq.{u_5 + 1} ι3] [inst_13 : DecidableEq.{u_6 + 1} ι0'] [inst_14 : DecidableEq.{u_7 + 1} ι1']
+  [inst_15 : DecidableEq.{u_8 + 1} ι2'] [inst_16 : DecidableEq.{u_9 + 1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD)
+  (hzC :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) zC) 0)
+  (hlC :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (hzD :
+    Eq.{max (u_1 + 1) (u_8 + 1)}
+      (Matrix.mulVec.{u_1, u_8, u_7} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D) zD) 0)
+  (hlD :
+    Eq.{max (u_1 + 1) (u_7 + 1)}
+      (Matrix.vecMul.{u_1, u_8, u_7} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D)) 0)
+  (σC :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))
+  (σD :
+    Equiv.{max (u_8 + 1) (u_6 + 1), max (u_9 + 1) (u_7 + 1)} (Sum.{u_6, u_8} (Sum.{u_6, 0} ι0' Unit) ι2')
+      (Sum.{u_7, u_9} ι1' (Sum.{u_9, 0} ι3' Unit))),
+  Ne.{u_1 + 1}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, u_2, u_3, u_4, u_5, u_6,
+              u_7, u_8, u_9}
+            H hzC hlC hzD hlD))
+        (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+          (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))
+      0 →
+    Eq.{u_1 + 1} (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C zC lC hzC hlC σC)
+      (HMul.hMul.{u_1, u_1, u_1}
+        (HMul.hMul.{u_1, u_1, u_1}
+          (HPow.hPow.{u_1, 0, u_1} (-1) (Fintype.card.{max u_5 u_3} (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit))))
+          (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_6, u_7, u_8, u_9} D zD lD hzD hlD σD))
+        (Inv.inv.{u_1}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+            (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, u_2, u_3, u_4, u_5, u_6,
+                  u_7, u_8, u_9}
+                H hzC hlC hzD hlD))
+            (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+              (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_formula' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{u_1, u_2, u_3, u_4, u_5, u_6, u_7,
+    u_8,
+    u_9} : {K : Type u_1} →
+  [inst : Field.{u_1} K] →
+    {ι0 : Type u_2} →
+      {ι1 : Type u_3} →
+        {ι2 : Type u_4} →
+          {ι3 : Type u_5} →
+            {ι0' : Type u_6} →
+              {ι1' : Type u_7} →
+                {ι2' : Type u_8} →
+                  {ι3' : Type u_9} →
+                    [Fintype.{u_2} ι0] →
+                      [inst_2 : Fintype.{u_3} ι1] →
+                        [inst_3 : Fintype.{u_4} ι2] →
+                          [inst_4 : Fintype.{u_5} ι3] →
+                            [inst_5 : Fintype.{u_6} ι0'] →
+                              [inst_6 : Fintype.{u_7} ι1'] →
+                                [inst_7 : Fintype.{u_8} ι2'] →
+                                  [Fintype.{u_9} ι3'] →
+                                    [DecidableEq.{u_2 + 1} ι0] →
+                                      [DecidableEq.{u_3 + 1} ι1] →
+                                        [DecidableEq.{u_4 + 1} ι2] →
+                                          [DecidableEq.{u_5 + 1} ι3] →
+                                            [DecidableEq.{u_6 + 1} ι0'] →
+                                              [DecidableEq.{u_7 + 1} ι1'] →
+                                                [DecidableEq.{u_8 + 1} ι2'] →
+                                                  [DecidableEq.{u_9 + 1} ι3'] →
+                                                    {C :
+                                                        ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4,
+                                                            u_5}
+                                                          K ι0 ι1 ι2 ι3} →
+                                                      {D :
+                                                          ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8,
+                                                              u_9}
+                                                            K ι0' ι1' ι2' ι3'} →
+                                                        {zC : ι1 → K} →
+                                                          {lC : ι2 → K} →
+                                                            {zD : ι1' → K} →
+                                                              {lD : ι2' → K} →
+                                                                ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1,
+                                                                      u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+                                                                    C D zC lC zD lD →
+                                                                  Eq.{max (u_1 + 1) (u_4 + 1)}
+                                                                      (Matrix.mulVec.{u_1, u_4, u_3}
+                                                                        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1,
+                                                                            u_2, u_3, u_4, u_5}
+                                                                          C)
+                                                                        zC)
+                                                                      0 →
+                                                                    Eq.{max (u_1 + 1) (u_3 + 1)}
+                                                                        (Matrix.vecMul.{u_1, u_4, u_3} lC
+                                                                          (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1,
+                                                                              u_2, u_3, u_4, u_5}
+                                                                            C))
+                                                                        0 →
+                                                                      Eq.{max (u_1 + 1) (u_8 + 1)}
+                                                                          (Matrix.mulVec.{u_1, u_8, u_7}
+                                                                            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1,
+                                                                                u_6, u_7, u_8, u_9}
+                                                                              D)
+                                                                            zD)
+                                                                          0 →
+                                                                        Eq.{max (u_1 + 1) (u_7 + 1)}
+                                                                            (Matrix.vecMul.{u_1, u_8, u_7} lD
+                                                                              (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1,
+                                                                                  u_6, u_7, u_8, u_9}
+                                                                                D))
+                                                                            0 →
+                                                                          Equiv.{max (u_4 + 1) (u_2 + 1),
+                                                                                max (u_5 + 1) (u_3 + 1)}
+                                                                              (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+                                                                              (Sum.{u_3, u_5} ι1
+                                                                                (Sum.{u_5, 0} ι3 Unit)) →
+                                                                            Equiv.{max (u_8 + 1) (u_6 + 1),
+                                                                                  max (u_9 + 1) (u_7 + 1)}
+                                                                                (Sum.{u_6, u_8} (Sum.{u_6, 0} ι0' Unit)
+                                                                                  ι2')
+                                                                                (Sum.{u_7, u_9} ι1'
+                                                                                  (Sum.{u_9, 0} ι3' Unit)) →
+                                                                              K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor_ne_zero.{u_1, u_2, u_3, u_4, u_5,
+    u_6, u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_2} ι0]
+  [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3] [inst_5 : Fintype.{u_6} ι0']
+  [inst_6 : Fintype.{u_7} ι1'] [inst_7 : Fintype.{u_8} ι2'] [inst_8 : Fintype.{u_9} ι3']
+  [inst_9 : DecidableEq.{u_2 + 1} ι0] [inst_10 : DecidableEq.{u_3 + 1} ι1] [inst_11 : DecidableEq.{u_4 + 1} ι2]
+  [inst_12 : DecidableEq.{u_5 + 1} ι3] [inst_13 : DecidableEq.{u_6 + 1} ι0'] [inst_14 : DecidableEq.{u_7 + 1} ι1']
+  [inst_15 : DecidableEq.{u_8 + 1} ι2'] [inst_16 : DecidableEq.{u_9 + 1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD)
+  (hzC :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) zC) 0)
+  (hlC :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (hzD :
+    Eq.{max (u_1 + 1) (u_8 + 1)}
+      (Matrix.mulVec.{u_1, u_8, u_7} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D) zD) 0)
+  (hlD :
+    Eq.{max (u_1 + 1) (u_7 + 1)}
+      (Matrix.vecMul.{u_1, u_8, u_7} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D)) 0)
+  (σC :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))
+  (σD :
+    Equiv.{max (u_8 + 1) (u_6 + 1), max (u_9 + 1) (u_7 + 1)} (Sum.{u_6, u_8} (Sum.{u_6, 0} ι0' Unit) ι2')
+      (Sum.{u_7, u_9} ι1' (Sum.{u_9, 0} ι3' Unit))),
+  Ne.{u_1 + 1}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, u_2, u_3, u_4, u_5, u_6,
+              u_7, u_8, u_9}
+            H hzC hlC hzD hlD))
+        (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+          (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))
+      0 →
+    Ne.{u_1 + 1}
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{u_1, u_2, u_3, u_4, u_5, u_6,
+          u_7, u_8, u_9}
+        H hzC hlC hzD hlD σC σD)
+      0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_in_original_basis.{u_1, u_2, u_3, u_4,
+    u_5, u_6, u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_2} ι0]
+  [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3] [inst_5 : Fintype.{u_6} ι0']
+  [inst_6 : Fintype.{u_7} ι1'] [inst_7 : Fintype.{u_8} ι2'] [inst_8 : Fintype.{u_9} ι3']
+  [inst_9 : DecidableEq.{u_2 + 1} ι0] [inst_10 : DecidableEq.{u_3 + 1} ι1] [inst_11 : DecidableEq.{u_4 + 1} ι2]
+  [inst_12 : DecidableEq.{u_5 + 1} ι3] [inst_13 : DecidableEq.{u_6 + 1} ι0'] [inst_14 : DecidableEq.{u_7 + 1} ι1']
+  [inst_15 : DecidableEq.{u_8 + 1} ι2'] [inst_16 : DecidableEq.{u_9 + 1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD)
+  (hzC :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) zC) 0)
+  (hlC :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (hzD :
+    Eq.{max (u_1 + 1) (u_8 + 1)}
+      (Matrix.mulVec.{u_1, u_8, u_7} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D) zD) 0)
+  (hlD :
+    Eq.{max (u_1 + 1) (u_7 + 1)}
+      (Matrix.vecMul.{u_1, u_8, u_7} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D)) 0)
+  (σC :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))
+  (σD :
+    Equiv.{max (u_8 + 1) (u_6 + 1), max (u_9 + 1) (u_7 + 1)} (Sum.{u_6, u_8} (Sum.{u_6, 0} ι0' Unit) ι2')
+      (Sum.{u_7, u_9} ι1' (Sum.{u_9, 0} ι3' Unit))),
+  Ne.{u_1 + 1}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, u_2, u_3, u_4, u_5, u_6,
+              u_7, u_8, u_9}
+            H hzC hlC hzD hlD))
+        (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+          (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))
+      0 →
+    Eq.{u_1 + 1} (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C zC lC hzC hlC σC)
+      (HMul.hMul.{u_1, u_1, u_1}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{u_1, u_2, u_3, u_4, u_5,
+            u_6, u_7, u_8, u_9}
+          H hzC hlC hzD hlD σC σD)
+        (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_6, u_7, u_8, u_9} D zD lD hzD hlD σD))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_in_original_basis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_eq_of_retained_basis.{u_1, u_2, u_3,
+    u_4, u_5, u_6, u_7, u_8,
+    u_9} : ∀ {K : Type u_1} [inst : Field.{u_1} K] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5}
+  {ι0' : Type u_6} {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [inst_1 : Fintype.{u_2} ι0]
+  [inst_2 : Fintype.{u_3} ι1] [inst_3 : Fintype.{u_4} ι2] [inst_4 : Fintype.{u_5} ι3] [inst_5 : Fintype.{u_6} ι0']
+  [inst_6 : Fintype.{u_7} ι1'] [inst_7 : Fintype.{u_8} ι2'] [inst_8 : Fintype.{u_9} ι3']
+  [inst_9 : DecidableEq.{u_2 + 1} ι0] [inst_10 : DecidableEq.{u_3 + 1} ι1] [inst_11 : DecidableEq.{u_4 + 1} ι2]
+  [inst_12 : DecidableEq.{u_5 + 1} ι3] [inst_13 : DecidableEq.{u_6 + 1} ι0'] [inst_14 : DecidableEq.{u_7 + 1} ι1']
+  [inst_15 : DecidableEq.{u_8 + 1} ι2'] [inst_16 : DecidableEq.{u_9 + 1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_2, u_3, u_4, u_5} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, u_6, u_7, u_8, u_9} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H :
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9} C
+      D zC lC zD lD)
+  (hzC :
+    Eq.{max (u_1 + 1) (u_4 + 1)}
+      (Matrix.mulVec.{u_1, u_4, u_3} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C) zC) 0)
+  (hlC :
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      (Matrix.vecMul.{u_1, u_4, u_3} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_2, u_3, u_4, u_5} C)) 0)
+  (hzD :
+    Eq.{max (u_1 + 1) (u_8 + 1)}
+      (Matrix.mulVec.{u_1, u_8, u_7} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D) zD) 0)
+  (hlD :
+    Eq.{max (u_1 + 1) (u_7 + 1)}
+      (Matrix.vecMul.{u_1, u_8, u_7} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{u_1, u_6, u_7, u_8, u_9} D)) 0)
+  (σC :
+    Equiv.{max (u_4 + 1) (u_2 + 1), max (u_5 + 1) (u_3 + 1)} (Sum.{u_2, u_4} (Sum.{u_2, 0} ι0 Unit) ι2)
+      (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))
+  (σD :
+    Equiv.{max (u_8 + 1) (u_6 + 1), max (u_9 + 1) (u_7 + 1)} (Sum.{u_6, u_8} (Sum.{u_6, 0} ι0' Unit) ι2')
+      (Sum.{u_7, u_9} ι1' (Sum.{u_9, 0} ι3' Unit))),
+  Eq.{u_1 + 1}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, max (max u_6 u_8) u_3 u_5, max (max u_7 u_9) u_2 u_4}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, max u_2 u_4, max u_3 u_5, max u_6 u_8, max u_7 u_9}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, u_2, u_3, u_4, u_5, u_6,
+              u_7, u_8, u_9}
+            H hzC hlC hzD hlD))
+        (Equiv.sumCongr.{max u_7 u_9, max u_3 u_5, max u_2 u_4, max u_6 u_8} σD
+          (Equiv.symm.{max (u_2 + 1) (u_4 + 1), max (u_3 + 1) (u_5 + 1)} σC)))
+      (HPow.hPow.{u_1, 0, u_1} (-1) (Fintype.card.{max u_5 u_3} (Sum.{u_3, u_5} ι1 (Sum.{u_5, 0} ι3 Unit)))) →
+    Eq.{u_1 + 1} (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_2, u_3, u_4, u_5} C zC lC hzC hlC σC)
+      (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{u_1, u_6, u_7, u_8, u_9} D zD lD hzD hlD σD)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_eq_of_retained_basis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComplex.{u_1} : {K : Type u_1} →
+  [inst : Field.{u_1} K] → ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, 0, 0, 0, 0} K Empty Empty Unit Unit
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComplex' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailTarget.{u_1} : {K : Type u_1} →
+  [inst : Field.{u_1} K] → ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{u_1, 0, 0, 0, 0} K Empty Unit Unit Empty
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailTarget' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailOrientation : Equiv.{1, 1}
+  (Sum.{0, 0} (Sum.{0, 0} Empty Unit) Unit) (Sum.{0, 0} Empty (Sum.{0, 0} Unit Unit))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailOrientation' does not depend on any axioms
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison.{u_1} : {K : Type u_1} →
+  [inst : Field.{u_1} K] →
+    ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{u_1, 0, 0, 0, 0, 0, 0, 0, 0}
+      ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComplex.{u_1}
+      ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailTarget.{u_1} 0 1 0 0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison_off_diagonal.{u_1} : ∀ {K : Type u_1}
+  [inst : Field.{u_1} K] (r a : K),
+  Eq.{u_1 + 1}
+    (Matrix.mulVec.{u_1, 0, 0}
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f3aug.{u_1, 0, 0, 0, 0, 0, 0, 0, 0}
+        ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison.{u_1})
+      (Sum.elim.{0, 0, u_1 + 1} (fun x => r) fun x => a))
+    (Sum.elim.{0, 0, u_1 + 1} (fun e => Empty.elim.{u_1 + 1} e) fun x => HSub.hSub.{u_1, u_1, u_1} a r)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison_off_diagonal' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailConeContraction.{u_1} : {K : Type u_1} →
+  [inst : Field.{u_1} K] →
+    ZInQ.Contrib.CloudB3RC53.Torsion.Contraction.{u_1, 0, 0}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, 0, 0, 0, 0, 0, 0, 0, 0}
+          ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison.{u_1} ⋯ ⋯ ⋯ ⋯))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailConeContraction' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison_cone_torsion_ne_zero.{u_1} : ∀ {K : Type u_1}
+  [inst : Field.{u_1} K],
+  Ne.{u_1 + 1}
+    (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, 0, 0}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, 0, 0, 0, 0, 0, 0, 0, 0}
+          ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison.{u_1} ⋯ ⋯ ⋯ ⋯))
+      (Equiv.sumCongr.{0, 0, 0, 0} (Equiv.sumComm.{0, 0} (Sum.{0, 0} Empty Unit) Unit)
+        (Equiv.symm.{1, 1} ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailOrientation)))
+    0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison_cone_torsion_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailEvenEquiv : Equiv.{1, 1} (Fin 4)
+  (Sum.{0, 0} (Sum.{0, 0} (Sum.{0, 0} Empty Unit) Unit) (Sum.{0, 0} Empty (Sum.{0, 0} Unit Unit)))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailEvenEquiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison_retained_cone_basis.{u_1} : ∀ {K : Type u_1}
+  [inst : Field.{u_1} K],
+  Eq.{u_1 + 1}
+    (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{u_1, 0, 0}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{u_1, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{u_1, 0, 0, 0, 0, 0, 0, 0, 0}
+          ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison.{u_1} ⋯ ⋯ ⋯ ⋯))
+      (Equiv.sumCongr.{0, 0, 0, 0} (Equiv.sumComm.{0, 0} (Sum.{0, 0} Empty Unit) Unit)
+        (Equiv.symm.{1, 1} ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailOrientation)))
+    1
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tailComparison_retained_cone_basis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tail_functional_ne_zero.{u_1} : ∀ {K : Type u_1}
+  [inst : Field.{u_1} K], Ne.{u_1 + 1} 1 0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.tail_functional_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadIndex : Type → Type → Type → Type → ℤ → Type
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadIndex' does not depend on any axioms
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 : Type} →
+      [Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3 →
+              (n : ℤ) →
+                LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K)
+                  (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadIndex ι0 ι1 ι2 ι3 n → K)
+                  (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadIndex ι0 ι1 ι2 ι3 (HAdd.hAdd.{0, 0, 0} n 1) → K)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD_square : ∀ {K : Type} [inst : Field.{0} K] {ι0 ι1 ι2 ι3 : Type}
+  [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3) (n : ℤ)
+  (v : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadIndex ι0 ι1 ι2 ι3 n → K),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD C (HAdd.hAdd.{0, 0, 0} n 1))
+      ((ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD C n) v))
+    0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD_square' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 : Type} →
+      [Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3 →
+              ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.lift_linear_cycles : ∀ {K : Type} [inst : Field.{0} K] {ι : Type}
+  [Fintype.{0} ι] [DecidableEq.{1} ι] (E : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K),
+  ZInQ.Contrib.CloudB3RC53.SelmerDuality.GAcyclic.{0} E →
+    ∀ (n : ℤ)
+      (M :
+        LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (ι → K) ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} E n)),
+      (∀ (v : ι → K),
+          Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} E n (HAdd.hAdd.{0, 0, 0} n 1) ⋯) (M v)) 0) →
+        ∃ L,
+          ∀ (v : ι → K),
+            Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} E (HSub.hSub.{0, 0, 0} n 1) n ⋯) (L v)) (M v)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.lift_linear_cycles' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι κ : Type} →
+      [Fintype.{0} ι] →
+        [DecidableEq.{1} ι] → LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (ι → K) (κ → K) → Matrix.{0, 0, 0} κ ι K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf_mulVec : ∀ {K : Type} [inst : Field.{0} K] {ι κ : Type}
+  [inst_1 : Fintype.{0} ι] [inst_2 : DecidableEq.{1} ι] (F : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (ι → K) (κ → K))
+  (v : ι → K), Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf F) v) (F v)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf_mulVec' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf_chain : ∀ {K : Type} [inst : Field.{0} K] {a b c d : Type}
+  [inst_1 : Fintype.{0} a] [inst_2 : DecidableEq.{1} a] [inst_3 : Fintype.{0} b] [inst_4 : DecidableEq.{1} b]
+  [inst_5 : Fintype.{0} c] [DecidableEq.{1} c] [Fintype.{0} d] [DecidableEq.{1} d] (A : Matrix.{0, 0, 0} d c K)
+  (B : Matrix.{0, 0, 0} b a K) (F : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (a → K) (c → K))
+  (G : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (b → K) (d → K)),
+  (∀ (v : a → K), Eq.{1} (Matrix.mulVec.{0, 0, 0} A (F v)) (G (Matrix.mulVec.{0, 0, 0} B v))) →
+    Eq.{1} (HMul.hMul.{0, 0, 0} A (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf F))
+      (HMul.hMul.{0, 0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf G) B)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.matrixOf_chain' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} →
+      [inst_1 : Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            [Fintype.{0} ι3] →
+              [inst_5 : Fintype.{0} ι0'] →
+                [inst_6 : Fintype.{0} ι1'] →
+                  [inst_7 : Fintype.{0} ι2'] →
+                    (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3) →
+                      (D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3') →
+                        (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K) →
+                          ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                              (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S →
+                            ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                                (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S →
+                              Type
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_model_comparison : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1'] [inst_7 : Fintype.{0} ι2']
+  [Fintype.{0} ι3'] [DecidableEq.{1} ι0] [DecidableEq.{1} ι1] [DecidableEq.{1} ι2] [DecidableEq.{1} ι3]
+  [DecidableEq.{1} ι0'] [DecidableEq.{1} ι1'] [DecidableEq.{1} ι2'] [DecidableEq.{1} ι3']
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3)
+  (D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3')
+  (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K)
+  (ψC :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S)
+  (ψD :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψD) →
+    Nonempty.{1} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_model_comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMapLinear : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} →
+      [inst_1 : Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            [inst_4 : Fintype.{0} ι3] →
+              [inst_5 : Fintype.{0} ι0'] →
+                [inst_6 : Fintype.{0} ι1'] →
+                  [inst_7 : Fintype.{0} ι2'] →
+                    {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3} →
+                      {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} →
+                        ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D →
+                          (n : ℤ) →
+                            LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K)
+                              ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                                  (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) n)
+                              ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                                  (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) n)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMapLinear' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMapLinear_comm : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1'] [inst_7 : Fintype.{0} ι2']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'}
+  (F : ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D) (n : ℤ)
+  (v :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C)
+        n)),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMapLinear F (HAdd.hAdd.{0, 0, 0} n 1))
+      ((ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD C n) v))
+    ((ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadD D n)
+      ((ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMapLinear F n) v))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMapLinear_comm' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} →
+      [inst_1 : Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            [inst_4 : Fintype.{0} ι3] →
+              [inst_5 : Fintype.{0} ι0'] →
+                [inst_6 : Fintype.{0} ι1'] →
+                  [inst_7 : Fintype.{0} ι2'] →
+                    {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3} →
+                      {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} →
+                        ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D →
+                          ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C)
+                            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.homotopyComponent : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} →
+      [inst_1 : Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            [inst_4 : Fintype.{0} ι3] →
+              [inst_5 : Fintype.{0} ι0'] →
+                [inst_6 : Fintype.{0} ι1'] →
+                  [inst_7 : Fintype.{0} ι2'] →
+                    {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3} →
+                      {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} →
+                        {S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K} →
+                          {ψC :
+                              ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                                (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S} →
+                            {ψD :
+                                ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                                  (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S} →
+                              ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD →
+                                (i j : ℤ) →
+                                  Quiver.Hom.{0, 1}
+                                    (HomologicalComplex.X.{0, 1, 0}
+                                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0}
+                                        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C))
+                                      i)
+                                    (HomologicalComplex.X.{0, 1, 0}
+                                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.toCC.{0} S) j)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.homotopyComponent' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.toCCHomotopy : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} →
+      [inst_1 : Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            [inst_4 : Fintype.{0} ι3] →
+              [inst_5 : Fintype.{0} ι0'] →
+                [inst_6 : Fintype.{0} ι1'] →
+                  [inst_7 : Fintype.{0} ι2'] →
+                    {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3} →
+                      {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} →
+                        {S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K} →
+                          {ψC :
+                              ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                                (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S} →
+                            {ψD :
+                                ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                                  (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S} →
+                              (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD) →
+                                Homotopy.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψC)
+                                  (CategoryTheory.CategoryStruct.comp.{0, 1}
+                                    (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0}
+                                      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap H.f))
+                                    (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψD))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.toCCHomotopy' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.quasiIso : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1'] [inst_7 : Fintype.{0} ι2']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'}
+  {S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K}
+  {ψC :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S}
+  {ψD :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψC) →
+    QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψD) →
+      QuasiIso.{0, 1, 0}
+        (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap H.f))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.evenVector : {K ι1 ι3 ι0' ι2' : Type} →
+  (ι0' → K) →
+    K →
+      (ι2' → K) →
+        (ι1 → K) →
+          (ι3 → K) → K → Sum.{0, 0} (Sum.{0, 0} (Sum.{0, 0} ι0' Unit) ι2') (Sum.{0, 0} ι1 (Sum.{0, 0} ι3 Unit)) → K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.evenVector' does not depend on any axioms
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.oddVector : {K ι0 ι2 ι1' ι3' : Type} →
+  (ι1' → K) →
+    (ι3' → K) →
+      K →
+        (ι0 → K) →
+          K → (ι2 → K) → Sum.{0, 0} (Sum.{0, 0} ι1' (Sum.{0, 0} ι3' Unit)) (Sum.{0, 0} (Sum.{0, 0} ι0 Unit) ι2) → K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.oddVector' does not depend on any axioms
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.cone_even_differential : ∀ {K : Type}
+  [inst : Field.{0} K] {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1]
+  [inst_3 : Fintype.{0} ι2] [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1']
+  [inst_7 : Fintype.{0} ι2'] [inst_8 : Fintype.{0} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D zC lC zD lD)
+  (hzC : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0)
+  (hlC : Eq.{1} (Matrix.vecMul.{0, 0, 0} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C)) 0)
+  (hzD : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD) 0)
+  (hlD : Eq.{1} (Matrix.vecMul.{0, 0, 0} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D)) 0)
+  (d0 : ι0' → K) (a : K) (d2 : ι2' → K) (c1 : ι1 → K) (c3 : ι3 → K) (b : K),
+  Eq.{1}
+    (Matrix.mulVec.{0, 0, 0}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.dOE.{0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{0, 0, 0, 0, 0, 0, 0, 0, 0} H hzC
+            hlC hzD hlD)))
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.evenVector d0 a d2 c1 c3 b))
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.oddVector
+      (HAdd.hAdd.{0, 0, 0}
+        (HAdd.hAdd.{0, 0, 0} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{0, 0, 0, 0, 0} D) d0)
+          (HSMul.hSMul.{0, 0, 0} a zD))
+        (Matrix.mulVec.{0, 0, 0}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f1.{0, 0, 0, 0, 0, 0, 0, 0, 0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0, 0, 0, 0, 0, 0, 0} H))
+          c1))
+      (HAdd.hAdd.{0, 0, 0} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{0, 0, 0, 0, 0} D) d2)
+        (Matrix.mulVec.{0, 0, 0}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f3.{0, 0, 0, 0, 0, 0, 0, 0, 0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0, 0, 0, 0, 0, 0, 0} H))
+          c3))
+      (HAdd.hAdd.{0, 0, 0}
+        (HAdd.hAdd.{0, 0, 0} (dotProduct.{0, 0} lD d2)
+          (dotProduct.{0, 0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.functionalBoundary.{0, 0, 0, 0, 0, 0,
+                0, 0, 0}
+              H)
+            c3))
+        b)
+      0 0 (Neg.neg.{0} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) c1)))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.cone_even_differential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.cone_odd_differential : ∀ {K : Type}
+  [inst : Field.{0} K] {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1]
+  [inst_3 : Fintype.{0} ι2] [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1']
+  [inst_7 : Fintype.{0} ι2'] [inst_8 : Fintype.{0} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D zC lC zD lD)
+  (hzC : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0)
+  (hlC : Eq.{1} (Matrix.vecMul.{0, 0, 0} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C)) 0)
+  (hzD : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD) 0)
+  (hlD : Eq.{1} (Matrix.vecMul.{0, 0, 0} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D)) 0)
+  (d1 : ι1' → K) (d3 : ι3' → K) (b : K) (c0 : ι0 → K) (a : K) (c2 : ι2 → K),
+  Eq.{1}
+    (Matrix.mulVec.{0, 0, 0}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.dEO.{0, 0, 0}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{0, 0, 0, 0, 0, 0, 0, 0, 0} H hzC
+            hlC hzD hlD)))
+      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.oddVector d1 d3 b c0 a c2))
+    (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.evenVector
+      (HAdd.hAdd.{0, 0, 0}
+        (Matrix.mulVec.{0, 0, 0}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f0.{0, 0, 0, 0, 0, 0, 0, 0, 0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0, 0, 0, 0, 0, 0, 0} H))
+          c0)
+        (HSMul.hSMul.{0, 0, 0} a
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.classBoundary.{0, 0, 0, 0, 0, 0, 0, 0, 0}
+            H)))
+      a
+      (HAdd.hAdd.{0, 0, 0} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) d1)
+        (Matrix.mulVec.{0, 0, 0}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f2.{0, 0, 0, 0, 0, 0, 0, 0, 0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0, 0, 0, 0, 0, 0, 0} H))
+          c2))
+      (HSub.hSub.{0, 0, 0}
+        (Neg.neg.{0} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{0, 0, 0, 0, 0} C) c0))
+        (HSMul.hSMul.{0, 0, 0} a zC))
+      (Neg.neg.{0} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{0, 0, 0, 0, 0} C) c2))
+      (Neg.neg.{0} (dotProduct.{0, 0} lC c2)))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.cone_odd_differential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.aug_cone_exact : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1'] [inst_7 : Fintype.{0} ι2']
+  [inst_8 : Fintype.{0} ι3'] {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D zC lC zD lD)
+  (hzC : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0)
+  (hlC : Eq.{1} (Matrix.vecMul.{0, 0, 0} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C)) 0)
+  (hzD : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD) 0)
+  (hlD : Eq.{1} (Matrix.vecMul.{0, 0, 0} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D)) 0),
+  QuasiIso.{0, 1, 0}
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0, 0, 0, 0, 0, 0, 0} H))) →
+    ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.IsExact.{0, 0, 0}
+      (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{0, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{0, 0, 0, 0, 0, 0, 0, 0, 0} H hzC
+          hlC hzD hlD))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.aug_cone_exact' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.aug_cone_torsion_ne_zero : ∀ {K : Type}
+  [inst : Field.{0} K] {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1]
+  [inst_3 : Fintype.{0} ι2] [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1']
+  [inst_7 : Fintype.{0} ι2'] [inst_8 : Fintype.{0} ι3'] [inst_9 : DecidableEq.{1} ι0] [inst_10 : DecidableEq.{1} ι1]
+  [inst_11 : DecidableEq.{1} ι2] [inst_12 : DecidableEq.{1} ι3] [inst_13 : DecidableEq.{1} ι0']
+  [inst_14 : DecidableEq.{1} ι1'] [inst_15 : DecidableEq.{1} ι2'] [inst_16 : DecidableEq.{1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D zC lC zD lD)
+  (hzC : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0)
+  (hlC : Eq.{1} (Matrix.vecMul.{0, 0, 0} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C)) 0)
+  (hzD : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD) 0)
+  (hlD : Eq.{1} (Matrix.vecMul.{0, 0, 0} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D)) 0),
+  QuasiIso.{0, 1, 0}
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0, 0, 0, 0, 0, 0, 0} H))) →
+    ∀ (σC : Equiv.{1, 1} (Sum.{0, 0} (Sum.{0, 0} ι0 Unit) ι2) (Sum.{0, 0} ι1 (Sum.{0, 0} ι3 Unit)))
+      (σD : Equiv.{1, 1} (Sum.{0, 0} (Sum.{0, 0} ι0' Unit) ι2') (Sum.{0, 0} ι1' (Sum.{0, 0} ι3' Unit))),
+      Ne.{1}
+        (ZInQ.Contrib.CloudB3RC53.Torsion.torsion.{0, 0, 0}
+          (ZInQ.Contrib.CloudB3RC53.Torsion.BasedCx.cone.{0, 0, 0, 0, 0}
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.augMap.{0, 0, 0, 0, 0, 0, 0, 0, 0} H
+              hzC hlC hzD hlD))
+          (Equiv.sumCongr.{0, 0, 0, 0} σD (Equiv.symm.{1, 1} σC)))
+        0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.aug_cone_torsion_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_formula_of_quasiIso : ∀ {K : Type}
+  [inst : Field.{0} K] {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1]
+  [inst_3 : Fintype.{0} ι2] [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1']
+  [inst_7 : Fintype.{0} ι2'] [inst_8 : Fintype.{0} ι3'] [inst_9 : DecidableEq.{1} ι0] [inst_10 : DecidableEq.{1} ι1]
+  [inst_11 : DecidableEq.{1} ι2] [inst_12 : DecidableEq.{1} ι3] [inst_13 : DecidableEq.{1} ι0']
+  [inst_14 : DecidableEq.{1} ι1'] [inst_15 : DecidableEq.{1} ι2'] [inst_16 : DecidableEq.{1} ι3']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} {zC : ι1 → K} {lC : ι2 → K}
+  {zD : ι1' → K} {lD : ι2' → K}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{0, 0, 0, 0, 0, 0, 0, 0, 0} C D zC lC zD lD)
+  (hzC : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0)
+  (hlC : Eq.{1} (Matrix.vecMul.{0, 0, 0} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C)) 0)
+  (hzD : Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD) 0)
+  (hlD : Eq.{1} (Matrix.vecMul.{0, 0, 0} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D)) 0),
+  QuasiIso.{0, 1, 0}
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0}
+        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0, 0, 0, 0, 0, 0, 0} H))) →
+    ∀ (σC : Equiv.{1, 1} (Sum.{0, 0} (Sum.{0, 0} ι0 Unit) ι2) (Sum.{0, 0} ι1 (Sum.{0, 0} ι3 Unit)))
+      (σD : Equiv.{1, 1} (Sum.{0, 0} (Sum.{0, 0} ι0' Unit) ι2') (Sum.{0, 0} ι1' (Sum.{0, 0} ι3' Unit))),
+      Eq.{1} (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{0, 0, 0, 0, 0} C zC lC hzC hlC σC)
+        (HMul.hMul.{0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{0, 0, 0, 0, 0, 0, 0, 0,
+              0}
+            H hzC hlC hzD hlD σC σD)
+          (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{0, 0, 0, 0, 0} D zD lD hzD hlD σD))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.coordinate_formula_of_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actual_cycle_lift : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3)
+  (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K)
+  (ψ :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψ) →
+    ∀ (z : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+      Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) z) 0 →
+        ∃ zC,
+          Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0 ∧
+            ∃ b,
+              Eq.{1} (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψ 1 1 ⋯) zC) z)
+                ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) b)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actual_cycle_lift' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 : Type} →
+      [inst_1 : Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            [DecidableEq.{1} ι2] →
+              (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3) →
+                (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K) →
+                  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S →
+                    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K)
+                        (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K →
+                      ι2 → K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow_value : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : DecidableEq.{1} ι2] (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3)
+  (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K)
+  (ψ : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S)
+  (L : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K)
+  (v : ι2 → K),
+  Eq.{1} (dotProduct.{0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow C S ψ L) v)
+    (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψ 2 2 ⋯) v))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow_closed : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [DecidableEq.{1} ι1] [inst_5 : DecidableEq.{1} ι2]
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3)
+  (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K)
+  (ψ : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S)
+  (L : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K),
+  (∀ (v : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+      Eq.{1} (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) v)) 0) →
+    Eq.{1}
+      (Matrix.vecMul.{0, 0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow C S ψ L)
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C))
+      0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow_closed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.functionalPrimitive : {K : Type} →
+  [inst : Field.{0} K] →
+    {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} →
+      [inst_1 : Fintype.{0} ι0] →
+        [inst_2 : Fintype.{0} ι1] →
+          [inst_3 : Fintype.{0} ι2] →
+            [inst_4 : Fintype.{0} ι3] →
+              [inst_5 : Fintype.{0} ι0'] →
+                [inst_6 : Fintype.{0} ι1'] →
+                  [inst_7 : Fintype.{0} ι2'] →
+                    [DecidableEq.{1} ι3] →
+                      {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3} →
+                        {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'} →
+                          {S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K} →
+                            {ψC :
+                                ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                                  (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S} →
+                              {ψD :
+                                  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+                                    (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S} →
+                                ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD →
+                                  LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K)
+                                      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K →
+                                    ι3 → K
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.functionalPrimitive' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.functionalPrimitive_value : ∀ {K : Type}
+  [inst : Field.{0} K] {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1]
+  [inst_3 : Fintype.{0} ι2] [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1']
+  [inst_7 : Fintype.{0} ι2'] [inst_8 : DecidableEq.{1} ι3]
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'}
+  {S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K}
+  {ψC :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S}
+  {ψD :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD)
+  (L : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K)
+  (v : ι3 → K), Eq.{1} (dotProduct.{0, 0} (H.functionalPrimitive L) v) (Neg.neg.{0} (L (H.h3 v)))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.functionalPrimitive_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.actual_functional_discrepancy : ∀ {K : Type}
+  [inst : Field.{0} K] {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1]
+  [inst_3 : Fintype.{0} ι2] [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1']
+  [inst_7 : Fintype.{0} ι2'] [inst_8 : DecidableEq.{1} ι2] [inst_9 : DecidableEq.{1} ι3] [inst_10 : DecidableEq.{1} ι2']
+  {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'}
+  {S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K}
+  {ψC :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S}
+  {ψD :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD)
+  (L : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K),
+  (∀ (v : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+      Eq.{1} (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) v)) 0) →
+    Eq.{1}
+      (Matrix.vecMul.{0, 0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow D S ψD L)
+        (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f2.{0, 0, 0, 0, 0, 0, 0, 0, 0} H.f))
+      (HAdd.hAdd.{0, 0, 0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow C S ψC L)
+        (Matrix.vecMul.{0, 0, 0} (H.functionalPrimitive L)
+          (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d2.{0, 0, 0, 0, 0} C)))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.actual_functional_discrepancy' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.actual_class_discrepancy : ∀ {K : Type}
+  [inst : Field.{0} K] {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1]
+  [inst_3 : Fintype.{0} ι2] [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1']
+  [inst_7 : Fintype.{0} ι2'] {C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3}
+  {D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3'}
+  {S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K}
+  {ψC :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S}
+  {ψD :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S}
+  (H : ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison C D S ψC ψD),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψD) →
+    ∀ (z : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)) (zC : ι1 → K) (zD : ι1' → K),
+      Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0 →
+        Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD) 0 →
+          ∀ (bC bD : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 0)),
+            Eq.{1} (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψC 1 1 ⋯) zC) z)
+                ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bC) →
+              Eq.{1} (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψD 1 1 ⋯) zD) z)
+                  ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bD) →
+                ∃ b,
+                  Eq.{1}
+                    (Matrix.mulVec.{0, 0, 0}
+                      (ZInQ.Contrib.CloudB3RC53.Torsion.FourMap.f1.{0, 0, 0, 0, 0, 0, 0, 0, 0} H.f) zC)
+                    (HAdd.hAdd.{0, 0, 0} zD
+                      (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d0.{0, 0, 0, 0, 0} D) b))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.ModelComparison.actual_class_discrepancy' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_actual_homotopy_comparison : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1'] [inst_7 : Fintype.{0} ι2']
+  [Fintype.{0} ι3'] [DecidableEq.{1} ι0] [DecidableEq.{1} ι1] [inst_11 : DecidableEq.{1} ι2] [DecidableEq.{1} ι3]
+  [DecidableEq.{1} ι0'] [DecidableEq.{1} ι1'] [inst_15 : DecidableEq.{1} ι2'] [DecidableEq.{1} ι3']
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3)
+  (D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3')
+  (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K)
+  (ψC :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S)
+  (ψD :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψC) →
+    QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψD) →
+      ∀ (z : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+        Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) z) 0 →
+          ∀
+            (L :
+              LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K),
+            (∀ (v : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+                Eq.{1} (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) v)) 0) →
+              ∃ zC zD bC bD,
+                Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0 ∧
+                  Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD) 0 ∧
+                    Eq.{1} (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψC 1 1 ⋯) zC) z)
+                        ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bC) ∧
+                      Eq.{1}
+                          (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψD 1 1 ⋯) zD) z)
+                          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bD) ∧
+                        Nonempty.{1}
+                          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.{0, 0, 0, 0, 0, 0, 0, 0,
+                              0}
+                            C D zC (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow C S ψC L) zD
+                            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.modelRow D S ψD L))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_actual_homotopy_comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_actual_retained_comparison : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : Fintype.{0} ι3] [inst_5 : Fintype.{0} ι0'] [inst_6 : Fintype.{0} ι1'] [inst_7 : Fintype.{0} ι2']
+  [inst_8 : Fintype.{0} ι3'] [inst_9 : DecidableEq.{1} ι0] [inst_10 : DecidableEq.{1} ι1] [inst_11 : DecidableEq.{1} ι2]
+  [inst_12 : DecidableEq.{1} ι3] [inst_13 : DecidableEq.{1} ι0'] [inst_14 : DecidableEq.{1} ι1']
+  [inst_15 : DecidableEq.{1} ι2'] [inst_16 : DecidableEq.{1} ι3']
+  (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3)
+  (D : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0' ι1' ι2' ι3')
+  (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K)
+  (ψC :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C) S)
+  (ψD :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx D) S),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψC) →
+    QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψD) →
+      ∀ (z : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+        Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) z) 0 →
+          ∀
+            (L :
+              LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2)) K),
+            (∀ (v : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+                Eq.{1} (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) v)) 0) →
+              ∀ (σC : Equiv.{1, 1} (Sum.{0, 0} (Sum.{0, 0} ι0 Unit) ι2) (Sum.{0, 0} ι1 (Sum.{0, 0} ι3 Unit)))
+                (σD : Equiv.{1, 1} (Sum.{0, 0} (Sum.{0, 0} ι0' Unit) ι2') (Sum.{0, 0} ι1' (Sum.{0, 0} ι3' Unit))),
+                ∃ zC lC zD lD,
+                  ∃ (hzC :
+                    Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC)
+                      0)
+                    (hlC :
+                    Eq.{1} (Matrix.vecMul.{0, 0, 0} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C))
+                      0)
+                    (hzD :
+                    Eq.{1} (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D) zD)
+                      0)
+                    (hlD :
+                    Eq.{1} (Matrix.vecMul.{0, 0, 0} lD (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} D))
+                      0),
+                    (∃ bC,
+                        Eq.{1}
+                          (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψC 1 1 ⋯) zC) z)
+                          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bC)) ∧
+                      (∃ bD,
+                          Eq.{1}
+                            (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψD 1 1 ⋯) zD) z)
+                            ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bD)) ∧
+                        (∀ (v : ι2 → K),
+                            Eq.{1} (dotProduct.{0, 0} lC v)
+                              (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψC 2 2 ⋯) v))) ∧
+                          (∀ (v : ι2' → K),
+                              Eq.{1} (dotProduct.{0, 0} lD v)
+                                (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψD 2 2 ⋯) v))) ∧
+                            ∃ H,
+                              QuasiIso.{0, 1, 0}
+                                  (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0}
+                                    (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap
+                                      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0, 0, 0,
+                                          0, 0, 0, 0, 0, 0}
+                                        H))) ∧
+                                Ne.{1}
+                                    (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{0,
+                                        0, 0, 0, 0, 0, 0, 0, 0}
+                                      H hzC hlC hzD hlD σC σD)
+                                    0 ∧
+                                  Eq.{1} (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{0, 0, 0, 0, 0} C zC lC hzC hlC σC)
+                                    (HMul.hMul.{0, 0, 0}
+                                      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{0,
+                                          0, 0, 0, 0, 0, 0, 0, 0}
+                                        H hzC hlC hzD hlD σC σD)
+                                      (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{0, 0, 0, 0, 0} D zD lD hzD hlD σD))
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_actual_retained_comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_unique_adjugate_coordinate : ∀ {K : Type} [inst : Field.{0} K]
+  {m : ℕ} (D : Matrix.{0, 0, 0} (Fin (HAdd.hAdd.{0, 0, 0} m 1)) (Fin (HAdd.hAdd.{0, 0, 0} m 1)) K)
+  (z w : Fin (HAdd.hAdd.{0, 0, 0} m 1) → K),
+  Eq.{1} (Matrix.mulVec.{0, 0, 0} D z) 0 →
+    Eq.{1} (Matrix.vecMul.{0, 0, 0} w D) 0 →
+      Ne.{1} (Matrix.adjugate.{0, 0} D) 0 →
+        ExistsUnique.{1} fun u => ZInQ.Manuscript.RC.Central.IsClassFunctionalCoord.{0} D z w u
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_unique_adjugate_coordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_actual_adjugate_coordinate : ∀ {K : Type} [inst : Field.{0} K]
+  {ι0 ι1 ι2 ι3 : Type} [inst_1 : Fintype.{0} ι0] [inst_2 : Fintype.{0} ι1] [inst_3 : Fintype.{0} ι2]
+  [inst_4 : Fintype.{0} ι3] [inst_5 : DecidableEq.{1} ι0] [inst_6 : DecidableEq.{1} ι1] [inst_7 : DecidableEq.{1} ι2]
+  [inst_8 : DecidableEq.{1} ι3] {m : ℕ} (C : ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.{0, 0, 0, 0, 0} K ι0 ι1 ι2 ι3)
+  (D : Matrix.{0, 0, 0} (Fin (HAdd.hAdd.{0, 0, 0} m 1)) (Fin (HAdd.hAdd.{0, 0, 0} m 1)) K),
+  Ne.{1} (Matrix.adjugate.{0, 0} D) 0 →
+    ∀ (S : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} K)
+      (ψC :
+        ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx C)
+          S)
+      (ψD :
+        ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadCx (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} D)) S),
+      QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψC) →
+        QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} ψD) →
+          ∀ (z : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+            Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) z) 0 →
+              ∀
+                (L :
+                  LinearMap.{0, 0, 0, 0} (RingHom.id.{0} K) (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 2))
+                    K),
+                (∀ (v : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} S 1)),
+                    Eq.{1} (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 1 2 ⋯) v)) 0) →
+                  ∀ (σC : Equiv.{1, 1} (Sum.{0, 0} (Sum.{0, 0} ι0 Unit) ι2) (Sum.{0, 0} ι1 (Sum.{0, 0} ι3 Unit))),
+                    ∃ zC lC zD lD,
+                      ∃ (hzC :
+                        Eq.{1}
+                          (Matrix.mulVec.{0, 0, 0} (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C) zC) 0)
+                        (hlC :
+                        Eq.{1}
+                          (Matrix.vecMul.{0, 0, 0} lC (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0} C)) 0)
+                        (hzD :
+                        Eq.{1}
+                          (Matrix.mulVec.{0, 0, 0}
+                            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0}
+                              (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} D))
+                            zD)
+                          0)
+                        (hlD :
+                        Eq.{1}
+                          (Matrix.vecMul.{0, 0, 0} lD
+                            (ZInQ.Contrib.CloudB3RC53.Torsion.FourCx.d1.{0, 0, 0, 0, 0}
+                              (ZInQ.Contrib.CloudB3RC53.Torsion.twoTerm.{0} D)))
+                          0),
+                        (∃ bC,
+                            Eq.{1}
+                              (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψC 1 1 ⋯) zC)
+                                z)
+                              ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bC)) ∧
+                          (∃ bD,
+                              Eq.{1}
+                                (HSub.hSub.{0, 0, 0}
+                                  ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψD 1 1 ⋯) zD) z)
+                                ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} S 0 1 ⋯) bD)) ∧
+                            (∀ (v : ι2 → K),
+                                Eq.{1} (dotProduct.{0, 0} lC v)
+                                  (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψC 2 2 ⋯) v))) ∧
+                              (∀ (v : Fin (HAdd.hAdd.{0, 0, 0} m 1) → K),
+                                  Eq.{1} (dotProduct.{0, 0} lD v)
+                                    (L ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} ψD 2 2 ⋯) v))) ∧
+                                ∃ H u,
+                                  ZInQ.Manuscript.RC.Central.IsClassFunctionalCoord.{0} D zD lD u ∧
+                                    QuasiIso.{0, 1, 0}
+                                        (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0}
+                                          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.quadMap
+                                            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.f.{0,
+                                                0, 0, 0, 0, 0, 0, 0, 0}
+                                              H))) ∧
+                                      Ne.{1}
+                                          (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{0,
+                                              0, 0, 0, 0, 0, 0, 0, 0}
+                                            H hzC hlC hzD hlD σC
+                                            (ZInQ.Contrib.CloudB3RC53.Torsion.σ₀ (HAdd.hAdd.{0, 0, 0} m 1)))
+                                          0 ∧
+                                        Eq.{1}
+                                          (ZInQ.Contrib.CloudB3RC53.Torsion.kmCoord.{0, 0, 0, 0, 0} C zC lC hzC hlC σC)
+                                          (HMul.hMul.{0, 0, 0}
+                                            (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.HomotopyComparison.retainedFactor.{0,
+                                                0, 0, 0, 0, 0, 0, 0, 0}
+                                              H hzC hlC hzD hlD σC
+                                              (ZInQ.Contrib.CloudB3RC53.Torsion.σ₀ (HAdd.hAdd.{0, 0, 0} m 1)))
+                                            u)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_actual_adjugate_coordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.lift_conjugate_actual_class : ∀ {R : Type} [inst : Field.{0} R]
+  {A B T : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.{0} R}
+  (j : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} A T)
+  (c : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0} B T),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} j) →
+    ∀ (z : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} B 1)),
+      Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} B 1 2 ⋯) z) 0 →
+        ∃ zperp,
+          Eq.{1} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} A 1 2 ⋯) zperp) 0 ∧
+            ∃ b,
+              Eq.{1}
+                (HSub.hSub.{0, 0, 0} ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} j 1 1 ⋯) zperp)
+                  ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{0} c 1 1 ⋯) z))
+                ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} T 0 1 ⋯) b)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.lift_conjugate_actual_class' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.cup_actual_functional_closed : ∀ {R : Type} [inst : Field.{0} R]
+  {D D' : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData.{0} R}
+  (P : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.{0} D D')
+  (tr :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+          (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} P))
+          3))
+      R),
+  (∀
+      (v :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} P))
+            2)),
+      Eq.{1}
+        (tr
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} P))
+              2 3 ⋯)
+            v))
+        0) →
+    ∀
+      (zperp :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D)
+            1)),
+      Eq.{1}
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D)
+              1 2 ⋯)
+            zperp)
+          0 →
+        ∀
+          (v :
+            ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D') 1)),
+          Eq.{1}
+            ((ZInQ.Contrib.CloudB3RC53.CommonCoordinate.pairedFun.{0} P tr zperp)
+              ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D') 1 2 ⋯)
+                v))
+            0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.cup_actual_functional_closed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualCupData : {R : Type} →
+  [inst : Field.{0} R] →
+    (N : Type) →
+      [inst_1 : Field.{0} N] →
+        [inst_2 : NumberField.{0} N] →
+          (S₀ : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} N))) →
+            {A B T : Type} →
+              [inst_3 : AddCommGroup.{0} A] →
+                [inst_4 : Module.{0, 0} R A] →
+                  [inst_5 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A] →
+                    [inst_6 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R A] →
+                      [inst_7 : TopologicalSpace.{0} A] →
+                        [inst_8 : ContinuousAdd.{0} A] →
+                          [inst_9 : ContinuousConstSMul.{0, 0} R A] →
+                            [inst_10 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A] →
+                              [inst_11 : AddCommGroup.{0} B] →
+                                [inst_12 : Module.{0, 0} R B] →
+                                  [inst_13 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B] →
+                                    [inst_14 :
+                                        SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R B] →
+                                      [inst_15 : TopologicalSpace.{0} B] →
+                                        [inst_16 : ContinuousAdd.{0} B] →
+                                          [inst_17 : ContinuousConstSMul.{0, 0} R B] →
+                                            [inst_18 :
+                                                ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B] →
+                                              [inst_19 : AddCommGroup.{0} T] →
+                                                [inst_20 : Module.{0, 0} R T] →
+                                                  [inst_21 :
+                                                      DistribMulAction.{0, 0}
+                                                        (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T] →
+                                                    [inst_22 :
+                                                        SMulCommClass.{0, 0, 0}
+                                                          (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R T] →
+                                                      [inst_23 : TopologicalSpace.{0} T] →
+                                                        [inst_24 : ContinuousAdd.{0} T] →
+                                                          [inst_25 : ContinuousConstSMul.{0, 0} R T] →
+                                                            [inst_26 :
+                                                                ContinuousSMul.{0, 0}
+                                                                  (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T] →
+                                                              (β :
+                                                                  LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) A
+                                                                    (LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) B T)) →
+                                                                (hβ :
+                                                                    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀)
+                                                                      (a : A) (b : B),
+                                                                      Eq.{1}
+                                                                        ((β (HSMul.hSMul.{0, 0, 0} g a))
+                                                                          (HSMul.hSMul.{0, 0, 0} g b))
+                                                                        (HSMul.hSMul.{0, 0, 0} g ((β a) b))) →
+                                                                  (hβc : Continuous.{0, 0} fun p => (β p.1) p.2) →
+                                                                    (Δperp :
+                                                                        ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions
+                                                                          N S₀ R A) →
+                                                                      (Δ :
+                                                                          ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions
+                                                                            N S₀ R B) →
+                                                                        ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{0}
+                                                                            R
+                                                                            (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀)
+                                                                            (fun v =>
+                                                                              ZInQ.Manuscript.RC.SelmerComplex.Gloc N
+                                                                                ↑v)
+                                                                            (fun v =>
+                                                                              ZInQ.Manuscript.RC.SelmerComplex.locMap N
+                                                                                S₀ ↑v)
+                                                                            β hβ hβc Δperp Δ →
+                                                                          ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.{0}
+                                                                            (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData
+                                                                              N S₀ R A Δperp)
+                                                                            (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData
+                                                                              N S₀ R B Δ)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualCupData' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_genuine_paired_model_comparison : ∀ {R : Type}
+  [inst : Field.{0} R] (N : Type) [inst_1 : Field.{0} N] [inst_2 : NumberField.{0} N]
+  (S₀ : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} N))) {A B T : Type}
+  [inst_3 : AddCommGroup.{0} A] [inst_4 : Module.{0, 0} R A]
+  [inst_5 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A]
+  [inst_6 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R A] [inst_7 : TopologicalSpace.{0} A]
+  [inst_8 : ContinuousAdd.{0} A] [inst_9 : ContinuousConstSMul.{0, 0} R A]
+  [inst_10 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A] [inst_11 : AddCommGroup.{0} B]
+  [inst_12 : Module.{0, 0} R B] [inst_13 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B]
+  [inst_14 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R B] [inst_15 : TopologicalSpace.{0} B]
+  [inst_16 : ContinuousAdd.{0} B] [inst_17 : ContinuousConstSMul.{0, 0} R B]
+  [inst_18 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B] [inst_19 : AddCommGroup.{0} T]
+  [inst_20 : Module.{0, 0} R T] [inst_21 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T]
+  [inst_22 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R T] [inst_23 : TopologicalSpace.{0} T]
+  [inst_24 : ContinuousAdd.{0} T] [inst_25 : ContinuousConstSMul.{0, 0} R T]
+  [inst_26 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T]
+  (β : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) A (LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) B T))
+  (hβ :
+    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) (a : A) (b : B),
+      Eq.{1} ((β (HSMul.hSMul.{0, 0, 0} g a)) (HSMul.hSMul.{0, 0, 0} g b)) (HSMul.hSMul.{0, 0, 0} g ((β a) b)))
+  (hβc : Continuous.{0, 0} fun p => (β p.1) p.2)
+  (Δperp Δconj : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions N S₀ R A)
+  (Δ : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions N S₀ R B)
+  (I :
+    ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{0} R (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀)
+      (fun v => ZInQ.Manuscript.RC.SelmerComplex.Gloc N ↑v) (fun v => ZInQ.Manuscript.RC.SelmerComplex.locMap N S₀ ↑v) β
+      hβ hβc Δperp Δ)
+  (j :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δperp))
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δconj)))
+  (c :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δ))
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δconj))),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} j) →
+    ∀
+      (z :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+              (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δ))
+            1)),
+      Eq.{1}
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+                (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δ))
+              1 2 ⋯)
+            z)
+          0 →
+        ∀
+          (tr :
+            LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+              (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0}
+                      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualCupData N S₀ β hβ hβc Δperp Δ I)))
+                  3))
+              R),
+          (∀
+              (v :
+                ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0}
+                        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualCupData N S₀ β hβ hβc Δperp Δ I)))
+                    2)),
+              Eq.{1}
+                (tr
+                  ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} ⋯))
+                      2 3 ⋯)
+                    v))
+                0) →
+            ∀ {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_27 : Fintype.{0} ι0] [inst_28 : Fintype.{0} ι1]
+              [inst_29 : Fintype.{0} ι2] [inst_30 : Fintype.{0} ι3] [inst_31 : Fintype.{0} ι0']
+              [inst_32 : Fintype.{0} ι1'], ⋯
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_genuine_paired_model_comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.rightPairedFun : {R : Type} →
+  [inst : Field.{0} R] →
+    {D D' : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData.{0} R} →
+      (P : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.{0} D D') →
+        LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+            (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} P))
+                3))
+            R →
+          ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D')
+                1) →
+            LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+              (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D) 2))
+              R
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.rightPairedFun' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.rightPairedFun_closed : ∀ {R : Type} [inst : Field.{0} R]
+  {D D' : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData.{0} R}
+  (P : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.{0} D D')
+  (tr :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+          (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} P))
+          3))
+      R),
+  (∀
+      (v :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} P))
+            2)),
+      Eq.{1}
+        (tr
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} P))
+              2 3 ⋯)
+            v))
+        0) →
+    ∀
+      (zperp :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D')
+            1)),
+      Eq.{1}
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0} (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D')
+              1 2 ⋯)
+            zperp)
+          0 →
+        ∀
+          (v :
+            ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D) 1)),
+          Eq.{1}
+            ((ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.rightPairedFun P tr zperp)
+              ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} D) 1 2 ⋯)
+                v))
+            0
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.rightPairedFun_closed' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualRightCupData : {R : Type} →
+  [inst : Field.{0} R] →
+    (N : Type) →
+      [inst_1 : Field.{0} N] →
+        [inst_2 : NumberField.{0} N] →
+          (S₀ : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} N))) →
+            {A B T : Type} →
+              [inst_3 : AddCommGroup.{0} A] →
+                [inst_4 : Module.{0, 0} R A] →
+                  [inst_5 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A] →
+                    [inst_6 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R A] →
+                      [inst_7 : TopologicalSpace.{0} A] →
+                        [inst_8 : ContinuousAdd.{0} A] →
+                          [inst_9 : ContinuousConstSMul.{0, 0} R A] →
+                            [inst_10 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A] →
+                              [inst_11 : AddCommGroup.{0} B] →
+                                [inst_12 : Module.{0, 0} R B] →
+                                  [inst_13 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B] →
+                                    [inst_14 :
+                                        SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R B] →
+                                      [inst_15 : TopologicalSpace.{0} B] →
+                                        [inst_16 : ContinuousAdd.{0} B] →
+                                          [inst_17 : ContinuousConstSMul.{0, 0} R B] →
+                                            [inst_18 :
+                                                ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B] →
+                                              [inst_19 : AddCommGroup.{0} T] →
+                                                [inst_20 : Module.{0, 0} R T] →
+                                                  [inst_21 :
+                                                      DistribMulAction.{0, 0}
+                                                        (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T] →
+                                                    [inst_22 :
+                                                        SMulCommClass.{0, 0, 0}
+                                                          (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R T] →
+                                                      [inst_23 : TopologicalSpace.{0} T] →
+                                                        [inst_24 : ContinuousAdd.{0} T] →
+                                                          [inst_25 : ContinuousConstSMul.{0, 0} R T] →
+                                                            [inst_26 :
+                                                                ContinuousSMul.{0, 0}
+                                                                  (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T] →
+                                                              (β :
+                                                                  LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) A
+                                                                    (LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) B T)) →
+                                                                (hβ :
+                                                                    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀)
+                                                                      (a : A) (b : B),
+                                                                      Eq.{1}
+                                                                        ((β (HSMul.hSMul.{0, 0, 0} g a))
+                                                                          (HSMul.hSMul.{0, 0, 0} g b))
+                                                                        (HSMul.hSMul.{0, 0, 0} g ((β a) b))) →
+                                                                  (hβc : Continuous.{0, 0} fun p => (β p.1) p.2) →
+                                                                    (Δ :
+                                                                        ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions
+                                                                          N S₀ R A) →
+                                                                      (Δperp :
+                                                                          ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions
+                                                                            N S₀ R B) →
+                                                                        ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{0}
+                                                                            R
+                                                                            (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀)
+                                                                            (fun v =>
+                                                                              ZInQ.Manuscript.RC.SelmerComplex.Gloc N
+                                                                                ↑v)
+                                                                            (fun v =>
+                                                                              ZInQ.Manuscript.RC.SelmerComplex.locMap N
+                                                                                S₀ ↑v)
+                                                                            β hβ hβc Δ Δperp →
+                                                                          ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.{0}
+                                                                            (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData
+                                                                              N S₀ R A Δ)
+                                                                            (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData
+                                                                              N S₀ R B Δperp)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualRightCupData' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_genuine_retained_PD_comparison : ∀ {R : Type}
+  [inst : Field.{0} R] (N : Type) [inst_1 : Field.{0} N] [inst_2 : NumberField.{0} N]
+  (S₀ : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} N))) {A B T : Type}
+  [inst_3 : AddCommGroup.{0} A] [inst_4 : Module.{0, 0} R A]
+  [inst_5 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A]
+  [inst_6 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R A] [inst_7 : TopologicalSpace.{0} A]
+  [inst_8 : ContinuousAdd.{0} A] [inst_9 : ContinuousConstSMul.{0, 0} R A]
+  [inst_10 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A] [inst_11 : AddCommGroup.{0} B]
+  [inst_12 : Module.{0, 0} R B] [inst_13 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B]
+  [inst_14 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R B] [inst_15 : TopologicalSpace.{0} B]
+  [inst_16 : ContinuousAdd.{0} B] [inst_17 : ContinuousConstSMul.{0, 0} R B]
+  [inst_18 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B] [inst_19 : AddCommGroup.{0} T]
+  [inst_20 : Module.{0, 0} R T] [inst_21 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T]
+  [inst_22 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R T] [inst_23 : TopologicalSpace.{0} T]
+  [inst_24 : ContinuousAdd.{0} T] [inst_25 : ContinuousConstSMul.{0, 0} R T]
+  [inst_26 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T]
+  (β : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) A (LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) B T))
+  (hβ :
+    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) (a : A) (b : B),
+      Eq.{1} ((β (HSMul.hSMul.{0, 0, 0} g a)) (HSMul.hSMul.{0, 0, 0} g b)) (HSMul.hSMul.{0, 0, 0} g ((β a) b)))
+  (hβc : Continuous.{0, 0} fun p => (β p.1) p.2) (Δ : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions N S₀ R A)
+  (Δperp Δconj : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions N S₀ R B)
+  (I :
+    ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{0} R (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀)
+      (fun v => ZInQ.Manuscript.RC.SelmerComplex.Gloc N ↑v) (fun v => ZInQ.Manuscript.RC.SelmerComplex.locMap N S₀ ↑v) β
+      hβ hβc Δ Δperp)
+  (j :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δperp))
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δconj)))
+  (c :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δ))
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δconj))),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} j) →
+    ∀
+      (z :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+              (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δ))
+            1)),
+      Eq.{1}
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+                (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δ))
+              1 2 ⋯)
+            z)
+          0 →
+        ∀
+          (tr :
+            LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+              (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0}
+                      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualRightCupData N S₀ β hβ hβc Δ Δperp I)))
+                  3))
+              R),
+          (∀
+              (v :
+                ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0}
+                        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualRightCupData N S₀ β hβ hβc Δ Δperp I)))
+                    2)),
+              Eq.{1}
+                (tr
+                  ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} ⋯))
+                      2 3 ⋯)
+                    v))
+                0) →
+            ∀ {ι0 ι1 ι2 ι3 ι0' ι1' ι2' ι3' : Type} [inst_27 : Fintype.{0} ι0] [inst_28 : Fintype.{0} ι1]
+              [inst_29 : Fintype.{0} ι2] [inst_30 : Fintype.{0} ι3] [inst_31 : Fintype.{0} ι0']
+              [inst_32 : Fintype.{0} ι1'], ⋯
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_genuine_retained_PD_comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_genuine_adjugate_PD_coordinate : ∀ {R : Type}
+  [inst : Field.{0} R] (N : Type) [inst_1 : Field.{0} N] [inst_2 : NumberField.{0} N]
+  (S₀ : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} N))) {A B T : Type}
+  [inst_3 : AddCommGroup.{0} A] [inst_4 : Module.{0, 0} R A]
+  [inst_5 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A]
+  [inst_6 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R A] [inst_7 : TopologicalSpace.{0} A]
+  [inst_8 : ContinuousAdd.{0} A] [inst_9 : ContinuousConstSMul.{0, 0} R A]
+  [inst_10 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) A] [inst_11 : AddCommGroup.{0} B]
+  [inst_12 : Module.{0, 0} R B] [inst_13 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B]
+  [inst_14 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R B] [inst_15 : TopologicalSpace.{0} B]
+  [inst_16 : ContinuousAdd.{0} B] [inst_17 : ContinuousConstSMul.{0, 0} R B]
+  [inst_18 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) B] [inst_19 : AddCommGroup.{0} T]
+  [inst_20 : Module.{0, 0} R T] [inst_21 : DistribMulAction.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T]
+  [inst_22 : SMulCommClass.{0, 0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) R T] [inst_23 : TopologicalSpace.{0} T]
+  [inst_24 : ContinuousAdd.{0} T] [inst_25 : ContinuousConstSMul.{0, 0} R T]
+  [inst_26 : ContinuousSMul.{0, 0} (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) T]
+  (β : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) A (LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) B T))
+  (hβ :
+    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀) (a : A) (b : B),
+      Eq.{1} ((β (HSMul.hSMul.{0, 0, 0} g a)) (HSMul.hSMul.{0, 0, 0} g b)) (HSMul.hSMul.{0, 0, 0} g ((β a) b)))
+  (hβc : Continuous.{0, 0} fun p => (β p.1) p.2) (Δ : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions N S₀ R A)
+  (Δperp Δconj : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions N S₀ R B)
+  (I :
+    ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{0} R (ZInQ.Manuscript.RC.SelmerComplex.GKS N S₀)
+      (fun v => ZInQ.Manuscript.RC.SelmerComplex.Gloc N ↑v) (fun v => ZInQ.Manuscript.RC.SelmerComplex.locMap N S₀ ↑v) β
+      hβ hβc Δ Δperp)
+  (j :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δperp))
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δconj)))
+  (c :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.{0}
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0} (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δ))
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R B Δconj))),
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC.{0} j) →
+    ∀
+      (z :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+              (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δ))
+            1)),
+      Eq.{1}
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{0}
+                (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData N S₀ R A Δ))
+              1 2 ⋯)
+            z)
+          0 →
+        ∀
+          (tr :
+            LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R)
+              (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0}
+                      (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualRightCupData N S₀ β hβ hβc Δ Δperp I)))
+                  3))
+              R),
+          (∀
+              (v :
+                ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0}
+                    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0}
+                        (ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.actualRightCupData N S₀ β hβ hβc Δ Δperp I)))
+                    2)),
+              Eq.{1}
+                (tr
+                  ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{0}
+                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{0}
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{0} ⋯))
+                      2 3 ⋯)
+                    v))
+                0) →
+            ∀ {ι0 ι1 ι2 ι3 : Type} [inst_27 : Fintype.{0} ι0] [inst_28 : Fintype.{0} ι1] [inst_29 : Fintype.{0} ι2]
+              [inst_30 : Fintype.{0} ι3] [inst_31 : DecidableEq.{1} ι0] [inst_32 : DecidableEq.{1} ι1], ⋯
+'ZInQ.Contrib.RC53Assist.CoordProvenance.Homotopy.exists_genuine_adjugate_PD_coordinate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+
+Compiler exit code: 0

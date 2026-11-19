@@ -1,0 +1,88 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 lowering",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: lower defines the lowering, code_forward and code_backward prove block simulation by induction on derivations, and lowering_correct with precisionMachine_correct give halting exactly on acceptance; proved, no assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.107843,
+          0.869309,
+          0.784314,
+          0.034302
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 lowering",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 lowering#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.066754
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 lowering",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 lowering#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.IR.precisionMachine_correct",
+        "module": "ZInQKernel.Compiler.Programs.PrecisionMachine"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.IR.precisionMachine_correct@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem precisionMachine_correct (c : Fin 5 → ℕ) :\n    (precisionMachine.HaltsOn c ↔ precisionMachine.Accepts c) ∧\n      (precisionMachine.Accepts c ↔ accepts c) :=",
+            "line": 30,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Programs/PrecisionMachine.lean",
+            "fragment": "L30"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79,
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

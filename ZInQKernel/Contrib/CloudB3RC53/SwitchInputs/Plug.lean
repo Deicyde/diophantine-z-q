@@ -565,8 +565,8 @@ variable {R : Type} [CommRing R] [IsDomain R] [IsDiscreteValuationRing R] {ϖ : 
 /-- **An outer stage built from integral inner models** (tex L4706–4714, L4927–4940): the inner
 models `M j` over `R`, the outer model their entrywise image in `Frac 𝒪_∞` (RC6 `outerMatrix`),
 a nonzero outer kernel vector, inner cycles, closed functionals and admissible complements over
-`K`. (No good-family condition is needed: since round 3 the `minor_link` field asks the inner minors
-to be nonzero only on an outer-large set, which is what the genuine outer model gives.) -/
+`K`. (No good-family condition is needed: the `minor_link` field asks the inner minors to be
+nonzero only on an outer-large set, which is what the genuine outer model gives.) -/
 structure ModelStage (ϖ : R) (K : Type) [Field K] [Algebra R K] where
   n : ℕ
   M : J → Matrix (Fin (n + 1)) (Fin (n + 1)) R

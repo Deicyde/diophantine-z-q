@@ -1,0 +1,403 @@
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.rational_isArithFrobAt (g : ZInQ.Manuscript.RC.PrintsArith.GalQ) (p : ℕ)
+  [Fact (Nat.Prime p)] (P : Ideal ZInQ.Contrib.ChebFD.C10.Zbar) (hP : Ideal.under ℤ P = Ideal.span {↑p})
+  (hF : ∀ (x y : ZInQ.Contrib.ChebFD.C10.Zbar), ↑y = g ↑x - ↑x ^ p → y ∈ P) : IsArithFrobAt ℤ g P
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.rational_isArithFrobAt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.integersEquiv {K : Type} [Field K] [NumberField K]
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar) :
+  NumberField.RingOfIntegers (AlgebraicClosure K) ≃+* ZInQ.Contrib.ChebFD.C10.Zbar
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.integersEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.galKOfQ_sq_isArithFrobAt {K : Type} [Field K] [NumberField K]
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar) (g : ZInQ.Manuscript.RC.PrintsArith.GalQ) (p : ℕ)
+  [Fact (Nat.Prime p)] (P : Ideal ZInQ.Contrib.ChebFD.C10.Zbar) [P.IsPrime] (hP : Ideal.under ℤ P = Ideal.span {↑p})
+  (hF : ∀ (x y : ZInQ.Contrib.ChebFD.C10.Zbar), ↑y = g ↑x - ↑x ^ p → y ∈ P)
+  (hgK : ∀ (x : K), (g * g) (e ((algebraMap K (AlgebraicClosure K)) x)) = e ((algebraMap K (AlgebraicClosure K)) x))
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  (hPq : Ideal.under (NumberField.RingOfIntegers K) (Ideal.comap (integersEquiv e) P) = q.asIdeal)
+  (hcard : Nat.card (NumberField.RingOfIntegers K ⧸ q.asIdeal) = p ^ 2) :
+  IsArithFrobAt (NumberField.RingOfIntegers K) (ZInQ.Contrib.RC53Assist.InnerLimitArith.galKOfQ e (g * g) hgK)
+    (Ideal.comap (integersEquiv e) P)
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.galKOfQ_sq_isArithFrobAt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.valuationInteger_mem_maximalIdeal_iff {k : Type} [Field k] {Γ : Type}
+  [LinearOrderedCommGroupWithZero Γ] (v : Valuation k Γ) (x : ↥v.integer) :
+  x ∈ IsLocalRing.maximalIdeal ↥v.integer ↔ v ↑x < 1
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.valuationInteger_mem_maximalIdeal_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.localFrobenius_congruence {k : Type} [Field k] [CharZero k] [ValuativeRel k]
+  [TopologicalSpace k] [IsNonarchimedeanLocalField k] [ValuativeRel (AlgebraicClosure k)]
+  [ValuativeExtension k (AlgebraicClosure k)] (φ : Gal(AlgebraicClosure k/k)) (hφ : TauCeti.IsArithFrobeniusLift k φ)
+  (y : AlgebraicClosure k) (hy : (ValuativeRel.valuation (AlgebraicClosure k)) y ≤ 1) :
+  (ValuativeRel.valuation (AlgebraicClosure k))
+      (φ y - y ^ Nat.card (IsLocalRing.ResidueField ↥(ValuativeRel.valuation k).integer)) <
+    1
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.localFrobenius_congruence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.absoluteIntegers_invariant {K : Type} [Field K] [NumberField K] :
+  Algebra.IsInvariant (NumberField.RingOfIntegers K) (NumberField.RingOfIntegers (AlgebraicClosure K))
+    Gal(AlgebraicClosure K/K)
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.absoluteIntegers_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.absolute_primes_conjugate {K : Type} [Field K] [NumberField K]
+  (P Q : Ideal (NumberField.RingOfIntegers (AlgebraicClosure K))) [P.IsPrime] [Q.IsPrime]
+  (hPQ : Ideal.under (NumberField.RingOfIntegers K) P = Ideal.under (NumberField.RingOfIntegers K) Q) : ∃ g, Q = g • P
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.absolute_primes_conjugate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.localClosureValuativeRel {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) :
+  ValuativeRel (AlgebraicClosure (IsDedekindDomain.HeightOneSpectrum.adicCompletion K q))
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.localClosureValuativeRel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.localClosureValuativeExtension {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) :
+  ValuativeExtension (IsDedekindDomain.HeightOneSpectrum.adicCompletion K q)
+    (AlgebraicClosure (IsDedekindDomain.HeightOneSpectrum.adicCompletion K q))
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.localClosureValuativeExtension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.localIntegersMap {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) :
+  NumberField.RingOfIntegers (AlgebraicClosure K) →+*
+    ↥(ValuativeRel.valuation (AlgebraicClosure (IsDedekindDomain.HeightOneSpectrum.adicCompletion K q))).integer
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.localIntegersMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.localPrime {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) :
+  Ideal (NumberField.RingOfIntegers (AlgebraicClosure K))
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.localPrime' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.localPrime_isPrime {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) : (localPrime q).IsPrime
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.localPrime_isPrime' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.mem_localPrime {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  (x : NumberField.RingOfIntegers (AlgebraicClosure K)) :
+  x ∈ localPrime q ↔
+    (ValuativeRel.valuation (AlgebraicClosure (IsDedekindDomain.HeightOneSpectrum.adicCompletion K q)))
+        ((ZInQ.Manuscript.RC.SelmerComplex.decompLift K q) ↑x) <
+      1
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.mem_localPrime' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.localPrime_under {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) :
+  Ideal.under (NumberField.RingOfIntegers K) (localPrime q) = q.asIdeal
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.localPrime_under' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.decompMap_isArithFrobAt {K : Type} [Field K] [NumberField K]
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  (φ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K q)
+  (hφ : TauCeti.IsArithFrobeniusLift (IsDedekindDomain.HeightOneSpectrum.adicCompletion K q) φ) :
+  IsArithFrobAt (NumberField.RingOfIntegers K) (id ((ZInQ.Manuscript.RC.SelmerComplex.decompMap K q) φ)) (localPrime q)
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.decompMap_isArithFrobAt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.samePrime_restriction_eq {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (hq : q ∉ S)
+  (P : Ideal (NumberField.RingOfIntegers (AlgebraicClosure K))) [P.IsPrime]
+  (hPq : Ideal.under (NumberField.RingOfIntegers K) P = q.asIdeal) (σ τ : Gal(AlgebraicClosure K/K))
+  (hσ : IsArithFrobAt (NumberField.RingOfIntegers K) σ P) (hτ : IsArithFrobAt (NumberField.RingOfIntegers K) τ P) :
+  (ZInQ.Manuscript.RC.SelmerComplex.resAbsCont K S) σ = (ZInQ.Manuscript.RC.SelmerComplex.resAbsCont K S) τ
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.samePrime_restriction_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.label_frobenius_conjugate {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (L : ZInQ.Contrib.RC53Assist.InnerLimitArith.MovingLabel K S) (i : ℕ)
+  (P : Ideal (NumberField.RingOfIntegers (AlgebraicClosure K))) [P.IsPrime]
+  (hPq : Ideal.under (NumberField.RingOfIntegers K) P = (L.q i).asIdeal) (σ : Gal(AlgebraicClosure K/K))
+  (hσ : IsArithFrobAt (NumberField.RingOfIntegers K) σ P) :
+  ∃ g, L.frob i = g * (ZInQ.Manuscript.RC.SelmerComplex.resAbsCont K S) σ * g⁻¹
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.label_frobenius_conjugate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.inert_prime_eq_span {K : Type} [Field K] [NumberField K]
+  (hdegree : Module.finrank ℚ K = 2) (p : ℕ) (hp : Nat.Prime p)
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (habove : ↑p ∈ q.asIdeal)
+  (hcard : Nat.card (NumberField.RingOfIntegers K ⧸ q.asIdeal) = p ^ 2) : q.asIdeal = Ideal.span {↑p}
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.inert_prime_eq_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.inert_prime_contraction {K : Type} [Field K] [NumberField K]
+  (hdegree : Module.finrank ℚ K = 2) (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar) (p : ℕ)
+  (hp : Nat.Prime p) (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (habove : ↑p ∈ q.asIdeal)
+  (hcard : Nat.card (NumberField.RingOfIntegers K ⧸ q.asIdeal) = p ^ 2) (P : Ideal ZInQ.Contrib.ChebFD.C10.Zbar)
+  [P.IsPrime] (hP : Ideal.under ℤ P = Ideal.span {↑p}) :
+  Ideal.under (NumberField.RingOfIntegers K) (Ideal.comap (integersEquiv e) P) = q.asIdeal
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.inert_prime_contraction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.frobeniusMatchesLabel_of_inert {K : Type} [Field K] [NumberField K]
+  (E : WeierstrassCurve ℚ) [E.IsElliptic] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S (E.baseChange K)]
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar) (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S)
+  {h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ} {F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar}
+  {excl : ℕ → Finset ℕ}
+  (D :
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.DerivativePrimes E (ZInQ.Manuscript.RC.KummerMaps.tateConjQ e C) h F excl)
+  (hK :
+    ∀ (i : ℕ) (x : K),
+      (D.frob i * D.frob i) (e ((algebraMap K (AlgebraicClosure K)) x)) = e ((algebraMap K (AlgebraicClosure K)) x))
+  (L : ZInQ.Contrib.RC53Assist.InnerLimitArith.MovingLabel K S) (hdegree : Module.finrank ℚ K = 2)
+  (habove : ∀ (i : ℕ), ↑(D.ell i) ∈ (L.q i).asIdeal)
+  (hinert : ∀ (i : ℕ), Nat.card (NumberField.RingOfIntegers K ⧸ (L.q i).asIdeal) = D.ell i ^ 2) :
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.FrobeniusMatchesLabel E e C D hK L
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.frobeniusMatchesLabel_of_inert' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.exists_characterField {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (i : ℕ) :
+  ∃ M,
+    FiniteDimensional ℚ ↥M ∧
+      Normal ℚ ↥M ∧
+        (∀ (x : K), e ((algebraMap K (AlgebraicClosure K)) x) ∈ M) ∧
+          ∀ (g : ZInQ.Manuscript.RC.PrintsArith.GalQ)
+            (hg : ∀ (x : K), g (e ((algebraMap K (AlgebraicClosure K)) x)) = e ((algebraMap K (AlgebraicClosure K)) x)),
+            (∀ x ∈ M, g x = x) →
+              ↑(α (ZInQ.Contrib.RC53Assist.InnerLimitArith.gksOfQ S e g hg)) - 1 ∈
+                ZInQ.Manuscript.RC.LambdaCoef.lamIdeal i
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.exists_characterField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (i : ℕ) : IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_finite {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (i : ℕ) : FiniteDimensional ℚ ↥(characterField S e α i)
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_normal {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (i : ℕ) : Normal ℚ ↥(characterField S e α i)
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_normal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_containsK {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (i : ℕ) (x : K) :
+  e ((algebraMap K (AlgebraicClosure K)) x) ∈ characterField S e α i
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_containsK' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_trivial {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (i : ℕ) (g : ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (hg : ∀ (x : K), g (e ((algebraMap K (AlgebraicClosure K)) x)) = e ((algebraMap K (AlgebraicClosure K)) x))
+  (hfix : ∀ x ∈ characterField S e α i, g x = x) :
+  ↑(α (ZInQ.Contrib.RC53Assist.InnerLimitArith.gksOfQ S e g hg)) - 1 ∈ ZInQ.Manuscript.RC.LambdaCoef.lamIdeal i
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.characterField_trivial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.enlargedDerivativePrimes {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) :
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.DerivativePrimes E (ZInQ.Manuscript.RC.KummerMaps.tateConjQ e C) h
+    (fun i => F i ⊔ characterField S e α i) excl
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.enlargedDerivativePrimes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) :
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.DerivativePrimes E (ZInQ.Manuscript.RC.KummerMaps.tateConjQ e C) h F excl
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_agree_characterField {K : Type} [Field K]
+  [NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) (i : ℕ) (x : ZInQ.Manuscript.RC.PrintsArith.Qbar) (hx : x ∈ characterField S e α i) :
+  ((selectedDerivativePrimes S e α E C h F excl).frob i) x = (ZInQ.Manuscript.RC.KummerMaps.tateConjQ e C * h i) x
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_agree_characterField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_sq_fixes_characterField {K : Type} [Field K]
+  [NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) (hkernel : ∀ (i : ℕ), ∀ x ∈ characterField S e α i, (h i) x = x) (i : ℕ)
+  (x : ZInQ.Manuscript.RC.PrintsArith.Qbar) (hx : x ∈ characterField S e α i) :
+  ((selectedDerivativePrimes S e α E C h F excl).frob i * (selectedDerivativePrimes S e α E C h F excl).frob i) x = x
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_sq_fixes_characterField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_fixesK {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) (hkernel : ∀ (i : ℕ), ∀ x ∈ characterField S e α i, (h i) x = x) (i : ℕ) (x : K) :
+  ((selectedDerivativePrimes S e α E C h F excl).frob i * (selectedDerivativePrimes S e α E C h F excl).frob i)
+      (e ((algebraMap K (AlgebraicClosure K)) x)) =
+    e ((algebraMap K (AlgebraicClosure K)) x)
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_fixesK' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_character {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) (hkernel : ∀ (i : ℕ), ∀ x ∈ characterField S e α i, (h i) x = x) (i : ℕ) :
+  ↑(α (ZInQ.Contrib.RC53Assist.InnerLimitArith.ratSqFrob E e C (selectedDerivativePrimes S e α E C h F excl) ⋯ i)) - 1 ∈
+    ZInQ.Manuscript.RC.LambdaCoef.lamIdeal i
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.selectedDerivativePrimes_character' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.exists_derivativePrimes_with_character {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) (hkernel : ∀ (i : ℕ), ∀ x ∈ characterField S e α i, (h i) x = x) :
+  ∃ D,
+    ∃ (hK :
+      ∀ (i : ℕ) (x : K),
+        (D.frob i * D.frob i) (e ((algebraMap K (AlgebraicClosure K)) x)) = e ((algebraMap K (AlgebraicClosure K)) x)),
+      ∀ (i : ℕ),
+        ↑(α (ZInQ.Contrib.RC53Assist.InnerLimitArith.ratSqFrob E e C D hK i)) - 1 ∈
+          ZInQ.Manuscript.RC.LambdaCoef.lamIdeal i
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.exists_derivativePrimes_with_character' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.exists_derivativePrimes_with_character_one {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)] (excl : ℕ → Finset ℕ) :
+  ∃ D,
+    ∃ (hK :
+      ∀ (i : ℕ) (x : K),
+        (D.frob i * D.frob i) (e ((algebraMap K (AlgebraicClosure K)) x)) = e ((algebraMap K (AlgebraicClosure K)) x)),
+      ∀ (i : ℕ),
+        ↑(α (ZInQ.Contrib.RC53Assist.InnerLimitArith.ratSqFrob E e C D hK i)) - 1 ∈
+          ZInQ.Manuscript.RC.LambdaCoef.lamIdeal i
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.exists_derivativePrimes_with_character_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.derivativeKernel {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) (i : ℕ) :
+  Subgroup ZInQ.Manuscript.RC.PrintsArith.GalQ
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.derivativeKernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.derivativeKernel_fixes_characterField {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) (i : ℕ) (g : ↥(derivativeKernel S e α E i))
+  (x : ZInQ.Manuscript.RC.PrintsArith.Qbar) (hx : x ∈ characterField S e α i) : ↑g x = x
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.derivativeKernel_fixes_characterField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.derivativeKernel_fixes_torsField {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) (i : ℕ) (g : ↥(derivativeKernel S e α E i))
+  (x : ZInQ.Manuscript.RC.PrintsArith.Qbar) (hx : x ∈ ZInQ.Manuscript.RC.GlueSweep.Tate.torsField E i) : ↑g x = x
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.derivativeKernel_fixes_torsField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.compatibleArithmeticLabelFromSelection {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (h : ℕ → ZInQ.Manuscript.RC.PrintsArith.GalQ)
+  (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar) [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)]
+  (excl : ℕ → Finset ℕ) [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S (E.baseChange K)]
+  (hkernel : ∀ (i : ℕ), ∀ x ∈ characterField S e α i, (h i) x = x)
+  (hh : ∀ (i : ℕ), ∀ x ∈ ZInQ.Manuscript.RC.GlueSweep.Tate.torsField E i, (h i) x = x)
+  (q : ℕ → IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (hq : ∀ (i : ℕ), q i ∉ S)
+  (hdegree : Module.finrank ℚ K = 2)
+  (habove : ∀ (i : ℕ), ↑((selectedDerivativePrimes S e α E C h F excl).ell i) ∈ (q i).asIdeal)
+  (hinert :
+    ∀ (i : ℕ),
+      Nat.card (NumberField.RingOfIntegers K ⧸ (q i).asIdeal) =
+        (selectedDerivativePrimes S e α E C h F excl).ell i ^ 2) :
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.CompatibleArithmeticLabel E K S α
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.compatibleArithmeticLabelFromSelection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.compatibleArithmeticLabelFromKernel {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)] (excl : ℕ → Finset ℕ)
+  [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S (E.baseChange K)] (H : (i : ℕ) → ↥(derivativeKernel S e α E i))
+  (q : ℕ → IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (hq : ∀ (i : ℕ), q i ∉ S)
+  (hdegree : Module.finrank ℚ K = 2)
+  (habove : ∀ (i : ℕ), ↑((selectedDerivativePrimes S e α E C (fun i => ↑(H i)) F excl).ell i) ∈ (q i).asIdeal)
+  (hinert :
+    ∀ (i : ℕ),
+      Nat.card (NumberField.RingOfIntegers K ⧸ (q i).asIdeal) =
+        (selectedDerivativePrimes S e α E C (fun i => ↑(H i)) F excl).ell i ^ 2) :
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.CompatibleArithmeticLabel E K S α
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.compatibleArithmeticLabelFromKernel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.FrobeniusMatch.compatibleArithmeticLabel_one {K : Type} [Field K] [NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (e : AlgebraicClosure K ≃ₐ[ℚ] ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* ZInQ.Manuscript.RC.Uniform.Lambdaˣ)
+  [ZInQ.Manuscript.RC.LambdaCoef.IsContChar α] (E : WeierstrassCurve ℚ) [E.IsElliptic]
+  (C : ZInQ.Manuscript.RC.CoefModules.ActualConj K S) (F : ℕ → IntermediateField ℚ ZInQ.Manuscript.RC.PrintsArith.Qbar)
+  [∀ (i : ℕ), FiniteDimensional ℚ ↥(F i)] (excl : ℕ → Finset ℕ)
+  [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S (E.baseChange K)]
+  (q : ℕ → IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (hq : ∀ (i : ℕ), q i ∉ S)
+  (hdegree : Module.finrank ℚ K = 2)
+  (habove : ∀ (i : ℕ), ↑((selectedDerivativePrimes S e α E C (fun x => 1) F excl).ell i) ∈ (q i).asIdeal)
+  (hinert :
+    ∀ (i : ℕ),
+      Nat.card (NumberField.RingOfIntegers K ⧸ (q i).asIdeal) =
+        (selectedDerivativePrimes S e α E C (fun x => 1) F excl).ell i ^ 2) :
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.CompatibleArithmeticLabel E K S α
+'ZInQ.Contrib.RC53Assist.FrobeniusMatch.compatibleArithmeticLabel_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

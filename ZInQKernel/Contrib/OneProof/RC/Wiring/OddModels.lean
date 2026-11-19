@@ -4,7 +4,7 @@ import ZInQKernel.Contrib.OneProof.RC.Visibility.Models
 /-!
 # Theorem 5.3, Lane RC0: the odd side's genuine objects — (3.4), (O.8) and the fixed witness
 
-`OddInstance W` extends GenusOdd's instance of the genuine objects of (3.4) (`GenusOddInstance`:
+`OddModels W` extends GenusOdd's instance of the genuine objects of (3.4) (`GenusOddInstance`:
 the newform data of `E`, the Heegner selections, RC11's normalization of `L_*`, …) with the inputs
 of lane RC23's visibility models at the **same** objects (the genus selection that defines `j_gen`
 also defines `λ_θ(D) = lamOf`, tex 2512–2530, 9112–9113):
@@ -17,12 +17,20 @@ also defines `λ_θ(D) = lamOf`, tex 2512–2530, 9112–9113):
 * `ω`, `O`, `T`, `hcore`: the theta side of (O.7) (`ThetaSide`, ELLIOT: the theta-form
   construction, tex 8418) and the comparison argument at every admissible `(θ, D)` (`ComparisonCore`,
   ELLIOT + PRINT Cornut–Jetchev, tex 9120–9370); owner RC23 and the theta-form construction of
-  App F;
+  App F.
+
+`OddInstance W` adds (O.2) at the fixed witness:
+
 * `Dw`, `cw`, `hO2`: (O.2) at the fixed witness, read on `λ` (ELLIOT + PRINT; tex 8225–8405,
   2490–2493, 2534–2536; owner RC23).
 
-PROVED from it: `visibilityInputs_of_oddInstance` (RC23's `visibilityInputs_of_models`; admissible
-parameters are prepared by the data specification and the instance) and
+Lane RC0's leaves no longer ask for `OddInstance` itself: they ask for `OddStagedInstance`
+(`RC/Wiring/StageData.lean`), the same models with the stage data built by the Appendix F stage
+construction and the specialization identity at the witness, from which `OddInstance` is PROVED
+(`OddStagedInstance.toOddInstance`).
+
+PROVED from `OddInstance`: `visibilityInputs_of_oddInstance` (RC23's `visibilityInputs_of_models`;
+admissible parameters are prepared by the data specification and the instance) and
 `witnessLeaf_of_oddInstance` (RC23's `witnessLeaf_of_models`).
 
 Conclusion-shaped part: the point side is genuine (`λ = lamOf`, the stage map of `L` times the
@@ -41,10 +49,10 @@ namespace ZInQ.Manuscript.RC.Wiring
 open ZInQ.Manuscript ZInQ.Manuscript.SelmerTwoPower ZInQ.Contrib.CloudB3RC53
   ZInQ.Contrib.CloudB3RC53.CST ZInQ.Contrib.CloudB3RC53.GenusOdd Filter Topology
 
-/-- **The odd side's genuine objects** (tex 2403–2546, 8209–9445): GenusOdd's instance of (3.4)
+/-- **The odd side's genuine models** (tex 2403–2546, 8209–9445): GenusOdd's instance of (3.4)
 together with lane RC23's visibility models at the same genus selection (see the module
 docstring for the fields, with tex lines, kinds and owners). -/
-structure OddInstance {ℓ : ℕ} (W : WData ℓ) extends GenusOddInstance W : Type 1 where
+structure OddModels {ℓ : ℕ} (W : WData ℓ) : Type 1 extends GenusOddInstance W where
   /-- the fixed multiplier -/
   L : ℕ
   /-- it kills the torsion of every native lattice -/
@@ -64,14 +72,18 @@ structure OddInstance {ℓ : ℕ} (W : WData ℓ) extends GenusOddInstance W : T
   hcore : ∀ θ Dd, W.admissible θ Dd →
     Visibility.ComparisonCore (T.S θ) (W.Mθ θ) (-W.hstar) Dd ω
       (Visibility.lamOf W.Mθ L selG ev θ Dd) (T.ζ θ Dd)
+
+attribute [instance] OddModels.ringO
+
+/-- **The odd side's genuine objects** (tex 2403–2546, 8209–9445): the models `OddModels` and (O.2)
+at the fixed witness, read on `λ` (see the module docstring). -/
+structure OddInstance {ℓ : ℕ} (W : WData ℓ) : Type 1 extends OddModels W where
   /-- the fixed witness -/
   Dw : ℤ
   /-- its valuation -/
   cw : ℕ
   /-- (O.2) at the witness, read on `λ` -/
   hO2 : Visibility.WitnessValuation W (Visibility.lamOf W.Mθ L selG ev) Dw cw
-
-attribute [instance] OddInstance.ringO
 
 /-- **(O.8)'s inputs from the odd instance** (PROVED: lane RC23's `visibilityInputs_of_models`;
 admissible parameters are prepared, `PreparedGlue`, and prepared parameters are GenusOdd's,

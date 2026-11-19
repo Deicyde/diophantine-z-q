@@ -6,7 +6,7 @@ import ZInQKernel.Contrib.OneProof.RC.SelmerComplex.SwitchAdjunction
 # RC53 SwitchInputs: the coordinates of the derivative quotients and the genuine side families
 
 Proposition `ex:limits-uniform-lower-bound`, the switch at a new inert derivative prime (tex
-L5027–5037, L5068–5086). This file feeds `DerivFamily.toQuasiSide` with its two remaining inputs at
+L5027–5037, L5060–5086). This file feeds `DerivFamily.toQuasiSide` with its two remaining inputs at
 the genuine local complexes `C^•_cont(G_v, M_v)`.
 
 Nodes:
@@ -25,10 +25,10 @@ Nodes:
 * (2) The quasi sides (PROVED): `finQuasiSide`, `singQuasiSide` for any switched family;
   `switchQuasiSide` over the side-independent relaxed localization `relLoc`
   (`switchFam_toQuasiRelaxed`).
-* non-vacuity at the genuine setting (PROVED): `genuine_quasiSides` — for a nonarchimedean local field
-  `K` with odd residue characteristic, both quasi switch sides (finite plane, singular plane) over
-  one relaxed localization of `C^•_cont(G_K, 𝔽₂²)` (`genFinSide`, `genSingSide`); `TameCoordinates`
-  from `tameCoordinatesTrivial_galois`, `SwitchedAt` from `switchFam_switchedAt`.
+* non-vacuity at the genuine setting (PROVED): `genuine_quasiSides` — for a nonarchimedean local
+  field `K` with odd residue characteristic, both quasi switch sides (finite plane, singular plane)
+  over one relaxed localization of `C^•_cont(G_K, 𝔽₂²)` (`genFinSide`, `genSingSide`);
+  `TameCoordinates` from `tameCoordinatesTrivial_galois`, `SwitchedAt` from `switchFam_switchedAt`.
 
 **Caveat (residue field `𝔽₂`).** The genuine instances in this file are specialised to the residue
 field `𝔽₂`. They are not applicable at the height-one primes `𝔭 ≠ (2)` of `Λ` where the switching
@@ -184,17 +184,17 @@ variable (Gv Mv) in
 abbrev locCx (v : ι) : GCx (ZMod 2) := natCx (contCochains (ZMod 2) (Gv v) (Mv v))
 
 variable (Gv Mv) in
-/-- **The relaxed derivative condition** `τ_{≤1} C^• = [C⁰ → Z¹]` at `v` (tex L5068–5072). -/
+/-- **The relaxed derivative condition** `τ_{≤1} C^• = [C⁰ → Z¹]` at `v` (tex L5060–5061). -/
 def relSub (v : ι) : SubFam (locCx Gv Mv v) :=
   degSub _ ⊤ (Z1 (Gv v) (Mv v)) (fun x _ => (relaxedD (Gv v) (Mv v) x).2) (fun _ hx => hx)
 
 variable (Gv Mv) in
-/-- **The strict derivative condition** `τ_{≤0} C^• = [Z⁰ → 0]` at `v` (tex L5068–5072). -/
+/-- **The strict derivative condition** `τ_{≤0} C^• = [Z⁰ → 0]` at `v` (tex L5060–5061). -/
 def strSub (v : ι) : SubFam (locCx Gv Mv v) :=
   degSub _ (Z0 (Gv v) (Mv v)) ⊥ (fun _ hx => (Submodule.mem_bot _).mpr hx)
     (fun x hx => by rw [(Submodule.mem_bot _).mp hx, map_zero])
 
-/-- **The side condition** `[A → B] ⊆ [C⁰ → Z¹]` of a `SideCond` at `v` (tex L5068–5083). -/
+/-- **The side condition** `[A → B] ⊆ [C⁰ → Z¹]` of a `SideCond` at `v` (tex L5060–5082). -/
 def sideSub (v : ι) (c : SideCond (Gv v) (Mv v)) : SubFam (locCx Gv Mv v) :=
   degSub _ c.AF (c.BF.map (Z1 (Gv v) (Mv v)).subtype)
     (fun x hx => ⟨relaxedD (Gv v) (Mv v) x, c.hd hx, rfl⟩)
@@ -206,12 +206,13 @@ def switchStr (q : ι) (old : ∀ v, SubFam (locCx Gv Mv v)) (v : ι) : SubFam (
   if v = q then strSub Gv Mv v else old v
 
 variable (Gv Mv) in
-/-- The relaxed conditions of the switch at `q`: `[C⁰ → Z¹]` at `q`, the old conditions elsewhere. -/
+/-- The relaxed conditions of the switch at `q`: `[C⁰ → Z¹]` at `q`, the old conditions elsewhere.
+-/
 def switchRel (q : ι) (old : ∀ v, SubFam (locCx Gv Mv v)) (v : ι) : SubFam (locCx Gv Mv v) :=
   if v = q then relSub Gv Mv v else old v
 
 variable (Gv Mv) in
-/-- **The switch family** at the place `q` (tex L5068–5083): the strict, side (`sideOfSet (T q)`:
+/-- **The switch family** at the place `q` (tex L5060–5082): the strict, side (`sideOfSet (T q)`:
 the finite side for `T q = I`, the singular side for `T q = {φ}`) and relaxed derivative conditions
 at `q`, and the old conditions `old v` elsewhere. -/
 def switchFam (q : ι) (old : ∀ v, SubFam (locCx Gv Mv v)) (T : ∀ v, Set (Gv v)) :
@@ -601,7 +602,7 @@ theorem singular_side_iff (z : Z1 (Gv q) (Mv q)) :
 
 variable {F : DerivFamily (locCx Gv Mv)} (G : GCx (ZMod 2)) (res : GHom G (piCx (locCx Gv Mv)))
 
-/-- **The finite quasi side** of a family switched at `q` with the finite side (tex L5068–5086):
+/-- **The finite quasi side** of a family switched at `q` with the finite side (tex L5060–5086):
 `toQuasiSide` with the coordinates `eRAt` and the plane equation `range_H1i_eRAt`. PROVED. -/
 def finQuasiSide {I : Subgroup (Gv q)} (hF : SwitchedAt F q (sideOfSet (I : Set (Gv q))))
     (T : TameCoordinates (M := Mv q) I φ σ) :
@@ -619,7 +620,7 @@ def singQuasiSide {I : Subgroup (Gv q)} (hF : SwitchedAt F q (sideOfSet ({φ} : 
     (range_H1i_eRAt φ σ eM hF (derivHsr F) hF.rel T _ (singular_side_iff φ σ eM))
 
 variable (q) in
-/-- **The relaxed localization of switch conditions** (tex L5068–5086): the quasi relaxed
+/-- **The relaxed localization of switch conditions** (tex L5060–5086): the quasi relaxed
 localization `G → ∏_v L_v ← ∏_v U_v^{rel}`, `W_rel`, with coordinates `eR`; it involves only the
 strict and relaxed conditions, not the side. -/
 def relLoc (old : ∀ v, SubFam (locCx Gv Mv v))
@@ -630,7 +631,7 @@ def relLoc (old : ∀ v, SubFam (locCx Gv Mv v))
     quotMk (strRel (switch_hsr q old)), eR⟩
 
 /-- **The switch families have the side-independent relaxed localization** `relLoc` (tex
-L5068–5086): so the finite and singular quasi sides live over one quasi relaxed localization.
+L5060–5086): so the finite and singular quasi sides live over one quasi relaxed localization.
 PROVED (definitional). -/
 theorem switchFam_toQuasiRelaxed (old : ∀ v, SubFam (locCx Gv Mv v)) (T' : ∀ v, Set (Gv v))
     {I : Subgroup (Gv q)} (T : TameCoordinates (M := Mv q) I φ σ) :
@@ -639,7 +640,7 @@ theorem switchFam_toQuasiRelaxed (old : ∀ v, SubFam (locCx Gv Mv v)) (T' : ∀
       relLoc q G res old (eRAt (switch_hsr q old) (switch_relAt q old) φ σ eM T) :=
   rfl
 
-/-- **The quasi side of the switch family with side set `T' q`** (tex L5068–5086), over `relLoc`:
+/-- **The quasi side of the switch family with side set `T' q`** (tex L5060–5086), over `relLoc`:
 `toQuasiSide` with the coordinates `eRAt` and the plane equation `range_H1i_eRAt`. PROVED. -/
 def switchQuasiSide (old : ∀ v, SubFam (locCx Gv Mv v)) (T' : ∀ v, Set (Gv v))
     {I : Subgroup (Gv q)} (T : TameCoordinates (M := Mv q) I φ σ)
@@ -688,7 +689,7 @@ def genR {φ σ : Field.absoluteGaloisGroup K}
     QuasiRelaxedLocalization (ZMod 2) :=
   relLoc () (genGlob (K := K)) (idGHom _) (genOld K) (genER T)
 
-/-- **The genuine finite quasi side** at `G_K` (tex L5068–5086): the switch family with the finite
+/-- **The genuine finite quasi side** at `G_K` (tex L5060–5086): the switch family with the finite
 side `sideOfSet I_K` (`finiteSide I_K`). PROVED. -/
 def genFinSide {φ σ : Field.absoluteGaloisGroup K}
     (T : TameCoordinates (M := GalM K 2) (TauCeti.inertiaSubgroup K) φ σ) :
@@ -708,10 +709,11 @@ def genSingSide {φ σ : Field.absoluteGaloisGroup K}
     (singular_side_iff (Gv := genG K) (Mv := genM K) (q := ()) φ σ (trivModEquiv _ _))
 
 variable (K) in
-/-- **non-vacuity at the genuine setting** (tex L5027–5037, L5068–5086): for a nonarchimedean local
+/-- **non-vacuity at the genuine setting** (tex L5027–5037, L5060–5086): for a nonarchimedean local
 field `K` with odd residue characteristic there are a Frobenius lift `φ`, a tame generator
 `σ ∈ I_K` and tame coordinates for `𝔽₂²`, and over the genuine relaxed localization of
-`C^•_cont(G_K, 𝔽₂²)` both quasi switch sides (finite plane and singular plane) exist. PROVED. Residual-field (`𝔽₂`) instance only; not applicable at height-one primes `≠ (2)`, see
+`C^•_cont(G_K, 𝔽₂²)` both quasi switch sides (finite plane and singular plane) exist. PROVED.
+Residual-field (`𝔽₂`) instance only; not applicable at height-one primes `≠ (2)`, see
 `isEmpty_ringHom_zmod_two_heightOne`; the characteristic-zero version is the field-generic chain. -/
 theorem genuine_quasiSides (hp : ringChar 𝓀[K] ≠ 2) :
     ∃ φ σ : Field.absoluteGaloisGroup K, TauCeti.IsArithFrobeniusLift K φ ∧

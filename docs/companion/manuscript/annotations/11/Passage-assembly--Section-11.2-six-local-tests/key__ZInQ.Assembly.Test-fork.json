@@ -1,0 +1,86 @@
+{
+  "id": "Passage assembly: Section 11.2 six local tests",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: Test n kappa t is defined on the integer indices, with H=[h]P0, U=[s0]P0, V0=[h-kappa]P0, V1=[s0-kappa n]P0, guards h != 0 and h != kappa for H, V0 != O, t not in C, and the same D_j, R0, a0, R, C_j, W, Theta and Phi(R/Theta^2). [M]'s Test is a relation on codes; [F]'s code-level template agrees with it through valueTest_rel_iff, proved under MultiplicationExact.",
+  "relation": "closeMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 81,
+        "rect": [
+          0.107843,
+          0.545765,
+          0.784314,
+          0.323055
+        ]
+      },
+      "title": "Passage (assembly): Section 11.2 six local tests",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 11.2 six local tests"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.Test",
+        "module": "ZInQKernel.Assembly.Local.SixLocalTests"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.Test@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Test (n κ : ℤ) (t : ℚ) : Prop :=\n  κ ≠ 0 ∧ t ∉ contactSet ∧ ∃ (h s₀ : ℤ) (η q : ℚ), h ≠ 0 ∧ h ≠ κ ∧ η ^ 2 = 1 ∧\n    1 - testR₀ η t * q ^ 2 ≠ 0 ∧ poleW (testR η q t) (testC n κ t h s₀) ≠ 0 ∧\n    poleTheta (testR η q t) (testC n κ t h s₀) ≠ 0 ∧\n    PoleSoluble (testR η q t / poleTheta (testR η q t) (testC n κ t h s₀) ^ 2)",
+            "line": 66,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Local/SixLocalTests.lean",
+            "fragment": "L66"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          81
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean defines a different object (definition-differs).",
+          "evidence": [
+            "ndep's Test keeps [M]'s clauses (k != 0, t not in C, h != 0, h != k, eta^2=1, a0 != 0, W != 0, Theta != 0), but its last clause is PoleSoluble, i.e. polePoly with T1=A(A-e)(A+e) and T2=A(Az^2-eH)(Az^2+eH), not [M]'s A+3e and Az^2+3eH. [N] defines no Test of its own and uses ndep's in height_le_scaled_bound and main_iff (via valueTest_rel_iff).",
+            "No [N] Test exists (search found only unrelated Test names); ndep's Test matches [M]'s guards and quantities but its last clause is ndep's PoleSoluble, the Route K polynomial with x+l, against [M]'s Phi with x+3l, and [N] uses it in height_le_scaled_bound and main_iff."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

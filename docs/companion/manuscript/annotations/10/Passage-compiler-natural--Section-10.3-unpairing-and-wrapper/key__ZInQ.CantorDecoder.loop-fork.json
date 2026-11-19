@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 unpairing and wrapper",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.CantorDecoder.loop a definition: The pairing, the unpairing loop and its inversion, the wrapper and its correctness through relocation are stated and proved; no assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.159416,
+          0.784314,
+          0.087301
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 unpairing and wrapper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 unpairing and wrapper"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.CantorDecoder.loop",
+        "module": "lean.ZInQ.CantorDecoder"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.CantorDecoder.loop@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "@[expose] def loop (s r : Nat) : Nat × Nat :=\n  if h : s < r then\n    loop (s + 1) (r - (s + 1))\n  else\n    (s - r, r)\ntermination_by r\ndecreasing_by\n  exact Nat.sub_lt (Nat.lt_of_le_of_lt (Nat.zero_le s) h) (Nat.succ_pos s)",
+            "line": 19,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/CantorDecoder.lean",
+            "fragment": "L19"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

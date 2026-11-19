@@ -1,0 +1,47 @@
+{
+  "id": "Proposition F.3",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The proposition compares the unaveraged weighted theta coefficient H_M(mD) with the Kummer image lambda_M of LP_D modulo 2^M; [F] defines neither H_M, P_D nor lambda_M, and states no such comparison.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 120,
+        "rect": [
+          0.102941,
+          0.47829,
+          0.794118,
+          0.153717
+        ]
+      },
+      "title": "Proposition F.3",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition F.3"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          120
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

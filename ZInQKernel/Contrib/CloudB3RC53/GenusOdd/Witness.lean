@@ -12,11 +12,11 @@ multiplier `L` kills the bounded-degree torsion and the projection denominator, 
 `FixedWitness` states the first two sentences' conclusions over the genuine objects: the genus point
 `P_{D_w}^gen` is nontorsion, and there is a nontorsion `Q ∈ E^{(D_w)}(ℚ)` with
 `j(P) ≤ j(Q) ≤ j(P) + 1` (from `2P ≡ ψ(Q)` modulo torsion: Elliot's comparison, the "projection
-denominator" `2`). DEPARTURE (form): the manuscript's `Q = L P` with one fixed multiplier `L` killing
-the torsion of `E` over fields of degree `≤ 4` (tex L8288–8294, reduction at two good primes) is not
-formalized; the consequence used, a nontorsion rational point on `E^{(D_w)}` comparable with
-`P_{D_w}^gen`, is. `L'(E^{(D_w)},1) ≠ 0` enters as `ord_{s=1} L(E^{(D_w)}, s) = 1` (odd sign).
-PROVED from `Prints` and the reduced GLUE.
+denominator" `2`). DEPARTURE (form): the manuscript's `Q = L P` with one fixed multiplier `L`
+killing the torsion of `E` over fields of degree `≤ 4` (tex L8274–8283, reduction at two good
+primes) is not formalized; the consequence used, a nontorsion rational point on `E^{(D_w)}`
+comparable with `P_{D_w}^gen`, is. `L'(E^{(D_w)},1) ≠ 0` enters as `ord_{s=1} L(E^{(D_w)}, s) = 1`
+(odd sign). PROVED from `Prints` and the reduced GLUE.
 -/
 
 noncomputable section

@@ -1,0 +1,86 @@
+{
+  "id": "Passage compiler-translation: Section 3.1 natural predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin and ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Mult.multiply_sound proved only from ZInQ.SixContactMin: Raw addition on canonical codes is proved with no hypotheses, which makes the verdict standing proved; the central claims are conditional: multiply_sound assumes ZInQ.SixContactMin, and natural_rel_iff gives exactly iota(N) on untyped inputs only from ZInQ.Translation.MultiplicationExact, as [M] itself says, stated generically in the template parameters.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.622659,
+          0.794118,
+          0.118038
+        ]
+      },
+      "title": "Passage (compiler-translation): Section 3.1 natural predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Section 3.1 natural predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.multiply_sound",
+        "module": "ZInQKernel.Multiplication.Soundness.MultiplySound"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.multiply_sound@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem multiply_sound (hH : SixContactMin) (Y₁ Y₂ Y₃ : Fin 5 → ℚ)\n    (hY : (multiplyTemplate specConstructors FixedConst.cstar.value FixedConst.ell.value\n      FixedConst.T.value).Rel (codes3 Y₁ Y₂ Y₃)) :\n    ∃ a b : ℤ, Y₁ = iota a ∧ Y₂ = iota b ∧ Y₃ = iota (a * b) := by",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Soundness/MultiplySound.lean",
+            "fragment": "L24"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "natural_rel_iff (Rel_natural A iff A = iota n for n in N) is proved from MultiplicationExact for naturalTemplate, whose multiplication calls reach poleTemplate with A(A-e)(A+e). So it is a statement about another polynomial. [N] supplies MultiplicationExact only through multiplication_exact at guardCutoff m.",
+            "natural_rel_iff and multiply_sound are stated for ndep's multiplyTemplate, which reaches the pole template with T1 = A(A-e)(A+e), so the natural predicate and multiplication soundness concern a different polynomial from [M]'s; nasqret has no natural-predicate declaration of its own and uses only MultiplicationExact through its multiplication_exact at guardCutoff m."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "id": "Passage multiplication: Slope predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Mult.traceTheta a definition: R_0, a, R, C_gj, k_j, W_g, Theta and Phi(R/Theta^2) on [M]'s Q_pole are defined as in [M], and the pole input's nonvanishing is proved; SlopePred takes l as a parameter with an added conjunct l != 0 and adds h_g != 0, h_g != c_0 to guard the test denominators. Proved, unconditional.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.107843,
+          0.763581,
+          0.784314,
+          0.140023
+        ]
+      },
+      "title": "Passage (multiplication): Slope predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Slope predicate#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.107843,
+          0.080538,
+          0.784314,
+          0.063534
+        ]
+      },
+      "title": "Passage (multiplication): Slope predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Slope predicate#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.traceTheta",
+        "module": "ZInQKernel.Multiplication.Certificate.SlopePredicate"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.traceTheta@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def traceTheta (W : Fin 6 → K0) : ℚ := QuadraticAlgebra.trace (∑ g, (W g)⁻¹)",
+            "line": 43,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean",
+            "fragment": "L43"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17,
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean defines a different object (definition-differs).",
+          "evidence": [
+            "After unfolding, ndep's SlopePred matches [M]'s R_0, a, R, C_gj, W_g and Theta, but its last conjunct PoleSoluble refers to polePoly with curves x+l instead of [M]'s x+3l, so the predicate differs; poleInput_ne_zero is proved, and [N] uses SlopePred in slope_bound.",
+            "ndep's SlopePred matches [M]'s R_0, a, R, C_gj, W_g and Theta, but it imposes PoleSoluble, built on the x(x-e)(x+e) pole polynomial instead of [M]'s x+3e, so it is a different predicate. poleInput_ne_zero is proved; [N] has no slope predicate of its own and uses ndep's in slope_bound."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

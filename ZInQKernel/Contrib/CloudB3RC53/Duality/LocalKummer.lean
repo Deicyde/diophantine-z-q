@@ -24,7 +24,8 @@ Genuine objects:
   `kummerProj`: `H¹(F, B[m]) → H¹(F, B)`, whose kernel is the Kummer image
   (`WeierstrassCurve.range_kummerMap`).
 
-* `MilneLocalTateDualityKummer` (PRINT, UNVERIFIED; Milne, *Arithmetic Duality Theorems*,
+* `MilneLocalTateDualityKummer` (PRINT; locators checked against the ADT PDF (I.2.3 p. 28;
+  I.3.2 p. 41, diagram pp. 41–43; I.3.4 p. 43; I.3.5 p. 44); Milne, *Arithmetic Duality Theorems*,
   I.3.2–I.3.5, as cited at tex L3439–3441): Tate's local duality pairing
   `B(F) × H¹(F, B) → ℚ/ℤ` is nondegenerate on `H¹(F, B)`, and the Kummer map is adjoint to
   `H¹(F, B[m]) → H¹(F, B)` for it and the local duality pairing on `H¹(F, B[m])`. The library
@@ -118,7 +119,8 @@ theorem mem_range_kummerMap_iff {A : Type*} [AddCommGroup A]
 
 variable [ValuativeRel F] [TopologicalSpace F] [IsNonarchimedeanLocalField F]
 
-/-- **PRINT** (UNVERIFIED; Milne, *Arithmetic Duality Theorems*, I.3.2–I.3.5, as cited at tex
+/-- **PRINT** (locators checked against the ADT PDF (I.2.3 p. 28; I.3.2 p. 41, diagram pp. 41–43;
+I.3.4 p. 43; I.3.5 p. 44); Milne, *Arithmetic Duality Theorems*, I.3.2–I.3.5, as cited at tex
 L3439–3441): for an elliptic curve `B` over a nonarchimedean local field `F` and `m` invertible
 in `F`, Tate's local duality pairing `B(F) × H¹(F, B) → ℚ/ℤ` is nondegenerate on `H¹(F, B)`
 (Milne I.3.4; used on `H¹(F, B)[m]`), and the Kummer map is adjoint to `H¹(F, B[m]) → H¹(F, B)`

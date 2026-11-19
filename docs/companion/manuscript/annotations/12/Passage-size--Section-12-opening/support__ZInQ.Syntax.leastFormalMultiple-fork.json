@@ -1,0 +1,70 @@
+{
+  "id": "Passage size: Section 12 opening",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: Each constant has a definition with [M]'s formula: Ps = primorial 324, Ns = Ps*Hcat, M0 = leastFormalMultiple Ns, cstar = 4*M0, ell = 12*(Ps^2916*Hcat^732), F = 324!, R = max(max(max D Hmax) cstar) 10^12, Aht = 2*10^13*max(max 1 Ccm)(Q^17), T = (48*Aht)^13.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 83,
+        "rect": [
+          0.107843,
+          0.458193,
+          0.784314,
+          0.161222
+        ]
+      },
+      "title": "Passage (size): Section 12 opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12 opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.leastFormalMultiple",
+        "module": "ZInQKernel.Syntax.Constants.FormalMultiple"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.leastFormalMultiple@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def leastFormalMultiple (N : ℕ) : ℕ :=\n  sInf {m : ℕ | 1 ≤ m ∧ FormalCondition N m}",
+            "line": 164,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Constants/FormalMultiple.lean",
+            "fragment": "L164"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          83
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

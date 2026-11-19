@@ -42,17 +42,17 @@ variable (k Gv Mv) in
 abbrev locCxK (v : ι) : GCx (k) := natCx (contCochains (k) (Gv v) (Mv v))
 
 variable (k Gv Mv) in
-/-- **The relaxed derivative condition** `τ_{≤1} C^• = [C⁰ → Z¹]` at `v` (tex L5068–5072). -/
+/-- **The relaxed derivative condition** `τ_{≤1} C^• = [C⁰ → Z¹]` at `v` (tex L5060–5061). -/
 def relSubK (v : ι) : SubFam (locCxK k Gv Mv v) :=
   degSub _ ⊤ (Z1K k (Gv v) (Mv v)) (fun x _ => (relaxedDK k (Gv v) (Mv v) x).2) (fun _ hx => hx)
 
 variable (k Gv Mv) in
-/-- **The strict derivative condition** `τ_{≤0} C^• = [Z⁰ → 0]` at `v` (tex L5068–5072). -/
+/-- **The strict derivative condition** `τ_{≤0} C^• = [Z⁰ → 0]` at `v` (tex L5060–5061). -/
 def strSubK (v : ι) : SubFam (locCxK k Gv Mv v) :=
   degSub _ (Z0K k (Gv v) (Mv v)) ⊥ (fun _ hx => (Submodule.mem_bot _).mpr hx)
     (fun x hx => by rw [(Submodule.mem_bot _).mp hx, map_zero])
 
-/-- **The side condition** `[A → B] ⊆ [C⁰ → Z¹]` of a `SideCond` at `v` (tex L5068–5083). -/
+/-- **The side condition** `[A → B] ⊆ [C⁰ → Z¹]` of a `SideCond` at `v` (tex L5060–5082). -/
 def sideSubK (v : ι) (c : SideCondK k (Gv v) (Mv v)) : SubFam (locCxK k Gv Mv v) :=
   degSub _ c.AF (c.BF.map (Z1K k (Gv v) (Mv v)).subtype)
     (fun x hx => ⟨relaxedDK k (Gv v) (Mv v) x, c.hd hx, rfl⟩)
@@ -70,7 +70,7 @@ def switchRelK (q : ι) (old : ∀ v, SubFam (locCxK k Gv Mv v)) (v : ι) : SubF
   if v = q then relSubK k Gv Mv v else old v
 
 variable (k Gv Mv) in
-/-- **The switch family** at the place `q` (tex L5068–5083): the strict, side (`sideOfSetK k (Mv q)
+/-- **The switch family** at the place `q` (tex L5060–5082): the strict, side (`sideOfSetK k (Mv q)
 (T q)`:
 the finite side for `T q = I`, the singular side for `T q = {φ}`) and relaxed derivative conditions
 at `q`, and the old conditions `old v` elsewhere. -/
@@ -450,7 +450,7 @@ theorem singular_side_iffK (z : Z1K k (Gv q) (Mv q)) :
 
 variable {F : DerivFamily (locCxK k Gv Mv)} (G : GCx (k)) (res : GHom G (piCx (locCxK k Gv Mv)))
 
-/-- **The finite quasi side** of a family switched at `q` with the finite side (tex L5068–5086):
+/-- **The finite quasi side** of a family switched at `q` with the finite side (tex L5060–5086):
 `toQuasiSide` with the coordinates `eRAtK` and the plane equation `range_H1i_eRAtK`. PROVED. -/
 def finQuasiSideK {I : Subgroup (Gv q)}
     (hF : SwitchedAtK F q (sideOfSetK k (Mv q) (I : Set (Gv q))))
@@ -470,7 +470,7 @@ def singQuasiSideK {I : Subgroup (Gv q)}
     (range_H1i_eRAtK φ σ eM hF (derivHsrK F) hF.rel T _ (singular_side_iffK φ σ eM))
 
 variable (q) in
-/-- **The relaxed localization of switch conditions** (tex L5068–5086): the quasi relaxed
+/-- **The relaxed localization of switch conditions** (tex L5060–5086): the quasi relaxed
 localization `G → ∏_v L_v ← ∏_v U_v^{rel}`, `W_rel`, with coordinates `eR`; it involves only the
 strict and relaxed conditions, not the side. -/
 def relLocK (old : ∀ v, SubFam (locCxK k Gv Mv v))
@@ -481,7 +481,7 @@ def relLocK (old : ∀ v, SubFam (locCxK k Gv Mv v))
     quotMk (strRelK (switch_hsrK q old)), eR⟩
 
 /-- **The switch families have the side-independent relaxed localization** `relLocK` (tex
-L5068–5086): so the finite and singular quasi sides live over one quasi relaxed localization.
+L5060–5086): so the finite and singular quasi sides live over one quasi relaxed localization.
 PROVED (definitional). -/
 theorem switchFam_toQuasiRelaxedK (old : ∀ v, SubFam (locCxK k Gv Mv v)) (T' : ∀ v, Set (Gv v))
     {I : Subgroup (Gv q)} (T : TameCoordinatesTrivialK k (Mv q) I φ σ) :
@@ -490,7 +490,7 @@ theorem switchFam_toQuasiRelaxedK (old : ∀ v, SubFam (locCxK k Gv Mv v)) (T' :
       relLocK q G res old (eRAtK (switch_hsrK q old) (switch_relAtK q old) φ σ eM T) :=
   rfl
 
-/-- **The quasi side of the switch family with side set `T' q`** (tex L5068–5086), over `relLocK`:
+/-- **The quasi side of the switch family with side set `T' q`** (tex L5060–5086), over `relLocK`:
 `toQuasiSide` with the coordinates `eRAtK` and the plane equation `range_H1i_eRAtK`. PROVED. -/
 def switchQuasiSideK (old : ∀ v, SubFam (locCxK k Gv Mv v)) (T' : ∀ v, Set (Gv v))
     {I : Subgroup (Gv q)} (T : TameCoordinatesTrivialK k (Mv q) I φ σ)

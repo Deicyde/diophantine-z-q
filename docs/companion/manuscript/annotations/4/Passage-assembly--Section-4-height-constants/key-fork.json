@@ -1,0 +1,368 @@
+{
+  "id": "Passage assembly: Section 4 height constants",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: Defines all constants with [M]'s values, G as `GlueRepo.PR.Gq` and the default H6(S) as `HeightConstantComparison.h6` in the separate lean/ library. `heightH6` is defined for every real R, with the range R >= max(D, max S, 10^12) moved into `SixContactEstimate`, so H6(S;R) is packaged with a changed range.",
+  "relation": "closeMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.740697,
+          0.794118,
+          0.177897
+        ]
+      },
+      "title": "Passage (assembly): Section 4 height constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 4 height constants#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 8,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.229394
+        ]
+      },
+      "title": "Passage (assembly): Section 4 height constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 4 height constants#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "GlueRepo.PR.Gq",
+        "module": "ZInQKernel.HDecomp.Repo.PRArith"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "GlueRepo.PR.Gq@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Gq (u : ℚ) : ℚ := 7 * u ^ 2 + 300 * u + 3600",
+            "line": 39,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/HDecomp/Repo/PRArith.lean",
+            "fragment": "L39"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.sixF",
+        "module": "ZInQKernel.Compiler.Precision.HeightConstant"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.sixF@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def sixF (u : ℤ) : ℤ := u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60)",
+            "line": 86,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/HeightConstant.lean",
+            "fragment": "L86"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.HeightConstantComparison.h6",
+        "module": "lean.ZInQ.HeightConstantComparison"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.HeightConstantComparison.h6@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "@[expose] def h6 (S : Finset ℕ) : ℕ := h6ForMax (S.sup id)",
+            "line": 86,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/HeightConstantComparison.lean",
+            "fragment": "L86"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.contactPoly",
+        "module": "ZInQKernel.Multiplication.Certificate.Constants"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.contactPoly@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def contactPoly (t : ℚ) : ℚ := t * (t + 15) * (t + 20) * (t + 24) * (t + 30) * (t + 60)",
+            "line": 81,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Constants.lean",
+            "fragment": "L81"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.contactSet",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.contactSet@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def contactSet : Finset ℚ := {0, -15, -20, -24, -30, -60}",
+            "line": 84,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L84"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.contactSupport",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.contactSupport@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def contactSupport (S : Finset ℕ) (u : ℚ) : ℕ :=\n  ∏ p ∈ (∏ c ∈ contactSet, (u - c).num.natAbs).primeFactors with\n      p ∉ S ∧ ∃ c ∈ contactSet, 0 < padicValRat p (u - c) ∧ Odd (padicValRat p (u - c)),\n    p",
+            "line": 89,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L89"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.heightCcm",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.heightCcm@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def heightCcm : ℕ := 2 * heightBcm + 4096 * (1028 + 5 * heightD + 84000 * heightD ^ 2)",
+            "line": 145,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L145"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.heightD",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.heightD@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def heightD : ℕ := heightF0 * 3 ^ (256 * heightF0 ^ 4)",
+            "line": 133,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L133"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.heightE0",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.heightE0@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def heightE0 : ℕ := 10 * (heightD * heightG0) ^ 2",
+            "line": 139,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L139"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.heightH6",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.heightH6@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def heightH6 (R : ℝ) : ℝ :=\n  2 * 10 ^ 13 * max 1 (max (heightCcm : ℝ) (heightQ R ^ 17))",
+            "line": 152,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L152"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.heightQ",
+        "module": "ZInQKernel.Hypotheses.Height"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.heightQ@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def heightQ (R : ℝ) : ℝ := R ^ (R * heightE0)",
+            "line": 148,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Height.lean",
+            "fragment": "L148"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7,
+          8
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

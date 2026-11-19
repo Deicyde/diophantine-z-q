@@ -1,0 +1,47 @@
+{
+  "id": "Lemma 9.1",
+  "kind": "lemma",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] states finite free models of flat complexes over Artin local rings and ultrafilter inner-limit diagrams. [F] does not formalize Section 9, which with Sections 6-8 proves [M]'s restricted converse; [F] takes that theorem as the hypothesis ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine of frozenTarget instead.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 59,
+        "rect": [
+          0.107843,
+          0.114432,
+          0.784314,
+          0.181056
+        ]
+      },
+      "title": "Lemma 9.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 9.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          59
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

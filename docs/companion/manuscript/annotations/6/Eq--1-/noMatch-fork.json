@@ -1,0 +1,47 @@
+{
+  "id": "Eq (1)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The display is the local density bound |R_L|/W_L^3 >= c_A (log L)^-44, a step of the proof of Proposition 6.2. [F] takes the proposition as the unproved Prop FixedPrimePattern and proves nothing of this proof; its own Proposition D sieve bounds other quantities.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 20,
+        "rect": [
+          0.107843,
+          0.704608,
+          0.784314,
+          0.062903
+        ]
+      },
+      "title": "Eq. (1)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (1)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          20
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

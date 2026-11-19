@@ -5,7 +5,7 @@ import Mathlib.LinearAlgebra.FiniteDimensional.Basic
 /-!
 # Lines and right matrix submodules
 
-Tex 9040–9042. The column description and its proof by matrix units are on-the-spot (c).
+Tex 9040–9042. The column description and its proof by matrix units are proved here.
 -/
 
 noncomputable section

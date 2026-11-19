@@ -1,0 +1,47 @@
+{
+  "id": "Proposition 9.8",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] has no group-ring determinant Delta, numerator Q, identity f_x u_x = d_x, or the bounds v_2 f_0(0) <= c_det and L_T(M) = 16(d_K+5)M.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 73,
+        "rect": [
+          0.107843,
+          0.114432,
+          0.784314,
+          0.173425
+        ]
+      },
+      "title": "Proposition 9.8",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 9.8"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          73
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

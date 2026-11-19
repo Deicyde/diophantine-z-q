@@ -1,0 +1,8 @@
+strict count: 4/25 on 29 -> 5/24 on 29; strictest 4/25 -> 5/24
+import ZInQKernel.OneProof.H.TailZ92
+import ZInQKernel.Contrib.OneProof.FowlerUnique
+Fields removed (each proved by a contribution): `fowlerProp27`.
+Fields added (new leaves): `fowlerProp27PrintCanonical`. -/
+  fowlerProp27PrintCanonical : HDec.CMBranch.FowlerBridges.FowlerProp27PrintCanonical
+  fowlerProp27 := HDec.CMBranch.FowlerBridges.fowlerProp27_of_canonical n.fowlerProp27PrintCanonical
+theorem sixContactMin_of_open86 (r : OpenResearchLeaves67) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves28) : ZInQ.SixContactMin :=

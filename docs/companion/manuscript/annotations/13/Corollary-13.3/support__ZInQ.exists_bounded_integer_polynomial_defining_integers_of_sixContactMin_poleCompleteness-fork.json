@@ -1,0 +1,70 @@
+{
+  "id": "Corollary 13.3",
+  "kind": "corollary",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness proved only from ZInQ.SixContactMin and ZInQ.PoleCompleteness: No declaration defines HTP(Q), a coding of integer polynomials, 0' or many-one reducibility; nothing states HTP(Q) is many-one equivalent to the halting set.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 87,
+        "rect": [
+          0.107843,
+          0.332975,
+          0.784314,
+          0.107425
+        ]
+      },
+      "title": "Corollary 13.3",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Corollary 13.3"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness",
+        "module": "ZInQKernel.MainGreenTao"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness\n    (hH : SixContactMin) (hPC : PoleCompleteness) : FrozenTarget :=",
+            "line": 33,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/MainGreenTao.lean",
+            "fragment": "L33"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          87
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

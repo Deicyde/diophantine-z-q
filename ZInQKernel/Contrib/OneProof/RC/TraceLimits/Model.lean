@@ -128,7 +128,15 @@ indices `C = {n // n ≠ 0}`, with expansion `expand v n = coeff n v` (the Fouri
 `D U` are this family for every `U`, `hD`). Its `det_orbit` is `detOrbit_coefficient`, with no
 lattice comparison. Round 4: no congruence hypothesis on the operators. `two_fresh` is the
 reduced-expansion statement of tex 9741–9745 within the budget, and `read` is a functional on
-reduced expansions. -/
+reduced expansions.
+
+This constructor is not a discharge for the genuine added-prime packets.
+`htyp`, `hS` and `hlevel` force `avoid` to contain no good prime; together
+with `hunr` they make every constituent unramified at every good added prime.
+Thus it cannot carry the ramified blocks of tex 9754–9758 and 9866–9873.
+Tex 9649–9668 also supplies finiteness only at each fixed packet. A genuine
+family discharge must assemble separate packets with per-U openness and
+inertia support S ∪ U; it is not constructed here. -/
 def buildConstituentModel (R : Finset ℕ → ZMod 2) (ap : ℕ → ℤ) (B : ℕ)
     (chiType : GalQ →* Multiplicative L) (hchi : OpenTypeKernel chiType)
     (htyp : IsTypeChar T chiType)

@@ -4,7 +4,9 @@ import ZInQKernel.Contrib.CloudB3RC53.CoefficientDictionary.TraceModelInstance
 import ZInQKernel.Contrib.OneProof.RC.TateWiring.Image
 
 /-!
-# Theorem 5.3, Lane RC24: the constituent model over `G_ℚ`, on reduced expansions
+# Theorem 5.3, Lane RC24: the constituent model over `G_ℚ`
+
+Its readings are on reduced expansions; its module is the auxiliary quotient `Mst`.
 
 Manuscript `diophantine_zq.tex`, App F, proof of Proposition `ex:app-coefficient-rules`
 (tex 9447–9976): the integral trace module (tex 9638–9668) and the constituent operators
@@ -226,14 +228,18 @@ end ConsN
 
 /-! ## The constituent model over `G_ℚ` -/
 
-/-- **The constituent model of the integral trace module over `G_ℚ`, on reduced expansions**,
-within the budget `B`, for the type character `chiType` (tex 9638–9668, 9705–9797). It is lane
-RC0's `ConstituentModelRel` with `G := G_ℚ`, genuine Frobenius elements (`frob_spec`),
-`chiBit := bitChar`, and `N_U := consN chiType (redTrace …) U` defined. Every identity of the
-trace argument is an identity of coefficientwise reduced expansions (tex 9639–9646, 9716–9717,
-9728–9729; see the module docstring). This constituent interface is not the wired density leaf:
-the leaf asks for density models (`Chebotarev.lean`), which `toGaloisDensityModel` builds from it
-given its inputs, openness and unramifiedness.
+/-- **The constituent model of the integral trace module over `G_ℚ`, on the auxiliary quotient
+`Mst`**,
+within the budget `B`, for the type character `chiType` (tex 9638–9668, 9705–9797).
+The module is the auxiliary quotient `Mst = Λ/Kst`, not an identification
+with the image of coefficientwise reduction. Its readings factor through
+that reduction; the budgeted orbit identities and subgroup comparison are
+proved. The density conversion needs no saturation. The legacy bridge to
+`ConstituentModelRel` separately requires `Saturated` and `Unbudgeted`.
+Every identity of the trace argument is an identity of coefficientwise reduced expansions
+(tex 9639–9646, 9716–9717, 9728–9729; see the module docstring). This constituent interface is
+not the wired density leaf: the leaf asks for density models (`Chebotarev.lean`), which
+`toGaloisDensityModel` builds from it given its inputs, openness and unramifiedness.
 
 Kinds:
 * `ρ`: PRINT ([Carayol, §§0.3–0.7, Théorème A, pp. 409–411], tex 9773–9797, stated as data);
@@ -1014,7 +1020,7 @@ forms `F_U = 0`, the zero functionals). It is built from
 * a coefficient ring with `2 ∈ 𝔪`;
 * representations `ρ` of `G_ℚ` and a lattice `Λ` preserved by their scalar traces and
   determinants;
-* an integral expansion of `Λ`, with the operators preserving coefficientwise congruences.
+* an integral expansion of `Λ`.
 
 The fields about `U` hold at every `U`: the reduced trace orbit of the zero forms is constant, so
 `N_U` is the common kernel of the characters (`mem_consN_of_const`). Kind: PROVED. -/

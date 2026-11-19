@@ -1,0 +1,47 @@
+{
+  "id": "Eq (E.4a)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] states valuation of the even scalar u_x^ev at a height-one prime as a difference of Selmer-complex lengths, nonnegative by (K2) (Appendix E, part of the proof of Theorem 5.3). [F] formalizes no part of Appendix E: its main-theorem page says Sections 7-9 and Appendices E-G are not formalized, and Theorem 5.2 enters as the hypothesis ZInQ.PoleCompleteness.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 101,
+        "rect": [
+          0.107843,
+          0.715915,
+          0.784314,
+          0.07124
+        ]
+      },
+      "title": "Eq. (E.4a)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (E.4a)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          101
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

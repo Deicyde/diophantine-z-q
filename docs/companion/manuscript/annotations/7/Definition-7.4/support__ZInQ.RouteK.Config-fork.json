@@ -1,0 +1,88 @@
+{
+  "id": "Definition 7.4",
+  "kind": "definition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.RouteK.Config a definition: ZInQ.RouteK.Config, from [F]'s Route K congruent-number Selmer systems rather than [M]'s Section 7 argument, records classes mod 8 with reciprocity-constrained residue bits and Config.glue contracts a cluster by multiplying classes and summing external bits, which is the S = {2} case without characters of a typed graph and its contraction. Types at a general support with character values and stationary labels, primary and neutral vertices, and the projections between type groups are not defined.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 28,
+        "rect": [
+          0.107843,
+          0.836834,
+          0.784314,
+          0.076327
+        ]
+      },
+      "title": "Definition 7.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 7.4#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 29,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.437709
+        ]
+      },
+      "title": "Definition 7.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 7.4#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.RouteK.Config",
+        "module": "ZInQKernel.RouteK.System.Config"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.RouteK.Config@fork",
+            "kind": "structure · fork"
+          },
+          "snippet": {
+            "text": "structure Config (ι : Type*) where\n  /-- The class `c_x` mod 8. -/\n  cls : ι → ZMod 8\n  cls_mem : ∀ x, cls x ∈ oddClasses\n  /-- `bit y x = [y/x]`, the symbol of `y` at `x`. Only its off-diagonal values matter. -/\n  bit : ι → ι → ZMod 2\n  recip : ∀ x y, x ≠ y → bit x y + bit y x = lam8 (cls x) * lam8 (cls y)",
+            "line": 70,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/RouteK/System/Config.lean",
+            "fragment": "L70"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          28,
+          29
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; a judge ruled after a skeptic refuted the claim; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -61,7 +61,7 @@ theorem apEven_curve_typeData (T : TypeData L ε) (m : ℤ)
     ApEven T (fun p => (ZInQ.Manuscript.curve (m : ℚ)).LFunction p) :=
   apEven_of_apModFour T _ (apModFour_curve_typeData T m hM)
 
-/-- **non-vacuity**: `a_5(E_1) ≡ 6 (mod 4)`. -/
+/-- **Non-vacuity**: `a_5(E_1) ≡ 6 (mod 4)`. -/
 theorem apModFour_curve_one_five :
     (ZInQ.Manuscript.curve ((1 : ℤ) : ℚ)).LFunction 5 ≡ (5 : ℤ) + 1 [ZMOD 4] := by
   have := ZInQ.Manuscript.RC.AddressGenuine.apModFour_curve 1 6

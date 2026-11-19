@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Height comparison",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.canonHeight a definition: canonHeight matches [M]'s normalization; hx_le_two_canonHeight is h_x<=2h^+log392/3; two_smul_pointR and hx_two_R give x(2R) and its height log 41; hx_lt_log_nine_of_multiple is the displayed bound for R=mS+T, |m|>=3; height_comparisons is the integer comparison 41^3*676*392^36<9^108. All proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.107843,
+          0.086121,
+          0.784314,
+          0.108293
+        ]
+      },
+      "title": "Passage (model): Height comparison",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Height comparison"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.canonHeight",
+        "module": "ZInQKernel.Model.Heights.Canonical"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.canonHeight@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def canonHeight (T : curveC.toAffine.Point) : ℝ :=\n  (limUnder atTop fun m : ℕ => hx ((2 ^ m) • T) / 4 ^ m) / 2",
+            "line": 23,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Heights/Canonical.lean",
+            "fragment": "L23"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

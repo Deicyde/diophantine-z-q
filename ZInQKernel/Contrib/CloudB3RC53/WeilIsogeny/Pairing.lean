@@ -106,7 +106,8 @@ theorem card_kerFinset :
 
 include hN in
 /-- **The Weil pairing under a separable isogeny: `e_N(φ S, φ T) = e_N(S, T)^{deg φ}`**
-(a consequence of Silverman III.8.2, written additively in `Additive (rootsOfUnity N F)`). PROVED. -/
+(a consequence of Silverman III.8.2, written additively in `Additive (rootsOfUnity N F)`). PROVED.
+-/
 theorem weilPairing_torsionMap (S T : Submodule.torsionBy ℤ W₁.toAffine.Point (N : ℤ)) :
     weilPairing W₂ N hN (torsionMap φ N S) (torsionMap φ N T) =
       φ.degree • weilPairing W₁ N hN S T := by
@@ -226,9 +227,9 @@ theorem weilPairing_torsionMap (S T : Submodule.torsionBy ℤ W₁.toAffine.Poin
   ext
   simpa using hinj
 
-/-- **Node `WeilPairingIsogeny`** (a consequence of Silverman III.8.2, for separable isogenies; the first step of the
-route from the Weil pairing to Hasse's bound, not a manuscript line): for a separable isogeny
-`φ : E₁ → E₂` over a separably closed field and `N` invertible there,
+/-- **Node `WeilPairingIsogeny`** (a consequence of Silverman III.8.2, for separable isogenies; the
+first step of the route from the Weil pairing to Hasse's bound, not a manuscript line): for a
+separable isogeny `φ : E₁ → E₂` over a separably closed field and `N` invertible there,
 `e_N(φ S, φ T) = e_N(S, T)^{deg φ}` on `E₁[N]`. PROVED (`weilPairingIsogeny_proof`). -/
 def WeilPairingIsogeny : Prop :=
   ∀ (F : Type) [Field F] [DecidableEq F] [IsSepClosed F] (W₁ W₂ : WeierstrassCurve F)

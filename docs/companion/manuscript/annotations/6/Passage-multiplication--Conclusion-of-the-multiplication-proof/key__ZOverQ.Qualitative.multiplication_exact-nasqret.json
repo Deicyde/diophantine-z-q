@@ -1,0 +1,91 @@
+{
+  "id": "Passage multiplication: Conclusion of the multiplication proof",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZOverQ.Qualitative.UniformHeight and ZInQ.PoleCompleteness; through its dependency's ZInQ.PoleCompleteness and ZInQ.Mult.multiply_complete_AP; confirmed finding (differs): ndep's template embeds the Route K pole polynomial (curves x + l, not [M]'s x + 3l) and [N]'s guard uses an abstract height constant m, so the relation proved exact is another polynomial's. ZOverQ.Qualitative.multiplication_exact is conditional on UniformHeight and ndep's PoleCompleteness.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.35632,
+          0.784314,
+          0.098749
+        ]
+      },
+      "title": "Passage (multiplication): Conclusion of the multiplication proof",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Conclusion of the multiplication proof"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.multiplication_exact",
+        "module": "bounded.QualitativeMultiplication"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.multiplication_exact@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem multiplication_exact {m : ℕ} (hm : 1 ≤ m) (height : UniformHeight (m : ℝ))\n    (pole : PoleCompleteness) :\n    Translation.MultiplicationExact specConstructors FixedConst.cstar.value FixedConst.ell.value\n      (guardCutoff m) := by",
+            "line": 78,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativeMultiplication.lean",
+            "fragment": "L78"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved only from ZOverQ.Qualitative.UniformHeight and ZInQ.PoleCompleteness; through its dependency's ZInQ.PoleCompleteness and ZInQ.Mult.multiply_complete_AP; confirmed finding (differs): ndep's template embeds the Route K pole polynomial (curves x + l, not [M]'s x + 3l) and [N]'s guard uses an abstract height constant m, so the relation proved exact is another polynomial's. ZOverQ.Qualitative.multiplication_exact is conditional on UniformHeight and ndep's PoleCompleteness."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "multiplication_exact proves soundness and completeness for multiplyTemplate at guardCutoff m, from UniformHeight m and ndep's PoleCompleteness. That template embeds poleTemplate with T1=A(A-e)(A+e), so the relation is another polynomial's. Completeness goes through multiply_complete_AP, with slopes from the proved greenTaoDense.",
+            "multiplication_exact proves exactness (completeness through ndep's multiply_complete_AP with PoleCompleteness and Green-Tao slopes, soundness through the finite box) for ndep's multiplyTemplate at guardCutoff m, a template built on the Route K pole polynomial, so the full statement M is proved for another polynomial, conditional on UniformHeight and PoleCompleteness, as the claim says."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -8,7 +8,7 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.GenusLower
   (Birch–Manin rationality via modular symbols, with Manin–Drinfeld; explicit hypothesis
   `hElkikMD`). **Known issue K3**: `Prints.cst` is used as stated, not reconstructed.
 * `GzEveryCompanion` / `gzEveryCompanion_genuine`: (3.4) at every `(h, k')`, the hypothesis of
-  `AppGEndpoints.FinalFamilyField` (text copied from the AppGEndpoints lane, `RCTarget.lean`), at
+  `AppGEndpoints.FinalFamilyField` (text copied from `AppGEndpoints/RCTarget.lean`), at
   the genuine `Prepared`, `AnalyticRank · 1`, `LstarQ`, `jgenOf`, `jrcOf`, `Companion`, `C_per = 0`.
 * `GzComparisonText` / `gzComparison_genuine`: the field `RCSteps.gz_comparison` (text copied from
   `ZInQKernel/Contrib/OneProof/RC/Skeleton/Steps.lean` at commit 839ff728 of the RC integration
@@ -58,7 +58,7 @@ theorem genusLower34_proof (P : Prints) (G : Glue34) : GenusLower34 := by
 /-! ### (3.4) at every `(h, k')`, in the form of `AppGEndpoints.FinalFamilyField` -/
 
 /-- The (3.4) hypothesis of `AppGEndpoints.FinalFamilyField` (statement text copied verbatim from
-the AppGEndpoints lane, `RCTarget.lean`), with its data as parameters. -/
+`AppGEndpoints/RCTarget.lean`), with its data as parameters. -/
 def GzEveryCompanion (prepared simpleZero : ℤ → Prop) (Lstar : ℤ → ℚ) (jgen : ℤ → ℤ)
     (jrc : ℤ → ℤ → ℤ) (hstar : ℤ) (companion : ℤ → ℤ → Prop) (Cper : ℤ) : Prop :=
   ∀ h k', prepared h → simpleZero h → companion h k' → ∃ ε : ℤ, |ε| ≤ 2 ∧
@@ -117,7 +117,7 @@ theorem squareAt_of_jacobiSym {k : ℤ} {q : ℕ} (hq : q.Prime) (hq2 : q ≠ 2)
 
 /-- **`RCSteps.gz_comparison` at the genuine objects** (PROVED from `Prints`, `Glue34`) for the
 curve `E_ℓ`, at a final companion `k` that is a negative odd fundamental discriminant, a unit square
-at every prime of `2N`, prime to `h_*` (tex L2604–2613 with L2349–2352), when `D.prepared` is the
+at every prime of `2N`, prime to `h_*` (tex L2595–2603 with L2349–2352), when `D.prepared` is the
 genuine `Prepared` and `D.Lstar, D.jgen, D.jrc` are `LstarQ, jgenOf, jrcOf` (with `C_per = 0`). -/
 theorem gzComparison_genuine (P : Prints) (G : Glue34) {ℓ : ℕ} [(Ecurve ℓ).IsElliptic]
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel (Ecurve ℓ)) :

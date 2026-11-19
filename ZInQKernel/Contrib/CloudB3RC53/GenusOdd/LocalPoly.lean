@@ -12,8 +12,8 @@ at `p` and the splitting type of `𝔭`:
 * `N𝔭 = p²`, `𝔭` unramified: `L_𝔭(T²) = L_p(T) L_p(−T)`, i.e. for good `p`
   `L_𝔭(T) = 1 − (a_p² − 2p) T + p² T²` (`|Ẽ(𝔽_{p²})| = p² + 1 − (a_p² − 2p)`).
 
-`GoodReductionOffLevel` (introduced as GLUE): a prime not dividing the level of the newform of `E` is
-a prime of good reduction (Carayol: the level is the conductor). **PROVED** from lane RC8's printed
+`GoodReductionOffLevel` (introduced as GLUE): a prime not dividing the level of the newform of `E`
+is a prime of good reduction (Carayol: the level is the conductor). **PROVED** from the printed
 leaf `ModularNewform` (`goodReductionOffLevel_of_modularNewform`, `LevelGood.lean`). Clauses 1 and 2
 of `LocalFactorK` are PROVED (`LocalClauses.lean`); its third clause is the GLUE
 `LocalFactorInert`.
@@ -36,21 +36,21 @@ open ZInQ.Contrib.CloudB3RC53.CST
 /-- **The Euler factor of `E/K` at a prime of `K`, in terms of `a_p` and the splitting type**
 (GLUE; standard local facts, Silverman *AEC* VII.5 and V.2 / Washington §4.3, Tate's algorithm
 under unramified base change). Let `E/ℚ` be elliptic, `K` a number field, `v` a place of `ℚ` with
-`p = natGenerator v`, `𝔭` a prime of `K` with `p ∈ 𝔭`, `L_p = localPolyQ E v`, `L_𝔭 = localPolyK E 𝔭`
-(Mathlib's local polynomials from minimal models over `ℚ_v`, `K_𝔭`).
+`p = natGenerator v`, `𝔭` a prime of `K` with `p ∈ 𝔭`, `L_p = localPolyQ E v`,
+`L_𝔭 = localPolyK E 𝔭` (Mathlib's local polynomials from minimal models over `ℚ_v`, `K_𝔭`).
 
 1. If `N𝔭 = p` and `𝔭² ∤ p` then `K_𝔭 ≅ ℚ_p` as valued fields, so `L_𝔭 = L_p`.
 2. If `N𝔭 = p` and `E` has good reduction at `p`, a minimal model over `ℤ_p` with unit discriminant
    stays minimal over `𝓞_𝔭` with the same reduction over the same residue field `𝔽_p`, so
    `L_𝔭 = L_p`.
-3. If `N𝔭 = p²` and `𝔭² ∤ p` (`K_𝔭/ℚ_p` unramified quadratic), a minimal model stays minimal with the
-   same reduction type; for good reduction `|Ẽ(𝔽_{p²})| = p² + 1 − (a_p² − 2p)` (Frobenius
+3. If `N𝔭 = p²` and `𝔭² ∤ p` (`K_𝔭/ℚ_p` unramified quadratic), a minimal model stays minimal with
+   the same reduction type; for good reduction `|Ẽ(𝔽_{p²})| = p² + 1 − (a_p² − 2p)` (Frobenius
    characteristic polynomial `T² − a_p T + p`, eigenvalues squared), split multiplicative stays
    split, non-split becomes split over `𝔽_{p²}`, additive stays additive. In each case
    `L_𝔭(T²) = L_p(T) L_p(−T)`.
 `expand ℤ 2 L` is `L(T²)` and `L.comp (C (-1) * X)` is `L(−T)`. Status: clauses 1 and 2 PROVED
-(`localFactorK_clause_split`, `localFactorK_clause_good`); clause 3 is `LocalFactorInert` (GLUE);
-`localFactorK_of_inert`. -/
+(`localFactorK_clause_split`, `localFactorK_clause_good`); clause 3 is `LocalFactorInert` (GLUE;
+not needed for `ArtinFactorization`, see `ArtinUnconditional.lean`); `localFactorK_of_inert`. -/
 def LocalFactorK : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (K : Type) [Field K] [NumberField K]
     (𝔭 : HeightOneSpectrum (𝓞 K)) (v : HeightOneSpectrum (𝓞 ℚ)),
@@ -151,8 +151,8 @@ theorem invC_expand_two {P : Polynomial ℤ} (hP : P.coeff 0 = 1) :
 /-! ### The local identities
 
 For the rational prime `p` write `L = L_p(E)`; `ε₁ = χ_{d₁}(p)`, `ε₂ = χ_{d₂}(p)` are the twisting
-signs. The Euler factor of `E^{(d)}` at `p ∤ d` is `1/L(χ_d(p) T)` (lane RC18), and `1` at `p ∣ d`
-(additive reduction of the twist at a prime of good reduction of `E`). -/
+signs. The Euler factor of `E^{(d)}` at `p ∤ d` is `1/L(χ_d(p) T)` (`RC/TwistDictionary`), and `1`
+at `p ∣ d` (additive reduction of the twist at a prime of good reduction of `E`). -/
 
 /-- **Split `p`** (PROVED): two primes `𝔭, 𝔭̄` of norm `p` with `L_𝔭 = L_{𝔭̄} = L` and
 `χ(𝔭) = χ(𝔭̄) = ε = ε₁ = ε₂`: `(1/L(εT))² = 1/L(ε₁T) · 1/L(ε₂T)`, i.e. the Euler factor

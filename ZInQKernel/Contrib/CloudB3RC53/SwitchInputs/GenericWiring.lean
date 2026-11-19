@@ -6,7 +6,7 @@ import ZInQKernel.Contrib.CloudB3RC53.SwitchInputs.GaloisWiringQuad
 # RC53 SwitchInputs: the field-generic derivative sides wired into the Galois switching family
 
 Proposition `ex:limits-uniform-lower-bound`, height-one regularity, tex L4976–5195, with the switch
-exact sequences (5.5a), tex L5055–5086, and the derivative conditions, tex L5068–5072.
+exact sequences (5.5a), tex L5055–5086, and the derivative conditions, tex L5060–5061.
 
 Field-generic restatement of `GaloisWiring.lean` (whose genuine instances have coefficients `𝔽₂`
 and do not apply at the height-one primes `𝔭 ≠ (2)` where switching runs,
@@ -75,14 +75,14 @@ variable {k}
 
 open Classical in
 /-- The local conditions of a configuration `c`: `A_d v` at the places of `c` (the derivative
-places, singular side), `A₀ v` elsewhere (tex L5068–5072). -/
+places, singular side), `A₀ v` elsewhere (tex L5060–5061). -/
 def condFamK (A₀ Ad : ∀ v, SubFam (galLv (k := k) K S M v)) (c : Finset (Places K S))
     (v : Places K S) : SubFam (galLv (k := k) K S M v) :=
   if v ∈ c then Ad v else A₀ v
 
 open Classical in
 /-- **The configuration conditions of `GaloisFamily` are `galCond` of `condFamK`** (tex
-L5068–5072). PROVED. -/
+L5060–5061). PROVED. -/
 theorem condAt_galCondK (A₀ Ad : ∀ v, SubFam (galLv (k := k) K S M v))
     (c : Finset (Places K S)) :
     condAt K S k M (galCond K S M A₀) (galCond K S M Ad) c =
@@ -120,7 +120,7 @@ variable {K S}
 
 variable (k) in
 /-- The finite side conditions at the places: `sideOfSetK I_v` (cocycles vanishing on inertia,
-`A = M^{I_v}`; tex L5068–5072, the unramified condition). -/
+`A = M^{I_v}`; tex L5057–5058, the unramified condition). -/
 def PlaceTameK.finCond (D : PlaceTameK K S) (v : Places K S) : SubFam (galLv (k := k) K S M v) :=
   sideSubK (Gv := gGvK K S) (Mv := gMvK K S M) v
     (sideOfSetK k (gMvK K S M v) (D.I v : Set (Gloc K v.1)))
@@ -154,7 +154,7 @@ def PlaceTameK.std (D : PlaceTameK K S) : SwitchCondsK k K S M :=
   ⟨D, D.finCond k M, D.singCond k M⟩
 
 /-- **Admissibility at a switch place `q`**: the finite and singular conditions at `q` are the
-derivative sides `sideOfSetK I_q`, `sideOfSetK {φ_q}` (tex L5068–5072). -/
+derivative sides `sideOfSetK I_q`, `sideOfSetK {φ_q}` (tex L5060–5061). -/
 def SwitchCondsK.AdmissibleAt (C : SwitchCondsK k K S M) (q : Places K S) : Prop :=
   C.A₀ q = C.D.finCond k M q ∧ C.Ad q = C.D.singCond k M q
 
@@ -179,7 +179,7 @@ abbrev PlaceTameK.singSet (D : PlaceTameK K S) : ∀ v : Places K S, Set (Gloc K
 variable (C : SwitchCondsK k K S M)
 
 open Classical in
-/-- **Switching at `q ∉ c` with the finite side gives the side family of `c`** (tex L5068–5083),
+/-- **Switching at `q ∉ c` with the finite side gives the side family of `c`** (tex L5060–5082),
 when the finite condition at `q` is the derivative side. PROVED. -/
 theorem finSwitch_sideK (c : Finset (Places K S)) (q : Places K S) (hq : q ∉ c)
     (hA : C.A₀ q = C.D.finCond k M q) :
@@ -195,7 +195,7 @@ theorem finSwitch_sideK (c : Finset (Places K S)) (q : Places K S) (hq : q ∉ c
 
 open Classical in
 /-- **Switching at `q` with the singular side gives the side family of `insert q c`** (tex
-L5068–5083), when the singular condition at `q` is the derivative side. PROVED. -/
+L5060–5082), when the singular condition at `q` is the derivative side. PROVED. -/
 theorem singSwitch_sideK (c : Finset (Places K S)) (q : Places K S)
     (hA : C.Ad q = C.D.singCond k M q) :
     (switchFamK k (gGvK K S) (gMvK K S M) q (C.old c) C.D.singSet).side =
@@ -229,27 +229,27 @@ variable (c : Finset (Places K S)) (q : Places K S)
   (T : TameCoordinatesTrivialK k (gMvK K S M q) (C.D.I q) (C.D.φ q) (C.D.σ q))
 
 /-- **The genuine relaxed localization at the switch place `q`** over `k`, for the configuration
-`c` (tex L5068–5086): global complex `C^•_cont(G_{K,S}, M)`, `res_S`, the relaxed condition at `q`,
+`c` (tex L5060–5086): global complex `C^•_cont(G_{K,S}, M)`, `res_S`, the relaxed condition at `q`,
 the conditions of `c` elsewhere, the relaxed quotient `W_rel` and the coordinates `eRAtK` (with
 `M ≃ k²` from the rank-two clause of `T`). -/
 def galRelK : QuasiRelaxedLocalization k :=
   relLocK (Gv := gGvK K S) (Mv := gMvK K S M) q (galGK k K S M) (galResK k K S M) (C.old c)
     (eRAtK (switch_hsrK q (C.old c)) (switch_relAtK q (C.old c)) (C.D.φ q) (C.D.σ q) T.eM T)
 
-/-- **The genuine finite quasi side at `q`** over `k` (tex L5068–5086). PROVED. -/
+/-- **The genuine finite quasi side at `q`** over `k` (tex L5060–5086). PROVED. -/
 def galFinSideK : QuasiSwitchSide (galRelK C c q T) (finPlane k (Fin 2 → k) (Fin 2 → k)) :=
   switchQuasiSideK (Gv := gGvK K S) (Mv := gMvK K S M) (q := q) (C.D.φ q) (C.D.σ q) T.eM
     (galGK k K S M) (galResK k K S M) (C.old c) C.D.finSet T _
     (finite_side_iffK (Gv := gGvK K S) (Mv := gMvK K S M) (q := q) (C.D.φ q) (C.D.σ q) T.eM T)
 
 /-- **The genuine singular quasi side at `q`** over `k`, over the same relaxed localization (tex
-L5068–5086). PROVED. -/
+L5060–5086). PROVED. -/
 def galSingSideK : QuasiSwitchSide (galRelK C c q T) (singPlane k (Fin 2 → k) (Fin 2 → k)) :=
   switchQuasiSideK (Gv := gGvK K S) (Mv := gMvK K S M) (q := q) (C.D.φ q) (C.D.σ q) T.eM
     (galGK k K S M) (galResK k K S M) (C.old c) C.D.singSet T _
     (singular_side_iffK (Gv := gGvK K S) (Mv := gMvK K S M) (q := q) (C.D.φ q) (C.D.σ q) T.eM)
 
-/-- **The finite side's Selmer data is the genuine fibre of `c`** (tex L5068–5083):
+/-- **The finite side's Selmer data is the genuine fibre of `c`** (tex L5060–5082):
 `galoisSelData K S k M (condAt Δ₀ Δ_d c)` with `Δ₀ = galCond finCond`, `Δ_d = galCond singCond`.
 PROVED. -/
 theorem galFinSideK_Dside (hq : q ∉ c) (hA : C.A₀ q = C.D.finCond k M q) :
@@ -263,7 +263,7 @@ theorem galFinSideK_Dside (hq : q ∉ c) (hA : C.A₀ q = C.D.finCond k M q) :
     (galois_relaxedData_eq (k := k) K S M
       (switchFamK k (gGvK K S) (gMvK K S M) q (C.old c) C.D.finSet)).2
 
-/-- **The singular side's Selmer data is the genuine fibre of `insert q c`** (tex L5068–5083).
+/-- **The singular side's Selmer data is the genuine fibre of `insert q c`** (tex L5060–5082).
 PROVED. -/
 theorem galSingSideK_Dside (hA : C.Ad q = C.D.singCond k M q) :
     (galSingSideK C c q T).Dside = galoisSelData K S k M

@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Contact prime sets",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.Mult.le_heightD_of_mem_S_mul proved: S_ht = heightPrimes is the primes <= 324 and S_mul = S_ht union the catalogue union the prime factors of c_*, as in [M]; the two sets are distinct definitions, and D bounds both.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.856078,
+          0.784314,
+          0.05821
+        ]
+      },
+      "title": "Passage (multiplication): Contact prime sets",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Contact prime sets"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.le_heightD_of_mem_S_mul",
+        "module": "ZInQKernel.Main"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.le_heightD_of_mem_S_mul@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem Mult.le_heightD_of_mem_S_mul {p : ℕ} (hp : p ∈ Mult.S_mul) : p ≤ heightD :=",
+            "line": 47,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Main.lean",
+            "fragment": "L47"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          14
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

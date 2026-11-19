@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Saved specification outer recipes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin and ZInQ.PoleCompleteness, or by another key from other hypotheses; ZInQ.FrozenTarget a definition: The passage is Theorem 1.1 with its notation (h, the tower), the pointer to the saved P_* and the corollaries named for Section 13; FrozenTarget states the theorem exactly (hyperoperation 4 2 n is the tower), and specPstar is [F]'s P_*. The theorem is conditional: the headline assumes SixContactMin and PoleCompleteness, and OneProof.frozenTarget assumes the open bundles of OPEN.md.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.102941,
+          0.431768,
+          0.794118,
+          0.330292
+        ]
+      },
+      "title": "Passage (assembly): Saved specification outer recipes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Saved specification outer recipes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.FrozenTarget",
+        "module": "ZInQKernel.Target"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.FrozenTarget@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def FrozenTarget : Prop :=\n  ∃ P : MvPolynomial (Fin 292890231905) Int,\n    P.totalDegree < hyperoperation 4 2 7 ∧\n    (∀ m : Fin 292890231905 →₀ Nat,\n      (P.coeff m).natAbs < hyperoperation 4 2 8) ∧\n    ∀ q : Rat,\n      (∃ w : Fin 292890231904 → Rat,\n        MvPolynomial.eval₂ (Int.castRingHom Rat) (Fin.cons q w) P = 0) ↔\n      ∃ z : Int, (z : Rat) = q",
+            "line": 18,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Target.lean",
+            "fragment": "L18"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

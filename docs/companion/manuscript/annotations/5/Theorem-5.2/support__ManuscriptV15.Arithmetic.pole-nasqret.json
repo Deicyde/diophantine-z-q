@@ -1,0 +1,70 @@
+{
+  "id": "Theorem 5.2",
+  "kind": "theorem",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, stated, neither proved nor assumed; ManuscriptV15.Arithmetic.pole a definition; through its dependency's ZInQ.PoleCompleteness: [N]'s ManuscriptV15.Arithmetic.PoleCompleteness states Theorem 5.2 for [M]'s Q_pole, as a Prop neither proved nor assumed. What [N] proves (pole_of_class_sum, from a rank hypothesis) and uses is ndep's PoleCompleteness for the different pole polynomial with curves x+l.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.504299,
+          0.784314,
+          0.044848
+        ]
+      },
+      "title": "Theorem 5.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Theorem 5.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Arithmetic.pole",
+        "module": "Lean.Lemmas.blueprint-manuscript.ManuscriptArithmetic"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Arithmetic.pole@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def pole (B : ℚ) : Prop := ∃ b : Fin 6 → ℚ, ∃ e z r₁ r₂ w : ℚ,\n  let m := (1-2*b 0)*(1+b 1)*(1+2*b 2)*(1+4*b 3)*(1+6*b 4)*(1+12*b 5)\n  let a := m*B\n  let h := a*(a-B^2)\n  B * ((∑ i, (b i^2-b i)^2) + (e*h*z*w-1)^2 + (r₁^2-a*(a-e)*(a+3*e))^2 +\n    (r₂^2-a*(a*z^2-e*h)*(a*z^2+3*e*h))^2) = 0",
+            "line": 145,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/blueprint-manuscript/ManuscriptArithmetic.lean",
+            "fragment": "L145"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -20,16 +20,16 @@ Definitions only (and a few PROVED facts about them). They are the objects of Pr
 * `chiD d n = (n / |d|)` (Jacobi symbol): the Kronecker character `χ_d(n)` for a discriminant
   `d ≡ 1 (mod 4)`, the only case used here (all discriminants of (3.4) are odd).
 * `IsQuadRingClassChar K c d χ`: `χ : Pic(O_c) → ℂ^×` is quadratic and equals `χ_d ∘ N_{K/ℚ}` on the
-  primes of `K` prime to the conductor and to `d` (the genus character of (O.1), tex L8213–8217, with
-  `d = h_*`, `c = 1`; the ring-class character "weighted by `χ_h`" of tex L2413, with `d = h`,
+  primes of `K` prime to the conductor and to `d` (the genus character of (O.1), tex L8213–8217,
+  with `d = h_*`, `c = 1`; the ring-class character "weighted by `χ_h`" of tex L2414, with `d = h`,
   `c = |h|`).
-* `heegnerSum`: the unaveraged sum `P_χ = Σ_{t ∈ Pic(O_c)} χ(t) σ_t(y)` of tex L2411–2413 and (O.1),
+* `heegnerSum`: the unaveraged sum `P_χ = Σ_{t ∈ Pic(O_c)} χ(t) σ_t(y)` of tex L2411–2414 and (O.1),
   over the Artin images `σ_t ∈ Gal(H_c/K)` (`ringClassArtinEquiv`), for quadratic `χ`, as an
   honest point of `E(H_c)`.
 * `eigenLattice`: the `χ`-eigen subgroup `{x ∈ E(H_c) : σ x = χ(σ) x for all σ ∈ Gal(H_c/K)}`, the
-  "native rank-one lattice" of tex L2414, L2433–2434, L9426–9427.
+  "native rank-one lattice" of tex L2415, L2433–2434, L9426–9427.
 * `twoDivIndex M x`: the largest `e` with `x ≡ 2^e G` modulo torsion for some `G ∈ M` (`⊤` if there
-  is no largest), the "index valuation" of tex L2415 (`P = m G + T`, `j = v₂ m`, tex L9426).
+  is no largest), the "index valuation" of tex L2416 (`P = m G + T`, `j = v₂ m`, tex L9422–9425).
 
 The Heegner point is the complex-analytic model of `Prints/CST.lean`: any `y ∈ E(H_c)` whose image
 under an embedding `ι : H_c → ℂ` is `φ(τ)` for the CM point `τ` of a Heegner form. The algebraic
@@ -102,7 +102,7 @@ def HasTwoAdicVal (x : ℂ) (v : ℤ) : Prop :=
 
 open Classical in
 /-- `L_*(d)` as a rational number when it is one (junk `0` otherwise): the `Lstar : ℤ → ℚ` of the
-RC0 interface (`RCData.Lstar`). -/
+`RCData` interface (`RCData.Lstar`). -/
 def LstarQ (E : WeierstrassCurve ℚ) (Lat : PeriodPair) (d : ℤ) : ℚ :=
   if h : ∃ q : ℚ, (q : ℂ) = Lstar E Lat d then Classical.choose h else 0
 
@@ -130,10 +130,10 @@ variable (K : Type) [Field K] [NumberField K] (c : ℕ) [NeZero c]
 
 /-- **`χ = χ_d ∘ N_{K/ℚ}` on `Pic(O_c)`**: `χ` is quadratic, and `χ([𝔭]) = χ_d(N𝔭)` for every prime
 `𝔭` of `K` prime to the conductor of `O_c` and to `d`. For `c = 1`, `d = h_*` and
-`disc K = h h_*` this is the genus character of (O.1) (tex L8213–8217, `χ_{h_*}(N𝔞)`); for `c = |h|`,
-`d = h` and `disc K = k'` it is the ring-class character "weighted by `χ_h`" of tex L2413. The
-values at the remaining primes are forced by the group structure (every class contains primes
-prime to any given integer). -/
+`disc K = h h_*` this is the genus character of (O.1) (tex L8213–8217, `χ_{h_*}(N𝔞)`); for
+`c = |h|`, `d = h` and `disc K = k'` it is the ring-class character "weighted by `χ_h`" of tex
+L2414. The values at the remaining primes are forced by the group structure (every class contains
+primes prime to any given integer). -/
 def IsQuadRingClassChar (d : ℤ) (χ : Pic (conductorOrder K c) →* ℂˣ) : Prop :=
   (∀ t, χ t * χ t = 1) ∧
     ∀ (𝔭 : HeightOneSpectrum (𝓞 K))
@@ -157,8 +157,8 @@ abbrev galPt (σ : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField 
       (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point :=
   WeierstrassCurve.Affine.Point.map (W' := E.toAffine) (σ.toAlgHom.restrictScalars ℚ)
 
-/-- **The unaveraged Heegner sum** `P_χ = Σ_{t ∈ Pic(O_c)} χ(t) σ_t(y)` (tex L2411–2413, (O.1)
-L8212–8215) for a quadratic `χ`, summed over `σ ∈ Gal(H_c/K)` with `t` its Artin preimage: no
+/-- **The unaveraged Heegner sum** `P_χ = Σ_{t ∈ Pic(O_c)} χ(t) σ_t(y)` (tex L2411–2414, (O.1)
+L8213–8217) for a quadratic `χ`, summed over `σ ∈ Gal(H_c/K)` with `t` its Artin preimage: no
 `1/|Pic|`, no `1/u`. For the genus point `y` is the conductor-one Heegner point, for the ring-class
 point the conductor-`c` one (the analytic model of `Prints/CST.lean`). -/
 def heegnerSum (χ : Pic (conductorOrder K c) →* ℂˣ)
@@ -167,7 +167,7 @@ def heegnerSum (χ : Pic (conductorOrder K c) →* ℂˣ)
   ∑ σ : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
     chiSign χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) • galPt E σ y
 
-/-- **The native lattice** (tex L2414, L2433–2434, L9426): the `χ`-eigen subgroup of `E(H_c)`,
+/-- **The native lattice** (tex L2415, L2433–2434, L9422–9427): the `χ`-eigen subgroup of `E(H_c)`,
 `{x : σ x = χ(σ) x for every σ ∈ Gal(H_c/K)}`. -/
 def eigenLattice (χ : Pic (conductorOrder K c) →* ℂˣ) :
     AddSubgroup (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point where
@@ -228,7 +228,7 @@ variable [DecidableEq H]
 
 /-- **The twist embedding** `ψ_s : E^{(d)}(ℚ) → E(H)`, `(X, Y) ↦ (X/d, Y/(d s))`, for `s ∈ H` with
 `s² = d` (the identification of `E^{(d)}(ℚ)` with the points of `E` over `ℚ(√d)` on which
-`√d ↦ −√d` acts by `−1`, tex L8313–8314 "the standard twist identification"): base change to `H`
+`√d ↦ −√d` acts by `−1`, tex L8298–8299 "the standard twist identification"): base change to `H`
 followed by the variable change `twistVC s`. A group homomorphism by construction. -/
 def twistEmb (E : WeierstrassCurve ℚ) (d : ℚ) (s : H)
     (heq : twistVC s • E.baseChange H = (qtwist E d).baseChange H) :
@@ -242,7 +242,7 @@ end Twist
 
 /-! ### Index valuations -/
 
-/-- **The index valuation** of `x` in `M` (tex L2415; L9426: "write `P_D = m_D G + T` in its native
+/-- **The index valuation** of `x` in `M` (tex L2416; L9422: "write `P_D = m_D G + T` in its native
 rank-one free lattice", `j = v₂(m_D)`): the supremum of the `e` such that `x - 2^e G` is torsion for
 some `G ∈ M`. In a rank-one `M` containing the nontorsion point `x = m G₀ + T` it is `v₂ m`. -/
 def twoDivIndex {A : Type*} [AddCommGroup A] (M : AddSubgroup A) (x : A) : ℕ∞ :=

@@ -1,0 +1,65 @@
+{
+  "id": "Proposition F.1",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The witness h_*, D_w, L, nontorsion Q=LP_{D_w} and the detecting maps lambda_M with Frobenius sign +1 belongs to the proof of Theorem 5.3, which [F] takes as the hypothesis RestrictedConverseGenuine; [F] states none of the witness, the multiplier L, the Chebotarev stages or the maps lambda_M.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 109,
+        "rect": [
+          0.107843,
+          0.721409,
+          0.784314,
+          0.190483
+        ]
+      },
+      "title": "Proposition F.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition F.1#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 110,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.039963
+        ]
+      },
+      "title": "Proposition F.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition F.1#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          109,
+          110
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

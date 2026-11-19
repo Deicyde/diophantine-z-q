@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Logarithm series",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's ZInQ.Mult.invDiffSeries_sq, ZInQ.Mult.coeff_formalLog_genE, ZInQ.Mult.truncLog_eq_trunc and ZInQ.Mult.log25_truncation_error: [N]'s own Sun28.ShortFormal lemmas state the invariant differential and the binomial expansion of S for general b (more general than [M]'s b = -d^2); the series of log for E, the coefficients of L and the truncation error at p > 324 are stated only in ndep (coeff_formalLog_genE, truncLog_eq_trunc, log25_truncation_error), which no [N] declaration uses. Proved, unconditional.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.107843,
+          0.457724,
+          0.784314,
+          0.137168
+        ]
+      },
+      "title": "Passage (multiplication): Logarithm series",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Logarithm series"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "Sun28.ShortFormal.inverse_diff",
+        "module": "Lean.Topics.sun-28.short-formal-chart.ShortFormalSeries"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "Sun28.ShortFormal.inverse_diff@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem inverse_diff (b : L) :\n    shortF b*(2*shortU b-1)=1 := by",
+            "line": 37,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/sun-28/short-formal-chart/ShortFormalSeries.lean",
+            "fragment": "L37"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

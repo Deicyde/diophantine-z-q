@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailZ97
+import ZInQKernel.OneProof.H.TailZ98
 import ZInQKernel.MainGreenTao
 import ZInQKernel.Contrib.OneProof.DeRhamRange
 import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
@@ -199,6 +199,11 @@ printed (`faltingsLemma1DVRPrint`, Invent. Math. 73 (1983) p. 350; leaf, rated L
 `ZInQ.FaltingsRestate.faltingsSemistableHeightBC_of_faltingsLemma1Print` from the leaf, `silverbergZarhinThm35` and
 `neronSchemeExtensionDedekind`. `OpenResearchLeaves67` (`TailZ93`, autofold) is the new generation and
 `HDec.HSyn.sixContactMin_of_open86` the new top.
+fowler-unique (with fowler-bridges) replaced `fowlerProp27` by Fowler's Proposition 2·7 as printed
+(`fowlerProp27PrintCanonical`, Math. Proc. Cambridge Philos. Soc. 180 (2026) p. 615; leaf, rated LEAF): the field is
+`HDec.CMBranch.FowlerBridges.fowlerProp27_of_canonical` from the leaf, Lean proving that the order of discriminant Δ and
+its proper class number are determined by Δ. `OpenResearchLeaves68` (`TailZ94`, autofold) is the new generation and
+`HDec.HSyn.sixContactMin_of_open87` the new top.
 
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
 hypothesis by its proof; the theorem's statement then loses that hypothesis.
@@ -212,13 +217,13 @@ leaf BCDT Theorem A and a consequence of Kolyvagin's Theorem 1 (through Shimura'
 completeness PC (the manuscript's Theorem 5.2) is proved from the last four, with Lemma 5.4 proved from the pairing
 (`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`). -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves69) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves30)
+    (r : HDec.HSyn.OpenResearchLeaves70) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves30)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
     (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves) (hB : ZInQ.Manuscript.PoleS12.BCDTThmA)
     (hK : ZInQ.Manuscript.PoleS12.KolyvaginThm1) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
-    (HDec.HSyn.sixContactMin_of_open90 r t l)
+    (HDec.HSyn.sixContactMin_of_open91 r t l)
     (ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing hRC hCT hB hK)
 
 end ZInQ.OneProof

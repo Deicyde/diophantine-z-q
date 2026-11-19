@@ -1,0 +1,88 @@
+{
+  "id": "Passage model: Point references and fixed point codes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The definitions (point references, generator equations in every model recipe, node semantics, fixed integer expressions, psi_component with A = (-11243,7950)) have matching definitions, and the fact that the fixed point codes are given by x_n, y_n with nonzero denominators (nontorsion) is proved unconditionally in iota_eq_psi_unconditional. The terminating searches are cataloguePrime_spec and ZInQ.Size.M0_bounds.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.102941,
+          0.542758,
+          0.794118,
+          0.347263
+        ]
+      },
+      "title": "Passage (model): Point references and fixed point codes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Point references and fixed point codes#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.092092
+        ]
+      },
+      "title": "Passage (model): Point references and fixed point codes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Point references and fixed point codes#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.M0_bounds",
+        "module": "ZInQKernel.Size.FormalMultiple.Existence"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.M0_bounds@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem M0_bounds (h : 1 ≤ Ns) : 1 ≤ M0 ∧ M0 ≤ Ns ^ 10 ∧ FormalCondition Ns M0 := by",
+            "line": 238,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/FormalMultiple/Existence.lean",
+            "fragment": "L238"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89,
+          90
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

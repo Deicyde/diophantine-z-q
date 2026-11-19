@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Finite guard",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Syntax.guardPoly a definition: The factors g_abc, their product, the guard's inverse condition, rejection of false triples in the box and acceptance of true triples are stated for every T; multiply_sound assumes only SixContactMin, so the sound direction does not use PoleCompleteness.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.107843,
+          0.705102,
+          0.784314,
+          0.178025
+        ]
+      },
+      "title": "Passage (multiplication): Finite guard",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Finite guard"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.guardPoly",
+        "module": "ZInQKernel.Syntax.Constants.Guard"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.guardPoly@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def guardPoly (T : ℤ) : MvPolynomial (Fin 15) ℤ :=\n  ∏ t ∈ falseTriples T, guardFactor t",
+            "line": 79,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Constants/Guard.lean",
+            "fragment": "L79"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 unpairing and wrapper",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.CantorDecoder.decode a definition: The pairing, the unpairing loop and its inversion, the wrapper and its correctness through relocation are stated and proved; no assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.159416,
+          0.784314,
+          0.087301
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 unpairing and wrapper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 unpairing and wrapper"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.CantorDecoder.decode",
+        "module": "lean.ZInQ.CantorDecoder"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.CantorDecoder.decode@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "@[expose] def decode (x : Nat) : Nat × Nat := loop 0 x",
+            "line": 29,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/CantorDecoder.lean",
+            "fragment": "L29"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

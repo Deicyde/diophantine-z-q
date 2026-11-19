@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Appendix C opening",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.Syntax.specPstar_zero_projection proved: Point references and the three generator equations of every model recipe agree with [M] (references below -3 are junk zeros). [F] builds the root integers and P_* in Lean rather than reading them from the bytes of the JSON file, and it fixes the range X_0..X_292890231904 by truncation while proving only that integers has at most 292890231904 witnesses, not exactly that many.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.107843,
+          0.446036,
+          0.784314,
+          0.220438
+        ]
+      },
+      "title": "Passage (syntax): Appendix C opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.specPstar_zero_projection",
+        "module": "ZInQKernel.Syntax.Recipes.Literal"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.specPstar_zero_projection@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem specPstar_zero_projection (hB : Compiler.NodeCheck.HaltingAddMulBound) (q : ℚ) :\n    (∃ w : Fin 292890231904 → ℚ,\n        MvPolynomial.eval₂ (Int.castRingHom ℚ) (Fin.cons q w) (specPstar c3) = 0) ↔\n      ∃ M : Fin 5 → ℚ, (valueExPoly specConstructors FixedConst.cstar.value FixedConst.ell.value\n        FixedConst.T.value c3 (precisionCircuitOf c3)).Rel (fun i => Fin.append M ![q] (Fin.cast\n          (valueExPoly_params specConstructors FixedConst.cstar.value FixedConst.ell.value\n            FixedConst.T.value c3 (precisionCircuitOf c3)) i)) :=",
+            "line": 107,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Recipes/Literal.lean",
+            "fragment": "L107"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

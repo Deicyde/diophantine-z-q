@@ -1,0 +1,86 @@
+{
+  "id": "Lemma H.1",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from HDec.PkgI4.DeRhamComparison and HDec.ZInQ.Contrib.G9.DeRhamComparisonWeights, or by another key from other hypotheses; HDec.HSyn.g9GlueNoT23_of_deRhamComparisonHT proved only from HDec.PkgI4.DeRhamComparisonHT; confirmed finding (weaker): g9_hasHTWeights (with its Qbar_p form g9_local and their one-proof copies) states the lemma only for K = Q_l and F/Q_l finite Galois, not for arbitrary finite K/Q_l and F/K; for K = Q_l its htMult is the exact E-dimension of the Hodge-Tate space, so the weights {0,-1} hold at every coefficient embedding, and it omits continuity of r, which the hypothesis forces. The proofs are conditional on the named Props DeRhamComparison and DeRhamComparisonWeights, and the global forms g9GlueHT and g9GlueNoT23_of_deRhamComparisonHT are conditional on DeRhamComparisonHT.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 143,
+        "rect": [
+          0.107843,
+          0.262973,
+          0.784314,
+          0.123759
+        ]
+      },
+      "title": "Lemma H.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma H.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "HDec.HSyn.g9GlueNoT23_of_deRhamComparisonHT",
+        "module": "ZInQKernel.OneProof.H.TailE"
+      },
+      "role": "attributed",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "HDec.HSyn.g9GlueNoT23_of_deRhamComparisonHT@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem g9GlueNoT23_of_deRhamComparisonHT (h : PkgI4.DeRhamComparisonHT) : G0Galois.G9GlueNoT23 :=",
+            "line": 6393,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/OneProof/H/TailE.lean",
+            "fragment": "L6393"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          143
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics, then by two more after a judge revised it; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "Survives: every de Rham/Hodge-Tate conclusion in [F] (g9_hasHTWeights, g9_local, their TailC copies, g9_deRham in G9.lean) is for r : G_{Q_p} -> GL_2 with F/Q_p finite Galois; IsDeRham and htMult are defined only over Q_p, so arbitrary finite K/Q_l and non-Galois F/K are not covered. Both are conditional on DeRhamComparison and DeRhamComparisonWeights, and G9GlueHT is a Prop whose first premise is DeRhamComparisonHT, so the global forms are conditional as stated.",
+            "g9_hasHTWeights and g9_local take r : G_{Q_p} -> GL_2(C) and F finite Galois over Q_p, and fork's IsDeRham/htMult are defined only for G_{Q_p}; the only over-F predicate (IsDeRhamOver) appears in hypotheses (DeRhamComparison, LocalCore), never as a conclusion for r on G_K with general K, so the restriction K = Q_l, F/Q_l Galois is real. Weights uniform across coefficient embeddings for K = Q_l and the omitted continuity being forced are accurate, and the conditional hypotheses are as named."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

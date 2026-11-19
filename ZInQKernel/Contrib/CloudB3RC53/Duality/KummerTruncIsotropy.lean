@@ -385,7 +385,7 @@ def kummerEx : LocalTruncIsotropy (kummerι S) (kummerι S) (kummerCup S) :=
   kummerTruncIsotropy (kummerU_vanishes S) (kummerU_vanishes S) (kummerTrace S)
     (kummerTrace_ker S) (kummerCup_trace S)
 
-/-- **non-vacuity, `ℤ₂` form**: the hypotheses of `kummerTruncIsotropy_two` hold in the model over
+/-- **Non-vacuity, `ℤ₂` form**: the hypotheses of `kummerTruncIsotropy_two` hold in the model over
 `ℤ₂`. -/
 def kummerEx_two : LocalTruncIsotropy (kummerι ℤ_[2]) (kummerι ℤ_[2]) (kummerCup ℤ_[2]) :=
   kummerTruncIsotropy_two (kummerU_vanishes ℤ_[2]) (kummerU_vanishes ℤ_[2]) (kummerTrace ℤ_[2])

@@ -1,0 +1,113 @@
+Genuine even-source bridge: final verification
+
+Library source: 13243 bytes.
+SHA256: c76a17245d63ba6776cae25aeae7e6eefda6c873d1c158f6b61a1585d917cd45
+
+Unchanged certificate library: 16884 bytes.
+SHA256: 89f6804165e5fdbc303abe986e1341c76d7f492662790d1776828ecf57498279
+
+Certificate verification copy: 18048 bytes.
+SHA256: 6a6c4fc3cafcd6ac02ee4cd634519215abb635bb5ce7bbbc1acdfa34bd4f57cb
+Genuine-source verification copy: 15445 bytes.
+SHA256: 0cc8852894a7e4c3df9600c68fa516143bd7b2336d3af9e6c8a02521042f21b4
+Their complete source prefixes were checked against the library bytes before
+the temporary diagnostic copies were removed. The library sources contain no
+diagnostic commands; the compiler output below preserves the verification.
+
+The genuine-source library compiled with exit code 0, no errors and no warnings.
+An independent verification copy begins with its byte-exact complete source,
+then adds theorem checks, axiom reports and an explicit application of the
+existing auxFactor_of_prepared using preparedSeedInput_of_genuineEvenSource
+in its exact seed-argument position. That verification copy also compiled with
+exit code 0, no errors and no warnings.
+
+All six genuine-source theorems and all four genuine-source definitions report
+exactly [propext, Classical.choice, Quot.sound]. The imported existing even
+minimum theorem and auxiliary-factor bridge have the same reports.
+
+Only the normalization projection proof was repaired: it refers directly to
+the selected coefficients and selected depth, with explicit field embeddings.
+The genuine-source definitions, source binding and theorem statements are
+unchanged. No even minimization argument is re-proved.
+
+Scope: this is a verified conditional reduction from PreparedGenuineEvenSource,
+not an unconditional construction of that package. It binds the actual fixed
+EvenPhaseData, original S0Filter, genuine central values agreeing with W.Lstar,
+existing even minimum and actual normalized dictionary symbol. No freely
+chosen coefficient function, subfilter or unit premise supplies that binding.
+
+The remaining data-production obligations are the central-normalization
+agreement, prepared actual form and nonzero reference, whole-filter type
+dictionary, fixed-U factorization, and equality of A with the actual symbol.
+WaldspurgerCor2, the genuine EvenLowerBound, actual twist continuations and
+ellipticity are explicit premises. The other auxiliary-factor inputs remain
+unchanged. No new printed leaf, unrestricted all-type seed theorem or
+unconditional auxiliary factor is claimed.
+
+Exact compiler output follows.
+
+genuineEvenNormalization_spec : ∀ (hW : WaldspurgerCor2) {E : WeierstrassCurve ℚ} (hE : E.IsElliptic)
+  {C : CentralNormalization E} {S₀ : Finset ℕ} {D₀ : ℕ} (P : EvenPhaseData E C (-1) S₀ D₀) (h₀ : C.Lstar (-1 * ↑D₀) ≠ 0)
+  (hcont : ∀ (h : ℤ), h ≠ 0 → ∃ F, IsLContinuation (qtwist E ↑h) F) (h9 : EvenLowerBound E C),
+  have M := genuineEvenNormalization hW hE P h₀ hcont h9;
+  (∀ D ∈ P.retained,
+      hiwCoeff P.g D / hiwCoeff P.g D₀ = P.z D * ↑(M.1 D) ∧ M.1 D ^ 2 = C.Lstar (-1 * ↑D) / C.Lstar (-1 * ↑D₀)) ∧
+    LeastCoefficientDepth (genuineEvenCoefficient hW hE P h₀ hcont h9) (S0Filter S₀ D₀) M.2
+@negativeCoefficientFilter_of_S0Filter : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} (T : TypeData L ε)
+  (τ : L) {S₀ : Finset ℕ} {D₀ : ℕ},
+  2 ∈ S₀ →
+    (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ S₀) →
+      D₀ % 8 = 7 →
+        (∀ (D : ℕ), S0Filter S₀ D₀ D → (primeConfig D.primeFactors T.typ).total = τ) →
+          NegativeCoefficientFilter T τ (S0Filter S₀ D₀)
+@preparedUnitCertificate_of_genuineEvenSource : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : WData ℓ) (T : TypeData L ε) (C : CentralNormalization (Ecurve ℓ)) (hW : WaldspurgerCor2)
+  (hE : (Ecurve ℓ).IsElliptic) (hcont : ∀ (h : ℤ), h ≠ 0 → ∃ F, IsLContinuation (qtwist (Ecurve ℓ) ↑h) F)
+  (h9 : EvenLowerBound (Ecurve ℓ) C),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+    ∀ (A : L → Config L → ZMod 2), PreparedGenuineEvenSource W T C hW hE hcont h9 A → PreparedUnitCertificate W T A
+@preparedEvenSourceInput_of_genuineEvenSource : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ}
+  (W : WData ℓ) (T : TypeData L ε) (C : CentralNormalization (Ecurve ℓ)) (hW : WaldspurgerCor2)
+  (hE : (Ecurve ℓ).IsElliptic) (hcont : ∀ (h : ℤ), h ≠ 0 → ∃ F, IsLContinuation (qtwist (Ecurve ℓ) ↑h) F)
+  (h9 : EvenLowerBound (Ecurve ℓ) C),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+    ∀ (A : L → Config L → ZMod 2), PreparedGenuineEvenSource W T C hW hE hcont h9 A → PreparedEvenSourceInput W T A
+@preparedSeedInput_of_genuineEvenSource : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ} (W : WData ℓ)
+  (T : TypeData L ε) (C : CentralNormalization (Ecurve ℓ)) (hW : WaldspurgerCor2) (hE : (Ecurve ℓ).IsElliptic)
+  (hcont : ∀ (h : ℤ), h ≠ 0 → ∃ F, IsLContinuation (qtwist (Ecurve ℓ) ↑h) F) (h9 : EvenLowerBound (Ecurve ℓ) C),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+    ∀ (A : L → Config L → ZMod 2),
+      PreparedGenuineEvenSource W T C hW hE hcont h9 A → ∀ (τ : L), PreparedType W T τ → ∃ Γ, IsUnitSeed ε (A τ) Γ
+@preparedClauseFour_of_genuineEvenSource : ∀ {L : Type} [inst : AddCommGroup L] {ε : L →+ ZMod 2} {ℓ : ℕ} (W : WData ℓ)
+  (T : TypeData L ε) (C : CentralNormalization (Ecurve ℓ)) (hW : WaldspurgerCor2) (hE : (Ecurve ℓ).IsElliptic)
+  (hcont : ∀ (h : ℤ), h ≠ 0 → ∃ F, IsLContinuation (qtwist (Ecurve ℓ) ↑h) F) (h9 : EvenLowerBound (Ecurve ℓ) C),
+  (∀ (p : ℕ), Nat.Prime p → p ∣ T.m → p ∈ W.S) →
+    ∀ (A : L → Config L → ZMod 2),
+      (∀ (τ : L), CoefficientRules ε (A τ)) →
+        (∀ (τ : L), VanishesOffFilter (A τ) τ) →
+          PreparedGenuineEvenSource W T C hW hE hcont h9 A → PreparedClauseFour W T A
+'ZInQ.Contrib.RC53Assist.AuxFactor.genuineEvenNormalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.genuineEvenCoefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.genuineEvenSymbol' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.PreparedGenuineEvenSource' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.genuineEvenNormalization_spec' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.negativeCoefficientFilter_of_S0Filter' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedUnitCertificate_of_genuineEvenSource' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedEvenSourceInput_of_genuineEvenSource' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedSeedInput_of_genuineEvenSource' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.preparedClauseFour_of_genuineEvenSource' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.Even.EvenPhaseData.minimum_sieved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.AuxFactor.auxFactor_of_clauseFour' depends on axioms: [propext, Classical.choice, Quot.sound]
+[exit code: 0]

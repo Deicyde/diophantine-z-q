@@ -23,10 +23,11 @@ open ZInQ.Contrib.CloudB3RC53.CST
 open Classical in
 /-- **`datum_facts_core` with `ArtinFactorization` the only GLUE** (PROVED): as `datum_facts_core`,
 with `GenusRoots`, `TwistDescent`, `NeronTateTwist`, the splitting criterion proved and Elliot's
-comparison taken in the normal closure (no `RingClassGalois`). For a field `K` of discriminant `D`, `χ = χ_{d₁} ∘ N` on `Pic(O_c)`, `d₁ d₂ = D c²`, a Heegner
-point `y` and entire continuations `F₁, F₂` of `L(E^{(d₁)}, s)`, `L(E^{(d₂)}, s)`: if `E^{(d_T)}(ℚ)` is
-torsion for the one of `d₁, d₂` called `d_T`, there is `Q` on the rational line `E^{(d_R)}(ℚ)` (the
-other one) with `(F₁F₂)'(1) = C/(c√|D|) · ĥ(Q)/2` and `j(P_χ) ≤ j(Q) ≤ j(P_χ) + 1`. -/
+comparison taken in the normal closure (no `RingClassGalois`). For a field `K` of discriminant `D`,
+`χ = χ_{d₁} ∘ N` on `Pic(O_c)`, `d₁ d₂ = D c²`, a Heegner point `y` and entire continuations
+`F₁, F₂` of `L(E^{(d₁)}, s)`, `L(E^{(d₂)}, s)`: if `E^{(d_T)}(ℚ)` is torsion for the one of `d₁, d₂`
+called `d_T`, there is `Q` on the rational line `E^{(d_R)}(ℚ)` (the other one) with
+`(F₁F₂)'(1) = C/(c√|D|) · ĥ(Q)/2` and `j(P_χ) ≤ j(Q) ≤ j(P_χ) + 1`. -/
 theorem datum_facts_core' (hArtin : ArtinFactorization) {E : WeierstrassCurve ℚ} [E.IsElliptic] (h₁ : E.a₁ = 0)
     (h₃ : E.a₃ = 0)
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}

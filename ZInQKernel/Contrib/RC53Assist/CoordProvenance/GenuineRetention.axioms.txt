@@ -1,0 +1,203 @@
+@ZInQ.Contrib.RC53Assist.CoordProvenance.toFullAt_compat.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {G : Type u_1} [inst_1 : Group.{u_1} G] [inst_2 : TopologicalSpace.{u_1} G] {Vo Vn : Type u_1}
+  {Gv : Sum.{u_1, u_1} Vo Vn → Type u_1} [inst_3 : (v : Sum.{u_1, u_1} Vo Vn) → Group.{u_1} (Gv v)]
+  [inst_4 : (v : Sum.{u_1, u_1} Vo Vn) → TopologicalSpace.{u_1} (Gv v)]
+  [inst_5 : ∀ (v : Sum.{u_1, u_1} Vo Vn), IsTopologicalGroup.{u_1} (Gv v)]
+  {loc : (v : Sum.{u_1, u_1} Vo Vn) → ContinuousMonoidHom.{u_1, u_1} (Gv v) G} {A : Type u_1}
+  [inst_6 : AddCommGroup.{u_1} A] [inst_7 : Module.{u_1, u_1} R A] [inst_8 : DistribMulAction.{u_1, u_1} G A]
+  [inst_9 : SMulCommClass.{u_1, u_1, u_1} G R A] [inst_10 : TopologicalSpace.{u_1} A] [inst_11 : ContinuousAdd.{u_1} A]
+  [inst_12 : ContinuousConstSMul.{u_1, u_1} R A] [inst_13 : ContinuousSMul.{u_1, u_1} G A]
+  (Δ : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc A) (v : Sum.{u_1, u_1} Vo Vn) (n : ℤ)
+  (a :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.U.{u_1} Δ v) n)),
+  Eq.{u_1 + 1}
+    ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.i.{u_1}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.fullAt.{u_1} Δ) v)
+        n n ⋯)
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.toFullAt.{u_1} Δ v) n n ⋯)
+        a))
+    ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.i.{u_1} Δ v) n n ⋯)
+      a)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.toFullAt_compat' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.fromZeroAt_compat.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {G : Type u_1} [inst_1 : Group.{u_1} G] [inst_2 : TopologicalSpace.{u_1} G] {Vo Vn : Type u_1}
+  {Gv : Sum.{u_1, u_1} Vo Vn → Type u_1} [inst_3 : (v : Sum.{u_1, u_1} Vo Vn) → Group.{u_1} (Gv v)]
+  [inst_4 : (v : Sum.{u_1, u_1} Vo Vn) → TopologicalSpace.{u_1} (Gv v)]
+  [inst_5 : ∀ (v : Sum.{u_1, u_1} Vo Vn), IsTopologicalGroup.{u_1} (Gv v)]
+  {loc : (v : Sum.{u_1, u_1} Vo Vn) → ContinuousMonoidHom.{u_1, u_1} (Gv v) G} {A : Type u_1}
+  [inst_6 : AddCommGroup.{u_1} A] [inst_7 : Module.{u_1, u_1} R A] [inst_8 : DistribMulAction.{u_1, u_1} G A]
+  [inst_9 : SMulCommClass.{u_1, u_1, u_1} G R A] [inst_10 : TopologicalSpace.{u_1} A] [inst_11 : ContinuousAdd.{u_1} A]
+  [inst_12 : ContinuousConstSMul.{u_1, u_1} R A] [inst_13 : ContinuousSMul.{u_1, u_1} G A]
+  (Δ : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc A) (v : Sum.{u_1, u_1} Vo Vn) (n : ℤ)
+  (a :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.U.{u_1}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.zeroAt.{u_1} Δ) v)
+        n)),
+  Eq.{u_1 + 1}
+    ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.i.{u_1} Δ v) n n ⋯)
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.fromZeroAt.{u_1} Δ v) n n ⋯)
+        a))
+    ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.i.{u_1}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.zeroAt.{u_1} Δ) v)
+        n n ⋯)
+      a)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.fromZeroAt_compat' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.relaxedIsotropy_retained.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {G : Type u_1} [inst_1 : Group.{u_1} G] [inst_2 : TopologicalSpace.{u_1} G] {Vo Vn : Type u_1}
+  {Gv : Sum.{u_1, u_1} Vo Vn → Type u_1} [inst_3 : (v : Sum.{u_1, u_1} Vo Vn) → Group.{u_1} (Gv v)]
+  [inst_4 : (v : Sum.{u_1, u_1} Vo Vn) → TopologicalSpace.{u_1} (Gv v)]
+  [inst_5 : ∀ (v : Sum.{u_1, u_1} Vo Vn), IsTopologicalGroup.{u_1} (Gv v)]
+  {loc : (v : Sum.{u_1, u_1} Vo Vn) → ContinuousMonoidHom.{u_1, u_1} (Gv v) G} {A B T : Type u_1}
+  [inst_6 : AddCommGroup.{u_1} A] [inst_7 : Module.{u_1, u_1} R A] [inst_8 : DistribMulAction.{u_1, u_1} G A]
+  [inst_9 : SMulCommClass.{u_1, u_1, u_1} G R A] [inst_10 : TopologicalSpace.{u_1} A] [inst_11 : ContinuousAdd.{u_1} A]
+  [inst_12 : ContinuousConstSMul.{u_1, u_1} R A] [inst_13 : ContinuousSMul.{u_1, u_1} G A]
+  [inst_14 : AddCommGroup.{u_1} B] [inst_15 : Module.{u_1, u_1} R B] [inst_16 : DistribMulAction.{u_1, u_1} G B]
+  [inst_17 : SMulCommClass.{u_1, u_1, u_1} G R B] [inst_18 : TopologicalSpace.{u_1} B] [inst_19 : ContinuousAdd.{u_1} B]
+  [inst_20 : ContinuousConstSMul.{u_1, u_1} R B] [inst_21 : ContinuousSMul.{u_1, u_1} G B]
+  [inst_22 : AddCommGroup.{u_1} T] [inst_23 : Module.{u_1, u_1} R T] [inst_24 : DistribMulAction.{u_1, u_1} G T]
+  [inst_25 : SMulCommClass.{u_1, u_1, u_1} G R T] [inst_26 : TopologicalSpace.{u_1} T] [inst_27 : ContinuousAdd.{u_1} T]
+  [inst_28 : ContinuousConstSMul.{u_1, u_1} R T] [inst_29 : ContinuousSMul.{u_1, u_1} G T]
+  (β : LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) A (LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) B T))
+  (hβ :
+    ∀ (g : G) (a : A) (b : B),
+      Eq.{u_1 + 1} ((β (HSMul.hSMul.{u_1, u_1, u_1} g a)) (HSMul.hSMul.{u_1, u_1, u_1} g b))
+        (HSMul.hSMul.{u_1, u_1, u_1} g ((β a) b)))
+  (hβc : Continuous.{u_1, u_1} fun x => (β x.1) x.2)
+  (ΔPp : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc A)
+  (ΔP : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc B)
+  (I : ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{u_1} R G Gv loc β hβ hβc ΔPp ΔP) (v : Sum.{u_1, u_1} Vo Vn)
+  (i j l : ℤ) (h : Eq.{1} (HAdd.hAdd.{0, 0, 0} i j) (HAdd.hAdd.{0, 0, 0} l 1))
+  (a :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.U.{u_1}
+          (ZInQ.Contrib.RC53Assist.CoordProvenance.zeroAt.{u_1} ΔPp) v)
+        i))
+  (b :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+        (ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.U.{u_1} ΔP v) j)),
+  Eq.{u_1 + 1}
+    (((ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.h.{u_1} ⋯ v i j l h) a)
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1} ⋯ j j ⋯) b))
+    (((ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.h.{u_1} I v i j l h) (⋯ a)) b)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.relaxedIsotropy_retained' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actual_cup_naturality.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R]
+  {G : Type u_1} [inst_1 : Group.{u_1} G] [inst_2 : TopologicalSpace.{u_1} G] [inst_3 : IsTopologicalGroup.{u_1} G]
+  {Vo Vn : Type u_1} {Gv : Sum.{u_1, u_1} Vo Vn → Type u_1} [inst_4 : (v : Sum.{u_1, u_1} Vo Vn) → Group.{u_1} (Gv v)]
+  [inst_5 : (v : Sum.{u_1, u_1} Vo Vn) → TopologicalSpace.{u_1} (Gv v)]
+  [inst_6 : ∀ (v : Sum.{u_1, u_1} Vo Vn), IsTopologicalGroup.{u_1} (Gv v)]
+  {loc : (v : Sum.{u_1, u_1} Vo Vn) → ContinuousMonoidHom.{u_1, u_1} (Gv v) G} {A B T : Type u_1}
+  [inst_7 : AddCommGroup.{u_1} A] [inst_8 : Module.{u_1, u_1} R A] [inst_9 : DistribMulAction.{u_1, u_1} G A]
+  [inst_10 : SMulCommClass.{u_1, u_1, u_1} G R A] [inst_11 : TopologicalSpace.{u_1} A] [inst_12 : ContinuousAdd.{u_1} A]
+  [inst_13 : ContinuousConstSMul.{u_1, u_1} R A] [inst_14 : ContinuousSMul.{u_1, u_1} G A]
+  [inst_15 : AddCommGroup.{u_1} B] [inst_16 : Module.{u_1, u_1} R B] [inst_17 : DistribMulAction.{u_1, u_1} G B]
+  [inst_18 : SMulCommClass.{u_1, u_1, u_1} G R B] [inst_19 : TopologicalSpace.{u_1} B] [inst_20 : ContinuousAdd.{u_1} B]
+  [inst_21 : ContinuousConstSMul.{u_1, u_1} R B] [inst_22 : ContinuousSMul.{u_1, u_1} G B]
+  [inst_23 : AddCommGroup.{u_1} T] [inst_24 : Module.{u_1, u_1} R T] [inst_25 : DistribMulAction.{u_1, u_1} G T]
+  [inst_26 : SMulCommClass.{u_1, u_1, u_1} G R T] [inst_27 : TopologicalSpace.{u_1} T] [inst_28 : ContinuousAdd.{u_1} T]
+  [inst_29 : ContinuousConstSMul.{u_1, u_1} R T] [inst_30 : ContinuousSMul.{u_1, u_1} G T]
+  (β : LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) A (LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) B T))
+  (hβ :
+    ∀ (g : G) (a : A) (b : B),
+      Eq.{u_1 + 1} ((β (HSMul.hSMul.{u_1, u_1, u_1} g a)) (HSMul.hSMul.{u_1, u_1, u_1} g b))
+        (HSMul.hSMul.{u_1, u_1, u_1} g ((β a) b)))
+  (hβc : Continuous.{u_1, u_1} fun x => (β x.1) x.2)
+  (ΔPp : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc A)
+  (ΔP : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc B)
+  (I : ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{u_1} R G Gv loc β hβ hβc ΔPp ΔP) (i j n : ℤ)
+  (h : Eq.{1} (HAdd.hAdd.{0, 0, 0} i j) n)
+  (s :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1}
+          (ZInQ.Manuscript.RC.SelmerComplex.selData.{u_1} R G Gv loc A
+            (ZInQ.Contrib.RC53Assist.CoordProvenance.zeroAt.{u_1} ΔPp)))
+        i))
+  (p :
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1}
+          (ZInQ.Manuscript.RC.SelmerComplex.selData.{u_1} R G Gv loc B ΔP))
+        j)),
+  Eq.{u_1 + 1}
+    (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCup.{u_1} ⋯ i j n h) s)
+      ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom.f.{u_1} ⋯ j j ⋯) p))
+    (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCup.{u_1} ⋯ i j n h) (⋯ s)) p)
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actual_cup_naturality' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.CoordProvenance.actual_pairedFunctional_natural.{u_1} : ∀ {R : Type u_1}
+  [inst : CommRing.{u_1} R] {G : Type u_1} [inst_1 : Group.{u_1} G] [inst_2 : TopologicalSpace.{u_1} G]
+  [inst_3 : IsTopologicalGroup.{u_1} G] {Vo Vn : Type u_1} {Gv : Sum.{u_1, u_1} Vo Vn → Type u_1}
+  [inst_4 : (v : Sum.{u_1, u_1} Vo Vn) → Group.{u_1} (Gv v)]
+  [inst_5 : (v : Sum.{u_1, u_1} Vo Vn) → TopologicalSpace.{u_1} (Gv v)]
+  [inst_6 : ∀ (v : Sum.{u_1, u_1} Vo Vn), IsTopologicalGroup.{u_1} (Gv v)]
+  {loc : (v : Sum.{u_1, u_1} Vo Vn) → ContinuousMonoidHom.{u_1, u_1} (Gv v) G} {A B T : Type u_1}
+  [inst_7 : AddCommGroup.{u_1} A] [inst_8 : Module.{u_1, u_1} R A] [inst_9 : DistribMulAction.{u_1, u_1} G A]
+  [inst_10 : SMulCommClass.{u_1, u_1, u_1} G R A] [inst_11 : TopologicalSpace.{u_1} A] [inst_12 : ContinuousAdd.{u_1} A]
+  [inst_13 : ContinuousConstSMul.{u_1, u_1} R A] [inst_14 : ContinuousSMul.{u_1, u_1} G A]
+  [inst_15 : AddCommGroup.{u_1} B] [inst_16 : Module.{u_1, u_1} R B] [inst_17 : DistribMulAction.{u_1, u_1} G B]
+  [inst_18 : SMulCommClass.{u_1, u_1, u_1} G R B] [inst_19 : TopologicalSpace.{u_1} B] [inst_20 : ContinuousAdd.{u_1} B]
+  [inst_21 : ContinuousConstSMul.{u_1, u_1} R B] [inst_22 : ContinuousSMul.{u_1, u_1} G B]
+  [inst_23 : AddCommGroup.{u_1} T] [inst_24 : Module.{u_1, u_1} R T] [inst_25 : DistribMulAction.{u_1, u_1} G T]
+  [inst_26 : SMulCommClass.{u_1, u_1, u_1} G R T] [inst_27 : TopologicalSpace.{u_1} T] [inst_28 : ContinuousAdd.{u_1} T]
+  [inst_29 : ContinuousConstSMul.{u_1, u_1} R T] [inst_30 : ContinuousSMul.{u_1, u_1} G T]
+  (β : LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) A (LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R) B T))
+  (hβ :
+    ∀ (g : G) (a : A) (b : B),
+      Eq.{u_1 + 1} ((β (HSMul.hSMul.{u_1, u_1, u_1} g a)) (HSMul.hSMul.{u_1, u_1, u_1} g b))
+        (HSMul.hSMul.{u_1, u_1, u_1} g ((β a) b)))
+  (hβc : Continuous.{u_1, u_1} fun x => (β x.1) x.2)
+  (ΔPp : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc A)
+  (ΔP : ZInQ.Manuscript.RC.SelmerComplex.LocalConditions.{u_1} R G Gv loc B)
+  (I : ZInQ.Manuscript.RC.SelmerComplex.IsotropyData.{u_1} R G Gv loc β hβ hβc ΔPp ΔP)
+  (tr :
+    LinearMap.{u_1, u_1, u_1, u_1} (RingHom.id.{u_1} R)
+      (↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+          (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{u_1}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{u_1}
+              (ZInQ.Contrib.RC53Assist.CoordProvenance.actualPrimitivePairData.{u_1} β hβ hβc ΔPp ΔP I)))
+          3))
+      R),
+  (∀
+      (c :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{u_1}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData.resE.{u_1}
+                (ZInQ.Contrib.RC53Assist.CoordProvenance.actualPrimitivePairData.{u_1} β hβ hβc ΔPp ΔP I)))
+            2)),
+      Eq.{u_1 + 1}
+        (tr
+          ((ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.d.{u_1}
+              (ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx.{u_1} ⋯) 2 3 ⋯)
+            c))
+        0) →
+    ∀
+      (zS :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1}
+              (ZInQ.Manuscript.RC.SelmerComplex.selData.{u_1} R G Gv loc A
+                (ZInQ.Contrib.RC53Assist.CoordProvenance.zeroAt.{u_1} ΔPp)))
+            1))
+      (zPp :
+        ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1}
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx.{u_1}
+              (ZInQ.Manuscript.RC.SelmerComplex.selData.{u_1} R G Gv loc A ΔPp))
+            1))
+      (e : R) (b : ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{u_1} ⋯ 0)), Eq.{u_1 + 1} ⋯ ⋯ → ∀ (w : ⋯), ⋯
+'ZInQ.Contrib.RC53Assist.CoordProvenance.actual_pairedFunctional_natural' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+
+Compiler exit code: 0

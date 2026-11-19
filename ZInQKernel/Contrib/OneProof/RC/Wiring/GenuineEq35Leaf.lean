@@ -51,9 +51,11 @@ be some genuine Galois Selmer data with `t = X`. With one genuine complex of the
 `[k --0--> k]` at each `𝔭` (true, not formalized), the regularity part is equivalent to
 `uprim h k' ∈ Λ[1/2]` at the companion pairs, Elliot's regularity assertion (ELLIOT). Over the
 actual genuine complexes no switch step can be formed (`fG`: `C¹_cont` is infinite-dimensional), so
-the actual family witnesses the regularity part only when `s(𝔭) = 1`. UNCLEAR/DEPARTURE: batch 3's
-`GenuineSwitchData.primitive` requires the actual class to be primitive, which the text does not
-supply. DEPARTURE: one model family with one size function `nOf` is fixed for all ring instances
+the actual family witnesses the regularity part only when `s(𝔭) = 1`. UNCLEAR/DEPARTURE of this
+leaf: batch 3's `GenuineSwitchData.primitive` requires the actual class to be primitive, which the
+text does not supply; `Leaves.lean` uses instead `Eq35InputsGenuineGGPK` (`GenuineSwitchPK.lean`,
+the actual classes only nonzero), which this leaf implies (`Eq35InputsGenuineGG.toPK`).
+DEPARTURE: one model family with one size function `nOf` is fixed for all ring instances
 before `A`, stronger than the text's per-`A` bound (tex 4936–4940, 4453–4463).
 -/
 

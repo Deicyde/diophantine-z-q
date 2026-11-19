@@ -1,0 +1,65 @@
+{
+  "id": "Remark 7.1",
+  "kind": "remark",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, nothing to formalize: The remark motivates the family and restates facts of the proof of Theorem 5.2 and conventions of Section 7; it asserts no new claim. [N]'s only related declaration is the interface ManuscriptV15.Arithmetic.RestrictedConverse, mapped at (RC).",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.875664,
+          0.784314,
+          0.038624
+        ]
+      },
+      "title": "Remark 7.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Remark 7.1#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 26,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.157648
+        ]
+      },
+      "title": "Remark 7.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Remark 7.1#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25,
+          26
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

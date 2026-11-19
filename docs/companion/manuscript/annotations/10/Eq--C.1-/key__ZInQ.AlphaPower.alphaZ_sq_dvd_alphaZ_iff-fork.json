@@ -1,0 +1,70 @@
+{
+  "id": "Eq (C.1)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: For b > 2 and m > 0, alphaZ_sq_dvd_alphaZ_iff states U_k^2 | U_m iff kU_k | m with the right side cast to the integers; proved without assumed hypotheses.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.414467,
+          0.784314,
+          0.031213
+        ]
+      },
+      "title": "Eq. (C.1)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (C.1)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.alphaZ_sq_dvd_alphaZ_iff",
+        "module": "ZInQKernel.Compiler.Exponential.AlphaDivisibility"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.alphaZ_sq_dvd_alphaZ_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem alphaZ_sq_dvd_alphaZ_iff (b k m : ℕ) (hb : 2 < b) (hm : 0 < m) :\n    alphaZ b k ^ 2 ∣ alphaZ b m ↔ (k : ℤ) * alphaZ b k ∣ (m : ℤ) :=",
+            "line": 21,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/AlphaDivisibility.lean",
+            "fragment": "L21"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

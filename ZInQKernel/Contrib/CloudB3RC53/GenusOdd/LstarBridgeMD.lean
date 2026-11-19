@@ -5,9 +5,9 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.LstarBridge
 
 `gzComparison_of_scaled` needs `omegaMinus Lat ≠ 0`. For the genuine period lattice this is true
 (the lattice of `E/ℚ` is stable under complex conjugation), but its proof needs the uniqueness of
-the lattice with given `g₂, g₃` (Laurent recursion for the Eisenstein sums), which is not in Mathlib.
-It is not needed if the Manin–Drinfeld input is taken in its natural form "`L_*(h_*)` is a
-NONZERO rational" (tex L2403: "a negative genus partner `h_*` with `L_*(h_*) ≠ 0`"):
+the lattice with given `g₂, g₃` (Laurent recursion for the Eisenstein sums), which is not in
+Mathlib. It is not needed if the Manin–Drinfeld input is taken in its natural form "`L_*(h_*)` is a
+NONZERO rational" (tex L2404: "a negative genus partner `h_*` with `L_*(h_*) ≠ 0`"):
 `gzComparison_of_scaledMD` (PROVED).
 -/
 

@@ -6,34 +6,37 @@ import ZInQKernel.Contrib.CloudB3RC53.PairedFunctional.Lambda
 
 Height-one regularity by switches, Proposition `ex:limits-uniform-lower-bound`, tex L4976–5195.
 
-**Part A (non-vacuity for `GaloisNonquadInputs`, `GaloisWiring.lean`).** The genuine Galois family of
-`GaloisWiring.lean` has coefficients `𝔽₂` (`ZMod 2`). Two facts limit it:
+**Part A (non-vacuity for `GaloisNonquadInputs`, `GaloisWiring.lean`).** The genuine Galois family
+of `GaloisWiring.lean` has coefficients `𝔽₂` (`ZMod 2`). Two facts limit it:
 
-* `isEmpty_ringHom_zmod_two_of_isUnit`, `isEmpty_ringHom_zmod_two_heightOne` (PROVED): if `2` is a unit
-  of `A` there is no ring map `A → 𝔽₂`; at every height-one prime `𝔭 ≠ (2)` of `Λ = ℤ₂[[t]]`, `2` is a
-  unit of `Λ_𝔭`. So `GaloisNonquadInputs` (whose residue map is `ρ : A →+* ZMod 2`) can never be
-  applied with `A = Λ_𝔭`, `𝔭 ≠ (2)`, the primes at which Elliot's switching argument runs (tex L4976:
-  `R = Λ_𝔭`, `k = Frac(Λ/𝔭)` of characteristic zero). **Finding (modelling, not a manuscript error):**
-  the genuine wiring must be redone over a residue field of characteristic `≠ 2` (coefficient modules
-  over `k(𝔭)`, tame coordinates over `k(𝔭)`); the `𝔽₂` wiring is only the residual level.
+* `isEmpty_ringHom_zmod_two_of_isUnit`, `isEmpty_ringHom_zmod_two_heightOne` (PROVED): if `2` is a
+  unit of `A` there is no ring map `A → 𝔽₂`; at every height-one prime `𝔭 ≠ (2)` of `Λ = ℤ₂[[t]]`,
+  `2` is a unit of `Λ_𝔭`. So `GaloisNonquadInputs` (whose residue map is `ρ : A →+* ZMod 2`) can
+  never be applied with `A = Λ_𝔭`, `𝔭 ≠ (2)`, the primes at which Elliot's switching argument runs
+  (tex L4976: `R = Λ_𝔭`, `k = Frac(Λ/𝔭)` of characteristic zero). **Finding (modelling, not a
+  manuscript error):** the genuine wiring must be redone over a residue field of characteristic
+  `≠ 2` (coefficient modules over `k(𝔭)`, tame coordinates over `k(𝔭)`); the `𝔽₂` wiring is only the
+  residual level.
 * `GaloisSwitchData.not_quadratic_of_two_eq_zero`, `isEmpty_quasiMixedStep_of_two_eq_zero`,
   `isEmpty_quasiSingleStep_of_two_eq_zero` (PROVED): over a field with `2 = 0` no switching data is
   quadratic and no quadratic step exists, so the quadratic steps cannot be wired over `𝔽₂` at all.
 * `GaloisSwitchData.one_le_h1` (PROVED): every Galois switching datum, hence (through
-  `GaloisNonquadInputs.toGaloisSwitchData`) every instance of `GaloisNonquadInputs`, forces `dim H¹` of
-  the genuine actual fibre to be at least one (primitivity plus the stage model). So an instance needs an explicit computation
-  of the continuous Galois cohomology of the genuine fibre, which the library does not provide (the
-  zero-coefficient family has no data at all: `GaloisFamily.no_genuineSwitchData_of_zAct_zero`).
+  `GaloisNonquadInputs.toGaloisSwitchData`) every instance of `GaloisNonquadInputs`, forces `dim H¹`
+  of the genuine actual fibre to be at least one (primitivity plus the stage model). So an instance
+  needs an explicit computation of the continuous Galois cohomology of the genuine fibre, which the
+  library does not provide (the zero-coefficient family has no data at all:
+  `GaloisFamily.no_genuineSwitchData_of_zAct_zero`).
 
 **Part B (the quadratic steps, over any field `k`).** `MixedCandidates` / `SingleCandidates`: at a
 configuration `c`, candidate quadratic switch data at every prime `p` (sides equal to the fibres of
-`c` and `next c p`, duality from Selmer duality with `σ = 1`, equivariant fibre isomorphisms, nonzero
-sign classes, the other team's detecting-prime existence, a `CoordStep` for every candidate).
-`GaloisQuadInputs Φ ι ρ u` is `GaloisSwitchData` with the quadratic steps given by candidates;
-`GaloisQuadInputs.toGaloisSwitchData` (PROVED) chooses the prime by `exists_detectingPrime` /
-`exists_detectingPrimePlus`, and `regular_of_galoisQuadInputs` gives regularity. Non-vacuity:
-`GaloisQuadInputs.ofNonquadratic` and the instance `exGaloisQuadInputs` (nonquadratic family); a
-quadratic instance needs candidates with `DualityFromSelmer` at every prime, not built here.
+`c` and `next c p`, duality from Selmer duality with `σ = 1`, equivariant fibre isomorphisms,
+nonzero sign classes, the other team's detecting-prime existence, a `CoordStep` for every
+candidate). `GaloisQuadInputs Φ ι ρ u` is `GaloisSwitchData` with the quadratic steps given by
+candidates; `GaloisQuadInputs.toGaloisSwitchData` (PROVED) chooses the prime by
+`exists_detectingPrime` / `exists_detectingPrimePlus`, and `regular_of_galoisQuadInputs` gives
+regularity. Non-vacuity: `GaloisQuadInputs.ofNonquadratic` and the instance `exGaloisQuadInputs`
+(nonquadratic family); a quadratic instance needs candidates with `DualityFromSelmer` at every
+prime, not built here.
 -/
 
 noncomputable section

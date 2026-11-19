@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 packed histories",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.RM.Program.Accepts a definition: PackedConditions fixes [M]'s parameters and conditions (F and D through B F + 1 = F + B T and D + F = K F, which packed_masks proves equal to the sums), and packed_masks and one_active_state prove the digit consequences; proved, no assumed hypothesis.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.223068,
+          0.784314,
+          0.248629
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 packed histories",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 packed histories"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.RM.Program.Accepts",
+        "module": "ZInQKernel.Compiler.Circuits.RegisterMachine"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.RM.Program.Accepts@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Program.Accepts (p : Program) {k : ℕ} (a : Fin k → ℕ) : Prop :=\n  ∃ t c, stepN p.toMachine t ⟨0, initFile a⟩ = some c ∧ c.state = p.length - 1 ∧\n    ∀ j, c.regs j = 0",
+            "line": 88,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/RegisterMachine.lean",
+            "fragment": "L88"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

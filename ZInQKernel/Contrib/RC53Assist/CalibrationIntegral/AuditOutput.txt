@@ -1,0 +1,1443 @@
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap {R : Type} [CommRing R] (x : R) : R →ₗ[R] R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap' depends on axioms: [propext]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalTerms (R : Type) [CommRing R] : ℕ → ModuleCat R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalTerms' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD0 {R : Type} [CommRing R] (x : R) : R →ₗ[R] R × R × R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD0' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD1 {R : Type} [CommRing R] (x : R) : R × R × R →ₗ[R] R × R × R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD1' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD2 {R : Type} [CommRing R] (x : R) : R × R × R →ₗ[R] R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD2' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD {R : Type} [CommRing R] (x₁ x₂ x₃ : R) (n : ℕ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalTerms R n ⟶
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalTerms R (n + 1)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD_sq {R : Type} [CommRing R] (x₁ x₂ x₃ : R) (n : ℕ) :
+  CategoryTheory.CategoryStruct.comp (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD x₁ x₂ x₃ n)
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD x₁ x₂ x₃ (n + 1)) =
+    0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD_sq' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  CochainComplex (ModuleCat R) ℤ
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.homologyEquivOfClass.{u_1} {R : Type} [CommRing R]
+  (C : CochainComplex (ModuleCat R) ℤ) (i n j : ℤ) (hi : (ComplexShape.up ℤ).prev n = i)
+  (hj : (ComplexShape.up ℤ).next n = j) {H : Type} [AddCommGroup H] [Module R H]
+  (f : ↥(ModuleCat.Hom.hom (HomologicalComplex.sc' C i n j).g).ker →ₗ[R] H) (hf : Function.Surjective ⇑f)
+  (hker : (HomologicalComplex.sc' C i n j).moduleCatToCycles.range = f.ker) : ↑(HomologicalComplex.homology C n) ≃ₗ[R] H
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.homologyEquivOfClass' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d0 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃).d 0 1) =
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD0 x₁
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d0' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d1 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃).d 1 2) =
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD1 x₂
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d1' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d2 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃).d 2 3) =
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalD2 x₃
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_dneg {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃).d (-1) 0) = 0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_dneg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d3 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃).d 3 4) = 0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex_d3' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.range_scalarMap {R : Type} [CommRing R] (x : R) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x).range = Ideal.span {x}
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.range_scalarMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.class0 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↥(ModuleCat.Hom.hom
+          (HomologicalComplex.sc' (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) (-1) 0
+              1).g).ker →ₗ[R]
+    ↥(ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x₁).ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.class0' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH0Equiv {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 0) ≃ₗ[R]
+    ↥(ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x₁).ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH0Equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.class2 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↥(ModuleCat.Hom.hom
+          (HomologicalComplex.sc' (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 1 2
+              3).g).ker →ₗ[R]
+    R × (R ⧸ Ideal.span {x₂}) × ↥(ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x₃).ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.class2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH2Equiv {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 2) ≃ₗ[R]
+    R × (R ⧸ Ideal.span {x₂}) × ↥(ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x₃).ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH2Equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.class3 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↥(ModuleCat.Hom.hom
+          (HomologicalComplex.sc' (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 2 3
+              4).g).ker →ₗ[R]
+    R ⧸ Ideal.span {x₃}
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.class3' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH3Equiv {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 3) ≃ₗ[R]
+    R ⧸ Ideal.span {x₃}
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH3Equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.class1 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↥(ModuleCat.Hom.hom
+          (HomologicalComplex.sc' (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 0 1
+              2).g).ker →ₗ[R]
+    R × (R ⧸ Ideal.span {x₁}) × ↥(ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x₂).ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.class1' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH1Equiv {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 1) ≃ₗ[R]
+    R × (R ⧸ Ideal.span {x₁}) × ↥(ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x₂).ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalH1Equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.card_scalar_kernel {R : Type} [CommRing R] [Finite R] (x : R) :
+  Nat.card ↥(ZInQ.Contrib.RC53Assist.CalibrationIntegral.scalarMap x).ker = Nat.card (R ⧸ Ideal.span {x})
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.card_scalar_kernel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normal_card0 {R : Type} [CommRing R] [Finite R] (x₁ x₂ x₃ : R) :
+  Nat.card ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 0) =
+    Nat.card (R ⧸ Ideal.span {x₁})
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normal_card0' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normal_card2 {R : Type} [CommRing R] [Finite R] (x₁ x₂ x₃ : R) :
+  Nat.card ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 2) =
+    Nat.card R * Nat.card (R ⧸ Ideal.span {x₂}) * Nat.card (R ⧸ Ideal.span {x₃})
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normal_card2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normal_card3 {R : Type} [CommRing R] (x₁ x₂ x₃ : R) :
+  Nat.card ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) 3) =
+    Nat.card (R ⧸ Ideal.span {x₃})
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normal_card3' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank : ℤ → ℕ
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank' does not depend on any axioms
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.lineCoordinates (R : Type) [CommRing R] : R ≃ₗ[R] Fin 1 → R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.lineCoordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.tripleCoordinates (R : Type) [CommRing R] : (R × R × R) ≃ₗ[R] Fin 3 → R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.tripleCoordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.zeroCoordinates (R : Type) [CommRing R] : PUnit ≃ₗ[R] Fin 0 → R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.zeroCoordinates' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalCoordinates {R : Type} [CommRing R] (x₁ x₂ x₃ : R) (n : ℤ) :
+  ↑((ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃).X n) ≃ₗ[R]
+    Fin (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank n) → R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalCoordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.extendedNormalCoordinates {R S : Type} [CommRing R] [CommRing S]
+  (φ : R →+* S) (x₁ x₂ x₃ : R) (n : ℤ) :
+  ↑((ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex φ
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃)).X
+        n) ≃ₗ[S]
+    ↑((ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex (φ x₁) (φ x₂) (φ x₃)).X n)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.extendedNormalCoordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalScalarChangeIso {R S : Type} [CommRing R] [CommRing S] (φ : R →+* S)
+  (x₁ x₂ x₃ : R) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex φ
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃) ≅
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex (φ x₁) (φ x₂) (φ x₃)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalScalarChangeIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteNormal_orders (i : ℕ) (hi : i ≠ 0) (x₁ x₂ x₃ : ℤ_[2]) :
+  Nat.card
+        ↑(HomologicalComplex.homology
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex
+              ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₁)
+              ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₂)
+              ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₃))
+            0) =
+      ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₁ ∧
+    Nat.card
+          ↑(HomologicalComplex.homology
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex
+                ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₁)
+                ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₂)
+                ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₃))
+              2) =
+        2 ^ (i * i) * ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₂ *
+          ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₃ ∧
+      Nat.card
+          ↑(HomologicalComplex.homology
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex
+                ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₁)
+                ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₂)
+                ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₃))
+              3) =
+        ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₃
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteNormal_orders' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0) :
+  ((ZInQ.Manuscript.RC.TwistDictionary.twistK W h).baseChange (ZInQ.Manuscript.RC.CoefModules.KS K S)).toAffine.Point ≃+
+    (W.baseChange (ZInQ.Manuscript.RC.CoefModules.KS K S)).toAffine.Point
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_nonsingular {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0)
+  {x y : ZInQ.Manuscript.RC.CoefModules.KS K S}
+  (hxy :
+    ((ZInQ.Manuscript.RC.TwistDictionary.twistK W h).baseChange
+            (ZInQ.Manuscript.RC.CoefModules.KS K S)).toAffine.Nonsingular
+      x y) :
+  (W.baseChange (ZInQ.Manuscript.RC.CoefModules.KS K S)).toAffine.Nonsingular (s⁻¹ ^ 2 * x)
+    (s⁻¹ ^ 3 * y + s⁻¹ ^ 2 * (-(W.baseChange (ZInQ.Manuscript.RC.CoefModules.KS K S)).a₁ / 2) * x -
+      (W.baseChange (ZInQ.Manuscript.RC.CoefModules.KS K S)).a₃ / 2)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_nonsingular' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_some {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0)
+  {x y : ZInQ.Manuscript.RC.CoefModules.KS K S}
+  (hxy :
+    ((ZInQ.Manuscript.RC.TwistDictionary.twistK W h).baseChange
+            (ZInQ.Manuscript.RC.CoefModules.KS K S)).toAffine.Nonsingular
+      x y) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv W s hs hs0)
+      (WeierstrassCurve.Affine.Point.some x y hxy) =
+    WeierstrassCurve.Affine.Point.some (s⁻¹ ^ 2 * x)
+      (s⁻¹ ^ 3 * y + s⁻¹ ^ 2 * (-(W.baseChange (ZInQ.Manuscript.RC.CoefModules.KS K S)).a₁ / 2) * x -
+        (W.baseChange (ZInQ.Manuscript.RC.CoefModules.KS K S)).a₃ / 2)
+      ⋯
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_some' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_galois {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0)
+  (σ : ZInQ.Manuscript.RC.SelmerComplex.GKS K S)
+  (P :
+    ((ZInQ.Manuscript.RC.TwistDictionary.twistK W h).baseChange
+          (ZInQ.Manuscript.RC.CoefModules.KS K S)).toAffine.Point) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv W s hs hs0)
+      ((WeierstrassCurve.Affine.Point.map ↑(ZInQ.Manuscript.RC.CoefModules.galS K S σ)) P) =
+    ↑((ZInQ.Manuscript.RC.CoefModules.quadChar s hs hs0) σ) •
+      (WeierstrassCurve.Affine.Point.map ↑(ZInQ.Manuscript.RC.CoefModules.galS K S σ))
+        ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv W s hs hs0) P)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_galois' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0) (i : ℕ) :
+  ZInQ.Manuscript.RC.CoefModules.TorsS K S (ZInQ.Manuscript.RC.TwistDictionary.twistK W h) ↑(2 ^ i) ≃+
+    ZInQ.Manuscript.RC.CoefModules.TorsS K S W ↑(2 ^ i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv_galois {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0) (i : ℕ)
+  (σ : ZInQ.Manuscript.RC.SelmerComplex.GKS K S)
+  (P : ZInQ.Manuscript.RC.CoefModules.TorsS K S (ZInQ.Manuscript.RC.TwistDictionary.twistK W h) ↑(2 ^ i)) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv W s hs hs0 i) (σ • P) =
+    ↑((ZInQ.Manuscript.RC.CoefModules.quadChar s hs hs0) σ) •
+      σ • (ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv W s hs hs0 i) P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv_galois' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.fullTorsion_twist {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0) (i : ℕ)
+  (hFull : ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ i)) :
+  ZInQ.Manuscript.RC.CoefModules.FullTorsion K S (ZInQ.Manuscript.RC.TwistDictionary.twistK W h) (2 ^ i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.fullTorsion_twist' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve {K : Type} [Field K] [NumberField K] {E₀ : WeierstrassCurve ℚ}
+  {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) : WeierstrassCurve K
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve_elliptic {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G).IsElliptic
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve_elliptic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  ZInQ.Manuscript.RC.CoefModules.FullTorsion K G.S (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) (2 ^ i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralSelData {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData ℤ_[2]
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralSelData' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) :
+  CochainComplex (ModuleCat ℤ_[2]) ℤ
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex_eq {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G =
+    ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) ⋯
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralChar_apply {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (σ : ZInQ.Manuscript.RC.SelmerComplex.GKS K G.S) :
+  (ZInQ.Contrib.RC53Assist.Calibration.centralChar i G.s ⋯ ⋯) σ =
+    (ZInQ.Manuscript.RC.CoefModules.intUnitsTo (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+      ((ZInQ.Manuscript.RC.CoefModules.quadChar G.s ⋯ ⋯) σ)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralChar_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReductionAdd {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Manuscript.RC.TwistDictionary.twistK G.W ↑hZ) →+
+    ZInQ.Manuscript.RC.CoefModules.Mcoef K G.S G.W i (ZInQ.Contrib.RC53Assist.Calibration.centralChar i G.s ⋯ ⋯)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReductionAdd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReductionAdd_smul {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (a : ℤ_[2]) (P : ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Manuscript.RC.TwistDictionary.twistK G.W ↑hZ)) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReductionAdd G i) (a • P) =
+    (ZInQ.Contrib.RC53Assist.Calibration.constRed i) a •
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReductionAdd G i) P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReductionAdd_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S
+      (ZInQ.Manuscript.RC.TwistDictionary.twistK G.W ↑hZ) →ₛₗ[ZInQ.Contrib.RC53Assist.Calibration.constRed i]
+    ZInQ.Manuscript.RC.CoefModules.Mcoef K G.S G.W i (ZInQ.Contrib.RC53Assist.Calibration.centralChar i G.s ⋯ ⋯)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction_galois {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (σ : ZInQ.Manuscript.RC.SelmerComplex.GKS K G.S)
+  (P : ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Manuscript.RC.TwistDictionary.twistK G.W ↑hZ)) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction G i) (σ • P) =
+    σ • (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction G i) P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction_galois' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction_continuous {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  Continuous ⇑(ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction G i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientReduction_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflMap_self {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (σ : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) : (ZInQ.Manuscript.RC.SelmerComplex.inflMap K ⋯) σ = σ
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflMap_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap {R S : Type} [CommRing R] [CommRing S] (π : R →+* S)
+  (A : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (B : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx S) : Type
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap' depends on axioms: [propext]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.semilinearRestriction.{u_1} {R S : Type} [CommRing R] [CommRing S]
+  (π : R →+* S) {M : ModuleCat R} {N : ModuleCat S} (f : ↑M →ₛₗ[π] ↑N) : M ⟶ (ModuleCat.restrictScalars π).obj N
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.semilinearRestriction' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.extend {R S : Type} [CommRing R] [CommRing S]
+  {π : R →+* S} {A : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R}
+  {B : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx S}
+  (f : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π A B) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex π A.toCC ⟶ B.toCC
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.extend' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.extend_tmul {R S : Type} [CommRing R] [CommRing S]
+  {π : R →+* S} {A : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R}
+  {B : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx S}
+  (f : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π A B) (n : ℤ)
+  (b : ↑((ModuleCat.restrictScalars π).obj ↧S)) (a : ↑(A.X n)) :
+  have b₀ := b;
+  (ModuleCat.Hom.hom (f.extend.f n)) (b ⊗ₜ[R] a) = b₀ • (f.f n) a
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.extend_tmul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.pi {R S : Type} [CommRing R] [CommRing S]
+  {π : R →+* S} {ι : Type} {A : ι → ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R}
+  {B : ι → ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx S}
+  (f : (v : ι) → ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π (A v) (B v)) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π (ZInQ.Manuscript.RC.SelmerComplex.piCx A)
+    (ZInQ.Manuscript.RC.SelmerComplex.piCx B)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.pi' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.selmer {R S : Type} [CommRing R] [CommRing S]
+  {π : R →+* S} {D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData R}
+  {D' : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData S}
+  (g : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π D.G D'.G)
+  (u : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π D.U D'.U)
+  (l : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π D.L D'.L)
+  (hres : ∀ (i j : ℤ) (hij : i = j) (a : ↑(D.G.X i)), (l.f j) ((D.res.f i j hij) a) = (D'.res.f i j hij) ((g.f i) a))
+  (hι : ∀ (i j : ℤ) (hij : i = j) (a : ↑(D.U.X i)), (l.f j) ((D.ι.f i j hij) a) = (D'.ι.f i j hij) ((u.f i) a)) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx D) (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx D')
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.selmer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap {R S : Type} [CommRing R] [CommRing S] {π : R →+* S}
+  {G : Type} [Group G] [TopologicalSpace G] {M : Type} [AddCommGroup M] [Module R M] [DistribMulAction G M]
+  [SMulCommClass G R M] [TopologicalSpace M] [ContinuousAdd M] [ContinuousConstSMul R M] {N : Type} [AddCommGroup N]
+  [Module S N] [DistribMulAction G N] [SMulCommClass G S N] [TopologicalSpace N] [ContinuousAdd N]
+  [ContinuousConstSMul S N] (f : M →ₛₗ[π] N) (hfc : Continuous ⇑f) (n : ℕ) :
+  ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain R G M n) →ₛₗ[π] ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain S G N n)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap_d {R S : Type} [CommRing R] [CommRing S] {π : R →+* S}
+  {G : Type} [Group G] [TopologicalSpace G] [ContinuousMul G] {M : Type} [AddCommGroup M] [Module R M]
+  [DistribMulAction G M] [SMulCommClass G R M] [TopologicalSpace M] [ContinuousAdd M] [ContinuousConstSMul R M]
+  [ContinuousSMul G M] {N : Type} [AddCommGroup N] [Module S N] [DistribMulAction G N] [SMulCommClass G S N]
+  [TopologicalSpace N] [ContinuousAdd N] [ContinuousConstSMul S N] [ContinuousSMul G N] (f : M →ₛₗ[π] N)
+  (hfc : Continuous ⇑f) (hf : ∀ (σ : G) (a : M), f (σ • a) = σ • f a) (n : ℕ)
+  (c : ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain R G M n)) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap f hfc (n + 1))
+      ((ZInQ.Manuscript.RC.CoefModules.contD R G M n) c) =
+    (ZInQ.Manuscript.RC.CoefModules.contD S G N n)
+      ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap f hfc n) c)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap_d' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.continuousCoefficientComplexMap {R S : Type} [CommRing R] [CommRing S]
+  {π : R →+* S} {G : Type} [Group G] [TopologicalSpace G] [ContinuousMul G] {M : Type} [AddCommGroup M] [Module R M]
+  [DistribMulAction G M] [SMulCommClass G R M] [TopologicalSpace M] [ContinuousAdd M] [ContinuousConstSMul R M]
+  [ContinuousSMul G M] {N : Type} [AddCommGroup N] [Module S N] [DistribMulAction G N] [SMulCommClass G S N]
+  [TopologicalSpace N] [ContinuousAdd N] [ContinuousConstSMul S N] [ContinuousSMul G N] (f : M →ₛₗ[π] N)
+  (hfc : Continuous ⇑f) (hf : ∀ (σ : G) (a : M), f (σ • a) = σ • f a) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π
+    (ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains R G M))
+    (ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains S G N))
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.continuousCoefficientComplexMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap_mem_B1 {R S : Type} [CommRing R] [CommRing S]
+  {π : R →+* S} {G : Type} [Group G] [TopologicalSpace G] [ContinuousMul G] {M : Type} [AddCommGroup M] [Module R M]
+  [DistribMulAction G M] [SMulCommClass G R M] [TopologicalSpace M] [ContinuousAdd M] [ContinuousConstSMul R M]
+  [ContinuousSMul G M] {N : Type} [AddCommGroup N] [Module S N] [DistribMulAction G N] [SMulCommClass G S N]
+  [TopologicalSpace N] [ContinuousAdd N] [ContinuousConstSMul S N] [ContinuousSMul G N] (f : M →ₛₗ[π] N)
+  (hfc : Continuous ⇑f) (hf : ∀ (σ : G) (a : M), f (σ • a) = σ • f a)
+  (b : ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain R G M 1)) (hb : b ∈ ZInQ.Manuscript.RC.CoefModules.contB1 R G M) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap f hfc 1) b ∈
+    ZInQ.Manuscript.RC.CoefModules.contB1 S G N
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap_mem_B1' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.cocycleCoefficientComplexMap {R S : Type} [CommRing R] [CommRing S]
+  {π : R →+* S} {G : Type} [Group G] [TopologicalSpace G] [ContinuousMul G] {M : Type} [AddCommGroup M] [Module R M]
+  [DistribMulAction G M] [SMulCommClass G R M] [TopologicalSpace M] [ContinuousAdd M] [ContinuousConstSMul R M]
+  [ContinuousSMul G M] {N : Type} [AddCommGroup N] [Module S N] [DistribMulAction G N] [SMulCommClass G S N]
+  [TopologicalSpace N] [ContinuousAdd N] [ContinuousConstSMul S N] [ContinuousSMul G N] (f : M →ₛₗ[π] N)
+  (hfc : Continuous ⇑f) (hf : ∀ (σ : G) (a : M), f (σ • a) = σ • f a)
+  (Z : Submodule R ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain R G M 1))
+  (hZ : ∀ z ∈ Z, (ZInQ.Manuscript.RC.CoefModules.contD R G M 1) z = 0)
+  (Z' : Submodule S ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain S G N 1))
+  (hZ' : ∀ z ∈ Z', (ZInQ.Manuscript.RC.CoefModules.contD S G N 1) z = 0)
+  (hmem :
+    ∀ z ∈ Z,
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap f hfc 1) z ∈
+        Z' ⊔ ZInQ.Manuscript.RC.CoefModules.contB1 S G N) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π
+    (ZInQ.Manuscript.RC.CoefModules.cocycleCondition Z hZ) (ZInQ.Manuscript.RC.CoefModules.cocycleCondition Z' hZ')
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.cocycleCoefficientComplexMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) : Type
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) →ₛₗ[ZInQ.Contrib.RC53Assist.Calibration.constRed i]
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction_galois {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (σ : ZInQ.Manuscript.RC.SelmerComplex.GKS K G.S)
+  (P : ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction G i) (σ • P) =
+    σ • (ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction G i) P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction_galois' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction_continuous {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  Continuous ⇑(ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction G i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.inflatedCoefficientReduction_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) :
+  ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+      (ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve
+          G)) →ₛₗ[ZInQ.Contrib.RC53Assist.Calibration.constRed i]
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_galois {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) (σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+  (P :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+      (ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G))) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v) (σ • P) =
+    σ • (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v) P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_galois' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_continuous {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) :
+  Continuous ⇑(ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) :
+  Submodule (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+    ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+        (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+        (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+          (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i))
+        1)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ_cocycle {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S)
+  (z :
+    ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+        (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+        (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+          (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i))
+        1)) :
+  z ∈ ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ G i v →
+    (ZInQ.Manuscript.RC.CoefModules.contD (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+          (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+          (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i))
+          1)
+        z =
+      0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ_cocycle' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) : Prop
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility.span_mem {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S)
+  (z :
+    ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+        (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+          (ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)))
+        1)) :
+  z ∈
+      ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerZ (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+        ⋯ ↑v →
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap
+          (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v) ⋯ 1)
+        z ∈
+      ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ G i v ⊔
+        ZInQ.Manuscript.RC.CoefModules.contB1 (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+          (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+          (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i))
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility.span_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.simpleCentralSelData {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.simpleCentralSelData' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.simpleCentralSelData_eq {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.simpleCentralSelData G i =
+    ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.simpleCentralSelData_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.fullLocalCoefficientMap {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap (ZInQ.Contrib.RC53Assist.Calibration.constRed i)
+    (ZInQ.Manuscript.RC.CoefModules.locAt K G.S ℤ_[2]
+      (ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)) v)
+    (ZInQ.Manuscript.RC.CoefModules.locAt K G.S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i) v)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.fullLocalCoefficientMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerLocalCoefficientMap {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap (ZInQ.Contrib.RC53Assist.Calibration.constRed i)
+    (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) ⋯ ↑v)
+    (ZInQ.Manuscript.RC.KummerMaps.actualKummerAtS ⋯ G.W i G.s ⋯ ⋯
+        (ZInQ.Contrib.RC53Assist.Calibration.centralChar i G.s ⋯ ⋯) ⋯ v ⋯).U
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerLocalCoefficientMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientComplexMap {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G) (i : ℕ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap (ZInQ.Contrib.RC53Assist.Calibration.constRed i)
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralSelData G))
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+      (ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i))
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCoefficientComplexMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionMap {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G) (i : ℕ) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex (ZInQ.Contrib.RC53Assist.Calibration.constRed i)
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G) ⟶
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i)).toCC
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionHomologyIso {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G) (i : ℕ)
+  [QuasiIso (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionMap G H i)] (n : ℤ) :
+  HomologicalComplex.homology
+      (ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex (ZInQ.Contrib.RC53Assist.Calibration.constRed i)
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G))
+      n ≅
+    G.selH i n
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionHomologyIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G) (x₁ x₂ x₃ : ℤ_[2]) : Type 1
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisComparison {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (n : ℤ) :
+  (Fin (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank n) → ℤ_[2]) ≃ₗ[ℤ_[2]]
+    Fin (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank n) → ℤ_[2]
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisMatrix {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (n : ℤ) :
+  Matrix (Fin (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank n))
+    (Fin (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank n)) ℤ_[2]
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisMatrix' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisMatrix_isUnit_det {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (n : ℤ) :
+  IsUnit (M.basisMatrix n).det
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisMatrix_isUnit_det' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisMatrix_valuation {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (n : ℤ) :
+  (M.basisMatrix n).det.valuation = 0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.basisMatrix_valuation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.fibreMap {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (i : ℕ) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex (ZInQ.Contrib.RC53Assist.Calibration.constRed i) M.P ⟶
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i)).toCC
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.fibreMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finiteComparison {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (i : ℕ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₁)
+      ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₂) ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₃) ⟶
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i)).toCC
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finiteComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finiteComparison_quasiIso {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (i : ℕ) (hi : i ≠ 0) :
+  QuasiIso (M.finiteComparison i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finiteComparison_quasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finiteHomologyIso {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (i : ℕ) (hi : i ≠ 0) (n : ℤ) :
+  HomologicalComplex.homology
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₁)
+        ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₂) ((ZInQ.Contrib.RC53Assist.Calibration.constRed i) x₃))
+      n ≅
+    G.selH i n
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finiteHomologyIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finite_orders {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) (i : ℕ) (hi : i ≠ 0) :
+  Nat.card ↑(G.selH i 0) = ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₁ ∧
+    Nat.card ↑(G.selH i 2) =
+        2 ^ (i * i) * ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₂ *
+          ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₃ ∧
+      Nat.card ↑(G.selH i 3) = ZInQ.Contrib.RC53Assist.Calibration.cycOrder i x₃
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.finite_orders' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.diskTie {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) :
+  ZInQ.Contrib.RC53Assist.Calibration.DiskTie G x₁ x₂ x₃
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.diskTie' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.disk_valuations {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃) {tA shaA : ℕ}
+  (A : ZInQ.Contrib.RC53Assist.Calibration.DiskArith G tA shaA) :
+  x₁.valuation = padicValNat 2 tA ∧ x₂.valuation = padicValNat 2 shaA ∧ x₃.valuation = padicValNat 2 tA
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.disk_valuations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerCoordinateBlockOfIntegralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {n : ℕ} {DK : Matrix (Fin n) (Fin n) (PowerSeries ℚ_[2])}
+  {zK wK : Fin n → PowerSeries ℚ_[2]} {j vL m : ℤ} {tA shaA : ℕ}
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (hSfin : S.Finite) (M : Type)
+  [AddCommGroup M] [Module (PowerSeries ℚ_[2]) M] [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (PowerSeries ℚ_[2]) M] [TopologicalSpace M]
+  [ContinuousAdd M] [ContinuousConstSMul (PowerSeries ℚ_[2]) M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  (Δ : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions K S (PowerSeries ℚ_[2]) M)
+  (hinj : ∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (k : ℤ), Function.Injective ⇑((Δ.i v).f k k ⋯))
+  (I : ZInQ.Manuscript.RC.SelmerComplex.GenuineKummerModelIdentification K S (PowerSeries ℚ_[2]) M Δ)
+  (link :
+    ZInQ.Manuscript.RC.Central.IsClassFunctionalCoord DK zK wK
+      (ZInQ.Contrib.CloudB3RC53.Torsion.KummerModelIdentification.coord I))
+  (aP bP : PowerSeries ℚ_[2]) (ha : I.a = PowerSeries.C ↑m * aP) (hb : I.b = PowerSeries.C ↑m * bP)
+  (haP : ZInQ.Manuscript.RC.v2 (ZInQ.Manuscript.RC.central aP) = ↑(j + vL))
+  (hbP : ZInQ.Manuscript.RC.v2 (ZInQ.Manuscript.RC.central bP) = ↑(j + vL))
+  (hu₀ : ZInQ.Manuscript.RC.v2 (ZInQ.Manuscript.RC.central I.u₀) = 0)
+  (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (x₁ x₂ x₃ : ℤ_[2])
+  (hx₁ : ZInQ.Manuscript.RC.central ↑I.δ₁ = ↑x₁) (hx₂ : ZInQ.Manuscript.RC.central ↑I.δ₂ = ↑x₂)
+  (hx₃ : ZInQ.Manuscript.RC.central ↑I.δ₃ = ↑x₃)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G)
+  (J : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃)
+  (A : ZInQ.Contrib.RC53Assist.Calibration.DiskArith G tA shaA) :
+  ZInQ.Contrib.RC53Assist.Calibration.KummerCoordinateBlockG K E₀ hZ DK zK wK j vL m tA shaA
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerCoordinateBlockOfIntegralModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.pointCurveCast {F : Type} [Field F] {B B' : WeierstrassCurve F}
+  (e : B = B') : ZInQ.Manuscript.RC.CoefModules.PtAlg F B ≃+ ZInQ.Manuscript.RC.CoefModules.PtAlg F B'
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.pointCurveCast' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast {F : Type} [Field F] {B B' : WeierstrassCurve F}
+  (e : B = B') (n : ℕ) : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B n ≃+ ZInQ.Manuscript.RC.CoefModules.TorsAlg F B' n
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.pointCurveCast_some {F : Type} [Field F] {B B' : WeierstrassCurve F}
+  (e : B = B') {x y : AlgebraicClosure F} (hxy : (B.baseChange (AlgebraicClosure F)).toAffine.Nonsingular x y) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.pointCurveCast e)
+      ((ZInQ.Manuscript.RC.CoefModules.ptEquiv F B) (WeierstrassCurve.Affine.Point.some x y hxy)) =
+    (ZInQ.Manuscript.RC.CoefModules.ptEquiv F B') (WeierstrassCurve.Affine.Point.some x y ⋯)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.pointCurveCast_some' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast_coe {F : Type} [Field F] {B B' : WeierstrassCurve F}
+  (e : B = B') (n : ℕ) (P : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B n) :
+  ↑((ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast e n) P) =
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.pointCurveCast e) ↑P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast_coe' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_compPt {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  (P :
+    ((ZInQ.Manuscript.RC.TwistDictionary.twistK W h).baseChange
+          (ZInQ.Manuscript.RC.CoefModules.KS K S)).toAffine.Point) :
+  (ZInQ.Manuscript.RC.KummerMaps.compPt W v)
+      ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv W s hs hs0) P) =
+    (ZInQ.Manuscript.RC.KummerMaps.twistPt (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))
+        ((algebraMap K (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) h) ⋯ ⋯ ⋯)
+      ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.pointCurveCast ⋯)
+        ((ZInQ.Manuscript.RC.KummerMaps.compPt (ZInQ.Manuscript.RC.TwistDictionary.twistK W h) v) P))
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistPointEquiv_compPt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv_compTors {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0)
+  (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (i : ℕ)
+  (P : ZInQ.Manuscript.RC.CoefModules.TorsS K S (ZInQ.Manuscript.RC.TwistDictionary.twistK W h) ↑(2 ^ i)) :
+  (ZInQ.Manuscript.RC.KummerMaps.compTors W (2 ^ i) v)
+      ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv W s hs hs0 i) P) =
+    (ZInQ.Manuscript.RC.KummerMaps.twistTors (W.baseChange (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v))
+        ((algebraMap K (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)) h) ⋯ ⋯ ⋯ (2 ^ i))
+      ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast ⋯ (2 ^ i))
+        ((ZInQ.Manuscript.RC.KummerMaps.compTors (ZInQ.Manuscript.RC.TwistDictionary.twistK W h) (2 ^ i) v) P))
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.globalTwistTorsEquiv_compTors' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.integerCoefficientMap {F : Type} [Field F] {B : WeierstrassCurve F} {m : ℕ}
+  {A : Type} [CommRing A] {N : Type} [AddCommGroup N] [Module A N]
+  (ι : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B m →+ N) :
+  ZInQ.Manuscript.RC.CoefModules.TorsAlg F B m →ₛₗ[Int.castRingHom A] N
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.integerCoefficientMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.integerCoefficientMap_continuous {F : Type} [Field F]
+  {B : WeierstrassCurve F} {m : ℕ} {A : Type} [CommRing A] {N : Type} [AddCommGroup N] [Module A N] [TopologicalSpace N]
+  (ι : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B m →+ N) :
+  Continuous ⇑(ZInQ.Contrib.RC53Assist.CalibrationIntegral.integerCoefficientMap ι)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.integerCoefficientMap_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerCocycleOf_pushforward_mem {F : Type} [Field F] [CharZero F]
+  [DecidableEq F] {B : WeierstrassCurve F} [B.IsElliptic] {m : ℕ} [NeZero m] {A : Type} [CommRing A] {N : Type}
+  [AddCommGroup N] [Module A N] [DistribMulAction (Field.absoluteGaloisGroup F) N]
+  [SMulCommClass (Field.absoluteGaloisGroup F) A N] [TopologicalSpace N] [DiscreteTopology N]
+  [ContinuousSMul (Field.absoluteGaloisGroup F) N] (ι : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B m →+ N)
+  (hι : ∀ (σ : Field.absoluteGaloisGroup F) (a : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B m), ι (σ • a) = σ • ι a)
+  {P : B.toAffine.Point} {Q : ZInQ.Manuscript.RC.CoefModules.PtAlg F B}
+  (hQ : m • Q = (ZInQ.Manuscript.RC.CoefModules.basePt F B) P) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.integerCoefficientMap ι) ⋯ 1)
+      (ZInQ.Manuscript.RC.CoefModules.kummerCocycleOf F B m hQ) ∈
+    ZInQ.Manuscript.RC.CoefModules.kummerZ' A ι ⊔
+      ZInQ.Manuscript.RC.CoefModules.contB1 A (Field.absoluteGaloisGroup F) N
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerCocycleOf_pushforward_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast_galois {F : Type} [Field F] {B B' : WeierstrassCurve F}
+  (e : B = B') (n : ℕ) (σ : Field.absoluteGaloisGroup F) (P : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B n) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast e n) (σ • P) =
+    σ • (ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast e n) P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast_galois' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerZ'_curveCast {F : Type} [Field F] [CharZero F] [DecidableEq F]
+  {B : WeierstrassCurve F} [B.IsElliptic] {m : ℕ} [NeZero m] {A : Type} [CommRing A] {N : Type} [AddCommGroup N]
+  [Module A N] [DistribMulAction (Field.absoluteGaloisGroup F) N] [SMulCommClass (Field.absoluteGaloisGroup F) A N]
+  [TopologicalSpace N] [DiscreteTopology N] {B' : WeierstrassCurve F} [B'.IsElliptic] (e : B = B')
+  (ι : ZInQ.Manuscript.RC.CoefModules.TorsAlg F B' m →+ N) :
+  ZInQ.Manuscript.RC.CoefModules.kummerZ' A
+      (ι.comp (ZInQ.Contrib.RC53Assist.CalibrationIntegral.torsionCurveCast e m).toAddMonoidHom) =
+    ZInQ.Manuscript.RC.CoefModules.kummerZ' A ι
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.kummerZ'_curveCast' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) :
+  ZInQ.Manuscript.RC.CoefModules.TorsAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)
+      ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G).baseChange
+        (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v))
+      (2 ^ i) →+
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota_galois {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S) (σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+  (P :
+    ZInQ.Manuscript.RC.CoefModules.TorsAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)
+      ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G).baseChange
+        (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v))
+      (2 ^ i)) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota G i v) (σ • P) =
+    σ • (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota G i v) P
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota_galois' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_eq {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S)
+  (P :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+      (ZInQ.Manuscript.RC.LambdaCoef.TateS K G.S (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G))) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v) P =
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota G i v)
+      ((ZInQ.Manuscript.RC.KummerMaps.compTors (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) (2 ^ i) ↑v)
+        ((ZInQ.Manuscript.RC.LambdaCoef.projLev i) P))
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_tateKummer {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ)
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S)
+  (P :
+    ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G).baseChange
+          (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)).toAffine.Point) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v) ⋯ 1)
+      (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) ⋯ (↑v) P) =
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.integerCoefficientMap
+          (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localTwistIota G i v))
+        ⋯ 1)
+      (ZInQ.Manuscript.RC.CoefModules.kummerCocycleOf (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)
+        ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G).baseChange
+          (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v))
+        (2 ^ i) ⋯)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction_tateKummer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionCompatibility {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionCompatibility' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) (i : ℕ) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex (ZInQ.Contrib.RC53Assist.Calibration.constRed i)
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G) ⟶
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i)).toCC
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.CanonicalIntegralCentralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (x₁ x₂ x₃ : ℤ_[2]) : Type 1
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.CanonicalIntegralCentralModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.diskTie_of_integralCentralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (x₁ x₂ x₃ : ℤ_[2]) (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CanonicalIntegralCentralModel G x₁ x₂ x₃) :
+  ZInQ.Contrib.RC53Assist.Calibration.DiskTie G x₁ x₂ x₃
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.diskTie_of_integralCentralModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockTerms (R : Type) [CommRing R] (m₁ m₂ m₃ : ℕ) : ℕ → ModuleCat R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockTerms' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD0 {R : Type} [CommRing R] {m₁ m₂ : ℕ}
+  (B : Matrix (Fin m₁) (Fin m₁) R) : (Fin m₁ → R) →ₗ[R] R × (Fin m₁ → R) × (Fin m₂ → R)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD0' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD1 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B : Matrix (Fin m₂) (Fin m₂) R) : R × (Fin m₁ → R) × (Fin m₂ → R) →ₗ[R] R × (Fin m₂ → R) × (Fin m₃ → R)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD1' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD2 {R : Type} [CommRing R] {m₂ m₃ : ℕ}
+  (B : Matrix (Fin m₃) (Fin m₃) R) : R × (Fin m₂ → R) × (Fin m₃ → R) →ₗ[R] Fin m₃ → R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) (n : ℕ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockTerms R m₁ m₂ m₃ n ⟶
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockTerms R m₁ m₂ m₃ (n + 1)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD_sq {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) (n : ℕ) :
+  CategoryTheory.CategoryStruct.comp (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD B₁ B₂ B₃ n)
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD B₁ B₂ B₃ (n + 1)) =
+    0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  CochainComplex (ModuleCat R) ℤ
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d0 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃).d 0 1) =
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD0 B₁
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d0' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d1 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃).d 1 2) =
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD1 B₂
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d1' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d2 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃).d 2 3) =
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockD2 B₃
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_dneg {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃).d (-1) 0) = 0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_dneg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d3 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ModuleCat.Hom.hom ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃).d 3 4) = 0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex_d3' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockClass0 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ↥(ModuleCat.Hom.hom
+          (HomologicalComplex.sc' (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) (-1) 0
+              1).g).ker →ₗ[R]
+    ↥B₁.mulVecLin.ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockClass0' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockH0Equiv {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 0) ≃ₗ[R]
+    ↥B₁.mulVecLin.ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockH0Equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockClass2 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ↥(ModuleCat.Hom.hom
+          (HomologicalComplex.sc' (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 1 2
+              3).g).ker →ₗ[R]
+    R × ((Fin m₂ → R) ⧸ B₂.mulVecLin.range) × ↥B₃.mulVecLin.ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockClass2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockH2Equiv {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 2) ≃ₗ[R]
+    R × ((Fin m₂ → R) ⧸ B₂.mulVecLin.range) × ↥B₃.mulVecLin.ker
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockH2Equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockClass3 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ↥(ModuleCat.Hom.hom
+          (HomologicalComplex.sc' (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 2 3
+              4).g).ker →ₗ[R]
+    (Fin m₃ → R) ⧸ B₃.mulVecLin.range
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockClass3' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockH3Equiv {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 3) ≃ₗ[R]
+    (Fin m₃ → R) ⧸ B₃.mulVecLin.range
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockH3Equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex (m₁ m₂ m₃ : ℕ) : ℤ → Type
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex' does not depend on any axioms
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndexFintype (m₁ m₂ m₃ : ℕ) (n : ℤ) :
+  Fintype (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndexFintype' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndexDecidableEq (m₁ m₂ m₃ : ℕ) (n : ℤ) :
+  DecidableEq (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndexDecidableEq' does not depend on any axioms
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.mixedCoordinates (R : Type) [CommRing R] (a b : ℕ) :
+  (R × (Fin a → R) × (Fin b → R)) ≃ₗ[R] Unit ⊕ Fin a ⊕ Fin b → R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.mixedCoordinates' depends on axioms: [propext, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockCoordinates {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) (n : ℤ) :
+  ↑((ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃).X n) ≃ₗ[R]
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n → R
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockCoordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.extendedBlockCoordinates {R S : Type} [CommRing R] [CommRing S]
+  {m₁ m₂ m₃ : ℕ} (φ : R →+* S) (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R)
+  (B₃ : Matrix (Fin m₃) (Fin m₃) R) (n : ℤ) :
+  ↑((ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex φ
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃)).X
+        n) ≃ₗ[S]
+    ↑((ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex (B₁.map ⇑φ) (B₂.map ⇑φ) (B₃.map ⇑φ)).X n)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.extendedBlockCoordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.matrix_map_mulVec_scalar {R S : Type} [CommRing R] [CommRing S] {m : ℕ}
+  (φ : R →+* S) (B : Matrix (Fin m) (Fin m) R) (a : Fin m → R) (b : S) :
+  ((B.map ⇑φ).mulVecLin fun j => φ (a j) * b) = fun j => φ (B.mulVecLin a j) * b
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.matrix_map_mulVec_scalar' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockScalarChangeIso {R S : Type} [CommRing R] [CommRing S] {m₁ m₂ m₃ : ℕ}
+  (φ : R →+* S) (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex φ
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) ≅
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex (B₁.map ⇑φ) (B₂.map ⇑φ) (B₃.map ⇑φ)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockScalarChangeIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.block_card0 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ} [Finite R]
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  Nat.card ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 0) =
+    Nat.card ((Fin m₁ → R) ⧸ B₁.mulVecLin.range)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.block_card0' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.block_card2 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ} [Finite R]
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  Nat.card ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 2) =
+    Nat.card R * Nat.card ((Fin m₂ → R) ⧸ B₂.mulVecLin.range) * Nat.card ((Fin m₃ → R) ⧸ B₃.mulVecLin.range)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.block_card2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.block_card3 {R : Type} [CommRing R] {m₁ m₂ m₃ : ℕ}
+  (B₁ : Matrix (Fin m₁) (Fin m₁) R) (B₂ : Matrix (Fin m₂) (Fin m₂) R) (B₃ : Matrix (Fin m₃) (Fin m₃) R) :
+  Nat.card ↑(HomologicalComplex.homology (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃) 3) =
+    Nat.card ((Fin m₃ → R) ⧸ B₃.mulVecLin.range)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.block_card3' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.card_matrixDisk_cycOrder {m : ℕ} (B : Matrix (Fin m) (Fin m) ℤ_[2])
+  (hB : B.det ≠ 0) (i : ℕ) (hi : i ≠ 0) (hv : B.det.valuation ≤ i) :
+  Nat.card
+      ((Fin m → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) ⧸
+        (B.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i)).mulVecLin.range) =
+    ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B.det
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.card_matrixDisk_cycOrder' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteBlock_orders {m₁ m₂ m₃ : ℕ} (B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2])
+  (B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]) (B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]) (h₁ : B₁.det ≠ 0) (h₂ : B₂.det ≠ 0)
+  (h₃ : B₃.det ≠ 0) (i : ℕ) (hi : i ≠ 0) (hv₁ : B₁.det.valuation ≤ i) (hv₂ : B₂.det.valuation ≤ i)
+  (hv₃ : B₃.det.valuation ≤ i) :
+  Nat.card
+        ↑(HomologicalComplex.homology
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex
+              (B₁.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+              (B₂.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+              (B₃.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i)))
+            0) =
+      ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₁.det ∧
+    Nat.card
+          ↑(HomologicalComplex.homology
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex
+                (B₁.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+                (B₂.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+                (B₃.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i)))
+              2) =
+        2 ^ (i * i) * ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₂.det *
+          ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₃.det ∧
+      Nat.card
+          ↑(HomologicalComplex.homology
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex
+                (B₁.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+                (B₂.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+                (B₃.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i)))
+              3) =
+        ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₃.det
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteBlock_orders' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]) (B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]) (B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]) :
+  Type 1
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.basisComparison {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (n : ℤ) :
+  (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n → ℤ_[2]) ≃ₗ[ℤ_[2]]
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n → ℤ_[2]
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.basisComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.basisMatrix {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]} {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (n : ℤ) :
+  Matrix (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n)
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n) ℤ_[2]
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.basisMatrix' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.basisMatrix_isUnit_det {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (n : ℤ) :
+  IsUnit (M.basisMatrix n).det
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.basisMatrix_isUnit_det' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.inverseDeterminantBasisFactor {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) : ℤ_[2]ˣ
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.inverseDeterminantBasisFactor' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.inverseDeterminantBasisFactor_valuation {K : Type}
+  [Field K] [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) :
+  (↑M.inverseDeterminantBasisFactor).valuation = 0
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.inverseDeterminantBasisFactor_valuation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.fibreMap {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]} {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (i : ℕ) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex (ZInQ.Contrib.RC53Assist.Calibration.constRed i) M.P ⟶
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i)).toCC
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.fibreMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finiteComparison {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (i : ℕ) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex (B₁.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+      (B₂.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+      (B₃.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i)) ⟶
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.Calibration.centralKummerSelData G.W G.s ⋯ ⋯ ⋯ i)).toCC
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finiteComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finiteComparison_quasiIso {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (i : ℕ) (hi : i ≠ 0) :
+  QuasiIso (M.finiteComparison i)
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finiteComparison_quasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finiteHomologyIso {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (i : ℕ) (hi : i ≠ 0) (n : ℤ) :
+  HomologicalComplex.homology
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex
+        (B₁.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+        (B₂.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+        (B₃.map ⇑(ZInQ.Contrib.RC53Assist.Calibration.constRed i)))
+      n ≅
+    G.selH i n
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finiteHomologyIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finite_orders {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]} {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) (i : ℕ) (hi : i ≠ 0)
+  (hv₁ : B₁.det.valuation ≤ i) (hv₂ : B₂.det.valuation ≤ i) (hv₃ : B₃.det.valuation ≤ i) :
+  Nat.card ↑(G.selH i 0) = ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₁.det ∧
+    Nat.card ↑(G.selH i 2) =
+        2 ^ (i * i) * ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₂.det *
+          ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₃.det ∧
+      Nat.card ↑(G.selH i 3) = ZInQ.Contrib.RC53Assist.Calibration.cycOrder i B₃.det
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.finite_orders' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.diskTie {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+  {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]} {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) :
+  ZInQ.Contrib.RC53Assist.Calibration.DiskTie G B₁.det B₂.det B₃.det
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.diskTie' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.disk_valuations {K : Type} [Field K]
+  [NumberField K] {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+  {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+  {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]}
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) {tA shaA : ℕ}
+  (A : ZInQ.Contrib.RC53Assist.Calibration.DiskArith G tA shaA) :
+  B₁.det.valuation = padicValNat 2 tA ∧ B₂.det.valuation = padicValNat 2 shaA ∧ B₃.det.valuation = padicValNat 2 tA
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.disk_valuations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.CalibrationIntegral.diskTie_of_integralBlockCentralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]) (B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]) (B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2])
+  (M : ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃) :
+  ZInQ.Contrib.RC53Assist.Calibration.DiskTie G B₁.det B₂.det B₃.det
+'ZInQ.Contrib.RC53Assist.CalibrationIntegral.diskTie_of_integralBlockCentralModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+structure ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap {R S : Type} [CommRing R] [CommRing S]
+  (π : R →+* S) (A : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R)
+  (B : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx S) : Type
+number of parameters: 7
+fields:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.f : (n : ℤ) → ↑(A.X n) →ₛₗ[π] ↑(B.X n)
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.comm : ∀ (i j : ℤ) (hij : i + 1 = j) (a : ↑(A.X i)),
+      (self.f j) ((A.d i j hij) a) = (B.d i j hij) ((self.f i) a)
+constructor:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap.mk {R S : Type} [CommRing R] [CommRing S]
+    {π : R →+* S} {A : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R}
+    {B : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx S} (f : (n : ℤ) → ↑(A.X n) →ₛₗ[π] ↑(B.X n))
+    (comm : ∀ (i j : ℤ) (hij : i + 1 = j) (a : ↑(A.X i)), (f j) ((A.d i j hij) a) = (B.d i j hij) ((f i) a)) :
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.CoefficientComplexMap π A B
+structure ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ) : Prop
+number of parameters: 6
+fields:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility.generator_mem : ∀ (i : ℕ)
+      (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S)
+      (P :
+        ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G).baseChange
+              (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)).toAffine.Point),
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v) ⋯ 1)
+          (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) ⋯ (↑v) P) ∈
+        ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ G i v ⊔
+          ZInQ.Manuscript.RC.CoefModules.contB1 (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+            (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+            (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i))
+constructor:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility.mk {K : Type} [Field K] [NumberField K]
+    {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+    (generator_mem :
+      ∀ (i : ℕ) (v : ZInQ.Manuscript.RC.SelmerComplex.Places K G.S)
+        (P :
+          ((ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G).baseChange
+                (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)).toAffine.Point),
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.cochainCoefficientMap
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.localCoefficientReduction G i v) ⋯ 1)
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCocycle
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G) ⋯ (↑v) P) ∈
+          ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralZ G i v ⊔
+            ZInQ.Manuscript.RC.CoefModules.contB1 (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+              (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+              (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K G.S ↑v)
+                (ZInQ.Contrib.RC53Assist.CalibrationIntegral.finiteCentralModule G i))) :
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G
+structure ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G) (x₁ x₂ x₃ : ℤ_[2]) : Type 1
+number of parameters: 10
+fields:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.P : CochainComplex (ModuleCat ℤ_[2]) ℤ
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.coordinates : (n : ℤ) →
+      ↑(self.P.X n) ≃ₗ[ℤ_[2]] Fin (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank n) → ℤ_[2]
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.normalization : ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex
+        x₁ x₂ x₃ ≅
+      self.P
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.comparison : self.P ⟶
+      ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.quasi_iso : QuasiIso self.comparison
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.fibre_quasi_iso : ∀ (i : ℕ),
+      i ≠ 0 →
+        QuasiIso
+          (CategoryTheory.CategoryStruct.comp
+            (((ModuleCat.extendScalars (ZInQ.Contrib.RC53Assist.Calibration.constRed i)).mapHomologicalComplex
+                  (ComplexShape.up ℤ)).map
+              self.comparison)
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionMap G H i))
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.disk1_ne_zero : x₁ ≠ 0
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.disk2_ne_zero : x₂ ≠ 0
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.disk3_ne_zero : x₃ ≠ 0
+constructor:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel.mk {K : Type} [Field K] [NumberField K]
+    {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ}
+    {H : ZInQ.Contrib.RC53Assist.CalibrationIntegral.CentralReductionCompatibility G} {x₁ x₂ x₃ : ℤ_[2]}
+    (P : CochainComplex (ModuleCat ℤ_[2]) ℤ)
+    (coordinates : (n : ℤ) → ↑(P.X n) ≃ₗ[ℤ_[2]] Fin (ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalRank n) → ℤ_[2])
+    (normalization : ZInQ.Contrib.RC53Assist.CalibrationIntegral.normalComplex x₁ x₂ x₃ ≅ P)
+    (comparison : P ⟶ ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G)
+    (quasi_iso : QuasiIso comparison)
+    (fibre_quasi_iso :
+      ∀ (i : ℕ),
+        i ≠ 0 →
+          QuasiIso
+            (CategoryTheory.CategoryStruct.comp
+              (((ModuleCat.extendScalars (ZInQ.Contrib.RC53Assist.Calibration.constRed i)).mapHomologicalComplex
+                    (ComplexShape.up ℤ)).map
+                comparison)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralReductionMap G H i)))
+    (disk1_ne_zero : x₁ ≠ 0) (disk2_ne_zero : x₂ ≠ 0) (disk3_ne_zero : x₃ ≠ 0) :
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralCentralModel G H x₁ x₂ x₃
+structure ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel {K : Type} [Field K] [NumberField K]
+  {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]) (B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]) (B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]) :
+  Type 1
+number of parameters: 12
+fields:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.P : CochainComplex (ModuleCat ℤ_[2]) ℤ
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.coordinates : (n : ℤ) →
+      ↑(self.P.X n) ≃ₗ[ℤ_[2]] ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n → ℤ_[2]
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.normalization : ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex
+        B₁ B₂ B₃ ≅
+      self.P
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.comparison : self.P ⟶
+      ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.quasi_iso : QuasiIso self.comparison
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.fibre_quasi_iso : ∀ (i : ℕ),
+      i ≠ 0 →
+        QuasiIso
+          (CategoryTheory.CategoryStruct.comp
+            (((ModuleCat.extendScalars (ZInQ.Contrib.RC53Assist.Calibration.constRed i)).mapHomologicalComplex
+                  (ComplexShape.up ℤ)).map
+              self.comparison)
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i))
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.disk1_det_ne_zero : B₁.det ≠ 0
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.disk2_det_ne_zero : B₂.det ≠ 0
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.disk3_det_ne_zero : B₃.det ≠ 0
+constructor:
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel.mk {K : Type} [Field K] [NumberField K]
+    {E₀ : WeierstrassCurve ℚ} {hZ : ℤ} {m₁ m₂ m₃ : ℕ}
+    {G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ} {B₁ : Matrix (Fin m₁) (Fin m₁) ℤ_[2]}
+    {B₂ : Matrix (Fin m₂) (Fin m₂) ℤ_[2]} {B₃ : Matrix (Fin m₃) (Fin m₃) ℤ_[2]} (P : CochainComplex (ModuleCat ℤ_[2]) ℤ)
+    (coordinates :
+      (n : ℤ) → ↑(P.X n) ≃ₗ[ℤ_[2]] ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex m₁ m₂ m₃ n → ℤ_[2])
+    (normalization : ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex B₁ B₂ B₃ ≅ P)
+    (comparison : P ⟶ ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G)
+    (quasi_iso : QuasiIso comparison)
+    (fibre_quasi_iso :
+      ∀ (i : ℕ),
+        i ≠ 0 →
+          QuasiIso
+            (CategoryTheory.CategoryStruct.comp
+              (((ModuleCat.extendScalars (ZInQ.Contrib.RC53Assist.Calibration.constRed i)).mapHomologicalComplex
+                    (ComplexShape.up ℤ)).map
+                comparison)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i)))
+    (disk1_det_ne_zero : B₁.det ≠ 0) (disk2_det_ne_zero : B₂.det ≠ 0) (disk3_det_ne_zero : B₃.det ≠ 0) :
+    ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G B₁ B₂ B₃

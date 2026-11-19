@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Pole predicate",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.ValuationObstruction.poleMultiplier_nonzero_and_valuation_zero proved: S_0, Q_pole, Phi and E_l are defined with [M]'s content, including the curves x+3l; T_1 and T_2 have no standalone definition (let-bindings inside polePoly). The remarks that m is a signed divisor of 2730 appear only as the unit property for p not dividing 2730, and the total degree 75 is not stated.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.08965,
+          0.784314,
+          0.270491
+        ]
+      },
+      "title": "Passage (multiplication): Pole predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Pole predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.ValuationObstruction.poleMultiplier_nonzero_and_valuation_zero",
+        "module": "lean.ZInQ.PoleValuation"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.ValuationObstruction.poleMultiplier_nonzero_and_valuation_zero@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem poleMultiplier_nonzero_and_valuation_zero\n    (p : Nat) (hp : p.Prime) (hpout : ¬ p ∣ 2730)\n    (b : Fin 6 → Rat)\n    (hbits : ∀ i : Fin 6, (b i) ^ 2 - b i = 0) :\n    poleMultiplier b ≠ 0 ∧ padicValRat p (poleMultiplier b) = 0 := by",
+            "line": 111,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/PoleValuation.lean",
+            "fragment": "L111"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -33,20 +33,20 @@ manuscript's construction, phrased against lane SelmerDuality's `SupportChangeDa
     for its central complex at the free ranks `(0, 1, 1, 0)` of the block form (tex 5355–5392);
   - the family Selmer complex: Selmer data `sel` over `𝒪[G]` and a quasi-isomorphism from `C ⊗ 𝒪[G]`
     to its Selmer complex (tex 5394–5397: "`C` the retained finite free family model");
-  - the support-change triangle (5.6) at augmentation (tex 5236–5240, 5397–5403): support-change data
-    `sc` over `Λ` whose new local complexes and conditions are those of the new places
+  - the support-change triangle (5.6) at augmentation (tex 5233–5238, 5397–5403): support-change
+    data `sc` over `Λ` whose new local complexes and conditions are those of the new places
     (`SupportChangeFamily`: `L⁺ = L ⊕ ∏_q L_q`, `U⁺ = U ⊕ ∏_q U_q`, compatible with `ι`),
     quasi-isomorphisms from the augmented `C` to `selCx sc.Dp` and from the augmented old part to
     `selCx sc.D`, commuting with the support comparison `supportMap sc`.
-* `Identification2.toSelmerIdentification` (PROVED): the remaining complex is the cancellation of the
-  new local block over `𝒪[G]` (invertible: RC7's `matrix_isUnit_of_isUnit_aug` and
+* `Identification2.toSelmerIdentification` (PROVED): the remaining complex is the cancellation of
+  the new local block over `𝒪[G]` (invertible: RC7's `matrix_isUnit_of_isUnit_aug` and
   `newLocal_family_pole_genuine`), and every field of `SelmerIdentification` follows: augmentation
   (`aug_full`: all three augmented differentials are the old ones, from `T₀ = 0`), poles (one
   cancellation: sign-evaluated Schur complements; adjacent differentials unchanged), budget
   (the old Smith data), and the quasi-isomorphism (`PreComplex.incl_quasiIso` composed with the
   family model).
-* `clearingModel_of_newLocal` (PROVED): RC0's `ClearingModel` from `Identification2` and E1 (with the
-  coordinate parameter).
+* `clearingModel_of_newLocal` (PROVED): RC0's `ClearingModel` from `Identification2` and E1 (with
+  the coordinate parameter).
 
 Not derived (interface gaps, recorded as ELLIOT): the identification of the augmentation of the
 family Selmer data `sel` with `sc.Dp` needs a coefficient-change interface for `SelData` (none
@@ -514,7 +514,8 @@ def toIdentification : Identification b dK hK cE tK where
   poles2 := M.poles2
   budget := budgetInputs_of_at M.budget
 
-/-- The comparison of the remaining complex with the family Selmer complex is a quasi-isomorphism. -/
+/-- The comparison of the remaining complex with the family Selmer complex is a
+quasi-isomorphism. -/
 theorem comp_qis : QuasiIso (SelmerDuality.GHom.toCC (PreComplex.incl M.isUnit_B) ≫ M.ψ) := by
   have := PreComplex.incl_quasiIso M.isUnit_B
   have := M.qis

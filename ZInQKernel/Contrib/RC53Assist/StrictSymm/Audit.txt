@@ -1,0 +1,177 @@
+ZInQ.Contrib.RC53Assist.StrictLocal.degreeTwoZero_pi_iff {k : Type} [CommRing k] {V : Type}
+  (U : V → ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (ZInQ.Manuscript.RC.SelmerComplex.piCx U) ↔
+    ∀ (v : V), ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (U v)
+ZInQ.Contrib.RC53Assist.StrictLocal.double_degreeTwoZero {k : Type} [CommRing k] {A B : Type} [AddCommGroup A]
+  [Module k A] [AddCommGroup B] [Module k B] (d : A →ₗ[k] B) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero
+    (ZInQ.Manuscript.RC.SelmerComplex.ofCC (ZInQ.Contrib.CloudB3RC53.GenuineInst.dblCx d))
+ZInQ.Contrib.RC53Assist.StrictLocal.derivativeAt_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} {k : Type} [CommRing k] {M : Type} [AddCommGroup M] [Module k M]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousAdd M] [ContinuousConstSMul k M] [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (ZInQ.Contrib.CloudB3RC53.GenuineInst.strictAt K S k M v).U ∧
+    ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (ZInQ.Contrib.CloudB3RC53.GenuineInst.relaxedAt K S k M v).U
+ZInQ.Contrib.RC53Assist.StrictLocal.kummerAt_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} {k : Type} [CommRing k] {M : Type} [AddCommGroup M] [Module k M]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M] (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S)
+  [DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)]
+  (B : WeierstrassCurve (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)) [B.IsElliptic] (m : ℕ) [NeZero m]
+  (j :
+    ZInQ.Manuscript.RC.CoefModules.TorsAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v) B m →+
+      ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑v) M)
+  (hj :
+    ∀ (σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+      (t : ZInQ.Manuscript.RC.CoefModules.TorsAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v) B m),
+      j (σ • t) = σ • j t) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (ZInQ.Manuscript.RC.CoefModules.kummerAt v B m j hj).U
+ZInQ.Contrib.RC53Assist.StrictLocal.actualKummerAt_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} (W : WeierstrassCurve K) [W.IsElliptic] (a : ℕ)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S) {h : K}
+  (hs : s ^ 2 = (Algebra.algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S)) h) (hs0 : s ≠ 0)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef a)ˣ)
+  [ZInQ.Manuscript.RC.CoefModules.IsOpenKer α] (hFull : ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ a))
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S)
+  (hα : ZInQ.Manuscript.RC.KummerMaps.IsLocallyQuadAt a α (ZInQ.Manuscript.RC.CoefModules.quadChar s hs hs0) ↑v) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero
+    (ZInQ.Manuscript.RC.KummerMaps.actualKummerAt W a s hs hs0 α hFull v hα).U
+ZInQ.Contrib.RC53Assist.StrictLocal.actualKummerAtS_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S S₀ : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} (hS : S₀ ⊆ S) (W : WeierstrassCurve K) [W.IsElliptic] (a : ℕ)
+  (s : ZInQ.Manuscript.RC.CoefModules.KS K S₀) {h : K}
+  (hs : s ^ 2 = (Algebra.algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S₀)) h) (hs0 : s ≠ 0)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef a)ˣ)
+  [ZInQ.Manuscript.RC.CoefModules.IsOpenKer α] (hFull : ZInQ.Manuscript.RC.CoefModules.FullTorsion K S₀ W (2 ^ a))
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S)
+  (hα : ZInQ.Manuscript.RC.KummerMaps.IsLocallyQuadAt a α (ZInQ.Manuscript.RC.CoefModules.quadChar s hs hs0) ↑v) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero
+    (ZInQ.Manuscript.RC.KummerMaps.actualKummerAtS hS W a s hs hs0 α hFull v hα).U
+ZInQ.Contrib.RC53Assist.StrictLocal.urAt_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S S₀ : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} (hS : S₀ ⊆ S) (k : Type) [CommRing k] [TopologicalSpace k]
+  [DiscreteTopology k] (M₀ : Type) [AddCommGroup M₀] [Module k M₀]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀) M₀]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀) k M₀] [TopologicalSpace M₀] [DiscreteTopology M₀]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀) M₀] [Finite M₀]
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (hv : ↑v ∉ S₀) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (ZInQ.Manuscript.RC.CoefModules.urAt hS k M₀ v hv).U
+ZInQ.Contrib.RC53Assist.StrictLocal.switch_degreeTwoZero_iff {k : Type} [Field k] {V : Type} [DecidableEq V]
+  (Gv : V → Type) [(v : V) → Group (Gv v)] [(v : V) → TopologicalSpace (Gv v)] [∀ (v : V), IsTopologicalGroup (Gv v)]
+  (Mv : V → Type) [(v : V) → AddCommGroup (Mv v)] [(v : V) → Module k (Mv v)] [(v : V) → DistribMulAction (Gv v) (Mv v)]
+  [∀ (v : V), SMulCommClass (Gv v) k (Mv v)] [(v : V) → TopologicalSpace (Mv v)] [∀ (v : V), ContinuousAdd (Mv v)]
+  [∀ (v : V), ContinuousConstSMul k (Mv v)] [∀ (v : V), ContinuousSMul (Gv v) (Mv v)] (q : V)
+  (old :
+    (v : V) → ZInQ.Contrib.CloudB3RC53.SwitchInputs.SubFam (ZInQ.Contrib.CloudB3RC53.SwitchInputs.locCxK k Gv Mv v))
+  (T : (v : V) → Set (Gv v)) :
+  ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero
+      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.switchFamK k Gv Mv q old T).Ustr ↔
+    ∀ (v : V), v ≠ q → ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (old v).cx
+ZInQ.Contrib.RC53Assist.StrictLocal.fullAt_not_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} {k : Type} [CommRing k] {M : Type} [AddCommGroup M] [Module k M]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k M] [TopologicalSpace M] [ContinuousAdd M]
+  [ContinuousConstSMul k M] [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M] [Nontrivial M]
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) :
+  ¬ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (ZInQ.Manuscript.RC.CoefModules.fullAt K S k M v).U
+ZInQ.Contrib.RC53Assist.StrictLocal.strictSymm_of_degreeTwoZero {k : Type} [Field k]
+  (D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData k) (Ustr : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k)
+  (f : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom Ustr D.U)
+  (Q :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData (ZInQ.Contrib.CloudB3RC53.SelmerDuality.restrictData D f) D)
+  {P : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GPair D.L D.L Q.EL} {c : k}
+  (Cd : ZInQ.Contrib.CloudB3RC53.Hsw.PairCupOneGen P c) (h2 : ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero Ustr) :
+  ZInQ.Contrib.CloudB3RC53.Hsw.StrictSymm D Ustr f Q Cd
+ZInQ.Contrib.RC53Assist.StrictLocal.strictSymmTrunc_of_degreeTwoZero {k : Type} [Field k]
+  (D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData k) (Ustr : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k)
+  (f : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom Ustr D.U)
+  (Q :
+    ZInQ.Contrib.CloudB3RC53.SwitchInputs.SelPairDataTrunc (ZInQ.Contrib.CloudB3RC53.SelmerDuality.restrictData D f) D)
+  {P : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GPair D.L D.L Q.EL} {c : k}
+  (Cd : ZInQ.Contrib.CloudB3RC53.Hsw.PairCupOneGen P c) (h2 : ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero Ustr) :
+  ZInQ.Contrib.CloudB3RC53.Hsw.StrictSymmTrunc D Ustr f Q Cd ∧
+    ZInQ.Contrib.CloudB3RC53.Hsw.StrictSymm D Ustr f Q.toSelPairData Cd.trunc
+ZInQ.Contrib.RC53Assist.StrictLocal.genuine_strictSymm_of_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} {k : Type} [Field k] {M : Type} [AddCommGroup M] [Module k M]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M] {T : Type} [AddCommGroup T] [Module k T]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k T] [TopologicalSpace T] [DiscreteTopology T]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  (X : ZInQ.Manuscript.RC.SelmerComplex.GenuineSwitch K S k M) (β : M →ₗ[k] M →ₗ[k] T)
+  (hβ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (a b : M), (β (g • a)) (g • b) = g • (β a) b)
+  (I : ZInQ.Manuscript.RC.SelmerComplex.GaloisTruncIsotropyData K S k β hβ X.ΔS X.ΔR) (c : k)
+  (h2 :
+    ∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S), ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (X.US v)) :
+  ZInQ.Manuscript.RC.SelmerComplex.StrictSymm X β hβ I c
+ZInQ.Contrib.RC53Assist.StrictLocal.genuine_strictSymmTrunc_of_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} {k : Type} [Field k] {M : Type} [AddCommGroup M] [Module k M]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M] {T : Type} [AddCommGroup T] [Module k T]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k T] [TopologicalSpace T] [DiscreteTopology T]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  (X : ZInQ.Manuscript.RC.SelmerComplex.GenuineSwitch K S k M) (β : M →ₗ[k] M →ₗ[k] T)
+  (hβ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (a b : M), (β (g • a)) (g • b) = g • (β a) b)
+  (I : ZInQ.Manuscript.RC.SelmerComplex.GaloisTruncIsotropyData K S k β hβ X.ΔS X.ΔR) (c : k)
+  (hc : ∀ (a b : M), (β a) b = c • (β b) a)
+  (h2 :
+    ∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S), ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (X.US v)) :
+  ZInQ.Contrib.CloudB3RC53.Hsw.StrictSymmTrunc X.toQuasi.D (ZInQ.Manuscript.RC.SelmerComplex.piCx X.US)
+    (ZInQ.Manuscript.RC.SelmerComplex.piMap X.φ)
+    (ZInQ.Manuscript.RC.SelmerComplex.galoisPairDataTrunc K S k β hβ X.ΔS X.ΔR I)
+    (ZInQ.Contrib.CloudB3RC53.Hsw.localPairCupOneGen (ZInQ.Manuscript.RC.SelmerComplex.GKS K S)
+      (fun v => ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v) (fun v => ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑v) β
+      hβ (ZInQ.Manuscript.RC.SelmerComplex.continuous_pairing β) c hc)
+ZInQ.Contrib.RC53Assist.StrictLocal.genuine_reverseIsotropy_of_degreeTwoZero {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (𝓞 K))} {k : Type} [Field k] {M : Type} [AddCommGroup M] [Module k M]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M] {T : Type} [AddCommGroup T] [Module k T]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) k T] [TopologicalSpace T] [DiscreteTopology T]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  (X : ZInQ.Manuscript.RC.SelmerComplex.GenuineSwitch K S k M) (β : M →ₗ[k] M →ₗ[k] T)
+  (hβ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (a b : M), (β (g • a)) (g • b) = g • (β a) b)
+  (I : ZInQ.Manuscript.RC.SelmerComplex.GaloisTruncIsotropyData K S k β hβ X.ΔS X.ΔR) (c : k)
+  (hc : ∀ (a b : M), (β a) b = c • (β b) a)
+  (h2 :
+    ∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S), ZInQ.Contrib.RC53Assist.StrictLocal.DegreeTwoZero (X.US v)) :
+  ZInQ.Contrib.CloudB3RC53.Hsw.ReverseIsotropy X.toQuasi.D (ZInQ.Manuscript.RC.SelmerComplex.piCx X.US)
+    (ZInQ.Manuscript.RC.SelmerComplex.piMap X.φ)
+    (ZInQ.Manuscript.RC.SelmerComplex.galoisPairDataT K S k β hβ X.ΔS X.ΔR I)
+'ZInQ.Contrib.RC53Assist.StrictLocal.degreeTwoZero_pi_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.double_degreeTwoZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.derivativeAt_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.kummerAt_degreeTwoZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.actualKummerAt_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.actualKummerAtS_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.urAt_degreeTwoZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.switch_degreeTwoZero_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.fullAt_not_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.strictSymm_of_degreeTwoZero' depends on axioms: [propext, Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.strictSymmTrunc_of_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.genuine_strictSymm_of_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.genuine_strictSymmTrunc_of_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.StrictLocal.genuine_reverseIsotropy_of_degreeTwoZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

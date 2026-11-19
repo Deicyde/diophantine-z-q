@@ -1,0 +1,70 @@
+{
+  "id": "Eq (RC)",
+  "kind": "equation",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, stated, neither proved nor assumed; ManuscriptV15.Arithmetic.twist a definition: The Prop has [M]'s family, congruence and squarefree condition, but the 2-primary Selmer corank and ord_{s=1} L are abstract function parameters (docstring: 'Typed interface only'), so it is (RC) only at the intended instance. It is a definition, neither proved nor assumed by a headline; ndep has no counterpart.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.633671,
+          0.784314,
+          0.03116
+        ]
+      },
+      "title": "Eq. (RC)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (RC)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Arithmetic.twist",
+        "module": "Lean.Lemmas.blueprint-manuscript.ManuscriptArithmetic"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Arithmetic.twist@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def twist (l : ℕ) : WeierstrassCurve ℚ := ⟨0,2*l,0,-3*(l:ℚ)^2,0⟩",
+            "line": 174,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/blueprint-manuscript/ManuscriptArithmetic.lean",
+            "fragment": "L174"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

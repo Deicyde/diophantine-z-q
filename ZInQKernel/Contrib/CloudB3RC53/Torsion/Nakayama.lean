@@ -5,8 +5,7 @@ import ZInQKernel.Contrib.CloudB3RC53.Torsion.Operations
 
 Lemma `ex:arith-local-kummer`, tex L3452–3453: "Reduction modulo two, including the torsion in
 degree zero, gives the perfect quotient-to-dual comparison; derived Nakayama lifts it." This is one
-of Elliot's own steps in the derived Kummer lemma (the duality cross-check lists L3445–3456 as
-open apart from the cup step).
+of Elliot's own steps in the derived Kummer lemma.
 
 At chain level, a comparison of bounded complexes of finite free modules is a homotopy equivalence
 iff its cone is contractible. So the step is: **a bounded complex of finite free modules over a
@@ -172,7 +171,7 @@ theorem nakayama_contraction (C : BasedCx R κe κo)
       _ = UO * UO⁻¹ := by rw [iEO, Matrix.add_mul]; simp only [Matrix.mul_assoc]
       _ = 1 := mul_nonsing_inv _ dO
 
-/-- **non-vacuity**: for `x` in the maximal ideal, the reduction of the disk `R --(1 + x)--> R` is
+/-- **Non-vacuity**: for `x` in the maximal ideal, the reduction of the disk `R --(1 + x)--> R` is
 contractible (by the identity), so `nakayama_contraction` gives an integral contraction. -/
 theorem nakayama_example (x : R) (hx : x ∈ IsLocalRing.maximalIdeal R) :
     Nonempty (Contraction (diskEven 0 even_zero (1 + x))) := by

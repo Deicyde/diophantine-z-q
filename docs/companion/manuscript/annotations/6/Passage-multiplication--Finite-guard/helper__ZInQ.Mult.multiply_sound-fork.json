@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Finite guard",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Mult.multiply_sound proved only from ZInQ.SixContactMin: The factors g_abc, their product, the guard's inverse condition, rejection of false triples in the box and acceptance of true triples are stated for every T; multiply_sound assumes only SixContactMin, so the sound direction does not use PoleCompleteness.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.107843,
+          0.705102,
+          0.784314,
+          0.178025
+        ]
+      },
+      "title": "Passage (multiplication): Finite guard",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Finite guard"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.multiply_sound",
+        "module": "ZInQKernel.Multiplication.Soundness.MultiplySound"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.multiply_sound@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem multiply_sound (hH : SixContactMin) (Y₁ Y₂ Y₃ : Fin 5 → ℚ)\n    (hY : (multiplyTemplate specConstructors FixedConst.cstar.value FixedConst.ell.value\n      FixedConst.T.value).Rel (codes3 Y₁ Y₂ Y₃)) :\n    ∃ a b : ℤ, Y₁ = iota a ∧ Y₂ = iota b ∧ Y₃ = iota (a * b) := by",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Soundness/MultiplySound.lean",
+            "fragment": "L24"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

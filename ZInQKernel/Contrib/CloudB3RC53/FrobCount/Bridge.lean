@@ -45,7 +45,7 @@ theorem centralFrobeniusDeterminantsAt_of_hasse (Φ : Matrix (Fin 2) (Fin 2) ℤ
     CentralFrobeniusDeterminantsAt Φ r :=
   centralFrobeniusDeterminantsNonzero_proof Φ r hdet hr hHasse
 
-/-- **non-vacuity**: the bridge applies to the companion matrix of `x² − a_r x + q` for every
+/-- **Non-vacuity**: the bridge applies to the companion matrix of `x² − a_r x + q` for every
 Weierstrass curve over every finite field. -/
 theorem centralFrobeniusDeterminantsAt_example (F : Type) [Field F] [Fintype F]
     (W : WeierstrassCurve.Affine F) :

@@ -160,8 +160,8 @@ theorem nonempty_centralSelmerComparison_iff {S₁ S₂ : Type*} [AddCommGroup S
     exact ⟨⟨LinearEquiv.ofFinrankEq _ _ (h.trans (finrank_ratTate_prod_of_Z2Corank h₁ h₂).symm)⟩⟩
 
 /-- **Under full Selmer corank one the comparison is equivalent to `hcentral`** (transparency, as
-lane RV2's probes for the other base-zero fields): `CentralSelmerComparison` for the genuine
-Selmer groups of `E_ℓ`, `E_ℓ^{(k)}` exists iff `rank ρ(Dm) = m`. PROVED. -/
+`nonempty_innerLimit45Base_iff` for the inner-limit field): `CentralSelmerComparison` for the
+genuine Selmer groups of `E_ℓ`, `E_ℓ^{(k)}` exists iff `rank ρ(Dm) = m`. PROVED. -/
 theorem nonempty_centralSelmerComparison_iff_hcentral {ℓ : ℕ} {k : ℤ} {m : ℕ}
     {Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) Rings.LambdaT} (hSel : SelmerCorankOneOverK ℓ k) :
     Nonempty (CentralSelmerComparison (selmerTwoPower (Ecurve ℓ)) (selmerTwoPower (Etw ℓ k)) Dm) ↔

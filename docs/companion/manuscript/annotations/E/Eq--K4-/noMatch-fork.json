@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K4)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: No declaration constructs Kato's zeta elements z_m(f,1,1,xi,S_m) in H^1(Z[zeta_m,1/2], L_f(1)).",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 93,
+        "rect": [
+          0.107843,
+          0.448169,
+          0.784314,
+          0.029333
+        ]
+      },
+      "title": "Eq. (K4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          93
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

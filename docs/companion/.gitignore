@@ -1,0 +1,10 @@
+# The repository's root rules ignore every `site/`. This one holds the overlay's committed index page.
+!/manuscript/site/
+.lake/
+*.pdf
+*.tex
+site/pdf-overlay/
+site/annotations/
+__pycache__/
+**/site/pdf-overlay/
+**/site/annotations/

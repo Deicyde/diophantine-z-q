@@ -1,0 +1,86 @@
+{
+  "id": "Passage syntax: Section 3.1 membership and natural codes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.SixContactMin and ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation), through its dependency; ZOverQ.Qualitative.multiplication_exact proved only from ZOverQ.Qualitative.UniformHeight and ZInQ.PoleCompleteness; confirmed finding (differs): ndep's membership and raw-addition theorems are textually [F]'s and proved with no hypotheses, and agree with [M]; but ndep's multiplication template reaches a pole template on y^2=x(x-l)(x+l) instead of [M]'s x(x-l)(x+3l), so multiply_sound (from assumed ZInQ.SixContactMin) and natural_rel_iff (from ZInQ.Translation.MultiplicationExact) state the multiplication and natural-predicate claims for different polynomials. [N] has no declaration of its own here; it uses only MultiplicationExact, proved in ZOverQ.Qualitative.multiplication_exact for another guard cutoff, and no [N] declaration uses the other ndep names.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.098039,
+          0.448167,
+          0.803922,
+          0.292529
+        ]
+      },
+      "title": "Passage (syntax): Section 3.1 membership and natural codes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 3.1 membership and natural codes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.multiplication_exact",
+        "module": "bounded.QualitativeMultiplication"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.multiplication_exact@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem multiplication_exact {m : ℕ} (hm : 1 ≤ m) (height : UniformHeight (m : ℝ))\n    (pole : PoleCompleteness) :\n    Translation.MultiplicationExact specConstructors FixedConst.cstar.value FixedConst.ell.value\n      (guardCutoff m) := by",
+            "line": 78,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativeMultiplication.lean",
+            "fragment": "L78"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "rel_member_iff, rel_member_iff_iota and rel_rawAdd_iota are proved with no hypotheses and match [M]. multiply_sound (hH : SixContactMin) and natural_rel_iff (hM : MultiplicationExact) concern multiplyTemplate and naturalTemplate, which embed poleTemplate with x+l, so they are statements about other polynomials. Grep confirms [N] names only MultiplicationExact among these.",
+            "ndep's Membership.lean and RawAddition.lean are byte-identical to [F]'s (diff), and rel_member_iff and rel_rawAdd_iota state [M]'s membership and raw-addition contracts; but multiply_sound (under SixContactMin) and natural_rel_iff (under MultiplicationExact) concern ndep's multiplyTemplate, whose slope tests call the Route K poleTemplate. nasqret has no membership, raw-addition or natural-predicate declaration of its own (name search and grep), and uses only MultiplicationExact."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

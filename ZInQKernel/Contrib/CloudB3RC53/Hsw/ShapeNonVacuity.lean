@@ -2,7 +2,7 @@ import ZInQKernel.Contrib.CloudB3RC53.Hsw.Shape
 import ZInQKernel.Contrib.CloudB3RC53.SwitchInputs.NonVacuityDuality
 
 /-!
-# RC53 `hsw`: non-vacuity of the local-duality shape (non-vacuity)
+# RC53 `hsw`: non-vacuity of the local-duality shape
 
 All hypotheses of `hsw_of_localDuality` hold together on the small Selmer model `ndR` of
 `SwitchInputs/NonVacuityDuality.lean`, over `ℚ` with `ε = 1`, `J = 1`. In that model:

@@ -1,0 +1,88 @@
+{
+  "id": "Passage size: Proof of Proposition 12.1, formal multiple",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The parts give m0 <= N^6 from actual reduction orders, success of N^4*m0 (so M0 <= Ns^10 with the divisibility and coprimality guard), the bad-place reduction to (2,6), good reduction elsewhere and the odd coefficient extraction; they are stated for every N >= 1, not only Ns. The per-prime order bound comes from a trivial point count (order <= 2|k|+1, total <= p^6) in place of Hasse's bound; the odd estimate 2+8v_p(N) and the dyadic estimate are proved inside exists_formal_multiple.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 83,
+        "rect": [
+          0.107843,
+          0.875032,
+          0.784314,
+          0.040603
+        ]
+      },
+      "title": "Passage (size): Proof of Proposition 12.1, formal multiple",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Proof of Proposition 12.1, formal multiple#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.374861
+        ]
+      },
+      "title": "Passage (size): Proof of Proposition 12.1, formal multiple",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Proof of Proposition 12.1, formal multiple#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.exists_reduction_multiple",
+        "module": "ZInQKernel.Size.FormalMultiple.ReductionOrders"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.exists_reduction_multiple@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem exists_reduction_multiple (N : ℕ) (hN : 1 ≤ N) :\n    ∃ m₀ : ℕ, 1 ≤ m₀ ∧ m₀ ≤ N ^ 6 ∧\n      ∀ p ∈ N.primeFactors, p ≠ 2 → ∀ π : Zs, ∀ hπ : Prime π, π ∣ (p : Zs) →\n        (m₀ : ℤ) • genP0 ∈ E1sub hπ (vge_neg_genD_sq _ hπ) := by",
+            "line": 201,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/FormalMultiple/ReductionOrders.lean",
+            "fragment": "L201"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          83,
+          84
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ characteristic-zero fibres, and no characteristic-zero claim is made. Two furthe
 this:
 * at a single derivative prime with characteristic-zero coefficients the singular part vanishes
   (`q = ℓ² ≠ 1`), and the `2 + 2` switch shape exists only in the inner limit `ℓᵢ → −1`
-  (tex L5033–5035);
+  (tex L3298–3300, L5030–5032);
 * the `𝔭`-adic coefficient modules there are neither finite nor discrete.
 
 `genuine_finIso_of_ur_cd` (`ShapeUrTieGen.lean`) takes the `H²` vanishing as an explicit input.

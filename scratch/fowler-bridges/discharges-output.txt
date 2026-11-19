@@ -1,0 +1,4 @@
+DISCHARGES [OpenResearchLeaves66.fowlerProp27] by HDec.CMBranch.FowlerBridges.fowlerProp27_of_print
+  still assumes: [HDec.CMBranch.FowlerBridges.FowlerProp27Print]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 33 open hypotheses, 15174 theorems checked, 376 discharge one

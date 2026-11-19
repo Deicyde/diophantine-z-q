@@ -8,7 +8,8 @@ import ZInQKernel.Contrib.CloudB3RC53.Duality.LocalKummer
 `p`-adic fields (finite extensions of `ℚ_p`), and the manuscript only uses `F = K_v` for a number
 field `K`. This file states the print in that scope, with `[CharZero F]` in the type:
 
-* `MilneLocalTateDualityKummerCharZero` (PRINT, UNVERIFIED; Milne I.3.2–I.3.5, as cited at tex
+* `MilneLocalTateDualityKummerCharZero` (PRINT; locators checked against the ADT PDF (I.2.3 p. 28;
+  I.3.2 p. 41, diagram pp. 41–43; I.3.4 p. 43; I.3.5 p. 44); Milne I.3.2–I.3.5, as cited at tex
   L3439–3441): for every nonarchimedean local field `F` of characteristic zero (a finite extension
   of some `ℚ_p`), every elliptic curve `B/F` and every `m` invertible in `F`, the data of
   `MilneLocalTateDualityKummer B m hm` exist;
@@ -21,7 +22,8 @@ namespace ZInQ.Contrib.CloudB3RC53.Duality
 
 open TauCeti TauCeti.ContCohomology TauCeti.ClassFieldTheory
 
-/-- **PRINT** (UNVERIFIED; Milne, *Arithmetic Duality Theorems*, I.3.2–I.3.5, as cited at tex
+/-- **PRINT** (locators checked against the ADT PDF (I.2.3 p. 28; I.3.2 p. 41, diagram pp. 41–43;
+I.3.4 p. 43; I.3.5 p. 44); Milne, *Arithmetic Duality Theorems*, I.3.2–I.3.5, as cited at tex
 L3439–3441), in Milne's scope: for a nonarchimedean local field `F` of characteristic zero, an
 elliptic curve `B` over `F` and `m` invertible in `F`, Tate's local pairing
 `B(F) × H¹(F, B) → ℚ/ℤ` is nondegenerate on `H¹(F, B)[m]` and the Kummer map is adjoint to

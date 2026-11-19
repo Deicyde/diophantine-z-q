@@ -1,0 +1,806 @@
+ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution.projection_differential {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] (T : ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution H)
+  (y : Fin T.relations → R) : Eq.{1} (T.projection (T.differential y)) 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution.projection_differential' depends on axioms: [propext,
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.chosenFreeResolution_zero {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R] (hH : Module.Finite.{0, 0} R H)
+  (h0 : Subsingleton.{1} H) :
+  Eq.{1} (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenFreeResolution hH).generators 0 ∧
+    Eq.{1} (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenFreeResolution hH).relations 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.chosenFreeResolution_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.homologyProjection_surjective {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ) (n : ℤ) :
+  Function.Surjective.{1, 1} ⇑(ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.homologyπ.{0, 1, 0} C n))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.homologyProjection_surjective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.boundarySurjection_surjective {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ) (n : ℤ) :
+  Function.Surjective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.CalibrationModel.boundarySurjection C n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.boundarySurjection_surjective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.generatorLift_projection {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) :
+  Eq.{1}
+    (ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.homologyπ.{0, 1, 0} C n) ∘ₗ
+      ZInQ.Contrib.RC53Assist.CalibrationModel.generatorLift C T n)
+    (T n).projection
+'ZInQ.Contrib.RC53Assist.CalibrationModel.generatorLift_projection' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.relationLift_differential {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) (x : Fin (T (HAdd.hAdd.{0, 0, 0} n 1)).relations → R) :
+  Eq.{1}
+    ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.d.{0, 1, 0} C n (HAdd.hAdd.{0, 0, 0} n 1)))
+      ((ZInQ.Contrib.RC53Assist.CalibrationModel.relationLift C T n) x))
+    ((ModuleCat.Hom.hom.{0, 0} (HomologicalComplex.iCycles.{0, 1, 0} C (HAdd.hAdd.{0, 0, 0} n 1)))
+      ((ZInQ.Contrib.RC53Assist.CalibrationModel.generatorLift C T (HAdd.hAdd.{0, 0, 0} n 1))
+        ((T (HAdd.hAdd.{0, 0, 0} n 1)).differential x)))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.relationLift_differential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex_differential {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) (x : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n)) :
+  Eq.{1}
+    ((ModuleCat.Hom.hom.{0, 0}
+        (HomologicalComplex.d.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n
+          (HAdd.hAdd.{0, 0, 0} n 1)))
+      x)
+    (Prod.mk.{0, 0} ((T (HAdd.hAdd.{0, 0, 0} n 1)).differential x.2) 0)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex_differential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionCycle_second_zero {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ)
+  (z : ↑(HomologicalComplex.cycles.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n)) :
+  Eq.{1}
+    ((ModuleCat.Hom.hom.{0, 0}
+          (HomologicalComplex.iCycles.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n))
+        z).2
+    0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionCycle_second_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.generatorCycle_coordinates {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) (x : Fin (T n).generators → R) :
+  Eq.{1}
+    ((ModuleCat.Hom.hom.{0, 0}
+        (HomologicalComplex.iCycles.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n))
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.generatorCycle C T n x))
+    (Prod.mk.{0, 0} x 0)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.generatorCycle_coordinates' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComparison_class {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ)
+  (z : ↑(HomologicalComplex.cycles.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n)) :
+  Eq.{1}
+    ((ModuleCat.Hom.hom.{0, 0}
+        (HomologicalComplex.homologyMap.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComparison C T)
+          n))
+      ((ModuleCat.Hom.hom.{0, 0}
+          (HomologicalComplex.homologyπ.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n))
+        z))
+    ((T n).projection
+      ((ModuleCat.Hom.hom.{0, 0}
+            (HomologicalComplex.iCycles.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n))
+          z).1)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComparison_class' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComparison_quasiIso {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n)) :
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComparison C T)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComparison_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex_finite_free {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T : (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) :
+  Module.Free.{0, 0} R
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n) ∧
+    Module.Finite.{0, 0} R
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C T) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex_finite_free' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacementMap_quasiIso {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n)) :
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacementMap C hfinite)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacementMap_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement_finite_free {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n)) (n : ℤ) :
+  Module.Free.{0, 0} R
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement C hfinite) n) ∧
+    Module.Finite.{0, 0} R
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement C hfinite) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement_finite_free' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement_bounded {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n)) (lo hi : ℤ)
+  (hbounded :
+    ∀ (n : ℤ), LT.lt.{0} n lo ∨ LT.lt.{0} hi n → Subsingleton.{1} ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) (hn : LT.lt.{0} n (HSub.hSub.{0, 0, 0} lo 1) ∨ LT.lt.{0} hi n) :
+  Subsingleton.{1}
+    ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement C hfinite) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement_bounded' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.basisEquivFun_basis {R : Type} [CommRing.{0} R] {ι M : Type} [Fintype.{0} ι]
+  [AddCommGroup.{0} M] [Module.{0, 0} R M] (b : Module.Basis.{0, 0, 0} ι R M) (i : ι) :
+  Eq.{1} ((Module.Basis.equivFun.{0, 0, 0} b) (b i)) ((Pi.basisFun.{0, 0} R ι) i)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.basisEquivFun_basis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.chosenDiagonalResolution_zero {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R] (hH : Module.Finite.{0, 0} R H)
+  (h0 : Subsingleton.{1} H) :
+  Eq.{1} (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenDiagonalResolution hH).generators 0 ∧
+    Eq.{1} (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenDiagonalResolution hH).relations 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.chosenDiagonalResolution_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.coordinates_differential {R : Type} [CommRing.{0} R]
+  {H : Type} [AddCommGroup.{0} H] [Module.{0, 0} R H]
+  (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) (y : Fin T.relations → R) :
+  Eq.{1} (T.coordinates (T.differential y)) (Prod.mk.{0, 0} 0 (T.diskMap y))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.coordinates_differential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskMap_injective {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R]
+  (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) : Function.Injective.{1, 1} ⇑T.diskMap
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskMap_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.classMap_surjective {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) :
+  Function.Surjective.{1, 1} ⇑T.classMap
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.classMap_surjective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.classMap_kernel {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) :
+  Eq.{1} (LinearMap.ker.{0, 0, 0, 0} T.classMap) (LinearMap.ker.{0, 0, 0, 0} T.projection)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.classMap_kernel' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskDeterminant_ne_zero {R : Type} [CommRing.{0} R]
+  {H : Type} [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R]
+  (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) : Ne.{1} T.diskDeterminant 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskDeterminant_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskCokernel_torsion {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R]
+  (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) : Module.IsTorsion.{0, 0} R T.DiskCokernel
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskCokernel_torsion' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.coreRank_eq_finrank {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R]
+  (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) : Eq.{1} T.coreRank (Module.finrank.{0, 0} R H)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.coreRank_eq_finrank' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskMatrix {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) :
+  Eq.{1} (Matrix.mulVecLin.{0, 0, 0} (Matrix.diagonal.{0, 0} T.coefficient)) T.diskMap
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskMatrix' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskMatrix_det_ne_zero {R : Type} [CommRing.{0} R]
+  {H : Type} [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R]
+  (T : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H) :
+  Ne.{1} (Matrix.det.{0, 0} (Matrix.diagonal.{0, 0} T.coefficient)) 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution.diskMatrix_det_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex_differential {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T :
+    (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) (x : ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex C T) n)) :
+  Eq.{1}
+    ((ModuleCat.Hom.hom.{0, 0}
+        (HomologicalComplex.d.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex C T) n
+          (HAdd.hAdd.{0, 0, 0} n 1)))
+      x)
+    (Prod.mk.{0, 0} 0 (Prod.mk.{0, 0} ((T (HAdd.hAdd.{0, 0, 0} n 1)).diskMap x.2.2) 0))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex_differential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryCoordinates_differential {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T :
+    (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ)
+  (x :
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C fun n => (T n).toFreeResolution) n)) :
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryCoordinates C T (HAdd.hAdd.{0, 0, 0} n 1))
+      ((ModuleCat.Hom.hom.{0, 0}
+          (HomologicalComplex.d.{0, 1, 0}
+            (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C fun n => (T n).toFreeResolution) n
+            (HAdd.hAdd.{0, 0, 0} n 1)))
+        x))
+    (Prod.mk.{0, 0} 0 (Prod.mk.{0, 0} ((T (HAdd.hAdd.{0, 0, 0} n 1)).diskMap x.2) 0))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryCoordinates_differential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComparison_quasiIso {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T :
+    (n : ℤ) →
+      ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n)) :
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComparison C T)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComparison_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex_finite_free {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T :
+    (n : ℤ) → ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (n : ℤ) :
+  Module.Free.{0, 0} R
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex C T) n) ∧
+    Module.Finite.{0, 0} R
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex C T) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex_finite_free' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations_coreRank {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ) [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R]
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n)) (n : ℤ) :
+  Eq.{1} (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations C hfinite n).coreRank
+    (Module.finrank.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations_coreRank' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.finiteCoordinates_zero {R : Type} (r : ℕ) (hr : Eq.{1} r 0) :
+  Subsingleton.{1} (Fin r → R)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.finiteCoordinates_zero' depends on axioms: [Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationPresentation_relations_zero {R : Type} [CommRing.{0} R]
+  [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R] (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (H : ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape C) (n : ℤ)
+  (hn : LT.lt.{0} n 1 ∨ LT.lt.{0} 3 n) :
+  Eq.{1} (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations C hfinite n).relations 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationPresentation_relations_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationPresentation_core_zero {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (H : ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape C) (n : ℤ)
+  (hn : LT.lt.{0} n 1 ∨ LT.lt.{0} 3 n) :
+  Eq.{1} (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations C hfinite n).coreRank 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationPresentation_core_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationElementary_zero {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (H : ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape C) (n : ℤ)
+  (hn : LT.lt.{0} n 0 ∨ LT.lt.{0} 3 n) :
+  Subsingleton.{1}
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex C
+          (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations C hfinite))
+        n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationElementary_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.scalarHomotopyEquiv_quasiIso {R A : Type} [CommRing.{0} R] [CommRing.{0} A]
+  {C D : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ} (φ : RingHom.{0, 0} R A) (e : HomotopyEquiv.{0, 1, 0} C D) :
+  QuasiIso.{0, 1, 0}
+    (CategoryTheory.Functor.map.{0, 0, 1, 1}
+      (CategoryTheory.Functor.mapHomologicalComplex.{0, 0, 1, 0, 1} (ModuleCat.extendScalars.{0, 0, 0} φ)
+        (ComplexShape.up.{0} ℤ))
+      (HomotopyEquiv.hom.{0, 1, 0} e))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.scalarHomotopyEquiv_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.scalarHomotopyEquiv_inverse_quasiIso {R A : Type} [CommRing.{0} R]
+  [CommRing.{0} A] {C D : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ} (φ : RingHom.{0, 0} R A)
+  (e : HomotopyEquiv.{0, 1, 0} C D) :
+  QuasiIso.{0, 1, 0}
+    (CategoryTheory.Functor.map.{0, 0, 1, 1}
+      (CategoryTheory.Functor.mapHomologicalComplex.{0, 0, 1, 0, 1} (ModuleCat.extendScalars.{0, 0, 0} φ)
+        (ComplexShape.up.{0} ℤ))
+      (HomotopyEquiv.inv.{0, 1, 0} e))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.scalarHomotopyEquiv_inverse_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.tensor_kernel_injective {R : Type} [CommRing.{0} R] {M N : Type}
+  [AddCommGroup.{0} M] [Module.{0, 0} R M] [AddCommGroup.{0} N] [Module.{0, 0} R N] [Module.Flat.{0, 0} R N] (A : Type)
+  [AddCommGroup.{0} A] [Module.{0, 0} R A] (g : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) M N)
+  (hg : Function.Surjective.{1, 1} ⇑g) :
+  Function.Injective.{1, 1}
+    ⇑(LinearMap.lTensor.{0, 0, 0, 0} A (Submodule.subtype.{0, 0} (LinearMap.ker.{0, 0, 0, 0} g)))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.tensor_kernel_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.baseChange_exact_of_two_exact_pairs {R : Type} [CommRing.{0} R]
+  [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R] {M N P Q A : Type} [AddCommGroup.{0} M] [Module.{0, 0} R M]
+  [AddCommGroup.{0} N] [Module.{0, 0} R N] [AddCommGroup.{0} P] [Module.{0, 0} R P] [AddCommGroup.{0} Q]
+  [Module.{0, 0} R Q] [Module.Flat.{0, 0} R Q] [CommRing.{0} A] [Algebra.{0, 0} R A]
+  (f : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) M N) (g : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) N P)
+  (h : LinearMap.{0, 0, 0, 0} (RingHom.id.{0} R) P Q) (hfg : Function.Exact.{0, 0, 0} ⇑f ⇑g)
+  (hgh : Function.Exact.{0, 0, 0} ⇑g ⇑h) :
+  Function.Exact.{0, 0, 0} ⇑(LinearMap.baseChange.{0, 0, 0, 0} A f) ⇑(LinearMap.baseChange.{0, 0, 0, 0} A g)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.baseChange_exact_of_two_exact_pairs' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.scalarChanged_acyclic {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] {A : Type} [CommRing.{0} A] (φ : RingHom.{0, 0} R A)
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hflat : ∀ (n : ℤ), Module.Flat.{0, 0} R ↑(HomologicalComplex.X.{0, 1, 0} C n))
+  (hacyclic : HomologicalComplex.Acyclic.{0, 1, 0} C) :
+  HomologicalComplex.Acyclic.{0, 1, 0} (ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex φ C)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.scalarChanged_acyclic' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.quasiIso_iff_mappingCone_acyclic {R : Type} [CommRing.{0} R]
+  {C D : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ} (f : Quiver.Hom.{0, 1} C D) :
+  QuasiIso.{0, 1, 0} f ↔ HomologicalComplex.Acyclic.{0, 1, 0} (CochainComplex.mappingCone.{0, 1} f)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.quasiIso_iff_mappingCone_acyclic' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.mappingCone_flat {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] {C D : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ} (f : Quiver.Hom.{0, 1} C D)
+  (hC : ∀ (n : ℤ), Module.Flat.{0, 0} R ↑(HomologicalComplex.X.{0, 1, 0} C n))
+  (hD : ∀ (n : ℤ), Module.Flat.{0, 0} R ↑(HomologicalComplex.X.{0, 1, 0} D n)) (n : ℤ) :
+  Module.Flat.{0, 0} R ↑(HomologicalComplex.X.{0, 1, 0} (CochainComplex.mappingCone.{0, 1} f) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.mappingCone_flat' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.scalarChanged_quasiIso {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] {A : Type} [CommRing.{0} A] (φ : RingHom.{0, 0} R A)
+  {C D : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ} (f : Quiver.Hom.{0, 1} C D)
+  (hC : ∀ (n : ℤ), Module.Flat.{0, 0} R ↑(HomologicalComplex.X.{0, 1, 0} C n))
+  (hD : ∀ (n : ℤ), Module.Flat.{0, 0} R ↑(HomologicalComplex.X.{0, 1, 0} D n)) (hf : QuasiIso.{0, 1, 0} f) :
+  QuasiIso.{0, 1, 0}
+    (CategoryTheory.Functor.map.{0, 0, 1, 1}
+      (CategoryTheory.Functor.mapHomologicalComplex.{0, 0, 1, 0, 1} (ModuleCat.extendScalars.{0, 0, 0} φ)
+        (ComplexShape.up.{0} ℤ))
+      f)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.scalarChanged_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.contCochain_torsionFree {R G M : Type} [CommRing.{0} R] [Group.{0} G]
+  [AddCommGroup.{0} M] [Module.{0, 0} R M] [DistribMulAction.{0, 0} G M] [SMulCommClass.{0, 0, 0} G R M]
+  [TopologicalSpace.{0} G] [TopologicalSpace.{0} M] [ContinuousAdd.{0} M] [ContinuousConstSMul.{0, 0} R M]
+  [Module.IsTorsionFree.{0, 0} R M] (n : ℕ) :
+  Module.IsTorsionFree.{0, 0} R ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain.{0} R G M n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.contCochain_torsionFree' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.natCx_torsionFree {R : Type} [CommRing.{0} R]
+  (A : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℕ)
+  (hA : ∀ (n : ℕ), Module.IsTorsionFree.{0, 0} R ↑(HomologicalComplex.X.{0, 1, 0} A n)) (n : ℤ) :
+  Module.IsTorsionFree.{0, 0} R
+    ↑(ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx.X.{0} (ZInQ.Manuscript.RC.SelmerComplex.natCx.{0} A) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.natCx_torsionFree' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.resMod_torsionFree {R G H M : Type} [CommRing.{0} R] [Group.{0} G]
+  [Group.{0} H] [TopologicalSpace.{0} G] [TopologicalSpace.{0} H] [AddCommGroup.{0} M] [Module.{0, 0} R M]
+  [Module.IsTorsionFree.{0, 0} R M] (φ : ContinuousMonoidHom.{0, 0} H G) :
+  Module.IsTorsionFree.{0, 0} R (ZInQ.Manuscript.RC.SelmerComplex.ResMod.{0} φ M)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.resMod_torsionFree' does not depend on any axioms
+ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummerComplex_flat {K : Type} [Field.{0} K] [NumberField.{0} K]
+  (S : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))) (W : WeierstrassCurve.{0} K)
+  [WeierstrassCurve.IsElliptic.{0} W]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (HPow.hPow.{0, 0, 0} 2 n)) (n : ℤ) :
+  Module.Flat.{0, 0} ℤ_[2]
+    ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummerComplex_flat' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummer_finiteReplacement {K : Type} [Field.{0} K] [NumberField.{0} K]
+  (S : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K))) (W : WeierstrassCurve.{0} K)
+  [WeierstrassCurve.IsElliptic.{0} W]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (HPow.hPow.{0, 0, 0} 2 n))
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) n)) :
+  QuasiIso.{0, 1, 0}
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacementMap
+        (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) hfinite) ∧
+    ∀ (n : ℤ),
+      Module.Free.{0, 0} ℤ_[2]
+          ↑(HomologicalComplex.X.{0, 1, 0}
+              (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement
+                (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) hfinite)
+              n) ∧
+        Module.Finite.{0, 0} ℤ_[2]
+          ↑(HomologicalComplex.X.{0, 1, 0}
+              (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement
+                (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) hfinite)
+              n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummer_finiteReplacement' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummer_finiteReplacement_baseChange {K : Type} [Field.{0} K]
+  [NumberField.{0} K] (S : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K)))
+  (W : WeierstrassCurve.{0} K) [WeierstrassCurve.IsElliptic.{0} W]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (HPow.hPow.{0, 0, 0} 2 n)) {A : Type}
+  [CommRing.{0} A] (φ : RingHom.{0, 0} ℤ_[2] A)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) n)) :
+  QuasiIso.{0, 1, 0}
+    (CategoryTheory.Functor.map.{0, 0, 1, 1}
+      (CategoryTheory.Functor.mapHomologicalComplex.{0, 0, 1, 0, 1} (ModuleCat.extendScalars.{0, 0, 0} φ)
+        (ComplexShape.up.{0} ℤ))
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacementMap
+        (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) hfinite))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummer_finiteReplacement_baseChange' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummer_finiteReplacement_bounded {K : Type} [Field.{0} K]
+  [NumberField.{0} K] (S : Set.{0} (IsDedekindDomain.HeightOneSpectrum.{0} (NumberField.RingOfIntegers.{0} K)))
+  (W : WeierstrassCurve.{0} K) [WeierstrassCurve.IsElliptic.{0} W]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (HPow.hPow.{0, 0, 0} 2 n))
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) n))
+  (hbounded :
+    ∀ (n : ℤ),
+      LT.lt.{0} n 1 ∨ LT.lt.{0} 3 n →
+        Subsingleton.{1}
+          ↑(HomologicalComplex.homology.{0, 1, 0}
+              (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) n))
+  (n : ℤ) (hn : LT.lt.{0} n 0 ∨ LT.lt.{0} 3 n) :
+  Subsingleton.{1}
+    ↑(HomologicalComplex.X.{0, 1, 0}
+        (ZInQ.Contrib.RC53Assist.CalibrationModel.finiteReplacement
+          (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) hfinite)
+        n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.compactKummer_finiteReplacement_bounded' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison_quasiIso {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n)) :
+  QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison G hfinite)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison_quasiIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex_finite_free {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (n : ℤ) :
+  Module.Free.{0, 0} ℤ_[2]
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex G hfinite) n) ∧
+    Module.Finite.{0, 0} ℤ_[2]
+      ↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex G hfinite) n)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex_finite_free' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison_baseChange {K : Type} [Field.{0} K]
+  [NumberField.{0} K] {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ}
+  (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  {A : Type} [CommRing.{0} A] (φ : RingHom.{0, 0} ℤ_[2] A) :
+  QuasiIso.{0, 1, 0}
+    (CategoryTheory.Functor.map.{0, 0, 1, 1}
+      (CategoryTheory.Functor.mapHomologicalComplex.{0, 0, 1, 0, 1} (ModuleCat.extendScalars.{0, 0, 0} φ)
+        (ComplexShape.up.{0} ℤ))
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison G hfinite))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison_baseChange' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentral_fibre_quasiIso_iff {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (i : ℕ) :
+  QuasiIso.{0, 1, 0}
+      (CategoryTheory.CategoryStruct.comp.{0, 1}
+        (CategoryTheory.Functor.map.{0, 0, 1, 1}
+          (CategoryTheory.Functor.mapHomologicalComplex.{0, 0, 1, 0, 1}
+            (ModuleCat.extendScalars.{0, 0, 0} (ZInQ.Contrib.RC53Assist.Calibration.constRed i))
+            (ComplexShape.up.{0} ℤ))
+          (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison G hfinite))
+        (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i)) ↔
+    QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentral_fibre_quasiIso_iff' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix_det_ne_zero {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (j : ℤ) : Ne.{1} (Matrix.det.{0, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite j)) 0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix_det_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel_basis_unimodular {K : Type} [Field.{0} K]
+  [NumberField.{0} K] {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ}
+  (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (H :
+    ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G))
+  (hreduce :
+    ∀ (i : ℕ),
+      Ne.{1} i 0 → QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i))
+  (n : ℤ) :
+  IsUnit.{0}
+    (Matrix.det.{0, 0}
+      ((ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel G hfinite H hreduce).basisMatrix n))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel_basis_unimodular' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel_inverseDeterminant_valuation {K : Type} [Field.{0} K]
+  [NumberField.{0} K] {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ}
+  (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (H :
+    ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G))
+  (hreduce :
+    ∀ (i : ℕ),
+      Ne.{1} i 0 → QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i)) :
+  Eq.{1}
+    (↑(ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel G hfinite H
+            hreduce).inverseDeterminantBasisFactor).valuation
+    0
+'ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel_inverseDeterminant_valuation' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.diskTie_of_finite_cohomology {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (H :
+    ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G))
+  (hreduce :
+    ∀ (i : ℕ),
+      Ne.{1} i 0 → QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i)) :
+  ZInQ.Contrib.RC53Assist.Calibration.DiskTie G
+    (Matrix.det.{0, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 1))
+    (Matrix.det.{0, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 2))
+    (Matrix.det.{0, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 3))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.diskTie_of_finite_cohomology' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.finiteFreeResolution {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R]
+  (hH : Module.Finite.{0, 0} R H) : ZInQ.Contrib.RC53Assist.CalibrationModel.FreeResolution H
+'ZInQ.Contrib.RC53Assist.CalibrationModel.finiteFreeResolution' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.smithDiagonalResolution {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R]
+  (hH : Module.Finite.{0, 0} R H) : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H
+'ZInQ.Contrib.RC53Assist.CalibrationModel.smithDiagonalResolution' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.chosenDiagonalResolution {R : Type} [CommRing.{0} R] {H : Type}
+  [AddCommGroup.{0} H] [Module.{0, 0} R H] [IsDomain.{0} R] [IsPrincipalIdealRing.{0} R]
+  (hH : Module.Finite.{0, 0} R H) : ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution H
+'ZInQ.Contrib.RC53Assist.CalibrationModel.chosenDiagonalResolution' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryIso {R : Type} [CommRing.{0} R]
+  (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (T :
+    (n : ℤ) →
+      ZInQ.Contrib.RC53Assist.CalibrationModel.DiagonalResolution ↑(HomologicalComplex.homology.{0, 1, 0} C n)) :
+  CategoryTheory.Iso.{0, 1}
+    (ZInQ.Contrib.RC53Assist.CalibrationModel.resolutionComplex C fun n => (T n).toFreeResolution)
+    (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex C T)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationBlockIso {R : Type} [CommRing.{0} R] [IsDomain.{0} R]
+  [IsPrincipalIdealRing.{0} R] (C : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ)
+  (hfinite : ∀ (n : ℤ), Module.Finite.{0, 0} R ↑(HomologicalComplex.homology.{0, 1, 0} C n))
+  (H : ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape C) :
+  CategoryTheory.Iso.{0, 1}
+    (ZInQ.Contrib.RC53Assist.CalibrationModel.elementaryComplex C
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations C hfinite))
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationDiskMatrix C hfinite 1)
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationDiskMatrix C hfinite 2)
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationDiskMatrix C hfinite 3))
+'ZInQ.Contrib.RC53Assist.CalibrationModel.calibrationBlockIso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.scalarHomotopyEquiv {R A : Type} [CommRing.{0} R] [CommRing.{0} A]
+  {C D : CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} R) ℤ} (φ : RingHom.{0, 0} R A) (e : HomotopyEquiv.{0, 1, 0} C D) :
+  HomotopyEquiv.{0, 1, 0} (ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex φ C)
+    (ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex φ D)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.scalarHomotopyEquiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n)) :
+  CochainComplex.{0, 1, 0} (ModuleCat.{0, 0} ℤ_[2]) ℤ
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n)) :
+  Quiver.Hom.{0, 1} (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex G hfinite)
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralNormalization {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (H :
+    ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G)) :
+  CategoryTheory.Iso.{0, 1}
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockComplex
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 1)
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 2)
+      (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 3))
+    (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex G hfinite)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralNormalization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralCoordinates {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (H :
+    ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G))
+  (n : ℤ) :
+  LinearEquiv.{0, 0, 0, 0} (RingHom.id.{0} ℤ_[2])
+    (↑(HomologicalComplex.X.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralComplex G hfinite) n))
+    (ZInQ.Contrib.RC53Assist.CalibrationIntegral.blockIndex
+        (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G) hfinite 1).relations
+        (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G) hfinite 2).relations
+        (ZInQ.Contrib.RC53Assist.CalibrationModel.chosenPresentations
+            (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G) hfinite 3).relations
+        n →
+      ℤ_[2])
+'ZInQ.Contrib.RC53Assist.CalibrationModel.retainedCentralCoordinates' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel {K : Type} [Field.{0} K] [NumberField.{0} K]
+  {E₀ : WeierstrassCurve.{0} ℚ} {hZ : ℤ} (G : ZInQ.Contrib.RC53Assist.Calibration.GenuineKummerData K E₀ hZ)
+  (hfinite :
+    ∀ (n : ℤ),
+      Module.Finite.{0, 0} ℤ_[2]
+        ↑(HomologicalComplex.homology.{0, 1, 0}
+            (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex G.S
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralCurve G)
+              (ZInQ.Contrib.RC53Assist.CalibrationIntegral.centralFullTorsion G))
+            n))
+  (H :
+    ZInQ.Contrib.RC53Assist.CalibrationModel.CalibrationCohomologyShape
+      (ZInQ.Contrib.RC53Assist.CalibrationIntegral.compactCentralComplex G))
+  (hreduce :
+    ∀ (i : ℕ),
+      Ne.{1} i 0 → QuasiIso.{0, 1, 0} (ZInQ.Contrib.RC53Assist.CalibrationIntegral.canonicalCentralReductionMap G i)) :
+  ZInQ.Contrib.RC53Assist.CalibrationIntegral.IntegralBlockCentralModel G
+    (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 1)
+    (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 2)
+    (ZInQ.Contrib.RC53Assist.CalibrationModel.centralDiskMatrix G hfinite 3)
+'ZInQ.Contrib.RC53Assist.CalibrationModel.integralBlockCentralModel' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

@@ -1,0 +1,109 @@
+ZInQ.Contrib.RC53Assist.CoordLink.torsion_ne_zero_iff_contraction.{u_1, u_2, u_3} {k : Type u_1} [Field k]
+  {ιe : Type u_2} {ιo : Type u_3} [Fintype ιe] [Fintype ιo] [DecidableEq ιe] [DecidableEq ιo] (C : BasedCx k ιe ιo)
+  (σ : ιe ≃ ιo) : torsion C σ ≠ 0 ↔ Nonempty (Contraction C)
+ZInQ.Contrib.RC53Assist.CoordLink.exact_source_of_exact_cone.{u_1, u_2, u_3, u_4, u_5} {k : Type u_1} [Field k]
+  {ιe : Type u_2} {ιo : Type u_3} {ιe' : Type u_4} {ιo' : Type u_5} [Fintype ιe] [Fintype ιo] [Fintype ιe']
+  [Fintype ιo'] {C : BasedCx k ιe ιo} {D : BasedCx k ιe' ιo'} (f : ChainMapB C D) (hcone : (BasedCx.cone f).IsExact)
+  (hD : D.IsExact) : C.IsExact
+ZInQ.Contrib.RC53Assist.CoordLink.exact_target_of_exact_cone.{u_1, u_2, u_3, u_4, u_5} {k : Type u_1} [Field k]
+  {ιe : Type u_2} {ιo : Type u_3} {ιe' : Type u_4} {ιo' : Type u_5} [Fintype ιe] [Fintype ιo] [Fintype ιe']
+  [Fintype ιo'] {C : BasedCx k ιe ιo} {D : BasedCx k ιe' ιo'} (f : ChainMapB C D) (hcone : (BasedCx.cone f).IsExact)
+  (hC : C.IsExact) : D.IsExact
+ZInQ.Contrib.RC53Assist.CoordLink.exact_iff_of_exact_cone.{u_1, u_2, u_3, u_4, u_5} {k : Type u_1} [Field k]
+  {ιe : Type u_2} {ιo : Type u_3} {ιe' : Type u_4} {ιo' : Type u_5} [Fintype ιe] [Fintype ιo] [Fintype ιe']
+  [Fintype ιo'] {C : BasedCx k ιe ιo} {D : BasedCx k ιe' ιo'} (f : ChainMapB C D) (hcone : (BasedCx.cone f).IsExact) :
+  C.IsExact ↔ D.IsExact
+ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_eq_of_fourMap_total.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+  {k : Type u_1} [Field k] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5} {ι0' : Type u_6}
+  {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [Fintype ι0] [Fintype ι1] [Fintype ι2] [Fintype ι3] [Fintype ι0']
+  [Fintype ι1'] [Fintype ι2'] [Fintype ι3'] [DecidableEq ι0] [DecidableEq ι1] [DecidableEq ι2] [DecidableEq ι3]
+  [DecidableEq ι0'] [DecidableEq ι1'] [DecidableEq ι2'] [DecidableEq ι3'] {C : FourCx k ι0 ι1 ι2 ι3}
+  {D : FourCx k ι0' ι1' ι2' ι3'} (F : FourMap C D) (zC : ι1 → k) (lC : ι2 → k) (hzC : C.d1 *ᵥ zC = 0)
+  (hlC : lC ᵥ* C.d1 = 0) (zD : ι1' → k) (lD : ι2' → k) (hzD : D.d1 *ᵥ zD = 0) (hlD : lD ᵥ* D.d1 = 0)
+  (hz : F.f1 *ᵥ zC = zD) (hl : lD ᵥ* F.f2 = lC) (σC : (ι0 ⊕ Unit) ⊕ ι2 ≃ ι1 ⊕ ι3 ⊕ Unit)
+  (σD : (ι0' ⊕ Unit) ⊕ ι2' ≃ ι1' ⊕ ι3' ⊕ Unit)
+  (hcone : torsion (BasedCx.cone (F.augMap zC lC hzC hlC zD lD hzD hlD hz hl)) (σD.sumCongr σC.symm) ≠ 0) :
+  kmCoord C zC lC hzC hlC σC =
+    (-1) ^ Fintype.card (ι1 ⊕ ι3 ⊕ Unit) * kmCoord D zD lD hzD hlD σD *
+      (torsion (BasedCx.cone (F.augMap zC lC hzC hlC zD lD hzD hlD hz hl)) (σD.sumCongr σC.symm))⁻¹
+ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_eq_of_fourMap_retained_total.{u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8, u_9}
+  {k : Type u_1} [Field k] {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5} {ι0' : Type u_6}
+  {ι1' : Type u_7} {ι2' : Type u_8} {ι3' : Type u_9} [Fintype ι0] [Fintype ι1] [Fintype ι2] [Fintype ι3] [Fintype ι0']
+  [Fintype ι1'] [Fintype ι2'] [Fintype ι3'] [DecidableEq ι0] [DecidableEq ι1] [DecidableEq ι2] [DecidableEq ι3]
+  [DecidableEq ι0'] [DecidableEq ι1'] [DecidableEq ι2'] [DecidableEq ι3'] {C : FourCx k ι0 ι1 ι2 ι3}
+  {D : FourCx k ι0' ι1' ι2' ι3'} (F : FourMap C D) (zC : ι1 → k) (lC : ι2 → k) (hzC : C.d1 *ᵥ zC = 0)
+  (hlC : lC ᵥ* C.d1 = 0) (zD : ι1' → k) (lD : ι2' → k) (hzD : D.d1 *ᵥ zD = 0) (hlD : lD ᵥ* D.d1 = 0)
+  (hz : F.f1 *ᵥ zC = zD) (hl : lD ᵥ* F.f2 = lC) (σC : (ι0 ⊕ Unit) ⊕ ι2 ≃ ι1 ⊕ ι3 ⊕ Unit)
+  (σD : (ι0' ⊕ Unit) ⊕ ι2' ≃ ι1' ⊕ ι3' ⊕ Unit)
+  (hcone :
+    torsion (BasedCx.cone (F.augMap zC lC hzC hlC zD lD hzD hlD hz hl)) (σD.sumCongr σC.symm) =
+      (-1) ^ Fintype.card (ι1 ⊕ ι3 ⊕ Unit)) :
+  kmCoord C zC lC hzC hlC σC = kmCoord D zD lD hzD hlD σD
+ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_zero_functional.{u_1, u_2, u_3, u_4, u_5} {k : Type u_1} [Field k]
+  {ι0 : Type u_2} {ι1 : Type u_3} {ι2 : Type u_4} {ι3 : Type u_5} [Fintype ι0] [Fintype ι1] [Fintype ι2] [Fintype ι3]
+  [DecidableEq ι0] [DecidableEq ι1] [DecidableEq ι2] [DecidableEq ι3] (C : FourCx k ι0 ι1 ι2 ι3) (z : ι1 → k)
+  (hz : C.d1 *ᵥ z = 0) (hl : 0 ᵥ* C.d1 = 0) (σ : (ι0 ⊕ Unit) ⊕ ι2 ≃ ι1 ⊕ ι3 ⊕ Unit) : kmCoord C z 0 hz hl σ = 0
+ZInQ.Contrib.RC53Assist.CoordLink.twoTerm_aug_exact_of_nonzero.{u_1} {k : Type u_1} [Field k] {m : ℕ}
+  (D : Matrix (Fin (m + 1)) (Fin (m + 1)) k) (z w : Fin (m + 1) → k) (hdet : D.det = 0) (hadj : D.adjugate ≠ 0)
+  (hz : (twoTerm D).d1 *ᵥ z = 0) (hw : w ᵥ* (twoTerm D).d1 = 0) (hz0 : z ≠ 0) (hw0 : w ≠ 0) :
+  ((twoTerm D).aug z w hz hw).IsExact
+ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_twoTerm_of_adjugate.{u_1} {k : Type u_1} [Field k] {m : ℕ}
+  (D : Matrix (Fin (m + 1)) (Fin (m + 1)) k) (z w : Fin (m + 1) → k) (u : k) (hz : (twoTerm D).d1 *ᵥ z = 0)
+  (hw : w ᵥ* (twoTerm D).d1 = 0) (hadj : D.adjugate ≠ 0) (hu : Central.IsClassFunctionalCoord D z w u) :
+  kmCoord (twoTerm D) z w hz hw (σ₀ (m + 1)) = u
+ZInQ.Contrib.RC53Assist.CoordLink.RetainedCoordinateModelG {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0) (x : Addr b) (urel : FractionRing OO) : Type
+ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_of_retained_models {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK) (urel : Addr b → FractionRing OO)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0)
+  (models :
+    ∀ (x : Determinant.Addr b),
+      (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0 → Nonempty (RetainedCoordinateModelG M z lam hz hlam x (urel x))) :
+  RelIsKMG M urel z lam hz hlam
+ZInQ.Contrib.RC53Assist.CoordLink.origCoordLink_of_retained_models {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {dK hK cE tK ℓ : ℕ} (D : RCData ℓ) (F : Family) (M : Identification2G K S S' hS F.b dK hK cE tK)
+  (urel : Addr F.b → FractionRing OO) (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup F.b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup F.b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO F.b)).X.fromRows (M.C.map (φO F.b)).Y = 0) (η : MonoidAlgebra OO (SignGroup F.b))
+  (hη : CorrectedIsEta D F η urel)
+  (models :
+    ∀ (x : Determinant.Addr F.b),
+      (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0 → Nonempty (RetainedCoordinateModelG M z lam hz hlam x (urel x))) :
+  OrigCoordLink D F M z lam hz hlam η
+'ZInQ.Contrib.RC53Assist.CoordLink.torsion_ne_zero_iff_contraction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.exact_source_of_exact_cone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.exact_target_of_exact_cone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.exact_iff_of_exact_cone' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_eq_of_fourMap_total' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_eq_of_fourMap_retained_total' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_zero_functional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.twoTerm_aug_exact_of_nonzero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.kmCoord_twoTerm_of_adjugate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_of_retained_models' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.origCoordLink_of_retained_models' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

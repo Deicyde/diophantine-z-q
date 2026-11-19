@@ -1,0 +1,70 @@
+{
+  "id": "Lemma 5.4",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves, or by another key from other hypotheses; ZInQ.Manuscript.PoleS12.lemma54_of_casselsTate proved only from ZInQ.Manuscript.PoleRC.MordellWeil: Lemma54 states the lemma over the genuine Selmer groups; it is proved only from Mordell-Weil and the existence of an alternating Cassels-Tate pairing with divisible radical (named Props), and at the curves E_l from CasselsTatePairingCurves, a hypothesis of frozenTarget.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 16,
+        "rect": [
+          0.107843,
+          0.498042,
+          0.784314,
+          0.043686
+        ]
+      },
+      "title": "Lemma 5.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 5.4"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.PoleS12.lemma54_of_casselsTate",
+        "module": "ZInQKernel.Contrib.OneProof.Lemma54FromCasselsTate"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.PoleS12.lemma54_of_casselsTate@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem lemma54_of_casselsTate (hMW : PoleRC.MordellWeil)\n    (hCT : ∀ E : WeierstrassCurve ℚ, E.IsElliptic → CasselsTateSquare E) : Lemma54 := by",
+            "line": 72,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/Lemma54FromCasselsTate.lean",
+            "fragment": "L72"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          16
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

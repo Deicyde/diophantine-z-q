@@ -19,15 +19,16 @@ Proof. Both `L(E/K, χ, s)` (CST's `twistedLFunction`, an Euler product over the
 
 * `L(E/K, χ)` at `p^k` only sees the primes `𝔭 ∣ p` (`eulerProduct_apply_prime_pow`), whose factors
   are `1/L_𝔭(χ(𝔭) N𝔭^{-s})` with `N𝔭 = p^f` (`natCard_residueField_adicCompletionIntegers`).
-* The twist factors at `p` are `1/L_p(χ_{d_i}(p) p^{-s})` (lane RC18: `localPolynomial_qtwist_of_not_dvd`
-  for `p ∤ d_i`, additive reduction `localPolynomial_qtwist_of_dvd` for `p ∣ d_i`, where `E` is good
-  by `GoodReductionOffLevel`).
+* The twist factors at `p` are `1/L_p(χ_{d_i}(p) p^{-s})` (`RC/TwistDictionary`:
+  `localPolynomial_qtwist_of_not_dvd` for `p ∤ d_i`, additive reduction
+  `localPolynomial_qtwist_of_dvd` for `p ∣ d_i`, where `E` is good by `GoodReductionOffLevel`).
 * The decomposition law (`decomposition`) sorts `p` into split / inert / ramified; `LocalFactorK`
   gives `L_𝔭` through `L_p`; the values `χ(𝔭)` are `0` at `𝔭 ∣ c` (`chiAt_eq_zero_of_dvd`),
   `χ_{d₁}(N𝔭)` at `𝔭 ∤ d₁` (`IsQuadRingClassChar`) and `χ_{d₂}(N𝔭)` at the ramified `𝔭 ∣ d₁`
   (`chiAt_eq_chiD_partner`); the local identities of `LocalPoly.lean` then match the factors.
 * The `L`-series of the convolution is the product of the `L`-series on `Re s > 3/2`, where both
-  converge absolutely (`HasseConvergence`, lane RC8's GLUE: Hasse's bound).
+  converge absolutely (`HasseConvergence`, from Hasse's bound; proved outright in
+  `Hasse/Final.lean`).
 -/
 
 noncomputable section
@@ -54,8 +55,8 @@ theorem twistFactor_eq {K : Type} [Field K] [NumberField K] (E : WeierstrassCurv
     (χv : HeightOneSpectrum (𝓞 K) → ℂ) (𝔭 : HeightOneSpectrum (𝓞 K)) :
     twistFactor E χv 𝔭 = PowerSeries.rescale (χv 𝔭) (invC (localPolyK E 𝔭)) := rfl
 
-/-- **The twist factor at `p`** (PROVED, from lane RC18's local twist computations): for
-`d ≡ 1 (mod 4)` squarefree, `1/L_p(E^{(d)}, T) = 1/L_p(E, χ_d(p) T)`, with `χ_d(p) = 0` and the
+/-- **The twist factor at `p`** (PROVED, from the local twist computations of `RC/TwistDictionary`):
+for `d ≡ 1 (mod 4)` squarefree, `1/L_p(E^{(d)}, T) = 1/L_p(E, χ_d(p) T)`, with `χ_d(p) = 0` and the
 factor `1` at `p ∣ d` (where `E` is assumed good). -/
 theorem invC_localPolyQ_qtwist (E : WeierstrassCurve ℚ) [E.IsElliptic] {d : ℤ} (hd4 : d % 4 = 1)
     (hsq : Squarefree d) (v : HeightOneSpectrum (𝓞 ℚ))
@@ -250,7 +251,7 @@ theorem prod_twistFactor_eq (hG : GoodReductionOffLevel) (hL : LocalFactorK)
 /-- **`ArtinFactorization` from the local statement** (PROVED reduction): the Artin factorization
 `L(E/K, χ_{d₁} ∘ N, s) = L(E^{(d₁)}, s) L(E^{(d₂)}, s)` on `Re s > 3/2` follows from
 `LocalFactorK` (the Euler factor of `E/K` at each prime of `K` by splitting type),
-`GoodReductionOffLevel` (good reduction at the primes not dividing the level) and lane RC8's
+`GoodReductionOffLevel` (good reduction at the primes not dividing the level) and
 `HasseConvergence` (absolute convergence on `Re s > 3/2`). -/
 theorem artinFactorization_of_local (hH : HasseConvergence) (hG : GoodReductionOffLevel)
     (hL : LocalFactorK) : ArtinFactorization := by

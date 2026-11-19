@@ -1,0 +1,70 @@
+{
+  "id": "Passage size: Section 12.1 checked facts",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: Instead of [M]'s artifact check, the Lean library proves constants and psi indices at most T (`admissible_cutoff`), the 23 templates and seven recipes satisfying the majorant at root height 256, and recipe sizes below 2^20. The counts 173 and 50 and the replay are not stated; `CatalogueBound8` and `HaltingAddMulBound` are proved, not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.102941,
+          0.727092,
+          0.794118,
+          0.134023
+        ]
+      },
+      "title": "Passage (size): Section 12.1 checked facts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 checked facts"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.Pstar_degree_coeff",
+        "module": "ZInQKernel.Size.Majorants.Bound"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.Pstar_degree_coeff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem Pstar_degree_coeff (hCAT : CatalogueBound8) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}\n    (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :\n    (specPstar c3).totalDegree ≤ (Syntax.T + 1) ^ 2048 ∧\n      l1 (specPstar c3) ≤ 2 ^ (Syntax.T + 1) ^ 2048 ∧\n      ∀ m, ((specPstar c3).coeff m).natAbs ≤ l1 (specPstar c3) := by",
+            "line": 42,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Majorants/Bound.lean",
+            "fragment": "L42"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

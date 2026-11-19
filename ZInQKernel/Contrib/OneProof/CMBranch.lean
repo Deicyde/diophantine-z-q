@@ -39,7 +39,7 @@ def IsImagQuadOrder (k : Type) [Field k] [NumberField k] (R : Subring k) : Prop 
 
 /-- The discriminant of the order `R`: `Δ_R = f² d_k`, `f = [𝓞_k : R]` (STANDARD: the order of
 conductor `f` in a quadratic field has discriminant `f² d_k`; Cox, *Primes of the form x²+ny²*,
-Lemma 7.2, UNVERIFIED number). -/
+eq. (7.3), UNVERIFIED number). -/
 noncomputable def orderDisc {k : Type} [Field k] [NumberField k] (R : Subring k) : ℤ :=
   (LeafQM.AV.conductor R : ℤ) ^ 2 * NumberField.discr k
 

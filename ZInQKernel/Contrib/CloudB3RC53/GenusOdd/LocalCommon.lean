@@ -14,8 +14,8 @@ Definitions only (no claims):
   `E.LFunction`);
 * `primesAbove K p`: the finite set of primes `𝔭` of `K` with `p ∈ 𝔭`;
 * `UnramifiedOver 𝔭 p`: `𝔭² ∤ p 𝓞_K` (ramification index one);
-* `GoodAt E v`: the minimal model of `E` over `ℚ_v` has good reduction (as in lane RC18's twist
-  dictionary).
+* `GoodAt E v`: the minimal model of `E` over `ℚ_v` has good reduction (as in the twist
+  dictionary of `RC/TwistDictionary`).
 -/
 
 noncomputable section
@@ -47,7 +47,7 @@ def UnramifiedOver {K : Type} [Field K] [NumberField K] (𝔭 : HeightOneSpectru
   ¬ 𝔭.asIdeal ^ 2 ∣ Ideal.span {((p : ℤ) : 𝓞 K)}
 
 /-- `E` has good reduction at the place `v` of `ℚ`: the minimal model of `E` over `ℚ_v` has good
-reduction (the hypothesis of lane RC18's `twistDictionary_of_good`). -/
+reduction (the hypothesis of `twistDictionary_of_good`). -/
 def GoodAt (E : WeierstrassCurve ℚ) (v : HeightOneSpectrum (𝓞 ℚ)) : Prop :=
   ((E.baseChange (v.adicCompletion ℚ)).minimal (v.adicCompletionIntegers ℚ)).HasGoodReduction
     (v.adicCompletionIntegers ℚ)

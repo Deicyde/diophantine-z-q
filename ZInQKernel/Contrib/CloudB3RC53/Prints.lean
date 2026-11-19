@@ -35,7 +35,12 @@ bibitem: V. A. Kolyvagin, "On the Mordell–Weil group and the Shafarevich–Tat
 elliptic curves", MPIM preprint MPI/90-69 (1990)). A modular elliptic curve `E/ℚ` with
 `ord_{s=1} L(E, s) = r ≤ 1` has `rank E(ℚ) = r` and finite `Ш(E/ℚ)` (`SelmerTwoPower.sha`).
 Used in the proof of Theorem 5.3 through `lem:forward-rank` (tex L2386–2387, L2616–2617, L4020,
-L4052, L5264–5266, L7625–7627, L7780–7781, L8267, L10140, L10279). -/
+L4052, L5264–5266, L7625–7627, L7780–7781, L8267, L10140, L10279).
+
+Form: consequence form. Theorem 1 of the print (p. 4) assumes a weak Weil parametrization
+X₀(N) → E with N the conductor (p. 3); `IsModular` is weaker. This leaf follows from
+`KolyvaginThm1WeilParam` and the GLUE `ModularToWeakWeil` (`kolyvaginThm1Printed_of_weilParam`,
+`Prints/Kolyvagin.lean`); those files are not on the Theorem 5.3 headline's route. -/
 def KolyvaginThm1Printed : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → IsModular E → ∀ r : ℕ, r ≤ 1 → AnalyticRank E r →
     Module.rank ℤ E.toAffine.Point = r ∧ Finite (sha E)
@@ -66,8 +71,8 @@ structure Prints : Prop where
   /-- Breuil–Conrad–Diamond–Taylor, Theorem A (tex L1779 `\cite[Theorem A and Introduction,
   conditions (1)–(6)]{bcdt}`): every elliptic curve over `ℚ` is modular. This is
   `PoleS12.BCDTThmA`. Its condition (6) is a parametrization by `X₁(N)`; the passage to
-  Kolyvagin's `X₀(N)` premise is the ELLIOT gap `ModularToWeakWeil` (tex L1092–1093;
-  `Prints/Kolyvagin.lean`). -/
+  Kolyvagin's `X₀(N)` premise is the GLUE `ModularToWeakWeil` (tex L1092–1093;
+  `Prints/Kolyvagin.lean`), which the manuscript carries out for `E_ℓ` at tex 1779–1788. -/
   bcdt : BCDTThmA
   /-- Kolyvagin, Theorem 1 (`r ≤ 1`). -/
   kolyvagin : KolyvaginThm1Printed

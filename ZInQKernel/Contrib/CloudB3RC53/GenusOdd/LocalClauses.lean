@@ -12,15 +12,17 @@ completions; its two reductions are then the same curve over `𝔽_p`
 (`reduction_map_eq_of_rat`), so the local polynomials agree
 (`localPolynomial_eq_of_reduction_map`).
 
-* Clause 2 (`localFactorK_clause_good`, `E` good at `p`, any ramification): `ℚ_v = ℚ + ℤ_v` and every
-  element of `ℚ_v` is a rational times a unit, so `E` has a rational minimal model over `ℚ_v`
-  (`exists_isMinimal_map`); it is integral with unit discriminant, hence also over `𝓞_𝔭`, where it is
-  therefore minimal (`isMinimal_baseChange_of_notMem`).
+* Clause 2 (`localFactorK_clause_good`, `E` good at `p`, any ramification): `ℚ_v = ℚ + ℤ_v` and
+  every element of `ℚ_v` is a rational times a unit, so `E` has a rational minimal model over `ℚ_v`
+  (`exists_isMinimal_map`); it is integral with unit discriminant, hence also over `𝓞_𝔭`, where it
+  is therefore minimal (`isMinimal_baseChange_of_notMem`).
 * Clause 1 (`localFactorK_clause_split`, `N𝔭 = p`, `𝔭² ∤ p`): now `K_𝔭 = ℚ + 𝓞_𝔭` too, so `E` has a
-  rational minimal model over `K_𝔭`, which is minimal over `ℚ_v` as well (`isMinimal_map_of_isMinimal_map`:
-  a better model over `ℚ_v` would come from a better rational model).
+  rational minimal model over `K_𝔭`, which is minimal over `ℚ_v` as well
+  (`isMinimal_map_of_isMinimal_map`: a better model over `ℚ_v` would come from a better rational
+  model).
 
-`LocalFactorInert` (GLUE) is the inert clause alone; `localFactorK_of_inert`,
+`LocalFactorInert` (GLUE; not needed for `ArtinFactorization`, see `ArtinUnconditional.lean`) is
+the inert clause alone; `localFactorK_of_inert`,
 `artinFactorization_of_inert` and `genusLower34_of_inert` are the reductions.
 -/
 
@@ -235,7 +237,7 @@ theorem localFactorK_of_inert (h : LocalFactorInert) : LocalFactorK :=
     fun hN hg => localFactorK_clause_good E 𝔭 v h𝔭 hN hg, h E K 𝔭 v h𝔭⟩
 
 /-- **`ArtinFactorization` from the inert clause** (PROVED reduction): from `HasseConvergence`
-(lane RC8), `GoodReductionOffLevel` and `LocalFactorInert`. -/
+(`RC/PrintsAnalytic`), `GoodReductionOffLevel` and `LocalFactorInert`. -/
 theorem artinFactorization_of_inert (hH : HasseConvergence) (hG : GoodReductionOffLevel)
     (h : LocalFactorInert) : ArtinFactorization :=
   artinFactorization_of_local hH hG (localFactorK_of_inert h)

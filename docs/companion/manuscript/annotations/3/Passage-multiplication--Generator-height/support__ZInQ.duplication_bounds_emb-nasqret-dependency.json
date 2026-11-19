@@ -1,0 +1,83 @@
+{
+  "id": "Passage multiplication: Generator height",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency: ndep's source files for these declarations are identical to [F]'s; all proved. Of these only two_smul_pointR is used by [N] (Sun28.Ordinary.generator_coordinates restates it); the height bounds have no [N] declaration of their own.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.805243,
+          0.784314,
+          0.111194
+        ]
+      },
+      "title": "Passage (multiplication): Generator height",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Generator height#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.086121,
+          0.794118,
+          0.144271
+        ]
+      },
+      "title": "Passage (multiplication): Generator height",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Generator height#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.duplication_bounds_emb",
+        "module": "ZInQKernel.Model.Heights.DuplicationForms"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.duplication_bounds_emb@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Model/Heights/DuplicationForms.lean",
+            "fragment": "L150"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6,
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

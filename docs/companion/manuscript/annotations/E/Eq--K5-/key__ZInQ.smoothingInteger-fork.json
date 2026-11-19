@@ -1,0 +1,70 @@
+{
+  "id": "Eq (K5)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: ZInQ.smoothingInteger defines 1 + 2^e*3*n*f for both smoothing parameters, which is (K5) with n = N_odd and f = F. It is a definition and is not used by any other declaration of the repository.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 93,
+        "rect": [
+          0.107843,
+          0.736271,
+          0.784314,
+          0.025799
+        ]
+      },
+      "title": "Eq. (K5)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K5)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.smoothingInteger",
+        "module": "lean.ZInQ.SmoothingArithmetic"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.smoothingInteger@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "@[expose] def smoothingInteger (e n f : ℕ) : ℕ := 1 + 2 ^ e * 3 * n * f",
+            "line": 22,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/SmoothingArithmetic.lean",
+            "fragment": "L22"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          93
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

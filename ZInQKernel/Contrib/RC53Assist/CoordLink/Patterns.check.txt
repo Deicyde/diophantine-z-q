@@ -1,0 +1,55 @@
+ZInQ.Contrib.RC53Assist.CoordLink.rankOneScalarG {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) (x : Addr b) : FractionRing OO
+ZInQ.Contrib.RC53Assist.CoordLink.kmOrig_rankOne_formula {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0) (x : Addr b)
+  (hΔ : (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0) (hR : M.D.RankOnePattern x) :
+  kmOrig M z lam hz hlam x = rankOneScalarG M z lam x
+ZInQ.Contrib.RC53Assist.CoordLink.kmOrig_zero_iff_rankOne_tensor {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0) (x : Addr b)
+  (hΔ : (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0) (hR : M.D.RankOnePattern x) :
+  kmOrig M z lam hz hlam x = 0 ↔
+    (Dx M.D x).alphaB (⇑(evK (sgnChar x)) ∘ z) = 0 ∨
+      (Dx M.D x).betaB (⇑(evK (sgnChar x)) ∘ transportFun (M.C.map (φO b)) lam) = 0
+ZInQ.Contrib.RC53Assist.CoordLink.RankOneCoordinateProvenanceG {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK) (urel : Addr b → FractionRing OO)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) : Prop
+ZInQ.Contrib.RC53Assist.CoordLink.AcyclicCoordinateConventionG {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK) (urel : Addr b → FractionRing OO) : Prop
+ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_iff_provenance_and_convention {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK) (urel : Addr b → FractionRing OO)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0) :
+  RelIsKMG M urel z lam hz hlam ↔ RankOneCoordinateProvenanceG M urel z lam ∧ AcyclicCoordinateConventionG M urel
+ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_of_provenance_and_convention {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK) (urel : Addr b → FractionRing OO)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0) (hR : RankOneCoordinateProvenanceG M urel z lam)
+  (hA : AcyclicCoordinateConventionG M urel) : RelIsKMG M urel z lam hz hlam
+'ZInQ.Contrib.RC53Assist.CoordLink.kmOrig_rankOne_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.kmOrig_zero_iff_rankOne_tensor' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_iff_provenance_and_convention' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_of_provenance_and_convention' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

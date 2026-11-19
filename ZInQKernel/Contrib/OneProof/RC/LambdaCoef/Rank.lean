@@ -5,8 +5,11 @@ import ZInQKernel.Contrib.OneProof.RC.CoefModules.NonVacuity
 /-!
 # Lane RC28 round 2: ranks of `𝕋 = Λ ⊗ T_2E` and of its fibres `V_𝔭`
 
-Manuscript `diophantine_zq.tex` (11/5), tex 2780–2785 (`𝕋 = (T_2E ⊗ Λ)(α)`) and tex 4976–5200
-(the characteristic-zero fibres over `R = Λ_𝔭`, `k = k(𝔭)`). Under `E[2^∞] ⊆ E(K_S)`
+Manuscript `diophantine_zq.tex` (11/5): finite coefficients at tex 2723–2727; `Λ = ℤ₂[[t]]` at
+tex 2747; `T = T₂E` at tex 2836–2838. Here `𝕋 = (T_2E ⊗ Λ)(α)` is the conditional
+fixed-character construction described in the paragraph below, not a global moving-character
+module asserted at tex 2780–2785. Tex 4976–5200: the characteristic-zero fibres over
+`R = Λ_𝔭`, `k = k(𝔭)`. Under `E[2^∞] ⊆ E(K_S)`
 (`HasFullTwoTorsion`, GLUE input: Néron–Ogg–Shafarevich, Silverman AEC VII.7.1):
 
 * `tlamBasis`: a `Λ`-basis of `𝕋` indexed by `Fin 2` (base change of `tateBasis`); `𝕋` is free and
@@ -20,6 +23,14 @@ Manuscript `diophantine_zq.tex` (11/5), tex 2780–2785 (`𝕋 = (T_2E ⊗ Λ)(�
 * non-vacuity examples over `ℚ`, all primes, `E_1`, `𝔭 = (t)`, `α = 1`.
 
 Kinds: definitions and PROVED.
+-/
+
+/-!
+This is a conditional construction for one supplied continuous Λ-valued character on a fixed
+G_{K,S}. Its finite levels are the compatible reductions of that character. The manuscript's
+moving characters have conductor primes varying with precision and need not be reductions of
+one character (tex 2737–2741, 4269–4277). No identification with the retained inner-limit Selmer
+diagrams is proved here.
 -/
 
 noncomputable section
@@ -41,28 +52,28 @@ variable {K : Type} [Field K] [NumberField K] {S : Set (HeightOneSpectrum (𝓞 
 /-! ### The `Λ`-basis of `𝕋` -/
 
 /-- **A `Λ`-basis of `𝕋 = Λ ⊗_{ℤ₂} T_2E`**: `1 ⊗ e_i` for the `ℤ₂`-basis `e` of `T_2E`.
-Kind: definition (tex 2780–2785). -/
+Kind: definition (tex 2747, 2836–2838). -/
 def tlamBasis [W.IsElliptic] [HasFullTwoTorsion K S W] : Basis (Fin 2) Lambda (TLam K S W α) :=
   (Algebra.TensorProduct.basis Lambda (tateBasis (K := K) (S := S) (W := W))).map
     (TLam.equiv α).symm
 
-/-- The basis vectors. Kind: PROVED (tex 2780–2785). -/
+/-- The basis vectors. Kind: PROVED (tex 2747, 2836–2838). -/
 theorem tlamBasis_apply [W.IsElliptic] [HasFullTwoTorsion K S W] (i : Fin 2) :
     (tlamBasis (α := α) i : TLam K S W α) =
       show TLam K S W α from (1 : Lambda) ⊗ₜ (tateBasis i : TateS K S W) := by
   rw [tlamBasis, Module.Basis.map_apply, Algebra.TensorProduct.basis_apply]
   rfl
 
-/-- `𝕋` is a free `Λ`-module. Kind: PROVED (tex 2780–2785). -/
+/-- `𝕋` is a free `Λ`-module. Kind: PROVED (tex 2747, 2836–2838). -/
 instance tlam_free [W.IsElliptic] [HasFullTwoTorsion K S W] : Module.Free Lambda (TLam K S W α) :=
   Module.Free.of_basis tlamBasis
 
-/-- `𝕋` is a finite `Λ`-module. Kind: PROVED (tex 2780–2785). -/
+/-- `𝕋` is a finite `Λ`-module. Kind: PROVED (tex 2747, 2836–2838). -/
 instance tlam_finite [W.IsElliptic] [HasFullTwoTorsion K S W] :
     Module.Finite Lambda (TLam K S W α) :=
   Module.Finite.of_basis tlamBasis
 
-/-- **`rank_Λ 𝕋 = 2`.** Kind: PROVED (tex 2780–2785). -/
+/-- **`rank_Λ 𝕋 = 2`.** Kind: PROVED (tex 2747, 2836–2838). -/
 theorem finrank_tlam [W.IsElliptic] [HasFullTwoTorsion K S W] :
     Module.finrank Lambda (TLam K S W α) = 2 := by
   rw [Module.finrank_eq_card_basis (tlamBasis (K := K) (S := S) (W := W) (α := α)),
@@ -137,7 +148,7 @@ theorem fibreEquiv_baseChange_act (σ : GKS K S) (x : ResAt P ⊗[Lambda] TLam K
 /-! ### The topology of `𝕋` is the product topology through the basis -/
 
 /-- An element of `(2^n, t^n)` has its first `n` coefficients in `2^n ℤ₂`. Kind: PROVED
-(tex 2780–2785). -/
+(tex 2747). -/
 theorem coeff_mem_of_mem_lamIdeal {n k : ℕ} (hk : k < n) {a : Lambda} (ha : a ∈ lamIdeal n) :
     coeff k a ∈ (Ideal.span {(2 : ℤ_[2]) ^ n} : Ideal ℤ_[2]) := by
   obtain ⟨u, v, rfl⟩ := Ideal.mem_span_pair.mp ha
@@ -146,7 +157,7 @@ theorem coeff_mem_of_mem_lamIdeal {n k : ℕ} (hk : k < n) {a : Lambda} (ha : a 
   simp only [show ¬ n ≤ k from not_le.mpr hk, ↓reduceIte, add_zero]
   exact Ideal.mul_mem_left _ _ (Ideal.mem_span_singleton_self _)
 
-/-- `2^m ℤ₂` lies in the closed ball of radius `2^-m`. Kind: PROVED (tex 2780–2785). -/
+/-- `2^m ℤ₂` lies in the closed ball of radius `2^-m`. Kind: PROVED (tex 2747). -/
 theorem norm_le_of_mem_span_two_pow {m : ℕ} {y : ℤ_[2]}
     (hy : y ∈ (Ideal.span {(2 : ℤ_[2]) ^ m} : Ideal ℤ_[2])) : ‖y‖ ≤ ((1 : ℝ) / 2) ^ m := by
   have h := PadicInt.norm_le_pow_iff_mem_span_pow (p := 2) y m
@@ -154,7 +165,7 @@ theorem norm_le_of_mem_span_two_pow {m : ℕ} {y : ℤ_[2]}
   rw [one_div, inv_pow, ← zpow_natCast, ← zpow_neg]
   exact h.mpr hy
 
-/-- The coordinates map `(2^n, t^n) 𝕋` into `(2^n, t^n)`. Kind: PROVED (tex 2780–2785). -/
+/-- The coordinates map `(2^n, t^n) 𝕋` into `(2^n, t^n)`. Kind: PROVED (tex 2747, 2836–2838). -/
 theorem tlamBasis_repr_mem [W.IsElliptic] [HasFullTwoTorsion K S W] {n : ℕ}
     {x : TLam K S W α} (hx : x ∈ tlamNbhd K S W α n) (i : Fin 2) :
     tlamBasis.repr x i ∈ lamIdeal n := by
@@ -164,7 +175,7 @@ theorem tlamBasis_repr_mem [W.IsElliptic] [HasFullTwoTorsion K S W] {n : ℕ}
   · rw [map_add, Finsupp.add_apply]
     exact Ideal.add_mem _ hx hy
 
-/-- Each coefficient of each coordinate is continuous. Kind: PROVED (tex 2780–2785). -/
+/-- Each coefficient of each coordinate is continuous. Kind: PROVED (tex 2747, 2836–2838). -/
 theorem continuous_coeff_tlam_repr [W.IsElliptic] [HasFullTwoTorsion K S W] (i : Fin 2)
     (k : ℕ) : Continuous fun x : TLam K S W α => coeff k (tlamBasis.repr x i) := by
   let f : TLam K S W α →+ ℤ_[2] :=
@@ -184,7 +195,7 @@ theorem continuous_coeff_tlam_repr [W.IsElliptic] [HasFullTwoTorsion K S W] (i :
       _ < ε := hn
   exact hf
 
-/-- A map into `Λ` is continuous when all its coefficients are. Kind: PROVED (tex 2780–2785). -/
+/-- A map into `Λ` is continuous when all its coefficients are. Kind: PROVED (tex 2747). -/
 theorem continuous_lambda_of_coeff {X : Type*} [TopologicalSpace X] (f : X → Lambda)
     (hf : ∀ d, Continuous fun x => coeff d (f x)) : Continuous f :=
   continuous_iff_continuousAt.mpr fun x =>
@@ -192,17 +203,17 @@ theorem continuous_lambda_of_coeff {X : Type*} [TopologicalSpace X] (f : X → L
       (hf d).tendsto x
 
 /-- **The coordinates `𝕋 → Λ` are continuous** (`(2, t)`-adic to product topology). Kind: PROVED
-(tex 2780–2785). -/
+(tex 2747, 2836–2838). -/
 theorem continuous_tlam_repr [W.IsElliptic] [HasFullTwoTorsion K S W] (i : Fin 2) :
     Continuous fun x : TLam K S W α => tlamBasis.repr x i :=
   continuous_lambda_of_coeff _ fun k => continuous_coeff_tlam_repr i k
 
-/-- **`Λ² → 𝕋`, `c ↦ Σ c_i b_i`, is continuous.** Kind: PROVED (tex 2780–2785). -/
+/-- **`Λ² → 𝕋`, `c ↦ Σ c_i b_i`, is continuous.** Kind: PROVED (tex 2747, 2836–2838). -/
 theorem continuous_tlam_basis_sum [W.IsElliptic] [HasFullTwoTorsion K S W] :
     Continuous fun c : Fin 2 → Lambda => ∑ i, c i • (tlamBasis (α := α) i : TLam K S W α) :=
   continuous_finsetSum _ fun i _ => (continuous_apply i).smul continuous_const
 
-/-- **`𝕋 ≃ₜ Λ²` through the basis.** Kind: definition (tex 2780–2785). -/
+/-- **`𝕋 ≃ₜ Λ²` through the basis.** Kind: definition (tex 2747, 2836–2838). -/
 def tlamHomeomorph [W.IsElliptic] [HasFullTwoTorsion K S W] :
     TLam K S W α ≃ₜ (Fin 2 → Lambda) where
   toEquiv := (tlamBasis (K := K) (S := S) (W := W) (α := α)).equivFun.toEquiv
@@ -210,14 +221,14 @@ def tlamHomeomorph [W.IsElliptic] [HasFullTwoTorsion K S W] :
   continuous_invFun := continuous_tlam_basis_sum.congr fun c =>
     ((tlamBasis (K := K) (S := S) (W := W) (α := α)).equivFun_symm_apply c).symm
 
-/-- `tlamHomeomorph` is the coordinate map. Kind: PROVED (tex 2780–2785). -/
+/-- `tlamHomeomorph` is the coordinate map. Kind: PROVED (tex 2747, 2836–2838). -/
 theorem tlamHomeomorph_apply [W.IsElliptic] [HasFullTwoTorsion K S W] (x : TLam K S W α)
     (i : Fin 2) : tlamHomeomorph x i = tlamBasis.repr x i := rfl
 
 /-! ### Non-vacuity -/
 
 /-- `E_1 : y² = x³ + 2x² − 3x` (round 1's `curveEll 1`) is elliptic. Kind: PROVED
-(tex 2780). -/
+(tex 2836–2838). -/
 theorem isElliptic_curveEll_one :
     (ZInQ.Manuscript.RC.CoefModules.curveEll (1 : ℚ)).IsElliptic :=
   ZInQ.Manuscript.RC.CoefModules.isElliptic_curveEll one_ne_zero
@@ -225,7 +236,7 @@ theorem isElliptic_curveEll_one :
 attribute [local instance] isElliptic_curveEll_one
 
 /-- Non-vacuity: over `ℚ`, all primes, `E_1`, `α = 1`: `rank_Λ 𝕋 = 2`, the coordinates are
-continuous. Kind: PROVED (tex 2780–2785). -/
+continuous. Kind: PROVED (tex 2747, 2836–2838). -/
 example : Module.finrank Lambda
       (TLam ℚ Set.univ (ZInQ.Manuscript.RC.CoefModules.curveEll (1 : ℚ)) 1) = 2 ∧
     Continuous fun x : TLam ℚ Set.univ (ZInQ.Manuscript.RC.CoefModules.curveEll (1 : ℚ)) 1 =>

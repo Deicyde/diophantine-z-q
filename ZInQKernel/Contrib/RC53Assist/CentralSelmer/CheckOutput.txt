@@ -1,0 +1,267 @@
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.ratTate_map_bijective_of_boundedDefects' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.ratTateEquivOfBoundedDefects' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.boundedDefects_of_scaledInverse' depends on axioms: [propext]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.boundedDefects_of_finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv_naturality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.mem_fullSelmerProduct' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProductAddEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProductRatTateEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.modelHomologyOneEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.matrixKerEquivOfQuasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.centralSelmerComparisonOfKummerModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.central_dimensions_of_KummerModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.universalCoefficientsRatTateEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.centralSelmerComparisonOfUniversalCoefficients' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.no_comparison_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.specializedModelHomologyOneEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.ratTateEigenspaceEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.centralSelmerComparisonOfSpecializedModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC53Assist.CentralSelmer.hcentral_of_specializedModel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects.{u_1, u_2} {M : Type u_1} {N : Type u_2} [AddCommGroup M]
+  [AddCommGroup N] (f : M →+ N) : Prop
+ZInQ.Manuscript.RC53Assist.CentralSelmer.ratTate_map_bijective_of_boundedDefects.{u_1, u_2} {M : Type u_1}
+  {N : Type u_2} [AddCommGroup M] [AddCommGroup N] (f : M →+ N)
+  (h : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f) :
+  Function.Bijective ⇑(ZInQ.Manuscript.RC.BaseZeroLimit.RatTate.map f)
+ZInQ.Manuscript.RC53Assist.CentralSelmer.ratTateEquivOfBoundedDefects.{u_1, u_2} {M : Type u_1} {N : Type u_2}
+  [AddCommGroup M] [AddCommGroup N] (f : M →+ N) (h : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f) :
+  ZInQ.Manuscript.RC.BaseZeroLimit.RatTate M ≃ₗ[ℚ_[2]] ZInQ.Manuscript.RC.BaseZeroLimit.RatTate N
+ZInQ.Manuscript.RC53Assist.CentralSelmer.boundedDefects_of_scaledInverse.{u_1, u_2} {M : Type u_1} {N : Type u_2}
+  [AddCommGroup M] [AddCommGroup N] (f : M →+ N) (g : N →+ M) (n : ℕ) (hn : n ≠ 0) (hgf : ∀ (x : M), g (f x) = n • x)
+  (hfg : ∀ (y : N), f (g y) = n • y) : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f
+ZInQ.Manuscript.RC53Assist.CentralSelmer.boundedDefects_of_finite.{u_1, u_2} {M : Type u_1} {N : Type u_2}
+  [AddCommGroup M] [AddCommGroup N] (f : M →+ N) [Finite ↥f.ker] [Finite (N ⧸ f.range)] :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f
+ZInQ.Manuscript.RC53Assist.CentralSelmer.universalCoefficientsRatTateEquiv.{u_1, u_2} {V : Type u_1} {S : Type u_2}
+  [AddCommGroup V] [Module ℚ_[2] V] [AddCommGroup S] {r : ℕ} (e : V ≃ₗ[ℚ_[2]] Fin r → ℚ_[2])
+  (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ S)
+  (hj : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j) :
+  V ≃ₗ[ℚ_[2]] ZInQ.Manuscript.RC.BaseZeroLimit.RatTate S
+ZInQ.Manuscript.RC53Assist.CentralSelmer.positivePart.{u_1} {S : Type u_1} [AddCommGroup S] (τ : S →+ S) : AddSubgroup S
+ZInQ.Manuscript.RC53Assist.CentralSelmer.negativePart.{u_1} {S : Type u_1} [AddCommGroup S] (τ : S →+ S) : AddSubgroup S
+ZInQ.Manuscript.RC53Assist.CentralSelmer.ratTateEigenspaceEquiv.{u_1} {S : Type u_1} [AddCommGroup S] (τ : S →+ S)
+  (hτ : ∀ (x : S), τ (τ x) = x) :
+  ZInQ.Manuscript.RC.BaseZeroLimit.RatTate S ≃ₗ[ℚ_[2]]
+    ZInQ.Manuscript.RC.BaseZeroLimit.RatTate ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.positivePart τ) ×
+      ZInQ.Manuscript.RC.BaseZeroLimit.RatTate ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.negativePart τ)
+ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv.{u_1, u_2, u_3} (G : Type u_1) [Monoid G] [TopologicalSpace G]
+  (M : Type u_2) (N : Type u_3) [AddCommGroup M] [AddCommGroup N] [TopologicalSpace M] [TopologicalSpace N]
+  [IsTopologicalAddGroup M] [IsTopologicalAddGroup N] [DistribMulAction G M] [DistribMulAction G N] [ContinuousSMul G M]
+  [ContinuousSMul G N] :
+  TauCeti.ContCohomology.H1 G (M × N) ≃+ TauCeti.ContCohomology.H1 G M × TauCeti.ContCohomology.H1 G N
+ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv_naturality.{u_1, u_2, u_3, u_4, u_5, u_6} {G : Type u_1}
+  [Monoid G] [TopologicalSpace G] {M : Type u_2} {N : Type u_3} [AddCommGroup M] [AddCommGroup N] [TopologicalSpace M]
+  [TopologicalSpace N] [IsTopologicalAddGroup M] [IsTopologicalAddGroup N] [DistribMulAction G M] [DistribMulAction G N]
+  [ContinuousSMul G M] [ContinuousSMul G N] {H : Type u_4} [Monoid H] [TopologicalSpace H] {M' : Type u_5}
+  {N' : Type u_6} [AddCommGroup M'] [AddCommGroup N'] [TopologicalSpace M'] [TopologicalSpace N']
+  [IsTopologicalAddGroup M'] [IsTopologicalAddGroup N'] [DistribMulAction H M'] [DistribMulAction H N']
+  [ContinuousSMul H M'] [ContinuousSMul H N'] (φ : H →ₜ* G) (f : M →+ M') (g : N →+ N') (hf : Continuous ⇑f)
+  (hg : Continuous ⇑g) (hfe : ∀ (h : H) (m : M), f (φ h • m) = h • f m) (hge : ∀ (h : H) (n : N), g (φ h • n) = h • g n)
+  (x : TauCeti.ContCohomology.H1 G (M × N)) :
+  (ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv H M' N')
+      ((TauCeti.ContCohomology.explicitMap1 G (M × N) H (M' × N') φ (f.prodMap g) ⋯ ⋯) x) =
+    ((TauCeti.ContCohomology.explicitMap1 G M H M' φ f hf hfe)
+        ((ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv G M N) x).1,
+      (TauCeti.ContCohomology.explicitMap1 G N H N' φ g hg hge)
+        ((ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv G M N) x).2)
+ZInQ.Manuscript.RC53Assist.CentralSelmer.productSha (E E' : WeierstrassCurve ℚ) :
+  AddSubgroup (TauCeti.ContCohomology.H1 (TauCeti.AbsoluteGaloisGroup ℚ) (E.PointCoeff × E'.PointCoeff))
+ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (E E' : WeierstrassCurve ℚ) :
+  AddSubgroup
+    (TauCeti.ContCohomology.H1 (TauCeti.AbsoluteGaloisGroup ℚ)
+      (ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E × ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E'))
+ZInQ.Manuscript.RC53Assist.CentralSelmer.mem_fullSelmerProduct (E E' : WeierstrassCurve ℚ)
+  {c :
+    TauCeti.ContCohomology.H1 (TauCeti.AbsoluteGaloisGroup ℚ)
+      (ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E × ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E')} :
+  c ∈ ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct E E' ↔
+    ((ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv (TauCeti.AbsoluteGaloisGroup ℚ)
+              (ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E) (ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E'))
+            c).1 ∈
+        ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower E ∧
+      ((ZInQ.Manuscript.RC53Assist.CentralSelmer.h1ProdAddEquiv (TauCeti.AbsoluteGaloisGroup ℚ)
+              (ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E) (ZInQ.Manuscript.SelmerTwoPower.TwoPowerCoeff E'))
+            c).2 ∈
+        ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower E'
+ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProductAddEquiv (E E' : WeierstrassCurve ℚ) :
+  ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct E E') ≃+
+    ↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower E) × ↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower E')
+ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProductRatTateEquiv (E E' : WeierstrassCurve ℚ) :
+  ZInQ.Manuscript.RC.BaseZeroLimit.RatTate ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct E E') ≃ₗ[ℚ_[2]]
+    ZInQ.Manuscript.RC.BaseZeroLimit.RatTate ↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower E) ×
+      ZInQ.Manuscript.RC.BaseZeroLimit.RatTate ↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower E')
+ZInQ.Manuscript.RC53Assist.CentralSelmer.modelHomologyOneEquiv {R : Type} [CommRing R] {m : ℕ}
+  (C : CochainComplex (ModuleCat R) ℤ) (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (e1 : ↑(C.X 1) ≃ₗ[R] Fin (m + 1) → R)
+  (e2 : ↑(C.X 2) ≃ₗ[R] Fin (m + 1) → R) (hzero : C.d 0 1 = 0)
+  (hd : ∀ (x : ↑(C.X 1)), e2 ((ModuleCat.Hom.hom (C.d 1 2)) x) = D.mulVec (e1 x)) :
+  ↑(HomologicalComplex.homology C 1) ≃ₗ[R] ↥D.mulVecLin.ker
+ZInQ.Manuscript.RC53Assist.CentralSelmer.matrixKerEquivOfQuasiIso {R : Type} [CommRing R] {m : ℕ}
+  (C K : CochainComplex (ModuleCat R) ℤ) (i : K ⟶ C) [QuasiIsoAt i 1] (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R)
+  (e1 : ↑(C.X 1) ≃ₗ[R] Fin (m + 1) → R) (e2 : ↑(C.X 2) ≃ₗ[R] Fin (m + 1) → R) (hzero : C.d 0 1 = 0)
+  (hd : ∀ (x : ↑(C.X 1)), e2 ((ModuleCat.Hom.hom (C.d 1 2)) x) = D.mulVec (e1 x)) :
+  ↥D.mulVecLin.ker ≃ₗ[R] ↑(HomologicalComplex.homology K 1)
+ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex {A B : Type} [CommRing A] [CommRing B] (ρ : A →+* B)
+  (C : CochainComplex (ModuleCat A) ℤ) : CochainComplex (ModuleCat B) ℤ
+ZInQ.Manuscript.RC53Assist.CentralSelmer.specializedModelHomologyOneEquiv {A B : Type} [CommRing A] [CommRing B] {m : ℕ}
+  (ρ : A →+* B) (C : CochainComplex (ModuleCat A) ℤ) (D : Matrix (Fin (m + 1)) (Fin (m + 1)) A)
+  (e1 : ↑(C.X 1) ≃ₗ[A] Fin (m + 1) → A) (e2 : ↑(C.X 2) ≃ₗ[A] Fin (m + 1) → A) (hzero : C.d 0 1 = 0)
+  (hd : ∀ (x : ↑(C.X 1)), e2 ((ModuleCat.Hom.hom (C.d 1 2)) x) = D.mulVec (e1 x)) :
+  ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ρ C) 1) ≃ₗ[B]
+    ↥(D.map ⇑ρ).mulVecLin.ker
+ZInQ.Manuscript.RC53Assist.CentralSelmer.centralSelmerComparisonOfKummerModel {ℓ : ℕ} {k : ℤ} {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT) (C K : CochainComplex (ModuleCat ℚ_[2]) ℤ)
+  (i : K ⟶ C) [QuasiIsoAt i 1] (e1 : ↑(C.X 1) ≃ₗ[ℚ_[2]] Fin (m + 1) → ℚ_[2])
+  (e2 : ↑(C.X 2) ≃ₗ[ℚ_[2]] Fin (m + 1) → ℚ_[2]) (hzero : C.d 0 1 = 0)
+  (hd : ∀ (x : ↑(C.X 1)), e2 ((ModuleCat.Hom.hom (C.d 1 2)) x) = (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVec (e1 x))
+  {S : Type} [AddCommGroup S]
+  (hK : ↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] ZInQ.Manuscript.RC.BaseZeroLimit.RatTate S)
+  (f :
+    S →+
+      ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+          (ZInQ.Manuscript.RC.Etw ℓ k)))
+  (hf : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f) :
+  ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k))) Dm
+ZInQ.Manuscript.RC53Assist.CentralSelmer.central_dimensions_of_KummerModel {ℓ : ℕ} {k : ℤ} {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT) (C K : CochainComplex (ModuleCat ℚ_[2]) ℤ)
+  (i : K ⟶ C) [QuasiIsoAt i 1] (e1 : ↑(C.X 1) ≃ₗ[ℚ_[2]] Fin (m + 1) → ℚ_[2])
+  (e2 : ↑(C.X 2) ≃ₗ[ℚ_[2]] Fin (m + 1) → ℚ_[2]) (hzero : C.d 0 1 = 0)
+  (hd : ∀ (x : ↑(C.X 1)), e2 ((ModuleCat.Hom.hom (C.d 1 2)) x) = (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVec (e1 x))
+  {S : Type} [AddCommGroup S]
+  (hK : ↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] ZInQ.Manuscript.RC.BaseZeroLimit.RatTate S)
+  (f :
+    S →+
+      ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+          (ZInQ.Manuscript.RC.Etw ℓ k)))
+  (hf : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f)
+  (hSel : ZInQ.Manuscript.RC.SelmerCorankOneOverK ℓ k) :
+  (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).rank = m ∧
+    Module.finrank ℚ_[2] ↥(Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.ker = 1 ∧
+      Module.finrank ℚ_[2] ((Fin (m + 1) → ℚ_[2]) ⧸ (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVecLin.range) = 1
+ZInQ.Manuscript.RC53Assist.CentralSelmer.centralSelmerComparisonOfUniversalCoefficients {ℓ : ℕ} {k : ℤ} {m : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT) (C K : CochainComplex (ModuleCat ℚ_[2]) ℤ)
+  (i : K ⟶ C) [QuasiIsoAt i 1] (e1 : ↑(C.X 1) ≃ₗ[ℚ_[2]] Fin (m + 1) → ℚ_[2])
+  (e2 : ↑(C.X 2) ≃ₗ[ℚ_[2]] Fin (m + 1) → ℚ_[2]) (hzero : C.d 0 1 = 0)
+  (hd : ∀ (x : ↑(C.X 1)), e2 ((ModuleCat.Hom.hom (C.d 1 2)) x) = (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).mulVec (e1 x))
+  {S : Type} [AddCommGroup S]
+  (f :
+    S →+
+      ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+          (ZInQ.Manuscript.RC.Etw ℓ k)))
+  (hf : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f) {r : ℕ}
+  (eK : ↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] Fin r → ℚ_[2])
+  (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ S)
+  (hj : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j) :
+  ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k))) Dm
+ZInQ.Manuscript.RC53Assist.CentralSelmer.centralSelmerComparisonOfSpecializedModel {ℓ : ℕ} {k : ℤ} {m r : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT)
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (hzero : CU.d 0 1 = 0) (hd : ∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x))
+  (K : CochainComplex (ModuleCat ℚ_[2]) ℤ)
+  (i : K ⟶ ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT CU)
+  [QuasiIsoAt i 1] (eK : ↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] Fin r → ℚ_[2]) {S : Type} [AddCommGroup S]
+  (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ S)
+  (hj : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j)
+  (f :
+    S →+
+      ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+          (ZInQ.Manuscript.RC.Etw ℓ k)))
+  (hf : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f) :
+  ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+    (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k))) Dm
+ZInQ.Manuscript.RC53Assist.CentralSelmer.hcentral_of_specializedModel {ℓ : ℕ} {k : ℤ} {m r : ℕ}
+  (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT)
+  (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+  (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+  (hzero : CU.d 0 1 = 0) (hd : ∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x))
+  (K : CochainComplex (ModuleCat ℚ_[2]) ℤ)
+  (i : K ⟶ ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT CU)
+  [QuasiIsoAt i 1] (eK : ↑(HomologicalComplex.homology K 1) ≃ₗ[ℚ_[2]] Fin r → ℚ_[2]) {S : Type} [AddCommGroup S]
+  (j : (Fin r → ZInQ.Manuscript.SelmerTwoPower.Q2Z2) →+ S)
+  (hj : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects j)
+  (f :
+    S →+
+      ↥(ZInQ.Manuscript.RC53Assist.CentralSelmer.fullSelmerProduct (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+          (ZInQ.Manuscript.RC.Etw ℓ k)))
+  (hf : ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects f)
+  (hSel : ZInQ.Manuscript.RC.SelmerCorankOneOverK ℓ k) : (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).rank = m
+ZInQ.Manuscript.RC53Assist.CentralSelmer.no_comparison_identity.{u_1, u_2} {S₁ : Type u_1} {S₂ : Type u_2}
+  [AddCommGroup S₁] [AddCommGroup S₂] (h₁ : ZInQ.Manuscript.SelmerTwoPower.Z2Corank S₁ 1)
+  (h₂ : ZInQ.Manuscript.SelmerTwoPower.Z2Corank S₂ 0) (m : ℕ) :
+  ¬Nonempty (ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison S₁ S₂ 1)
+'_private.ZInQKernel.Contrib.RC53Assist.CentralSelmer.Comparison.0.ZInQ.Manuscript.RC53Assist.CentralSelmer.exists_scaled_inverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.RC53Assist.CentralSelmer.Comparison.0.ZInQ.Manuscript.RC53Assist.CentralSelmer.sumDifference_defects' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.RC53Assist.CentralSelmer.Comparison.0.ZInQ.Manuscript.RC53Assist.CentralSelmer.h1Product_bijective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.RC53Assist.CentralSelmer.Comparison.0.ZInQ.Manuscript.RC53Assist.CentralSelmer.extendedDifferential' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC53Assist.CentralSelmer.exists_scaled_inverse.{u_1, u_2} {M : Type u_1} {N : Type u_2} [AddCommGroup M]
+  [AddCommGroup N] (f : M →+ N) (a b : ℕ) (hk : ∀ (x : M), f x = 0 → a • x = 0) (hc : ∀ (y : N), ∃ x, f x = b • y) :
+  ∃ g, (∀ (x : M), g (f x) = (a * b) • x) ∧ ∀ (y : N), f (g y) = (a * b) • y
+ZInQ.Manuscript.RC53Assist.CentralSelmer.sumDifference_defects.{u_1} {S : Type u_1} [AddCommGroup S] (τ : S →+ S)
+  (hτ : ∀ (x : S), τ (τ x) = x) :
+  ZInQ.Manuscript.RC53Assist.CentralSelmer.BoundedDefects (ZInQ.Manuscript.RC53Assist.CentralSelmer.sumDifference τ hτ)
+ZInQ.Manuscript.RC53Assist.CentralSelmer.h1Product_bijective.{u_1, u_2, u_3} (G : Type u_1) [Monoid G]
+  [TopologicalSpace G] (M : Type u_2) (N : Type u_3) [AddCommGroup M] [AddCommGroup N] [TopologicalSpace M]
+  [TopologicalSpace N] [IsTopologicalAddGroup M] [IsTopologicalAddGroup N] [DistribMulAction G M] [DistribMulAction G N]
+  [ContinuousSMul G M] [ContinuousSMul G N] :
+  Function.Bijective
+    ⇑((ZInQ.Manuscript.RC53Assist.CentralSelmer.h1Fst G M N).prod
+        (ZInQ.Manuscript.RC53Assist.CentralSelmer.h1Snd G M N))
+ZInQ.Manuscript.RC53Assist.CentralSelmer.extendedDifferential {A B : Type} [CommRing A] [CommRing B] {r : ℕ}
+  (ρ : A →+* B) (M N : ModuleCat A) (d : M ⟶ N) (D : Matrix (Fin r) (Fin r) A) (e1 : ↑M ≃ₗ[A] Fin r → A)
+  (e2 : ↑N ≃ₗ[A] Fin r → A) (hd : ∀ (x : ↑M), e2 ((ModuleCat.Hom.hom d) x) = D.mulVec (e1 x))
+  (x : ↑((ModuleCat.extendScalars ρ).obj M)) :
+  (ZInQ.Manuscript.RC53Assist.CentralSelmer.extendedCoordinates ρ N e2)
+      ((ModuleCat.Hom.hom ((ModuleCat.extendScalars ρ).map d)) x) =
+    (D.map ⇑ρ).mulVecLin ((ZInQ.Manuscript.RC53Assist.CentralSelmer.extendedCoordinates ρ M e1) x)

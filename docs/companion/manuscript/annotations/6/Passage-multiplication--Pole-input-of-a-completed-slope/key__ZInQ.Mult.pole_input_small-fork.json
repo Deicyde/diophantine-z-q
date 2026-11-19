@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Pole input of a completed slope",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: weak_approx_q, pole_input_valuations and pole_input_small state the choice of q, the valuations of R/Theta^2 at S_b, at the selected primes and elsewhere, the square denominator and the positivity limit, with no named hypothesis. The unit claim for a and the trace residue count are steps of pole_input_valuations.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.196469,
+          0.784314,
+          0.195067
+        ]
+      },
+      "title": "Passage (multiplication): Pole input of a completed slope",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Pole input of a completed slope"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.pole_input_small",
+        "module": "ZInQKernel.Multiplication.Completeness.PolePositivity"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.pole_input_small@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem pole_input_small (R0 ℓ : ℚ) (hR0 : 0 < R0) (hℓ : ℓ ≠ 0) (C : Fin 6 → Fin 12 → K0) :\n    ∃ ε : ℝ, 0 < ε ∧ ∀ a : ℚ, a ≠ 0 → |(a : ℝ)| < ε →\n      (∀ g, 1 ≤ embPlus (groupW (ℓ ^ 2 * a ^ 2 * R0) (C g)) ∧\n          1 ≤ embMinus (groupW (ℓ ^ 2 * a ^ 2 * R0) (C g))) ∧\n      (∀ g, groupW (ℓ ^ 2 * a ^ 2 * R0) (C g) ≠ 0) ∧\n      0 < poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ∧ poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ≤ 12 ∧\n      0 < ℓ ^ 2 * a ^ 2 * R0 / poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ^ 2 ∧\n      ℓ ^ 2 * a ^ 2 * R0 / poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ^ 2 < 1 / 2 := by",
+            "line": 169,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Completeness/PolePositivity.lean",
+            "fragment": "L169"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -36,10 +36,12 @@ change that fixes the finite plane.
 
 The three shape properties of the genuine residue form at the switch place are the content of
 local duality:
-* `F` isotropic: the cup of two unramified classes is a coboundary (`cd Ẑ = 1`).
+* `F` isotropic: the cup of two unramified classes is a coboundary (`cd Ẑ = 1`). Proved in
+  `ShapeUnramified.lean`, given the tie `hUrRep` of the finite plane to unramified classes.
 * Nondegenerate: local Tate duality, i.e. `NekovarProp524` at `H¹`. This also needs the global
   trace restricted to the local summand at `v` to induce `H²(G_v, T) ≅ k`.
-* Alternating on `S` in characteristic two: for the Weil pairing `x ∪ x` is a coboundary.
+* Alternating on `S` in characteristic two: for the Weil pairing `x ∪ x` is a coboundary. Proved
+  in `ShapeAlternating.lean` for polarized pairings.
 
 Non-vacuity: `ShapeNonVacuity.lean`.
 

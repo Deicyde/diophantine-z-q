@@ -1,0 +1,527 @@
+{
+ "note": "mapping batches, in document order; an item is kept with the items inside it",
+ "batches": [
+  {
+   "id": "S01+S04-1",
+   "section": "1+4",
+   "items": [
+    "Passage assembly: Saved specification outer recipes",
+    "Theorem 1.1",
+    "Passage assembly: Theorem 1.1 proof",
+    "Passage assembly: Lemma 1.2",
+    "Passage multiplication: Multiplication input M",
+    "Passage compiler-natural: Section 1 input C",
+    "Passage compiler-translation: Input C",
+    "Passage syntax: Input B",
+    "Lemma 1.2",
+    "Passage assembly: Section 4 height constants",
+    "Passage compiler-natural: Section 4 height constants",
+    "Passage height: The Hauptmodul value",
+    "Passage size: Section 4 constants",
+    "Theorem 4.1",
+    "Passage height: The j-form of H",
+    "Passage height: Step F4",
+    "Passage multiplication: Contact prime sets",
+    "Passage compiler-natural: Section 4 height prime set"
+   ]
+  },
+  {
+   "id": "S02-1",
+   "section": "2",
+   "items": [
+    "Passage syntax: Section 2 opening",
+    "Passage syntax: Section 2.1 literal operations",
+    "Passage model: Rational constants and inverses",
+    "Passage compiler-translation: Lagrange four squares",
+    "Passage syntax: Section 2.1 positivity and absolute value",
+    "Passage model: Division polynomials",
+    "Passage syntax: Section 2.2 division polynomials",
+    "Passage multiplication: Least formal multiple",
+    "Passage size: Section 2.2 catalogue and formal multiple",
+    "Passage syntax: Section 2.2 catalogue and formal multiple"
+   ]
+  },
+  {
+   "id": "S03-1",
+   "section": "3",
+   "items": [
+    "Passage assembly: Section 3 codes",
+    "Passage model: Model setup",
+    "Passage syntax: Section 3 point codes",
+    "Proposition 3.1",
+    "Passage model: Class number and units",
+    "Passage model: First descent image",
+    "Passage model: Second descent image",
+    "Passage model: Descent index",
+    "Passage model: Torsion bound"
+   ]
+  },
+  {
+   "id": "S03-2",
+   "section": "3",
+   "items": [
+    "Passage model: Rank and odd index",
+    "Passage model: Duplication bounds",
+    "Passage multiplication: Generator height",
+    "Passage model: Height comparison",
+    "Passage model: Finite search",
+    "Passage model: Transfer to the generator",
+    "Passage syntax: Section 3.1 membership and natural codes",
+    "Passage model: Membership and addition",
+    "Passage compiler-translation: Section 3.1 natural predicate"
+   ]
+  },
+  {
+   "id": "S05-1",
+   "section": "5",
+   "items": [
+    "Passage multiplication: Pole predicate",
+    "Passage multiplication: One-sided obstruction",
+    "Lemma 5.1",
+    "Theorem 5.2",
+    "Passage assembly: Theorem 5.2",
+    "Theorem 5.3",
+    "Lemma 5.4",
+    "Lemma 5.5"
+   ]
+  },
+  {
+   "id": "S06-1",
+   "section": "6",
+   "items": [
+    "Passage syntax: Section 6 multiplication template",
+    "Passage multiplication: Section 6 opening",
+    "Passage assembly: Section 6 formal conventions",
+    "Passage multiplication: Local conventions",
+    "Passage multiplication: Silverman",
+    "Passage multiplication: Logarithm series",
+    "Passage multiplication: Twelve tests",
+    "Passage multiplication: Slope predicate",
+    "Passage multiplication: Local congruence",
+    "Passage multiplication: Height certificate",
+    "Passage multiplication: Finite-box deduction",
+    "Proposition 6.1",
+    "Passage multiplication: Finite guard"
+   ]
+  },
+  {
+   "id": "S06-2",
+   "section": "6",
+   "items": [
+    "Passage multiplication: Prime pattern",
+    "Proposition 6.2",
+    "Eq (1)",
+    "Eq (2)",
+    "Eq (3)",
+    "Eq (4)",
+    "Eq (5)",
+    "Eq (6)",
+    "Eq (7)",
+    "Passage multiplication: Choice of shifts",
+    "Passage multiplication: Fixed local clearing",
+    "Passage multiplication: Pole input of a completed slope",
+    "Passage multiplication: Conclusion of the multiplication proof"
+   ]
+  },
+  {
+   "id": "S07-1",
+   "section": "7",
+   "items": [
+    "Eq (RC)",
+    "Remark 7.1",
+    "Proposition 7.2",
+    "Eq (3.1)",
+    "Eq (3.2)",
+    "Proposition 7.3",
+    "Definition 7.4",
+    "Definition 7.5",
+    "Lemma 7.6",
+    "Lemma 7.7"
+   ]
+  },
+  {
+   "id": "S07-2",
+   "section": "7",
+   "items": [
+    "Definition 7.8",
+    "Lemma 7.9",
+    "Definition 7.10",
+    "Lemma 7.11",
+    "Lemma 7.12",
+    "Proposition 7.13",
+    "Eq (3.3a)",
+    "Eq (3.3b)",
+    "Proposition 7.14"
+   ]
+  },
+  {
+   "id": "S07-3",
+   "section": "7",
+   "items": [
+    "Eq (3.3)",
+    "Proposition 7.15",
+    "Eq (3.4)",
+    "Eq (3.5)",
+    "Eq (3.6)",
+    "Eq (3.7)",
+    "Eq (3.8)",
+    "Lemma 7.16",
+    "Proposition 7.17",
+    "Eq (3.9)"
+   ]
+  },
+  {
+   "id": "S08-1",
+   "section": "8",
+   "items": [
+    "Definition 8.1",
+    "Lemma 8.2",
+    "Proposition 8.3",
+    "Eq (H1)",
+    "Eq (H2)",
+    "Eq (4.1)",
+    "Eq (H4)",
+    "Eq (H5)",
+    "Eq (H6)",
+    "Eq (H7)",
+    "Eq (H8)"
+   ]
+  },
+  {
+   "id": "S08-2",
+   "section": "8",
+   "items": [
+    "Eq (H9)",
+    "Eq (H10)",
+    "Eq (H11)",
+    "Eq (H12)",
+    "Eq (H13)",
+    "Eq (H14)",
+    "Eq (H15)",
+    "Eq (H16)",
+    "Eq (H17)",
+    "Eq (H18)",
+    "Eq (H19)"
+   ]
+  },
+  {
+   "id": "S08-3",
+   "section": "8",
+   "items": [
+    "Eq (H20)",
+    "Eq (H21)",
+    "Eq (4.2)",
+    "Eq (H22)",
+    "Lemma 8.4",
+    "Eq (4.3)",
+    "Eq (4.4)",
+    "Proposition 8.5",
+    "Eq (4.4a)",
+    "Eq (4.4b)"
+   ]
+  },
+  {
+   "id": "S08-4",
+   "section": "8",
+   "items": [
+    "Eq (4.4c)",
+    "Eq (4.4d)",
+    "Proposition 8.6",
+    "Definition 8.7",
+    "Lemma 8.8",
+    "Eq (4.5)",
+    "Proposition 8.9",
+    "Eq (4.6)",
+    "Lemma 8.10",
+    "Eq (4.7)",
+    "Lemma 8.11"
+   ]
+  },
+  {
+   "id": "S09-1",
+   "section": "9",
+   "items": [
+    "Lemma 9.1",
+    "Lemma 9.2",
+    "Eq (5.1a)",
+    "Eq (5.1b)",
+    "Eq (5.1)",
+    "Lemma 9.3",
+    "Eq (5.2)",
+    "Eq (5.3)",
+    "Lemma 9.4"
+   ]
+  },
+  {
+   "id": "S09-2",
+   "section": "9",
+   "items": [
+    "Eq (5.4)",
+    "Lemma 9.5",
+    "Proposition 9.6",
+    "Eq (5.5)",
+    "Eq (5.5a)",
+    "Eq (5.5b)",
+    "Lemma 9.7",
+    "Eq (5.6)",
+    "Eq (5.7a)",
+    "Eq (5.7b)"
+   ]
+  },
+  {
+   "id": "S09-3",
+   "section": "9",
+   "items": [
+    "Eq (5.7c)",
+    "Eq (5.7d)",
+    "Eq (5.7)",
+    "Eq (5.8)",
+    "Proposition 9.8",
+    "Eq (5.9)",
+    "Proposition 9.9",
+    "Eq (5.10)",
+    "Eq (5.11)"
+   ]
+  },
+  {
+   "id": "S10-1",
+   "section": "10",
+   "items": [
+    "Passage compiler-natural: Section 10 signed encoding",
+    "Passage assembly: Section 10 precision predicate",
+    "Passage compiler-natural: Section 10 decision predicate",
+    "Passage compiler-natural: Section 10 reference program and IR",
+    "Passage compiler-natural: Section 10 threshold",
+    "Passage compiler-natural: Section 10 saturation",
+    "Passage compiler-natural: Section 10.1 saved polynomial",
+    "Passage compiler-natural: Section 10.1 wrapper specialization",
+    "Passage compiler-natural: Section 10.1 packed histories",
+    "Passage compiler-natural: Section 10.1 nonzero and branch masks"
+   ]
+  },
+  {
+   "id": "S10-2",
+   "section": "10",
+   "items": [
+    "Passage compiler-natural: Section 10.1 transition equations",
+    "Passage compiler-natural: Section 10.2 alpha recurrence",
+    "Passage compiler-natural: Section 10.2 Pell classification",
+    "Passage compiler-natural: Section 10.2 divisibility",
+    "Eq (C.1)",
+    "Passage compiler-natural: Section 10.2 period and reflection",
+    "Passage compiler-natural: Section 10.2 alpha formula",
+    "Eq (C.2)",
+    "Passage compiler-natural: Section 10.2 alpha soundness"
+   ]
+  },
+  {
+   "id": "S10-3",
+   "section": "10",
+   "items": [
+    "Passage compiler-natural: Section 10.2 alpha completeness",
+    "Passage compiler-natural: Section 10.2 power formula",
+    "Eq (C.3)",
+    "Passage compiler-natural: Section 10.2 binomial and bits",
+    "Passage compiler-natural: Section 10.3 numbering",
+    "Passage compiler-natural: Section 10.3 interpreter",
+    "Passage compiler-natural: Section 10.3 precision IR",
+    "Passage compiler-natural: Section 10.3 lowering",
+    "Passage compiler-natural: Section 10.3 unpairing and wrapper"
+   ]
+  },
+  {
+   "id": "S10-4",
+   "section": "10",
+   "items": [
+    "Passage compiler-natural: Section 10.3 specialization",
+    "Eq (C.4)",
+    "Passage compiler-translation: Section 10.3 specialization",
+    "Passage assembly: Section 10.4 translation",
+    "Passage compiler-translation: Section 10.4 typing order",
+    "Passage model: Translation typing",
+    "Passage compiler-natural: Section 10.4 power blocks",
+    "Passage compiler-translation: Section 10.4 power value and precision parent",
+    "Passage compiler-translation: Section 10.4 primitive formulas",
+    "Passage syntax: Section 10 translation"
+   ]
+  },
+  {
+   "id": "S11-1",
+   "section": "11",
+   "items": [
+    "Passage assembly: Section 11 opening",
+    "Passage assembly: Section 11.1 approximation",
+    "Eq (8)",
+    "Eq (9)",
+    "Passage assembly: Section 11.2 six local tests",
+    "Passage assembly: Lemma 11.1",
+    "Lemma 11.1",
+    "Passage assembly: Lemma 11.2",
+    "Lemma 11.2",
+    "Passage assembly: Section 11.3 exact ordinary value"
+   ]
+  },
+  {
+   "id": "S12-1",
+   "section": "12",
+   "items": [
+    "Passage assembly: Section 12 size",
+    "Passage multiplication: Fixed constants",
+    "Passage size: Section 12 opening",
+    "Proposition 12.1",
+    "Passage size: Proof of Proposition 12.1, catalogue",
+    "Passage size: Proof of Proposition 12.1, formal multiple",
+    "Passage multiplication: Least formal multiple exists",
+    "Passage assembly: Silverman",
+    "Passage size: Proof of Proposition 12.1, cutoff",
+    "Passage syntax: Section 12.2 syntax bounds",
+    "Passage size: Section 12.1 norms and division polynomials",
+    "Passage size: Section 12.1 checked facts",
+    "Passage compiler-natural: Section 12 literal constants",
+    "Passage size: Section 12.1 constructor bounds",
+    "Passage size: Section 12.1 syntax heights",
+    "Passage size: Section 12.1 final comparison"
+   ]
+  },
+  {
+   "id": "S13+AppB+AppC-1",
+   "section": "13/B/C",
+   "items": [
+    "Corollary 13.1",
+    "Corollary 13.2",
+    "Corollary 13.3",
+    "Passage compiler-natural: Appendix B sources",
+    "Passage syntax: Appendix C opening",
+    "Passage model: Point references and fixed point codes",
+    "Passage syntax: Appendix C.1 scalar nodes",
+    "Passage syntax: Appendix C.2 recipes and counts",
+    "Passage compiler-translation: Appendix C.2 model recipes"
+   ]
+  },
+  {
+   "id": "AppE-1",
+   "section": "E",
+   "items": [
+    "Proposition E.1",
+    "Eq (K1)",
+    "Eq (K2)",
+    "Eq (K3)",
+    "Eq (K4)",
+    "Eq (K5)",
+    "Eq (K6)",
+    "Eq (K7)",
+    "Eq (K8)",
+    "Eq (K9)",
+    "Eq (K10)"
+   ]
+  },
+  {
+   "id": "AppE-2",
+   "section": "E",
+   "items": [
+    "Eq (E.1)",
+    "Eq (E.2)",
+    "Eq (K12)",
+    "Eq (K13)",
+    "Eq (K14)",
+    "Eq (K15)",
+    "Eq (K16)",
+    "Proposition E.2",
+    "Eq (E.3)",
+    "Eq (E.4)"
+   ]
+  },
+  {
+   "id": "AppE-3",
+   "section": "E",
+   "items": [
+    "Eq (E.4a)",
+    "Eq (E.5)",
+    "Proposition E.3",
+    "Eq (E.6)",
+    "Eq (E.7)",
+    "Eq (E.8)",
+    "Eq (E.9)",
+    "Proposition E.4",
+    "Eq (E.10)",
+    "Eq (E.11)",
+    "Eq (E.12)"
+   ]
+  },
+  {
+   "id": "AppF-1",
+   "section": "F",
+   "items": [
+    "Eq (O.1)",
+    "Proposition F.1",
+    "Eq (O.2)",
+    "Proposition F.2",
+    "Eq (O.3)",
+    "Eq (O.4)",
+    "Eq (O.5a)",
+    "Eq (O.5b)",
+    "Eq (O.5c)",
+    "Eq (O.5)"
+   ]
+  },
+  {
+   "id": "AppF-2",
+   "section": "F",
+   "items": [
+    "Eq (O.6)",
+    "Proposition F.3",
+    "Eq (O.7)",
+    "Proposition F.4",
+    "Eq (O.8)",
+    "Proposition F.5",
+    "Eq (O.9)",
+    "Eq (O.10)",
+    "Eq (O.11)",
+    "Eq (O.12)"
+   ]
+  },
+  {
+   "id": "AppG-1",
+   "section": "G",
+   "items": [
+    "Proposition G.1",
+    "Proposition G.2",
+    "Eq (F.1)",
+    "Eq (F.2)",
+    "Eq (F.3)",
+    "Proposition G.3",
+    "Eq (F.4)",
+    "Eq (F.5)",
+    "Eq (F.6)",
+    "Eq (F.7)"
+   ]
+  },
+  {
+   "id": "AppG+AppH-1",
+   "section": "G/H",
+   "items": [
+    "Proposition G.4",
+    "Eq (G.4a)",
+    "Eq (G.4b)",
+    "Eq (G.4c)",
+    "Eq (G.4d)",
+    "Proposition G.5",
+    "Proposition G.6",
+    "Eq (G.1a)",
+    "Proposition G.7",
+    "Eq (F.8)",
+    "Lemma H.1"
+   ]
+  },
+  {
+   "id": "Refs-1",
+   "section": "References",
+   "items": [
+    "Passage size: Bennett-Martin-O'Bryant-Rechnitzer",
+    "Passage model: Sutherland lecture notes",
+    "Passage model: Silverman",
+    "Passage size: Silverman"
+   ]
+  }
+ ]
+}

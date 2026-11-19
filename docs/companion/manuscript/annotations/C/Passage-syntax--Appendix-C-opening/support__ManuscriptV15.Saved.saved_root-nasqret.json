@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Appendix C opening",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, a definition, through its dependency; ManuscriptV15.Saved.saved_root proved: [N] has no own definition of point references, generator constraints or model recipes, and no [N] declaration uses ndep's pointRef, generatorConstraints, Pstar or specPstar; ndep's copies, identical in these files to [F]'s, agree on the references and generator equations but build P_* in Lean instead of from the bytes and only bound the witness count by 292890231904. [N]'s saved_root records the exact count 292890231904 as decoded data, and ndep's Pstar uses the A+e pole template, a difference outside this passage.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.107843,
+          0.446036,
+          0.784314,
+          0.220438
+        ]
+      },
+      "title": "Passage (syntax): Appendix C opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Saved.saved_root",
+        "module": "Lean.Lemmas.original-syntax.SavedOriginalSurface"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Saved.saved_root@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem saved_root : compositions[4]? =\n    some ⟨\"integers\",false,1,292890231904,[(1,5)],\n      [⟨.recipe \"value\",[1,2,3,4,5,0],6,292890231899⟩]⟩ := by",
+            "line": 216,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/original-syntax/SavedOriginalSurface.lean",
+            "fragment": "L216"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

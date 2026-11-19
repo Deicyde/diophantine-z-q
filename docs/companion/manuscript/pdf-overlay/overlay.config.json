@@ -1,0 +1,35 @@
+{
+  "schema": "formal-companion/overlay-config",
+  "schema_version": 1,
+  "source_id": "z-in-q-2026-11-05",
+  "title": "ℤ is Diophantine in ℚ (5 November 2026, 97cec7f), linked to Deicyde/diophantine-z-q and nasqret/z-in-q-lean",
+  "lede": "Each numbered statement, numbered display and blueprint passage of the manuscript, with the declarations of Deicyde/diophantine-z-q (fork) and nasqret/z-in-q-lean (nasqret) that state it. Unreviewed machine audit.",
+  "back_link": {
+    "href": "../../index.html",
+    "text": "Back to the site"
+  },
+  "display": {
+    "strip_prefix": "ZInQ.",
+    "minimal": false
+  },
+  "storage_key": "zq-companion-manuscript",
+  "pdf": {
+    "file_name": "diophantine_zq-97cec7f.pdf",
+    "cache_dir": ".lake/overlay-pdf",
+    "route": "/__overlay_pdf__/diophantine_zq-97cec7f.pdf",
+    "remote": true
+  },
+  "site": {
+    "output_root": "site",
+    "index": "index.html",
+    "mount": "pdf-overlay",
+    "link_text": "Source overlay"
+  },
+  "build": {
+    "commands": []
+  },
+  "serve": {
+    "host": "127.0.0.1",
+    "port": 8000
+  }
+}

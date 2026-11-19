@@ -532,7 +532,7 @@ theorem symForm_single (a : Fin 2 → ℚ) (c : ℚ) : symForm a (Pi.single 0 c)
 def symQ : SelPairData (restrictData cexD cexF) cexD :=
   formQ symForm fun c v => by simp [symForm]
 
-/-- **Non-vacuity of `ReverseIsotropy`** (non-vacuity), `PROVED`. The model `symQ` has a nonzero local
+/-- **Non-vacuity of `ReverseIsotropy`**, `PROVED`. The model `symQ` has a nonzero local
 cup product (`symForm (0,1) (0,1) = 1`) and reverse isotropy with `h' = 0`. -/
 def symReverse : ReverseIsotropy cexD (constZ ℚ) cexF symQ where
   h11 := 0

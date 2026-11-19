@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Logarithm series",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The invariant differential, the binomial log series, the coefficients of L and the truncation error v(eps) >= 28 are stated. The error bound is stated at every prime p > 324 and every pi | p, more generally than at a contact prime.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.107843,
+          0.457724,
+          0.784314,
+          0.137168
+        ]
+      },
+      "title": "Passage (multiplication): Logarithm series",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Logarithm series"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.truncLog_eq_trunc",
+        "module": "ZInQKernel.Multiplication.Local.LogCoefficients"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.truncLog_eq_trunc@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem truncLog_eq_trunc {F : Type*} [Field F] [CharZero F] (d z : F) :\n    truncLog (d ^ 2) z = 16575 * ∑ j ∈ range 7, (logCoeff j : F) * d ^ (2 * j) * z ^ (4 * j + 1) := by",
+            "line": 71,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/LogCoefficients.lean",
+            "fragment": "L71"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

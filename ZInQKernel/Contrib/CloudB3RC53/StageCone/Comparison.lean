@@ -32,10 +32,10 @@ integral information is one number: the torsion of the cone of the augmented com
   comparison.
 * `StageConeComparison` (the sharpened GLUE) and `coordStep_of_coneComparison` (PROVED from it): an
   actual `CoordStep`.
-* Non-vacuity: the `3 × 3` stage `ex3Stage` of `StageLink.lean` with the comparison `f¹ = f² = [I | 0]`
-  (`ex3StageMap`) satisfies `IntegralUnit` (`ex3_integralUnit`); with the identity comparison of
-  the `2 × 2` new stage, `StageConeComparison` holds (`ex3_stageConeComparison`) and gives an actual
-  `CoordStep` (`ex3CoordStep'`).
+* Non-vacuity: the `3 × 3` stage `ex3Stage` of `StageLink.lean` with the comparison
+  `f¹ = f² = [I | 0]` (`ex3StageMap`) satisfies `IntegralUnit` (`ex3_integralUnit`); with the
+  identity comparison of the `2 × 2` new stage, `StageConeComparison` holds
+  (`ex3_stageConeComparison`) and gives an actual `CoordStep` (`ex3CoordStep'`).
 
 The stage models in the project are abstract (`UniformSwitch.TwoTermStage`), and no stage model is
 constructed from the genuine integral Selmer complexes. So `IntegralUnit` cannot be proved
@@ -310,8 +310,8 @@ theorem exNew_integralUnit :
     (newMat_coord one_ne_zero one_ne_zero _ exV) (by norm_num)
     (newMat_adjugate_ne_zero one_ne_zero one_ne_zero exJ_v_ne_zero)).1 exLink_new
 
-/-- **Non-vacuity: `StageConeComparison` holds** for the `3 × 3` old stage and the `2 × 2` new stage,
-and `coordStep_of_coneComparison` gives an actual `CoordStep`. -/
+/-- **Non-vacuity: `StageConeComparison` holds** for the `3 × 3` old stage and the `2 × 2` new
+stage, and `coordStep_of_coneComparison` gives an actual `CoordStep`. -/
 theorem ex3_stageConeComparison :
     StageConeComparison ex3Stage exStage_new 1 1 (switchJ0 ℚ) exV :=
   ⟨⟨ex3StageMap, ex3_integralUnit⟩, ⟨exNewStageMap, exNew_integralUnit⟩⟩

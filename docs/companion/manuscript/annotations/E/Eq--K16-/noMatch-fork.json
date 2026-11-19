@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K16)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] has no declaration about the rational cone [W_q (x) A -> W_q (x) A] from j_* to full cochains and its determinant; Appendix E serves the restricted converse behind Theorem 5.2, which [F] takes as the hypothesis ZInQ.PoleCompleteness instead of proving.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 97,
+        "rect": [
+          0.107843,
+          0.717279,
+          0.784314,
+          0.038481
+        ]
+      },
+      "title": "Eq. (K16)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K16)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          97
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

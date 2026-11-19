@@ -35,3 +35,5 @@ jobs:
         run: python scripts/guard/check_pr.py render --base HEAD^1
       - name: Board render unit tests (fixtures only)
         run: python -I scripts/one_proof/test_scoring.py
+      - name: Claims sync unit tests (fixtures only, no network)
+        run: python -I -m unittest discover -s scripts/claims -p 'test_*.py'

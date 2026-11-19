@@ -1,0 +1,70 @@
+{
+  "id": "Lemma 7.12",
+  "kind": "lemma",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.BooleanCube.exists_simultaneous_one proved: [F] formalizes none of [M]'s Section 7 coefficient-symbol machinery; its route assumes Theorem 4.1 as ZInQ.SixContactMin. No two-symbol address lemma; the proved generic lemmas exists_simultaneous_one and coeff_mul_at_one_two_exponent (sourced to a graphs note's address proof) state only the polynomial step of taking an ordinary product before Boolean reduction.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 31,
+        "rect": [
+          0.107843,
+          0.720952,
+          0.784314,
+          0.193337
+        ]
+      },
+      "title": "Lemma 7.12",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 7.12"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.BooleanCube.exists_simultaneous_one",
+        "module": "lean.ZInQ.BooleanCube"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.BooleanCube.exists_simultaneous_one@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem exists_simultaneous_one (n : Nat)\n    (p q : MvPolynomial (Fin n) (ZMod 2))\n    (hdeg : p.totalDegree + q.totalDegree <= n)\n    (hcoeff : (p * q).coeff (∑ i : Fin n, Finsupp.single i 1) = 1) :\n    ∃ x : Fin n → ZMod 2,\n      MvPolynomial.eval x p = 1 ∧ MvPolynomial.eval x q = 1 := by",
+            "line": 144,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/BooleanCube.lean",
+            "fragment": "L144"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          31
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

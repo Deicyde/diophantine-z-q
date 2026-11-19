@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 packed histories",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.Packed.construction a definition: PackedConditions fixes [M]'s parameters and conditions (F and D through B F + 1 = F + B T and D + F = K F, which packed_masks proves equal to the sums), and packed_masks and one_active_state prove the digit consequences; proved, no assumed hypothesis.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.223068,
+          0.784314,
+          0.248629
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 packed histories",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 packed histories"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Packed.construction",
+        "module": "ZInQKernel.Compiler.Circuits.Packed.Construction"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Packed.construction@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def construction (p : Program) (r k : ℕ) : NM NForm := do\n  let a := inputs k\n  let zero ← constant 0\n  let one ← constant 1\n  let q ← fresh\n  let c ← fresh\n  let K ← fresh\n  let B ← fresh\n  let T ← fresh\n  let F ← fresh\n  let D ← fresh\n  let R ← freshN r\n  let N ← freshN r\n  let S ← freshN p.length\n  let φs ← packedFormulas p r a zero one q c K B T F D R N S\n  pure (.and φs)",
+            "line": 165,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Packed/Construction.lean",
+            "fragment": "L165"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

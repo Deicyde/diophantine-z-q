@@ -1,0 +1,1062 @@
+Statements (#check, with binder types) and kernel axioms (#print axioms) of the 83 declarations of
+ZInQKernel.Contrib.RC53Assist.Finiteness.GaloisFiniteness (namespace ZInQ.Contrib.RC53Assist.Finiteness), in source order.
+Generated from a separate copy of the module; the shipped source contains no #check or #print.
+Axiom summary: 81 declarations use [propext, Classical.choice, Quot.sound], 1 uses [propext, Quot.sound], 1 uses none.
+
+@ZInQ.Contrib.RC53Assist.Finiteness.exists_compatible_seq : ∀ {Q : ℕ → Type u_1} [hfin : ∀ (k : ℕ), Finite (Q k)]
+  [hne : ∀ (k : ℕ), Nonempty (Q k)] (π : (k : ℕ) → Q (k + 1) → Q k),
+  ∃ (q : (k : ℕ) → Q k), ∀ (k : ℕ), π k (q (k + 1)) = q k
+'ZInQ.Contrib.RC53Assist.Finiteness.exists_compatible_seq' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.mem_maximalIdeal_pow_smul_top_iff : ∀ (x : ℤ_[2]) (m : ℕ),
+  x ∈ IsLocalRing.maximalIdeal ℤ_[2] ^ m • ⊤ ↔ ∃ (e : ℤ_[2]), x = 2 ^ m * e
+'ZInQ.Contrib.RC53Assist.Finiteness.mem_maximalIdeal_pow_smul_top_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.exists_padicInt_two_limit : ∀ (γ : ℕ → ℤ_[2]),
+  (∀ (k : ℕ), ∃ (e : ℤ_[2]), γ (k + 1) - γ k = 2 ^ k * e) → ∃ (L : ℤ_[2]), ∀ (k : ℕ), ∃ (e : ℤ_[2]), L - γ k = 2 ^ k * e
+'ZInQ.Contrib.RC53Assist.Finiteness.exists_padicInt_two_limit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_of_two_adic : ∀ {M : Type u_1} [inst : AddCommGroup M]
+  [inst_1 : Module ℤ_[2] M] {ι : Type u_2} [inst_2 : Fintype ι] (e : ι → M),
+  (∀ (m : M), ∃ (c : ι → ℤ_[2]) (m' : M), m = ∑ i : ι, c i • e i + 2 • m') →
+    (∀ (m : M), (∀ (k : ℕ), ∃ (m' : M), m = 2 ^ k • m') → m = 0) → Module.Finite ℤ_[2] M
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_of_two_adic' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.TwoPowResidualFinite : {X : Type u_1} →
+  {Y : Type u_2} →
+    {Z : Type u_3} →
+      [inst : AddCommGroup X] →
+        [inst_1 : Module ℤ_[2] X] →
+          [inst_2 : AddCommGroup Y] →
+            [inst_3 : Module ℤ_[2] Y] →
+              [inst_4 : AddCommGroup Z] → [inst_5 : Module ℤ_[2] Z] → (X →ₗ[ℤ_[2]] Y) → (Y →ₗ[ℤ_[2]] Z) → ℕ → Prop
+'ZInQ.Contrib.RC53Assist.Finiteness.TwoPowResidualFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.exists_eq_of_forall_two_pow : ∀ {P : Type u_1} {A : Type u_2} {B : Type u_3}
+  [inst : AddCommGroup P] [inst_1 : Module ℤ_[2] P] [inst_2 : AddCommGroup A] [inst_3 : Module ℤ_[2] A]
+  [inst_4 : AddCommGroup B] [inst_5 : Module ℤ_[2] B] (d0 : P →ₗ[ℤ_[2]] A) (d1 : A →ₗ[ℤ_[2]] B),
+  (∀ (p : P), d1 (d0 p) = 0) →
+    (∀ (b : B), (∀ (k : ℕ), ∃ (b' : B), b = 2 ^ k • b') → b = 0) →
+      (∀ (s : ℕ → A),
+          (∀ (k : ℕ), ∃ (a : A), s (k + 1) - s k = 2 ^ k • a) →
+            ∃ (s' : A), ∀ (k : ℕ), ∃ (a : A), s' - s k = 2 ^ k • a) →
+        (∀ (k : ℕ), ZInQ.Contrib.RC53Assist.Finiteness.TwoPowResidualFinite d0 d1 k) →
+          ∀ (z : B), (∀ (k : ℕ), ∃ (y : B) (w : A), z - d1 w = 2 ^ k • y) → ∃ (w : A), d1 w = z
+'ZInQ.Contrib.RC53Assist.Finiteness.exists_eq_of_forall_two_pow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_subquot_of_residual : ∀ {P A B C : Type} [inst : AddCommGroup P]
+  [inst_1 : Module ℤ_[2] P] [inst_2 : AddCommGroup A] [inst_3 : Module ℤ_[2] A] [inst_4 : AddCommGroup B]
+  [inst_5 : Module ℤ_[2] B] [inst_6 : AddCommGroup C] [inst_7 : Module ℤ_[2] C] (d0 : P →ₗ[ℤ_[2]] A)
+  (d1 : A →ₗ[ℤ_[2]] B) (d2 : B →ₗ[ℤ_[2]] C),
+  (∀ (p : P), d1 (d0 p) = 0) →
+    (∀ (a : A), d2 (d1 a) = 0) →
+      (∀ (c : C), 2 • c = 0 → c = 0) →
+        (∀ (b : B), (∀ (k : ℕ), ∃ (b' : B), b = 2 ^ k • b') → b = 0) →
+          (∀ (s : ℕ → A),
+              (∀ (k : ℕ), ∃ (a : A), s (k + 1) - s k = 2 ^ k • a) →
+                ∃ (s' : A), ∀ (k : ℕ), ∃ (a : A), s' - s k = 2 ^ k • a) →
+            ZInQ.Contrib.RC53Assist.Finiteness.TwoPowResidualFinite d1 d2 1 →
+              (∀ (k : ℕ), ZInQ.Contrib.RC53Assist.Finiteness.TwoPowResidualFinite d0 d1 k) →
+                Module.Finite ℤ_[2] (ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot d1.range d2.ker)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_subquot_of_residual' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_subquot_congr : ∀ {R : Type} [inst : CommRing R] {X : Type}
+  [inst_1 : AddCommGroup X] [inst_2 : Module R X] {B B' K K' : Submodule R X},
+  B = B' →
+    K = K' →
+      (Module.Finite R (ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot B K) ↔
+        Module.Finite R (ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot B' K'))
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_subquot_congr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.shortComplexHomologyEquiv : {R : Type} →
+  [inst : CommRing R] →
+    (S : CategoryTheory.ShortComplex (ModuleCat R)) →
+      ↑S.homology ≃ₗ[R]
+        ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot (ModuleCat.Hom.hom S.f).range (ModuleCat.Hom.hom S.g).ker
+'ZInQ.Contrib.RC53Assist.Finiteness.shortComplexHomologyEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.prev_up_int : ∀ {i m : ℤ}, i + 1 = m → (ComplexShape.up ℤ).prev m = i
+'ZInQ.Contrib.RC53Assist.Finiteness.prev_up_int' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.next_up_int : ∀ {m j : ℤ}, m + 1 = j → (ComplexShape.up ℤ).next m = j
+'ZInQ.Contrib.RC53Assist.Finiteness.next_up_int' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.gcxHomologyEquiv : {R : Type} →
+  [inst : CommRing R] →
+    (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) →
+      (i m j : ℤ) →
+        i + 1 = m →
+          m + 1 = j →
+            ↑(HomologicalComplex.homology C.toCC m) ≃ₗ[R]
+              ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot
+                (ModuleCat.Hom.hom (HomologicalComplex.sc' C.toCC i m j).f).range
+                (ModuleCat.Hom.hom (HomologicalComplex.sc' C.toCC i m j).g).ker
+'ZInQ.Contrib.RC53Assist.Finiteness.gcxHomologyEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.sc'_f_hom : ∀ {R : Type} [inst : CommRing R]
+  (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (i m j : ℤ) (hi : i + 1 = m),
+  ModuleCat.Hom.hom (HomologicalComplex.sc' C.toCC i m j).f = C.d i m hi
+'ZInQ.Contrib.RC53Assist.Finiteness.sc'_f_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.sc'_g_hom : ∀ {R : Type} [inst : CommRing R]
+  (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (i m j : ℤ) (hj : m + 1 = j),
+  ModuleCat.Hom.hom (HomologicalComplex.sc' C.toCC i m j).g = C.d m j hj
+'ZInQ.Contrib.RC53Assist.Finiteness.sc'_g_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_gcx_homology_iff' : ∀ {R : Type} [inst : CommRing R]
+  (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (i m j : ℤ) (hi : i + 1 = m) (hj : m + 1 = j),
+  Module.Finite R ↑(HomologicalComplex.homology C.toCC m) ↔
+    Module.Finite R (ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot (C.d i m hi).range (C.d m j hj).ker)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_gcx_homology_iff'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.finite_gcx_homology_iff' : ∀ {R : Type} [inst : CommRing R]
+  (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (i m j : ℤ) (hi : i + 1 = m) (hj : m + 1 = j),
+  Finite ↑(HomologicalComplex.homology C.toCC m) ↔
+    Finite (ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot (C.d i m hi).range (C.d m j hj).ker)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_gcx_homology_iff'' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_gcx_homology_iff : ∀ {R : Type} [inst : CommRing R]
+  (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (n : ℤ),
+  Module.Finite R ↑(HomologicalComplex.homology C.toCC n) ↔
+    Module.Finite R (ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot (C.d (n - 1) n ⋯).range (C.d n (n + 1) ⋯).ker)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_gcx_homology_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.gcxClass : {R : Type} →
+  [inst : CommRing R] →
+    (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) →
+      (i m j : ℤ) →
+        (hi : i + 1 = m) →
+          (hj : m + 1 = j) →
+            ↥(C.d m j hj).ker → ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot (C.d i m hi).range (C.d m j hj).ker
+'ZInQ.Contrib.RC53Assist.Finiteness.gcxClass' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.gcxClass_eq_iff : ∀ {R : Type} [inst : CommRing R]
+  (C : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (i m j : ℤ) (hi : i + 1 = m) (hj : m + 1 = j)
+  (x y : ↥(C.d m j hj).ker),
+  ZInQ.Contrib.RC53Assist.Finiteness.gcxClass C i m j hi hj x =
+      ZInQ.Contrib.RC53Assist.Finiteness.gcxClass C i m j hi hj y ↔
+    ∃ (w : ↑(C.X i)), (C.d i m hi) w = ↑x - ↑y
+'ZInQ.Contrib.RC53Assist.Finiteness.gcxClass_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_of_exact : ∀ {R : Type} [inst : CommRing R] [IsNoetherianRing R]
+  {S : CategoryTheory.ShortComplex (ModuleCat R)},
+  S.Exact → Module.Finite R ↑S.X₁ → Module.Finite R ↑S.X₃ → Module.Finite R ↑S.X₂
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_of_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.exists_injective_subquot_piCx : ∀ {R : Type} [inst : CommRing R] {ι : Type}
+  (A : ι → ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (n : ℤ),
+  ∃ (Φ :
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot ((ZInQ.Manuscript.RC.SelmerComplex.piCx A).d (n - 1) n ⋯).range
+        ((ZInQ.Manuscript.RC.SelmerComplex.piCx A).d n (n + 1) ⋯).ker →ₗ[R]
+      (v : ι) → ZInQ.Contrib.RC53Assist.InnerLimitArith.subquot ((A v).d (n - 1) n ⋯).range ((A v).d n (n + 1) ⋯).ker),
+    Function.Injective ⇑Φ
+'ZInQ.Contrib.RC53Assist.Finiteness.exists_injective_subquot_piCx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_piCx : ∀ {R : Type} [inst : CommRing R] [IsNoetherianRing R]
+  {ι : Type} [Finite ι] (A : ι → ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (n : ℤ),
+  (∀ (v : ι), Module.Finite R ↑(HomologicalComplex.homology (A v).toCC n)) →
+    Module.Finite R ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC.SelmerComplex.piCx A).toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_piCx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.range_shiftDown_d : ∀ {R : Type} [inst : CommRing R]
+  (L : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (n : ℤ),
+  ((ZInQ.Contrib.CloudB3RC53.SelmerDuality.shiftDown L).d (n - 1) n ⋯).range = (L.d (n - 1 - 1) (n - 1) ⋯).range
+'ZInQ.Contrib.RC53Assist.Finiteness.range_shiftDown_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.ker_shiftDown_d : ∀ {R : Type} [inst : CommRing R]
+  (L : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (n : ℤ),
+  ((ZInQ.Contrib.CloudB3RC53.SelmerDuality.shiftDown L).d n (n + 1) ⋯).ker = (L.d (n - 1) (n - 1 + 1) ⋯).ker
+'ZInQ.Contrib.RC53Assist.Finiteness.ker_shiftDown_d' depends on axioms: [propext, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_shiftDown : ∀ {R : Type} [inst : CommRing R]
+  (L : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx R) (n : ℤ),
+  Module.Finite R ↑(HomologicalComplex.homology L.toCC (n - 1)) →
+    Module.Finite R ↑(HomologicalComplex.homology (ZInQ.Contrib.CloudB3RC53.SelmerDuality.shiftDown L).toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_shiftDown' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_selCx : ∀ {R : Type} [inst : CommRing R] [IsNoetherianRing R]
+  (D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData R) (n : ℤ),
+  Module.Finite R ↑(HomologicalComplex.homology D.G.toCC n) →
+    Module.Finite R ↑(HomologicalComplex.homology D.U.toCC n) →
+      Module.Finite R ↑(HomologicalComplex.homology D.L.toCC (n - 1)) →
+        Module.Finite R ↑(HomologicalComplex.homology (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx D).toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_selCx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun : {k : Type} →
+  [inst : CommRing k] →
+    {G : Type} →
+      [inst_1 : Group G] →
+        [inst_2 : TopologicalSpace G] →
+          [inst_3 : ContinuousMul G] →
+            {M : Type} →
+              [inst_4 : AddCommGroup M] →
+                [inst_5 : Module k M] →
+                  [inst_6 : DistribMulAction G M] →
+                    [inst_7 : SMulCommClass G k M] →
+                      [inst_8 : TopologicalSpace M] →
+                        [inst_9 : ContinuousAdd M] →
+                          [inst_10 : ContinuousConstSMul k M] →
+                            [inst_11 : ContinuousSMul G M] →
+                              {j : ℕ} → ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j) → (Fin j → G) → M
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.mkCochain : {k : Type} →
+  [inst : CommRing k] →
+    {G : Type} →
+      [inst_1 : Group G] →
+        [inst_2 : TopologicalSpace G] →
+          [inst_3 : ContinuousMul G] →
+            {M : Type} →
+              [inst_4 : AddCommGroup M] →
+                [inst_5 : Module k M] →
+                  [inst_6 : DistribMulAction G M] →
+                    [inst_7 : SMulCommClass G k M] →
+                      [inst_8 : TopologicalSpace M] →
+                        [inst_9 : ContinuousAdd M] →
+                          [inst_10 : ContinuousConstSMul k M] →
+                            [inst_11 : ContinuousSMul G M] →
+                              {j : ℕ} →
+                                (f : (Fin j → G) → M) →
+                                  Continuous f → ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j)
+'ZInQ.Contrib.RC53Assist.Finiteness.mkCochain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.continuous_cochainFun : ∀ {k : Type} [inst : CommRing k] {G : Type}
+  [inst_1 : Group G] [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M]
+  [inst_5 : Module k M] [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ}
+  (c : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j)),
+  Continuous (ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c)
+'ZInQ.Contrib.RC53Assist.Finiteness.continuous_cochainFun' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_mkCochain : ∀ {k : Type} [inst : CommRing k] {G : Type}
+  [inst_1 : Group G] [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M]
+  [inst_5 : Module k M] [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ}
+  (f : (Fin j → G) → M) (hf : Continuous f),
+  ZInQ.Contrib.RC53Assist.Finiteness.cochainFun (ZInQ.Contrib.RC53Assist.Finiteness.mkCochain f hf) = f
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_mkCochain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochain_ext : ∀ {k : Type} [inst : CommRing k] {G : Type} [inst_1 : Group G]
+  [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M] [inst_5 : Module k M]
+  [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ}
+  {c c' : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j)},
+  (∀ (x : Fin j → G),
+      ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c x = ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c' x) →
+    c = c'
+'ZInQ.Contrib.RC53Assist.Finiteness.cochain_ext' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_add : ∀ {k : Type} [inst : CommRing k] {G : Type} [inst_1 : Group G]
+  [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M] [inst_5 : Module k M]
+  [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ}
+  (c c' : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j)) (x : Fin j → G),
+  ZInQ.Contrib.RC53Assist.Finiteness.cochainFun (c + c') x =
+    ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c x + ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c' x
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_sub : ∀ {k : Type} [inst : CommRing k] {G : Type} [inst_1 : Group G]
+  [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M] [inst_5 : Module k M]
+  [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ}
+  (c c' : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j)) (x : Fin j → G),
+  ZInQ.Contrib.RC53Assist.Finiteness.cochainFun (c - c') x =
+    ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c x - ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c' x
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_zero : ∀ {k : Type} [inst : CommRing k] {G : Type} [inst_1 : Group G]
+  [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M] [inst_5 : Module k M]
+  [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ} (x : Fin j → G),
+  ZInQ.Contrib.RC53Assist.Finiteness.cochainFun 0 x = 0
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_smul : ∀ {k : Type} [inst : CommRing k] {G : Type} [inst_1 : Group G]
+  [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M] [inst_5 : Module k M]
+  [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ} (a : k)
+  (c : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j)) (x : Fin j → G),
+  ZInQ.Contrib.RC53Assist.Finiteness.cochainFun (a • c) x = a • ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c x
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_d : ∀ {k : Type} [inst : CommRing k] {G : Type} [inst_1 : Group G]
+  [inst_2 : TopologicalSpace G] [inst_3 : ContinuousMul G] {M : Type} [inst_4 : AddCommGroup M] [inst_5 : Module k M]
+  [inst_6 : DistribMulAction G M] [inst_7 : SMulCommClass G k M] [inst_8 : TopologicalSpace M]
+  [inst_9 : ContinuousAdd M] [inst_10 : ContinuousConstSMul k M] [inst_11 : ContinuousSMul G M] {j : ℕ}
+  (c : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).X j)) (g : Fin (j + 1) → G),
+  ZInQ.Contrib.RC53Assist.Finiteness.cochainFun
+      ((ModuleCat.Hom.hom ((ZInQ.Manuscript.RC.SelmerComplex.contCochains k G M).d j (j + 1))) c) g =
+    (g 0 • ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c fun (i : Fin j) => g i.succ) +
+      ∑ i : Fin (j + 1),
+        (-1) ^ (↑i + 1) • ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c (i.contractNth (fun (x1 x2 : G) => x1 * x2) g)
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit : {T : Type} →
+  [inst : AddCommGroup T] →
+    [Module ℤ_[2] T] →
+      [TopologicalSpace T] →
+        {L : ℕ → Type} →
+          [inst_3 : (k : ℕ) → AddCommGroup (L k)] → [(k : ℕ) → TopologicalSpace (L k)] → ((k : ℕ) → T →+ L k) → Prop
+'ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels : (G : Type) →
+  [inst : Group G] →
+    {T : Type} →
+      [inst_1 : AddCommGroup T] →
+        [DistribMulAction G T] →
+          {L : ℕ → Type} →
+            [inst_3 : (k : ℕ) → AddCommGroup (L k)] → [(k : ℕ) → DistribMulAction G (L k)] → ((k : ℕ) → T →+ L k) → Prop
+'ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels' does not depend on any axioms
+ZInQ.Contrib.RC53Assist.Finiteness.redCochain : (G : Type) →
+  [inst : Group G] →
+    [inst_1 : TopologicalSpace G] →
+      [inst_2 : IsTopologicalGroup G] →
+        {T : Type} →
+          [inst_3 : AddCommGroup T] →
+            [inst_4 : Module ℤ_[2] T] →
+              [inst_5 : DistribMulAction G T] →
+                [inst_6 : SMulCommClass G ℤ_[2] T] →
+                  [inst_7 : TopologicalSpace T] →
+                    [inst_8 : ContinuousAdd T] →
+                      [inst_9 : ContinuousConstSMul ℤ_[2] T] →
+                        [inst_10 : ContinuousSMul G T] →
+                          {L : ℕ → Type} →
+                            [inst_11 : (k : ℕ) → AddCommGroup (L k)] →
+                              [inst_12 : (k : ℕ) → DistribMulAction G (L k)] →
+                                [inst_13 : (k : ℕ) → TopologicalSpace (L k)] →
+                                  [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)] →
+                                    [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] →
+                                      (p : (k : ℕ) → T →+ L k) →
+                                        ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p →
+                                          (k j : ℕ) →
+                                            ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T).X j) →+
+                                              ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ G (L k)).X j)
+'ZInQ.Contrib.RC53Assist.Finiteness.redCochain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_redCochain : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → DistribMulAction G (L k)]
+  [inst_13 : (k : ℕ) → TopologicalSpace (L k)] [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)]
+  [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] (p : (k : ℕ) → T →+ L k)
+  (hp : ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p) (k j : ℕ)
+  (c : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T).X j)) (x : Fin j → G),
+  ZInQ.Contrib.RC53Assist.Finiteness.cochainFun ((ZInQ.Contrib.RC53Assist.Finiteness.redCochain G p hp k j) c) x =
+    (p k) (ZInQ.Contrib.RC53Assist.Finiteness.cochainFun c x)
+'ZInQ.Contrib.RC53Assist.Finiteness.cochainFun_redCochain' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.red : (G : Type) →
+  [inst : Group G] →
+    [inst_1 : TopologicalSpace G] →
+      [inst_2 : IsTopologicalGroup G] →
+        {T : Type} →
+          [inst_3 : AddCommGroup T] →
+            [inst_4 : Module ℤ_[2] T] →
+              [inst_5 : DistribMulAction G T] →
+                [inst_6 : SMulCommClass G ℤ_[2] T] →
+                  [inst_7 : TopologicalSpace T] →
+                    [inst_8 : ContinuousAdd T] →
+                      [inst_9 : ContinuousConstSMul ℤ_[2] T] →
+                        [inst_10 : ContinuousSMul G T] →
+                          {L : ℕ → Type} →
+                            [inst_11 : (k : ℕ) → AddCommGroup (L k)] →
+                              [inst_12 : (k : ℕ) → DistribMulAction G (L k)] →
+                                [inst_13 : (k : ℕ) → TopologicalSpace (L k)] →
+                                  [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)] →
+                                    [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] →
+                                      (p : (k : ℕ) → T →+ L k) →
+                                        ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p →
+                                          (k : ℕ) →
+                                            (m : ℤ) →
+                                              ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx
+                                                        (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X
+                                                    m) →+
+                                                ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx
+                                                        (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ G (L k))).X
+                                                    m)
+'ZInQ.Contrib.RC53Assist.Finiteness.red' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.map_neg_one_pow_smul : ∀ {T : Type} [inst : AddCommGroup T]
+  [inst_1 : Module ℤ_[2] T] {L' : Type} [inst_2 : AddCommGroup L'] (q : T →+ L') (m : ℕ) (t : T),
+  q ((-1) ^ m • t) = (-1) ^ m • q t
+'ZInQ.Contrib.RC53Assist.Finiteness.map_neg_one_pow_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.redCochain_comm : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → DistribMulAction G (L k)]
+  [inst_13 : (k : ℕ) → TopologicalSpace (L k)] [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)]
+  [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] {p : (k : ℕ) → T →+ L k}
+  (hp : ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p),
+  ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels G p →
+    ∀ (k n : ℕ) (x : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T).X n)),
+      (ZInQ.Contrib.RC53Assist.Finiteness.redCochain G p hp k (n + 1))
+          ((ModuleCat.Hom.hom ((ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T).d n (n + 1))) x) =
+        (ModuleCat.Hom.hom ((ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ G (L k)).d n (n + 1)))
+          ((ZInQ.Contrib.RC53Assist.Finiteness.redCochain G p hp k n) x)
+'ZInQ.Contrib.RC53Assist.Finiteness.redCochain_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.red_comm : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → DistribMulAction G (L k)]
+  [inst_13 : (k : ℕ) → TopologicalSpace (L k)] [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)]
+  [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] {p : (k : ℕ) → T →+ L k}
+  (hp : ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p),
+  ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels G p →
+    ∀ (k : ℕ) (i j : ℤ) (h : i + 1 = j)
+      (x : ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X i)),
+      (ZInQ.Contrib.RC53Assist.Finiteness.red G p hp k j)
+          (((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).d i j h)
+            x) =
+        ((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ G (L k))).d i j h)
+          ((ZInQ.Contrib.RC53Assist.Finiteness.red G p hp k i) x)
+'ZInQ.Contrib.RC53Assist.Finiteness.red_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.red_surjective : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → DistribMulAction G (L k)]
+  [inst_13 : (k : ℕ) → TopologicalSpace (L k)] [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)]
+  [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] {p : (k : ℕ) → T →+ L k}
+  (hp : ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p) (k : ℕ) (m : ℤ),
+  Function.Surjective ⇑(ZInQ.Contrib.RC53Assist.Finiteness.red G p hp k m)
+'ZInQ.Contrib.RC53Assist.Finiteness.red_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.red_ker : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → DistribMulAction G (L k)]
+  [inst_13 : (k : ℕ) → TopologicalSpace (L k)] [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)]
+  [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] {p : (k : ℕ) → T →+ L k}
+  (hp : ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p) (k : ℕ) (m : ℤ)
+  (x : ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+  (ZInQ.Contrib.RC53Assist.Finiteness.red G p hp k m) x = 0 →
+    ∃ (y : ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+      x = 2 ^ k • y
+'ZInQ.Contrib.RC53Assist.Finiteness.red_ker' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.red_two_pow_smul : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → DistribMulAction G (L k)]
+  [inst_13 : (k : ℕ) → TopologicalSpace (L k)] [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)]
+  [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] {p : (k : ℕ) → T →+ L k}
+  (hp : ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p) (k : ℕ) (m : ℤ)
+  (y : ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+  (ZInQ.Contrib.RC53Assist.Finiteness.red G p hp k m) (2 ^ k • y) = 0
+'ZInQ.Contrib.RC53Assist.Finiteness.red_two_pow_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochains_torsionFree : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → TopologicalSpace (L k)] {p : (k : ℕ) → T →+ L k},
+  ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p →
+    ∀ (m : ℤ)
+      (z : ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+      2 • z = 0 → z = 0
+'ZInQ.Contrib.RC53Assist.Finiteness.cochains_torsionFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochains_separated : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → TopologicalSpace (L k)] {p : (k : ℕ) → T →+ L k},
+  ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p →
+    ∀ (m : ℤ)
+      (b : ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+      (∀ (k : ℕ),
+          ∃ (b' :
+            ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+            b = 2 ^ k • b') →
+        b = 0
+'ZInQ.Contrib.RC53Assist.Finiteness.cochains_separated' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.cochains_complete : ∀ {G : Type} [inst : Group G] [inst_1 : TopologicalSpace G]
+  [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T] [inst_4 : Module ℤ_[2] T]
+  [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T] [inst_7 : TopologicalSpace T]
+  [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T] [inst_10 : ContinuousSMul G T] {L : ℕ → Type}
+  [inst_11 : (k : ℕ) → AddCommGroup (L k)] [inst_12 : (k : ℕ) → TopologicalSpace (L k)] {p : (k : ℕ) → T →+ L k},
+  ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p →
+    ∀ (m : ℤ)
+      (s :
+        ℕ → ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+      (∀ (k : ℕ),
+          ∃ (a :
+            ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+            s (k + 1) - s k = 2 ^ k • a) →
+        ∃ (s' :
+          ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X m)),
+          ∀ (k : ℕ),
+            ∃ (a :
+              ↑((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).X
+                  m)),
+              s' - s k = 2 ^ k • a
+'ZInQ.Contrib.RC53Assist.Finiteness.cochains_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.twoPowResidualFinite_of_levels : ∀ {G : Type} [inst : Group G]
+  [inst_1 : TopologicalSpace G] [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T]
+  [inst_4 : Module ℤ_[2] T] [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T]
+  [inst_7 : TopologicalSpace T] [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T]
+  [inst_10 : ContinuousSMul G T] {L : ℕ → Type} [inst_11 : (k : ℕ) → AddCommGroup (L k)]
+  [inst_12 : (k : ℕ) → DistribMulAction G (L k)] [inst_13 : (k : ℕ) → TopologicalSpace (L k)]
+  [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)] [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] {p : (k : ℕ) → T →+ L k},
+  ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p →
+    ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels G p →
+      ∀ (k : ℕ) (i m j : ℤ) (hi : i + 1 = m) (hj : m + 1 = j),
+        Finite
+            ↑(HomologicalComplex.homology
+                (ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ G (L k))).toCC
+                m) →
+          ZInQ.Contrib.RC53Assist.Finiteness.TwoPowResidualFinite
+            ((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).d i m
+              hi)
+            ((ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).d m j
+              hj)
+            k
+'ZInQ.Contrib.RC53Assist.Finiteness.twoPowResidualFinite_of_levels' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_of_twoAdicLimit : ∀ {G : Type} [inst : Group G]
+  [inst_1 : TopologicalSpace G] [inst_2 : IsTopologicalGroup G] {T : Type} [inst_3 : AddCommGroup T]
+  [inst_4 : Module ℤ_[2] T] [inst_5 : DistribMulAction G T] [inst_6 : SMulCommClass G ℤ_[2] T]
+  [inst_7 : TopologicalSpace T] [inst_8 : ContinuousAdd T] [inst_9 : ContinuousConstSMul ℤ_[2] T]
+  [inst_10 : ContinuousSMul G T] {L : ℕ → Type} [inst_11 : (k : ℕ) → AddCommGroup (L k)]
+  [inst_12 : (k : ℕ) → DistribMulAction G (L k)] [inst_13 : (k : ℕ) → TopologicalSpace (L k)]
+  [inst_14 : ∀ (k : ℕ), DiscreteTopology (L k)] [inst_15 : ∀ (k : ℕ), ContinuousSMul G (L k)] {p : (k : ℕ) → T →+ L k},
+  ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit p →
+    ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels G p →
+      (∀ (k : ℕ) (m : ℤ),
+          Finite
+            ↑(HomologicalComplex.homology
+                (ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ G (L k))).toCC
+                m)) →
+        ∀ (n : ℤ),
+          Module.Finite ℤ_[2]
+            ↑(HomologicalComplex.homology
+                (ZInQ.Manuscript.RC.SelmerComplex.natCx (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] G T)).toCC
+                n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_homology_of_twoAdicLimit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.tateShift : {K : Type} →
+  [inst : Field K] →
+    [inst_1 : NumberField K] →
+      {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} →
+        {W : WeierstrassCurve K} →
+          (k : ℕ) →
+            (P : ZInQ.Manuscript.RC.LambdaCoef.TateS K S W) → P.pt k = 0 → ZInQ.Manuscript.RC.LambdaCoef.TateS K S W
+'ZInQ.Contrib.RC53Assist.Finiteness.tateShift' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.two_pow_smul_tateShift : ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} (k : ℕ)
+  (P : ZInQ.Manuscript.RC.LambdaCoef.TateS K S W) (hP : P.pt k = 0),
+  2 ^ k • ZInQ.Contrib.RC53Assist.Finiteness.tateShift k P hP = P
+'ZInQ.Contrib.RC53Assist.Finiteness.two_pow_smul_tateShift' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.continuous_tateShift : ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} {X : Type}
+  [inst_2 : TopologicalSpace X] (k : ℕ) (f : X → ZInQ.Manuscript.RC.LambdaCoef.TateS K S W),
+  Continuous f →
+    ∀ (h0 : ∀ (x : X), (f x).pt k = 0), Continuous fun (x : X) => ZInQ.Contrib.RC53Assist.Finiteness.tateShift k (f x) ⋯
+'ZInQ.Contrib.RC53Assist.Finiteness.continuous_tateShift' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.isTwoAdicLimit_tate : ∀ (K : Type) [inst : Field K] [inst_1 : NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (W : WeierstrassCurve K) [W.IsElliptic]
+  [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S W],
+  ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit fun (k : ℕ) => ZInQ.Manuscript.RC.LambdaCoef.projLev k
+'ZInQ.Contrib.RC53Assist.Finiteness.isTwoAdicLimit_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.isEquivariantLevels_tate : ∀ (K : Type) [inst : Field K] [inst_1 : NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (W : WeierstrassCurve K),
+  ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) fun (k : ℕ) =>
+    ZInQ.Manuscript.RC.LambdaCoef.projLev k
+'ZInQ.Contrib.RC53Assist.Finiteness.isEquivariantLevels_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.projLevRes : {K : Type} →
+  [inst : Field K] →
+    [inst_1 : NumberField K] →
+      {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} →
+        {W : WeierstrassCurve K} →
+          {H : Type} →
+            [inst_2 : Group H] →
+              [inst_3 : TopologicalSpace H] →
+                (φ : H →ₜ* ZInQ.Manuscript.RC.SelmerComplex.GKS K S) →
+                  (k : ℕ) →
+                    ZInQ.Manuscript.RC.SelmerComplex.ResMod φ (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W) →+
+                      ZInQ.Manuscript.RC.SelmerComplex.ResMod φ (ZInQ.Manuscript.RC.LambdaCoef.Lev K S W k)
+'ZInQ.Contrib.RC53Assist.Finiteness.projLevRes' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.isTwoAdicLimit_tateRes : ∀ (K : Type) [inst : Field K] [inst_1 : NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (W : WeierstrassCurve K) [W.IsElliptic]
+  [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S W] {H : Type} [inst_4 : Group H] [inst_5 : TopologicalSpace H]
+  (φ : H →ₜ* ZInQ.Manuscript.RC.SelmerComplex.GKS K S),
+  ZInQ.Contrib.RC53Assist.Finiteness.IsTwoAdicLimit fun (k : ℕ) => ZInQ.Contrib.RC53Assist.Finiteness.projLevRes φ k
+'ZInQ.Contrib.RC53Assist.Finiteness.isTwoAdicLimit_tateRes' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.isEquivariantLevels_tateRes : ∀ (K : Type) [inst : Field K] [inst_1 : NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (W : WeierstrassCurve K) {H : Type}
+  [inst_2 : Group H] [inst_3 : TopologicalSpace H] (φ : H →ₜ* ZInQ.Manuscript.RC.SelmerComplex.GKS K S),
+  ZInQ.Contrib.RC53Assist.Finiteness.IsEquivariantLevels H fun (k : ℕ) =>
+    ZInQ.Contrib.RC53Assist.Finiteness.projLevRes φ k
+'ZInQ.Contrib.RC53Assist.Finiteness.isEquivariantLevels_tateRes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.natCard_lev_mem : ∀ {K : Type} [inst : Field K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K}
+  [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S W],
+  (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+    ∀ (k : ℕ) (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)),
+      ↑(Nat.card (ZInQ.Manuscript.RC.LambdaCoef.Lev K S W k)) ∈ v.asIdeal → v ∈ S
+'ZInQ.Contrib.RC53Assist.Finiteness.natCard_lev_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_globalTateCohomology : ∀ (K : Type) [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (W : WeierstrassCurve K),
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+    S.Finite →
+      (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+        ∀ [W.IsElliptic] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S W] (n : ℤ),
+          Module.Finite ℤ_[2]
+            ↑(HomologicalComplex.homology
+                (ZInQ.Manuscript.RC.SelmerComplex.natCx
+                    (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.GKS K S)
+                      (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W))).toCC
+                n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_globalTateCohomology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_localTateCohomology : ∀ (K : Type) [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (W : WeierstrassCurve K),
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ∀ [W.IsElliptic] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S W]
+      (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (n : ℤ),
+      Module.Finite ℤ_[2]
+        ↑(HomologicalComplex.homology
+            (ZInQ.Manuscript.RC.SelmerComplex.natCx
+                (ZInQ.Manuscript.RC.SelmerComplex.contCochains ℤ_[2] (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v)
+                  (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S v)
+                    (ZInQ.Manuscript.RC.LambdaCoef.TateS K S W)))).toCC
+            n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_localTateCohomology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_tateKummerCondition_homology : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)),
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+      {dec : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K v)} (n : ℤ),
+      Module.Finite ℤ_[2]
+        ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.tateKummerCondition W hFull v).toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_tateKummerCondition_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_compactKummer_homology : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+  (W : WeierstrassCurve K) [inst_2 : W.IsElliptic]
+  (hFull : ∀ (n : ℕ), ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ n)),
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      S.Finite →
+        (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+          ∀ (n : ℤ),
+            Module.Finite ℤ_[2]
+              ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC53Assist.CentralKummer.compactKummerComplex S W hFull) n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_compactKummer_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.kummerCohomologyFinite_of_prints : ∀ (ℓ : ℕ) (k : ℤ)
+  [inst : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic]
+  (S :
+    Set
+      (IsDedekindDomain.HeightOneSpectrum
+        (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))))
+  (hFull :
+    ∀ (n : ℕ),
+      ZInQ.Manuscript.RC.CoefModules.FullTorsion (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k) S
+        ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))
+        (2 ^ n)),
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      S.Finite →
+        (∀
+            (v :
+              IsDedekindDomain.HeightOneSpectrum
+                (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))),
+            2 ∈ v.asIdeal → v ∈ S) →
+          ZInQ.Manuscript.RC53Assist.CentralUniversal.KummerCohomologyFinite ℓ k S hFull
+'ZInQ.Contrib.RC53Assist.Finiteness.kummerCohomologyFinite_of_prints' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.kummerCohomologyFinite_of_comparison : ∀ (ℓ : ℕ) (k : ℤ)
+  [inst : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic]
+  (S :
+    Set
+      (IsDedekindDomain.HeightOneSpectrum
+        (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))))
+  (hFull :
+    ∀ (n : ℕ),
+      ZInQ.Manuscript.RC.CoefModules.FullTorsion (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k) S
+        ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))
+        (2 ^ n)),
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      ∀ (I : ZInQ.Manuscript.RC53Assist.CentralUniversal.KummerCoefficientComparison ℓ k S hFull),
+        (∀
+            (v :
+              IsDedekindDomain.HeightOneSpectrum
+                (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))),
+            2 ∈ v.asIdeal → v ∈ S) →
+          ZInQ.Manuscript.RC53Assist.CentralUniversal.KummerCohomologyFinite ℓ k S hFull
+'ZInQ.Contrib.RC53Assist.Finiteness.kummerCohomologyFinite_of_comparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.finite_cocycleCondition_homology : ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+  ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+    (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) {R : Type} [inst_2 : CommRing R] {M : Type}
+    [inst_3 : AddCommGroup M] [inst_4 : Module R M]
+    [inst_5 : DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v) M]
+    [inst_6 : SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v) R M] [inst_7 : TopologicalSpace M]
+    [inst_8 : DiscreteTopology M] [inst_9 : ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v) M] [Finite M]
+    (Z : Submodule R ↥(ZInQ.Manuscript.RC.SelmerComplex.contCochain R (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v) M 1))
+    (hZ : ∀ z ∈ Z, (ZInQ.Manuscript.RC.CoefModules.contD R (ZInQ.Manuscript.RC.SelmerComplex.Gloc K v) M 1) z = 0)
+    (n : ℤ), Finite ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC.CoefModules.cocycleCondition Z hZ).toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_cocycleCondition_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.finite_galoisSelmer_homology : ∀ (K : Type) [inst : Field K] [inst_1 : NumberField K]
+  (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (R : Type) [inst_2 : CommRing R]
+  (M : Type) [inst_3 : AddCommGroup M] [inst_4 : Module R M]
+  [inst_5 : DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [inst_6 : SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) R M] [inst_7 : TopologicalSpace M]
+  [inst_8 : DiscreteTopology M] [inst_9 : ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M],
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      S.Finite →
+        ∀ [Finite M],
+          (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)),
+              ↑(Nat.card M) ∈ v.asIdeal → v ∈ S) →
+            ∀ (Δ : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions K S R M),
+              (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (n : ℤ),
+                  Finite ↑(HomologicalComplex.homology (Δ.U v).toCC n)) →
+                ∀ (n : ℤ),
+                  Finite
+                    ↑(HomologicalComplex.homology
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                            (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData K S R M Δ)).toCC
+                        n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_galoisSelmer_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_galoisSelmer_homology : ∀ (K : Type) [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (R : Type)
+  [inst_2 : CommRing R] (M : Type) [inst_3 : AddCommGroup M] [inst_4 : Module R M]
+  [inst_5 : DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [inst_6 : SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) R M] [inst_7 : TopologicalSpace M]
+  [inst_8 : DiscreteTopology M] [inst_9 : ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M],
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      S.Finite →
+        ∀ [Finite M],
+          (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)),
+              ↑(Nat.card M) ∈ v.asIdeal → v ∈ S) →
+            ∀ (Δ : ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions K S R M),
+              (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (n : ℤ),
+                  Finite ↑(HomologicalComplex.homology (Δ.U v).toCC n)) →
+                ∀ (n : ℤ),
+                  Module.Finite R
+                    ↑(HomologicalComplex.homology
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                            (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData K S R M Δ)).toCC
+                        n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_galoisSelmer_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.finite_strictConditions_homology : ∀ (K : Type) [inst : Field K]
+  [inst_1 : NumberField K] (S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) (R : Type)
+  [inst_2 : CommRing R] (M : Type) [inst_3 : AddCommGroup M] [inst_4 : Module R M]
+  [inst_5 : DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [inst_6 : SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) R M] [inst_7 : TopologicalSpace M]
+  [inst_8 : DiscreteTopology M] [inst_9 : ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (n : ℤ),
+  Finite
+    ↑(HomologicalComplex.homology
+        ((ZInQ.Manuscript.RC.SelmerComplex.strictConditions R (ZInQ.Manuscript.RC.SelmerComplex.GKS K S)
+                (fun (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) => ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+                (fun (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) =>
+                  ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑v)
+                M).U
+            v).toCC
+        n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_strictConditions_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.natCard_mem_of_two_pow : ∀ {K : Type} [inst : Field K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))},
+  (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+    ∀ {M : Type} {e : ℕ},
+      Nat.card M = 2 ^ e →
+        ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), ↑(Nat.card M) ∈ v.asIdeal → v ∈ S
+'ZInQ.Contrib.RC53Assist.Finiteness.natCard_mem_of_two_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_stageSelmer_homology : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (W : WeierstrassCurve K) [W.IsElliptic] (i : ℕ)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+  [inst_3 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α],
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      S.Finite →
+        (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+          ∀
+            (Δ :
+              ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions K S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α)),
+            (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (n : ℤ),
+                Finite ↑(HomologicalComplex.homology (Δ.U v).toCC n)) →
+              ∀ (n : ℤ),
+                Module.Finite (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                  ↑(HomologicalComplex.homology
+                      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                          (ZInQ.Manuscript.RC.SelmerComplex.galoisSelData K S
+                            (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α)
+                            Δ)).toCC
+                      n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_stageSelmer_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.finite_urAt_homology : ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+  {S S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (hS : S₀ ⊆ S) (k : Type)
+  [inst_2 : CommRing k] [inst_3 : TopologicalSpace k] [inst_4 : DiscreteTopology k] (M₀ : Type)
+  [inst_5 : AddCommGroup M₀] [inst_6 : Module k M₀]
+  [inst_7 : DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀) M₀]
+  [inst_8 : SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀) k M₀] [inst_9 : TopologicalSpace M₀]
+  [inst_10 : DiscreteTopology M₀] [inst_11 : ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀) M₀]
+  [inst_12 : Finite M₀] (w : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (hw : ↑w ∉ S₀) (n : ℤ),
+  Finite ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC.CoefModules.urAt hS k M₀ w hw).U.toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_urAt_homology' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.finite_actualConditions_homology : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (hS : S₀ ⊆ S) (W : WeierstrassCurve K) [inst_2 : W.IsElliptic] (i : ℕ)
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+  [inst_3 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α]
+  [inst_4 : TopologicalSpace (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)]
+  [inst_5 : DiscreteTopology (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)]
+  (c :
+    (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) →
+      ↑v ∈ S₀ →
+        ZInQ.Manuscript.RC.CoefModules.CondAt K S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+          (ZInQ.Manuscript.RC.CoefModules.MinS hS W i α) v),
+  (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (h : ↑v ∈ S₀) (n : ℤ),
+      Finite ↑(HomologicalComplex.homology (c v h).U.toCC n)) →
+    ∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (n : ℤ),
+      Finite ↑(HomologicalComplex.homology ((ZInQ.Manuscript.RC.CoefModules.actualConditions hS W i α c).U v).toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_actualConditions_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.finite_actualSelData_homology : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))},
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      ∀ {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (hS : S₀ ⊆ S),
+        S.Finite →
+          (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+            ∀ (W : WeierstrassCurve K) [inst_2 : W.IsElliptic] (i : ℕ)
+              (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+              [inst_3 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α]
+              (c :
+                (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) →
+                  ↑v ∈ S₀ →
+                    ZInQ.Manuscript.RC.CoefModules.CondAt K S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                      (ZInQ.Manuscript.RC.CoefModules.MinS hS W i α) v),
+              (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (h : ↑v ∈ S₀) (n : ℤ),
+                  Finite ↑(HomologicalComplex.homology (c v h).U.toCC n)) →
+                ∀ (n : ℤ),
+                  Finite
+                    ↑(HomologicalComplex.homology
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                            (ZInQ.Manuscript.RC.CoefModules.actualSelData hS W i α c)).toCC
+                        n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_actualSelData_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_actualSelData_homology : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))},
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      ∀ {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (hS : S₀ ⊆ S),
+        S.Finite →
+          (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+            ∀ (W : WeierstrassCurve K) [inst_2 : W.IsElliptic] (i : ℕ)
+              (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+              [inst_3 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α]
+              (c :
+                (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) →
+                  ↑v ∈ S₀ →
+                    ZInQ.Manuscript.RC.CoefModules.CondAt K S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                      (ZInQ.Manuscript.RC.CoefModules.MinS hS W i α) v),
+              (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (h : ↑v ∈ S₀) (n : ℤ),
+                  Finite ↑(HomologicalComplex.homology (c v h).U.toCC n)) →
+                ∀ (n : ℤ),
+                  Module.Finite (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                    ↑(HomologicalComplex.homology
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                            (ZInQ.Manuscript.RC.CoefModules.actualSelData hS W i α c)).toCC
+                        n)
+'ZInQ.Contrib.RC53Assist.Finiteness.moduleFinite_actualSelData_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.finite_kummerSelData_homology : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))},
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      ∀ {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (hS : S₀ ⊆ S),
+        S.Finite →
+          (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+            ∀ (W : WeierstrassCurve K) [inst_2 : W.IsElliptic] (i : ℕ) (s : ZInQ.Manuscript.RC.CoefModules.KS K S₀)
+              {h : K} (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S₀)) h) (hs0 : s ≠ 0)
+              (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+              (hFull : ZInQ.Manuscript.RC.CoefModules.FullTorsion K S₀ W (2 ^ i))
+              [inst_3 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α]
+              (P : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+              (hα :
+                ∀ v ∈ P,
+                  ZInQ.Manuscript.RC.KummerMaps.IsLocallyQuadAt i α (ZInQ.Manuscript.RC.CoefModules.quadChar s hs hs0)
+                    v)
+              (c :
+                (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) →
+                  ↑v ∈ S₀ →
+                    ↑v ∉ P →
+                      ZInQ.Manuscript.RC.CoefModules.CondAt K S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                        (ZInQ.Manuscript.RC.CoefModules.MinS hS W i α) v),
+              (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (hv : ↑v ∈ S₀) (hP : ↑v ∉ P) (n : ℤ),
+                  Finite ↑(HomologicalComplex.homology (c v hv hP).U.toCC n)) →
+                ∀ (n : ℤ),
+                  Finite
+                    ↑(HomologicalComplex.homology
+                        (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                            (ZInQ.Manuscript.RC.KummerMaps.kummerSelData hS W i s hs hs0 α hFull P hα c)).toCC
+                        n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_kummerSelData_homology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.finite_zeroAt_homology : ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {A : Type} [inst_2 : CommRing A]
+  {M : Type} [inst_3 : AddCommGroup M] [inst_4 : Module A M]
+  [inst_5 : DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [inst_6 : SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) A M] [inst_7 : TopologicalSpace M]
+  [inst_8 : DiscreteTopology M] [inst_9 : ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (n : ℤ),
+  Finite ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC.CoefModules.zeroAt K S A M v).U.toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_zeroAt_homology' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.finite_kummerAt_homology : ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {A : Type} [inst_2 : CommRing A]
+  {M : Type} [inst_3 : AddCommGroup M] [inst_4 : Module A M]
+  [inst_5 : DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [inst_6 : SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) A M] [inst_7 : TopologicalSpace M]
+  [inst_8 : DiscreteTopology M] [inst_9 : ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M],
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ∀ [Finite M] (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S)
+      [inst_11 : DecidableEq (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)]
+      (B : WeierstrassCurve (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v)) [inst_12 : B.IsElliptic] (m : ℕ)
+      [inst_13 : NeZero m]
+      (ι :
+        ZInQ.Manuscript.RC.CoefModules.TorsAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v) B m →+
+          ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑v) M)
+      (hι :
+        ∀ (σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑v)
+          (t : ZInQ.Manuscript.RC.CoefModules.TorsAlg (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑v) B m),
+          ι (σ • t) = σ • ι t)
+      (n : ℤ), Finite ↑(HomologicalComplex.homology (ZInQ.Manuscript.RC.CoefModules.kummerAt v B m ι hι).U.toCC n)
+'ZInQ.Contrib.RC53Assist.Finiteness.finite_kummerAt_homology' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ZInQ.Contrib.RC53Assist.Finiteness.residualCohomologyFinite_kummerSelData : ∀ {K : Type} [inst : Field K]
+  [inst_1 : NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))},
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+    ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+      ∀ {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (hS : S₀ ⊆ S),
+        S.Finite →
+          (∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S) →
+            ∀ (W : WeierstrassCurve K) [inst_2 : W.IsElliptic] (i : ℕ) [inst_3 : NeZero i]
+              (s : ZInQ.Manuscript.RC.CoefModules.KS K S₀) {h : K}
+              (hs : s ^ 2 = (algebraMap K (ZInQ.Manuscript.RC.CoefModules.KS K S₀)) h) (hs0 : s ≠ 0)
+              (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+              (hFull : ZInQ.Manuscript.RC.CoefModules.FullTorsion K S₀ W (2 ^ i))
+              [inst_4 : ZInQ.Manuscript.RC.CoefModules.IsOpenKer α]
+              (P : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)))
+              (hα :
+                ∀ v ∈ P,
+                  ZInQ.Manuscript.RC.KummerMaps.IsLocallyQuadAt i α (ZInQ.Manuscript.RC.CoefModules.quadChar s hs hs0)
+                    v)
+              (c :
+                (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) →
+                  ↑v ∈ S₀ →
+                    ↑v ∉ P →
+                      ZInQ.Manuscript.RC.CoefModules.CondAt K S (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+                        (ZInQ.Manuscript.RC.CoefModules.MinS hS W i α) v),
+              (∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (hv : ↑v ∈ S₀) (hP : ↑v ∉ P),
+                  ZInQ.Contrib.RC53Assist.InnerLimitArith.ResidualCohomologyFinite (c v hv hP).U) →
+                ZInQ.Contrib.RC53Assist.InnerLimitArith.ResidualCohomologyFinite
+                  (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                    (ZInQ.Manuscript.RC.KummerMaps.kummerSelData hS W i s hs hs0 α hFull P hα c))
+'ZInQ.Contrib.RC53Assist.Finiteness.residualCohomologyFinite_kummerSelData' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.centralSelmerComparisonOfPrints : ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+    (ℓ : ℕ) →
+      (k : ℤ) →
+        [inst : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic] →
+          ¬IsSquare ↑k →
+            (S :
+                Set
+                  (IsDedekindDomain.HeightOneSpectrum
+                    (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k)))) →
+              (hFull :
+                  ∀ (n : ℕ),
+                    ZInQ.Manuscript.RC.CoefModules.FullTorsion
+                      (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k) S
+                      ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange
+                        (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))
+                      (2 ^ n)) →
+                ZInQ.Manuscript.RC53Assist.CentralUniversal.KummerCoefficientComparison ℓ k S hFull →
+                  (∀
+                      (v :
+                        IsDedekindDomain.HeightOneSpectrum
+                          (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))),
+                      2 ∈ v.asIdeal → v ∈ S) →
+                    {m : ℕ} →
+                      (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT) →
+                        (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ) →
+                          (e1 :
+                              ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT]
+                                Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT) →
+                            (e2 :
+                                ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT]
+                                  Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT) →
+                              CU.d 0 1 = 0 →
+                                (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+                                  (i :
+                                      ZInQ.Manuscript.RC53Assist.CentralUniversal.arithmeticRationalComplex ℓ k S
+                                          hFull ⟶
+                                        ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex
+                                          ZInQ.Manuscript.RC.Rings.rhoT CU) →
+                                    [QuasiIsoAt i 1] →
+                                      ZInQ.Manuscript.RC.BaseZeroLimit.CentralSelmerComparison
+                                        (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower
+                                            (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)))
+                                        (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ k)))
+                                        Dm
+'ZInQ.Contrib.RC53Assist.Finiteness.centralSelmerComparisonOfPrints' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.Finiteness.hcentral_of_prints : ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneLocalFiniteness →
+  ZInQ.Contrib.RC53Assist.InnerLimitArith.MilneGlobalFiniteness →
+    ∀ (ℓ : ℕ) (k : ℤ) [inst : (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).IsElliptic],
+      ¬IsSquare ↑k →
+        ∀
+          (S :
+            Set
+              (IsDedekindDomain.HeightOneSpectrum
+                (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))))
+          (hFull :
+            ∀ (n : ℕ),
+              ZInQ.Manuscript.RC.CoefModules.FullTorsion (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k)
+                S
+                ((ZInQ.Contrib.CloudB3RC53.Ecurve ℓ).baseChange
+                  (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))
+                (2 ^ n))
+          (I : ZInQ.Manuscript.RC53Assist.CentralUniversal.KummerCoefficientComparison ℓ k S hFull),
+          (∀
+              (v :
+                IsDedekindDomain.HeightOneSpectrum
+                  (NumberField.RingOfIntegers (ZInQ.Manuscript.RC53Assist.CentralUniversal.QuadraticField k))),
+              2 ∈ v.asIdeal → v ∈ S) →
+            ∀ {m : ℕ} (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) ZInQ.Manuscript.RC.Rings.LambdaT)
+              (CU : CochainComplex (ModuleCat ZInQ.Manuscript.RC.Rings.LambdaT) ℤ)
+              (e1 : ↑(CU.X 1) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT)
+              (e2 : ↑(CU.X 2) ≃ₗ[ZInQ.Manuscript.RC.Rings.LambdaT] Fin (m + 1) → ZInQ.Manuscript.RC.Rings.LambdaT),
+              CU.d 0 1 = 0 →
+                (∀ (x : ↑(CU.X 1)), e2 ((ModuleCat.Hom.hom (CU.d 1 2)) x) = Dm.mulVec (e1 x)) →
+                  ∀
+                    (i :
+                      ZInQ.Manuscript.RC53Assist.CentralUniversal.arithmeticRationalComplex ℓ k S hFull ⟶
+                        ZInQ.Manuscript.RC53Assist.CentralSelmer.scalarChangedComplex ZInQ.Manuscript.RC.Rings.rhoT CU)
+                    [QuasiIsoAt i 1],
+                    ZInQ.Manuscript.RC.SelmerCorankOneOverK ℓ k → (Dm.map ⇑ZInQ.Manuscript.RC.Rings.rhoT).rank = m
+'ZInQ.Contrib.RC53Assist.Finiteness.hcentral_of_prints' depends on axioms: [propext, Classical.choice, Quot.sound]

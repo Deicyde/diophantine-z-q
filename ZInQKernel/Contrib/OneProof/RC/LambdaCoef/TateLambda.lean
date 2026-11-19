@@ -3,8 +3,11 @@ import ZInQKernel.Contrib.OneProof.RC.LambdaCoef.Tate
 /-!
 # Lane RC28 round 2, part 4: the `Λ`-adic coefficient module `𝕋 = T_2E ⊗_{ℤ₂} Λ(α)`
 
-Manuscript `diophantine_zq.tex` (11/5), tex 2780–2785: `M = (T_2E ⊗ Λ)(α)` with `α = χ_h Ψ`, whose
-reductions are the `M_i`, and tex 4976–5200 (`R = Λ_𝔭`, the height-one fibres).
+Manuscript `diophantine_zq.tex` (11/5): finite coefficients at tex 2723–2727;
+`Λ = ℤ₂[[t]]` at tex 2747; `T = T₂E` at tex 2836–2838. The module below is the
+conditional fixed-character construction described in the following paragraph, not a global
+moving-character module asserted at tex 2780–2785.
+Height-one fibres `R = Λ_𝔭`: tex 4976–5200.
 
 * `IsContChar α`: a character `α : G_{K,S} → Λˣ` continuous for the product topology of `Λ`;
   `isContChar_lambdaChar`: `α = χ_h Ψ` is one (for `χ_h` with open kernel and continuous `ξ`).
@@ -18,6 +21,14 @@ reductions are the `M_i`, and tex 4976–5200 (`R = Λ_𝔭`, the height-one fib
   (`ker (T → E[2^n]) = 2^n T`) and the continuity of `α`.
 
 Kinds: definitions and PROVED.
+-/
+
+/-!
+This is a conditional construction for one supplied continuous Λ-valued character on a fixed
+G_{K,S}. Its finite levels are the compatible reductions of that character. The manuscript's
+moving characters have conductor primes varying with precision and need not be reductions of
+one character (tex 2737–2741, 4269–4277). No identification with the retained inner-limit Selmer
+diagrams is proved here.
 -/
 
 noncomputable section
@@ -131,7 +142,7 @@ theorem eventually_sub_one_mem (α : GKS K S →* Lambdaˣ) [hα : IsContChar α
 /-! ### The module `𝕋` -/
 
 variable (K S W) in
-/-- **`𝕋 = Λ ⊗_{ℤ₂} T_2E` with the action twisted by `α`** (tex 2780–2785). -/
+/-- **`𝕋 = Λ ⊗_{ℤ₂} T_2E` with the action twisted by `α`** (tex 2747, 2836–2838). -/
 @[nolint unusedArguments]
 def TLam (_α : GKS K S →* Lambdaˣ) : Type := Lambda ⊗[ℤ_[2]] TateS K S W
 

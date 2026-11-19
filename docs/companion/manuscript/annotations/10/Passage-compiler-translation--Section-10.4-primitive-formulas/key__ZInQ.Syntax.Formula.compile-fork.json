@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-translation: Section 10.4 primitive formulas",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Syntax.Formula.compile a definition: The compilation of primitive formulas and the equality of each recipe polynomial with its compiled formula, including the globally conjoined equations, are stated and proved. The link to the saved AST file is outside Lean.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.845771,
+          0.784314,
+          0.068517
+        ]
+      },
+      "title": "Passage (compiler-translation): Section 10.4 primitive formulas",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Section 10.4 primitive formulas"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.Formula.compile",
+        "module": "ZInQKernel.Syntax.Language.Formula"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.Formula.compile@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def compile : Formula → Poly\n  | .eq a b => a - b\n  | .atom f => f\n  | .call τ g w => τ.call g w\n  | .and fs => (fs.map fun φ => φ.compile ^ 2).sum\n  | .or fs => (fs.map fun φ => φ.compile).prod",
+            "line": 48,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Formula.lean",
+            "fragment": "L48"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

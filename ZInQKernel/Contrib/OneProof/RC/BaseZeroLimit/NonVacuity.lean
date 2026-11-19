@@ -21,7 +21,8 @@ For the inner limit of (4.5) (`Boundary.lean`):
 * `innerLimit45Base_ofStages_nonvacuous`: the constructor `InnerLimit45Base.ofStages` applies to
   these retained stages with moving traces `a_i = 3 + 2^i`, giving `z̄ = 1 ≠ 0`; through
   `toBoundary45Base` this is a `Boundary45Base` of lane RC25;
-* `nonempty_innerLimit45Base_iff` (transparency, as lane RV2's probes): an `InnerLimit45Base`
+* `nonempty_innerLimit45Base_iff` (transparency, as `nonempty_centralSelmerComparison_iff_hcentral`
+  for the central comparison): an `InnerLimit45Base`
   exists iff `z̄ = L κ(P)` for some additive `κ` and `L ≠ 0`, the characterization of lane RC25's
   `Boundary45Base`; as abstract inputs the two structures are equivalent, and the gain is that the
   limit statement `hlim` is now proved from the steps of the text (stage boundaries, inner limit,
@@ -358,8 +359,11 @@ theorem exists_two_pow_integral {n : ℕ} (v : Fin n → ℚ_[2]) :
   rw [← Nat.sub_add_cancel hle, pow_add, mul_assoc]
   exact norm_mul_le_one (norm_two_pow_le_one _) (hk a)
 
-/-- **What the inner-limit data amount to** (transparency, as lane RV2's probes `boundary_iff_h45`
-for lane RC25's `Boundary45Base`): `InnerLimit45Base P n z̄` is inhabited iff `z̄ = L κ(P)` for
+/-- **What the inner-limit data amount to** (transparency, as
+`nonempty_centralSelmerComparison_iff_hcentral` for the central comparison; the same
+characterization holds for lane RC25's `Boundary45Base`: forward by `Boundary45Base.h45`, backward
+by this theorem and `InnerLimit45Base.toBoundary45Base`): `InnerLimit45Base P n z̄` is inhabited
+iff `z̄ = L κ(P)` for
 an additive `κ : G → ℚ₂ⁿ` and an integer `L ≠ 0`. The forward direction is `central` (with
 `κ := m κ`); for the converse, constant stages of trace `3`, the integral data `2^K κ(P)` and the
 comparison `2^{-K}`. So for a torsion specified point the inputs are equivalent to `z̄ = 0`, as for
@@ -473,8 +477,11 @@ def constLimit (c : ℚ_[2]) : InnerLimit45Base (1 : ℤ) 1 (fun _ => c) where
 
 /-- **The base-zero core with the inner limit and the central comparison is satisfiable**
 (PROVED), under the lemma's hypothesis `SelmerCorankOneOverK ℓ D.kfin`: if `D.uPrim F 0` is the
-image of `f ∈ Λ`, there is a `BaseZeroCoreLimit D F 1` with the two-term model `[A --0--> A]`,
-the cycle `z = f`, the functional `1`, generic coordinate `f` and central cycle `f(0)`. -/
+image of `f ∈ Λ`, there is a `BaseZeroCoreLimit D F 1` whose degree-one/two matrix window is
+`[A --0--> A]` (the stored complex `threeTermComplex 0 0` has `A` in degrees `0, 1, 2` and zero
+differentials), the cycle `z = f`, the functional `1`, generic coordinate `f` and central cycle
+`f(0)`. The example lives at the infinite-order point `1 ∈ ℤ` of `G = ℤ` (not a point of `E(K)`;
+the Heegner data are not constructed). At a torsion point the core forces `u_{prim,0}(0) = 0`. -/
 theorem baseZeroCoreLimit_nonvacuous {ℓ : ℕ} (D : RCData ℓ) (Fam : Family)
     (hSel : SelmerCorankOneOverK ℓ D.kfin) (f : Uniform.Lambda) (hf : D.uPrim Fam 0 = lamIncl f) :
     ∃ M : BaseZeroCoreLimit D Fam (1 : ℤ),
@@ -525,7 +532,9 @@ theorem baseZeroCoreLimit_nonvacuous {ℓ : ℕ} (D : RCData ℓ) (Fam : Family)
 
 /-- **The core does not force the conclusion** (PROVED): with `f = 1` the generic coordinate and
 the central cycle are `1 ≠ 0`; the specified point `1 ∈ ℤ` has infinite order, so the height
-formula (the only source of `z̄ = 0`) does not apply. -/
+formula (the only source of `z̄ = 0`) does not apply. The example lives at the infinite-order point
+`1 ∈ ℤ` of `G = ℤ` (not a point of `E(K)`; the Heegner data are not constructed). At a torsion
+point the core forces `u_{prim,0}(0) = 0`. -/
 theorem baseZeroCoreLimit_not_forced {ℓ : ℕ} (D : RCData ℓ) (Fam : Family)
     (hSel : SelmerCorankOneOverK ℓ D.kfin) (hf : D.uPrim Fam 0 = lamIncl 1) :
     ∃ M : BaseZeroCoreLimit D Fam (1 : ℤ), M.uprim ≠ 0 ∧ ∀ i, Rings.rhoT (M.z i) ≠ 0 := by

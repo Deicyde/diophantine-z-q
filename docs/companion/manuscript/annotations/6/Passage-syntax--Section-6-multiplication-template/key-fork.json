@@ -1,0 +1,354 @@
+{
+  "id": "Passage syntax: Section 6 multiplication template",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity.",
+  "relation": "narrowMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.098039,
+          0.172819,
+          0.803922,
+          0.730785
+        ]
+      },
+      "title": "Passage (syntax): Section 6 multiplication template",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 6 multiplication template#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.102941,
+          0.080538,
+          0.794118,
+          0.385307
+        ]
+      },
+      "title": "Passage (syntax): Section 6 multiplication template",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 6 multiplication template#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.SlopePred",
+        "module": "ZInQKernel.Multiplication.Certificate.SlopePredicate"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.SlopePred@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def SlopePred (t ℓ : ℚ) (c : Fin 4 → ℤ) : Prop :=\n  t ∉ contactSet ∧ t ≠ 1 ∧ ℓ ≠ 0 ∧\n    ∃ (η q : ℚ) (h : Fin 6 → ℤ) (z : Fin 6 → Fin 3 → ℤ),\n      (η = 1 ∨ η = -1) ∧ slopeA (slopeR0 η t) q ≠ 0 ∧ (∀ g, h g ≠ 0 ∧ h g ≠ c 0) ∧\n      (∀ g, groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))\n          (normTests (slopeR0 η t) t (testValues (h g) (z g) c)) ≠ 0) ∧\n      traceTheta (fun g => groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))\n          (normTests (slopeR0 η t) t (testValues (h g) (z g) c))) ≠ 0 ∧\n      PoleSoluble (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t) /\n        traceTheta (fun g => groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))\n          (normTests (slopeR0 η t) t (testValues (h g) (z g) c))) ^ 2)",
+            "line": 52,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean",
+            "fragment": "L52"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.coeff_formalLog_genE",
+        "module": "ZInQKernel.Multiplication.Local.LogSeries"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.coeff_formalLog_genE@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem coeff_formalLog_genE (n : ℕ) :\n    coeff n (formalLog (-genD ^ 2 : K0)) =\n      if n % 4 = 1 then (logCoeff (n / 4) : K0) * genD ^ (2 * (n / 4)) else 0 := by",
+            "line": 133,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/LogSeries.lean",
+            "fragment": "L133"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.evalLog_isometry",
+        "module": "ZInQKernel.Multiplication.Local.FormalLog"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.evalLog_isometry@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem evalLog_isometry [CompleteSpace K] (h : ResidueChar K p e) {A t : K} (hA : 0 ≤ vK K A)\n    {m : ℤ} (ht : vK K t = m) (hm : (e : ℤ) < ((p : ℤ) - 1) * m) :\n    vK K t < vK K (evalLog A t - t) ∧ vK K (evalLog A t) = vK K t := by",
+            "line": 169,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalLog.lean",
+            "fragment": "L169"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.local_congruence",
+        "module": "ZInQKernel.Multiplication.Soundness.LocalCongruence"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.local_congruence@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem local_congruence (n : Fin 3 → ℤ) {t : ℚ}\n    (hs : SlopePred t (Syntax.ell : ℚ) (certShifts n)) (p : ℕ) (hp : p.Prime) (hpS : p ∉ S_mul)\n    (hcontact : IsOddContactPrime t p) : (p : ℤ) ^ 25 ∣ n 0 * n 1 - n 2 := by",
+            "line": 35,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Soundness/LocalCongruence.lean",
+            "fragment": "L35"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.log25_truncation_error",
+        "module": "ZInQKernel.Multiplication.Local.TruncationError"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.log25_truncation_error@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem log25_truncation_error {p : ℕ} [Fact p.Prime] (hp324 : 324 < p) {π : Zs} (hπ : Prime π)\n    (hπp : π ∣ (p : Zs)) (P : (shortCurve (-genDAt π hπ ^ 2)).toAffine.Point)\n    (hP : P ∈ W1 (vComp π hπ) (-genDAt π hπ ^ 2)) (hP0 : P ≠ 0) :\n    vComp π hπ (ellLog P) = vComp π hπ (zCoord P) ∧ 1 ≤ vComp π hπ (zCoord P) ∧\n      ∃ ε, 28 ≤ vComp π hπ ε ∧\n        truncLog (genDAt π hπ ^ 2) (zCoord P) = 16575 * ellLog P * (1 + ε) := by",
+            "line": 130,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/TruncationError.lean",
+            "fragment": "L130"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.multiply_rel_iff_cert",
+        "module": "ZInQKernel.Multiplication.Certificate.Multiply"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.multiply_rel_iff_cert@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem multiply_rel_iff_cert (I : Constructors E) (T : ℤ)\n    (hS : ∀ (m : ℤ) (r : Fin 5 → ℚ),\n      (scalarTemplate I (Syntax.cstar : ℤ)).Rel (Fin.append (iota m) r) ↔\n        r = iota ((Syntax.cstar : ℤ) * m))\n    (P Q R : Fin 5 → ℚ) :\n    (multiplyTemplate I (Syntax.cstar : ℤ) (Syntax.ell : ℤ) T).Rel (codes3 P Q R) ↔\n      ∃ n : Fin 3 → ℤ, P = iota (n 0) ∧ Q = iota (n 1) ∧ R = iota (n 2) ∧\n        HeightCert ![P, Q, R] (Syntax.ell : ℚ) (certShifts n) ∧\n        (guardTemplate I T).Rel (codes3 P Q R) := by",
+            "line": 263,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Multiply.lean",
+            "fragment": "L263"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.testValues",
+        "module": "ZInQKernel.Multiplication.Certificate.Tests"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.testValues@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def testValues (h : ℤ) (z : Fin 3 → ℤ) (c : Fin 4 → ℤ) : Fin 12 → K0 :=\n  let H := h • genP0\n  let U : Fin 3 → genCurve.toAffine.Point := fun i => z i • genP0\n  let V0 := (h - c 0) • genP0\n  let V : Fin 3 → genCurve.toAffine.Point := fun i => (z i - c i.succ) • genP0\n  let A : Fin 3 → K0 := fun i => Lam (U i) / Lam H\n  let B : Fin 3 → K0 := fun i => Lam (V i) / Lam V0\n  ![invX H, invX (U 0), invX (U 1), invX (U 2),\n    star (invX V0), star (invX (V 0)), star (invX (V 1)), star (invX (V 2)),\n    A 0 - star (B 0), A 1 - star (B 1), A 2 - star (B 2), A 0 * A 1 - A 2]",
+            "line": 40,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Tests.lean",
+            "fragment": "L40"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.multiplyTemplate_witnesses",
+        "module": "ZInQKernel.Syntax.Templates.Multiply"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.multiplyTemplate_witnesses@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem multiplyTemplate_witnesses (I : Constructors E) (cstar ell T : ℤ) :\n    (multiplyTemplate I cstar ell T).witnesses = 35134 := (multiply_facts I cstar ell T).witnesses",
+            "line": 261,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Templates/Multiply.lean",
+            "fragment": "L261"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17,
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "All listed declarations exist and [F]'s pole polynomial uses [M]'s curves x+3l (fork Hypotheses/Pole.lean), the template has 35134 witnesses, and SlopePred.poleInput_ne_zero covers the nonvanishing remark; the one gap I could not close is the inverse exponential, since [F] has no surjectivity or exponential for its formal logarithm, only ellLog_injOn.",
+            "All the listed declarations exist and state the claimed parts with [M]'s curve and x+3l pole curves (fork poleT1/poleT2 use A+3e). I found no surjectivity or exponential for the formal logarithm anywhere in [F]; it proves only v(log)=v(z) and InjOn, so the inverse exponential really is missing."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's polePoly has factors A+e and Az^2+eH (curves x+l) where [M]'s Q_pole has x+3l, and ndep's SlopePred imposes PoleSoluble of that polynomial, so the template, certificate and congruence hypotheses concern a different object; [N] has no own copy of [M]'s pole polynomial or slope predicate (its saved specification abstracts the callees), and multiplication_exact rewrites with ndep's multiply_rel_iff_cert.",
+            "ndep's SlopePred conjoins PoleSoluble, whose polePoly uses the curves x(x-e)(x+e), while [M]'s Q_pole uses x+3e; ndep's multiplication files are otherwise identical to [F]'s. [N] has its own x+3l pole definition (ManuscriptV15.Arithmetic.pole) but no slope predicate, certificate or template built on it, and multiplication_exact rewrites with ndep's multiply_rel_iff_cert."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

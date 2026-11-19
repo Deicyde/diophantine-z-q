@@ -81,10 +81,15 @@ def GaloisTraceModel.toTraceModelRel (X : GaloisTraceModel T R ap B chiType)
 
 attribute [local instance] GaloisConstituentModel.modMst
 
-/-- **The genuine constituent model as lane RC0's `TraceModelRel`, through its module of reduced
-expansions** (PROVED, given the unbudgeted forms; no saturation is needed: lane RC0's
-`TraceModelRel` has an abstract module, here the reduced expansions, tex 9639–9646). This is the
-faithful bridge to lane RC0's interfaces. -/
+/-- **The genuine constituent model as lane RC0's `TraceModelRel`, through its auxiliary quotient
+module `Mst`** (PROVED, given the unbudgeted forms; no saturation is needed: lane RC0's
+`TraceModelRel` has an abstract module, tex 9639–9646).
+The module is the auxiliary quotient `Mst = Λ/Kst`, not an identification
+with the image of coefficientwise reduction. Its readings factor through
+that reduction; the budgeted orbit identities and subgroup comparison are
+proved. The density conversion needs no saturation. The legacy bridge to
+`ConstituentModelRel` separately requires `Saturated` and `Unbudgeted`.
+This is the faithful bridge to lane RC0's interfaces. -/
 def GaloisConstituentModel.toTraceModelRel (X : GaloisConstituentModel T R ap B chiType)
     (htyp : IsTypeChar T chiType) (hX : X.Unbudgeted) (hI : X.Inputs) : TraceModelRel T R ap B :=
   (X.toGaloisTraceModel hI).toTraceModelRel htyp (X.unbudgeted_toGaloisTraceModel hX hI)
@@ -165,8 +170,9 @@ theorem tateConstituentModelRel (E : WeierstrassCurve ℚ) [E.IsElliptic] (m : �
     (tateConstituentModel' E m hm h4 ap B).toConstituentModelRel_inputs _ _ _
       (tateConstituentModel'_inputs E m hm h4 ap B)⟩
 
-/-- **Lane RC0's `TraceModelRel` is inhabited by the reduced expansions of a genuine Galois
-representation** (PROVED; the faithful bridge, no saturation). -/
+/-- **Lane RC0's `TraceModelRel` is inhabited by the trace model of a genuine Galois
+representation** (its module the auxiliary quotient `Mst`, its readings on reduced expansions;
+PROVED; the faithful bridge, no saturation). -/
 theorem tateTraceModelRel (E : WeierstrassCurve ℚ) [E.IsElliptic] (m : ℕ) [NeZero m]
     (hm : 0 < m) (h4 : 4 ∣ m) (ap : ℕ → ℤ) (B : ℕ) :
     Nonempty (TraceModelRel (typeData m hm h4) (fun _ => 0) ap B) :=

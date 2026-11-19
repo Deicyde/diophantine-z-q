@@ -1,0 +1,47 @@
+{
+  "id": "Eq (H22)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [M] here asserts the Selmer-cone witnesses loc_v p − ι_v u_v = dq_v. [N] has no Heegner descent, Selmer complex or moving-character construction, and its rank inputs come from SimpleZeroRank and PublishedTian47 instead of [M]'s restricted converse.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 46,
+        "rect": [
+          0.107843,
+          0.392426,
+          0.784314,
+          0.025885
+        ]
+      },
+      "title": "Eq. (H22)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (H22)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          46
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

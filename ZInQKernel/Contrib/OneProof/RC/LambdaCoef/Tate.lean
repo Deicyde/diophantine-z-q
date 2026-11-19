@@ -4,8 +4,8 @@ import ZInQKernel.Contrib.OneProof.RC.CoefModules.Weil
 /-!
 # Lane RC28 round 2, part 3: the genuine Tate module `T_2E = lim E(K_S)[2^n]`
 
-Manuscript `diophantine_zq.tex` (11/5), tex 2780 (`T = T_2E`, the `2`-adic Tate module, with its
-`G_{K,S}`-action `ρ_T`).
+Manuscript `diophantine_zq.tex` (11/5), tex 2836–2838 (`T = T_2E`, the `2`-adic Tate module, with
+its `G_{K,S}`-action `ρ_T`).
 
 * `Lev K S W n = E(K_S)[2^n]` (lane RC28 round 1's `TorsS`), `transLev n : E[2^{n+1}] → E[2^n]`,
   `P ↦ 2P`.
@@ -83,7 +83,7 @@ def tateSub : AddSubgroup (∀ n : ℕ, Lev K S W n) where
     change transLev K S W n (-P (n + 1)) = -P n
     rw [map_neg, hP n]
 
-/-- **The `2`-adic Tate module `T_2E = lim_n E(K_S)[2^n]`** (tex 2780). -/
+/-- **The `2`-adic Tate module `T_2E = lim_n E(K_S)[2^n]`** (tex 2836–2838). -/
 abbrev TateS : Type := ↥(tateSub K S W)
 
 variable {K S W}

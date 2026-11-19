@@ -1,0 +1,70 @@
+{
+  "id": "Eq (5.4)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine assumed, not proved: [F] formalizes none of Section 9; it states no counterpart of the exact inner-limit identity L_j = E_{sigma_j^2} of Lambda-matrices obtained by a Chebotarev choice of new prime and the inner ultrafilter (proof of Lemma 9.4). It takes the theorem this section proves (Theorem 5.3, RC) whole as the assumed Prop RestrictedConverseGenuine, so this step has no formal counterpart.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 64,
+        "rect": [
+          0.107843,
+          0.64711,
+          0.784314,
+          0.033263
+        ]
+      },
+      "title": "Eq. (5.4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (5.4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine",
+        "module": "ZInQKernel.Contrib.OneProof.SelmerTwoPower"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine@fork",
+            "kind": "def · fork · assumed"
+          },
+          "snippet": {
+            "text": "def RestrictedConverseGenuine : Prop :=\n  ZInQ.Manuscript.RestrictedConverse SelmerCorankOne",
+            "line": 217,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean",
+            "fragment": "L217"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          64
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

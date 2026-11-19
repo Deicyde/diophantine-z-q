@@ -1,0 +1,86 @@
+{
+  "id": "Passage multiplication: Height certificate",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The passage only defines: heightTemplate and HeightCert give [M]'s height certificate (27 slopes under SlopePred, b_i != 0, b_i x_ij = a_ij, membership of the three codes), and multiply_rel_iff_cert unfolds the multiplication predicate into it, the scalar graphs and the guard; the template semantics are proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.107843,
+          0.358613,
+          0.784314,
+          0.107232
+        ]
+      },
+      "title": "Passage (multiplication): Height certificate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Height certificate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.multiply_rel_iff",
+        "module": "ZInQKernel.Multiplication.Certificate.Multiply"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.multiply_rel_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem multiply_rel_iff (I : Constructors E) (cs ℓ T : ℤ)\n    (hS : ∀ (m : ℤ) (r : Fin 5 → ℚ),\n      (scalarTemplate I cs).Rel (Fin.append (iota m) r) ↔ r = iota (cs * m))\n    (P Q R : Fin 5 → ℚ) :\n    (multiplyTemplate I cs ℓ T).Rel (codes3 P Q R) ↔\n      ∃ n : Fin 3 → ℤ, P = iota (n 0) ∧ Q = iota (n 1) ∧ R = iota (n 2) ∧\n        HeightCert ![P, Q, R] ℓ ![cs, cs * n 0, cs * n 1, cs * n 2] ∧\n        (guardTemplate I T).Rel (codes3 P Q R) := by",
+            "line": 224,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Multiply.lean",
+            "fragment": "L224"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean defines a different object (definition-differs).",
+          "evidence": [
+            "ndep's HeightCert (b_i != 0, b_i x_ij = a_ij, nine sums of three slopes with SlopePred; membership supplied by heightCertificate_rel_iff/multiply_rel_iff) agrees in shape, but every slope call imposes the Route K Phi (curves x+l), so it is a different certificate from [M]'s; [N]'s finite_box and multiplication_exact use it.",
+            "ndep's HeightCert asks for 27 slopes that satisfy ndep's SlopePred, whose PoleSoluble uses curves x+e rather than [M]'s x+3e, so it is a different certificate. (HeightCert also leaves the membership conjunct to heightCertificate_rel_iff, as in [F].) [N]'s finite_box and multiplication_exact use it."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

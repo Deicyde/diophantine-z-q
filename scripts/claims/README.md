@@ -28,8 +28,9 @@ Progress <field>: <text>
 ```
 
 - `<field>` is a Lean field name as in OPEN.md. A frontier ID (H-101 or H101, T-3, Z-1), a range of IDs
-  (H-98-H-102 or H98-H102) or a Lean constant name (`AvSplit.T4.MulEtaleAbelianScheme`) also counts; IDs
-  are mapped through `docs/one-proof/frontier-crosswalk.tsv` and constant names through
+  (H-98-H-102 or H98-H102; a range of more than 30 IDs, or with a number of more than six digits, is
+  reported instead) or a Lean constant name (`AvSplit.T4.MulEtaleAbelianScheme`) also counts; IDs are mapped
+  through `docs/one-proof/frontier-crosswalk.tsv` and constant names through
   `docs/one-proof/open-statements.json`. One line may name several fields, separated by commas, slashes or
   "and". The list of names ends at ` at `, `;`, `:` or the end of the sentence; when the text before a `:`
   names nothing (a label), the list is the text after it.
@@ -57,12 +58,16 @@ One row per field. `hold` is one of:
 - `held`: a public claim line, on the claims issue or in a draft pull request that links it; `claim_url` links
   it. The project's own holds may point at a pushed branch instead.
 - `interest`: a project row with no public claim (a brief or a reservation); `claim_url` is empty.
-- `released`: a claim released by a `Releasing` line or by the lapse rule; `status` holds the blocker.
+- `released`: a claim released by a `Releasing` line or by the lapse rule; `status` holds the blocker. The
+  blocker is cleaned first: HTML comments and tags are removed, whitespace is collapsed, leading quote
+  characters are dropped, absolute paths (`/a/b`, `~/a/b`, `C:\a\b`) become `[path]`, and it is cut to 200
+  characters. The report prints it in full.
 
-The integrator manages project rows. The script never changes a project row: when a project claim, a
-release, a deleted branch or a comment with no parsed claim disagrees with a project row, it reports the
-case. It changes an outside or maintainer row only on a parsed claim, a parsed `Releasing` line, or the
-lapse rule. A held outside row that no parsed claim backs is kept and reported, never downgraded.
+Without `--project-claims`, the integrator manages project rows. The script never changes a project row:
+when a project claim, a release, a deleted branch or a comment with no parsed claim disagrees with a project
+row, it reports the case. It changes an outside or maintainer row only on a parsed claim, a parsed
+`Releasing` line, or the lapse rule. A held outside row that no parsed claim backs is kept and reported,
+never downgraded. With `--project-claims` (see below), the script is the only writer of `claims.tsv`.
 
 ## Commands
 
@@ -78,10 +83,11 @@ returns no data. Every other command fetches to a temporary file first unless `-
 ```
 python3 scripts/claims/sync_claims.py [--from-json FILE] [--today YYYY-MM-DD]
 ```
-Report what `claims.tsv` would become: the held rows, the rows to add, the rows that change, the names that
-map to no open field, and notes (project rows that disagree with the claims, fields claimed by a second
-holder, open fields named on a claim line after its list of names, outside contributors with more than one
-open claim, reading claims, and releases with their blockers).
+Report what `claims.tsv` would become: the held rows, the rows to add, the rows that change, the rows removed
+(with `--project-claims`), the names that map to no open field, and notes (project rows that disagree with
+the claims, fields claimed by a second holder, open fields named on a claim line after its list of names,
+outside contributors with more than one open claim, claims over the one-claim rule, reading claims, and
+releases with their blockers).
 
 ```
 python3 scripts/claims/sync_claims.py [--from-json FILE] --write [--today YYYY-MM-DD]
@@ -92,6 +98,30 @@ outside or maintainer claim on a field with no row gets a row with an empty task
 `since` the claim date and `issue` the claim thread; a released claim on a field with no row gets a
 `released` row. A claim on a field whose row is held by someone else is reported, not written. No row is
 deleted. `--today` sets the date the lapse rule counts from (00:00 UTC); the default is now.
+
+```
+python3 scripts/claims/sync_claims.py [--from-json FILE] --write --project-claims [--credits FILE]
+```
+The mode of the claims-sync workflow (`.github/workflows/claims-sync.yml`), the only writer of
+`claims.tsv`. As `--write`, and also:
+
+- Project rows follow the project's own public claim and release lines: a project claim makes the project's
+  row held, or adds one; a project `Releasing` line releases it. Project rows with no such line are left
+  alone and reported.
+- A row whose field is no longer open (a fold discharged it) is removed and listed under "rows removed".
+- A claim takes a released row of any holder, and an outside or maintainer claim takes a project `interest`
+  row (OPEN.md shows a released row as open and an interest row as free to claim).
+- A `Releasing` line releases a held row even when the claim it releases is not in the fetch (a branch-held
+  project row, or a claim in a pull request that has closed), as long as it is dated on or after the row's
+  `since`. A project line naming `@login` does this for that holder's row.
+- One claim to start: an outside login with no row in `credits.tsv` (its `contributor` column, a GitHub
+  login) gets one held row, for its earliest claim (by date, then field name) while it holds no other.
+  Further claims are reported as over the one-claim rule and not written; once the held claim is released,
+  the next claim is written. The project and the maintainer are exempt.
+
+The workflow reads the claims once, then on each try resets to the newest main, runs this, and pushes
+`claims.tsv` if it changed. If the push loses a race, it tries again from a fresh main (five tries); it never
+commits any other file.
 
 ```
 python3 scripts/claims/sync_claims.py [--from-json FILE] --check FIELD [FIELD ...]
@@ -122,8 +152,9 @@ ping. To record a release, the batched run posts `Releasing <field> @<login>: <r
 the project account that names `@login` before the colon releases that holder's claim. `--write` applies the
 lapse rule even before that line is posted.
 
-Other options: `--claims`, `--kinds`, `--open`, `--crosswalk` and `--issues` override the paths under
-`docs/one-proof/`. The crosswalk is optional; without it, frontier IDs are reported as unmatched.
+Other options: `--claims`, `--kinds`, `--credits`, `--open`, `--crosswalk` and `--issues` override the paths
+under `docs/one-proof/`. The crosswalk is optional; without it, frontier IDs are reported as unmatched.
+With `--project-claims` and no `credits.tsv`, every outside login is held to one claim.
 
 ## Tests
 

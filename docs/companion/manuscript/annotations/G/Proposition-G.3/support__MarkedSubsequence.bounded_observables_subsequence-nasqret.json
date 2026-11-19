@@ -1,0 +1,70 @@
+{
+  "id": "Proposition G.3",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart; MarkedSubsequence.bounded_observables_subsequence proved: [N] has no declaration stating the attained odd minimum delta_o, the ultrafilter inequalities (F.4)-(F.7) and the finite operator budget; its maps do not cover Appendix G and the searches in [N] and ndep find no counterpart. The abstract stage-selection lemma OddMinimum.recurrent_minimum (proved) mirrors the minimum-selection pattern, but over an arbitrary predicate with cofinite stages instead of an ultrafilter and without the item's coefficients, so it is only support.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 133,
+        "rect": [
+          0.107843,
+          0.298744,
+          0.784314,
+          0.198164
+        ]
+      },
+      "title": "Proposition G.3",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition G.3"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "MarkedSubsequence.bounded_observables_subsequence",
+        "module": "Lean.Foundations.MarkedSubsequence"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "MarkedSubsequence.bounded_observables_subsequence@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem bounded_observables_subsequence (value : Nat → Nat → Nat) (bound : Nat → Nat)\n    (bounded : ∀ k i, value k i ≤ bound k) :\n    ∃ stage : Nat → Nat, (∀ i j, i < j → stage i < stage j) ∧\n      ∀ k n, k ≤ n → value k (stage n) = value k (stage k) := by",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Foundations/MarkedSubsequence.lean",
+            "fragment": "L24"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          133
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

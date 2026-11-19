@@ -52,8 +52,9 @@ def coreOfClosed {ℓ : ℕ} (D : RCData ℓ) (Fam : Family) {G : Type} [AddComm
   BaseZeroLam.BaseZeroCore.ofClosed D Fam P m Dm (hcentral_of_selmer hSel Ccmp) z hz CU e1 e2 hd
     lam hlam uprim hu B.toBoundary45Base hprimId
 
-/-- **The base-zero core with `lam := PD(·, ψ(c z))`, with lane RC30's inputs** (tex 3752–3754,
-3860–3863, 4330–4376): the RC53 group's `BaseZeroCore.ofPaired` with the two bridges. PROVED. -/
+/-- **The base-zero core with `lam := PD(·, ψ(c z))`, with lane RC30's inputs** (tex 3742–3749,
+3845–3849, 3860–3863, 4330–4376): the RC53 group's `BaseZeroCore.ofPaired` with the two bridges.
+PROVED. -/
 def coreOfPaired {ℓ : ℕ} (D : RCData ℓ) (Fam : Family) {G : Type} [AddCommGroup G] (P : G) (m : ℕ)
     (Dm : Matrix (Fin (m + 1)) (Fin (m + 1)) Rings.LambdaT) (hSel : SelmerCorankOneOverK ℓ D.kfin)
     (Ccmp : CentralSelmerComparison (selmerTwoPower (Ecurve ℓ)) (selmerTwoPower (Etw ℓ D.kfin)) Dm)

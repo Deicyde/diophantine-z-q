@@ -1,0 +1,47 @@
+{
+  "id": "Passage model: Sutherland lecture notes",
+  "kind": "passage",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, nothing to formalize: A bibliography entry citing lecture notes; it asserts nothing provable.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 146,
+        "rect": [
+          0.107843,
+          0.229676,
+          0.784314,
+          0.062644
+        ]
+      },
+      "title": "Passage (model): Sutherland lecture notes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Sutherland lecture notes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          146
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

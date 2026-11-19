@@ -1,0 +1,70 @@
+{
+  "id": "Eq (5.7a)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart; ManuscriptV15.Arithmetic.RestrictedConverse a definition: [N] and ndep formalize none of Section 9; neither states the dimensions (2, d_K, d_K, 2) of H^i(C_K tensor^L F_2) for the Kummer Selmer complex over the imaginary quadratic field K. [N]'s routes replace Theorem 5.3 by rank inputs (Tian, Gross-Zagier) and state RC only as the unused typed interface ManuscriptV15.Arithmetic.RestrictedConverse.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 70,
+        "rect": [
+          0.107843,
+          0.409488,
+          0.784314,
+          0.022715
+        ]
+      },
+      "title": "Eq. (5.7a)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (5.7a)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Arithmetic.RestrictedConverse",
+        "module": "Lean.Lemmas.blueprint-manuscript.ManuscriptArithmetic"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Arithmetic.RestrictedConverse@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def RestrictedConverse (selmerCorank₂ orderAtOne : WeierstrassCurve ℚ → WithTop ℕ) : Prop :=\n  ∀ l : ℕ, 0 < l → squarefree l → l % 12 = 11 → selmerCorank₂ (twist l) = 1 → orderAtOne (twist l) = 1",
+            "line": 178,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/blueprint-manuscript/ManuscriptArithmetic.lean",
+            "fragment": "L178"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          70
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

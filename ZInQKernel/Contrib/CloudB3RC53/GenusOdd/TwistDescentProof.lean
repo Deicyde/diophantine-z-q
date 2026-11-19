@@ -9,8 +9,9 @@ The GLUE statement `TwistDescent` of `Glue.lean` is proved here, so it is no lon
    quadratic subfield `K`, whose automorphism group has order two), so the twisted equivariance
    `g x = ε_s(g) x` holds for every `g ∈ Gal(H/ℚ)`.
 2. For `x = (X, Y)`, the coordinates `X` and `Y s` are then fixed by `Gal(H/ℚ)`, hence rational
-   (`IsGalois.mem_range_algebraMap_iff_fixed`), and `(d X, d (Y s))` is a rational point of `E^{(d)}`
-   (nonsingular, by the variable change `twistVC s` and base change), whose image under `ψ_s` is `x`.
+   (`IsGalois.mem_range_algebraMap_iff_fixed`), and `(d X, d (Y s))` is a rational point of
+   `E^{(d)}` (nonsingular, by the variable change `twistVC s` and base change), whose image under
+   `ψ_s` is `x`.
 -/
 
 noncomputable section

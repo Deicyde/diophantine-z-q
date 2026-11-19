@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10 saturation",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: saturate is min(x, L+1); the commutation identities, capped powers and factorials, and equality of the capped test with the fixed-height expression are proved without assumed hypotheses. The addition and multiplication identities hold for every L, not only positive L.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.671061,
+          0.784314,
+          0.100229
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10 saturation",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10 saturation"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.precision_test_iff",
+        "module": "ZInQKernel.Compiler.Precision.CappedTest"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.precision_test_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem precision_test_iff (L M : ℕ) (hL : 1 ≤ L) :\n    1 ≤ divFourLoop L (cappedBound L M) ↔ 4 ^ (A0 * M ^ 24) ≤ L := by",
+            "line": 193,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/CappedTest.lean",
+            "fragment": "L193"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

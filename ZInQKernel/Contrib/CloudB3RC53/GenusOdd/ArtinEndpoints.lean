@@ -5,7 +5,7 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.LstarBridgeMD
 # GenusOdd: the downstream forms of (3.4) with `ArtinFactorization` the only GLUE (PROVED)
 
 `gzEveryCompanion_of_artin` (AppGEndpoints' `FinalFamilyField` input), `gzComparison_of_artin`
-(`RCSteps.gz_comparison`), and their scaled-`L_*` versions (lane RC11's normalization):
+(`RCSteps.gz_comparison`), and their scaled-`L_*` versions (e.g. `Even.CentralNormalization.Lstar`):
 the same statements as `gzEveryCompanion_genuine`, `gzComparison_genuine`,
 `gzEveryCompanion_of_scaled`, `gzComparison_of_scaled`, from `Prints` and `ArtinFactorization`.
 -/
@@ -18,9 +18,9 @@ namespace ZInQ.Contrib.CloudB3RC53.GenusOdd
 
 open ZInQ.Contrib.CloudB3RC53.CST
 
-/-- **(3.4) at every `(h, k')` at the genuine objects** (PROVED from `Prints` and `ArtinFactorization`): for any
-selections of genus and ring-class data defined wherever `h` is a prepared simple zero and `k'` a
-companion, with `C_per = 0`. -/
+/-- **(3.4) at every `(h, k')` at the genuine objects** (PROVED from `Prints` and
+`ArtinFactorization`): for any selections of genus and ring-class data defined wherever `h` is a
+prepared simple zero and `k'` a companion, with `C_per = 0`. -/
 theorem gzEveryCompanion_of_artin (P : Prints) (hArtin : ArtinFactorization) {E : WeierstrassCurve ℚ} [E.IsElliptic]
     (h₁ : E.a₁ = 0) (h₃ : E.a₃ = 0)
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}
@@ -44,10 +44,11 @@ theorem gzEveryCompanion_of_artin (P : Prints) (hArtin : ArtinFactorization) {E 
   rw [heq]
   ring
 
-/-- **`RCSteps.gz_comparison` at the genuine objects** (PROVED from `Prints` and `ArtinFactorization`) for the
-curve `E_ℓ`, at a final companion `k` that is a negative odd fundamental discriminant, a unit square
-at every prime of `2N`, prime to `h_*` (tex L2604–2613 with L2349–2352), when `D.prepared` is the
-genuine `Prepared` and `D.Lstar, D.jgen, D.jrc` are `LstarQ, jgenOf, jrcOf` (with `C_per = 0`). -/
+/-- **`RCSteps.gz_comparison` at the genuine objects** (PROVED from `Prints` and
+`ArtinFactorization`) for the curve `E_ℓ`, at a final companion `k` that is a negative odd
+fundamental discriminant, a unit square at every prime of `2N`, prime to `h_*` (tex L2595–2603 with
+L2349–2352), when `D.prepared` is the genuine `Prepared` and `D.Lstar, D.jgen, D.jrc` are
+`LstarQ, jgenOf, jrcOf` (with `C_per = 0`). -/
 theorem gzComparison_of_artin (P : Prints) (hArtin : ArtinFactorization) {ℓ : ℕ} [(Ecurve ℓ).IsElliptic]
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel (Ecurve ℓ)) :
       Subgroup (GL (Fin 2) ℝ)) 2}
@@ -95,7 +96,7 @@ theorem gzComparison_of_artin (P : Prints) (hArtin : ArtinFactorization) {ℓ : 
 
 /-- **(3.4) at every rough companion for a scaled `L_*`** (PROVED from `Prints` and
 `ArtinFactorization`): `gzEveryCompanion_of_RC19` with `LstarQ` replaced by any `L'` satisfying
-`LstarScaled`, e.g. lane RC11's normalization; `C_per = 0`. -/
+`LstarScaled`, e.g. `Even.CentralNormalization.Lstar`; `C_per = 0`. -/
 theorem gzEveryCompanion_of_scaled_artin (P : Prints) (hArtin : ArtinFactorization) {E : WeierstrassCurve ℚ}
     [E.IsElliptic] (h₁ : E.a₁ = 0) (h₃ : E.a₃ = 0)
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}

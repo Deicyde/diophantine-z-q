@@ -1,0 +1,47 @@
+{
+  "id": "Passage model: Silverman",
+  "kind": "passage",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, nothing to formalize: A bibliography entry citing Silverman's textbook, Chapters IV and VII; it asserts nothing provable. The cited facts are mapped at the items that use them.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 146,
+        "rect": [
+          0.107843,
+          0.29232,
+          0.784314,
+          0.045343
+        ]
+      },
+      "title": "Passage (model): Silverman",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Silverman"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          146
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

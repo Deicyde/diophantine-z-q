@@ -1,0 +1,154 @@
+{
+  "id": "Passage multiplication: Pole predicate",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: S_0, Q_pole, Phi and E_l are defined with [M]'s content, including the curves x+3l; T_1 and T_2 have no standalone definition (let-bindings inside polePoly). The remarks that m is a signed divisor of 2730 appear only as the unit property for p not dividing 2730, and the total degree 75 is not stated.",
+  "relation": "closeMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.08965,
+          0.784314,
+          0.270491
+        ]
+      },
+      "title": "Passage (multiplication): Pole predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Pole predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.curve",
+        "module": "ZInQKernel.Hypotheses.PoleManuscript"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.curve@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def curve (ℓ : ℚ) : WeierstrassCurve ℚ := ⟨0, 2 * ℓ, 0, -3 * ℓ ^ 2, 0⟩",
+            "line": 56,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/PoleManuscript.lean",
+            "fragment": "L56"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.PoleSoluble",
+        "module": "ZInQKernel.Hypotheses.Pole"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.PoleSoluble@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def PoleSoluble (B : ℚ) : Prop :=\n  ∃ (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ), polePoly B b e z r₁ r₂ w = 0",
+            "line": 34,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Pole.lean",
+            "fragment": "L34"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.polePoly",
+        "module": "ZInQKernel.Hypotheses.Pole"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.polePoly@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def polePoly (B : ℚ) (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ) : ℚ :=\n  let m := (1 - 2 * b 0) * (1 + b 1) * (1 + 2 * b 2) * (1 + 4 * b 3) * (1 + 6 * b 4) *\n    (1 + 12 * b 5)\n  let A := m * B\n  let H := A * (A - B ^ 2)\n  let T₁ := A * (A - e) * (A + 3 * e)\n  let T₂ := A * (A * z ^ 2 - e * H) * (A * z ^ 2 + 3 * e * H)\n  B * ((∑ i, (b i ^ 2 - b i) ^ 2) + (e * H * z * w - 1) ^ 2 + (r₁ ^ 2 - T₁) ^ 2 +\n    (r₂ ^ 2 - T₂) ^ 2)",
+            "line": 23,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Pole.lean",
+            "fragment": "L23"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.poleS0",
+        "module": "ZInQKernel.Hypotheses.Pole"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.poleS0@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def poleS0 : Finset ℕ := {2, 3, 5, 7, 13}",
+            "line": 19,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Pole.lean",
+            "fragment": "L19"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

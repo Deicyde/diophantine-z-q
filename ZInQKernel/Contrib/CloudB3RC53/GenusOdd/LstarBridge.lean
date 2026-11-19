@@ -2,7 +2,8 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.HeightDischarge
 import ZInQKernel.Contrib.OneProof.RC.Even.EvenSource
 
 /-!
-# GenusOdd: (3.4) for any period normalization of `L_*` (bridge to lane RC11's `L_*`)
+# GenusOdd: (3.4) for any period normalization of `L_*` (bridge to
+`Even.CentralNormalization.Lstar`)
 
 (3.4) only involves `L_*` at negative arguments (`hk' < 0`, `h_* < 0`) and only through the
 difference `v₂ L_*(hk') − v₂ L_*(h_*)`, so it does not depend on the choice of the imaginary period
@@ -11,7 +12,7 @@ precise:
 
 * `LstarScaled E L'`: `L' : ℤ → ℚ` is a normalized central value for some nonzero period `Ω'`:
   `L'(d) = √|d| L(E^{(d)}, 1) / Ω'` for every `d < 0`.
-* `lstarScaled_of_centralNormalization`: lane RC11's `Even.CentralNormalization.Lstar` is one
+* `lstarScaled_of_centralNormalization`: `Even.CentralNormalization.Lstar` is one
   (period `|Ω⁻|`), given entire continuations of the negative twists (PROVED).
 * `gzEveryCompanion_of_scaled`, `gzComparison_of_scaled`: (3.4) at every rough companion and at the
   final `k` (the forms of `gzEveryCompanion_of_RC19`, `gzComparison_of_RC19`) for any such `L'` in
@@ -32,8 +33,8 @@ def LstarScaled (E : WeierstrassCurve ℚ) (L' : ℤ → ℚ) : Prop :=
   ∃ Ω' : ℝ, Ω' ≠ 0 ∧ ∀ d : ℤ, d < 0 →
     ((L' d : ℚ) : ℂ) = ((Real.sqrt |(d : ℝ)| : ℝ) : ℂ) * Lval (qtwist E d) / ((Ω' : ℝ) : ℂ)
 
-/-- **Lane RC11's normalization is a scaled `L_*`** (PROVED), given entire continuations of the
-twists by negative integers (modularity with Hecke's theory, GLUE in the RC lanes). -/
+/-- **`Even.CentralNormalization.Lstar` is a scaled `L_*`** (PROVED), given entire continuations of
+the twists by negative integers (modularity with Hecke's theory, GLUE in the RC tree). -/
 theorem lstarScaled_of_centralNormalization {E : WeierstrassCurve ℚ}
     (N : ZInQ.Manuscript.RC.Even.CentralNormalization E)
     (hcont : ∀ d : ℤ, d < 0 → ∃ F, IsLContinuation (qtwist E d) F) : LstarScaled E N.Lstar := by
@@ -113,7 +114,7 @@ theorem Lval_ne_zero_of_analyticRank_zero {E : WeierstrassCurve ℚ} (h : Analyt
 
 /-- **(3.4) at every rough companion for a scaled `L_*`** (PROVED from `Prints` and
 `GlueAfterRC19`): `gzEveryCompanion_of_RC19` with `LstarQ` replaced by any `L'` satisfying
-`LstarScaled`, e.g. lane RC11's normalization; `C_per = 0`. -/
+`LstarScaled`, e.g. `Even.CentralNormalization.Lstar`; `C_per = 0`. -/
 theorem gzEveryCompanion_of_scaled (P : Prints) (G : GlueAfterRC19) {E : WeierstrassCurve ℚ}
     [E.IsElliptic] (h₁ : E.a₁ = 0) (h₃ : E.a₃ = 0)
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}

@@ -13,10 +13,10 @@ for `GenuineSwitch`, and the field `DualityFromSelmer.hsw`) is tex L2816–2818:
 
 `hsw` is **not** provable for an arbitrary coordinate isomorphism `eR : H¹(W_rel) ≃ F ⊕ S`. The
 structures `QuasiRelaxedLocalization` and `GenuineSwitch` carry `eR` as free data, and no other
-hypothesis of `SwitchAdjunctionFromDuality` involves `eR`. So replacing `eR` by `c • eR` for a scalar
-`c ≠ 0, ±1` multiplies the right-hand side by `c²` and leaves the left-hand side unchanged. The tex
-says "in the chosen coordinates": `hsw` fixes the coordinates as well as computing the cup product.
-`hsw_reScale` records this formally.
+hypothesis of `SwitchAdjunctionFromDuality` involves `eR`. So replacing `eR` by `c • eR` for a
+scalar `c ≠ 0, ±1` multiplies the right-hand side by `c²` and leaves the left-hand side unchanged.
+The tex says "in the chosen coordinates": `hsw` fixes the coordinates as well as computing the
+cup product. `hsw_reScale` records this formally.
 
 This file proves the coordinate half. Suppose the left-hand side is the value
 `P(e_R[g t], e_R[g u])` of some bilinear form `P` on `F ⊕ S` (the *residue pairing* hypothesis
@@ -47,6 +47,8 @@ properties (`switchPairing_residueShape`), and `hsw` *is* `ResiduePairing` for `
 
 These are the content of tex L2790–2818 together with local duality at the switched place. They
 are not determined by the data of `QuasiRelaxedLocalization`, which carries no pairing on `W_rel`.
+For the genuine switch the first is `genuine_exists_residuePairing` (`CupOneReverse.lean`), and
+`Shape.lean` reduces the second to intrinsic local-duality properties (`hsw_of_localDuality`).
 
 All results are `PROVED`. No new axioms.
 -/
@@ -238,9 +240,9 @@ abbrev genuineReCoord (X : GenuineSwitch K S k M) (A : (Fin 2 → k) ≃ₗ[k] (
     GenuineSwitch K S k M :=
   { X with eR := X.eR.trans (coordChange A) }
 
-/-- **`SwitchCoordinates` in chosen coordinates** (tex L2816–2818), `PROVED`: for the genuine switch,
-a residue pairing of local-duality shape gives `SwitchCoordinates` after a coordinate change on the
-singular plane. -/
+/-- **`SwitchCoordinates` in chosen coordinates** (tex L2816–2818), `PROVED`: for the genuine
+switch, a residue pairing of local-duality shape gives `SwitchCoordinates` after a coordinate
+change on the singular plane. -/
 theorem switchCoordinates_of_residuePairing (X : GenuineSwitch K S k M)
     (Q : SelPairData X.Dstr X.toQuasi.D) (tr : (coneCx Q.resE).X 3 →ₗ[k] k) {ε : k} (hε : ε ≠ 0)
     (σ : k) {J : Matrix (Fin 2) (Fin 2) k} (hJ2 : J * J = 1)

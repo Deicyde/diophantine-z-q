@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Transfer to the generator",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved; Sun28.WitnessIndices.P a definition; through its dependency's ZInQ.two_nsmul_range_C_eq_zmultiples and ZInQ.theta_symm_two_smul_pointR: [N]'s index_of_double restates ndep's two_nsmul_range_C_eq_zmultiples as unique representation of doubles by multiples of P=2R (equivalent to 2C(K0)=Z(2R)), and normalized_index uses ndep's theta_symm_two_smul_pointR to send kP to kP0. Both proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.107843,
+          0.419076,
+          0.784314,
+          0.029091
+        ]
+      },
+      "title": "Passage (model): Transfer to the generator",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Transfer to the generator"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "Sun28.WitnessIndices.P",
+        "module": "Lean.Topics.sun-28.witness-indices.OddChart"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "Sun28.WitnessIndices.P@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def P : CPoint := (2 : ℕ) • pointR",
+            "line": 11,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/sun-28/witness-indices/OddChart.lean",
+            "fragment": "L11"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

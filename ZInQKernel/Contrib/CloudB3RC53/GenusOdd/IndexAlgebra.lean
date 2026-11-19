@@ -3,8 +3,8 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.Defs
 /-!
 # GenusOdd: index valuations in rank-one groups (PROVED algebra behind (3.4))
 
-Abstract facts about `twoDivIndex` (the index valuation `j` of tex L2415, L9426) used to turn the
-two height identities of Cai–Shu–Tian into the valuation identity (3.4) (tex L2427–2439):
+Abstract facts about `twoDivIndex` (the index valuation `j` of tex L2416, L9422–9425) used to turn
+the two height identities of Cai–Shu–Tian into the valuation identity (3.4) (tex L2427–2439):
 
 * `le_twoDivIndex_iff`: `e ≤ j_M(x)` iff `x ≡ 2^e G` modulo torsion for some `G ∈ M` (for `x ∈ M`).
 * `twoDivIndex_add_torsion`, `twoDivIndex_two_nsmul`, `twoDivIndex_odd_zsmul`, `twoDivIndex_zsmul`:
@@ -306,9 +306,9 @@ theorem exists_dep_of_rank_le_one (h : Module.rank ℤ A ≤ 1) (y z : A) :
 
 /-! ### Transfer between the native lattice and the rational line -/
 
-/-- **Index transfer** (PROVED): if `ψ : R → A` is injective with image in `M`, `2M ⊆ ψ(R) + torsion`
-(index at most two of the rational line in the native lattice, tex L2433–2435), and
-`2P ≡ ψ(Q)` modulo torsion, then `j_M(P) ≤ j_R(Q) ≤ j_M(P) + 1`. -/
+/-- **Index transfer** (PROVED): if `ψ : R → A` is injective with image in `M`,
+`2M ⊆ ψ(R) + torsion` (index at most two of the rational line in the native lattice, tex
+L2433–2435), and `2P ≡ ψ(Q)` modulo torsion, then `j_M(P) ≤ j_R(Q) ≤ j_M(P) + 1`. -/
 theorem twoDivIndex_transfer {R : Type*} [AddCommGroup R] (ψ : R →+ A)
     (hψ : Function.Injective ψ) (M : AddSubgroup A) (hψM : ∀ r, ψ r ∈ M)
     (hidx : ∀ x ∈ M, ∃ r, IsOfFinAddOrder ((2 : ℕ) • x - ψ r))

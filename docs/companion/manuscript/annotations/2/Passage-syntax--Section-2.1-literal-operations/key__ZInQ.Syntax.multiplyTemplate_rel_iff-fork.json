@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Section 2.1 literal operations",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The sum-of-squares and product equivalences, the private witness blocks (inactive branches through Formula.Lift of a disjunction), rational constants as global equations qc = p, the P0 constants 8g0 = 1641, 4g1 = -15465, 32g2 = 87483 conjoined outside the disjunctions, and inverses uv = 1 are each proved. The sentence on shared nodes is about the JSON representation and asserts nothing further.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.102941,
+          0.091745,
+          0.794118,
+          0.297658
+        ]
+      },
+      "title": "Passage (syntax): Section 2.1 literal operations",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 2.1 literal operations"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.multiplyTemplate_rel_iff",
+        "module": "ZInQKernel.Syntax.Templates.Multiply"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.multiplyTemplate_rel_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem multiplyTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : Fin 15 → ℚ) :\n    (multiplyTemplate I cstar ell T).Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 15, y i = a i) ∧\n      (y 15 = 1641 / 8 ∧ y 16 = -15465 / 4 ∧ y 17 = 87483 / 32) ∧\n      (multiplyFormula I cstar ell T).Lift y := by",
+            "line": 270,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Templates/Multiply.lean",
+            "fragment": "L270"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

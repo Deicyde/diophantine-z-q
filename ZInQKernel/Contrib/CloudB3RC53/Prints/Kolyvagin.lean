@@ -26,10 +26,14 @@ as a named gap:
   step.
 * `KolyvaginThm1WeilParam` (PRINT modulo that GLUE translation): Kolyvagin's Theorem 1 with the
   weak Weil parametrization premise.
-* `ModularToWeakWeil` (GLUE, ELLIOT gap, tex L1092–1093): a modular `E` has a weak Weil
-  parametrization by `X₀(N)`. The manuscript passes from BCDT Theorem A (modularity) directly to
-  Kolyvagin's hypothesis (a weak Weil parametrisation by `X₀(N)`); this step is not supplied in
-  the text.
+* `ModularToWeakWeil`: a modular `E` has a weak Weil parametrization by `X₀(N)`. GLUE (textbook:
+  BCDT condition (2) with trivial nebentypus, Shimura's construction (Milne, Modular functions and
+  modular forms, Theorem 11.19 and Remark 11.18) and Faltings' isogeny theorem, with Carayol for
+  the level). The manuscript carries it out for `E_ℓ` at tex 1779–1788 ("The modular realization
+  gives a rational weight-two newform f of level N and an elliptic quotient q_f : J₀(N) ↠ A_f in
+  the rational isogeny class of E … Choose a ℚ-isogeny α : A_f → E and put φ = α q_f and
+  π(x) = φ([x] − [∞])") and leaves it implicit for the curves of `lem:forward-rank`
+  (tex 1092–1093).
 * `kolyvaginThm1Printed_of_weilParam` (PROVED): the old `IsModular`-premise form follows from the
   gap and the print, so the current consumers of `Prints.kolyvagin` keep working
   (`prints_of_weilParam`).
@@ -37,7 +41,8 @@ as a named gap:
 The old leaf is not relabelled: its premise is not Kolyvagin's.
 
 Classification: `KolyvaginThm1WeilParam` PRINT modulo the GLUE translation above (not plain
-PRINT); `ModularToWeakWeil` GLUE (ELLIOT gap); the bridges PROVED.
+PRINT); `ModularToWeakWeil` GLUE (the manuscript carries it out for `E_ℓ` at tex 1779–1788); the
+bridges PROVED.
 -/
 
 noncomputable section
@@ -49,10 +54,10 @@ open ZInQ.Manuscript ZInQ.Manuscript.SelmerTwoPower ZInQ.Manuscript.PoleS12 CST
 /-- **`E` has a weak Weil parametrization `X₀(N) → E` over `ℚ`, `N` the conductor** (analytic
 model; see the module docstring): a cusp form `f` of weight `2` on `Γ₀(N)`, `N = newformLevel E`,
 with the coefficients of `L(E, s)`, a period lattice `Lat` of `E` (`IsLatticeOf`), and a nonzero
-rational `c` scaling the periods of `2πi f dτ` into `Lat` (`IsParamScale`), so that `φ^* ω_E = c ω_f`
-for the analytic map `CST.phiAn E f Lat c`. An analytic stand-in: faithful to the printed
-statement only modulo the translation algebraic `X₀(N) → E` ⇔ analytic data, which is an unproved
-GLUE (translation) step. -/
+rational `c` scaling the periods of `2πi f dτ` into `Lat` (`IsParamScale`), so that
+`φ^* ω_E = c ω_f` for the analytic map `CST.phiAn E f Lat c`. An analytic stand-in: faithful to the
+printed statement only modulo the translation algebraic `X₀(N) → E` ⇔ analytic data, which is an
+unproved GLUE (translation) step. -/
 def HasWeakWeilParametrization (E : WeierstrassCurve ℚ) : Prop :=
   ∃ (f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2)
     (Lat : PeriodPair) (c : ℚ),
@@ -72,21 +77,25 @@ def KolyvaginThm1WeilParam : Prop :=
     ∀ r : ℕ, r ≤ 1 → AnalyticRank E r →
       Module.rank ℤ E.toAffine.Point = r ∧ Finite (sha E)
 
-/-- **From modularity to Kolyvagin's hypothesis** (GLUE; ELLIOT gap, tex L1092–1093): a modular
-elliptic curve `E/ℚ` has a weak Weil parametrization by `X₀(N)`, `N` the conductor. The manuscript
-passes from BCDT Theorem A (modularity) directly to Kolyvagin's hypothesis (a weak Weil
-parametrisation by `X₀(N)`); this step is not supplied in the text. -/
+/-- **From modularity to Kolyvagin's hypothesis**: a modular elliptic curve `E/ℚ` has a weak Weil
+parametrization by `X₀(N)`, `N` the conductor. GLUE (textbook: BCDT condition (2) with trivial
+nebentypus, Shimura's construction (Milne, Modular functions and modular forms, Theorem 11.19 and
+Remark 11.18) and Faltings' isogeny theorem, with Carayol for the level). The manuscript carries it
+out for `E_ℓ` at tex 1779–1788 ("The modular realization gives a rational weight-two newform f of
+level N and an elliptic quotient q_f : J₀(N) ↠ A_f in the rational isogeny class of E … Choose a
+ℚ-isogeny α : A_f → E and put φ = α q_f and π(x) = φ([x] − [∞])") and leaves it implicit for the
+curves of `lem:forward-rank` (tex 1092–1093). -/
 def ModularToWeakWeil : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → IsModular E → HasWeakWeilParametrization E
 
-/-- **The old `IsModular`-premise form of Kolyvagin's Theorem 1** (PROVED) from the gap
+/-- **The old `IsModular`-premise form of Kolyvagin's Theorem 1** (PROVED) from the GLUE
 `ModularToWeakWeil` and Kolyvagin's Theorem 1 with its own premise. -/
 theorem kolyvaginThm1Printed_of_weilParam (hG : ModularToWeakWeil)
     (hK : KolyvaginThm1WeilParam) : KolyvaginThm1Printed :=
   fun E hE hM r hr hA => hK E hE (hG E hE hM) r hr hA
 
 /-- **The printed leaves with Kolyvagin's own premise** (PROVED): `Prints` from BCDT Theorem A,
-the gap `ModularToWeakWeil`, Kolyvagin's Theorem 1 with the weak Weil parametrization premise,
+the GLUE `ModularToWeakWeil`, Kolyvagin's Theorem 1 with the weak Weil parametrization premise,
 Dokchitser–Dokchitser Theorem 1.8 and Cai–Shu–Tian Theorem 1.1. -/
 theorem prints_of_weilParam (hB : BCDTThmA) (hG : ModularToWeakWeil)
     (hK : KolyvaginThm1WeilParam) (hdd : DokchitserThm18) (hcst : CST.CSTThm11Split) : Prints :=

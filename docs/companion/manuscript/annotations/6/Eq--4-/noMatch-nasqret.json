@@ -1,0 +1,47 @@
+{
+  "id": "Eq (4)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart; through its dependency's ZInQ.Density.GaussSieve.siftedSum_le and SelbergSieve.selberg_bound_simple: The display is the two-dimensional Selberg bound S(N,Z) << N^2/G(Z) + NZ^6 + Z^8, a step of the proof of Proposition 6.2; neither [N] nor ndep proves that proposition. ndep's route AP has siftedSum_le, a Selberg bound for the Gaussian-norm sets only with error w^8(4K+4), and the general selberg_bound_simple, linked as support; no [N] declaration uses it directly, [N] reaches route AP only through ndep's goodPrimeAP_of_greenTaoDense' in bounded/QualitativeMultiplication.lean.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 22,
+        "rect": [
+          0.107843,
+          0.18661,
+          0.784314,
+          0.048624
+        ]
+      },
+      "title": "Eq. (4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          22
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

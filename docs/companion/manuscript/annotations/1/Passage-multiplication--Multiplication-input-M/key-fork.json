@@ -1,0 +1,114 @@
+{
+  "id": "Passage multiplication: Multiplication input M",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation, or by another key from other hypotheses: MultiplicationExact for the specified constructors, c_*, l and T says Rel_multiply(Y1,Y2,Y3) iff (Y1,Y2,Y3) = (iota a, iota b, iota ab) for integers a, b, which is M. It is proved from SixContactMin, PoleCompleteness and SR (or SR'), so conditional.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.107843,
+          0.875491,
+          0.784314,
+          0.038798
+        ]
+      },
+      "title": "Passage (multiplication): Multiplication input M",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Multiplication input M"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.multiplication_exact",
+        "module": "ZInQKernel.Multiplication.Top.Exact"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.multiplication_exact@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem multiplication_exact (hH : SixContactMin) (hPC : PoleCompleteness)\n    (h22 : SlopeRepresentation) :\n    Translation.MultiplicationExact Syntax.specConstructors FixedConst.cstar.value\n      FixedConst.ell.value FixedConst.T.value := by",
+            "line": 26,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Top/Exact.lean",
+            "fragment": "L26"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.multiplication_exact_AP",
+        "module": "ZInQKernel.Multiplication.Completeness.AP.Completeness"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.multiplication_exact_AP@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem multiplication_exact_AP (hH : SixContactMin) (hPC : PoleCompleteness)\n    (h22 : SlopeRepresentationAP) :\n    Translation.MultiplicationExact Syntax.specConstructors FixedConst.cstar.value\n      FixedConst.ell.value FixedConst.T.value := by",
+            "line": 96,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Completeness/AP/Completeness.lean",
+            "fragment": "L96"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "The pole difference is real: multiplyTemplate reaches ndep's poleTemplate with T1=A(A-e)(A+e), not [M]'s A+3e, so ZOverQ.Qualitative.multiplication_exact is exactness for another polynomial, conditional on UniformHeight m and PoleCompleteness. The guard part of the note overstates: [M]'s cutoff is T=(48A_ht)^13 (tex 1228), so guardCutoff m=(48m)^13 is [M]'s T with A_ht named abstractly (a close-type difference), not a different cutoff.",
+            "ZOverQ.Qualitative.multiplication_exact proves MultiplicationExact for ndep's multiplyTemplate at guardCutoff m = (48m)^13, with m an integer above an abstract UniformHeight constant, whereas [M]'s T = (48A_ht)^13 has A_ht fixed; and the template's slope tests call ndep's poleTemplate with T1 = A(A-e)(A+e). So the relation is a different polynomial's, conditional on UniformHeight and PoleCompleteness, as claimed."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

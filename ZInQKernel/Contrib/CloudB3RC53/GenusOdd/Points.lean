@@ -4,11 +4,12 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.IndexAlgebra
 /-!
 # GenusOdd: Heegner sums, native lattices and heights (PROVED)
 
-* `chiSign_coe`, `chiSign_mul`: a quadratic `χ` takes the values `chiSign χ t ∈ {±1}`, multiplicatively.
-* `heegnerSum_mem_eigenLattice`: the unaveraged sum `P_χ` lies in the native lattice (tex L2414).
+* `chiSign_coe`, `chiSign_mul`: a quadratic `χ` takes the values `chiSign χ t ∈ {±1}`,
+  multiplicatively.
+* `heegnerSum_mem_eigenLattice`: the unaveraged sum `P_χ` lies in the native lattice (tex L2415).
 * `heightK_eq_canonicalHeight`: for quadratic `χ`, CST's `ĥ_K(P_χ)` (the hermitian extension of the
-  Néron–Tate pairing over `H_c`, divided by `[H_c : K]`) is `ĥ_{H_c}(P_χ) / [H_c : K]` for the honest
-  point `P_χ = heegnerSum χ y`.
+  Néron–Tate pairing over `H_c`, divided by `[H_c : K]`) is `ĥ_{H_c}(P_χ) / [H_c : K]` for the
+  honest point `P_χ = heegnerSum χ y`.
 -/
 
 noncomputable section

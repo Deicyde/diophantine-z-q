@@ -1,0 +1,47 @@
+{
+  "id": "Passage model: Sutherland lecture notes",
+  "kind": "passage",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, nothing to formalize: A bibliography entry citing lecture notes on isogeny kernels and division polynomials; it asserts nothing provable.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 146,
+        "rect": [
+          0.107843,
+          0.229676,
+          0.784314,
+          0.062644
+        ]
+      },
+      "title": "Passage (model): Sutherland lecture notes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Sutherland lecture notes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          146
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

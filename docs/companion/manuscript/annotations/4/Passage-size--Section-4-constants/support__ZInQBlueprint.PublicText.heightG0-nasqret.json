@@ -1,0 +1,88 @@
+{
+  "id": "Passage size: Section 4 constants",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, a definition; through its dependency's ZInQ.heightH6: [N]'s PublicText copies and `SixContact.F, G` define all constants with [M]'s values. `heightH6` is defined for every real R and [N] states the range R >= max(D, max S, 10^12) nowhere (only R = D in `HeightInstance`); the default H6(S) exists only as `ZInQ.HeightConstantComparison.h6` in ndep's lean/ library, which no [N] file uses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.740697,
+          0.794118,
+          0.177897
+        ]
+      },
+      "title": "Passage (size): Section 4 constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 4 constants#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 8,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.229394
+        ]
+      },
+      "title": "Passage (size): Section 4 constants",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 4 constants#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.PublicText.heightG0",
+        "module": "Lean.Topics.theorem-blueprint.PublicAssembly"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.PublicText.heightG0@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def heightG0 : ℕ := 116064000000",
+            "line": 98,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/PublicAssembly.lean",
+            "fragment": "L98"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7,
+          8
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

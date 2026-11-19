@@ -1,0 +1,33 @@
+ZInQ.Contrib.RC53Assist.CoordLink.isClassFunctionalCoord_transport_cleared.{u_1, u_2, u_3} {R : Type u_1} {A : Type u_2}
+  {F : Type u_3} [CommRing R] [CommRing A] [Field F] {n : ℕ} (f : R →+* A) (hf : Function.Injective ⇑f) (g : R →+* F)
+  (hg : Function.Injective ⇑g) (D : Matrix (Fin n) (Fin n) R) (z w : Fin n → R) (u : A) (num den : R) (hden : den ≠ 0)
+  (hu : Central.IsClassFunctionalCoord (D.map ⇑f) (⇑f ∘ z) (⇑f ∘ w) u) (hclear : f den * u = f num) :
+  Central.IsClassFunctionalCoord (D.map ⇑g) (⇑g ∘ z) (⇑g ∘ w) (g num / g den)
+ZInQ.Contrib.RC53Assist.CoordLink.exists_common_coordinate_fraction.{u_1, u_2, u_3} {R : Type u_1} {A : Type u_2}
+  {F : Type u_3} [CommRing R] [CommRing A] [Field F] {n : ℕ} (f : R →+* A) (hf : Function.Injective ⇑f) (g : R →+* F)
+  (hg : Function.Injective ⇑g) (D : Matrix (Fin n) (Fin n) R) (z w : Fin n → R) (u : A) (hadj : D.adjugate ≠ 0)
+  (hu : Central.IsClassFunctionalCoord (D.map ⇑f) (⇑f ∘ z) (⇑f ∘ w) u) :
+  ∃ num den, den ≠ 0 ∧ f den * u = f num ∧ Central.IsClassFunctionalCoord (D.map ⇑g) (⇑g ∘ z) (⇑g ∘ w) (g num / g den)
+ZInQ.Contrib.RC53Assist.CoordLink.common_coordinate_fraction_unique.{u_1, u_2, u_3} {R : Type u_1} {A : Type u_2}
+  {F : Type u_3} [CommRing R] [CommRing A] [Field F] {n : ℕ} (f : R →+* A) (hf : Function.Injective ⇑f) (g : R →+* F)
+  (hg : Function.Injective ⇑g) (D : Matrix (Fin n) (Fin n) R) (z w : Fin n → R) (u : A) (hadj : D.adjugate ≠ 0)
+  (hu : Central.IsClassFunctionalCoord (D.map ⇑f) (⇑f ∘ z) (⇑f ∘ w) u) (num den num' den' : R) (hden : den ≠ 0)
+  (hden' : den' ≠ 0) (hclear : f den * u = f num) (hclear' : f den' * u = f num') : g num / g den = g num' / g den'
+ZInQ.Contrib.RC53Assist.CoordLink.psiO_injective : Function.Injective ⇑ψO
+ZInQ.Contrib.RC53Assist.CoordLink.isClassFunctionalCoord_transport_nonunit {n : ℕ} (D : Matrix (Fin n) (Fin n) Lam)
+  (z w : Fin n → Lam) (u : PowerSeries ℚ_[2]) (num den : Lam) (hden : den ≠ 0)
+  (hu : Central.IsClassFunctionalCoord (D.map ⇑ιQ) (⇑ιQ ∘ z) (⇑ιQ ∘ w) u) (hclear : ιQ den * u = ιQ num) :
+  Central.IsClassFunctionalCoord (D.map ⇑ψO) (⇑ψO ∘ z) (⇑ψO ∘ w) (ψO num / ψO den)
+'ZInQ.Contrib.RC53Assist.CoordLink.isClassFunctionalCoord_transport_cleared' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.exists_common_coordinate_fraction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.common_coordinate_fraction_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.psiO_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.isClassFunctionalCoord_transport_nonunit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

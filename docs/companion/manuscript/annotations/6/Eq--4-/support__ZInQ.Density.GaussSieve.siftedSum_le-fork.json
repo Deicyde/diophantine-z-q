@@ -1,0 +1,70 @@
+{
+  "id": "Eq (4)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.Density.GaussSieve.siftedSum_le proved: The display is the two-dimensional Selberg bound S(N,Z) << N^2/G(Z) + NZ^6 + Z^8, a step of the proof of Proposition 6.2; [F] replaces that proposition by route AP and takes FixedPrimePattern unproved. Route AP's closest lemma is siftedSum_le, a Selberg bound for the Gaussian-norm sets only with error w^8(4K+4), and the general selberg_bound_simple, which by the taxonomy's replaced-argument rule is a support link, not a counterpart.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 22,
+        "rect": [
+          0.107843,
+          0.18661,
+          0.784314,
+          0.048624
+        ]
+      },
+      "title": "Eq. (4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Density.GaussSieve.siftedSum_le",
+        "module": "ZInQKernel.Density.GaussSieve.Instance"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Density.GaussSieve.siftedSum_le@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem siftedSum_le (hℓ : ℓ.Prime) :\n    (gaussSieve ℓ b K w hw).siftedSum ≤\n      ((2 * K + 1) * (2 * K + 2) : ℝ) / (gaussSieve ℓ b K w hw).selbergBoundingSum +\n        (w : ℝ) ^ 8 * (4 * K + 4) := by",
+            "line": 280,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Density/GaussSieve/Instance.lean",
+            "fragment": "L280"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          22
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

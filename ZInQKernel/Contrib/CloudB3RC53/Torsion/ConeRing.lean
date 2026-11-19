@@ -126,7 +126,7 @@ def ptMap (a : R) : ChainMapR (ptCx R) (ptCx R) where
   commOE := Matrix.ext fun e => e.elim
   commEO := Matrix.ext fun _ e => e.elim
 
-/-- **non-vacuity**: over a local ring, for `x ∈ 𝔪` the reduced cone of `1 + x : R → R` is
+/-- **Non-vacuity**: over a local ring, for `x ∈ 𝔪` the reduced cone of `1 + x : R → R` is
 contractible (the reduced map is the identity), so `nakayama_comparison` applies. -/
 theorem nakayama_comparison_example [IsLocalRing R] (x : R) (hx : x ∈ IsLocalRing.maximalIdeal R) :
     Nonempty (Contraction (BasedCx.coneR (ptMap (1 + x)))) := by

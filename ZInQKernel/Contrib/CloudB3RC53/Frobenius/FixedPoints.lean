@@ -9,9 +9,9 @@ the image of `W(F)` in `W(K)` (`range_pointIncl`). Hence the fixed points are in
 `W(F)` (`natCard_fixedPoints`), which over `K = \bar F` is the statement that the Frobenius-fixed
 points of `E(\bar{𝔽}_q)` are `E(𝔽_q)`.
 
-The proof: `π_K` sends `(a, b)` to `(a^q, b^q)` (`pointMap_frobeniusMap_some`), and an element of `K`
-with `a^q = a` lies in the image of `F` (`mem_range_of_pow_card_eq`): the `q` elements of `f(F)` are
-already roots of `X^q − X`, which has at most `q` roots in `K`.
+The proof: `π_K` sends `(a, b)` to `(a^q, b^q)` (`pointMap_frobeniusMap_some`), and an element of
+`K` with `a^q = a` lies in the image of `F` (`mem_range_of_pow_card_eq`): the `q` elements of `f(F)`
+are already roots of `X^q − X`, which has at most `q` roots in `K`.
 
 Classification: PROVED.
 -/

@@ -1,0 +1,424 @@
+def ZInQ.Manuscript.RC.EvenUpperText.N₀ : ℕ → ℕ :=
+fun ℓ => ZInQ.Contrib.CloudB3RC53.CST.newformLevel (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+def ZInQ.Manuscript.RC.EvenUpperText.CurveLevel : ℕ → Prop :=
+fun ℓ =>
+  ∃ w,
+    ZInQ.Manuscript.RC.PrintsAnalytic.RootNumberAt (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)
+      (ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ) w
+def ZInQ.Manuscript.RC.EvenUpperText.Scalar32At : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → ℕ → ℕ → Prop :=
+fun {ℓ} W Cev Cloc =>
+  ∀ (fam : ZInQ.Manuscript.RC.Even.BinaryFamily (ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ)),
+    ∃ u,
+      (∀ (g : Fin fam.b → ZMod 2), ZInQ.Manuscript.RC.Even.InLam (2 ^ Cev • u g)) ∧
+        (∀ (x : Fin fam.b → ZMod 2),
+            ZInQ.Manuscript.RC.Even.CorankZero (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (fam.h x) →
+              (ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval u x) = 0 ↔ W.Lstar (fam.h x) = 0)) ∧
+          ∀ (x : Fin fam.b → ZMod 2),
+            ZInQ.Manuscript.RC.Even.CorankZero (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (fam.h x) →
+              W.Lstar (fam.h x) ≠ 0 →
+                |(ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval u x)).valuation -
+                      (padicValRat 2 (W.Lstar (fam.h x)) - 2 * ↑(ZInQ.Manuscript.RC.Even.omega (fam.h x)) -
+                        ↑(ZInQ.Manuscript.RC.Even.shaLen (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (fam.h x)))| ≤
+                  ↑Cloc
+def ZInQ.Manuscript.RC.EvenUpperText.Scalar32 : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → Prop :=
+fun {ℓ} W => ∃ Cev Cloc, ZInQ.Manuscript.RC.EvenUpperText.Scalar32At W Cev Cloc
+def ZInQ.Manuscript.RC.EvenUpperText.Units33a : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → (ℤ → Prop) → ℤ → Prop :=
+fun {ℓ} W unitSym C₀ =>
+  ∀ (p : ℤ), unitSym p → p ≠ 0 ∧ W.Lstar p ≠ 0 ∧ padicValRat 2 (W.Lstar p) ≤ 2 * ↑(ZInQ.Manuscript.RC.omega p) + C₀
+def ZInQ.Manuscript.RC.EvenUpperText.CubeInputs : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → (ℤ → Prop) → Prop :=
+fun {ℓ} W unitSym =>
+  ∀ (d : ℤ),
+    d ≠ 0 →
+      W.Partitionable d →
+        ZInQ.Manuscript.SelmerTwoPower.Z2Corank
+            (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ d))) 0 →
+          ∀ (b : ℕ), ∃ fam, b ≤ fam.b ∧ fam.h 0 = d ∧ ∀ (x : Fin fam.b → ZMod 2), x ≠ 0 → unitSym (fam.h x)
+def ZInQ.Manuscript.RC.EvenUpperText.FixedLevelInputs : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → Prop :=
+fun {ℓ} W =>
+  ∃ unitSym C₀,
+    ZInQ.Manuscript.RC.EvenUpperText.Units33a W unitSym C₀ ∧
+      ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W ∧ ZInQ.Manuscript.RC.EvenUpperText.CubeInputs W unitSym
+def ZInQ.Manuscript.RC.EvenUpperText.NegativeFilter : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → ℤ → Prop :=
+fun {ℓ} W d => d < 0 ∧ Squarefree d ∧ ∀ p ∈ W.S, ¬↑p ∣ d
+def ZInQ.Manuscript.RC.EvenUpperText.SourcePartitionable : {ℓ : ℕ} →
+  ZInQ.Manuscript.RC.Wiring.WData ℓ →
+    {L : Type} →
+      [inst : AddCommGroup L] →
+        {ε : L →+ ZMod 2} →
+          ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε →
+            (L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2) → ℤ → Prop :=
+fun {ℓ} W {L} [AddCommGroup L] {ε} T A d =>
+  ZInQ.Manuscript.RC.EvenUpperText.NegativeFilter W d ∧
+    ZInQ.Manuscript.RC.Symbols.IsPartitionable ε
+      (A (ZInQ.Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ).total)
+      (ZInQ.Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ)
+def ZInQ.Manuscript.RC.EvenUpperText.PartitionabilitySpec : {ℓ : ℕ} →
+  ZInQ.Manuscript.RC.Wiring.WData ℓ →
+    {L : Type} →
+      [inst : AddCommGroup L] →
+        {ε : L →+ ZMod 2} →
+          ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε →
+            (L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2) → Prop :=
+fun {ℓ} W {L} [AddCommGroup L] {ε} T A =>
+  ∀ (d : ℤ), W.Partitionable d ↔ ZInQ.Manuscript.RC.EvenUpperText.SourcePartitionable W T A d
+def ZInQ.Manuscript.RC.EvenUpperText.SourceUnit : {ℓ : ℕ} →
+  ZInQ.Manuscript.RC.Wiring.WData ℓ →
+    {L : Type} →
+      [inst : AddCommGroup L] →
+        {ε : L →+ ZMod 2} →
+          ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε →
+            (L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2) → ℤ → Prop :=
+fun {ℓ} W {L} [AddCommGroup L] {ε} T A d =>
+  ZInQ.Manuscript.RC.EvenUpperText.NegativeFilter W d ∧
+    A (ZInQ.Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ).total
+        (ZInQ.Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ) =
+      1
+def ZInQ.Manuscript.RC.EvenUpperText.SourceCubeInputs : {ℓ : ℕ} →
+  ZInQ.Manuscript.RC.Wiring.WData ℓ →
+    {L : Type} →
+      [inst : AddCommGroup L] →
+        {ε : L →+ ZMod 2} →
+          ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε →
+            (L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2) → Prop :=
+fun {ℓ} W {L} [AddCommGroup L] {ε} T A =>
+  ∀ (d : ℤ),
+    ZInQ.Manuscript.RC.EvenUpperText.SourcePartitionable W T A d →
+      ZInQ.Manuscript.SelmerTwoPower.Z2Corank
+          (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ d))) 0 →
+        ∀ (b : ℕ),
+          ∃ fam,
+            b ≤ fam.b ∧
+              fam.h 0 = d ∧
+                (∀ (x : Fin fam.b → ZMod 2), ∀ p ∈ d.natAbs.primeFactors, ↑p ∣ fam.h x) ∧
+                  (∀ (x : Fin fam.b → ZMod 2),
+                      (ZInQ.Manuscript.RC.Symbols.primeConfig (fam.h x).natAbs.primeFactors T.typ).total =
+                        (ZInQ.Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ).total) ∧
+                    ∀ (x : Fin fam.b → ZMod 2), x ≠ 0 → ZInQ.Manuscript.RC.EvenUpperText.SourceUnit W T A (fam.h x)
+structure ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs {ℓ : ℕ} (W : ZInQ.Manuscript.RC.Wiring.WData ℓ) {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} (T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε)
+  (A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2) : Prop
+number of parameters: 7
+fields:
+  ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs.level : ZInQ.Manuscript.RC.EvenUpperText.CurveLevel ℓ
+  ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs.normalized : ZInQ.Manuscript.RC.Wiring.LstarNormalized W.toRCData
+  ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs.partitionable : ZInQ.Manuscript.RC.EvenUpperText.PartitionabilitySpec
+      W T A
+  ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs.scalar32 : ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W
+  ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs.unit_bound : ∃ C₀,
+      ZInQ.Manuscript.RC.EvenUpperText.Units33a W (ZInQ.Manuscript.RC.EvenUpperText.SourceUnit W T A) C₀
+  ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs.cubes : ZInQ.Manuscript.RC.EvenUpperText.SourceCubeInputs W T A
+constructor:
+  ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs.mk {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+    [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+    {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} (level : ZInQ.Manuscript.RC.EvenUpperText.CurveLevel ℓ)
+    (normalized : ZInQ.Manuscript.RC.Wiring.LstarNormalized W.toRCData)
+    (partitionable : ZInQ.Manuscript.RC.EvenUpperText.PartitionabilitySpec W T A)
+    (scalar32 : ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W)
+    (unit_bound :
+      ∃ C₀, ZInQ.Manuscript.RC.EvenUpperText.Units33a W (ZInQ.Manuscript.RC.EvenUpperText.SourceUnit W T A) C₀)
+    (cubes : ZInQ.Manuscript.RC.EvenUpperText.SourceCubeInputs W T A) :
+    ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A
+def ZInQ.Manuscript.RC.EvenUpperText.Forward : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → Prop :=
+fun {ℓ} W =>
+  ∀ (d : ℤ),
+    d ≠ 0 →
+      W.Lstar d ≠ 0 →
+        ZInQ.Manuscript.SelmerTwoPower.Z2Corank
+          (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ d))) 0
+def ZInQ.Manuscript.RC.EvenUpperText.Upper33b : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → ℤ → Prop :=
+fun {ℓ} W C₁ =>
+  ∀ (d : ℤ),
+    d ≠ 0 →
+      W.Partitionable d →
+        ZInQ.Manuscript.SelmerTwoPower.Z2Corank
+            (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ d))) 0 →
+          W.Lstar d ≠ 0 ∧
+            padicValRat 2 (W.Lstar d) - 2 * ↑(ZInQ.Manuscript.RC.omega d) - ZInQ.Manuscript.RC.Wiring.sFun ℓ d ≤ C₁
+def ZInQ.Manuscript.RC.EvenUpperText.LowerBound : {ℓ : ℕ} → ZInQ.Manuscript.RC.Wiring.WData ℓ → Prop :=
+fun {ℓ} W =>
+  ∃ C,
+    ∀ (h : ℤ),
+      Odd h →
+        Squarefree h →
+          W.Lstar h ≠ 0 →
+            2 * ↑(ZInQ.Manuscript.RC.omega h) + ZInQ.Manuscript.RC.Wiring.sFun ℓ h - C ≤ padicValRat 2 (W.Lstar h)
+def ZInQ.Manuscript.RC.EvenUpperText.SuppliedMinimum : {ℓ : ℕ} →
+  ZInQ.Manuscript.RC.Wiring.WData ℓ → (ℤ → Prop) → (ℤ → ℤ) → Prop :=
+fun {ℓ} W aNZ va =>
+  W.kfin < 0 ∧
+    aNZ W.kfin ∧
+      ∀ (p : ℤ), aNZ p → va W.kfin - ↑(ZInQ.Manuscript.RC.omega W.kfin) ≤ va p - ↑(ZInQ.Manuscript.RC.omega p)
+def ZInQ.Manuscript.RC.EvenUpperText.SquareReading : {ℓ : ℕ} →
+  ZInQ.Manuscript.RC.Wiring.WData ℓ → (ℤ → Prop) → (ℤ → ℤ) → ℤ → Prop :=
+fun {ℓ} W aNZ va κ => ∀ (p : ℤ), aNZ p → W.Lstar p ≠ 0 ∧ padicValRat 2 (W.Lstar p) = 2 * va p + κ
+def ZInQ.Manuscript.PoleS12.BCDTThmA : Prop :=
+∀ (E : WeierstrassCurve ℚ), E.IsElliptic → ZInQ.Manuscript.PoleS12.IsModular E
+def ZInQ.Contrib.CloudB3RC53.ModularToWeakWeil : Prop :=
+∀ (E : WeierstrassCurve ℚ),
+  E.IsElliptic → ZInQ.Manuscript.PoleS12.IsModular E → ZInQ.Contrib.CloudB3RC53.HasWeakWeilParametrization E
+def ZInQ.Contrib.CloudB3RC53.KolyvaginThm1WeilParam : Prop :=
+∀ (E : WeierstrassCurve ℚ),
+  E.IsElliptic →
+    ZInQ.Contrib.CloudB3RC53.HasWeakWeilParametrization E →
+      ∀ r ≤ 1,
+        ZInQ.Contrib.CloudB3RC53.AnalyticRank E r →
+          Module.rank ℤ E.toAffine.Point = ↑r ∧ Finite ↥(ZInQ.Manuscript.SelmerTwoPower.sha E)
+def ZInQ.Contrib.CloudB3RC53.KolyvaginThm1Printed : Prop :=
+∀ (E : WeierstrassCurve ℚ),
+  E.IsElliptic →
+    ZInQ.Manuscript.PoleS12.IsModular E →
+      ∀ r ≤ 1,
+        ZInQ.Contrib.CloudB3RC53.AnalyticRank E r →
+          Module.rank ℤ E.toAffine.Point = ↑r ∧ Finite ↥(ZInQ.Manuscript.SelmerTwoPower.sha E)
+def ZInQ.Manuscript.RC.Even.AppEOutputs : (E : WeierstrassCurve ℚ) →
+  ℕ → ZInQ.Manuscript.RC.Even.CentralNormalization E → Prop :=
+fun E N L =>
+  ∃ cE CE Cfix Cg Cr Ce,
+    0 ≤ CE ∧
+      0 ≤ Cfix ∧
+        0 ≤ Cg ∧
+          0 ≤ Cr ∧
+            0 ≤ Ce ∧
+              ∀ (fam : ZInQ.Manuscript.RC.Even.BinaryFamily N),
+                Nonempty (ZInQ.Manuscript.RC.Even.EvenFamilyOutput E N L cE CE Cfix Cg Cr Ce fam)
+structure ZInQ.Manuscript.RC.Even.EvenFamilyOutput (E : WeierstrassCurve ℚ) (N : ℕ)
+  (L : ZInQ.Manuscript.RC.Even.CentralNormalization E) (cE : ℕ) (CE Cfix Cg Cr Ce : ℤ)
+  (fam : ZInQ.Manuscript.RC.Even.BinaryFamily N) : Type
+number of parameters: 10
+fields:
+  ZInQ.Manuscript.RC.Even.EvenFamilyOutput.u : (Fin fam.b → ZMod 2) → PowerSeries ℚ_[2]
+  ZInQ.Manuscript.RC.Even.EvenFamilyOutput.charEval_mem : ∀ (x : Fin fam.b → ZMod 2),
+      ZInQ.Manuscript.RC.Even.InLamHalf (ZInQ.Manuscript.RC.Even.charEval self.u x)
+  ZInQ.Manuscript.RC.Even.EvenFamilyOutput.outer : ∀ (g : Fin fam.b → ZMod 2),
+      ∃ f, ∀ (n : ℕ), ↑(f ↑n) = (PowerSeries.coeff n) (2 ^ cE • self.u g)
+  ZInQ.Manuscript.RC.Even.EvenFamilyOutput.const : ∀ (x : Fin fam.b → ZMod 2),
+      ZInQ.Manuscript.RC.Even.CorankZero E (fam.h x) →
+        L.Lstar (fam.h x) ≠ 0 →
+          ∃ O,
+            O.len.v2u = (ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval self.u x)).valuation ∧
+              O.v2L = padicValRat 2 (L.Lstar (fam.h x)) ∧ O.len.s = ZInQ.Manuscript.RC.Even.shaLen E (fam.h x)
+  ZInQ.Manuscript.RC.Even.EvenFamilyOutput.zero_iff : ∀ (x : Fin fam.b → ZMod 2),
+      ZInQ.Manuscript.RC.Even.CorankZero E (fam.h x) →
+        (ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval self.u x) = 0 ↔ L.Lstar (fam.h x) = 0)
+constructor:
+  ZInQ.Manuscript.RC.Even.EvenFamilyOutput.mk {E : WeierstrassCurve ℚ} {N : ℕ}
+    {L : ZInQ.Manuscript.RC.Even.CentralNormalization E} {cE : ℕ} {CE Cfix Cg Cr Ce : ℤ}
+    {fam : ZInQ.Manuscript.RC.Even.BinaryFamily N} (u : (Fin fam.b → ZMod 2) → PowerSeries ℚ_[2])
+    (charEval_mem :
+      ∀ (x : Fin fam.b → ZMod 2), ZInQ.Manuscript.RC.Even.InLamHalf (ZInQ.Manuscript.RC.Even.charEval u x))
+    (outer : ∀ (g : Fin fam.b → ZMod 2), ∃ f, ∀ (n : ℕ), ↑(f ↑n) = (PowerSeries.coeff n) (2 ^ cE • u g))
+    (const :
+      ∀ (x : Fin fam.b → ZMod 2),
+        ZInQ.Manuscript.RC.Even.CorankZero E (fam.h x) →
+          L.Lstar (fam.h x) ≠ 0 →
+            ∃ O,
+              O.len.v2u = (ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval u x)).valuation ∧
+                O.v2L = padicValRat 2 (L.Lstar (fam.h x)) ∧ O.len.s = ZInQ.Manuscript.RC.Even.shaLen E (fam.h x))
+    (zero_iff :
+      ∀ (x : Fin fam.b → ZMod 2),
+        ZInQ.Manuscript.RC.Even.CorankZero E (fam.h x) →
+          (ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval u x) = 0 ↔ L.Lstar (fam.h x) = 0)) :
+    ZInQ.Manuscript.RC.Even.EvenFamilyOutput E N L cE CE Cfix Cg Cr Ce fam
+def ZInQ.Manuscript.RC.Even.EvenScalar32 : (E : WeierstrassCurve ℚ) →
+  ℕ → ZInQ.Manuscript.RC.Even.CentralNormalization E → Prop :=
+fun E N L =>
+  ∃ Cev C,
+    ∀ (fam : ZInQ.Manuscript.RC.Even.BinaryFamily N),
+      ∃ u,
+        (∀ (g : Fin fam.b → ZMod 2), ZInQ.Manuscript.RC.Even.InLam (2 ^ Cev • u g)) ∧
+          (∀ (x : Fin fam.b → ZMod 2),
+              ZInQ.Manuscript.RC.Even.CorankZero E (fam.h x) →
+                (ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval u x) = 0 ↔ L.Lstar (fam.h x) = 0)) ∧
+            ∀ (x : Fin fam.b → ZMod 2),
+              ZInQ.Manuscript.RC.Even.CorankZero E (fam.h x) →
+                L.Lstar (fam.h x) ≠ 0 →
+                  |(ZInQ.Manuscript.RC.Even.central (ZInQ.Manuscript.RC.Even.charEval u x)).valuation -
+                        (padicValRat 2 (L.Lstar (fam.h x)) - 2 * ↑(ZInQ.Manuscript.RC.Even.omega (fam.h x)) -
+                          ↑(ZInQ.Manuscript.RC.Even.shaLen E (fam.h x)))| ≤
+                    ↑C
+ZInQ.Manuscript.RC.EvenUpperText.level_pos {ℓ : ℕ} (h : ZInQ.Manuscript.RC.EvenUpperText.CurveLevel ℓ) :
+  0 < ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ
+'ZInQ.Manuscript.RC.EvenUpperText.level_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.level_pos_of_bcdt (hB : ZInQ.Manuscript.PoleS12.BCDTThmA) {ℓ : ℕ} (hℓ : 0 < ℓ) :
+  0 < ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ
+'ZInQ.Manuscript.RC.EvenUpperText.level_pos_of_bcdt' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.level_eq_of_newform {ℓ M : ℕ} [NeZero M] {f : HeckeRing.GL2.Newform M 2}
+  (hf : ZInQ.Manuscript.RC.PrintsAnalytic.IsNewformOf (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) f)
+  (h : ZInQ.Manuscript.RC.EvenUpperText.CurveLevel ℓ) : ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ = M
+'ZInQ.Manuscript.RC.EvenUpperText.level_eq_of_newform' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.scalar32_iff_even {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (L : ZInQ.Manuscript.RC.Even.CentralNormalization (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)) (hLW : L.Lstar = W.Lstar) :
+  ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W ↔
+    ZInQ.Manuscript.RC.Even.EvenScalar32 (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ) L
+'ZInQ.Manuscript.RC.EvenUpperText.scalar32_iff_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.scalar32_of_appE {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (hN : ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ ≠ 0)
+  (L : ZInQ.Manuscript.RC.Even.CentralNormalization (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ)) (hLW : L.Lstar = W.Lstar)
+  (hE :
+    ZInQ.Manuscript.RC.Even.AppEOutputs (ZInQ.Contrib.CloudB3RC53.Ecurve ℓ) (ZInQ.Manuscript.RC.EvenUpperText.N₀ ℓ) L) :
+  ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W
+'ZInQ.Manuscript.RC.EvenUpperText.scalar32_of_appE' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.partitionability_forward {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2}
+  (h : ZInQ.Manuscript.RC.EvenUpperText.PartitionabilitySpec W T A) (d : ℤ) :
+  d < 0 →
+    Squarefree d →
+      (∀ p ∈ W.S, ¬↑p ∣ d) →
+        ZInQ.Manuscript.RC.Symbols.IsPartitionable ε
+            (A (ZInQ.Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ).total)
+            (ZInQ.Manuscript.RC.Symbols.primeConfig d.natAbs.primeFactors T.typ) →
+          W.Partitionable d
+'ZInQ.Manuscript.RC.EvenUpperText.partitionability_forward' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.partitionability_reverse {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2}
+  (h : ZInQ.Manuscript.RC.EvenUpperText.PartitionabilitySpec W T A) (d : ℤ) :
+  W.Partitionable d → ZInQ.Manuscript.RC.EvenUpperText.SourcePartitionable W T A d
+'ZInQ.Manuscript.RC.EvenUpperText.partitionability_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.fixedLevelInputs_of_faithful {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} (h : ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A) :
+  ZInQ.Manuscript.RC.EvenUpperText.FixedLevelInputs W
+'ZInQ.Manuscript.RC.EvenUpperText.fixedLevelInputs_of_faithful' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.rc11Inputs_of_fixedLevel {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (h : ZInQ.Manuscript.RC.EvenUpperText.FixedLevelInputs W) : ZInQ.Manuscript.RC.Wiring.EvenUpperRC11Inputs W
+'ZInQ.Manuscript.RC.EvenUpperText.rc11Inputs_of_fixedLevel' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.rc11Inputs_of_faithful {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} (h : ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A) :
+  ZInQ.Manuscript.RC.Wiring.EvenUpperRC11Inputs W
+'ZInQ.Manuscript.RC.EvenUpperText.rc11Inputs_of_faithful' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.currentUpper_of_upper33b {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {C₁ : ℤ}
+  (h : ZInQ.Manuscript.RC.EvenUpperText.Upper33b W C₁) : ZInQ.Manuscript.RC.Wiring.EvenUpper33b W C₁
+'ZInQ.Manuscript.RC.EvenUpperText.currentUpper_of_upper33b' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.sourceUnit_ne_zero {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} {d : ℤ}
+  (h : ZInQ.Manuscript.RC.EvenUpperText.SourceUnit W T A d) : d ≠ 0
+'ZInQ.Manuscript.RC.EvenUpperText.sourceUnit_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.forward_of_analytic_leaves {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (hB : ZInQ.Manuscript.PoleS12.BCDTThmA) (hK : ZInQ.Contrib.CloudB3RC53.KolyvaginThm1Printed) (hℓ : 0 < ℓ)
+  (hL : ZInQ.Manuscript.RC.Wiring.LstarTarget W.toRCData) : ZInQ.Manuscript.RC.EvenUpperText.Forward W
+'ZInQ.Manuscript.RC.EvenUpperText.forward_of_analytic_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.forward_of_weil_leaves {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (hB : ZInQ.Manuscript.PoleS12.BCDTThmA) (hG : ZInQ.Contrib.CloudB3RC53.ModularToWeakWeil)
+  (hK : ZInQ.Contrib.CloudB3RC53.KolyvaginThm1WeilParam) (hℓ : 0 < ℓ)
+  (hL : ZInQ.Manuscript.RC.Wiring.LstarTarget W.toRCData) : ZInQ.Manuscript.RC.EvenUpperText.Forward W
+'ZInQ.Manuscript.RC.EvenUpperText.forward_of_weil_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.single_precision_transfer (a b : ℚ_[2]) (B : ℤ) (ha : a ≠ 0) (hva : a.valuation ≤ B)
+  (hc : a = b ∨ B + 1 ≤ (a - b).valuation) : b ≠ 0 ∧ b.valuation ≤ B
+'ZInQ.Manuscript.RC.EvenUpperText.single_precision_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.upper33b_of_inputsAt {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (hf : ZInQ.Manuscript.RC.EvenUpperText.Forward W) (h : ZInQ.Contrib.CloudB3RC53.EvenUpper.EvenUpperInputsAt W) :
+  ∃ C₁, ZInQ.Manuscript.RC.EvenUpperText.Upper33b W C₁
+'ZInQ.Manuscript.RC.EvenUpperText.upper33b_of_inputsAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.upper33b_of_fixedLevel {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (hf : ZInQ.Manuscript.RC.EvenUpperText.Forward W) (hn : ZInQ.Manuscript.RC.Wiring.LstarNormalized W.toRCData)
+  (h : ZInQ.Manuscript.RC.EvenUpperText.FixedLevelInputs W) : ∃ C₁, ZInQ.Manuscript.RC.EvenUpperText.Upper33b W C₁
+'ZInQ.Manuscript.RC.EvenUpperText.upper33b_of_fixedLevel' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.upper33b_of_faithful {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} (hf : ZInQ.Manuscript.RC.EvenUpperText.Forward W)
+  (h : ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A) : ∃ C₁, ZInQ.Manuscript.RC.EvenUpperText.Upper33b W C₁
+'ZInQ.Manuscript.RC.EvenUpperText.upper33b_of_faithful' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.currentUpper_of_faithful {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} (hf : ZInQ.Manuscript.RC.EvenUpperText.Forward W)
+  (h : ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A) : ∃ C₁, ZInQ.Manuscript.RC.Wiring.EvenUpper33b W C₁
+'ZInQ.Manuscript.RC.EvenUpperText.currentUpper_of_faithful' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.corankZero_iff_upper33b {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {C₁ : ℤ}
+  (hf : ZInQ.Manuscript.RC.EvenUpperText.Forward W) (h : ZInQ.Manuscript.RC.EvenUpperText.Upper33b W C₁) (d : ℤ)
+  (hd : d ≠ 0) (hp : W.Partitionable d) :
+  ZInQ.Manuscript.SelmerTwoPower.Z2Corank
+      (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ d))) 0 ↔
+    W.Lstar d ≠ 0 ∧
+      padicValRat 2 (W.Lstar d) - 2 * ↑(ZInQ.Manuscript.RC.omega d) - ZInQ.Manuscript.RC.Wiring.sFun ℓ d ≤ C₁
+'ZInQ.Manuscript.RC.EvenUpperText.corankZero_iff_upper33b' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.upper_at_unit {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {unitSym : ℤ → Prop}
+  {C₀ : ℤ} (hu : ZInQ.Manuscript.RC.EvenUpperText.Units33a W unitSym C₀) {d : ℤ} (hd : unitSym d) :
+  W.Lstar d ≠ 0 ∧
+    padicValRat 2 (W.Lstar d) - 2 * ↑(ZInQ.Manuscript.RC.omega d) - ZInQ.Manuscript.RC.Wiring.sFun ℓ d ≤ C₀
+'ZInQ.Manuscript.RC.EvenUpperText.upper_at_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.lowerBound_of_scalar32 {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  (hf : ZInQ.Manuscript.RC.EvenUpperText.Forward W) (h32 : ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W) :
+  ZInQ.Manuscript.RC.EvenUpperText.LowerBound W
+'ZInQ.Manuscript.RC.EvenUpperText.lowerBound_of_scalar32' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.unit_depth_of_supplied_minimum {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  {aNZ : ℤ → Prop} {va : ℤ → ℤ} (hm : ZInQ.Manuscript.RC.EvenUpperText.SuppliedMinimum W aNZ va) {p : ℤ}
+  (hp : ZInQ.Contrib.CloudB3RC53.EvenUpper.UnitMin aNZ va p) :
+  va p - ↑(ZInQ.Manuscript.RC.omega p) = va W.kfin - ↑(ZInQ.Manuscript.RC.omega W.kfin)
+'ZInQ.Manuscript.RC.EvenUpperText.unit_depth_of_supplied_minimum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.unit_value_of_supplied_minimum {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  {aNZ : ℤ → Prop} {va : ℤ → ℤ} {κ : ℤ} (hm : ZInQ.Manuscript.RC.EvenUpperText.SuppliedMinimum W aNZ va)
+  (hr : ZInQ.Manuscript.RC.EvenUpperText.SquareReading W aNZ va κ) {p : ℤ}
+  (hp : ZInQ.Contrib.CloudB3RC53.EvenUpper.UnitMin aNZ va p) :
+  W.Lstar p ≠ 0 ∧
+    padicValRat 2 (W.Lstar p) =
+      2 * ↑(ZInQ.Manuscript.RC.omega p) + (2 * (va W.kfin - ↑(ZInQ.Manuscript.RC.omega W.kfin)) + κ)
+'ZInQ.Manuscript.RC.EvenUpperText.unit_value_of_supplied_minimum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.units33a_of_supplied_minimum {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  {aNZ : ℤ → Prop} {va : ℤ → ℤ} {κ : ℤ} (hm : ZInQ.Manuscript.RC.EvenUpperText.SuppliedMinimum W aNZ va)
+  (hr : ZInQ.Manuscript.RC.EvenUpperText.SquareReading W aNZ va κ) (hNZ : ∀ (p : ℤ), aNZ p → p ≠ 0) :
+  ZInQ.Manuscript.RC.EvenUpperText.Units33a W (ZInQ.Contrib.CloudB3RC53.EvenUpper.UnitMin aNZ va)
+    (2 * (va W.kfin - ↑(ZInQ.Manuscript.RC.omega W.kfin)) + κ)
+'ZInQ.Manuscript.RC.EvenUpperText.units33a_of_supplied_minimum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.fixedLevelInputs_of_supplied_readings {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  {aNZ : ℤ → Prop} {va : ℤ → ℤ} {κ : ℤ} (hm : ZInQ.Manuscript.RC.EvenUpperText.SuppliedMinimum W aNZ va)
+  (hr : ZInQ.Manuscript.RC.EvenUpperText.SquareReading W aNZ va κ) (hNZ : ∀ (p : ℤ), aNZ p → p ≠ 0)
+  (h32 : ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W)
+  (hc : ZInQ.Manuscript.RC.EvenUpperText.CubeInputs W (ZInQ.Contrib.CloudB3RC53.EvenUpper.UnitMin aNZ va)) :
+  ZInQ.Manuscript.RC.EvenUpperText.FixedLevelInputs W
+'ZInQ.Manuscript.RC.EvenUpperText.fixedLevelInputs_of_supplied_readings' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.faithfulInputs_of_supplied_readings {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  {L : Type} [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} {aNZ : ℤ → Prop} {va : ℤ → ℤ} {κ : ℤ}
+  (hl : ZInQ.Manuscript.RC.EvenUpperText.CurveLevel ℓ) (hn : ZInQ.Manuscript.RC.Wiring.LstarNormalized W.toRCData)
+  (hp : ZInQ.Manuscript.RC.EvenUpperText.PartitionabilitySpec W T A) (h32 : ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W)
+  (hm : ZInQ.Manuscript.RC.EvenUpperText.SuppliedMinimum W aNZ va)
+  (hr : ZInQ.Manuscript.RC.EvenUpperText.SquareReading W aNZ va κ) (hNZ : ∀ (p : ℤ), aNZ p → p ≠ 0)
+  (hu :
+    ∀ (p : ℤ),
+      ZInQ.Manuscript.RC.EvenUpperText.SourceUnit W T A p → ZInQ.Contrib.CloudB3RC53.EvenUpper.UnitMin aNZ va p)
+  (hc : ZInQ.Manuscript.RC.EvenUpperText.SourceCubeInputs W T A) : ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A
+'ZInQ.Manuscript.RC.EvenUpperText.faithfulInputs_of_supplied_readings' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.units33a_of_finite_sources {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {I : Type}
+  [Fintype I] (unitSym : I → ℤ → Prop) (C : I → ℤ)
+  (hu : ∀ (i : I), ZInQ.Manuscript.RC.EvenUpperText.Units33a W (unitSym i) (C i)) :
+  ZInQ.Manuscript.RC.EvenUpperText.Units33a W (fun p => ∃ i, unitSym i p) (∑ i, Max.max (C i) 0)
+'ZInQ.Manuscript.RC.EvenUpperText.units33a_of_finite_sources' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.faithfulInputs_of_finite_readings {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ}
+  {L : Type} [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} {I : Type} [Fintype I]
+  (hl : ZInQ.Manuscript.RC.EvenUpperText.CurveLevel ℓ) (hn : ZInQ.Manuscript.RC.Wiring.LstarNormalized W.toRCData)
+  (hp : ZInQ.Manuscript.RC.EvenUpperText.PartitionabilitySpec W T A) (h32 : ZInQ.Manuscript.RC.EvenUpperText.Scalar32 W)
+  (unitSym : I → ℤ → Prop) (C : I → ℤ) (hu : ∀ (i : I), ZInQ.Manuscript.RC.EvenUpperText.Units33a W (unitSym i) (C i))
+  (hr : ∀ (p : ℤ), ZInQ.Manuscript.RC.EvenUpperText.SourceUnit W T A p → ∃ i, unitSym i p)
+  (hc : ZInQ.Manuscript.RC.EvenUpperText.SourceCubeInputs W T A) : ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A
+'ZInQ.Manuscript.RC.EvenUpperText.faithfulInputs_of_finite_readings' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Manuscript.RC.EvenUpperText.faithful_upper_equivalence {ℓ : ℕ} {W : ZInQ.Manuscript.RC.Wiring.WData ℓ} {L : Type}
+  [AddCommGroup L] {ε : L →+ ZMod 2} {T : ZInQ.Contrib.CloudB3RC53.CoefficientDictionary.TypeData L ε}
+  {A : L → ZInQ.Manuscript.RC.Symbols.Config L → ZMod 2} (hf : ZInQ.Manuscript.RC.EvenUpperText.Forward W)
+  (h : ZInQ.Manuscript.RC.EvenUpperText.FaithfulInputs W T A) :
+  ∃ C₁,
+    ∀ (d : ℤ),
+      ZInQ.Manuscript.RC.EvenUpperText.SourcePartitionable W T A d →
+        (ZInQ.Manuscript.SelmerTwoPower.Z2Corank
+            (↥(ZInQ.Manuscript.SelmerTwoPower.selmerTwoPower (ZInQ.Manuscript.RC.Etw ℓ d))) 0 ↔
+          W.Lstar d ≠ 0 ∧
+            padicValRat 2 (W.Lstar d) - 2 * ↑(ZInQ.Manuscript.RC.omega d) - ZInQ.Manuscript.RC.Wiring.sFun ℓ d ≤ C₁)
+'ZInQ.Manuscript.RC.EvenUpperText.faithful_upper_equivalence' depends on axioms: [propext, Classical.choice, Quot.sound]

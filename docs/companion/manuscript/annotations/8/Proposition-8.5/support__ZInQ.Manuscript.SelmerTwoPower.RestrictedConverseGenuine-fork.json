@@ -1,0 +1,88 @@
+{
+  "id": "Proposition 8.5",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine assumed, not proved: [M] here asserts the moving character ξ: Gal(H_r/K) → Z/2^nZ with split primes r ≡ 1 mod 2^B and the trace bounds v_2(2±a_r), v_2 det(1±Fr_r) ≤ c_E, part of Section 8's Heegner/Selmer-complex argument for the restricted converse. [F] formalizes none of Section 8; it assumes Theorem 5.3 whole as RestrictedConverseGenuine (and Theorem 5.2 as ZInQ.PoleCompleteness in its headline).",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 47,
+        "rect": [
+          0.107843,
+          0.854789,
+          0.784314,
+          0.059219
+        ]
+      },
+      "title": "Proposition 8.5",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 8.5#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 48,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.11896
+        ]
+      },
+      "title": "Proposition 8.5",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 8.5#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine",
+        "module": "ZInQKernel.Contrib.OneProof.SelmerTwoPower"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine@fork",
+            "kind": "def · fork · assumed"
+          },
+          "snippet": {
+            "text": "def RestrictedConverseGenuine : Prop :=\n  ZInQ.Manuscript.RestrictedConverse SelmerCorankOne",
+            "line": 217,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean",
+            "fragment": "L217"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          47,
+          48
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

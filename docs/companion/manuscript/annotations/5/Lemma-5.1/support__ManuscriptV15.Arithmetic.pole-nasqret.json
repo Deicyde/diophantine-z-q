@@ -1,0 +1,86 @@
+{
+  "id": "Lemma 5.1",
+  "kind": "lemma",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, proved; ManuscriptV15.Arithmetic.pole a definition; confirmed finding (stronger): polePredicate_sound gives the obstruction for every prime p > 3 and every finite set M of p-adic-unit multipliers, on [M]'s curves x + 3l; with M the 64 signed divisors of 2730 (the values of m) it covers exactly p not in S_0, so the hypotheses are weaker than [M]'s, but the step from Phi(B) with B != 0 to polePredicate M B is not stated in [N]. Proved with no hypotheses, through ndep's ZInQ.ValuationObstruction lemmas on the x + 3l curves (negative_input_pole_h_valuation, elliptic_x_valuation_even_of_parameter_even); ndep's ZInQ.Mult.pole_obstruction is for the curves x + l and is not used by [N].",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.360141,
+          0.784314,
+          0.048374
+        ]
+      },
+      "title": "Lemma 5.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 5.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Arithmetic.pole",
+        "module": "Lean.Lemmas.blueprint-manuscript.ManuscriptArithmetic"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Arithmetic.pole@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def pole (B : ℚ) : Prop := ∃ b : Fin 6 → ℚ, ∃ e z r₁ r₂ w : ℚ,\n  let m := (1-2*b 0)*(1+b 1)*(1+2*b 2)*(1+4*b 3)*(1+6*b 4)*(1+12*b 5)\n  let a := m*B\n  let h := a*(a-B^2)\n  B * ((∑ i, (b i^2-b i)^2) + (e*h*z*w-1)^2 + (r₁^2-a*(a-e)*(a+3*e))^2 +\n    (r₂^2-a*(a*z^2-e*h)*(a*z^2+3*e*h))^2) = 0",
+            "line": 145,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/blueprint-manuscript/ManuscriptArithmetic.lean",
+            "fragment": "L145"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; note corrected after an independent review; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "polePredicate_sound is proved with no hypotheses, on [M]'s x+3l curves, for any prime p > 3 and any finite set of p-adic-unit multipliers. Its conclusion (odd v_p(B) implies v_p(B) >= 0) is [M]'s 'not negative and odd'. Applied to the signed divisors of 2730 it covers exactly p not in S_0, so it is more general. The step from Phi(B) (Arithmetic.pole) to polePredicate is not stated.",
+            "The Lean statement of polePredicate_sound has no hypothesis beyond p > 3, p-adic-unit multipliers and the pole branch on [M]'s x+3l curves, and its conclusion is [M]'s; for B != 0, Phi(B) is equivalent to polePredicate on the 64 signed divisors of 2730, so the generalization over M makes it stronger. The claim correctly records that [N] states no bridge from Phi to polePredicate."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

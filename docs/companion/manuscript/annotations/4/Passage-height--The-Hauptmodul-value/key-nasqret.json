@@ -1,0 +1,126 @@
+{
+  "id": "Passage height: The Hauptmodul value",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, a definition: SixContact.contacts, F and G are [M]'s contact set, F(u) and G(u) over Q.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.107843,
+          0.740697,
+          0.784314,
+          0.11512
+        ]
+      },
+      "title": "Passage (height): The Hauptmodul value",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The Hauptmodul value"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.SixContact.F",
+        "module": "Lean.Topics.theorem-blueprint.HeightSix"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.SixContact.F@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def F (u : ℚ) := u*(u+15)*(u+20)*(u+24)*(u+30)*(u+60)",
+            "line": 10,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/HeightSix.lean",
+            "fragment": "L10"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.SixContact.G",
+        "module": "Lean.Topics.theorem-blueprint.HeightSix"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.SixContact.G@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def G (u : ℚ) := 7*u^2+300*u+3600",
+            "line": 11,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/HeightSix.lean",
+            "fragment": "L11"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.SixContact.contacts",
+        "module": "Lean.Topics.theorem-blueprint.HeightSix"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.SixContact.contacts@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def contacts : Finset ℚ := {0,-15,-20,-24,-30,-60}",
+            "line": 14,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/HeightSix.lean",
+            "fragment": "L14"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

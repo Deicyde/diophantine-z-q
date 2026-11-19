@@ -1,0 +1,47 @@
+{
+  "id": "Eq (O.5c)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The Hilbert-reciprocity identity prod_{p|2m}(d,m)_p=(m/d) belongs to the proof of Theorem 5.3, which [F] takes as the hypothesis RestrictedConverseGenuine; [F] does not state this identity; the general Br(Q)[2] reciprocity leaf ZInQ.Contrib.T14.brauerReciprocity2C is a different claim.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 118,
+        "rect": [
+          0.107843,
+          0.197915,
+          0.784314,
+          0.05308
+        ]
+      },
+      "title": "Eq. (O.5c)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (O.5c)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          118
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

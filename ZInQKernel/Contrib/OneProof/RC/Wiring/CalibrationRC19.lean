@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.OneProof.RC.Wiring.Central
 import ZInQKernel.Contrib.OneProof.RC.Height.Discharge
+import ZInQKernel.Contrib.OneProof.RC.Height.FreeQuotientIndex
 
 /-!
 **Theorem 5.3, Lane RC0 round 3: the regulator inputs of (4.6) from lane RC19**
@@ -30,6 +31,10 @@ by `ellA_of`, `ellB_of`, so no field is needed for that), and states the Milne f
 those of `CalibrationModel`, verbatim. The free generators themselves are derived from the
 forward theorems in `CalibrationPrints.lean` (`CalibrationModelP`).
 
+* `CalibrationModelR.nonempty_model_index` (PROVED): a `CalibrationModel` with `alpha = I` and
+  `beta = J`, the cardinalities of the actual cokernels of `φ` and `ψ` on the quotients of the
+  point groups by their full torsion (`Height/FreeQuotientIndex.lean`: `sumDifferenceI`,
+  `sumDifferenceJ`, `freeCokernel_card`), as `alpha = |α|`, `beta = |β|`;
 * `CalibrationModelR.nonempty_model : 0 < ℓ → h_x ≠ 0 → CalibrationModelR D vL G₀ F x →
   Nonempty (CalibrationModel …)` (PROVED: `α`, `β`, `IJ = 2`, the adjunction
   `α ĥ_ℬ(g_ℬ) = β ĥ_𝒜(g_𝒜)` and `Reg_𝒜 ≠ 0` by lane RC19; the genuine real regulators
@@ -211,20 +216,42 @@ theorem QuadData.k_ne_zero {K : Type*} [Field K] [Algebra ℚ K] {k : ℚ}
   rw [map_zero] at h
   exact Q.hs (pow_eq_zero_iff (n := 2) (by norm_num) |>.mp h)
 
-/-- **The regulator data of `CalibrationModel` from lane RC19** (tex 4022–4025, 4082–4090,
-4106–4112): a `CalibrationModelR` gives a `CalibrationModel` whose real regulators are the genuine
-canonical heights `Reg_𝒜 = ĥ_𝒜(g_𝒜) > 0` and `Reg_ℬ = ĥ_ℬ(g_ℬ)`, with `α, β` the integers of
-`regulator_inputs_sumDiff` (`αβ = 2`) and its height adjunction `α Reg_ℬ = β Reg_𝒜`; Milne's
-identity is the field `hmilne` itself, at the genuine regulators (no rational stand-in). PROVED. -/
-theorem CalibrationModelR.nonempty_model {ℓ : ℕ} {D : RCData ℓ} {vL G₀ : ℤ} {Fam : Family}
-    {x : Addr Fam.b} (hℓ : 0 < ℓ) (hx0 : Fam.h x ≠ 0) (M : CalibrationModelR D vL G₀ Fam x) :
-    Nonempty (CalibrationModel D vL G₀ Fam x) := by
-  have := ellA_of hℓ hx0
-  have := ellB_of hℓ hx0 (QuadData.k_ne_zero M.quad)
-  obtain ⟨α, β, -, -, hαβ, hadj, -, -, -, hpos⟩ :=
+/-- **The regulator data of `CalibrationModel` from lane RC19, with the indices identified** (tex
+4022–4025, 4082–4090, 4106–4112): a `CalibrationModelR` gives a `CalibrationModel` whose real
+regulators are the genuine canonical heights `Reg_𝒜 = ĥ_𝒜(g_𝒜) > 0` and `Reg_ℬ = ĥ_ℬ(g_ℬ)`, with
+`alpha = |α|`, `beta = |β|` for the integers `α, β` of `regulator_inputs_sumDiff` (`αβ = 2`, so
+`α` and `β` have the same sign, and the height adjunction `α Reg_ℬ = β Reg_𝒜` passes to the
+absolute values). Then `alpha = I` and `beta = J` are the cardinalities of the actual cokernels of
+`φ = diffMap` and `ψ = sumMap` on the quotients of the point groups by their full torsion
+(`FreeQuotientIndex.sumDifferenceI`, `sumDifferenceJ`, by `freeCokernel_card`): the labels of the
+fields `alpha`, `beta` hold for the genuine twists. PROVED. -/
+theorem CalibrationModelR.nonempty_model_index {ℓ : ℕ} {D : RCData ℓ} {vL G₀ : ℤ} {Fam : Family}
+    {x : Addr Fam.b} (M : CalibrationModelR D vL G₀ Fam x)
+    [(qtwist (Ecurve ℓ) (Fam.h x : ℚ)).IsElliptic]
+    [(qtwist (Ecurve ℓ) ((Fam.h x : ℚ) * (D.kfin : ℚ))).IsElliptic] :
+    ∃ C : CalibrationModel D vL G₀ Fam x,
+      C.alpha = (ZInQ.Manuscript.RC.Height.FreeQuotientIndex.sumDifferenceI (K := M.K)
+        (Ecurve ℓ) (Fam.h x : ℚ) (D.kfin : ℚ) M.quad : ℤ) ∧
+      C.beta = (ZInQ.Manuscript.RC.Height.FreeQuotientIndex.sumDifferenceJ (K := M.K)
+        (Ecurve ℓ) (Fam.h x : ℚ) (D.kfin : ℚ) M.quad : ℤ) := by
+  obtain ⟨α, β, hα, hβ, hαβ, hadj, -, -, -, hpos⟩ :=
     ZInQ.Manuscript.RC.Height.regulator_inputs_sumDiff (K := M.K) (Ecurve ℓ) (Fam.h x : ℚ)
       (D.kfin : ℚ) M.quad M.gA M.gB M.freeA M.freeB
-  exact ⟨{
+  have hsign : (0 < α ∧ 0 < β) ∨ (α < 0 ∧ β < 0) := by
+    rcases lt_trichotomy α 0 with ha | ha | ha
+    · right
+      refine ⟨ha, ?_⟩
+      rcases lt_or_ge β 0 with hb | hb
+      · exact hb
+      · nlinarith
+    · subst ha
+      simp at hαβ
+    · left
+      refine ⟨ha, ?_⟩
+      rcases lt_or_ge 0 β with hb | hb
+      · exact hb
+      · nlinarith
+  refine ⟨{
     shaA := M.shaA
     shaB := M.shaB
     tA := M.tA
@@ -243,12 +270,19 @@ theorem CalibrationModelR.nonempty_model {ℓ : ℕ} {D : RCData ℓ} {vL G₀ :
     hA1 := M.hA1
     hB := M.hB
     htp := M.htp
-    alpha := α
-    beta := β
-    hIJ := hαβ
+    alpha := (α.natAbs : ℤ)
+    beta := (β.natAbs : ℤ)
+    hIJ := by
+      rw [Int.natCast_natAbs, Int.natCast_natAbs, ← abs_mul, hαβ]
+      rfl
     RegA := M.gA.canonicalHeight
     RegB := ZInQ.Manuscript.RC.Height.heightB (Ecurve ℓ) (Fam.h x : ℚ) (D.kfin : ℚ) M.gB
-    hadj := hadj
+    hadj := by
+      rcases hsign with ⟨ha, hb⟩ | ⟨ha, hb⟩
+      · rw [Int.natAbs_of_nonneg ha.le, Int.natAbs_of_nonneg hb.le]
+        exact hadj
+      · rw [Int.ofNat_natAbs_of_nonpos ha.le, Int.ofNat_natAbs_of_nonpos hb.le]
+        simp only [Int.cast_neg, neg_mul, hadj]
     aPull := M.aPull
     bPull := M.bPull
     hab := M.hab
@@ -272,7 +306,24 @@ theorem CalibrationModelR.nonempty_model {ℓ : ℕ} {D : RCData ℓ} {vL G₀ :
     hmne := M.hmne
     hrmov := M.hrmov
     hBexp := M.hBexp
-    hvprim := M.hvprim }⟩
+    hvprim := M.hvprim }, ?_, ?_⟩
+  · change (α.natAbs : ℤ) = _
+    rw [ZInQ.Manuscript.RC.Height.FreeQuotientIndex.sumDifferenceI,
+      ZInQ.Manuscript.RC.Height.FreeQuotientIndex.freeCokernel_card _ M.gA M.gB M.freeA M.freeB hα]
+  · change (β.natAbs : ℤ) = _
+    rw [ZInQ.Manuscript.RC.Height.FreeQuotientIndex.sumDifferenceJ,
+      ZInQ.Manuscript.RC.Height.FreeQuotientIndex.freeCokernel_card _ M.gB M.gA M.freeB M.freeA hβ]
+
+/-- **The regulator data of `CalibrationModel` from lane RC19** (tex 4022–4025, 4082–4090,
+4106–4112): `CalibrationModelR.nonempty_model_index` with the two twists elliptic (`ℓ > 0`,
+`h_x ≠ 0`, `k ≠ 0`). PROVED. -/
+theorem CalibrationModelR.nonempty_model {ℓ : ℕ} {D : RCData ℓ} {vL G₀ : ℤ} {Fam : Family}
+    {x : Addr Fam.b} (hℓ : 0 < ℓ) (hx0 : Fam.h x ≠ 0) (M : CalibrationModelR D vL G₀ Fam x) :
+    Nonempty (CalibrationModel D vL G₀ Fam x) := by
+  have := ellA_of hℓ hx0
+  have := ellB_of hℓ hx0 (QuadData.k_ne_zero M.quad)
+  obtain ⟨C, -⟩ := M.nonempty_model_index
+  exact ⟨C⟩
 
 /-- **The remaining inputs of `RCSteps.calibration` with lane RC19's regulator data**
 ((4.6), tex 3987–4141): as `CalibrationInputs`, with `CalibrationModelR` (free generators of the

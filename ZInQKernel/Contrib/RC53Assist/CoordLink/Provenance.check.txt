@@ -1,0 +1,44 @@
+ZInQ.Contrib.RC53Assist.CoordLink.oneCoordinateData (ℓ : ℕ) : RCData ℓ
+ZInQ.Contrib.RC53Assist.CoordLink.oneCoordinate_rep (ℓ : ℕ) (F : Family) :
+  UTildeRep (oneCoordinateData ℓ) F (fun x => 0) fun x => 1
+ZInQ.Contrib.RC53Assist.CoordLink.oneCoordinate_corrected (ℓ : ℕ) (F : Family) :
+  CorrectedIsEta (oneCoordinateData ℓ) F 1 fun x => 1
+ZInQ.Contrib.RC53Assist.CoordLink.oneCoordinate_triangles (ℓ : ℕ) (F : Family) (x : Addr F.b) :
+  CommonCoordinateTrianglesN (oneCoordinateData ℓ) F x
+ZInQ.Contrib.RC53Assist.CoordLink.kmOrig_zero_cycle {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK)
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b))
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0) (x : Addr b) : kmOrig M 0 lam ⋯ hlam x = 0
+ZInQ.Contrib.RC53Assist.CoordLink.zero_cycle_not_relIsKMG {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {b dK hK cE tK : ℕ} (M : Identification2G K S S' hS b dK hK cE tK)
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup b))
+  (hlam : lam ᵥ* (M.C.map (φO b)).X.fromRows (M.C.map (φO b)).Y = 0) (x : Addr b)
+  (hΔ : (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0) : ¬RelIsKMG M (fun x => 1) 0 lam ⋯ hlam
+ZInQ.Contrib.RC53Assist.CoordLink.zero_cycle_not_origCoordLink {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {dK hK cE tK : ℕ} (ℓ : ℕ) (F : Family) (M : Identification2G K S S' hS F.b dK hK cE tK)
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup F.b))
+  (hlam : lam ᵥ* (M.C.map (φO F.b)).X.fromRows (M.C.map (φO F.b)).Y = 0) (η : MonoidAlgebra OO (SignGroup F.b))
+  (x : Addr F.b) (hΔ : (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0) :
+  ¬OrigCoordLink (oneCoordinateData ℓ) F M 0 lam ⋯ hlam η
+ZInQ.Contrib.RC53Assist.CoordLink.correction_interface_provenance_obstruction {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {dK hK cE tK : ℕ} (ℓ : ℕ) (F : Family) (M : Identification2G K S S' hS F.b dK hK cE tK)
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup F.b))
+  (hlam : lam ᵥ* (M.C.map (φO F.b)).X.fromRows (M.C.map (φO F.b)).Y = 0) (x : Addr F.b)
+  (hΔ : (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0) :
+  (CorrectedIsEta (oneCoordinateData ℓ) F 1 fun x => 1) ∧
+    Nonempty (CommonCoordinateTrianglesN (oneCoordinateData ℓ) F x) ∧
+      ¬RelIsKMG M (fun x => 1) 0 lam ⋯ hlam ∧ ¬OrigCoordLink (oneCoordinateData ℓ) F M 0 lam ⋯ hlam 1
+'ZInQ.Contrib.RC53Assist.CoordLink.oneCoordinate_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.oneCoordinate_corrected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.kmOrig_zero_cycle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.zero_cycle_not_relIsKMG' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.zero_cycle_not_origCoordLink' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.correction_interface_provenance_obstruction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

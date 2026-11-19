@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Section 2.1 literal operations",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency: [N] has no syntax declarations of its own; the claims are ndep's lemmas, identical in source to [F]'s. No [N] declaration uses these lemmas by name; [N]'s PolynomialRelation.conj proves the sum-of-squares conjunction for its own relations.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.102941,
+          0.091745,
+          0.794118,
+          0.297658
+        ]
+      },
+      "title": "Passage (syntax): Section 2.1 literal operations",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 2.1 literal operations"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.PolynomialRelation.conj",
+        "module": "bounded.FinitePolynomial"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.PolynomialRelation.conj@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem conj {ι : Type} {R S : (ι → ℚ) → Prop}\n    (hr : PolynomialRelation R) (hs : PolynomialRelation S) :\n    PolynomialRelation (fun a => R a ∧ S a) := by",
+            "line": 54,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/FinitePolynomial.lean",
+            "fragment": "L54"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

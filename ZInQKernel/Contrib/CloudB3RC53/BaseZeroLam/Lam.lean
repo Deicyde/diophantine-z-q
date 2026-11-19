@@ -15,8 +15,8 @@ Lane RC25's base-zero leaf (`RC/BaseZeroAssembly/Assembly.lean`, `BaseZeroCore`)
 * `hlam : ∀ y : CU.X 1, lam ((CU.d 1 2).hom y) = 0` ("it is closed"),
 * `hu : ∀ w, w ᵥ* Dm = 0 → (∀ y, lam (e2.symm y) = w ⬝ᵥ y) → IsClassFunctionalCoord … uprim`.
 
-This file builds `lam`, `hlam` from our merged paired-functional results and reduces `hu` to one
-coordinate statement:
+This file builds `lam`, `hlam` from the paired-functional results of `PairedFunctional/` and
+reduces `hu` to one coordinate statement:
 
 * `baseLam pd2 ψ cz` is the paired functional `λ(w) = PD(w, ψ(c z))` (`pairedFunctional`), and
   `baseLam_closed`: it satisfies `hlam` for every chain map `ψ`, by the Leibniz identity of the
@@ -61,12 +61,12 @@ abbrev A : Type := Rings.LambdaT
 
 variable {CU C' C : CochainComplex (ModuleCat.{0} A) ℤ}
 
-/-- **The paired functional at the base** `λ(w) = PD(w, ψ(c z))` (tex L3752–3754, L3860–3863). -/
+/-- **The paired functional at the base** `λ(w) = PD(w, ψ(c z))` (tex L3745–3747, L3846–3847). -/
 def baseLam (pd2 : CU.X 2 →ₗ[A] C'.X 1 →ₗ[A] A) (ψ : C ⟶ C') (cz : C.X 1) :
     CU.X 2 →ₗ[A] A :=
   pairedFunctional pd2 ψ cz
 
-/-- **`hlam`: the paired functional is closed** (tex L3860–3863), for every chain map `ψ` and
+/-- **`hlam`: the paired functional is closed** (tex L3856–3860), for every chain map `ψ` and
 cocycle `c z`. PROVED. -/
 theorem baseLam_closed (pd1 : CU.X 1 →ₗ[A] C'.X 2 →ₗ[A] A) (pd2 : CU.X 2 →ₗ[A] C'.X 1 →ₗ[A] A)
     (ε : A) (hL : ∀ w y, pd2 ((CU.d 1 2).hom w) y = ε * pd1 w ((C'.d 1 2).hom y))
@@ -92,7 +92,7 @@ theorem exists_baseLam (Z : CochainComplex (ModuleCat.{0} A) ℤ) (j : C' ⟶ C)
   exists_closed_pairedFunctional A CU C' C Z j c z pd1 pd2 pd3 ε ε' ι M Aq Cin Dq hDC n hunit
     hcone hz hL1 hL2
 
-/-- **The paired functional of a Selmer cup product at the base** (tex L3818–3863): for Selmer
+/-- **The paired functional of a Selmer cup product at the base** (tex L3826–3849): for Selmer
 pairing data `Q` over `Λ_(t)` with a trace killing coboundaries, `CU = C_U`, `C' = C_{U⊥}` and
 `pd = tr(· ∪ ·)`, the Leibniz hypotheses hold (`selmerDualityComponents_proof`), so the cone
 hypothesis gives a closed integral `λ_z`. PROVED. -/
@@ -181,7 +181,7 @@ def BaseZeroCore.ofClosed {ℓ : ℕ} (D : RCData ℓ) (Fam : Family) {G : Type}
   boundary := boundary
   hprimId := hprimId
 
-/-- **The base-zero core with `lam := PD(·, ψ(c z))`** (tex L3752–3754, L3860–3863): for any chain
+/-- **The base-zero core with `lam := PD(·, ψ(c z))`** (tex L3745–3747, L3846–3860): for any chain
 map `ψ : C → C'` (in the proposition, a homotopy inverse of `j`), a cocycle `c z` and the Leibniz
 identity of the pairing, the paired functional is the field `lam` (closed by `baseLam_closed`), and
 `hu` is the coordinate statement for its row. PROVED. -/

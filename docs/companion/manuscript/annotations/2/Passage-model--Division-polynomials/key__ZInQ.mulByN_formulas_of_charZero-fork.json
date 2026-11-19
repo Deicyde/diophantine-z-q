@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Division polynomials",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: normDiv and divPsi give the bases f0..f4, the even and odd recurrences with D0 = 16(x^3+Ax)^2, psi_n = f_n or 2y f_n and psi_{-n} = -psi_n; divPsi_eq_Ψ identifies them with the classical (Mathlib) division polynomials. mulByN_formulas_of_charZero gives [n]P = O iff psi_n = 0 and x([n]P) = x - psi_{n+1}psi_{n-1}/psi_n^2, y([n]P) = psi_{2n}/(2psi_n^4) over any characteristic-zero field; w_mul_cw is psi_{2n} = psi_n c_n with c_n = 2omega_n, whose quotient form follows from w_even.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.107843,
+          0.633846,
+          0.784314,
+          0.282591
+        ]
+      },
+      "title": "Passage (model): Division polynomials",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Division polynomials"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.mulByN_formulas_of_charZero",
+        "module": "ZInQKernel.Model.DivisionPolynomials.MulByN"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.mulByN_formulas_of_charZero@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem mulByN_formulas_of_charZero {K : Type*} [Field K] [CharZero K] [DecidableEq K] (A : K)\n    {x y : K} (h : (WA A).toAffine.Nonsingular x y) (n : ℤ) :\n    (n • Affine.Point.some x y h = 0 ↔ psiEval A n x y = 0) ∧\n    (n • Affine.Point.some x y h ≠ 0 →\n      ∃ h' : (WA A).toAffine.Nonsingular\n          (x - psiEval A (n + 1) x y * psiEval A (n - 1) x y / psiEval A n x y ^ 2)\n          (psiEval A (2 * n) x y / (2 * psiEval A n x y ^ 4)),\n        n • Affine.Point.some x y h = Affine.Point.some _ _ h') := by",
+            "line": 40,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/DivisionPolynomials/MulByN.lean",
+            "fragment": "L40"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

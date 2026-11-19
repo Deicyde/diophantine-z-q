@@ -1,0 +1,506 @@
+ZInQ.Contrib.RC53Assist.HswResidual.traceH2_mk {G : Type} [Group G] [TopologicalSpace G] [IsTopologicalGroup G]
+  {T : Type} [AddCommGroup T] [Module (ZMod 2) T] [DistribMulAction G T] [SMulCommClass G (ZMod 2) T]
+  [TopologicalSpace T] [DiscreteTopology T] [ContinuousSMul G T]
+  (tr2 : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G T).X 2) →ₗ[ZMod 2] ZMod 2)
+  (htr2 :
+    ∀ (c : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G T).X 1)),
+      tr2 ((ModuleCat.Hom.hom ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G T).d 1 2)) c) = 0)
+  (z : ↥(TauCeti.ContCohomology.Z2 G T)) :
+  (ZInQ.Contrib.RC53Assist.HswResidual.traceH2 tr2 htr2) ((TauCeti.ContCohomology.H2pi G T) z) =
+    tr2 (ZInQ.Manuscript.RC.SelmerComplex.mkCochain2 ↑z ⋯)
+'ZInQ.Contrib.RC53Assist.HswResidual.traceH2_mk' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.localCupTrace_cocycles {G : Type} [Group G] [TopologicalSpace G]
+  [IsTopologicalGroup G] {M N T : Type} [AddCommGroup M] [Module (ZMod 2) M] [DistribMulAction G M]
+  [SMulCommClass G (ZMod 2) M] [TopologicalSpace M] [DiscreteTopology M] [ContinuousSMul G M] [AddCommGroup N]
+  [Module (ZMod 2) N] [DistribMulAction G N] [SMulCommClass G (ZMod 2) N] [TopologicalSpace N] [DiscreteTopology N]
+  [ContinuousSMul G N] [AddCommGroup T] [Module (ZMod 2) T] [DistribMulAction G T] [SMulCommClass G (ZMod 2) T]
+  [TopologicalSpace T] [DiscreteTopology T] [ContinuousSMul G T] (β : M →ₗ[ZMod 2] N →ₗ[ZMod 2] T)
+  (hβ : ∀ (g : G) (x : M) (y : N), (β (g • x)) (g • y) = g • (β x) y)
+  (tr2 : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G T).X 2) →ₗ[ZMod 2] ZMod 2)
+  (htr2 :
+    ∀ (c : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G T).X 1)),
+      tr2 ((ModuleCat.Hom.hom ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G T).d 1 2)) c) = 0)
+  (z : ↥(ModuleCat.Hom.hom ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G M).d 1 2)).ker)
+  (w : ↥(ModuleCat.Hom.hom ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) G N).d 1 2)).ker) :
+  ((ZInQ.Contrib.RC53Assist.HswResidual.localCupTrace β hβ tr2 htr2) (ZInQ.Manuscript.RC.SelmerComplex.kerToH1 z))
+      (ZInQ.Manuscript.RC.SelmerComplex.kerToH1 w) =
+    tr2 (((ZInQ.Manuscript.RC.SelmerComplex.contCup β ⋯ 1 1 2 ⋯) ↑z) ↑w)
+'ZInQ.Contrib.RC53Assist.HswResidual.localCupTrace_cocycles' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.coefficient_perfect_of_weil {V W : Type} [AddCommGroup V] [Module (ZMod 2) V]
+  [AddCommGroup W] [Module (ZMod 2) W] (e1 e2 : V ≃ₗ[ZMod 2] Fin 2 → ZMod 2) (eW : W ≃ₗ[ZMod 2] ZMod 2)
+  (β : V →ₗ[ZMod 2] V →ₗ[ZMod 2] W) (hβ : ∀ (x y : V), eW ((β x) y) = (ZInQ.Manuscript.RC.Uniform.weil (e1 x)) (e2 y)) :
+  Function.Bijective ⇑β ∧ Function.Bijective ⇑β.flip
+'ZInQ.Contrib.RC53Assist.HswResidual.coefficient_perfect_of_weil' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.f2ToQmodZ_injective :
+  Function.Injective ⇑ZInQ.Contrib.RC53Assist.HswResidual.f2ToQmodZ
+'ZInQ.Contrib.RC53Assist.HswResidual.f2ToQmodZ_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.inducesIsoH2_of_KummerBrauer {L : Type} [Field L] [CharZero L] [ValuativeRel L]
+  [TopologicalSpace L] [IsNonarchimedeanLocalField L] {T : Type} [AddCommGroup T] [Module (ZMod 2) T]
+  [DistribMulAction (Field.absoluteGaloisGroup L) T] [SMulCommClass (Field.absoluteGaloisGroup L) (ZMod 2) T]
+  [TopologicalSpace T] [DiscreteTopology T] [ContinuousSMul (Field.absoluteGaloisGroup L) T]
+  (eμ : T ≃+ TauCeti.KummerCoeff L 2)
+  (heμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup L) (t : T),
+      eμ ((TauCeti.absoluteGaloisGroupRestrictEquiv L).symm g • t) = g • eμ t)
+  (hKB : ZInQ.Contrib.RC53Assist.HswResidual.KummerBrauerComparisonF2 L)
+  (tr2 :
+    ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (Field.absoluteGaloisGroup L) T).X 2) →ₗ[ZMod 2] ZMod 2)
+  (hmatch : ZInQ.Contrib.RC53Assist.HswResidual.LocalTraceMatchesInvariant eμ heμ tr2) :
+  ZInQ.Manuscript.RC.SelmerComplex.InducesIsoH2 tr2
+'ZInQ.Contrib.RC53Assist.HswResidual.inducesIsoH2_of_KummerBrauer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.residualTraceAt_d {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {M : Type} [AddCommGroup M]
+  [Module (ZMod 2) M] [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [DecidableEq (ZInQ.Manuscript.RC.SelmerComplex.Places K S)] {T : Type} [AddCommGroup T] [Module (ZMod 2) T]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) T] [TopologicalSpace T] [DiscreteTopology T]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  (X : ZInQ.Manuscript.RC.SelmerComplex.GenuineSwitch K S (ZMod 2) M) (β : M →ₗ[ZMod 2] M →ₗ[ZMod 2] T)
+  (hβ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (x y : M), (β (g • x)) (g • y) = g • (β x) y)
+  (Iso : ZInQ.Manuscript.RC.SelmerComplex.GaloisIsotropyData K S (ZMod 2) β hβ X.ΔS X.ΔR)
+  (tr :
+    ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+              (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ X.ΔS X.ΔR Iso).resE).X
+          3) →ₗ[ZMod 2]
+      ZMod 2)
+  (htr :
+    ∀
+      (c :
+        ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ X.ΔS X.ΔR Iso).resE).X
+            2)),
+      tr
+          (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                  (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ X.ΔS X.ΔR Iso).resE).d
+              2 3 ⋯)
+            c) =
+        0)
+  (q : ZInQ.Manuscript.RC.SelmerComplex.Places K S)
+  (c :
+    ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)
+            (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) T)).X
+        1)) :
+  (ZInQ.Contrib.RC53Assist.HswResidual.residualTraceAt X β hβ Iso tr q)
+      ((ModuleCat.Hom.hom
+          ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)
+                (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) T)).d
+            1 2))
+        c) =
+    0
+'ZInQ.Contrib.RC53Assist.HswResidual.residualTraceAt_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.gClass_eq_coordAt {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {M : Type} [AddCommGroup M]
+  [Module (ZMod 2) M] [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [DecidableEq (ZInQ.Manuscript.RC.SelmerComplex.Places K S)]
+  (F : ZInQ.Contrib.CloudB3RC53.SwitchInputs.DerivFamily (ZInQ.Contrib.CloudB3RC53.SwitchInputs.galLv K S M))
+  {q : ZInQ.Manuscript.RC.SelmerComplex.Places K S} (hR : ZInQ.Contrib.CloudB3RC53.SwitchInputs.RelAt F.str F.rel q)
+  (φ σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)
+  (eM :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) M ≃ₗ[ZMod 2]
+      Fin 2 → ZMod 2)
+  {I : Subgroup (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)}
+  (Tc : ZInQ.Contrib.CloudB3RC53.SwitchInputs.TameCoordinates I φ σ) (t : ↑(F.Urel.X 1)) (ht : (F.Urel.d 1 2 ⋯) t = 0) :
+  ZInQ.Contrib.CloudB3RC53.Hsw.gClass
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi
+      t ht =
+    (ZInQ.Contrib.CloudB3RC53.SwitchInputs.coordAt q φ σ eM) ↑(t q)
+'ZInQ.Contrib.RC53Assist.HswResidual.gClass_eq_coordAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.gClass_eq_zero_of_localClass {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {M : Type} [AddCommGroup M]
+  [Module (ZMod 2) M] [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [DecidableEq (ZInQ.Manuscript.RC.SelmerComplex.Places K S)]
+  (F : ZInQ.Contrib.CloudB3RC53.SwitchInputs.DerivFamily (ZInQ.Contrib.CloudB3RC53.SwitchInputs.galLv K S M))
+  {q : ZInQ.Manuscript.RC.SelmerComplex.Places K S} (hR : ZInQ.Contrib.CloudB3RC53.SwitchInputs.RelAt F.str F.rel q)
+  (φ σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)
+  (eM :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) M ≃ₗ[ZMod 2]
+      Fin 2 → ZMod 2)
+  {I : Subgroup (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)}
+  (Tc : ZInQ.Contrib.CloudB3RC53.SwitchInputs.TameCoordinates I φ σ) (t : ↑(F.Urel.X 1)) (ht : (F.Urel.d 1 2 ⋯) t = 0)
+  (hz : ZInQ.Manuscript.RC.SelmerComplex.kerToH1 (ZInQ.Contrib.RC53Assist.HswResidual.localCocycle F hR t) = 0) :
+  ZInQ.Contrib.CloudB3RC53.Hsw.gClass
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi
+      t ht =
+    0
+'ZInQ.Contrib.RC53Assist.HswResidual.gClass_eq_zero_of_localClass' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.resForm_eq_localCupTrace {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {M : Type} [AddCommGroup M]
+  [Module (ZMod 2) M] [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [DecidableEq (ZInQ.Manuscript.RC.SelmerComplex.Places K S)] {T : Type} [AddCommGroup T] [Module (ZMod 2) T]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) T] [TopologicalSpace T] [DiscreteTopology T]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  (F : ZInQ.Contrib.CloudB3RC53.SwitchInputs.DerivFamily (ZInQ.Contrib.CloudB3RC53.SwitchInputs.galLv K S M))
+  {q : ZInQ.Manuscript.RC.SelmerComplex.Places K S} (hR : ZInQ.Contrib.CloudB3RC53.SwitchInputs.RelAt F.str F.rel q)
+  (eR : ↑(HomologicalComplex.homology F.Wrel.toCC 1) ≃ₗ[ZMod 2] (Fin 2 → ZMod 2) × (Fin 2 → ZMod 2))
+  (β : M →ₗ[ZMod 2] M →ₗ[ZMod 2] T)
+  (hβ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (x y : M), (β (g • x)) (g • y) = g • (β x) y)
+  (Iso :
+    ZInQ.Manuscript.RC.SelmerComplex.GaloisIsotropyData K S (ZMod 2) β hβ
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔS
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔR)
+  (tr :
+    ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+              (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                  (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔS
+                  (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔR Iso).resE).X
+          3) →ₗ[ZMod 2]
+      ZMod 2)
+  (htr :
+    ∀
+      (c :
+        ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                    (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔS
+                    (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔR Iso).resE).X
+            2)),
+      tr
+          (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                  (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔS
+                      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔR Iso).resE).d
+              2 3 ⋯)
+            c) =
+        0)
+  (t : ↑(F.Urel.X 1))
+  (z :
+    ↥(ModuleCat.Hom.hom
+          ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)
+                (ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) M)).d
+            1 2)).ker) :
+  ZInQ.Contrib.CloudB3RC53.Hsw.resForm (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).toQuasi
+      (ZInQ.Manuscript.RC.SelmerComplex.piCx (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).US)
+      (ZInQ.Manuscript.RC.SelmerComplex.piMap (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).φ)
+      (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+        (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔS
+        (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR).ΔR Iso)
+      tr t (ZInQ.Contrib.CloudB3RC53.Hsw.relSingle F q ⋯ ↑z ⋯) =
+    -((ZInQ.Contrib.RC53Assist.HswResidual.localCupTrace
+            (ZInQ.Manuscript.RC.SelmerComplex.resPairing (ZMod 2) (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) β
+              (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q))
+            ⋯
+            (ZInQ.Contrib.RC53Assist.HswResidual.residualTraceAt (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F eR)
+              β hβ Iso tr q)
+            ⋯)
+          (ZInQ.Manuscript.RC.SelmerComplex.kerToH1 z))
+        (ZInQ.Manuscript.RC.SelmerComplex.kerToH1 (ZInQ.Contrib.RC53Assist.HswResidual.localCocycle F hR t))
+'ZInQ.Contrib.RC53Assist.HswResidual.resForm_eq_localCupTrace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.derivSwitch_hnd_of_Milne {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {M : Type} [AddCommGroup M]
+  [Module (ZMod 2) M] [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [DecidableEq (ZInQ.Manuscript.RC.SelmerComplex.Places K S)] {T : Type} [AddCommGroup T] [Module (ZMod 2) T]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) T] [TopologicalSpace T] [DiscreteTopology T]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  (F : ZInQ.Contrib.CloudB3RC53.SwitchInputs.DerivFamily (ZInQ.Contrib.CloudB3RC53.SwitchInputs.galLv K S M))
+  {q : ZInQ.Manuscript.RC.SelmerComplex.Places K S} (hR : ZInQ.Contrib.CloudB3RC53.SwitchInputs.RelAt F.str F.rel q)
+  (hMilne : ZInQ.Contrib.RC53Assist.HswResidual.MilneCor23Residual) (φ σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)
+  (eM :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) M ≃ₗ[ZMod 2]
+      Fin 2 → ZMod 2)
+  {I : Subgroup (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)}
+  (Tc : ZInQ.Contrib.CloudB3RC53.SwitchInputs.TameCoordinates I φ σ) (β : M →ₗ[ZMod 2] M →ₗ[ZMod 2] T)
+  (hβ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (x y : M), (β (g • x)) (g • y) = g • (β x) y)
+  (Iso :
+    ZInQ.Manuscript.RC.SelmerComplex.GaloisIsotropyData K S (ZMod 2) β hβ
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR)
+  (tr :
+    ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+              (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                  (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+                  (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR
+                  Iso).resE).X
+          3) →ₗ[ZMod 2]
+      ZMod 2)
+  (htr :
+    ∀
+      (c :
+        ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                    (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                        (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+                    (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                        (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR
+                    Iso).resE).X
+            2)),
+      tr
+          (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                  (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+                      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR
+                      Iso).resE).d
+              2 3 ⋯)
+            c) =
+        0)
+  (eT : ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) T ≃ₗ[ZMod 2] ZMod 2)
+  (htrivT :
+    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q) (m : T),
+      (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) g • m = m)
+  (hb :
+    Function.Bijective
+      ⇑(ZInQ.Manuscript.RC.SelmerComplex.resPairing (ZMod 2) (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) β
+          (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q)))
+  (hb' :
+    Function.Bijective
+      ⇑(ZInQ.Manuscript.RC.SelmerComplex.resPairing (ZMod 2) (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) β
+            (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q)).flip)
+  (htrace :
+    ZInQ.Manuscript.RC.SelmerComplex.InducesIsoH2
+      (ZInQ.Contrib.RC53Assist.HswResidual.residualTraceAt
+        (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc))
+        β hβ Iso tr q))
+  (t :
+    ↑((ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                  (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi.D.U.X
+        1))
+  (ht :
+    ((ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                    (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi.D.U.d
+          1 2 ⋯)
+        t =
+      0) :
+  (∀
+      (u :
+        ↑((ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi.D.U.X
+            1)),
+      ((ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                        (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi.D.U.d
+              1 2 ⋯)
+            u =
+          0 →
+        ZInQ.Contrib.CloudB3RC53.Hsw.resForm
+            (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi
+            (ZInQ.Manuscript.RC.SelmerComplex.piCx
+              (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                  (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).US)
+            (ZInQ.Manuscript.RC.SelmerComplex.piMap
+              (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                  (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).φ)
+            (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+              (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                  (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+              (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                  (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR
+              Iso)
+            tr t u =
+          0) →
+    ZInQ.Contrib.CloudB3RC53.Hsw.gClass
+        (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+            (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).toQuasi
+        t ht =
+      0
+'ZInQ.Contrib.RC53Assist.HswResidual.derivSwitch_hnd_of_Milne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.HswResidual.derivSwitch_switchCoordinates_tame_of_Milne {K : Type} [Field K] [NumberField K]
+  {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {M : Type} [AddCommGroup M]
+  [Module (ZMod 2) M] [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) M] [TopologicalSpace M] [DiscreteTopology M]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [DecidableEq (ZInQ.Manuscript.RC.SelmerComplex.Places K S)] {T : Type} [AddCommGroup T] [Module (ZMod 2) T]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (ZMod 2) T] [TopologicalSpace T] [DiscreteTopology T]
+  [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) T]
+  (F : ZInQ.Contrib.CloudB3RC53.SwitchInputs.DerivFamily (ZInQ.Contrib.CloudB3RC53.SwitchInputs.galLv K S M))
+  {q : ZInQ.Manuscript.RC.SelmerComplex.Places K S} (hR : ZInQ.Contrib.CloudB3RC53.SwitchInputs.RelAt F.str F.rel q)
+  (hMilne : ZInQ.Contrib.RC53Assist.HswResidual.MilneCor23Residual) (φ σ : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)
+  (eM :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) M ≃ₗ[ZMod 2]
+      Fin 2 → ZMod 2)
+  {I : Subgroup (ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q)}
+  (Tc : ZInQ.Contrib.CloudB3RC53.SwitchInputs.TameCoordinates I φ σ)
+  (hIur :
+    ∀ (g : Field.absoluteGaloisGroup (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑q)),
+      (ZInQ.Manuscript.RC.SelmerComplex.urRes K ↑q) g = 1 → g ∈ I)
+  (β γ : M →ₗ[ZMod 2] M →ₗ[ZMod 2] T)
+  (hβ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (x y : M), (β (g • x)) (g • y) = g • (β x) y)
+  (hγ : ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.GKS K S) (x y : M), (γ (g • x)) (g • y) = g • (γ x) y)
+  (hpol : ∀ (x y : M), (β x) y = (γ x) y - (γ y) x)
+  (Iso :
+    ZInQ.Manuscript.RC.SelmerComplex.GaloisIsotropyData K S (ZMod 2) β hβ
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR)
+  (tr :
+    ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+              (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                  (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+                  (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                      (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR
+                  Iso).resE).X
+          3) →ₗ[ZMod 2]
+      ZMod 2)
+  (htr :
+    ∀
+      (c :
+        ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                    (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                        (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+                    (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                        (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR
+                    Iso).resE).X
+            2)),
+      tr
+          (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                  (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ
+                      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔS
+                      (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F
+                          (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc)).ΔR
+                      Iso).resE).d
+              2 3 ⋯)
+            c) =
+        0)
+  (hUS2 : ∀ (v : ZInQ.Manuscript.RC.SelmerComplex.Places K S) (x : ↑((F.str v).cx.X 2)), x = 0) {ε : ZMod 2}
+  (hε : ε ≠ 0) {J : Matrix (Fin 2) (Fin 2) (ZMod 2)} (hJ2 : J * J = 1)
+  (htriv :
+    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q) (m : M),
+      (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) g • m = m)
+  (htrivT :
+    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.Gloc K ↑q) (m : T),
+      (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) g • m = m)
+  (eT : ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) T ≃ₗ[ZMod 2] ZMod 2)
+  (eM₂ :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) M ≃ₗ[ZMod 2]
+      Fin 2 → ZMod 2)
+  (hWeil :
+    ∀ (x y : ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) M),
+      eT
+          (((ZInQ.Manuscript.RC.SelmerComplex.resPairing (ZMod 2) (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) β
+                (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q))
+              x)
+            y) =
+        (ZInQ.Manuscript.RC.Uniform.weil (eM x)) (eM₂ y))
+  (hKB :
+    ZInQ.Contrib.RC53Assist.HswResidual.KummerBrauerComparisonF2
+      (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑q))
+  (eμ :
+    ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) T ≃+
+      TauCeti.KummerCoeff (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑q) 2)
+  (heμ :
+    ∀ (g : TauCeti.AbsoluteGaloisGroup (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑q))
+      (t : ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S ↑q) T),
+      eμ
+          ((TauCeti.absoluteGaloisGroupRestrictEquiv (IsDedekindDomain.HeightOneSpectrum.adicCompletion K ↑q)).symm g •
+            t) =
+        g • eμ t)
+  (hmatch :
+    ZInQ.Contrib.RC53Assist.HswResidual.LocalTraceMatchesInvariant eμ heμ
+      (ZInQ.Contrib.RC53Assist.HswResidual.residualTraceAt
+        (ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc))
+        β hβ Iso tr q)) :
+  let X :=
+    ZInQ.Contrib.CloudB3RC53.GenuineInst.derivSwitch F (ZInQ.Contrib.CloudB3RC53.SwitchInputs.eRAt ⋯ hR φ σ eM Tc);
+  ∃ Φ,
+    Submodule.map (↑Φ) (ZInQ.Manuscript.RC.Uniform.finPlane (ZMod 2) (Fin 2 → ZMod 2) (Fin 2 → ZMod 2)) =
+        ZInQ.Manuscript.RC.Uniform.finPlane (ZMod 2) (Fin 2 → ZMod 2) (Fin 2 → ZMod 2) ∧
+      { ΔR := X.ΔR, US := X.US, φ := X.φ, W := X.W, g := X.g, hfg := ⋯, φ_inj := ⋯, g_surj := ⋯, ex := ⋯,
+            eR := X.eR ≪≫ₗ Φ }.SwitchCoordinates
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisPairData K S (ZMod 2) β hβ X.ΔS X.ΔR Iso) tr ε (- -1) J
+'ZInQ.Contrib.RC53Assist.HswResidual.derivSwitch_switchCoordinates_tame_of_Milne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+def ZInQ.Contrib.RC53Assist.HswResidual.MilneCor23Residual : Prop :=
+∀ (L : Type) [inst : Field L] [CharZero L] [inst_2 : ValuativeRel L] [inst_3 : TopologicalSpace L]
+  [IsNonarchimedeanLocalField L] (M N T : Type) [inst_5 : AddCommGroup M] [inst_6 : Module (ZMod 2) M]
+  [inst_7 : DistribMulAction (Field.absoluteGaloisGroup L) M] [SMulCommClass (Field.absoluteGaloisGroup L) (ZMod 2) M]
+  [inst_9 : TopologicalSpace M] [inst_10 : DiscreteTopology M]
+  [inst_11 : ContinuousSMul (Field.absoluteGaloisGroup L) M] [Finite M] [inst_13 : AddCommGroup N]
+  [inst_14 : Module (ZMod 2) N] [inst_15 : DistribMulAction (Field.absoluteGaloisGroup L) N]
+  [SMulCommClass (Field.absoluteGaloisGroup L) (ZMod 2) N] [inst_17 : TopologicalSpace N] [inst_18 : DiscreteTopology N]
+  [inst_19 : ContinuousSMul (Field.absoluteGaloisGroup L) N] [Finite N] [inst_21 : AddCommGroup T]
+  [inst_22 : Module (ZMod 2) T] [inst_23 : DistribMulAction (Field.absoluteGaloisGroup L) T]
+  [inst_24 : SMulCommClass (Field.absoluteGaloisGroup L) (ZMod 2) T] [inst_25 : TopologicalSpace T]
+  [inst_26 : DiscreteTopology T] [inst_27 : ContinuousSMul (Field.absoluteGaloisGroup L) T] (_eT : T ≃ₗ[ZMod 2] ZMod 2),
+  (∀ (g : Field.absoluteGaloisGroup L) (t : T), g • t = t) →
+    ∀ (β : M →ₗ[ZMod 2] N →ₗ[ZMod 2] T)
+      (hβ : ∀ (g : Field.absoluteGaloisGroup L) (x : M) (y : N), (β (g • x)) (g • y) = g • (β x) y),
+      Function.Bijective ⇑β →
+        Function.Bijective ⇑β.flip →
+          ∀
+            (tr2 :
+              ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (Field.absoluteGaloisGroup L) T).X 2) →ₗ[ZMod 2]
+                ZMod 2)
+            (htr2 :
+              ∀ (c : ↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (Field.absoluteGaloisGroup L) T).X 1)),
+                tr2
+                    ((ModuleCat.Hom.hom
+                        ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (Field.absoluteGaloisGroup L) T).d 1
+                          2))
+                      c) =
+                  0),
+            ZInQ.Manuscript.RC.SelmerComplex.InducesIsoH2 tr2 →
+              Finite (TauCeti.ContCohomology.H1 (Field.absoluteGaloisGroup L) M) ∧
+                Finite (TauCeti.ContCohomology.H1 (Field.absoluteGaloisGroup L) N) ∧
+                  Function.Bijective ⇑(ZInQ.Contrib.RC53Assist.HswResidual.localCupTrace β hβ tr2 htr2) ∧
+                    Function.Bijective ⇑(ZInQ.Contrib.RC53Assist.HswResidual.localCupTrace β hβ tr2 htr2).flip
+def ZInQ.Contrib.RC53Assist.HswResidual.KummerBrauerComparisonF2 : (L : Type) →
+  [inst : Field L] → [CharZero L] → Prop :=
+fun L [Field L] [CharZero L] =>
+  Function.Injective ⇑(ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr 2) ∧
+    (ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr 2).range = AddSubgroup.torsionBy (TauCeti.ClassFieldTheory.Br L) 2
+def ZInQ.Contrib.RC53Assist.HswResidual.LocalTraceMatchesInvariant : {L : Type} →
+  [inst : Field L] →
+    [inst_1 : ValuativeRel L] →
+      [inst_2 : TopologicalSpace L] →
+        [IsNonarchimedeanLocalField L] →
+          {T : Type} →
+            [inst_4 : AddCommGroup T] →
+              [inst_5 : Module (ZMod 2) T] →
+                [inst_6 : DistribMulAction (Field.absoluteGaloisGroup L) T] →
+                  [inst_7 : SMulCommClass (Field.absoluteGaloisGroup L) (ZMod 2) T] →
+                    [inst_8 : TopologicalSpace T] →
+                      [inst_9 : DiscreteTopology T] →
+                        [inst_10 : ContinuousSMul (Field.absoluteGaloisGroup L) T] →
+                          (eμ : T ≃+ TauCeti.KummerCoeff L 2) →
+                            (∀ (g : TauCeti.AbsoluteGaloisGroup L) (t : T),
+                                eμ ((TauCeti.absoluteGaloisGroupRestrictEquiv L).symm g • t) = g • eμ t) →
+                              (↑((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (Field.absoluteGaloisGroup L)
+                                          T).X
+                                      2) →ₗ[ZMod 2]
+                                  ZMod 2) →
+                                Prop :=
+fun {L} [Field L] [ValuativeRel L] [TopologicalSpace L] [IsNonarchimedeanLocalField L] {T} [AddCommGroup T]
+    [Module (ZMod 2) T] [DistribMulAction (Field.absoluteGaloisGroup L) T]
+    [SMulCommClass (Field.absoluteGaloisGroup L) (ZMod 2) T] [TopologicalSpace T] [DiscreteTopology T]
+    [ContinuousSMul (Field.absoluteGaloisGroup L) T] eμ heμ tr2 =>
+  ∀
+    (c :
+      ↥(ModuleCat.Hom.hom
+            ((ZInQ.Manuscript.RC.SelmerComplex.contCochains (ZMod 2) (Field.absoluteGaloisGroup L) T).d 2 3)).ker),
+    ZInQ.Contrib.RC53Assist.HswResidual.f2ToQmodZ (tr2 ↑c) =
+      (TauCeti.ClassFieldTheory.invMap L)
+        ((ZInQ.Contrib.CloudB3RC53.Duality.kummerToBr 2)
+          ((ZInQ.Contrib.RC53Assist.HswResidual.kummerH2Transport eμ heμ) (ZInQ.Manuscript.RC.SelmerComplex.kerToH2 c)))

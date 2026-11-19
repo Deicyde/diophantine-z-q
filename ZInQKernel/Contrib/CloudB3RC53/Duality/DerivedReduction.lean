@@ -214,8 +214,8 @@ noncomputable def cokerReduction_equiv (hfg : g.comp f = 0) (hg : Function.Surje
 
 /-! ### Non-vacuity -/
 
-/-- **non-vacuity**: `M = ℤ/2` presented by `2 : ℤ → ℤ`, reduced modulo `2`: the hypotheses hold, and
-degree zero `ker f̄ ≅ M[2] = ℤ/2` is nonzero. -/
+/-- **Non-vacuity**: `M = ℤ/2` presented by `2 : ℤ → ℤ`, reduced modulo `2`: the hypotheses hold,
+and degree zero `ker f̄ ≅ M[2] = ℤ/2` is nonzero. -/
 theorem reduction_example :
     let f : ℤ →ₗ[ℤ] ℤ := mulBy (2 : ℤ) ℤ
     let g : ℤ →ₗ[ℤ] ZMod 2 := (Int.castAddHom (ZMod 2)).toIntLinearMap
@@ -245,7 +245,7 @@ theorem reduction_example :
     · rw [LinearMap.mem_ker]; rfl
     · intro h; exact absurd (congrArg Subtype.val h) (by decide)
 
-/-- **non-vacuity, conclusion**: in the example, degree zero of the reduction, `ker (2 mod 2)`, is
+/-- **Non-vacuity, conclusion**: in the example, degree zero of the reduction, `ker (2 mod 2)`, is
 nonzero: it is `M[2] = ℤ/2` (`kerReduction_equiv`). -/
 theorem reduction_example_nontrivial :
     Nontrivial (LinearMap.ker (reduction (2 : ℤ) (mulBy (2 : ℤ) ℤ))) := by

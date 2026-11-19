@@ -16,6 +16,7 @@ on:
       - "**.lean"
       - "mkdocs.yml"
       - "theme/**"
+      - "docs/companion/**"
       - ".github/workflows/blueprint-pages.yml"
   workflow_dispatch:
 
@@ -149,6 +150,21 @@ jobs:
           --with markdown==3.10.3
           --with pymdown-extensions==11.0.1
           mkdocs build --strict
+
+      # The 11/5 manuscript with each passage linked to its Lean (docs/companion).
+      # build_site.py copies the viewer and the annotations beside the committed
+      # index page under docs/companion/manuscript/site/, and that folder goes
+      # into the site as companion/. No PDF is copied: the config sets
+      # pdf.remote, so the reader's browser fetches the manuscript from the
+      # author's repository at the pinned commit and the viewer checks its
+      # sha256. It needs Python only, and fetches nothing.
+      - name: Add the annotated manuscript
+        run: |
+          python3 docs/companion/manuscript/pdf-overlay/tools/build_site.py
+          mkdir -p site/companion
+          cp -R docs/companion/manuscript/site/. site/companion/
+          test -f site/companion/pdf-overlay/viewer/index.html
+          test -z "$(find site/companion -name '*.pdf' -print -quit)"
 
       # Lists internal links and anchors that lead nowhere, which `--strict`
       # never checks in render's raw HTML, and statement cards the build

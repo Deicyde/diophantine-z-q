@@ -1,0 +1,83 @@
+ZInQ.Contrib.RC53Assist.CoordLink.signEval_eta_isUnit {b : ℕ} {ι : Type} [DecidableEq ι] (Q : Finset ι)
+  (v g : ι → MonoidAlgebra OO (SignGroup b)) (x : Addr b)
+  (hsign : ∀ q ∈ Q, (Determinant.signEval (sgnChar x)) (g q) = 1 ∨ (Determinant.signEval (sgnChar x)) (g q) = -1) :
+  IsUnit ((Determinant.signEval (sgnChar x)) (Central.eta Q v g))
+ZInQ.Contrib.RC53Assist.CoordLink.evK_eta_ne_zero {b : ℕ} {ι : Type} [DecidableEq ι] (Q : Finset ι)
+  (v g : ι → MonoidAlgebra OO (SignGroup b)) (x : Addr b)
+  (hsign : ∀ q ∈ Q, (Determinant.signEval (sgnChar x)) (g q) = 1 ∨ (Determinant.signEval (sgnChar x)) (g q) = -1) :
+  (evK (sgnChar x)) (Central.eta Q v g) ≠ 0
+ZInQ.Contrib.RC53Assist.CoordLink.poleFactor_isUnit : IsUnit (1 + 2 * Determinant.tInv)
+ZInQ.Contrib.RC53Assist.CoordLink.poleFactor_not_in_powerSeries : ¬∃ a, (algebraMap Lam OO) a = 1 + 2 * Determinant.tInv
+ZInQ.Contrib.RC53Assist.CoordLink.no_completed_to_powerSeries : ¬∃ f, ∀ (a : Lam), f ((algebraMap Lam OO) a) = ιQ a
+ZInQ.Contrib.RC53Assist.CoordLink.relaxedFromCorrection {b : ℕ} (η : MonoidAlgebra OO (SignGroup b)) (e : Addr b → ℕ)
+  (g : Addr b → Lam) (x : Addr b) : FractionRing OO
+ZInQ.Contrib.RC53Assist.CoordLink.relaxedFromCorrection_independent {ℓ : ℕ} {D : RCData ℓ} {F : Family}
+  (η : MonoidAlgebra OO (SignGroup F.b)) {e e' : Addr F.b → ℕ} {g g' : Addr F.b → Lam} (h : UTildeRep D F e g)
+  (h' : UTildeRep D F e' g') : relaxedFromCorrection η e g = relaxedFromCorrection η e' g'
+ZInQ.Contrib.RC53Assist.CoordLink.correctedIsEta_fraction {ℓ : ℕ} (D : RCData ℓ) (F : Family)
+  (η : MonoidAlgebra OO (SignGroup F.b)) (e₀ : Addr F.b → ℕ) (g₀ : Addr F.b → Lam) (h₀ : UTildeRep D F e₀ g₀)
+  (hη : ∀ (x : Determinant.Addr F.b), (evK (sgnChar x)) η ≠ 0) : CorrectedIsEta D F η (relaxedFromCorrection η e₀ g₀)
+ZInQ.Contrib.RC53Assist.CoordLink.origCoordLink_iff_masked {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {dK hK cE tK ℓ : ℕ} (D : RCData ℓ) (F : Family) (M : Identification2G K S S' hS F.b dK hK cE tK)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup F.b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup F.b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO F.b)).X.fromRows (M.C.map (φO F.b)).Y = 0) (η : MonoidAlgebra OO (SignGroup F.b))
+  (urel : Addr F.b → FractionRing OO) (hη : CorrectedIsEta D F η urel) (e₀ : Addr F.b → ℕ) (g₀ : Addr F.b → Lam)
+  (h₀ : UTildeRep D F e₀ g₀) :
+  OrigCoordLink D F M z lam hz hlam η ↔
+    ∀ (x : Determinant.Addr F.b),
+      (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0 → (evK (sgnChar x)) η = 0 ∨ urel x = kmOrig M z lam hz hlam x
+ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_iff_origCoordLink {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {dK hK cE tK ℓ : ℕ} (D : RCData ℓ) (F : Family) (M : Identification2G K S S' hS F.b dK hK cE tK)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup F.b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup F.b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO F.b)).X.fromRows (M.C.map (φO F.b)).Y = 0) (η : MonoidAlgebra OO (SignGroup F.b))
+  (urel : Addr F.b → FractionRing OO) (hη : CorrectedIsEta D F η urel) (e₀ : Addr F.b → ℕ) (g₀ : Addr F.b → Lam)
+  (h₀ : UTildeRep D F e₀ g₀)
+  (hne : ∀ (x : Determinant.Addr F.b), (evK (sgnChar x)) M.toIdentification.B.Δ ≠ 0 → (evK (sgnChar x)) η ≠ 0) :
+  RelIsKMG M urel z lam hz hlam ↔ OrigCoordLink D F M z lam hz hlam η
+ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_iff_origCoordLink_of_47 {K : Type} [Field K] [NumberField K]
+  {S S' : Set (HeightOneSpectrum (𝓞 K))} {hS : S ⊆ S'} [Fintype (NewPlaces K S S')] [DecidableEq (NewPlaces K S S')]
+  {dK hK cE tK ℓ : ℕ} (D : RCData ℓ) (F : Family) (M : Identification2G K S S' hS F.b dK hK cE tK)
+  (z : Fin M.D.m0 ⊕ Unit ⊕ Fin M.D.m1 → MonoidAlgebra OO (SignGroup F.b))
+  (lam : (Fin M.C.m1 ⊕ Unit ⊕ Fin M.C.m2) ⊕ M.C.N → MonoidAlgebra OO (SignGroup F.b)) (hz : M.D.d1 *ᵥ z = 0)
+  (hlam : lam ᵥ* (M.C.map (φO F.b)).X.fromRows (M.C.map (φO F.b)).Y = 0) {ι : Type} [DecidableEq ι] (Q : Finset ι)
+  (v gq l eq ei : ι → MonoidAlgebra OO (SignGroup F.b)) (ε : Addr F.b → ι → FractionRing OO)
+  (urel uprim : Addr F.b → FractionRing OO) [(x : Addr F.b) → DecidablePred fun q => (evK (sgnChar x)) (gq q) = 1]
+  (hsign : ∀ (x : Determinant.Addr F.b), ∀ q ∈ Q, (evK (sgnChar x)) (gq q) = 1 ∨ (evK (sgnChar x)) (gq q) = -1)
+  (hratio :
+    ∀ (x : Determinant.Addr F.b),
+      ∀ q ∈ Q, (evK (sgnChar x)) (l q) * (evK (sgnChar x)) (ei q) ^ 2 = 1 + 2 * (evK (sgnChar x)) (v q))
+  (hinv : ∀ (x : Determinant.Addr F.b), ∀ q ∈ Q, (evK (sgnChar x)) (eq q) * (evK (sgnChar x)) (ei q) = 1)
+  (h47 :
+    ∀ (x : Determinant.Addr F.b),
+      (∏ q ∈ Q with (evK (sgnChar x)) (gq q) = 1, (evK (sgnChar x)) (l q)) * urel x =
+        (∏ q ∈ Q with (evK (sgnChar x)) (gq q) = 1, (evK (sgnChar x)) (eq q) ^ 2 * ε x q) * uprim x)
+  (hcommon :
+    ∀ (e : Addr F.b → ℕ) (g : Addr F.b → Lam),
+      UTildeRep D F e g →
+        ∀ (x : Addr F.b), uK (e x) (g x) = (∏ q ∈ Q with (evK (sgnChar x)) (gq q) = 1, ε x q) * uprim x)
+  (e₀ : Addr F.b → ℕ) (g₀ : Addr F.b → Lam) (h₀ : UTildeRep D F e₀ g₀) :
+  RelIsKMG M urel z lam hz hlam ↔ OrigCoordLink D F M z lam hz hlam (Central.eta Q v gq)
+'ZInQ.Contrib.RC53Assist.CoordLink.signEval_eta_isUnit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.evK_eta_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.poleFactor_isUnit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.poleFactor_not_in_powerSeries' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.no_completed_to_powerSeries' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.relaxedFromCorrection_independent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.correctedIsEta_fraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.origCoordLink_iff_masked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_iff_origCoordLink' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.RC53Assist.CoordLink.relIsKMG_iff_origCoordLink_of_47' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

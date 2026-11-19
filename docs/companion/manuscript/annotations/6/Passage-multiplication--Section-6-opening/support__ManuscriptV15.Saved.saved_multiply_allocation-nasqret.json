@@ -1,0 +1,86 @@
+{
+  "id": "Passage multiplication: Section 6 opening",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (differs): ndep states the same claims (membership forcing, codes for accepted inputs, 35,134 witnesses) for its own multiplication template, whose slope calls impose Phi with the Route K pole polynomial (curves x + l), not [M]'s template with x + 3l. [N]'s own declarations only check the witness count of [M]'s saved specification and use ndep's unfolding in ZOverQ.Qualitative.multiplication_exact.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.107843,
+          0.172819,
+          0.784314,
+          0.113829
+        ]
+      },
+      "title": "Passage (multiplication): Section 6 opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Section 6 opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Saved.saved_multiply_allocation",
+        "module": "Lean.Lemmas.original-syntax.SavedOriginalSurface"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Saved.saved_multiply_allocation@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem saved_multiply_allocation :\n    explicitMultiplyIndices = [15,16,17,18,19,20,21,22,24,25,26,27,28,30,31,32,33,34,36,37,38,39,40] ∧\n    recordedMultiplyBlocks = [(23,1),(29,1),(35,1),(41,1),(42,35106),(35148,1)] ∧\n    multiplyRanges.head? = some (15,3) ∧\n    (multiplyRanges.zip multiplyRanges.tail).all (fun t => t.1.1+t.1.2 == t.2.1) ∧\n    (multiplyRanges.map Prod.snd).sum = 35134 ∧ 35148+1=15+35134 := by",
+            "line": 208,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/original-syntax/SavedOriginalSurface.lean",
+            "fragment": "L208"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's multiply_rel_iff and multiplyTemplate_witnesses (35134) do state membership forcing and the witness count, but for ndep's template whose slope calls use the Route K pole polynomial (x+l), a different object from [M]'s template; [N]'s own saved_multiply_allocation only checks the witness count of the saved specification, so the finding holds.",
+            "The membership forcing and accepted-code statements in ndep (multiply_rel_iff, heightCertificate_rel_iff) concern ndep's multiplyTemplate, whose slope calls carry the Route K pole polynomial (x+e), so they are about a different template. [N]'s own saved_multiply_allocation only checks that the saved specification's ranges add up to 35,134, which the claim already records."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

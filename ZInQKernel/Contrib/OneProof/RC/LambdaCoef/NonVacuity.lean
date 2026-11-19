@@ -6,9 +6,13 @@ import ZInQKernel.Contrib.OneProof.RC.CoefModules.NonVacuity
 # Lane RC28 round 2, part 7: non-vacuity of the `Λ`-adic structures
 
 Manuscript `diophantine_zq.tex` (11/5), tex 1760–1830 (the curves `E_ℓ : y² = x(x−ℓ)(x+3ℓ)`),
-tex 2780–2795 and tex 4976–5200.
+tex 2723–2727 (finite coefficients), 2747 (`Λ = ℤ₂[[t]]`), 2836–2838 (`T = T₂E`), 2780–2791 (the
+finite characters `Ψ_i`, `α_i`) and tex 4976–5200.
 
-Every structure of the round-2 files is instantiated here with genuine data:
+The following examples instantiate the generic interfaces. The finite-support examples use
+S = ∅ and assert no nonzero Tate module or fibre. Rank-two and nonzero-fibre examples below use
+S = univ, so they do not discharge finite-support arithmetic hypotheses. The configuration
+family has zero class and functional and no switching primes.
 
 * `IsContChar` for the trivial character and for `α = χ_h Ψ` with `χ_h` the quadratic character of
   a square root in `K_S` and `ξ` trivial (`isContChar_one`, `isContChar_alphaLam`);

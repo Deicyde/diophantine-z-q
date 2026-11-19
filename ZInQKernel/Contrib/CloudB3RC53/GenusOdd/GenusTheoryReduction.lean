@@ -11,10 +11,10 @@ import ZInQKernel.Contrib.CloudB3RC53.GenusOdd.HeightDischarge
 
 Claim 3 is PROVED here from 1 and 2 (`genusTheory_of`): `s₁ s₂` is fixed by `Gal(H_c/K)`, hence
 lies in `K`; its square `d₁ d₂ = disc(K) c²` is negative (`disc K < 0`, Mathlib's `sign_discr`), so
-`s₁ s₂ ∉ ℚ` and the nontrivial automorphism of `K`, lifted to `H_c` (`restrictNormalHom_surjective`),
-negates it. What remained GLUE at this stage (`GenusRoots` has since been PROVED,
-`genusRoots_proof` in `GenusRootsProof.lean`, and `RingClassGalois` is no longer needed on the route
-of `Artin34.lean`):
+`s₁ s₂ ∉ ℚ` and the nontrivial automorphism of `K`, lifted to `H_c`
+(`restrictNormalHom_surjective`), negates it. What remained GLUE at this stage (`GenusRoots` has
+since been PROVED, `genusRoots_proof` in `GenusRootsProof.lean`, and `RingClassGalois` is no longer
+needed on the route of `Artin34.lean`):
 
 * `RingClassGalois` (claim 1): standard (Cox, Lemma 9.3: `Gal(H_c/ℚ)` is generalized dihedral).
   Missing in Tau Ceti: functoriality of the global class field correspondence under
@@ -43,8 +43,9 @@ def RingClassGalois : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 → IsTotallyComplex K →
     ∀ (c : ℕ) [NeZero c], IsGalois ℚ (ringClassField (conductorOrder K c))
 
-/-- **Genus square roots** (introduced as GLUE; **PROVED**: `genusRoots_proof`, `GenusRootsProof.lean`; genus theory): under the hypotheses of `GenusTheory`, `√d₁` and
-`√d₂` lie in `H_c` and `Gal(H_c/K)` acts on them through `χ = χ_{d₁} ∘ N`. -/
+/-- **Genus square roots** (introduced as GLUE; **PROVED**: `genusRoots_proof`,
+`GenusRootsProof.lean`; genus theory): under the hypotheses of `GenusTheory`, `√d₁` and `√d₂` lie in
+`H_c` and `Gal(H_c/K)` acts on them through `χ = χ_{d₁} ∘ N`. -/
 def GenusRoots : Prop :=
   ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 → IsTotallyComplex K →
     Odd (discr K) →
@@ -145,8 +146,8 @@ theorem genusTheory_of (hG : RingClassGalois) (hR : GenusRoots) : GenusTheory :=
       charZero_of_injective_algebraMap (algebraMap ℚ _).injective
     simp [hs₁0, hs₂0] at this
 
-/-- The GLUE of (3.4) after RC19 and this reduction: `ArtinFactorization`, `RingClassGalois`,
-`GenusRoots`, `SplittingCriterion`. -/
+/-- The GLUE of (3.4) after `HeightDischarge.lean` and this reduction: `ArtinFactorization`,
+`RingClassGalois`, `GenusRoots`, `SplittingCriterion`. -/
 structure GlueFinal : Prop where
   artin : ArtinFactorization
   galois : RingClassGalois

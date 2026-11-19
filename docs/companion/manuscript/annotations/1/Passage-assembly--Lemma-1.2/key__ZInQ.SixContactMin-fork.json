@@ -1,0 +1,105 @@
+{
+  "id": "Passage assembly: Lemma 1.2",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, in part assumed, not proved (ZInQ.PoleCompleteness and ZInQ.SixContactMin); ZInQ.SixContactMin assumed, not proved: G (carrierD_eq_zmultiples, with membership and raw addition), C and B are proved outright; M and the lemma itself (Pstar_spec) are proved only from SixContactMin, PoleCompleteness and the slope representation; H and PC are assumed Props. The lemma's form differs as in Lemma 1.2.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.102941,
+          0.81875,
+          0.794118,
+          0.095539
+        ]
+      },
+      "title": "Passage (assembly): Lemma 1.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Lemma 1.2#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 4,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.244876
+        ]
+      },
+      "title": "Passage (assembly): Lemma 1.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Lemma 1.2#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.SixContactMin",
+        "module": "ZInQKernel.Hypotheses.HeightMin"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.SixContactMin@fork",
+            "kind": "def · fork · assumed"
+          },
+          "snippet": {
+            "text": "def SixContactMin : Prop :=\n  ∀ u : ℚ, u ∉ contactSet →\n    ratHeight u ≤ heightH6 (heightD : ℝ) * (contactSupport Mult.S_mul u : ℝ) ^ 24",
+            "line": 50,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/HeightMin.lean",
+            "fragment": "L50"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3,
+          4
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's poleT1/poleT2 are A(A-e)(A+e) and A(Az^2-eH)(Az^2+eH) (Core.lean:242-245, docstring says the manuscript has A+3e), and specPstar is built through poleTemplate, so Pstar_spec is about a different P_* than [M]'s (tex 979-986); [N]'s ManuscriptV15 files concern another (V15, 314-variable) polynomial and its frozen_of_geometry_and_genus takes assembly as a hypothesis. Minor omission: Pstar_spec also assumes Compiler.NodeCheck.HaltingAddMulBound.",
+            "Survives: [N] never names the specified P_* (no Pstar/specPstar anywhere in nasqret/); its own assembly theorems conclude only IntegerPolynomial (some polynomial, no bounds or variable count) or ZInQ.FrozenTarget (some polynomial with [M]'s bounds), both existential and weaker than 'P_* satisfies Theorem 1.1'. The rank inputs replacing PC are theorem-standing hypotheses and do not rescue the conclusion; PublicAssembly.frozen_of_geometry_and_genus is also only FrozenTarget.",
+            "No [N] declaration names ndep's specPstar or Pstar_spec (grep of nasqret for Pstar finds nothing); [N]'s assembly theorems conclude only the existential IntegerPolynomial (no bounds) or ndep's existential FrozenTarget, under UniformHeight/SixContactMin and a Tian/Gross-Zagier rank input, so the conclusion about the specified P_* is indeed missing and the claim stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

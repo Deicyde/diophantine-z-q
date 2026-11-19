@@ -5,10 +5,11 @@ import ZInQKernel.Contrib.CloudB3RC53.ClearingComplex.NewLocalModel
 
 The GLUE input `Identification2 b dK hK cE tK` is used as a hypothesis (`clearingModel_of_km`).
 This file provides the building blocks of the consistency witness `identification2_example`
-(`PlaceSupport.lean`, PROVED), which has a NONEMPTY family of new places: one new place with coefficient module `Λ`, Frobenius `1 + t`
-(the graph-wide prescription "scalar `1 + t`", tex 5241–5243) and `q = 1`, built as an instance of
-`UnramifiedNewPlace` in the tame model (not genuine Galois cochains) (`tamePlace`: the tame model `M --(Φ−1, 0)--> M ⊕ M --(0, Φ−q)--> M` and the
-unramified condition `[Φ − 1]`); its local block is `Φ − q = t`, with `det = t¹ · 1 + 2 · 0`
+(`PlaceSupport.lean`, PROVED), which has a NONEMPTY family of new places: one new place with
+coefficient module `Λ`, Frobenius `1 + t` (the graph-wide prescription "scalar `1 + t`",
+tex 5241–5243) and `q = 1`, built as an instance of `UnramifiedNewPlace` in the tame model (not
+genuine Galois cochains) (`tamePlace`: the tame model `M --(Φ−1, 0)--> M ⊕ M --(0, Φ−q)--> M` and
+the unramified condition `[Φ − 1]`); its local block is `Φ − q = t`, with `det = t¹ · 1 + 2 · 0`
 (`d_q = 1`); the pre-cancellation complex has this block in degrees two and three and the old part
 `D¹ = H₁ → D² = H₂` zero; central ranks `(0, 1, 1, 0)`.
 -/

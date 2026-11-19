@@ -1,0 +1,88 @@
+{
+  "id": "Remark 7.1",
+  "kind": "remark",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, nothing to formalize; ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine proved only from 5 named hypotheses: The remark explains why the family l = 11 mod 12 is the input of Theorem 5.3 and restates facts proved in the proof of Theorem 5.2 (two applications of RC to n, n*theta) and Section 7 conventions; it asserts no new claim. The PC-from-RC derivation is ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine, mapped with Theorem 5.2's proof.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.875664,
+          0.784314,
+          0.038624
+        ]
+      },
+      "title": "Remark 7.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Remark 7.1#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 26,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.157648
+        ]
+      },
+      "title": "Remark 7.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Remark 7.1#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine",
+        "module": "ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuine"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem poleCompleteness_of_restrictedConverseGenuine (hRC : RestrictedConverseGenuine)\n    (h54 : Lemma54) (hKum : KummerSelmerM) (hB : BCDTThmA) (hK : KolyvaginThm1)\n    (hMW : MordellWeil) : Manuscript.PoleCompleteness :=",
+            "line": 60,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/PoleCompletenessFromRCGenuine.lean",
+            "fragment": "L60"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25,
+          26
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}
