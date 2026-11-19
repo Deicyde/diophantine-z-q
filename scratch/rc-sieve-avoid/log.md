@@ -1,0 +1,9 @@
+- Base: d5c0c5b498610fe1bebfa031df7047a02c478eb8.
+- 2016–2025, 10579–10585: abstract data and budget precede the actual odd stage; full type and prime representatives can be stage dependent.
+- 9670–9674, 9919–9926: no manuscript Hecke read at a sieve prime.
+- 9745–9750: support of the quadratic quotient may include extra coefficient sieves; unchanged coarser type need not detect them.
+- Levels: active occurrence levels divide the old level times the active-prime product; fresh primes are coprime to them.
+- Attachment: restricted trace, determinant, characteristic polynomial, inertia and dilated recursion at the retained levels.
+- Fourier: original lattice witness for the diamond and the integral all-index formula at a fresh prime.
+- Hecke: ambient plus excluded allowed tests give the restricted all-index formula; coefficient one requires only an excluded coefficient-one equality.
+- Levels, Attachment, Fourier, Hecke: compiled sequentially in the Lake environment; all 11 axiom audits passed.
