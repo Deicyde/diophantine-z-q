@@ -1,0 +1,41 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: Theorems.Thm_AlgebraicCurve_CellDissection_exists_tree_cotree (git blob 5bf16b9c16d23a165d6b18c380f608988075a9fa, sha256 063cdbd7829105ea9487b3be99c9d2ff983e2ade5375fb0fe2d1be339188e5ba).
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_CellDissection
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicCurve_CellDissection_exists_tree_cotree
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+
+open AlgebraicCurve
+
+theorem AlgebraicCurve.CellDissection.exists_tree_cotree
+    {F : Type*} [Field F] [Algebra ℂ F]
+    [TopologicalSpace (Place ℂ F)] [ChartedSpace ℂ (Place ℂ F)]
+    (𝒟 : CellDissection F) [Nonempty 𝒟.ιC]
+    (hvert : Function.Injective 𝒟.vert)
+    (hends : ∀ v : 𝒟.ιV, ∃ e : 𝒟.ιE, (𝒟.ends e).1 = v ∨ (𝒟.ends e).2 = v)
+    (hEuler : (Fintype.card 𝒟.ιV : ℤ) - (Fintype.card 𝒟.ιE : ℤ) + (Fintype.card 𝒟.ιC : ℤ)
+      = 2 - 2 * (Module.finrank ℂ ↥(regularDifferentials ℂ F) : ℤ)) :
+    let Cside : 𝒟.ιE → Bool → 𝒟.ιC :=
+      fun e s => (Function.surjInv 𝒟.side_bij.surjective (e, s)).1
+    ∃ (𝒯 𝒯s : Finset 𝒟.ιE),
+      (∀ u v : 𝒟.ιV, ∃! c : 𝒟.ιE → ℤ, (∀ e ∉ 𝒯, c e = 0) ∧
+        ∀ w, (∑ e with (𝒟.ends e).2 = w, c e) - (∑ e with (𝒟.ends e).1 = w, c e) =
+          (if w = v then (1 : ℤ) else 0) - (if w = u then 1 else 0)) ∧
+      (∀ C C' : 𝒟.ιC, ∃! c : 𝒟.ιE → ℤ, (∀ e ∉ 𝒯s, c e = 0) ∧
+        ∀ D, (∑ e with Cside e true = D, c e) - (∑ e with Cside e false = D, c e) =
+          (if D = C' then (1 : ℤ) else 0) - (if D = C then 1 else 0)) ∧
+      Disjoint 𝒯 𝒯s ∧
+      (𝒯 ∪ 𝒯s)ᶜ.card = 2 * Module.finrank ℂ ↥(regularDifferentials ℂ F) ∧
+      ∀ u v : 𝒟.ιV, Relation.ReflTransGen
+        (fun a b => ∃ e ∈ 𝒯, 𝒟.ends e = (a, b) ∨ 𝒟.ends e = (b, a)) u v := by
+  revert F 𝒟 hvert hends hEuler
+  exact @_root_.P2MW.S_AlgebraicCurve_CellDissection_exists_tree_cotree.solution
