@@ -55,33 +55,33 @@ polynomial. It is retired and kept at the tag
 [`route-k-final`](https://github.com/Deicyde/diophantine-z-q/tree/route-k-final);
 [`docs/research/rs-pole.md`](docs/research/rs-pole.md) explains why it existed.
 
-## Status (fork `main` at `e1dddb4d`, 2026-11-18)
+## Status (fork `main` at `c4e2a8c5`, 2026-11-19)
 
-- **One theorem, [`ZInQ.OneProof.frozenTarget`](ZInQKernel/OneProof/Main.lean), proves `ZInQ.FrozenTarget` from 33
+- **One theorem, [`ZInQ.OneProof.frozenTarget`](ZInQKernel/OneProof/Main.lean), proves `ZInQ.FrozenTarget` from 31
   open hypotheses, statements not yet proved in Lean.** Lean's kernel checks it with no `sorry` and only the standard
   axioms `propext`, `Classical.choice` and `Quot.sound`. Everything else, including every finite computation, is
   proved in Lean. Since 2026-11-18 GitHub's hosted runners run this check too: the [main build
   cache](.github/workflows/main-build-cache.yml) workflow builds the theorem after a push to `main` that changes Lean
   and fails unless its axioms are among these three. Its [first passing
   run](https://github.com/Deicyde/diophantine-z-q/actions/runs/44219370755) was at `be73b91c`, it [passed at this
-  commit](https://github.com/Deicyde/diophantine-z-q/actions/runs/44447567722), and its [run
+  commit](https://github.com/Deicyde/diophantine-z-q/actions/runs/44519135860), and its [run
   list](https://github.com/Deicyde/diophantine-z-q/actions/workflows/main-build-cache.yml) shows the other commits it
   has passed on ([#62](https://github.com/Deicyde/diophantine-z-q/issues/62)). The [build-cost
   table](docs/one-proof/CONTRIBUTING.md#what-it-costs-to-build) has no build by anyone outside the project yet.
-- **The hypotheses are premises, not axioms:** Lean proves "if they all hold, then ℤ is Diophantine in ℚ". 29 belong
+- **The hypotheses are premises, not axioms:** Lean proves "if they all hold, then ℤ is Diophantine in ℚ". 27 belong
   to the six-contact height estimate (the manuscript's Theorem 4.1). The other four are the inputs from which Lean
   proves pole completeness (the manuscript's Theorem 5.2), as the manuscript does: its Theorem 5.3, the Cassels–Tate
   pairing on its curves E_ℓ: y² = x(x − ℓ)(x + 3ℓ) (from which Lean proves its Lemma 5.4), and consequences of the
-  modularity theorem of Breuil, Conrad, Diamond and Taylor and of Kolyvagin's Theorem 1. Of the 29, 11 are classed as
-  published theorems and 18 as consequences of a published theorem or of the manuscript's text. Under the strict count
-  (a refereed theorem as printed, checked against the page), 5 qualify; the other 24 still need an argument or a
+  modularity theorem of Breuil, Conrad, Diamond and Taylor and of Kolyvagin's Theorem 1. Of the 27, 11 are classed as
+  published theorems and 16 as consequences of a published theorem or of the manuscript's text. Under the strict count
+  (a refereed theorem as printed, checked against the page), 6 qualify; the other 21 still need an argument or a
   reading. AI raters assigned these classes. The live list, with each statement's source, rating and holder, is
   [`docs/one-proof/OPEN.md`](docs/one-proof/OPEN.md).
-- **Progress:** 65 open hypotheses on 2026-11-15, 30 on 2026-11-17, 33 now. The count falls when a hypothesis is
-  proved, can rise or fall when one is restated as printed statements, and changes when the proof follows the
-  manuscript more closely: the switch away from Route K removed five hypotheses and added pole completeness, following
-  the manuscript's complex-multiplication argument in Section 4 added four, and deriving pole completeness from its
-  Section 5 replaced one by four. So it does not measure proved content.
+- **Progress:** 65 open hypotheses on 2026-11-15, 30 on 2026-11-17, 33 on 2026-11-18, 31 now. The count falls when a
+  hypothesis is proved, can rise or fall when one is restated as printed statements, and changes when the proof
+  follows the manuscript more closely: the switch away from Route K removed five hypotheses and added pole
+  completeness, following the manuscript's complex-multiplication argument in Section 4 added four, and deriving pole
+  completeness from its Section 5 replaced one by four. So it does not measure proved content.
 - **AI caveat.** The manuscript was written with AI models and audited by an AI model, and the project's Lean was
   written by AI coding agents. Published hypotheses have been compared with their printed sources by AI readers, and
   those flagged `unread` on OPEN.md have had no statement check against the page yet. Contributors have also posted
