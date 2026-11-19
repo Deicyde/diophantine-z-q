@@ -1,4 +1,4 @@
-# G0: newform comparison components
+# G0: newform comparison and coinvariant local factors
 
 ## Status
 
@@ -10,15 +10,23 @@ statement, as an input.
 The contribution proves the arithmetic Hecke bridge, divisor-level newform
 extraction with agreement at almost all primes, the full-eigenform and
 trivial-character conversions, the characteristic-zero Brauer–Nesbitt theorem,
-the Frobenius-character comparison, and the transport of local Euler
-polynomials under an actual representation isomorphism. The missing part is
-identifying the particular newform and Tate-module representations with the
-particular local polynomials in the statement.
+the Frobenius-character comparison, and transport of local polynomials under
+an actual representation isomorphism. The printed-corollary and corrected
+coinvariant routes assemble exact G0 conditionally on their displayed inputs.
 
-Only `HeckeBridge.lean`, `BrauerNesbitt.lean`, `FrobeniusLocal.lean`,
-`PrintedInputs.lean`, and this note are proposed source contributions.
-`Scratch/` and `Sources/` hold verification and reference materials, not
-proposed publications.
+The historical invariant-space representation route is excluded from the Lean
+source. At multiplicative reduction it used `1 − εpX` where the classical
+polynomial is `1 − εX`; for 11a1 at `p = 11`, these are `1 − 11X` and `1 − X`.
+Its declaration text is preserved in
+`docs/research/g0-representation-route-invariants.md`, not as active Lean input.
+`Completion.localTatePolynomial` remains a definition with that warning.
+
+The source modules are `HeckeBridge.lean`, `BrauerNesbitt.lean`,
+`FrobeniusLocal.lean`, `PrintedInputs.lean`, `GaloisCompletion.lean`, and
+`GlobalTrace/{CoinvariantReadings,GoodReductionReading,CoinvariantAssembly}.lean`.
+`CompletionNotes.md` describes the two retained routes and their source
+boundaries. `Scratch/` holds historical verification records, not current
+source declarations.
 
 ## Proved components
 
@@ -102,9 +110,14 @@ places and zero-dimensional fixed spaces.
 
 `localFactors_eq_of_BN_frobenius` displays Brauer–Nesbitt as a parameter for
 an independent interface. That parameter is discharged by
-`BrauerNesbitt.lean`. The comparison must concern the actual representations:
-replacing an arbitrary representation by its semisimplification is not, by
-itself, a valid replacement in an inertia-invariant local factor.
+`BrauerNesbitt.lean`. These invariant-space transport lemmas are valid linear
+algebra, but their polynomial with arithmetic Frobenius is not the classical
+homological local factor at multiplicative reduction. The classical reading
+uses the coinvariants defined in `GlobalTrace/CoinvariantReadings.lean`.
+The excluded invariant-space local-factor statements are archived in
+`docs/research/g0-representation-route-invariants.md`. Replacing an arbitrary
+representation by its semisimplification is not, by itself, a valid replacement
+in an inertia-invariant local factor.
 
 ## Precisely identified printed facts
 
@@ -131,8 +144,9 @@ W.-C. W. Li, *Newforms and Functional Equations*, Math. Ann. **212**
 4. **Theorem 5, p. 298:** normalized newforms at two levels with equal prime
    coefficients at almost all primes have the same level and the same
    underlying form. `Li1975StrongMultiplicityOneWeightTwo` states its
-   weight-two trivial-character special case. It is used only in the
-   explicitly conditional uniqueness theorem, not in divisor-level extraction.
+   weight-two trivial-character special case, with the full printed theorem
+   quoted in its docstring. It is used in conditional uniqueness and in
+   `Descent.embedding_fixes_coefficients`, not in divisor-level extraction.
 
 These printed propositions are not proved here and are not new axioms.
 `newform_bad_prime_sign`, `newform_bad_prime_values`, and
@@ -211,44 +225,70 @@ not by itself the comparison with the arbitrary curve of G0.
 
 Page images checked: pp. 302, 304–307, 313, PDF pages 3, 5–8, 14.
 
-## Exact remaining obligations for full G0
+## The two retained assemblies and their remaining inputs
 
-1. **Attach the actual representations.** For the extracted newform construct
-   the Carayol compatible system, a genuine coefficient field with its
-   complex and λ-adic embeddings, and the normalized arithmetic-Frobenius
-   representation. For the curve use its actual rational Tate module,
-   extended to the same λ-adic field. Prove or provide the actual continuity
-   and semisimplicity hypotheses of the comparison theorem.
-2. **The good-prime dictionaries.** Identify traces of every allowed
-   arithmetic Frobenius with the newform coefficient and with
-   `E.LFunction p`, in the common coefficient field. The existing
-   `ModularWeil/FrobeniusTrace.lean` displays further Tate-specialization and
-   determinant-degree inputs for the curve side; those inputs are not
-   discharged by the present proof of Brauer–Nesbitt.
-3. **The bad-prime local dictionaries.** Identify the actual decomposition
-   and inertia subgroups and Frobenius elements, and identify the two
-   inertia-fixed Euler polynomials with the actual curve polynomial and
-   the classical newform polynomial. Apply Carayol (A), with its normalization,
-   and the Li/Casselman newvector reading, rather than inserting equality of
-   all Fourier coefficients as a premise.
-4. **Avoid the auxiliary-prime exception.** Carayol (A) requires `p ≠ ℓ`.
-   For equality at every rational prime, use a compatible family or two
-   distinct auxiliary primes. A comparison at one fixed ℓ does not by itself
-   recover the Euler factor at that same prime.
-5. **Return the coefficients.** Transport the polynomials through the
-   coefficient-field embeddings. Equality at one prime then gives equality
-   at all its powers by the proved theorem, and coprime multiplicativity
-   gives every positive coefficient by the proved assembly theorem.
+### Printed-corollary route
 
-The conductor of an elliptic curve is not introduced here. The original G0
-statement only asks for `M ∣ N`; that divisibility is already proved. A separate
-claim `M = conductor(E)` still needs the conductor dictionary and the
-Carayol/Casselman reading.
+`GaloisCompletion.lean` retains
+`Descent.liCarayolNewformOfModular_of_printed_corollaries` and
+`Descent.newformOfModularCurveGlue_of_printed_corollaries`, with their code,
+four input proposition bodies and supporting declarations unchanged.
+
+* `Shimura1973ConjugateEigenforms` and
+  `Li1975StrongMultiplicityOneWeightTwo` remain PRINT specializations. The
+  complete printed quotations are placed in their docstrings.
+* `Carayol1986RationalNewformEulerFactors` is GLUE: joint reading of Shimura
+  1973, Thm 1, and Carayol 1986, §0.8 Corollaire; GLUE until a two-lens skeptic
+  pass clears it.
+* `Faltings1983EulerFactorRigidityQ` is GLUE: local-factor reading of Faltings
+  1983, §5, Korollar 2 (iii ⇒ iv); GLUE unless restated as the printed
+  implication with the local-factor step proved.
+
+The divisor-level extraction, coefficient-field descent, local polynomial
+comparison and positive-index coefficient assembly remain proved. The two
+GLUE interfaces are not relabeled as verbatim printed implications.
+
+### Corrected coinvariant representation route
+
+`GlobalTrace/CoinvariantReadings.lean` contains the corrected realization
+`CarayolRationalRealizationCoinv`, its proposition
+`Carayol1986ThmARationalWeightTwoCoinv`, the bad-prime proposition
+`BadReductionTatePolynomialReadingCoinv`, and the good-trace comparison and
+coinvariant local transport proofs. Its other four realization field types
+are identical to the historical realization. Its cohomological representation
+is now `CarayolRationalRealizationCoinv.cohomologicalRep`.
+
+`GlobalTrace/GoodReductionReading.lean` proves the global good-prime reading,
+including actual inertia triviality and Frobenius trace and determinant.
+`GlobalTrace/CoinvariantAssembly.lean` discharges that reading in the corrected
+assembly. The existing local, coinvariant, additive and multiplicative proofs
+are preserved.
+
+The corrected bad-prime assembly remains conditional on
+`TateCurveTateModulePrint`, `DecompositionGroupLocalGlobalGlue` and
+`AdditiveReductionCoinvariantsVanish`. The duality proof identifies arithmetic
+Frobenius on homological coinvariants with geometric Frobenius on cohomological
+invariants. The assembly always chooses a different auxiliary prime.
+
+The historical invariant-space statements and their consumers are archived
+in `docs/research/g0-representation-route-invariants.md`. They are not kept as
+Lean declarations merely with warnings attached.
+
+No elliptic-curve conductor is introduced here. The original G0 statement asks
+for `M ∣ N`, and that divisibility is already proved. A separate assertion
+`M = conductor(E)` would still require its conductor dictionary.
 
 ## Reference copies
 
 The following are the exact reference copies used for the page-image checks.
 
+* Shimura, *On the factors of the jacobian variety of a modular function field*,
+  doi:10.2969/jmsj/02530523 — the verified 22-page copy, 1,646,652 bytes;
+  SHA-256 `6a34cc46d06c0f5d4e7d380ddcbc45ec3143b19359bfebba5b1c8f00976f3308`.
+  Printed pp. 525–526 are PDF pages 3–4, confirmed from the running heads;
+  the defining paragraph beginning on printed p. 524 (PDF page 2) is also
+  quoted to complete the definitions. These page images were read for the
+  quotation in `Shimura1973ConjugateEigenforms`.
 * Li: <https://gdz.sub.uni-goettingen.de/download/pdf/PPN235181684_0212/LOG_0047.pdf>
   — 2,210,387 bytes;
   SHA-256 `3bf1fca9ecd1ab88890999f021062cdae7ccb21cc7af1d23459ce9872e73945a`.
@@ -259,11 +299,12 @@ The following are the exact reference copies used for the page-image checks.
   — 1,348,606 bytes;
   SHA-256 `a4980e5b4a00967bcfc6d8ae820e4465bae01ed0da5e8cf9f0927edfda6895b1`.
 
-## Verification records
+## Historical verification records
 
-All four source files pass individual checks. The combined check in
-`Scratch/StatementsAxioms.lean` also passes and includes a local-factor
-comparison with the Brauer–Nesbitt parameter discharged by its proved theorem.
+The earlier four-module edition passed individual checks. Its combined check
+in `Scratch/StatementsAxioms.lean` included a local-factor comparison with the
+Brauer–Nesbitt parameter discharged by its proved theorem. These records
+precede the present declaration inventory.
 
 `Scratch/TheoremStatements.md` contains the exact printed statement and
 axiom report for every one of the 52 source theorems, plus the integrated

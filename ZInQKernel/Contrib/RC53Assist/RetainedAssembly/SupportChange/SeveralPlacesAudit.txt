@@ -1,0 +1,544 @@
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily : Type 1
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage
+  (G : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) (B : ℕ) : Prop
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison
+  (G H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) (width : ℕ) : Type
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.extraRank_add (a b : ℕ) (n : ℤ) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank (a + b) n =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank a n +
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank b n
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.extraRank_add' depends on axioms: [propext]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.joinExtra {k : Type} [Field k] (a b : ℕ) (n : ℤ) :
+  (Fin (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank a n) → k) ×
+      (Fin (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank b n) → k) →ₗ[k]
+    Fin (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank (a + b) n) → k
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.joinExtra' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.joinExtra_injective {k : Type} [Field k] (a b : ℕ)
+  (n : ℤ) : Function.Injective ⇑(ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.joinExtra a b n)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.joinExtra_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.refl
+  (G : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G G 0
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.refl' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.comp
+  {G H J : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily} {a b : ℕ}
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G H a)
+  (T : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison H J b) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G J (b + a)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.comp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.castWidth
+  {G H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily} {a b : ℕ} (h : a = b)
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G H a) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G H b
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.castWidth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.totalWidth (c : ℕ → ℕ) (k : ℕ) : ℕ
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.totalWidth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.totalWidth_eq (c : ℕ → ℕ) (k : ℕ) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.totalWidth c k =
+    6 * k + ∑ j ∈ Finset.range k, c j
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.totalWidth_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.iterate_residual_comparison
+  (G : ℕ → ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) (c : ℕ → ℕ)
+  (k : ℕ) :
+  (∀ j < k,
+      Nonempty
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison (G (j + 1)) (G j)
+          (6 + c j))) →
+    Nonempty
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison (G k) (G 0)
+        (6 * k + ∑ j ∈ Finset.range k, c j))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.iterate_residual_comparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.residualPackage
+  {G H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily} {width B : ℕ}
+  (T : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G H width)
+  (hH : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage H B) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage G (B + width)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.residualPackage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualPackage_of_comparison_steps
+  (G : ℕ → ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) (c : ℕ → ℕ)
+  (k B : ℕ) (hbase : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage (G 0) B)
+  (step :
+    ∀ j < k,
+      Nonempty
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison (G (j + 1)) (G j)
+          (6 + c j))) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage (G k)
+    (B + 6 * k + ∑ j ∈ Finset.range k, c j)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualPackage_of_comparison_steps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds {k : Type} [Field k]
+  (Q : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k) (lo hi : ℤ) (B : ℕ) : Prop
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelData {k : Type} [Field k]
+  (D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData k) : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData k
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelData' depends on axioms: [propext,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelCx {k : Type} [Field k]
+  (D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData k) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx D)
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelData D))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelCx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelCx_bijective {k : Type} [Field k]
+  (D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData k) (n : ℤ) :
+  Function.Bijective ⇑((ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelCx D).f n n ⋯)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.swapSelCx_bijective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.conditionChange_cohomology {k : Type} [Field k]
+  (D : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData k) (L U V : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k)
+  (rq : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom D.G L) (ιU : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom U L)
+  (ιV : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom V L) (C₀ : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k)
+  (j :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom C₀
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition D L U rq ιU)))
+  (hj : QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC j)) (n : ℤ)
+  (h₀ : Module.Finite k ↑(HomologicalComplex.homology C₀.toCC n))
+  (hU : Module.Finite k ↑(HomologicalComplex.homology U.toCC (n - 1)))
+  (hV : Module.Finite k ↑(HomologicalComplex.homology V.toCC n)) :
+  Module.Finite k
+      ↑(HomologicalComplex.homology
+          (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+              (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition D L V rq ιV)).toCC
+          n) ∧
+    Module.finrank k
+        ↑(HomologicalComplex.homology
+            (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+                (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition D L V rq ιV)).toCC
+            n) ≤
+      Module.finrank k ↑(HomologicalComplex.homology C₀.toCC n) +
+          Module.finrank k ↑(HomologicalComplex.homology U.toCC (n - 1)) +
+        Module.finrank k ↑(HomologicalComplex.homology V.toCC n)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.conditionChange_cohomology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep (i : ℕ) [NeZero i]
+  (X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) (c : ℕ) : Type 1
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.estimate {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c)
+  (hX : ZInQ.Contrib.RC53Assist.InnerLimitArith.ResidualCohomologyFinite X) (n : ℤ) :
+  Module.Finite (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+      (ZInQ.Manuscript.RC.Limits.residualCohomologyAt Y n) ∧
+    Module.finrank (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+        (ZInQ.Manuscript.RC.Limits.residualCohomologyAt Y n) ≤
+      Module.finrank (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+          (ZInQ.Manuscript.RC.Limits.residualCohomologyAt X n) +
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank (6 + c) n
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.estimate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualComparison_of_cochain_steps
+  {G H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily} {c : ℕ}
+  (step :
+    (i : ℕ) →
+      [inst : NeZero i] →
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i (G i) (H i) c)
+  (hG : ∀ (i : ℕ) [inst : NeZero i], ZInQ.Contrib.RC53Assist.InnerLimitArith.ResidualCohomologyFinite (G i)) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison H G (6 + c)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualComparison_of_cochain_steps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualPackage_of_support_condition_steps
+  (G : ℕ → ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) (c : ℕ → ℕ)
+  (k B : ℕ)
+  (hbase : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage (G 0) B) :
+  (∀ j < k,
+      ∀ (i : ℕ) [inst : NeZero i],
+        Nonempty
+          (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i (G j i)
+            (G (j + 1) i) (c j))) →
+    Nonempty
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison (G k) (G 0)
+          (6 * k + ∑ j ∈ Finset.range k, c j)) ∧
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage (G k)
+        (B + 6 * k + ∑ j ∈ Finset.range k, c j)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualPackage_of_support_condition_steps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.retargetHom {A : Type} [CommRing A]
+  {C D E : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx A} (h : D = E)
+  (f : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom C D) : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom C E
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.retargetHom' depends on axioms: [propext]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.retargetHom_quasiIso {A : Type} [CommRing A]
+  {C D E : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx A} (h : D = E)
+  (f : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom C D)
+  (hf : QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC f)) :
+  QuasiIso
+    (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.retargetHom h f))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.retargetHom_quasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.weaken {k : Type} [Field k]
+  {Q : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k} {lo hi : ℤ} {a b : ℕ}
+  (H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q lo hi a) (h : a ≤ b) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q lo hi b
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.weaken' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.conditionAllowance {k : Type}
+  [Field k] {Q : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k} {c : ℕ}
+  (H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q 0 2 c) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q 0 2 (4 + c)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.conditionAllowance' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.supportConditionStep_of_print_ur {K : Type}
+  [Field K] [NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) (i : ℕ) [NeZero i] (M : Type) [AddCommGroup M]
+  [Module (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) M]
+  [DistribMulAction (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M]
+  [SMulCommClass (ZInQ.Manuscript.RC.SelmerComplex.GKS K S)
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) M]
+  [TopologicalSpace M] [DiscreteTopology M] [ContinuousSMul (ZInQ.Manuscript.RC.SelmerComplex.GKS K S) M] [Finite M]
+  (Δ :
+    ZInQ.Manuscript.RC.SelmerComplex.GaloisLocalConditions K S
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) M)
+  (h788 : ZInQ.Manuscript.RC.SelmerComplex.NekovarProp788ii K) (hK : NumberField.IsTotallyComplex K) (hS : S.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S)
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (Dold :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (L U V :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (rq : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom Dold.G L)
+  (ιU : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom U L) (ιV : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom V L)
+  (hDp :
+    (ZInQ.Manuscript.RC.SelmerComplex.galoisSupportDataUr K ⋯
+          (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) M Δ).Dp =
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition Dold L U rq ιU)
+  (source :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom
+      (ZInQ.Contrib.RC53Assist.InnerLimitArith.gcxBaseChange
+        (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) X)
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Manuscript.RC.SelmerComplex.galoisSupportDataUr K ⋯
+            (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) M Δ).D))
+  (hsource : QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC source))
+  (target :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom
+      (ZInQ.Contrib.RC53Assist.InnerLimitArith.gcxBaseChange
+        (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) Y)
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition Dold L V rq ιV)))
+  (htarget : QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC target))
+  (hU : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds U 0 1 2)
+  (hV : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds V 0 2 (4 + c)) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.supportConditionStep_of_print_ur' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.movingResidualPackage_of_cochain_steps
+  (G : ℕ → ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily)
+  (terminal : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) (c : ℕ → ℕ)
+  (k B : ℕ) (hterminal : G k = terminal)
+  (hbase : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage (G 0) B)
+  (step :
+    ∀ j < k,
+      ∀ (i : ℕ) [inst : NeZero i],
+        Nonempty
+          (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i (G j i)
+            (G (j + 1) i) (c j))) :
+  (∀ (i : ℕ) [inst : NeZero i], ZInQ.Contrib.RC53Assist.InnerLimitArith.ResidualCohomologyFinite (terminal i)) ∧
+    (∀ (i : ℕ) [inst : NeZero i] (n : ℤ),
+        n < 0 ∨ 3 < n →
+          Module.finrank (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+              (ZInQ.Manuscript.RC.Limits.residualCohomologyAt (terminal i) n) =
+            0) ∧
+      ∀ (i : ℕ) [inst : NeZero i] (n : ℤ),
+        Module.finrank (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+            (ZInQ.Manuscript.RC.Limits.residualCohomologyAt (terminal i) n) ≤
+          B + 6 * k + ∑ j ∈ Finset.range k, c j
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.movingResidualPackage_of_cochain_steps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.of_onePlace {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (T : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidualSupportControl F R width) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison (fun i => F.globalCx i)
+    (fun i => R.globalCx i) width
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.of_onePlace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.to_onePlace {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (T :
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison (fun i => F.globalCx i)
+      (fun i => R.globalCx i) width) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidualSupportControl F R width
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.to_onePlace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualSupportControl_of_cochain_steps {K : Type}
+  [Field K] [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α}
+  (G : ℕ → ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily) (c : ℕ → ℕ)
+  (k B : ℕ) (hstart : G 0 = fun i => R.globalCx i) (hfinish : G k = fun i => F.globalCx i)
+  (hbase : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageResidualPackage (G 0) B)
+  (step :
+    ∀ j < k,
+      ∀ (i : ℕ) [inst : NeZero i],
+        Nonempty
+          (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i (G j i)
+            (G (j + 1) i) (c j))) :
+  Nonempty
+    (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidualSupportControl F R
+      (6 * k + ∑ j ∈ Finset.range k, c j))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.residualSupportControl_of_cochain_steps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.mk
+  {G H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily} {width : ℕ}
+  (map :
+    (i : ℕ) →
+      [inst : NeZero i] →
+        (n : ℤ) →
+          ZInQ.Manuscript.RC.Limits.residualCohomologyAt (G i)
+              n →ₗ[IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)]
+            ZInQ.Manuscript.RC.Limits.residualCohomologyAt (H i) n ×
+              (Fin (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank width n) →
+                IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (injective : ∀ (i : ℕ) [inst : NeZero i] (n : ℤ), Function.Injective ⇑(map i n)) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G H width
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.mk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.map
+  {G H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily} {width : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G H width) (i : ℕ)
+  [NeZero i] (n : ℤ) :
+  ZInQ.Manuscript.RC.Limits.residualCohomologyAt (G i)
+      n →ₗ[IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)]
+    ZInQ.Manuscript.RC.Limits.residualCohomologyAt (H i) n ×
+      (Fin (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.extraRank width n) →
+        IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.injective
+  {G H : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.StageComplexFamily} {width : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison G H width) (i : ℕ)
+  [NeZero i] (n : ℤ) : Function.Injective ⇑(self.map i n)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.ResidualComparison.injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.mk {k : Type} [Field k]
+  {Q : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k} {lo hi : ℤ} {B : ℕ}
+  (finite : ∀ (n : ℤ), Module.Finite k ↑(HomologicalComplex.homology Q.toCC n))
+  (rank : ∀ (n : ℤ), Module.finrank k ↑(HomologicalComplex.homology Q.toCC n) ≤ B)
+  (outside : ∀ (n : ℤ), n < lo ∨ hi < n → Subsingleton ↑(HomologicalComplex.homology Q.toCC n)) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q lo hi B
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.mk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.finite {k : Type} [Field k]
+  {Q : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k} {lo hi : ℤ} {B : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q lo hi B) (n : ℤ) :
+  Module.Finite k ↑(HomologicalComplex.homology Q.toCC n)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.rank {k : Type} [Field k]
+  {Q : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k} {lo hi : ℤ} {B : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q lo hi B) (n : ℤ) :
+  Module.finrank k ↑(HomologicalComplex.homology Q.toCC n) ≤ B
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.rank' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.outside {k : Type} [Field k]
+  {Q : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx k} {lo hi : ℤ} {B : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds Q lo hi B) (n : ℤ) :
+  n < lo ∨ hi < n → Subsingleton ↑(HomologicalComplex.homology Q.toCC n)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds.outside' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.mk {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (oldDatum :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (localCx unramified condition :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (restriction : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom oldDatum.G localCx)
+  (unramifiedInclusion : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom unramified localCx)
+  (conditionInclusion : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom condition localCx)
+  (sourceMap :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom
+      (ZInQ.Contrib.RC53Assist.InnerLimitArith.gcxBaseChange
+        (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) X)
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition oldDatum localCx unramified
+          restriction unramifiedInclusion)))
+  (source_quasiIso : QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC sourceMap))
+  (targetMap :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom
+      (ZInQ.Contrib.RC53Assist.InnerLimitArith.gcxBaseChange
+        (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) Y)
+      (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition oldDatum localCx condition
+          restriction conditionInclusion)))
+  (target_quasiIso : QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC targetMap))
+  (unramifiedBounds :
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds unramified 0 1 2)
+  (conditionBounds :
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds condition 0 2 (4 + c)) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.mk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.oldDatum {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData
+    (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.oldDatum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.localCx {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.localCx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.unramified {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.unramified' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.condition {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.condition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.restriction {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom self.oldDatum.G self.localCx
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.restriction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.unramifiedInclusion {i : ℕ}
+  [NeZero i] {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom self.unramified self.localCx
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.unramifiedInclusion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.conditionInclusion {i : ℕ}
+  [NeZero i] {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom self.condition self.localCx
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.conditionInclusion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.sourceMap {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom
+    (ZInQ.Contrib.RC53Assist.InnerLimitArith.gcxBaseChange
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) X)
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition self.oldDatum self.localCx
+        self.unramified self.restriction self.unramifiedInclusion))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.sourceMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.source_quasiIso {i : ℕ}
+  [NeZero i] {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC self.sourceMap)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.source_quasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.targetMap {i : ℕ} [NeZero i]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom
+    (ZInQ.Contrib.RC53Assist.InnerLimitArith.gcxBaseChange
+      (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) Y)
+    (ZInQ.Contrib.CloudB3RC53.PairedFunctional.selCx
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.withLocalCondition self.oldDatum self.localCx
+        self.condition self.restriction self.conditionInclusion))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.targetMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.target_quasiIso {i : ℕ}
+  [NeZero i] {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  QuasiIso (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC self.targetMap)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.target_quasiIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.unramifiedBounds {i : ℕ}
+  [NeZero i] {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds self.unramified 0 1 2
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.unramifiedBounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.conditionBounds {i : ℕ}
+  [NeZero i] {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)} {c : ℕ}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep i X Y c) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.CohomologyBounds self.condition 0 2 (4 + c)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SeveralPlaces.SupportConditionStep.conditionBounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

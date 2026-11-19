@@ -1,0 +1,118 @@
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rational_canonical.{u_1} : ∀ (k : Type u_1)
+  [inst : Field.{u_1} k],
+  Eq.{u_1 + 1}
+    ((TauCeti.AlgebraicGeometry.WeilDivisor.OrderSystem.divisorClass.{u_1, u_1}
+        (TauCeti.Place.orderSystem.{u_1, u_1} ⋯))
+      (HSMul.hSMul.{0, u_1, u_1} (-2)
+        (TauCeti.AlgebraicGeometry.WeilDivisor.ofPoint.{u_1} (TauCeti.Place.infty.{u_1} k))))
+    (TauCeti.canonicalClass.{u_1, u_1} ⋯ ⋯)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.CanonicalFreshAuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rational_canonical' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.exists_normalized_rational.{u_1} : ∀ (k : Type u_1)
+  [inst : Field.{u_1} k],
+  ∃ ω,
+    Membership.mem.{u_1, u_1} (TauCeti.weilDifferentialSpace.{u_1, u_1} k (RatFunc.{u_1} k)) ω ∧
+      IsGreatest.{u_1}
+          (Set.ofPred.{u_1} fun D => Membership.mem.{u_1, u_1} (TauCeti.weilDifferentialFiltration.{u_1, u_1} D) ω)
+          (HSMul.hSMul.{0, u_1, u_1} (-2)
+            (TauCeti.AlgebraicGeometry.WeilDivisor.ofPoint.{u_1} (TauCeti.Place.infty.{u_1} k))) ∧
+        Eq.{u_1 + 1}
+          ((TauCeti.repartitionDualComponent.{u_1, u_1} ω (TauCeti.Place.infty.{u_1} k))
+            (Inv.inv.{u_1} RatFunc.X.{u_1}))
+          (-1)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.CanonicalFreshAuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.exists_normalized_rational' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm.{u_1} : (k : Type u_1) →
+  [inst : Field.{u_1} k] → Module.Dual.{u_1, u_1} k ↥(TauCeti.repartitionSpace.{u_1, u_1} k (RatFunc.{u_1} k))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.CanonicalFreshAuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm_mem.{u_1} : ∀ (k : Type u_1)
+  [inst : Field.{u_1} k],
+  Membership.mem.{u_1, u_1} (TauCeti.weilDifferentialSpace.{u_1, u_1} k (RatFunc.{u_1} k))
+    (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm.{u_1} k)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.CanonicalFreshAuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm_mem' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm_bound.{u_1} : ∀ (k : Type u_1)
+  [inst : Field.{u_1} k],
+  Membership.mem.{u_1, u_1}
+    (TauCeti.weilDifferentialFiltration.{u_1, u_1}
+      (HSMul.hSMul.{0, u_1, u_1} (-2)
+        (TauCeti.AlgebraicGeometry.WeilDivisor.ofPoint.{u_1} (TauCeti.Place.infty.{u_1} k))))
+    (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm.{u_1} k)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.CanonicalFreshAuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm_bound' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm_normalization.{u_1} : ∀ (k : Type u_1)
+  [inst : Field.{u_1} k],
+  Eq.{u_1 + 1}
+    ((TauCeti.repartitionDualComponent.{u_1, u_1}
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm.{u_1} k)
+        (TauCeti.Place.infty.{u_1} k))
+      (Inv.inv.{u_1} RatFunc.X.{u_1}))
+    (-1)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.CanonicalFreshAuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm_normalization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.differentialOfSeparating_eq_cotrace : ∀ {k F : Type}
+  [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] (hF : TauCeti.IsFunctionField.{0, 0} k F)
+  {x : F} (hx : Transcendental.{0, 0} k x) [inst_3 : Algebra.IsSeparable.{0, 0} (↥k⟮x⟯) F],
+  Eq.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{0, 0} hF hx)
+    ((TauCeti.weilDifferentialCotrace.{0, 0, 0, 0} k F ⋯ hF)
+      (Subtype.mk.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.rationalForm.{0} k) ⋯))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.differentialOfSeparating_eq_cotrace' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.derivative_rational_algebraMap : ∀ {k F : Type}
+  [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] [inst_3 : CharZero.{0} k]
+  (hF : TauCeti.IsFunctionField.{0, 0} k F) {x : F} (hx : Transcendental.{0, 0} k x) (r : RatFunc.{0} k),
+  Eq.{1} ((TauCeti.derivativeOfSeparating.{0, 0} hx) ((algebraMap.{0, 0} (RatFunc.{0} k) F) r))
+    ((algebraMap.{0, 0} (RatFunc.{0} k) F) ((TauCeti.derivativeOfSeparating.{0, 0} ⋯) r))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.derivative_rational_algebraMap' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.uniformizer_logarithmic_normalization : ∀ {k F : Type}
+  [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] [CharZero.{0} k]
+  (hF : TauCeti.IsFunctionField.{0, 0} k F) (hex : IsIntegrallyClosedIn.{0, 0} k F) {x : F}
+  (hx : Transcendental.{0, 0} k x) [inst_4 : Algebra.IsSeparable.{0, 0} (↥k⟮x⟯) F] (P : TauCeti.Place.{0, 0} k F)
+  {t : F},
+  Valuation.IsUniformizer.{0, 0} (TauCeti.Place.valuation.{0, 0} P) t →
+    Eq.{1}
+      ((TauCeti.repartitionDualComponent.{0, 0}
+          (↑((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF hex hx)
+              ((KaehlerDifferential.D.{0, 0} k F) t)))
+          P)
+        (Inv.inv.{0} t))
+      ↑(TauCeti.Place.degree.{0, 0} P)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.uniformizer_logarithmic_normalization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.localLogarithmicNormalization : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalFacts.LocalLogarithmicNormalization
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.localLogarithmicNormalization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.separatingCotraceChainRule : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.separatingCotraceChainRule' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.regularDifferentialComparisonCanonical : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.regularDifferentialComparisonCanonical' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.comparison_fieldTransport_parameter_free : ∀
+  {k F F' : Type} [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Field.{0} F'] [inst_3 : Algebra.{0, 0} k F]
+  [inst_4 : Algebra.{0, 0} k F'] [inst_5 : CharZero.{0} k] (σ : AlgEquiv.{0, 0, 0} k F F')
+  (hF : TauCeti.IsFunctionField.{0, 0} k F) (hF' : TauCeti.IsFunctionField.{0, 0} k F')
+  (hex : IsIntegrallyClosedIn.{0, 0} k F) (hex' : IsIntegrallyClosedIn.{0, 0} k F') {x : F} {y : F'}
+  (hx : Transcendental.{0, 0} k x) (hy : Transcendental.{0, 0} k y) (η : KaehlerDifferential.{0, 0} k F),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF' hex' hy)
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{0, 0, 0} σ) η))
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{0, 0, 0} σ hF hF')
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF hex hx) η))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.CanonicalResidues.comparison_fieldTransport_parameter_free' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

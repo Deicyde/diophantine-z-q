@@ -6,6 +6,9 @@ import ZInQKernel.Contrib.RC53Assist.GlobalTrace.CoinvariantReadings
 
 This module instantiates the good-prime reading of `GlobalTrace/CoinvariantReadings.lean` with its
 proof `globalGoodReductionTraceReading_proved` of `GlobalTrace/GoodReductionReading.lean`.
+The realization and comparison used here are the corrected coinvariant ones. The excluded
+invariant-space statements are archived in `docs/research/g0-representation-route-invariants.md`,
+not retained as Lean hypotheses.
 
 * `localTatePolynomialCoinv_eq_localTatePolynomial_of_good`: at every good prime `p ≠ ℓ` the
   corrected local Tate polynomial is the existing `localTatePolynomial`, so nothing changes there.

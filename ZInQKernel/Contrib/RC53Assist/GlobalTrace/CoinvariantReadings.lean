@@ -3,13 +3,13 @@ import ZInQKernel.Contrib.RC53Assist.NewformGlueG0.GaloisCompletion
 /-!
 # Inertia coinvariants and the corrected local readings of G0
 
-The local polynomial `Completion.localTatePolynomial` and the local-factor clause of
-`Completion.CarayolRationalRealization` read the arithmetic Frobenius on the inertia
-*invariants* of the homological (dual-normalized) representation. At primes of multiplicative
-reduction this is not the classical factor: the invariants are the line `ℚ_ℓ(1) ⊗ ε` of a Tate
-curve, with Frobenius eigenvalue `ε p` (Silverman, *The Arithmetic of Elliptic Curves*, Appendix C,
-§14). The classical factor is read on the inertia *coinvariants* `V_I = V / ⟨ρ(i) v - v⟩`, on
-which the arithmetic Frobenius acts by `ε`.
+The retained definition `Completion.localTatePolynomial` reads the arithmetic Frobenius on the
+inertia *invariants* of the homological (dual-normalized) representation. At primes of
+multiplicative reduction this is not the classical factor: the invariants are the line
+`ℚ_ℓ(1) ⊗ ε` of a Tate curve, with Frobenius eigenvalue `ε p` (Silverman, *The Arithmetic of
+Elliptic Curves*, Appendix C, §14). The classical factor is read on the inertia *coinvariants*
+`V_I = V / ⟨ρ(i) v - v⟩`, on which the arithmetic Frobenius acts by `ε`. The excluded
+invariant-space statements are archived in `docs/research/g0-representation-route-invariants.md`.
 
 ## Normalization
 
@@ -17,7 +17,7 @@ The corrected readings use the arithmetic Frobenius on inertia coinvariants of t
 representation (`coinvariantEulerPolynomial`). This is literally Carayol's cohomological
 normalization: the same polynomial is the inverse (geometric) Frobenius on the inertia invariants
 of the dual representation (`coinvariantEulerPolynomial_eq_dual`, Part H), and the dual of the
-dual-normalized representation is `Completion.CarayolRationalRealization.cohomologicalRep`
+dual-normalized representation is `CarayolRationalRealizationCoinv.cohomologicalRep`
 (`CarayolRationalRealizationCoinv.local_factor_cohomological`). Locators for the cohomological
 normalization: Carayol 1986, §§0.4–0.8, pp. 409–411, as cited by the existing interface (page
 bodies not re-checked here).
@@ -51,7 +51,7 @@ bodies not re-checked here).
 
 ## Classification
 
-Definitions and PROVED. `TateCurveTateModulePrint` is a print specialization,
+Definitions and PROVED. `TateCurveTateModulePrint` is a reading of a printed theorem (GLUE),
 `DecompositionGroupLocalGlobalGlue` and `AdditiveReductionCoinvariantsVanish` are glue, and the
 three corrected readings are explicit propositions; all are theorem parameters, not axioms.
 -/
@@ -267,13 +267,15 @@ end TateCoinvariants
 
 section CorrectedReadings
 
-/-- **DEFINITION OF PRINTED DATA, CORRECTED LOCAL READING**, as
-`Completion.CarayolRationalRealization` with every field identical except `local_factor`, which
-reads the Euler polynomial on inertia coinvariants with the arithmetic Frobenius
+/-- **DEFINITION OF PRINTED DATA, CORRECTED LOCAL READING**, a normalized representation
+attached to an actual rational weight-two newform. The four fields `normalizedRep`,
+`continuous_matrix`, `irreducible` and `good_trace` have their original types. The local-factor
+field reads the Euler polynomial on inertia coinvariants with arithmetic Frobenius
 (`coinvariantEulerPolynomial`), equivalently on the inertia invariants of the cohomological
-normalization with the geometric Frobenius (module documentation). Locators: Carayol 1986, (A),
-pp. 410–411, the Remarque p. 411, §0.8; Li 1975, Theorem 3(i), p. 295; Casselman 1973,
-Theorem 4, p. 313 (as in the original interface; page bodies not re-checked here). -/
+normalization with geometric Frobenius. The excluded invariant-space realization is archived in
+`docs/research/g0-representation-route-invariants.md`. Locators: Carayol 1986, (A), pp. 410–411,
+the Remarque p. 411, §0.8; Li 1975, Theorem 3(i), p. 295; Casselman 1973, Theorem 4, p. 313
+(page bodies not re-checked here). -/
 structure CarayolRationalRealizationCoinv {M : ℕ} [NeZero M]
     (F : Newform M 2) (hχ : F.χ = 1) (b : ℕ → ℚ)
     (hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ))
@@ -297,23 +299,36 @@ structure CarayolRationalRealizationCoinv {M : ℕ} [NeZero M]
     coinvariantEulerPolynomial normalizedRep (inertiaAt D) D.element (inertiaAt_conj D) =
       rationalNewformPolynomial M ℓ b p
 
-/-- **PRINT SPECIALIZATION WITH CORRECTED LOCAL READING**, as
-`Completion.Carayol1986ThmARationalWeightTwo` with `CarayolRationalRealizationCoinv` in place of
-`CarayolRationalRealization`. Locators: Carayol 1986, Théorème (A), pp. 410–411, Remarque and
-§0.8, p. 411; Casselman 1973, Theorem 4, p. 313; Li 1975, Theorem 3(i), p. 295. This is a
-proposition, not an axiom or a proof of these printed facts. -/
+/-- **DEFINITION**, Carayol's cohomological normalization is the dual of the normalized
+representation used for the coinvariant Tate comparison. Locators: Carayol §§0.4–0.5 and §0.8,
+pp. 409–411. Its invariant polynomial with geometric Frobenius is proved to be the coinvariant
+polynomial with arithmetic Frobenius in `coinvariantEulerPolynomial_eq_dual`. The historical
+invariant-space realization is recorded in `docs/research/g0-representation-route-invariants.md`. -/
+def CarayolRationalRealizationCoinv.cohomologicalRep {M : ℕ} [NeZero M]
+    {F : Newform M 2} {hχ : F.χ = 1} {b : ℕ → ℚ}
+    {hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ)}
+    {ℓ : ℕ} [Fact ℓ.Prime] (R : CarayolRationalRealizationCoinv F hχ b hb ℓ) :
+    Representation ℚ_[ℓ] GlueC10.GQ (Module.Dual ℚ_[ℓ] (Fin 2 → ℚ_[ℓ])) :=
+  R.normalizedRep.dual
+
+/-- **GLUE (a reading of Carayol's theorem) WITH CORRECTED LOCAL READING**, the rational weight-two
+realization with arithmetic Frobenius on inertia coinvariants. The excluded invariant-space
+statement is archived in `docs/research/g0-representation-route-invariants.md`. Locators: Carayol
+1986, Théorème (A), pp. 410–411, Remarque and §0.8, p. 411; Casselman 1973, Theorem 4, p. 313; Li
+1975, Theorem 3(i), p. 295. This is a proposition, not an axiom or a proof of these printed facts.
+-/
 def Carayol1986ThmARationalWeightTwoCoinv : Prop :=
   ∀ (M : ℕ) [NeZero M] (F : Newform M 2) (hχ : F.χ = 1) (b : ℕ → ℚ)
     (hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ))
     (ℓ : ℕ) [Fact ℓ.Prime], Nonempty (CarayolRationalRealizationCoinv F hχ b hb ℓ)
 
-/-- **GLUE, CORRECTED BAD-PRIME TATE LOCAL READING**, as
-`Completion.BadReductionTatePolynomialReading` with the coinvariant polynomial
-`localTatePolynomialCoinv`: at a bad prime `p ≠ ℓ` the minimal-reduction polynomial is the
-arithmetic Frobenius polynomial on the inertia coinvariants of the actual rational Tate module.
-Locators: Silverman, Appendix C, §14 (Tate curves, multiplicative reduction) and §16 (local
-factors), VII.5–VII.7 (additive reduction); section-level, pages not checked. Its reduction to
-the named inputs is `badReductionTatePolynomialReadingCoinv_of_inputs` (Parts D–G). -/
+/-- **GLUE, CORRECTED BAD-PRIME TATE LOCAL READING**, at a bad prime `p ≠ ℓ` the
+minimal-reduction polynomial is the arithmetic Frobenius polynomial on the inertia coinvariants
+of the actual rational Tate module. The excluded invariant-space statement is archived in
+`docs/research/g0-representation-route-invariants.md`. Locators: Silverman, Appendix C, §14
+(Tate curves, multiplicative reduction) and §16 (local factors), VII.5–VII.7 (additive reduction);
+section-level, pages not checked. Its reduction to the named inputs is
+`badReductionTatePolynomialReadingCoinv_of_inputs` (Parts D–G). -/
 def BadReductionTatePolynomialReadingCoinv : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (ℓ : ℕ) [Fact ℓ.Prime]
     (p : ℕ) (hp : p.Prime), p ≠ ℓ → ¬GoodReductionAt E (primeIdealQ p hp) →
@@ -323,10 +338,11 @@ def BadReductionTatePolynomialReadingCoinv : Prop :=
 
 /-- **PROVED FROM THE PRINTED SEMISIMPLICITY AND THE GOOD-PRIME READING**, the comparison of
 the actual rational Tate representation with any continuous irreducible representation having
-the newform traces at good Frobenius elements. This is the proof of
-`Completion.tate_equiv_Carayol_of_almost_all_primes`, which uses only these four fields of the
-realization. Locators: `representationEquiv_of_BN_frobenius`, `brauerNesbittChar0`, Faltings
-Satz 3, p. 360. -/
+the newform traces at good Frobenius elements. Only continuity, irreducibility and good traces
+of that representation are used; no bad-prime local-factor reading is consumed. The historical
+realization-specific comparison is archived in
+`docs/research/g0-representation-route-invariants.md`. Locators:
+`representationEquiv_of_BN_frobenius`, `brauerNesbittChar0`, Faltings Satz 3, p. 360. -/
 theorem tate_equiv_of_good_traces
     (hFa : Faltings1983Satz3EllipticQ) (hG : GlobalGoodReductionTraceReading)
     (E : WeierstrassCurve ℚ) [E.IsElliptic]
@@ -391,13 +407,13 @@ theorem localTatePolynomialCoinv_eq_newform_of_comparison
     (inertiaAt_conj D)).trans (R.local_factor p hp hpℓ D)
 
 /-- **PROVED CONDITIONAL REPRESENTATION ASSEMBLY ON COINVARIANTS**, the exact G0 conclusion from
-the corrected readings. Every step is the proof of
-`Completion.liCarayolNewformOfModular_of_representations`, with the corrected local polynomial
-and the coinvariant transport. The good-prime reading `hG` is proved as
-`GlobalTrace.globalGoodReductionTraceReading_proved`; the instantiation without it is
-`GlobalTrace.liCarayolNewformOfModular_of_representations_coinv`
-(`GlobalTrace/CoinvariantAssembly.lean`). Locators: Carayol (A) and §0.8, pp. 410–411; Faltings
-Satz 3, p. 360; Shimura Theorem 1, p. 526; Li Theorem 5, p. 298. -/
+the corrected readings. The representation comparison, local coinvariant transport, auxiliary-
+prime avoidance and coefficient assembly are proved below. The excluded invariant-space
+assembly is archived in `docs/research/g0-representation-route-invariants.md`. The good-prime
+reading `hG` is proved as `GlobalTrace.globalGoodReductionTraceReading_proved`; the instantiation
+without it is `GlobalTrace.liCarayolNewformOfModular_of_representations_coinv`
+(`GlobalTrace/CoinvariantAssembly.lean`). Locators: Carayol (A) and §0.8, pp. 410–411;
+Faltings Satz 3, p. 360; Shimura Theorem 1, p. 526; Li Theorem 5, p. 298. -/
 theorem liCarayolNewformOfModular_of_representations_coinv_of_good
     (hS : ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent.Shimura1973ConjugateEigenforms)
     (hL : Li1975StrongMultiplicityOneWeightTwo)
@@ -681,18 +697,20 @@ def DecompositionGroupLocalGlobalGlue : Prop :=
       ∃ σ : LocalGaloisQ p hp,
         IsArithmeticFrobeniusOnClosureQ (primeIdealQ p hp) Γ w σ ∧ r σ = D.element
 
-/-- **PRINT SPECIALIZATION WITH EXPLICIT READINGS**, manuscript bibitem Silverman, *The Arithmetic
-of Elliptic Curves*, Appendix C, Theorem C.14.1 (Tate), read on the local `ℓ`-adic Tate module.
-For `E/ℚ` with multiplicative reduction at `p` and `ℓ ≠ p`, Tate's theorem gives `q ∈ ℚ_p` with
-`|q| < 1` and a Galois-equivariant uniformization `\bar ℚ_p^× / q^ℤ ≅ E(\bar ℚ_p)` (over `ℚ_p` in the
-split case, after the unramified quadratic twist in the non-split case). Read through Kummer
-theory this gives a basis `(e₀, e₁)` of `T_ℓ(E/\bar ℚ_p)` (`e₀` the roots of unity, `e₁` the
-compatible roots of `q`) with `σ e₀ = ε(σ) χ(σ) e₀` and `σ e₁ = ε(σ) (e₁ + κ(σ) e₀)`, where `χ` is
-the cyclotomic character, `κ` the Kummer cocycle of `q`, and `ε` is trivial in the split case and the
-unramified quadratic character otherwise. The readings used: `ε` and `χ` are trivial on inertia,
-`κ` is not identically zero on inertia (`v(q) ≠ 0`), and `ε` of an arithmetic Frobenius is `1` or
-`-1` according as the reduction is split or not. Section-level locator; page not checked. This is a
-proposition, not an axiom or a proof of the printed theorem. -/
+/-- **GLUE (a reading of a printed theorem) WITH DERIVED READINGS**, manuscript bibitem Silverman,
+*The Arithmetic of Elliptic Curves*, Appendix C, Theorem C.14.1 (Tate), read on the local `ℓ`-adic
+Tate module. For `E/ℚ` with
+multiplicative reduction at `p` and `ℓ ≠ p`, Tate's theorem gives `q ∈ ℚ_p` with `|q| < 1` and a
+Galois-equivariant uniformization `\bar ℚ_p^× / q^ℤ ≅ E(\bar ℚ_p)` (over `ℚ_p` in the split case,
+after the unramified quadratic twist in the non-split case). Read through Kummer theory this gives a
+basis `(e₀, e₁)` of `T_ℓ(E/\bar ℚ_p)` (`e₀` the roots of unity, `e₁` the compatible roots of `q`)
+with `σ e₀ = ε(σ) χ(σ) e₀` and `σ e₁ = ε(σ) (e₁ + κ(σ) e₀)`, where `χ` is the cyclotomic character,
+`κ` the Kummer cocycle of `q`, and `ε` is trivial in the split case and the unramified quadratic
+character otherwise. The readings used: `ε` and `χ` are trivial on inertia, `κ` is not identically
+zero on inertia (`v(q) ≠ 0`), and `ε` of an arithmetic Frobenius is `1` or `-1` according as the
+reduction is split or not. Section-level locator; page not checked. The unramified twist in the
+non-split case and the Kummer description of the Tate module are derived readings, not literal
+statements of C.14.1. This is a proposition, not an axiom or a proof of the printed theorem. -/
 def TateCurveTateModulePrint : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (p : ℕ) (hp : p.Prime) (ℓ : ℕ) [Fact ℓ.Prime],
     ℓ ≠ p →
@@ -1073,9 +1091,10 @@ theorem localTatePolynomialCoinv_eq_dual (E : WeierstrassCurve ℚ) [E.IsEllipti
   coinvariantEulerPolynomial_eq_dual _ _ _ _ _
 
 /-- **PROVED**, the corrected local-factor field is literally Carayol's cohomological
-normalization: the geometric Frobenius `D.element⁻¹` on the inertia invariants of the dual of the
-dual-normalized representation, which is `CarayolRationalRealization.cohomologicalRep`
-(Carayol 1986, §§0.4–0.8, pp. 409–411, as in the original interface). Locator:
+normalization: the geometric Frobenius `D.element⁻¹` on the inertia invariants of
+`CarayolRationalRealizationCoinv.cohomologicalRep`, the dual of the normalized representation
+(Carayol 1986, §§0.4–0.8, pp. 409–411). The excluded invariant-space realization is archived in
+`docs/research/g0-representation-route-invariants.md`. Locator:
 `coinvariantEulerPolynomial_eq_dual`. -/
 theorem CarayolRationalRealizationCoinv.local_factor_cohomological {M : ℕ} [NeZero M]
     {F : Newform M 2} {hχ : F.χ = 1} {b : ℕ → ℚ}

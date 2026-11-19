@@ -1,0 +1,1115 @@
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.linkedStage_topology (i : ℕ) :
+  TopologicalSpace (ZInQ.Manuscript.RC.Limits.StageA i)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.linkedStage_topology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.linkedStage_discrete (i : ℕ) :
+  DiscreteTopology (ZInQ.Manuscript.RC.Limits.StageA i)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.linkedStage_discrete' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.linkedExponent_neZero (i : ℕ) : NeZero (2 ^ i)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.linkedExponent_neZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.projectionEquivOfRetract {A : Type} [CommRing A]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx A} (R : ZInQ.Manuscript.RC.Limits.GRetract X Y) :
+  HomotopyEquiv X.toCC Y.toCC
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.projectionEquivOfRetract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.projectionEquivOfRetract_hom {A : Type} [CommRing A]
+  {X Y : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx A} (R : ZInQ.Manuscript.RC.Limits.GRetract X Y) :
+  (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.projectionEquivOfRetract R).hom =
+    ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC R.p
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.projectionEquivOfRetract_hom' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.exists_stagePairing_trace_links {K : Type} [Field K]
+  [NumberField K] {S : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} (W : WeierstrassCurve K)
+  [W.IsElliptic] (i : ℕ) [NeZero i]
+  (α : ZInQ.Manuscript.RC.SelmerComplex.GKS K S →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ)
+  [ZInQ.Manuscript.RC.CoefModules.IsOpenKer α] (q : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))
+  (Dold : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelData (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+  (Qold : ZInQ.Contrib.CloudB3RC53.PairedFunctional.SelPairData Dold Dold)
+  (Tq Uq : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GCx (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+  (rq :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom Dold.G
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q))
+  (sq : ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom Qold.E Tq)
+  (ιq :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GHom Uq
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q))
+  (Pq :
+    ZInQ.Contrib.CloudB3RC53.PairedFunctional.GPair
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q)
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q) Tq)
+  (V :
+    ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.RetainedPlaceInput Dold Qold
+      (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q) Tq Uq rq sq ιq Pq)
+  (trAll :
+    ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+              (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.allTargetRes Dold Qold Tq sq)).X
+          3) →ₗ[ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i]
+      ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+  (htrAll :
+    ∀
+      (z :
+        ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.allTargetRes Dold Qold Tq sq)).X
+            2)),
+      trAll
+          (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx
+                  (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.allTargetRes Dold Qold Tq sq)).d
+              2 3 ⋯)
+            z) =
+        0)
+  (h2 : 2 ∉ q.asIdeal) (hW : ZInQ.Manuscript.RC.CoefModules.FullTorsion K S W (2 ^ i))
+  (htriv :
+    ∀ (g : ZInQ.Manuscript.RC.SelmerComplex.Gloc K q)
+      (m :
+        ZInQ.Manuscript.RC.SelmerComplex.ResMod (ZInQ.Manuscript.RC.SelmerComplex.locMap K S q)
+          (ZInQ.Manuscript.RC.CoefModules.Mcoef K S W i α)),
+      g • m = m)
+  (hμ :
+    ∀
+      (g :
+        Gal(AlgebraicClosure
+            (IsDedekindDomain.HeightOneSpectrum.adicCompletion K
+              q)/IsDedekindDomain.HeightOneSpectrum.adicCompletion K q))
+      (ζ : AlgebraicClosure (IsDedekindDomain.HeightOneSpectrum.adicCompletion K q)), ζ ^ 2 ^ i = 1 → g ζ = ζ)
+  (hfin :
+    ∀ (n : ℤ),
+      Module.Finite (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+        (ZInQ.Manuscript.RC.Limits.residualCohomologyAt
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q) n))
+  (hdim :
+    ∀ (n : ℤ),
+      Module.finrank (IsLocalRing.ResidueField (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+          (ZInQ.Manuscript.RC.Limits.residualCohomologyAt
+            (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q) n) =
+        ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.splitLocalRank n)
+  (hG :
+    QuasiIso
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+        (ZInQ.Contrib.CloudB3RC53.SelmerDuality.globalDualityMap
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.allPlacePair Dold Qold
+            (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q) Tq Uq rq sq ιq Pq V)
+          trAll htrAll)))
+  (hL :
+    QuasiIso
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+        (ZInQ.Contrib.CloudB3RC53.SelmerDuality.localDualityMap
+          (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.allPlacePair Dold Qold
+            (ZInQ.Contrib.RC53Assist.LocalDegreeTwo.SplitTrace.actualStageLocalCx W i α q) Tq Uq rq sq ιq Pq V)
+          trAll htrAll))) :
+  ∃ R Q tr,
+    ∃ (htr :
+      ∀ (z : ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx Q.resE).X 2)),
+        tr (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx Q.resE).d 2 3 ⋯) z) = 0),
+      QuasiIso
+          (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+            (ZInQ.Contrib.CloudB3RC53.SelmerDuality.globalDualityMap Q tr htr)) ∧
+        (∃ e, e.hom = ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC R.p) ∧
+          ∀ (a b : ℤ) (hab : a + b = 2)
+            (u :
+              ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X a))
+            (v :
+              ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X
+                  b)),
+            tr (0, ((Q.cupL.P a b 2 hab) u) v) = trAll (0, 0, ((Pq.P a b 2 hab) ((R.i.f a a ⋯) u)) ((R.i.f b b ⋯) v))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.exists_stagePairing_trace_links' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (trN :
+    ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx (O.pair i S.originalIsotropy).resE).X
+          3) →ₗ[ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i]
+      ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+  (Rt :
+    ZInQ.Manuscript.RC.Limits.GRetract (F.localCx i)
+      (ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (a b : ℤ) (hab : a + b = 2)
+  (u : ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X a))
+  (v : ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X b)) :
+  ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i) : Type 1
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput.exists_linked_split {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) :
+  Nonempty (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput.exists_linked_split' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput.chosen_links {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput.chosen_links' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) (i : ℕ)
+  [NeZero i] : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage (a.stage i)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) (i : ℕ) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SplitStage F i
+    (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedConditions a i)
+    (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedInclusions a i)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_projection_model {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) (i : ℕ)
+  [NeZero i] :
+  ∃ e,
+    e.hom =
+      ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).projection
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_projection_model' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalStageTraceLinks {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (s :
+    (i : ℕ) →
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SplitStage F i
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedConditions a i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedInclusions a i))
+  (i : ℕ) [NeZero i] : Prop
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalStageTraceLinks' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_trace_transport {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) (i : ℕ)
+  [NeZero i] :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalStageTraceLinks a
+    (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2) i
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_trace_transport' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace02 {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) (i : ℕ)
+  [NeZero i] (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).trace
+      (0,
+        (((ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).pairing.cupL.P 0 2 2
+              ⋯)
+            x)
+          y) =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace (a.stage i)
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i).originalTrace
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i).localRetract 0 2 ⋯ x
+      y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace02' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace11 {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) (i : ℕ)
+  [NeZero i]
+  (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) :
+  (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).trace
+      (0,
+        (((ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).pairing.cupL.P 1 1 2
+              ⋯)
+            x)
+          y) =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace (a.stage i)
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i).originalTrace
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i).localRetract 1 1 ⋯ x
+      y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace11' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace20 {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀) (i : ℕ)
+  [NeZero i] (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).trace
+      (0,
+        (((ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).pairing.cupL.P 2 0 2
+              ⋯)
+            x)
+          y) =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace (a.stage i)
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i).originalTrace
+      (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i).localRetract 2 0 ⋯ x
+      y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace20' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.AssembledLimit.StageLinks {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  {a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width} {U : Ultrafilter ℕ}
+  {hU : ↑U ≤ Filter.cofinite} {Cn : ZInQ.Manuscript.RC.CoefModules.ActualConj K S₀} {hW : W.map ↑Cn.κ = W}
+  (L : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.AssembledLimit a U hU Cn hW) : Prop
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.AssembledLimit.StageLinks' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_realized_on_stages {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width) (U : Ultrafilter ℕ)
+  (hU : ↑U ≤ Filter.cofinite) (Cn : ZInQ.Manuscript.RC.CoefModules.ActualConj K S₀) (hW : W.map ↑Cn.κ = W)
+  (s :
+    (i : ℕ) →
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SplitStage F i
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedConditions a i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedInclusions a i)) :
+  ∃ L, L.stages = s ∧ L.Realized
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_realized_on_stages' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_inner_limit_realized' {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width) (U : Ultrafilter ℕ)
+  (hU : ↑U ≤ Filter.cofinite) (Cn : ZInQ.Manuscript.RC.CoefModules.ActualConj K S₀) (hW : W.map ↑Cn.κ = W) :
+  ∃ L,
+    L.stages = ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 ∧
+      L.Realized ∧ L.StageLinks
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_inner_limit_realized'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_from_support_change_realized' {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α}
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K)
+  (h788 : ZInQ.Manuscript.RC.SelmerComplex.NekovarProp788ii K) (hK : NumberField.IsTotallyComplex K) (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (P : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualSupportPresentation F R)
+  (oldFlat : F.NontrivialOldFlat)
+  (stage :
+    (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (U : Ultrafilter ℕ) (hU : ↑U ≤ Filter.cofinite) (Cn : ZInQ.Manuscript.RC.CoefModules.ActualConj K S₀)
+  (hW : W.map ↑Cn.κ = W) :
+  ∃ T L,
+    L.stages =
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'
+          { oldFlat := oldFlat, residualSupport := T, stage := stage } p hK hS₀ h2 ∧
+      L.Realized ∧ L.StageLinks
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_from_support_change_realized'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (B : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+  (Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i) : Prop
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i) : Type 1
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.withResidueIdentification {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  (S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (B : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+  (Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification S B Y) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage S Y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.withResidueIdentification' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedResidueStageLinks' {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (a.stage i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i) (Y i))
+  (i : ℕ) [NeZero i] : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage (a.stage i) (Y i)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedResidueStageLinks'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedResidueStages' {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (a.stage i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i) (Y i))
+  (i : ℕ) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SplitStage F i
+    (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedConditions a i)
+    (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedInclusions a i)
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedResidueStages'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedResidueStages'_eq {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (a.stage i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i) (Y i)) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedResidueStages' a p hK hS₀ h2 Y h =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedResidueStages'_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace02_of_identification {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (a.stage i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i) (Y i))
+  (i : ℕ) [NeZero i] (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).trace
+      (0,
+        (((ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).pairing.cupL.P 0 2 2
+              ⋯)
+            x)
+          y) =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup02 (Y i) x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace02_of_identification' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace11_of_identification {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (a.stage i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i) (Y i))
+  (i : ℕ) [NeZero i]
+  (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) :
+  (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).trace
+      (0,
+        (((ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).pairing.cupL.P 1 1 2
+              ⋯)
+            x)
+          y) =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup11 (Y i) x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace11_of_identification' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace20_of_identification {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (a.stage i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i) (Y i))
+  (i : ℕ) [NeZero i] (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).trace
+      (0,
+        (((ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 i).pairing.cupL.P 2 0 2
+              ⋯)
+            x)
+          y) =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup20 (Y i) x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'_htrace20_of_identification' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageResidueTraceLinks {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (s :
+    (i : ℕ) →
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SplitStage F i
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedConditions a i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.retainedInclusions a i))
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i) : Prop
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageResidueTraceLinks' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.AssembledLimit.ResidueTraceLinks {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  {a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width} {U : Ultrafilter ℕ}
+  {hU : ↑U ≤ Filter.cofinite} {Cn : ZInQ.Manuscript.RC.CoefModules.ActualConj K S₀} {hW : W.map ↑Cn.κ = W}
+  (L : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.AssembledLimit a U hU Cn hW)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i) : Prop
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.AssembledLimit.ResidueTraceLinks' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_inner_limit_residue_realized' {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α} {width : ℕ}
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K) (hK : NumberField.IsTotallyComplex K)
+  (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (a : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticInputs F O R width)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (a.stage i)
+        (ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStageLinks' a p hK hS₀ h2 i) (Y i))
+  (U : Ultrafilter ℕ) (hU : ↑U ≤ Filter.cofinite) (Cn : ZInQ.Manuscript.RC.CoefModules.ActualConj K S₀)
+  (hW : W.map ↑Cn.κ = W) :
+  ∃ L,
+    L.stages = ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages' a p hK hS₀ h2 ∧
+      L.Realized ∧ L.StageLinks ∧ L.ResidueTraceLinks Y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_inner_limit_residue_realized'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_from_support_change_residue_realized' {K : Type}
+  [Field K] [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F}
+  {R : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StandardOldReference S₀ W α}
+  (p : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ArithmeticPrints K)
+  (h788 : ZInQ.Manuscript.RC.SelmerComplex.NekovarProp788ii K) (hK : NumberField.IsTotallyComplex K) (hS₀ : S₀.Finite)
+  (h2 : ∀ (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)), 2 ∈ v.asIdeal → v ∈ S₀)
+  (P : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualSupportPresentation F R)
+  (oldFlat : F.NontrivialOldFlat)
+  (stage :
+    (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i)
+  (Y : (i : ℕ) → [inst : NeZero i] → ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i)
+  (h :
+    ∀ (i : ℕ) [inst : NeZero i],
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification (stage i)
+        ((stage i).chosen_links p hK hS₀ h2) (Y i))
+  (U : Ultrafilter ℕ) (hU : ↑U ≤ Filter.cofinite) (Cn : ZInQ.Manuscript.RC.CoefModules.ActualConj K S₀)
+  (hW : W.map ↑Cn.κ = W) :
+  ∃ T L,
+    L.stages =
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.producedStages'
+          { oldFlat := oldFlat, residualSupport := T, stage := stage } p hK hS₀ h2 ∧
+      L.Realized ∧ L.StageLinks ∧ L.ResidueTraceLinks Y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.assemble_from_support_change_residue_realized'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.mk {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (toSplitStage : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SplitStage F i S.retainedCondition S.condition)
+  (localRetract :
+    ZInQ.Manuscript.RC.Limits.GRetract (F.localCx i)
+      (ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)))
+  (projection_retract : localRetract.p = toSplitStage.projection)
+  (projection_model : ∃ e, e.hom = ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC toSplitStage.projection)
+  (originalTrace :
+    ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx (O.pair i S.originalIsotropy).resE).X
+          3) →ₗ[ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i]
+      ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)
+  (originalTrace_kills :
+    ∀ (z : ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx (O.pair i S.originalIsotropy).resE).X 2)),
+      originalTrace
+          (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx (O.pair i S.originalIsotropy).resE).d 2 3 ⋯) z) =
+        0)
+  (originalGlobalDuality :
+    QuasiIso
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+        (ZInQ.Contrib.CloudB3RC53.SelmerDuality.globalDualityMap (O.pair i S.originalIsotropy) originalTrace
+          originalTrace_kills)))
+  (originalLocalDuality :
+    QuasiIso
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+        (ZInQ.Contrib.CloudB3RC53.SelmerDuality.localDualityMap (O.pair i S.originalIsotropy) originalTrace
+          originalTrace_kills)))
+  (trace_transport :
+    ∀ (a b : ℤ) (hab : a + b = 2)
+      (u : ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X a))
+      (v : ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X b)),
+      toSplitStage.trace (0, ((toSplitStage.pairing.cupL.P a b 2 hab) u) v) =
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S originalTrace localRetract a b hab u
+          v)
+  (htrace02 :
+    ∀ (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i),
+      toSplitStage.trace (0, ((toSplitStage.pairing.cupL.P 0 2 2 ⋯) x) y) =
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S originalTrace localRetract 0 2 ⋯ x y)
+  (htrace11 :
+    ∀ (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)),
+      toSplitStage.trace (0, ((toSplitStage.pairing.cupL.P 1 1 2 ⋯) x) y) =
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S originalTrace localRetract 1 1 ⋯ x y)
+  (htrace20 :
+    ∀ (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i),
+      toSplitStage.trace (0, ((toSplitStage.pairing.cupL.P 2 0 2 ⋯) x) y) =
+        ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S originalTrace localRetract 2 0 ⋯ x
+          y) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.mk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.toSplitStage {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.SplitStage F i S.retainedCondition S.condition
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.toSplitStage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.localRetract {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) :
+  ZInQ.Manuscript.RC.Limits.GRetract (F.localCx i)
+    (ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.localRetract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.projection_retract {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) :
+  self.localRetract.p = self.toSplitStage.projection
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.projection_retract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.projection_model {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) :
+  ∃ e, e.hom = ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC self.toSplitStage.projection
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.projection_model' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalTrace {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) :
+  ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx (O.pair i S.originalIsotropy).resE).X
+        3) →ₗ[ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i]
+    ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalTrace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalTrace_kills {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+  (z : ↑((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx (O.pair i S.originalIsotropy).resE).X 2)) :
+  self.originalTrace
+      (((ZInQ.Contrib.CloudB3RC53.PairedFunctional.coneCx (O.pair i S.originalIsotropy).resE).d 2 3 ⋯) z) =
+    0
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalTrace_kills' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalGlobalDuality {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) :
+  QuasiIso
+    (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.globalDualityMap (O.pair i S.originalIsotropy) self.originalTrace ⋯))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalGlobalDuality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalLocalDuality {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) :
+  QuasiIso
+    (ZInQ.Contrib.CloudB3RC53.SelmerDuality.GHom.toCC
+      (ZInQ.Contrib.CloudB3RC53.SelmerDuality.localDualityMap (O.pair i S.originalIsotropy) self.originalTrace ⋯))
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.originalLocalDuality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.trace_transport {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S) (a b : ℤ) (hab : a + b = 2)
+  (u : ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X a))
+  (v : ↑((ZInQ.Contrib.RC53Assist.InnerLimit.splitLocalComplex (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)).X b)) :
+  self.toSplitStage.trace (0, ((self.toSplitStage.pairing.cupL.P a b 2 hab) u) v) =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S self.originalTrace self.localRetract a b
+      hab u v
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.trace_transport' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.htrace02 {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+  (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  self.toSplitStage.trace (0, ((self.toSplitStage.pairing.cupL.P 0 2 2 ⋯) x) y) =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S self.originalTrace self.localRetract 0 2 ⋯
+      x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.htrace02' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.htrace11 {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+  (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) :
+  self.toSplitStage.trace (0, ((self.toSplitStage.pairing.cupL.P 1 1 2 ⋯) x) y) =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S self.originalTrace self.localRetract 1 1 ⋯
+      x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.htrace11' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.htrace20 {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+  (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  self.toSplitStage.trace (0, ((self.toSplitStage.pairing.cupL.P 2 0 2 ⋯) x) y) =
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S self.originalTrace self.localRetract 2 0 ⋯
+      x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage.htrace20' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.mk {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {B : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (identification02 :
+    ∀ (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i),
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S B.originalTrace B.localRetract 0 2 ⋯ x
+          y =
+        ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup02 Y x y)
+  (identification11 :
+    ∀ (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)),
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S B.originalTrace B.localRetract 1 1 ⋯ x
+          y =
+        ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup11 Y x y)
+  (identification20 :
+    ∀ (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i),
+      ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S B.originalTrace B.localRetract 2 0 ⋯ x
+          y =
+        ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup20 Y x y) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification S B Y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.mk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.identification02 {K : Type}
+  [Field K] [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {B : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification S B Y)
+  (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S B.originalTrace B.localRetract 0 2 ⋯ x y =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup02 Y x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.identification02' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.identification11 {K : Type}
+  [Field K] [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {B : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification S B Y)
+  (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S B.originalTrace B.localRetract 1 1 ⋯ x y =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup11 Y x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.identification11' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.identification20 {K : Type}
+  [Field K] [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {B : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification S B Y)
+  (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.originalCupTrace S B.originalTrace B.localRetract 2 0 ⋯ x y =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup20 Y x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification.identification20' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.mk {K : Type} [Field K] [NumberField K]
+  {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))} {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (links : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S)
+  (original_identification :
+    ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification S links Y)
+  (htrace02 :
+    ∀ (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i),
+      links.toSplitStage.trace (0, ((links.toSplitStage.pairing.cupL.P 0 2 2 ⋯) x) y) =
+        ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup02 Y x y)
+  (htrace11 :
+    ∀ (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)),
+      links.toSplitStage.trace (0, ((links.toSplitStage.pairing.cupL.P 1 1 2 ⋯) x) y) =
+        ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup11 Y x y)
+  (htrace20 :
+    ∀ (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i),
+      links.toSplitStage.trace (0, ((links.toSplitStage.pairing.cupL.P 2 0 2 ⋯) x) y) =
+        ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup20 Y x y) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage S Y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.mk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.links {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage S Y) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.LinkedSplitStage S
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.links' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.original_identification {K : Type}
+  [Field K] [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage S Y) :
+  ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OriginalResidueTraceIdentification S self.links Y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.original_identification' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.htrace02 {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage S Y)
+  (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  self.links.toSplitStage.trace (0, ((self.links.toSplitStage.pairing.cupL.P 0 2 2 ⋯) x) y) =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup02 Y x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.htrace02' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.htrace11 {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage S Y)
+  (x y : (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) × (Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)) :
+  self.links.toSplitStage.trace (0, ((self.links.toSplitStage.pairing.cupL.P 1 1 2 ⋯) x) y) =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup11 Y x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.htrace11' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.htrace20 {K : Type} [Field K]
+  [NumberField K] {S₀ : Set (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))}
+  {W : WeierstrassCurve K} [W.IsElliptic]
+  {α : (i : ℕ) → ZInQ.Manuscript.RC.SelmerComplex.GKS K S₀ →* (ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i)ˣ}
+  [∀ (i : ℕ), ZInQ.Manuscript.RC.CoefModules.IsOpenKer (α i)] [ZInQ.Manuscript.RC.LambdaCoef.HasFullTwoTorsion K S₀ W]
+  {F : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ActualStageFamily S₀ W α}
+  {O : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.OldDualityData F} {i : ℕ} [NeZero i]
+  {S : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.StageArithmeticInput F O i}
+  {Y : ZInQ.Contrib.RC53Assist.ResidueIdentity.StageArithmeticData i}
+  (self : ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage S Y)
+  (x y : Fin 2 → ZInQ.Manuscript.RC.HeegnerAlgebra.Acoef i) :
+  self.links.toSplitStage.trace (0, ((self.links.toSplitStage.pairing.cupL.P 2 0 2 ⋯) x) y) =
+    ZInQ.Contrib.RC53Assist.ResidueIdentity.LocalArithmeticData.cup20 Y x y
+'ZInQ.Contrib.RC53Assist.RetainedAssembly.SupportChange.ResidueLinkedSplitStage.htrace20' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -1,227 +1,160 @@
 # G0 completion: exact consequences and source boundaries
 
-## New source
-
-`GaloisCompletion.lean` is the sole new proposed Lean module. It contains the
-new declarations below without importing unbuilt new helper modules. The
-previously committed component modules are unchanged. The working source
-fragments and audit material are kept in `Scratch/`.
+## Status and the two retained routes
 
 The unchanged target is
 `ZInQ.Contrib.CloudB3RC53.ModularWeil.LiCarayolNewformOfModular`.
+The contribution gives two conditional assemblies of that target, not
+unconditional proofs of the literature inputs:
 
-There are two precise assemblies of that target:
+1. `Descent.liCarayolNewformOfModular_of_printed_corollaries` in
+   `GaloisCompletion.lean`, with its four original input propositions and
+   supporting code unchanged. The two local-factor interfaces are GLUE;
+   Shimura's conjugate-eigenform and Li's strong-multiplicity-one interfaces
+   remain PRINT specializations.
+2. `GlobalTrace.liCarayolNewformOfModular_of_representations_coinv` in
+   `GlobalTrace/CoinvariantAssembly.lean`, using the corrected coinvariant
+   realization, the proved global good-prime reading and the displayed
+   bad-prime reading. Its `_of_inputs` version replaces the bad-prime reading
+   by the Tate-curve, local–global and additive-vanishing inputs.
 
-1. `Descent.liCarayolNewformOfModular_of_printed_corollaries`, from four
-   independent manuscript-cited literature interfaces, with the object
-   readings listed below. This proof does not assume either Tate local
-   reading used by the second assembly.
-2. `Completion.liCarayolNewformOfModular_of_representations`, from the
-   rational Carayol realization, Faltings semisimplicity, the same proved
-   coefficient-field descent, and two explicitly named remaining Tate
-   readings. This proves all representation and coefficient assembly steps,
-   but does not declare those two readings proved.
+The earlier invariant-space representation route is removed from the Lean
+source. Its declarations and the multiplicative-reduction obstruction are
+preserved as historical text in
+`docs/research/g0-representation-route-invariants.md`. It must not be read
+as another active route or as a collection of valid local-factor inputs.
 
-Neither statement is an unconditional proof of the literature inputs. The
-inputs remain propositions used as theorem parameters, not new axioms.
-No input is the newform-existence conclusion for the original elliptic curve.
+All displayed literature and arithmetic inputs are propositions used as
+theorem parameters, not new axioms. No input asserts the newform-existence
+conclusion for the original elliptic curve.
 
-## The coefficient-field descent
+## The protected coefficient-field descent
 
-The additional printed source is Shimura 1973, Theorem 1, p. 526, manuscript
-bibitem `shimura-factors`. For the genuine weight-two trivial-character
-newform `F`, define its actual coefficient field
+For a genuine weight-two trivial-character newform `F`,
+`Descent.coefficientField F` is the actual subfield
+`ℚ(a_n(F) : n ≥ 0) ⊆ ℂ`.
 
-`C_F = ℚ(a_n(F) : n ≥ 0) ⊆ ℂ`.
+`Shimura1973ConjugateEigenforms` keeps the finite coefficient-field and
+conjugate-eigenform reading of Shimura 1973, Theorem 1, p. 526, with its
+setting and definitions on p. 525. `Li1975StrongMultiplicityOneWeightTwo`
+keeps the weight-two trivial-character specialization of Li 1975,
+Theorem 5, p. 298. Their complete source quotations are in the corresponding PRINT docstrings;
+the Lean proposition bodies are unchanged.
 
-`Shimura1973ConjugateEigenforms` retains the finite coefficient-field reading
-and the theorem's conjugate eigenforms: for every complex embedding of `C_F`,
-there is a normalized full eigenform on the same `Γ₀(M)` whose coefficients
-are the embedded coefficients. The existing newform API proves that `F` is
-a normalized full eigenform, so the printed common-eigenfunction premise is
-not inserted as an unproved bridge.
+The existing proofs retain every step:
 
-The new Lean proof is as follows.
+* A coefficient-field embedding fixes the elliptic curve's integer prime
+  coefficients outside the given finite set.
+* The old/new decomposition extracts a divisor-level newform from the
+  conjugate full eigenform, preserving the trivial character.
+* Li's strong multiplicity one identifies the level and the newform.
+* Whole-character-space multiplicity one identifies the full conjugate form
+  at every coefficient.
+* Equality of all coefficient-field embeddings gives degree one over `ℚ`,
+  and the rank-one argument proves every coefficient rational.
 
-* A conjugate form has the original curve's prime coefficients outside the
-  same finite set, since those coefficients are integers and every rational
-  algebra embedding fixes them.
-* The proved old/new decomposition extracts a newform of divisor level from
-  the conjugate full eigenform, with the inducing trivial character.
-* Li 1975, Theorem 5, p. 298, forces this extracted newform to have the original
-  level and to be the original newform.
-* The proved whole-character-space multiplicity-one theorem then identifies
-  the conjugate form itself with `F`, at every coefficient, not just almost
-  all prime coefficients.
-* Consequently all complex embeddings of the actual coefficient field are
-  equal. `AlgHom.card` gives degree one over the rationals. A rank-one
-  vector-space argument proves every coefficient rational.
+These are `fullEigenform_divisor_newform`, `embedding_fixes_coefficients`,
+`coefficients_rational_of_almost_all_primes` and
+`coefficientField_eq_bot_of_almost_all_primes`. Their code is unchanged.
 
-`embedding_fixes_coefficients`,
-`coefficients_rational_of_almost_all_primes`, and
-`coefficientField_eq_bot_of_almost_all_primes` prove these steps. The last
-statement identifies the actual coefficient field with the rational subfield;
-the common completion `ℚ_ℓ` is therefore justified, not chosen by fiat.
+## Local-factor labels on the printed-corollary route
 
-## The independent printed-corollary route to exact G0
+`Carayol1986RationalNewformEulerFactors` is **GLUE**: joint reading of
+Shimura 1973, Thm 1, and Carayol 1986, §0.8 Corollaire; GLUE until a two-lens
+skeptic pass clears it. Its associated-curve and Weierstrass local-polynomial
+readings are not presented as a verbatim printed implication.
 
-`Carayol1986RationalNewformEulerFactors` starts with a genuine rational
-newform, not the input elliptic curve. Shimura's rational quotient construction
-provides the associated curve `A`, and Carayol's Corollaire of §0.8, p. 411,
-identifies its local Euler factors with those of the newform. The interface
-retains the corresponding actual local polynomial identities.
+`Faltings1983EulerFactorRigidityQ` is **GLUE**: local-factor reading of
+Faltings 1983, §5, Korollar 2 (iii ⇒ iv); GLUE unless restated as the printed
+implication with the local-factor step proved.
 
-The proof never asserts that this associated curve is the original curve `E`.
-Their coefficients agree at almost all primes by the already proved extraction
-and the curve's local polynomial dictionary. The already proved arithmetic
-dictionary converts that into equality of their local polynomials almost
-everywhere. Faltings 1983, §5, Korollar 2, iii ⇒ iv, p. 361, supplies equality
-at every finite place.
+The proof starts with the extracted newform and proves its rationality,
+then uses the associated elliptic curve `A` supplied by the joint reading.
+It does not assert `A = E`. Agreement of prime coefficients almost everywhere
+is converted by the proved arithmetic dictionary into agreement of local
+polynomials almost everywhere. The Faltings reading supplies equality at
+every finite place. The prime-power recurrence and coprime multiplicativity
+then give all positive Fourier coefficients, at exactly the original level
+and quantifier order.
 
-The proved prime-power recurrence and coprime multiplicativity then return
-all positive coefficients. The output is exactly a newform `F : Newform M 2`
-with `M ∣ N`, trivial character, and
+`Descent.newformOfModularCurveGlue_of_printed_corollaries` returns the
+original newform-periods interface through the existing subgroup and
+full-eigenform conversion. Both assemblies, the four input proposition
+bodies and their supporting code are preserved without code changes.
 
-`(qExpansion 1 F.toCuspForm).coeff n = (E.LFunction n : ℂ)`
+## Actual Tate representations and the good-prime proofs
 
-for every `n > 0`. The original level and quantifier order are unchanged.
-`newformOfModularCurveGlue_of_printed_corollaries` also returns the original
-newform-periods G0 interface through the previously proved full-eigenform and
-subgroup conversion.
+`Completion.integralTateRep E ℓ` is the coordinatewise Galois action on
+`T_ℓ(E(AlgebraicClosure ℚ))`. `rationalTateRep E ℓ` is its scalar extension
+to `ℚ_ℓ`, and `extendedTateRep E ℓ K` is the further extension to a common
+field. The displayed bases, dimensions and continuity proofs are preserved.
 
-This route uses the rational Corollaire only after rationality has been proved.
-Its curve-existence input is the reverse construction from a rational newform
-to its associated curve; it is not an input asserting a newform for `E`.
+`LocalArithmeticFrobenius` contains an actual valuation place, a Galois
+element, the arithmetic residue action and the integral-closure Frobenius
+reading. Its existence at every rational prime is proved. `inertiaAt` is
+the actual inertia kernel mapped from the decomposition group; normalization
+by Frobenius is proved in both conjugation directions used by the two
+local-polynomial definitions.
 
-## Actual representations, not placeholders
+`Completion.goodReductionFrobeniusTraceDictionaryQ_proved` retains the
+existing local trace-and-determinant dictionary. In
+`GlobalTrace/GoodReductionReading.lean`, the rational-model construction,
+place-reduction homomorphism, torsion bijectivity, inertia triviality and
+Tate-module trace and determinant proofs all remain.
+`globalGoodReductionTraceReading_proved` proves the global reading directly
+at a place of the algebraic closure of `ℚ`; its local-dictionary premise is
+not needed. Faltings 1983, §5, Satz 3, p. 360, remains the explicit rational
+Tate semisimplicity proposition.
 
-`integralTateRep E ℓ` is precisely the existing coordinatewise Galois action on
+`Completion.localTatePolynomial` is retained as the literal invariant
+polynomial with its warning. At multiplicative reduction it is
+`1 − εpX`, not the classical `1 − εX`; for 11a1 at `p = 11`, these are
+`1 − 11X` and `1 − X`. Its good-prime equality with the classical polynomial
+is true and remains proved.
 
-`T_ℓ(E(AlgebraicClosure ℚ))`.
+## The corrected coinvariant route
 
-`rationalTateRep E ℓ` is its scalar extension to `ℚ_ℓ`.
-`extendedTateRep E ℓ K` is the further scalar extension into a common field.
-The integral, rational, and extended two-element bases, their dimensions,
-and matrix-continuity assertions are proved. Continuity of basis coordinates
-uses the continuous scalar action and the compact-to-Hausdorff inverse theorem;
-no replacement topology is assigned to the Tate module.
+The local readings and representation assembly are in
+`GlobalTrace/CoinvariantReadings.lean` itself. `CarayolRationalRealizationCoinv`
+retains the original types of `normalizedRep`, `continuous_matrix`,
+`irreducible` and `good_trace`; only the local-factor reading uses inertia
+coinvariants. The true dual-normalization definition is now
+`CarayolRationalRealizationCoinv.cohomologicalRep`.
 
-`Carayol1986ThmAWeightTwoQ` states the number-field-completion form of the
-printed source: the realization field is an actual finite number subfield of
-the complex numbers containing the actual newform coefficients, and the
-representations live over its actual completions at places above `ℓ`.
+`tate_equiv_of_good_traces` uses the proved characteristic-zero
+Čebotarev–Brauer–Nesbitt comparison and only the good-prime representation
+properties. `localTatePolynomialCoinv_eq_newform_of_comparison` transports
+the corrected polynomial through that isomorphism. All existing coinvariant
+linear-algebra, local comparison, additive- and multiplicative-reduction
+proofs are preserved.
 
-`Carayol1986ThmARationalWeightTwo` is the rational realization used after
-coefficient descent. `CarayolRationalRealization` supplies an actual
-representation of the genuine absolute Galois group on `ℚ_ℓ²`, with continuity,
-plain irreducibility, the normalized good-prime traces and the local-factor
-reading at every `p ≠ ℓ`. Its `cohomologicalRep` is explicitly its dual.
+`coinvariantEulerPolynomial_eq_dual` and the two local corollaries identify
+arithmetic Frobenius on the homological coinvariants with geometric
+Frobenius on the cohomological inertia invariants. The assembly always
+chooses `ℓ ≠ p`, so it never uses a local-compatibility clause at its excluded
+auxiliary prime.
 
-The irreducibility assertion comes from Carayol's printed Remarque after (A),
-p. 411; that paragraph credits an unpublished argument of Ribet. It is not
-silently made a clause of the literal theorem (A), and no unsupported absolute
-irreducibility or oddness assertion is inserted. Faltings 1983, Satz 3, p. 360,
-provides semisimplicity of the actual rational Tate representation. No extension
-of that printed semisimplicity statement into arbitrary coefficient fields is
-silently assumed.
+The corrected bad-prime reading is conditional on its stated inputs:
+`TateCurveTateModulePrint`, `DecompositionGroupLocalGlobalGlue` and
+`AdditiveReductionCoinvariantsVanish`. The first includes derived Tate-module
+readings; the latter two are GLUE. They are not newly proved here.
 
-`LocalArithmeticFrobenius` holds a genuine valuation place, a genuine Galois
-element, the arithmetic residue-field action, and the integral-closure Frobenius
-reading. Existence at every specified rational prime is proved by lying-over
-and the existing finite-layer Frobenius existence theorem. `inertiaAt` is the
-actual inertia kernel mapped from the actual decomposition group, and its
-normalization by Frobenius is proved.
+## Literature locators and historical records
 
-`tate_equiv_Carayol_of_almost_all_primes` applies the already proved
-characteristic-zero Brauer–Nesbitt and Čebotarev comparison to precisely these
-representations. `localTatePolynomial_eq_newform_of_comparison` transports the
-actual inertia-fixed Frobenius polynomials, including bad primes.
+* Shimura 1973, *On the factors of the jacobian variety of a modular function
+  field*, J. Math. Soc. Japan 25, 523–544: Theorem 1, p. 526, definitions p. 525.
+* Li 1975, *Newforms and Functional Equations*, Math. Ann. 212, 285–315:
+  §2 p. 294; Theorem 3(i), (iii), p. 295; Theorem 5, p. 298.
+* Carayol 1986, §§0.4–0.6 pp. 409–410; Théorème (A), §0.7 pp. 410–411;
+  irreducibility Remarque and rational Corollaire, §0.8 p. 411.
+* Casselman 1973, Theorem 1 and proof pp. 302–306; Corollary p. 306;
+  ε-factor Remark p. 307; Theorem 4, p. 313.
+* Faltings 1983, §5, Satz 3 p. 360; Korollar 2, iii ⇒ iv, p. 361.
+* Silverman, *The Arithmetic of Elliptic Curves*, III.7, VII.3–VII.7,
+  Appendix C, §14 and §16.
 
-The final representation assembly chooses an auxiliary prime different from
-each prime being compared. Thus the factor at `p = ℓ` is never obtained by
-illicitly applying Carayol at that same auxiliary characteristic.
-
-## The newly proved local good-reduction dictionary
-
-`Completion.goodReductionFrobeniusTraceDictionaryQ_proved` has exactly the
-existing type
-`NewformPeriodsDictionary.GoodReductionFrobeniusTraceDictionaryQ`.
-
-It reproduces the proof in `FrobeniusTraceDictionary/Proved.lean` through its
-compiled dependencies: the proved Tate-reduction comparison and
-`DetDegree.frobeniusTateDetFormOne_proved`. It is not a new literature input,
-and the local trace-and-determinant formula is not re-assumed.
-
-## Exactly what remains on the raw representation route
-
-1. `GlobalGoodReductionTraceReading` is the globalization of the now proved
-   local good-reduction dictionary. It identifies the actual global Tate
-   action on the algebraic closure of the rationals with the relevant local
-   completion action, at the actual integral-closure Frobenius. The reading
-   includes global inertia triviality and trace and determinant normalization.
-   It is explicitly GLUE, not a statement about arbitrary curves attributed
-   to Carayol. Sources for the intended reading: Silverman VII.3.1, VII.7.1;
-   the completion restriction of the actual Tate action.
-2. `BadReductionTatePolynomialReading` identifies the Frobenius polynomial
-   on the actual global Tate inertia invariants with the actual bad minimal
-   Weierstrass polynomial. It is explicitly GLUE, not a Carayol theorem about
-   every arbitrary elliptic curve. Intended sources: the local determinant
-   definition before Faltings Korollar 2, p. 361; Silverman VII.6–7 and
-   Appendix C.16, p. 449. The Silverman body at this locator was not page-checked.
-
-All implications after these two readings are proved, including passage through
-the injective rational embeddings, equality of each prime-power coefficient,
-and the complete positive-index coefficient assembly. The independent
-printed-corollary route does not depend on these two propositions.
-
-## Literature interfaces and locators
-
-All the following bibliography items occur in the manuscript.
-
-* `shimura-factors`: Shimura 1973, Theorem 1, setting pp. 525–526 and theorem
-  p. 526: finite coefficient field and conjugate common eigenforms; rational
-  one-dimensional quotient. The exact theorem is quoted in the existing
-  `NewformPeriods/Leaves.lean`. A fresh publisher PDF retrieval for this
-  continuation did not succeed; no new page-image check is claimed.
-* `li-newforms`: Li 1975, §2 p. 294, Theorem 3(i), (iii) p. 295, and Theorem 5
-  p. 298. The old/new and full-eigenform parts are proved by the imported APIs;
-  the strong multiplicity-one specialization remains a literature parameter.
-  The manuscript's locator p. 296 is the different Fricke-conjugation step.
-* `carayol`: Carayol 1986, §§0.4–0.6 pp. 409–410, (A) in §0.7 pp. 410–411,
-  irreducibility Remarque p. 411, rational Corollaire §0.8 p. 411.
-* `casselman`: Casselman 1973, Theorem 1 and proof pp. 302–306, Corollary p. 306,
-  ε-factor Remark p. 307, Theorem 4 p. 313. These supply the newvector and
-  newform-level local reading of Carayol's automorphic compatibility.
-* `faltings1983`: Faltings 1983, §5, Satz 3 p. 360; Korollar 2, especially
-  iii ⇒ iv, p. 361. These pages were checked against the legitimate Göttingen
-  article images in this continuation.
-* `silverman`: Silverman 2009, III.7, VII.3, VII.6–7, Appendix C.16 p. 449.
-  The publisher's full book was unavailable. The public back matter confirmed
-  the index locator p. 449, but not the body of Appendix C.16.
-
-The source interfaces are faithful specializations or explicitly labeled
-corollary consequences. In particular, the newform/automorphic representation,
-dual normalization, associated-curve/Weierstrass, and normalized polynomial
-readings are named as readings, not claimed to be a literal replacement of
-Carayol's statement about automorphic representations. No scheme construction
-of the associated quotient is newly implemented here.
-
-The level divisibility `M ∣ N` is proved. No new assertion `M = conductor(E)`
-is made, and no elliptic-curve conductor is defined as a substitute.
-
-## Verification records
-
-The standalone `GaloisCompletion.lean` and the complete scratch audit both
-compile with the prescribed single-file command. The audit covers 70 new
-declarations, including all 36 theorem/lemma declarations. Every individual
-axiom report is exactly `[propext, Classical.choice, Quot.sound]`.
-
-`Scratch/CompletionTheoremStatements.md` contains every theorem's exact
-printed type and individual `#print axioms` report, together with the unfolded
-target and literature interfaces. `Scratch/CompletionAxioms.txt` is the raw
-output, and `Scratch/CompletionAxioms.lean` is the complete audit input.
-`Scratch/CompletionAuditSummary.json` records the complete declaration data.
-
-The primary source fingerprint is preserved after verification. The four
-previously committed component fingerprints are unchanged. Source policy
-checks found no prohibited declarations, execution commands, or identifiers.
+`Scratch/CompletionTheoremStatements.md` and `Scratch/TheoremStatements.md`
+are historical records of the earlier editions. They are not verification
+claims for the current declaration inventory. The excluded statements are
+not edited back into the source merely because those historical records
+contain their former types.

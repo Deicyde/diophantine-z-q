@@ -39,7 +39,9 @@ reduction of points at `v` is defined over `\bar ℚ` once `E` has a good integr
 The local dictionary premise `GoodReductionFrobeniusTraceDictionaryQ` of the reading is not needed
 by this proof; its own ingredients (the generic residue-field lemmas of
 `TateReduction/Comparison.lean`, the reduction library and the determinant form) are reused at the
-global place.
+global place. The excluded invariant-space representation assembly is recorded only as
+historical text in `docs/research/g0-representation-route-invariants.md`; none of its false
+local readings is used by the good-prime proofs here.
 
 ## Classification
 
@@ -943,25 +945,6 @@ theorem localTatePolynomial_of_good_proved (E : WeierstrassCurve ℚ) [E.IsEllip
     localTatePolynomial E ℓ D =
       (localPolynomialQ E (primeIdealQ p hp)).map (Int.castRingHom ℚ_[ℓ]) :=
   localTatePolynomial_of_good globalGoodReductionTraceReading_proved E ℓ p hp hpℓ hgood D
-
-/-- **PROVED FROM THE REMAINING INPUTS**, the representation assembly
-`Completion.liCarayolNewformOfModular_of_representations` with its good-prime reading
-discharged by `globalGoodReductionTraceReading_proved`. The remaining hypotheses are the printed
-inputs of that assembly and `BadReductionTatePolynomialReading`.
-
-**Warning.** `BadReductionTatePolynomialReading` and the local-factor clause of
-`Carayol1986ThmARationalWeightTwo` are false as formalized at primes of multiplicative reduction
-(they read the local factor on inertia invariants with the arithmetic Frobenius; see the
-warnings in `NewformGlueG0/GaloisCompletion.lean`), so this theorem is not usable as stated. The
-good-prime results of this module do not depend on them. -/
-theorem liCarayolNewformOfModular_of_representations_good_proved
-    (hS : ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent.Shimura1973ConjugateEigenforms)
-    (hL : ZInQ.Contrib.RC53Assist.NewformGlueG0.Li1975StrongMultiplicityOneWeightTwo)
-    (hC : Carayol1986ThmARationalWeightTwo) (hFa : Faltings1983Satz3EllipticQ)
-    (hB : BadReductionTatePolynomialReading) :
-    ZInQ.Contrib.CloudB3RC53.ModularWeil.LiCarayolNewformOfModular :=
-  liCarayolNewformOfModular_of_representations hS hL hC hFa
-    globalGoodReductionTraceReading_proved hB
 
 end Main
 

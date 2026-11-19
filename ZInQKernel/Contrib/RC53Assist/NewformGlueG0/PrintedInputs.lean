@@ -41,7 +41,13 @@ open ZInQ.Contrib.RC53Assist.NewformPeriodsDictionary
 
 /-- **PRINT INPUT, SPECIAL CASE**, Li 1975, bibitem `li-newforms`,
 Theorem 3(iii), p. 295, weight two and trivial character; page image checked.
-This is a proposition, not an axiom or a proof of the printed theorem. -/
+This is a proposition, not an axiom or a proof of the printed theorem.
+
+Verbatim printed text (Theorem 3, p. 295): "Theorem 3. Let F(τ) = ∑_{n≥1} a(n) z_Nⁿ be a
+normalized newform in C_ε(M, N), p a prime with (p, MN) = 1, q a prime dividing MN. Then [...]
+iii) If ε is a character mod MN/q, then a(q) = 0 if q² | MN; a(q)² = ε(q) q^{k−2} if q² ∤ MN.
+In the latter case, we have −a(q) q^{−k/2+1} F = F | B_N | V_q^{MN} | W_N." Here `N = 1`,
+`k = 2`, and `ε` trivial (see the definition of `C_ε(M, N)` quoted below). -/
 def Li1975BadPrimeWeightTwo : Prop :=
   ∀ (M : ℕ) [NeZero M] (F : Newform M 2), F.χ = 1 →
     ∀ (p : ℕ), p.Prime → p ∣ M →
@@ -49,9 +55,28 @@ def Li1975BadPrimeWeightTwo : Prop :=
       (¬p ^ 2 ∣ M → (qExpansion 1 F.toCuspForm).coeff p ^ 2 = 1)
 
 /-- **PRINT INPUT, SPECIAL CASE**, Li 1975, bibitem `li-newforms`,
-Theorem 5, p. 298, weight two and trivial character; page image checked.
+Theorem 5, p. 298, weight two and trivial character. The printed page is
+page 15 of the Göttingen article scan; its page image was read.
 Only two genuine normalized newforms are compared, with no elliptic curve
-and no hypothesis equivalent to G0. This is a proposition, not an axiom. -/
+and no hypothesis equivalent to G0. This is a proposition, not an axiom.
+
+Verbatim printed text (Theorem 5, p. 298):
+
+Theorem 5. Let F(τ) = ∑_{n≥1} a(n) z₁ⁿ, G(τ) = ∑_{n≥1} b(n) z₁ⁿ be normalized
+newforms in C_ε(M, 1), C_ε(N, 1) respectively such that a(p) = b(p) for almost
+all primes p. Then F = G and M = N.
+
+The notation is defined in the Introduction (p. 285): "Let k be a fixed positive integer. [...]
+For positive integers M, N we define Γ₀(M, N) = {(a b; c d) ∈ SL(2, ℤ) | M | c, N | b} and
+Γ(M, N) = {(a b; c d) ∈ Γ₀(M, N) | a ≡ d ≡ 1 mod MN}. Thus Γ₀(M, 1) = Γ₀(M) and Γ(M, 1) = Γ₁(M)
+in the usual notation. If ε(n) is a character of the integers mod MN such that ε(−1) = (−1)^k,
+we let C_ε(M, N) denote the space of all cusp forms for Γ(M, N) of weight k and character ε,
+i.e. F ∈ C_ε(M, N) if and only if F is holomorphic on the upper half plane, satisfies
+F | (a b; c d) = ε(d) F for (a b; c d) ∈ Γ₀(M, N), satisfies the usual regularity conditions at
+the cusps of Γ(M, N), and vanishes at each cusp of Γ(M, N)." (p. 286: "It is understood that
+all the cusp forms mentioned in this paper are of fixed weight k.") So `C_ε(M, 1)` with `k = 2`
+and `ε` trivial is the space of weight-two cusp forms on `Γ₀(M)` with trivial character.
+-/
 def Li1975StrongMultiplicityOneWeightTwo : Prop :=
   ∀ (M N : ℕ) [NeZero M] [NeZero N] (F : Newform M 2) (G : Newform N 2),
     F.χ = 1 → G.χ = 1 →

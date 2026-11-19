@@ -1,0 +1,2615 @@
+ZInQKernel/Contrib/RC53Assist/AbelianCurveInputs/AuditScratch.lean:746:8: warning: automatically included section variable(s) unused in theorem `_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_algebraMap`:
+  [AlgebraicGeometry.IsIntegral X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AlgebraicGeometry.IsIntegral X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ZInQKernel/Contrib/RC53Assist/AbelianCurveInputs/AuditScratch.lean:756:8: warning: automatically included section variable(s) unused in theorem `_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_mul`:
+  [AlgebraicGeometry.IsIntegral X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AlgebraicGeometry.IsIntegral X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ZInQKernel/Contrib/RC53Assist/AbelianCurveInputs/AuditScratch.lean:1016:8: warning: automatically included section variable(s) unused in theorem `_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapLinear_germ`:
+  [AlgebraicGeometry.IsIntegral X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AlgebraicGeometry.IsIntegral X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ZInQKernel/Contrib/RC53Assist/AbelianCurveInputs/AuditScratch.lean:2186:8: warning: automatically included section variable(s) unused in theorem `_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation_app`:
+  [AlgebraicGeometry.IsIntegral X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AlgebraicGeometry.IsIntegral X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ZInQKernel/Contrib/RC53Assist/AbelianCurveInputs/AuditScratch.lean:2244:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf_D`:
+  [AlgebraicGeometry.IsIntegral Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AlgebraicGeometry.IsIntegral Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rational_canonical.{u_1} : ∀ (k : Type u_1) [inst : Field.{u_1} k],
+  Eq.{u_1 + 1}
+    ((TauCeti.AlgebraicGeometry.WeilDivisor.OrderSystem.divisorClass.{u_1, u_1}
+        (TauCeti.Place.orderSystem.{u_1, u_1} ⋯))
+      (HSMul.hSMul.{0, u_1, u_1} (-2)
+        (TauCeti.AlgebraicGeometry.WeilDivisor.ofPoint.{u_1} (TauCeti.Place.infty.{u_1} k))))
+    (TauCeti.canonicalClass.{u_1, u_1} ⋯ ⋯)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rational_canonical' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.exists_normalized_rational.{u_1} : ∀ (k : Type u_1) [inst : Field.{u_1} k],
+  ∃ ω,
+    Membership.mem.{u_1, u_1} (TauCeti.weilDifferentialSpace.{u_1, u_1} k (RatFunc.{u_1} k)) ω ∧
+      IsGreatest.{u_1}
+          (Set.ofPred.{u_1} fun D => Membership.mem.{u_1, u_1} (TauCeti.weilDifferentialFiltration.{u_1, u_1} D) ω)
+          (HSMul.hSMul.{0, u_1, u_1} (-2)
+            (TauCeti.AlgebraicGeometry.WeilDivisor.ofPoint.{u_1} (TauCeti.Place.infty.{u_1} k))) ∧
+        Eq.{u_1 + 1}
+          ((TauCeti.repartitionDualComponent.{u_1, u_1} ω (TauCeti.Place.infty.{u_1} k))
+            (Inv.inv.{u_1} RatFunc.X.{u_1}))
+          (-1)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.exists_normalized_rational' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential.{u_1} : (k : Type u_1) →
+  [inst : Field.{u_1} k] → Module.Dual.{u_1, u_1} k ↥(TauCeti.repartitionSpace.{u_1, u_1} k (RatFunc.{u_1} k))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential_mem.{u_1} : ∀ (k : Type u_1) [inst : Field.{u_1} k],
+  Membership.mem.{u_1, u_1} (TauCeti.weilDifferentialSpace.{u_1, u_1} k (RatFunc.{u_1} k))
+    (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential.{u_1} k)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential_mem' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential_normalization.{u_1} : ∀ (k : Type u_1)
+  [inst : Field.{u_1} k],
+  Eq.{u_1 + 1}
+    ((TauCeti.repartitionDualComponent.{u_1, u_1}
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential.{u_1} k) (TauCeti.Place.infty.{u_1} k))
+      (Inv.inv.{u_1} RatFunc.X.{u_1}))
+    (-1)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential_normalization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential_ne_zero.{u_1} : ∀ (k : Type u_1) [inst : Field.{u_1} k],
+  Ne.{u_1 + 1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential.{u_1} k) 0
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalDifferential_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{u_1,
+    u_2} : {k : Type u_1} →
+  {F : Type u_2} →
+    [inst : Field.{u_1} k] →
+      [inst_1 : Field.{u_2} F] →
+        [inst_2 : Algebra.{u_1, u_2} k F] →
+          {x : F} →
+            TauCeti.IsFunctionField.{u_1, u_2} k F →
+              Transcendental.{u_1, u_2} k x →
+                [Algebra.IsSeparable.{u_2, u_2} (↥k⟮x⟯) F] → ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating_ne_zero.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] {x : F} (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hx : Transcendental.{u_1, u_2} k x) [inst_3 : Algebra.IsSeparable.{u_2, u_2} (↥k⟮x⟯) F],
+  Ne.{max (u_1 + 1) (u_2 + 1)} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{u_1, u_2} hF hx) 0
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialBasis.{u_1,
+    u_2} : {k : Type u_1} →
+  {F : Type u_2} →
+    [inst : Field.{u_1} k] →
+      [inst_1 : Field.{u_2} F] →
+        [inst_2 : Algebra.{u_1, u_2} k F] →
+          {x : F} →
+            (hF : TauCeti.IsFunctionField.{u_1, u_2} k F) →
+              IsIntegrallyClosedIn.{u_1, u_2} k F →
+                Transcendental.{u_1, u_2} k x →
+                  [Algebra.IsSeparable.{u_2, u_2} (↥k⟮x⟯) F] →
+                    Module.Basis.{0, u_2, max u_1 u_2} Unit F ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialBasis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{u_1,
+    u_2} : {k : Type u_1} →
+  {F : Type u_2} →
+    [inst : Field.{u_1} k] →
+      [inst_1 : Field.{u_2} F] →
+        [inst_2 : Algebra.{u_1, u_2} k F] →
+          {x : F} →
+            (hF : TauCeti.IsFunctionField.{u_1, u_2} k F) →
+              IsIntegrallyClosedIn.{u_1, u_2} k F →
+                Transcendental.{u_1, u_2} k x →
+                  [Algebra.IsSeparable.{u_2, u_2} (↥k⟮x⟯) F] →
+                    LinearEquiv.{u_2, u_2, u_2, max u_1 u_2} (RingHom.id.{u_2} F) (KaehlerDifferential.{u_1, u_2} k F)
+                      ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_D_self.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] {x : F} (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hex : IsIntegrallyClosedIn.{u_1, u_2} k F) (hx : Transcendental.{u_1, u_2} k x)
+  [inst_3 : Algebra.IsSeparable.{u_2, u_2} (↥k⟮x⟯) F],
+  Eq.{max (u_1 + 1) (u_2 + 1)}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{u_1, u_2} hF hex hx)
+      ((KaehlerDifferential.D.{u_1, u_2} k F) x))
+    (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{u_1, u_2} hF hx)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_D_self' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt.{u_1,
+    u_2} : {k : Type u_1} →
+  {F : Type u_2} →
+    [inst : Field.{u_1} k] →
+      [inst_1 : Field.{u_2} F] →
+        [inst_2 : Algebra.{u_1, u_2} k F] →
+          TauCeti.Place.{u_1, u_2} k F → ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F) → Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_iff_order_nonneg.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hex : IsIntegrallyClosedIn.{u_1, u_2} k F) (P : TauCeti.Place.{u_1, u_2} k F)
+  (ω : ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)) (hω : Ne.{max (u_1 + 1) (u_2 + 1)} (↑ω) 0),
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt.{u_1, u_2} P ω ↔
+    LE.le.{0} 0 (TauCeti.weilDifferentialOrder.{u_1, u_2} hF hex ⋯ hω P)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_iff_order_nonneg' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.mem_zeroFiltration_iff_regularAt.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] (ω : ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)),
+  Membership.mem.{max u_1 u_2, max u_2 u_1} (TauCeti.weilDifferentialFiltration.{u_1, u_2} 0) ↑ω ↔
+    ∀ (P : TauCeti.Place.{u_1, u_2} k F), ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt.{u_1, u_2} P ω
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.mem_zeroFiltration_iff_regularAt' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_smul_iff.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hex : IsIntegrallyClosedIn.{u_1, u_2} k F) (P : TauCeti.Place.{u_1, u_2} k F)
+  (ω : ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)) (hω : Ne.{max (u_1 + 1) (u_2 + 1)} (↑ω) 0),
+  Eq.{1} (TauCeti.weilDifferentialOrder.{u_1, u_2} hF hex ⋯ hω P) 0 →
+    ∀ (a : F),
+      ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt.{u_1, u_2} P
+          (HSMul.hSMul.{u_2, max u_1 u_2, max u_1 u_2} a ω) ↔
+        Membership.mem.{u_2, u_2} (TauCeti.Place.integers.{u_1, u_2} P) a
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_smul_iff' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.uniformizer_transcendental.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] (P : TauCeti.Place.{u_1, u_2} k F) {t : F},
+  Valuation.IsUniformizer.{0, u_2} (TauCeti.Place.valuation.{u_1, u_2} P) t → Transcendental.{u_1, u_2} k t
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.uniformizer_transcendental' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.uniformizer_D_ne_zero.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] [CharZero.{u_1} k],
+  TauCeti.IsFunctionField.{u_1, u_2} k F →
+    ∀ (P : TauCeti.Place.{u_1, u_2} k F) {t : F},
+      Valuation.IsUniformizer.{0, u_2} (TauCeti.Place.valuation.{u_1, u_2} P) t →
+        Ne.{u_2 + 1} ((KaehlerDifferential.D.{u_1, u_2} k F) t) 0
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.uniformizer_D_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_uniformizer_ne_zero.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] {x : F} [CharZero.{u_1} k] (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hex : IsIntegrallyClosedIn.{u_1, u_2} k F) (hx : Transcendental.{u_1, u_2} k x)
+  [inst_4 : Algebra.IsSeparable.{u_2, u_2} (↥k⟮x⟯) F] (P : TauCeti.Place.{u_1, u_2} k F) {t : F},
+  Valuation.IsUniformizer.{0, u_2} (TauCeti.Place.valuation.{u_1, u_2} P) t →
+    Ne.{max (u_1 + 1) (u_2 + 1)}
+      (↑((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{u_1, u_2} hF hex hx)
+          ((KaehlerDifferential.D.{u_1, u_2} k F) t)))
+      0
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_uniformizer_ne_zero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{u_1,
+    u_2} : {k : Type u_1} →
+  {F : Type u_2} →
+    [inst : Field.{u_1} k] →
+      [inst_1 : Field.{u_2} F] →
+        [inst_2 : Algebra.{u_1, u_2} k F] →
+          (P : TauCeti.Place.{u_1, u_2} k F) →
+            LinearMap.{u_1, u_1, u_2, u_2} (RingHom.id.{u_1} k)
+              (KaehlerDifferential.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P))
+              (KaehlerDifferential.{u_1, u_2} k F)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap_basis_formula.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] (P : TauCeti.Place.{u_1, u_2} k F) (t : ↥(TauCeti.Place.integers.{u_1, u_2} P))
+  (b :
+    Module.Basis.{0, u_2, u_2} Unit (↥(TauCeti.Place.integers.{u_1, u_2} P))
+      (KaehlerDifferential.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P))),
+  Eq.{u_2 + 1} (b ()) ((KaehlerDifferential.D.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P)) t) →
+    ∀ (ξ : KaehlerDifferential.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P)),
+      Eq.{u_2 + 1} ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{u_1, u_2} P) ξ)
+        (HSMul.hSMul.{u_2, u_2, u_2} (↑(((Module.Basis.repr.{0, u_2, u_2} b) ξ) ()))
+          ((KaehlerDifferential.D.{u_1, u_2} k F) ↑t))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap_basis_formula' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap_injective_of_uniformizerBasis.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] [CharZero.{u_1} k],
+  TauCeti.IsFunctionField.{u_1, u_2} k F →
+    ∀ (P : TauCeti.Place.{u_1, u_2} k F) (t : ↥(TauCeti.Place.integers.{u_1, u_2} P)),
+      Valuation.IsUniformizer.{0, u_2} (TauCeti.Place.valuation.{u_1, u_2} P) ↑t →
+        ∀
+          (b :
+            Module.Basis.{0, u_2, u_2} Unit (↥(TauCeti.Place.integers.{u_1, u_2} P))
+              (KaehlerDifferential.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P))),
+          Eq.{u_2 + 1} (b ()) ((KaehlerDifferential.D.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P)) t) →
+            Function.Injective.{u_2 + 1, u_2 + 1}
+              ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{u_1, u_2} P)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap_injective_of_uniformizerBasis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_comparison_iff_mem_local_range.{u_1,
+    u_2} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] {x : F} [inst_3 : CharZero.{u_1} k] (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hex : IsIntegrallyClosedIn.{u_1, u_2} k F) (hx : Transcendental.{u_1, u_2} k x)
+  [inst_4 : Algebra.IsSeparable.{u_2, u_2} (↥k⟮x⟯) F] (P : TauCeti.Place.{u_1, u_2} k F)
+  (t : ↥(TauCeti.Place.integers.{u_1, u_2} P))
+  (ht : Valuation.IsUniformizer.{0, u_2} (TauCeti.Place.valuation.{u_1, u_2} P) ↑t)
+  (b :
+    Module.Basis.{0, u_2, u_2} Unit (↥(TauCeti.Place.integers.{u_1, u_2} P))
+      (KaehlerDifferential.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P))),
+  Eq.{u_2 + 1} (b ()) ((KaehlerDifferential.D.{u_1, u_2} k ↥(TauCeti.Place.integers.{u_1, u_2} P)) t) →
+    Eq.{1} (TauCeti.weilDifferentialOrder.{u_1, u_2} hF hex ⋯ ⋯ P) 0 →
+      ∀ (η : KaehlerDifferential.{u_1, u_2} k F),
+        ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt.{u_1, u_2} P
+            ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{u_1, u_2} hF hex hx) η) ↔
+          Membership.mem.{u_2, u_2}
+            (LinearMap.range.{u_1, u_1, u_2, u_2}
+              (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{u_1, u_2} P))
+            η
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_comparison_iff_mem_local_range' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis : Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder : Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.moduleStalk : {X : AlgebraicGeometry.Scheme.{0}} →
+  (M : AlgebraicGeometry.Scheme.Modules.{0} X) →
+    (p : ↥X) →
+      Module.{0, 0}
+        ↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            p)
+        ↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.moduleStalk' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.moduleGerm_smul : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  (M : AlgebraicGeometry.Scheme.Modules.{0} X) (p : ↥X) (U : AlgebraicGeometry.Scheme.Opens.{0} X)
+  (hp : Membership.mem.{0, 0} U p)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        (Opposite.op.{1} U)))
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (Opposite.op.{1} U))),
+  Eq.{1}
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+      (HSMul.hSMul.{0, 0, 0} a s))
+    (HSMul.hSMul.{0, 0, 0}
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            U p hp))
+        a)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+        s))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.moduleGerm_smul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericGerm_injective : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (M : AlgebraicGeometry.Scheme.Modules.{0} X),
+  (∀ (p : ↥X),
+      Function.Injective.{1, 1}
+        ⇑(CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (TopCat.Presheaf.stalkSpecializes.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) ⋯))) →
+    ∀ (U : AlgebraicGeometry.Scheme.Opens.{0} X) [inst_1 : Nonempty.{1} ↥↑U],
+      Function.Injective.{1, 1}
+        ⇑(CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U (genericPoint.{0} ↥X) ⋯))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericGerm_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.existsUnique_section_of_mem_local_stalks : ∀
+  {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+  (M : AlgebraicGeometry.Scheme.Modules.{0} X),
+  (∀ (p : ↥X),
+      Function.Injective.{1, 1}
+        ⇑(CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (TopCat.Presheaf.stalkSpecializes.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) ⋯))) →
+    ∀ (U : AlgebraicGeometry.Scheme.Opens.{0} X) [inst_1 : Nonempty.{1} ↥↑U]
+      (η : ↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (genericPoint.{0} ↥X))),
+      (∀ (p : ↥X),
+          Membership.mem.{0, 0} U p →
+            Membership.mem.{0, 0}
+              (Set.range.{0, 1}
+                ⇑(CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+                    (TopCat.Presheaf.stalkSpecializes.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) ⋯)))
+              η) →
+        ExistsUnique.{1} fun s =>
+          Eq.{1}
+            ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+                (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U (genericPoint.{0} ↥X)
+                  ⋯))
+              s)
+            η
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.existsUnique_section_of_mem_local_stalks' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkSpecializationLinear : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (M : AlgebraicGeometry.Scheme.Modules.{0} X) →
+      (p : ↥X) →
+        LinearMap.{0, 0, 0, 0}
+          (RingHom.id.{0}
+            ↑(TopCat.Presheaf.stalk.{0, 1}
+                (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                  (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                    (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                      (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                p))
+          ↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p)
+          ↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (genericPoint.{0} ↥X))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkSpecializationLinear' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkSpecializationLinear_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (M : AlgebraicGeometry.Scheme.Modules.{0} X) (p : ↥X)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkSpecializationLinear M p)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+        s))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U (genericPoint.{0} ↥X) ⋯))
+      s)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkSpecializationLinear_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation : {X : AlgebraicGeometry.Scheme.{0}} →
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+    PresheafOfModulesOfCommRing.Derivation'.{0, 0, 0, 0}
+      (SheafOfModules.val.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+      (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap f)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData : {X : AlgebraicGeometry.Scheme.{0}} →
+  [AlgebraicGeometry.IsIntegral.{0} X] → Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ) → Type
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.StalkDifferentials : Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.StalkDifferentials' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData.specializes_equiv : ∀
+  {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+  {f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)}
+  (d : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData f) (p : ↥X)
+  (ξ :
+    KaehlerDifferential.{0, 0} ℚ
+      ↑(TopCat.Presheaf.stalk.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          p)),
+  Eq.{1}
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.stalkSpecializes.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f)) ⋯))
+      ((d.equiv p) ξ))
+    ((d.equiv (genericPoint.{0} ↥X))
+      ((KaehlerDifferential.map.{0, 0, 0, 0} ℚ ℚ
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p)
+          ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+        ξ))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData.specializes_equiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialHomEquiv : {X : AlgebraicGeometry.Scheme.{0}} →
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+    (N : AlgebraicGeometry.Scheme.Modules.{0} X) →
+      Equiv.{1, 1} (Quiver.Hom.{0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f) N)
+        (PresheafOfModulesOfCommRing.Derivation'.{0, 0, 0, 0} (SheafOfModules.val.{0, 0, 0, 0} N)
+          (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap f))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialHomEquiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialHomEquiv_symm_app_d : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (N : AlgebraicGeometry.Scheme.Modules.{0} X)
+  (D :
+    PresheafOfModulesOfCommRing.Derivation'.{0, 0, 0, 0} (SheafOfModules.val.{0, 0, 0, 0} N)
+      (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap f))
+  (U : Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} X))
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        U)),
+  Eq.{1}
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (PresheafOfModules.Hom.app.{0, 0, 0, 0}
+          (SheafOfModules.Hom.val.{0, 0, 0, 0}
+            ((Equiv.symm.{1, 1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialHomEquiv f N)) D))
+          U))
+      ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+        a))
+    ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0} D) a)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialHomEquiv_symm_app_d' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.inverseImageMap_unit : ∀ {Y S : AlgebraicGeometry.Scheme.{0}}
+  (g : Quiver.Hom.{0, 1} Y S),
+  Eq.{1}
+    (CategoryTheory.CategoryStruct.comp.{0, 1}
+      (CategoryTheory.NatTrans.app.{0, 0, 1, 1}
+        (CategoryTheory.Adjunction.unit.{0, 0, 1, 1}
+          (TopCat.Presheaf.pullbackPushforwardAdjunction.{0, 1} CommRingCat.{0}
+            (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0} (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} g)))))
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} S)))))
+      (CategoryTheory.Functor.map.{0, 0, 1, 1}
+        (TopCat.Presheaf.pushforward.{0, 0, 1} CommRingCat.{0}
+          (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0} (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} g))))
+        (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap g)))
+    (AlgebraicGeometry.PresheafedSpace.Hom.c.{0, 1, 0}
+      (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0} (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} g)))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.inverseImageMap_unit' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.inverseImageMap_appLE_factor : ∀ {Y S : AlgebraicGeometry.Scheme.{0}}
+  (g : Quiver.Hom.{0, 1} Y S) (U : AlgebraicGeometry.Scheme.Opens.{0} S) (V : AlgebraicGeometry.Scheme.Opens.{0} Y)
+  (h :
+    LE.le.{0} V
+      (CategoryTheory.Functor.obj.{0, 0, 0, 0}
+        (TopologicalSpace.Opens.map.{0}
+          (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0} (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} g))))
+        U)),
+  Eq.{1} (AlgebraicGeometry.Scheme.Hom.appLE.{0} g U V h)
+    (CategoryTheory.CategoryStruct.comp.{0, 1}
+      (CategoryTheory.NatTrans.app.{0, 0, 0, 1}
+        (CategoryTheory.NatTrans.app.{0, 0, 1, 1}
+          (CategoryTheory.Adjunction.unit.{0, 0, 1, 1}
+            (TopCat.Presheaf.pullbackPushforwardAdjunction.{0, 1} CommRingCat.{0}
+              (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0} (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} g)))))
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} S)))))
+        (Opposite.op.{1} U))
+      (CategoryTheory.CategoryStruct.comp.{0, 1}
+        (CategoryTheory.Functor.map.{0, 0, 0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructure g)
+          (Quiver.Hom.op.{0, 0} (CategoryTheory.homOfLE.{0} h)))
+        (CategoryTheory.NatTrans.app.{0, 0, 0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap g)
+          (Opposite.op.{1} V))))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.inverseImageMap_appLE_factor' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation_base_constant : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (U : AlgebraicGeometry.Scheme.Opens.{0} X) (c : ℚ),
+  Eq.{1}
+    ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Hom.appLE.{0} f Top.top.{0} U ⋯))
+        ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (CategoryTheory.Iso.inv.{0, 1} (AlgebraicGeometry.Scheme.ΓSpecIso.{0} ↧ℚ)))
+          c)))
+    0
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation_base_constant' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.germ_base_constant : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X) (U : AlgebraicGeometry.Scheme.Opens.{0} X)
+  (hp : Membership.mem.{0, 0} U p) (c : ℚ),
+  Eq.{1}
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          U p hp))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Hom.appLE.{0} f Top.top.{0} U ⋯))
+        ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (CategoryTheory.Iso.inv.{0, 1} (AlgebraicGeometry.Scheme.ΓSpecIso.{0} ↧ℚ)))
+          c)))
+    ((algebraMap.{0, 0} ℚ
+        ↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            p))
+      c)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.germ_base_constant' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation_map : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) {U V : Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} X)}
+  (i : Quiver.Hom.{0, 0} U V)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        U)),
+  Eq.{1}
+    ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (CategoryTheory.Functor.map.{0, 0, 0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            i))
+        a))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (CategoryTheory.Functor.map.{0, 0, 0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f)) i))
+      ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+        a))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation_map' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeCocone : {X : AlgebraicGeometry.Scheme.{0}} →
+  Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ) →
+    (p : ↥X) →
+      CategoryTheory.Limits.Cocone.{0, 0, 0, 1}
+        (CategoryTheory.Functor.comp.{0, 0, 0, 0, 0, 1}
+          (CategoryTheory.Functor.op.{0, 0, 0, 0} (TopologicalSpace.OpenNhds.inclusion.{0} p))
+          (CategoryTheory.Functor.comp.{0, 0, 0, 0, 1, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            (CategoryTheory.Functor.comp.{0, 0, 0, 1, 1, 1}
+              (CategoryTheory.forget₂.{0, 0, 1, 0, 0, 1, 0} CommRingCat.{0} RingCat.{0})
+              (CategoryTheory.forget₂.{0, 0, 1, 0, 0, 1, 0} RingCat.{0} AddCommGrpCat.{0}))))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeCocone' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd : {X : AlgebraicGeometry.Scheme.{0}} →
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+    (p : ↥X) →
+      AddMonoidHom.{0, 0}
+        ↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            p)
+        ↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+            p)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X) (U : AlgebraicGeometry.Scheme.Opens.{0} X)
+  (hp : Membership.mem.{0, 0} U p)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd f p)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            U p hp))
+        a))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f)) U p
+          hp))
+      ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+        a))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_algebraMap : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X) (c : ℚ),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd f p)
+      ((algebraMap.{0, 0} ℚ
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p))
+        c))
+    0
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_algebraMap' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_mul : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X)
+  (r s :
+    ↑(TopCat.Presheaf.stalk.{0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        p)),
+  Eq.{1} ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd f p) (HMul.hMul.{0, 0, 0} r s))
+    (HAdd.hAdd.{0, 0, 0}
+      (HSMul.hSMul.{0, 0, 0} r ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd f p) s))
+      (HSMul.hSMul.{0, 0, 0} s ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd f p) r)))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivativeAdd_mul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivative : {X : AlgebraicGeometry.Scheme.{0}} →
+  [AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      (p : ↥X) →
+        Derivation.{0, 0, 0} ℚ
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p)
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+              p)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivative' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivative_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivative f p)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            U p hp))
+        a))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f)) U p
+          hp))
+      ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+        a))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDerivative_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalSkySections : {X : AlgebraicGeometry.Scheme.{0}} →
+  ↥X → Type → AlgebraicGeometry.Scheme.Opens.{0} X → Type
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalSkySections' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyAddGroup : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [AddCommGroup.{0} N] →
+        (U : AlgebraicGeometry.Scheme.Opens.{0} X) →
+          AddCommGroup.{0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalSkySections p N U)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyAddGroup' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkySMul : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          (U : AlgebraicGeometry.Scheme.Opens.{0} X) →
+            SMul.{0, 0}
+              (↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  (Opposite.op.{1} U)))
+              (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalSkySections p N U)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkySMul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyModule : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          (U : AlgebraicGeometry.Scheme.Opens.{0} X) →
+            Module.{0, 0}
+              (↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  (Opposite.op.{1} U)))
+              (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalSkySections p N U)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyModule' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf : {X : AlgebraicGeometry.Scheme.{0}} →
+  ↥X →
+    (N : Type) →
+      [AddCommGroup.{0} N] →
+        CategoryTheory.Functor.{0, 0, 0, 1} (Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} X)) AddCommGrpCat.{0}
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheafModule : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          (U : Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} X)) →
+            Module.{0, 0}
+              ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (CategoryTheory.ObjectProperty.FullSubcategory.obj.{0, 1}
+                    (AlgebraicGeometry.Scheme.ringCatSheaf.{0} X))
+                  U)
+              ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf p N) U)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheafModule' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf_map_smul : ∀ {X : AlgebraicGeometry.Scheme.{0}} (p : ↥X)
+  (N : Type) [inst : AddCommGroup.{0} N]
+  [inst_1 :
+    Module.{0, 0}
+      (↑(TopCat.Presheaf.stalk.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          p))
+      N]
+  {U V : Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} X)} (i : Quiver.Hom.{0, 0} U V)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (CategoryTheory.ObjectProperty.FullSubcategory.obj.{0, 1} (AlgebraicGeometry.Scheme.ringCatSheaf.{0} X)) U))
+  (s : ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf p N) U)),
+  Eq.{1}
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (CategoryTheory.Functor.map.{0, 0, 0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf p N) i))
+      (HSMul.hSMul.{0, 0, 0} a s))
+    (HSMul.hSMul.{0, 0, 0}
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (CategoryTheory.Functor.map.{0, 0, 0, 1}
+            (CategoryTheory.ObjectProperty.FullSubcategory.obj.{0, 1} (AlgebraicGeometry.Scheme.ringCatSheaf.{0} X)) i))
+        a)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (CategoryTheory.Functor.map.{0, 0, 0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf p N) i))
+        s))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf_map_smul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf_isSheaf : ∀ {X : AlgebraicGeometry.Scheme.{0}} (p : ↥X)
+  (N : Type) [inst : AddCommGroup.{0} N],
+  CategoryTheory.Presheaf.IsSheaf.{0, 0, 0, 1} (Opens.grothendieckTopology.{0} ↥X)
+    (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf p N)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyPresheaf_isSheaf' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          AlgebraicGeometry.Scheme.Modules.{0} X
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.toLocalSky : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [inst_1 :
+            Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          {M : AlgebraicGeometry.Scheme.Modules.{0} X} →
+            LinearMap.{0, 0, 0, 0}
+                (RingHom.id.{0}
+                  ↑(TopCat.Presheaf.stalk.{0, 1}
+                      (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                        (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                          (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                            (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                      p))
+                (↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p)) N →
+              Quiver.Hom.{0, 1} M (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky p N)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.toLocalSky' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.toLocalSky_app : ∀ {X : AlgebraicGeometry.Scheme.{0}} (p : ↥X) (N : Type)
+  [inst : AddCommGroup.{0} N]
+  [inst_1 :
+    Module.{0, 0}
+      (↑(TopCat.Presheaf.stalk.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          p))
+      N]
+  {M : AlgebraicGeometry.Scheme.Modules.{0} X}
+  (l :
+    LinearMap.{0, 0, 0, 0}
+      (RingHom.id.{0}
+        ↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            p))
+      (↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p)) N)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X)
+  (s : ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (Opposite.op.{1} U)))
+  (hp : Membership.mem.{0, 0} U p),
+  Eq.{1}
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (AlgebraicGeometry.Scheme.Modules.Hom.app.{0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.toLocalSky p N l) U))
+      s (PLift.up.{0} hp))
+    (l
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+        s))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.toLocalSky_app' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapCocone : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [inst_1 :
+            Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          {M : AlgebraicGeometry.Scheme.Modules.{0} X} →
+            Quiver.Hom.{0, 1} M (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky p N) →
+              CategoryTheory.Limits.Cocone.{0, 0, 0, 1}
+                (CategoryTheory.Functor.comp.{0, 0, 0, 0, 0, 1}
+                  (CategoryTheory.Functor.op.{0, 0, 0, 0} (TopologicalSpace.OpenNhds.inclusion.{0} p))
+                  (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapCocone' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapAdd : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [inst_1 :
+            Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          {M : AlgebraicGeometry.Scheme.Modules.{0} X} →
+            Quiver.Hom.{0, 1} M (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky p N) →
+              AddMonoidHom.{0, 0} (↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p))
+                N
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapAdd' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapAdd_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}} (p : ↥X)
+  (N : Type) [inst : AddCommGroup.{0} N]
+  [inst_1 :
+    Module.{0, 0}
+      (↑(TopCat.Presheaf.stalk.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          p))
+      N]
+  {M : AlgebraicGeometry.Scheme.Modules.{0} X}
+  (h : Quiver.Hom.{0, 1} M (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky p N))
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapAdd p N h)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+        s))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Modules.Hom.app.{0} h U)) s
+      (PLift.up.{0} hp))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapAdd_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localStalkLinearMapMk : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [inst_1 :
+            Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          {M : AlgebraicGeometry.Scheme.Modules.{0} X} →
+            (l :
+                AddMonoidHom.{0, 0}
+                  (↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p)) N) →
+              (∀ (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+                  (a :
+                    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                        (Opposite.op.{1} U)))
+                  (s :
+                    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M)
+                        (Opposite.op.{1} U))),
+                  Eq.{1}
+                    (l
+                      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+                          (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+                        (HSMul.hSMul.{0, 0, 0} a s)))
+                    (HSMul.hSMul.{0, 0, 0}
+                      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+                          (TopCat.Presheaf.germ.{0, 1}
+                            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                            U p hp))
+                        a)
+                      (l
+                        ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+                            (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+                          s)))) →
+                LinearMap.{0, 0, 0, 0}
+                  (RingHom.id.{0}
+                    ↑(TopCat.Presheaf.stalk.{0, 1}
+                        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                        p))
+                  (↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p)) N
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localStalkLinearMapMk' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapLinear : {X : AlgebraicGeometry.Scheme.{0}} →
+  (p : ↥X) →
+    (N : Type) →
+      [inst : AddCommGroup.{0} N] →
+        [inst_1 :
+            Module.{0, 0}
+              (↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))
+              N] →
+          {M : AlgebraicGeometry.Scheme.Modules.{0} X} →
+            Quiver.Hom.{0, 1} M (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky p N) →
+              LinearMap.{0, 0, 0, 0}
+                (RingHom.id.{0}
+                  ↑(TopCat.Presheaf.stalk.{0, 1}
+                      (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                        (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                          (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                            (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                      p))
+                (↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) p)) N
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapLinear' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapLinear_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [AlgebraicGeometry.IsIntegral.{0} X] (p : ↥X) (N : Type) [inst : AddCommGroup.{0} N]
+  [inst_1 :
+    Module.{0, 0}
+      (↑(TopCat.Presheaf.stalk.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          p))
+      N]
+  {M : AlgebraicGeometry.Scheme.Modules.{0} X}
+  (h : Quiver.Hom.{0, 1} M (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky p N))
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapLinear p N h)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) U p hp))
+        s))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Modules.Hom.app.{0} h U)) s
+      (PLift.up.{0} hp))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSkyMapLinear_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.inverseImageStructureMap_exists_appLE : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (W : AlgebraicGeometry.Scheme.Opens.{0} X)
+  (b :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructure f)
+        (Opposite.op.{1} W))),
+  ∃ V,
+    ∃ (h :
+      LE.le.{0} W
+        (CategoryTheory.Functor.obj.{0, 0, 0, 0}
+          (TopologicalSpace.Opens.map.{0}
+            (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0} (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} f))))
+          V)),
+      ∃ a,
+        Eq.{1}
+          ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+              (CategoryTheory.NatTrans.app.{0, 0, 0, 1}
+                (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap f) (Opposite.op.{1} W)))
+            b)
+          ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Hom.appLE.{0} f V W h)) a)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.inverseImageStructureMap_exists_appLE' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerSkyDerivation : {X : AlgebraicGeometry.Scheme.{0}} →
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+    (p : ↥X) →
+      PresheafOfModulesOfCommRing.Derivation'.{0, 0, 0, 0}
+        (SheafOfModules.val.{0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localSky p
+            (KaehlerDifferential.{0, 0} ℚ
+              ↑(TopCat.Presheaf.stalk.{0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                  p))))
+        (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap f)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerSkyDerivation' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerToSheaf : {X : AlgebraicGeometry.Scheme.{0}} →
+  [AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      (p : ↥X) →
+        LinearMap.{0, 0, 0, 0}
+          (RingHom.id.{0}
+            ↑(TopCat.Presheaf.stalk.{0, 1}
+                (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                  (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                    (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                      (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                p))
+          (KaehlerDifferential.{0, 0} ℚ
+            ↑(TopCat.Presheaf.stalk.{0, 1}
+                (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                  (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                    (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                      (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                p))
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+              p)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerToSheaf' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerToSheaf_D_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerToSheaf f p)
+      ((KaehlerDifferential.D.{0, 0} ℚ
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p))
+        ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (TopCat.Presheaf.germ.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              U p hp))
+          a)))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f)) U p
+          hp))
+      ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+        a))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerToSheaf_D_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.sheafToLocalKaehler : {X : AlgebraicGeometry.Scheme.{0}} →
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+    (p : ↥X) →
+      LinearMap.{0, 0, 0, 0}
+        (RingHom.id.{0}
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p))
+        (↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+            p))
+        (KaehlerDifferential.{0, 0} ℚ
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.sheafToLocalKaehler' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.sheafToLocalKaehler_D_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.sheafToLocalKaehler f p)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f)) U
+            p hp))
+        ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+            (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+          a)))
+    ((KaehlerDifferential.D.{0, 0} ℚ
+        ↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            p))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            U p hp))
+        a))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.sheafToLocalKaehler_D_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv : {X : AlgebraicGeometry.Scheme.{0}} →
+  [AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      (p : ↥X) →
+        LinearEquiv.{0, 0, 0, 0}
+          (RingHom.id.{0}
+            ↑(TopCat.Presheaf.stalk.{0, 1}
+                (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                  (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                    (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                      (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                p))
+          (KaehlerDifferential.{0, 0} ℚ
+            ↑(TopCat.Presheaf.stalk.{0, 1}
+                (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                  (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                    (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                      (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                p))
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+              p)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv_D_germ : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (p : ↥X)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} X) (hp : Membership.mem.{0, 0} U p)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv f p)
+      ((KaehlerDifferential.D.{0, 0} ℚ
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p))
+        ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (TopCat.Presheaf.germ.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              U p hp))
+          a)))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f)) U p
+          hp))
+      ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+        a))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv_D_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDifferentials : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.StalkDifferentials
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkDifferentials' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalk_isField_or_discreteValuationRing : ∀
+  {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [AlgebraicGeometry.Smooth.{0} f],
+  Eq.{1} (topologicalKrullDim.{0} ↥X) 1 →
+    ∀ (p : ↥X),
+      IsField.{0}
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p) ∨
+        IsDiscreteValuationRing.{0}
+          ↑(TopCat.Presheaf.stalk.{0, 1}
+              (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                  (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                    (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+              p)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalk_isField_or_discreteValuationRing' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkPlace : {k : Type} →
+  [inst : Field.{0} k] →
+    {X : AlgebraicGeometry.Scheme.{0}} →
+      [inst_1 : AlgebraicGeometry.IsIntegral.{0} X] →
+        (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧k)) →
+          (p : ↥X) →
+            [IsDiscreteValuationRing.{0}
+                  ↑(TopCat.Presheaf.stalk.{0, 1}
+                      (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                        (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                          (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                            (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                      p)] →
+              TauCeti.Place.{0, 0} k ↑(AlgebraicGeometry.Scheme.functionField.{0} X)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkPlace' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkPlace_integers : ∀ {k : Type} [inst : Field.{0} k]
+  {X : AlgebraicGeometry.Scheme.{0}} [inst_1 : AlgebraicGeometry.IsIntegral.{0} X]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧k)) (p : ↥X)
+  [inst_2 :
+    IsDiscreteValuationRing.{0}
+      ↑(TopCat.Presheaf.stalk.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          p)],
+  Eq.{1}
+    (ValuationSubring.toSubring.{0}
+      (TauCeti.Place.integers.{0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkPlace f p)))
+    (Subring.map.{0, 0}
+      (algebraMap.{0, 0}
+        ↑(TopCat.Presheaf.stalk.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+            p)
+        ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+      Top.top.{0})
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkPlace_integers' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.fractionMap_surjective : ∀ {A K : Type} [inst : Field.{0} A]
+  [inst_1 : Field.{0} K] [inst_2 : Algebra.{0, 0} A K] [IsFractionRing.{0, 0} A K],
+  Function.Surjective.{1, 1} ⇑(algebraMap.{0, 0} A K)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.fractionMap_surjective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.everyPlace_has_stalk_model : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  [AlgebraicGeometry.Smooth.{0} f] [AlgebraicGeometry.IsProper.{0} f],
+  Eq.{1} (topologicalKrullDim.{0} ↥X) 1 →
+    ∀ (P : TauCeti.Place.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X)),
+      ∃ p,
+        IsDiscreteValuationRing.{0}
+            ↑(TopCat.Presheaf.stalk.{0, 1}
+                (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                  (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                    (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                      (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                p) ∧
+          Eq.{1} (ValuationSubring.toSubring.{0} (TauCeti.Place.integers.{0, 0} P))
+            (Subring.map.{0, 0}
+              (algebraMap.{0, 0}
+                ↑(TopCat.Presheaf.stalk.{0, 1}
+                    (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                      (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                        (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                          (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                    p)
+                ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+              Top.top.{0})
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.everyPlace_has_stalk_model' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerMap_bijective_of_bijective.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} [inst : Field.{u_1} k] {A : Type u_2} {B : Type u_3} [inst_1 : CommRing.{u_2} A]
+  [inst_2 : CommRing.{u_3} B] [inst_3 : Algebra.{u_1, u_2} k A] [inst_4 : Algebra.{u_1, u_3} k B]
+  [inst_5 : Algebra.{u_2, u_3} A B] [inst_6 : IsScalarTower.{u_1, u_2, u_3} k A B],
+  Function.Bijective.{u_2 + 1, u_3 + 1} ⇑(algebraMap.{u_2, u_3} A B) →
+    Function.Bijective.{u_2 + 1, u_3 + 1} ⇑(KaehlerDifferential.map.{u_1, u_1, u_2, u_3} k k A B)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerMap_bijective_of_bijective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.modelRingEquiv.{u_1, u_2,
+    u_3} : {k : Type u_1} →
+  {F : Type u_2} →
+    [inst : Field.{u_1} k] →
+      [inst_1 : Field.{u_2} F] →
+        [inst_2 : Algebra.{u_1, u_2} k F] →
+          {A : Type u_3} →
+            [inst_3 : CommRing.{u_3} A] →
+              [inst_4 : Algebra.{u_1, u_3} k A] →
+                [inst_5 : Algebra.{u_3, u_2} A F] →
+                  [IsScalarTower.{u_1, u_3, u_2} k A F] →
+                    (P : TauCeti.Place.{u_1, u_2} k F) →
+                      Eq.{u_2 + 1} (ValuationSubring.toSubring.{u_2} (TauCeti.Place.integers.{u_1, u_2} P))
+                          (Subring.map.{u_3, u_2} (algebraMap.{u_3, u_2} A F) Top.top.{u_3}) →
+                        Function.Injective.{u_3 + 1, u_2 + 1} ⇑(algebraMap.{u_3, u_2} A F) →
+                          AlgEquiv.{u_1, u_3, u_2} k A ↥(TauCeti.Place.integers.{u_1, u_2} P)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.modelRingEquiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.modelRingEquiv_val.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] {A : Type u_3} [inst_3 : CommRing.{u_3} A] [inst_4 : Algebra.{u_1, u_3} k A]
+  [inst_5 : Algebra.{u_3, u_2} A F] [inst_6 : IsScalarTower.{u_1, u_3, u_2} k A F] (P : TauCeti.Place.{u_1, u_2} k F)
+  (hP :
+    Eq.{u_2 + 1} (ValuationSubring.toSubring.{u_2} (TauCeti.Place.integers.{u_1, u_2} P))
+      (Subring.map.{u_3, u_2} (algebraMap.{u_3, u_2} A F) Top.top.{u_3}))
+  (hinj : Function.Injective.{u_3 + 1, u_2 + 1} ⇑(algebraMap.{u_3, u_2} A F)) (a : A),
+  Eq.{u_2 + 1} (↑((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.modelRingEquiv.{u_1, u_2, u_3} P hP hinj) a))
+    ((algebraMap.{u_3, u_2} A F) a)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.modelRingEquiv_val' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehler_local_image_transport.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Algebra.{u_1, u_2} k F] {A : Type u_3} [inst_3 : CommRing.{u_3} A] [inst_4 : Algebra.{u_1, u_3} k A]
+  [inst_5 : Algebra.{u_3, u_2} A F] [inst_6 : IsScalarTower.{u_1, u_3, u_2} k A F] (P : TauCeti.Place.{u_1, u_2} k F),
+  Eq.{u_2 + 1} (ValuationSubring.toSubring.{u_2} (TauCeti.Place.integers.{u_1, u_2} P))
+      (Subring.map.{u_3, u_2} (algebraMap.{u_3, u_2} A F) Top.top.{u_3}) →
+    Function.Injective.{u_3 + 1, u_2 + 1} ⇑(algebraMap.{u_3, u_2} A F) →
+      Function.Injective.{u_2 + 1, u_2 + 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{u_1, u_2} P) →
+        Function.Injective.{u_3 + 1, u_2 + 1} ⇑(KaehlerDifferential.map.{u_1, u_1, u_3, u_2} k k A F) ∧
+          ∀ (η : KaehlerDifferential.{u_1, u_2} k F),
+            Membership.mem.{u_2, u_2} (Set.range.{u_2, u_3 + 1} ⇑(KaehlerDifferential.map.{u_1, u_1, u_3, u_2} k k A F))
+                η ↔
+              Membership.mem.{u_2, u_2}
+                (LinearMap.range.{u_1, u_1, u_2, u_2}
+                  (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{u_1, u_2} P))
+                η
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehler_local_image_transport' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localComparison_of_uniformizer_facts : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ∀ (k F : Type) [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] [CharZero.{0} k]
+      (hF : TauCeti.IsFunctionField.{0, 0} k F) (hex : IsIntegrallyClosedIn.{0, 0} k F) (x : F)
+      (hx : Transcendental.{0, 0} k x) [inst_4 : Algebra.IsSeparable.{0, 0} (↥k⟮x⟯) F] (P : TauCeti.Place.{0, 0} k F),
+      Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{0, 0} P) ∧
+        ∀ (η : KaehlerDifferential.{0, 0} k F),
+          ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt.{0, 0} P
+              ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF hex hx) η) ↔
+            Membership.mem.{0, 0}
+              (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localKaehlerMap.{0, 0} P)) η
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.localComparison_of_uniformizer_facts' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      (p : ↥X) →
+        LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+          (KaehlerDifferential.{0, 0} ℚ
+            ↑(TopCat.Presheaf.stalk.{0, 1}
+                (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                  (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                    (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                      (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+                p))
+          (KaehlerDifferential.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap_injective : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ∀ {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [AlgebraicGeometry.Smooth.{0} f],
+    Eq.{1} (topologicalKrullDim.{0} ↥X) 1 →
+      ∀ (p : ↥X), Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap f p)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_iff_mem_stalk_ranges : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ∀ {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [AlgebraicGeometry.Smooth.{0} f]
+      [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+      (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+      (hx : Transcendental.{0, 0} ℚ x),
+      have hF := ⋯;
+      have hex := ⋯;
+      ∀ (η : KaehlerDifferential.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X)),
+        (∀ (P : TauCeti.Place.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X)),
+            ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularAt.{0, 0} P
+              ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF hex hx) η)) ↔
+          ∀ (p : ↥X),
+            Membership.mem.{0, 0}
+              (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap f p)) η
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularAt_iff_mem_stalk_ranges' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericGermLinear : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      (M : AlgebraicGeometry.Scheme.Modules.{0} X) →
+        LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+          ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M)
+              (Opposite.op.{1} Top.top.{0}))
+          ↑(TopCat.Presheaf.stalk.{0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) (genericPoint.{0} ↥X))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericGermLinear' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData f →
+        LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+          (↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+              (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+              (Opposite.op.{1} Top.top.{0})))
+          (KaehlerDifferential.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData.specializes_injective : ∀
+  {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (d : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData f),
+  (∀ (p : ↥X), Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap f p)) →
+    ∀ (p : ↥X),
+      Function.Injective.{1, 1}
+        ⇑(CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+            (TopCat.Presheaf.stalkSpecializes.{0, 1}
+              (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+              ⋯))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData.specializes_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction_injective : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (d : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData f),
+  (∀ (p : ↥X), Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap f p)) →
+    Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction f d)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction_range_iff_mem_stalk_ranges : ∀
+  {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (d : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData f),
+  (∀ (p : ↥X), Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap f p)) →
+    ∀ (η : KaehlerDifferential.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X)),
+      Membership.mem.{0, 0}
+          (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction f d)) η ↔
+        ∀ (p : ↥X),
+          Membership.mem.{0, 0}
+            (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerMap f p)) η
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.rationalRestriction_range_iff_mem_stalk_ranges' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparison_of_local_inputs : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.StalkDifferentials →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+    ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+      ZInQ.Contrib.RC53Assist.AbelianCurve.RegularDifferentialComparison
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparison_of_local_inputs' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparison_of_uniformizer_inputs : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ZInQ.Contrib.RC53Assist.AbelianCurve.RegularDifferentialComparison
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparison_of_uniformizer_inputs' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.abelian_genus_one_of_uniformizer_inputs : ZInQ.Contrib.RC53Assist.AbelianCurve.InvariantDifferentialTrivialization →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+    ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+      ∀ (G : CategoryTheory.Over.{0, 1} (AlgebraicGeometry.Spec.{0} ↧ℚ)) [CategoryTheory.GrpObj.{0, 1} G]
+        [inst : AlgebraicGeometry.IsIntegral.{0} (CategoryTheory.Over.left.{0, 1} G)]
+        [AlgebraicGeometry.Smooth.{0} (CategoryTheory.Over.hom.{0, 1} G)]
+        [AlgebraicGeometry.IsProper.{0} (CategoryTheory.Over.hom.{0, 1} G)]
+        [AlgebraicGeometry.GeometricallyIntegral.{0} (CategoryTheory.Over.hom.{0, 1} G)],
+        Eq.{1} (topologicalKrullDim.{0} ↥(CategoryTheory.Over.left.{0, 1} G)) 1 →
+          Eq.{1}
+            (TauCeti.genus.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} (CategoryTheory.Over.left.{0, 1} G))) 1
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.abelian_genus_one_of_uniformizer_inputs' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{u_1, u_2,
+    u_3} : {k : Type u_1} →
+  {F : Type u_2} →
+    {F' : Type u_3} →
+      [inst : Field.{u_1} k] →
+        [inst_1 : Field.{u_2} F] →
+          [inst_2 : Field.{u_3} F'] →
+            [inst_3 : Algebra.{u_1, u_2} k F] →
+              [inst_4 : Algebra.{u_1, u_3} k F'] →
+                AlgEquiv.{u_1, u_2, u_3} k F F' →
+                  LinearMap.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} k) (KaehlerDifferential.{u_1, u_2} k F)
+                    (KaehlerDifferential.{u_1, u_3} k F')
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport_D.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} {F' : Type u_3} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Field.{u_3} F'] [inst_3 : Algebra.{u_1, u_2} k F] [inst_4 : Algebra.{u_1, u_3} k F']
+  (σ : AlgEquiv.{u_1, u_2, u_3} k F F') (a : F),
+  Eq.{u_3 + 1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{u_1, u_2, u_3} σ)
+      ((KaehlerDifferential.D.{u_1, u_2} k F) a))
+    ((KaehlerDifferential.D.{u_1, u_3} k F') (σ a))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport_D' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport_smul.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} {F' : Type u_3} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Field.{u_3} F'] [inst_3 : Algebra.{u_1, u_2} k F] [inst_4 : Algebra.{u_1, u_3} k F']
+  (σ : AlgEquiv.{u_1, u_2, u_3} k F F') (a : F) (η : KaehlerDifferential.{u_1, u_2} k F),
+  Eq.{u_3 + 1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{u_1, u_2, u_3} σ)
+      (HSMul.hSMul.{u_2, u_2, u_2} a η))
+    (HSMul.hSMul.{u_3, u_3, u_3} (σ a)
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{u_1, u_2, u_3} σ) η))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport_smul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.fieldIso_finiteDimensional.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} {F' : Type u_3} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Field.{u_3} F'] [inst_3 : Algebra.{u_1, u_2} k F] [inst_4 : Algebra.{u_1, u_3} k F']
+  (σ : AlgEquiv.{u_1, u_2, u_3} k F F'), FiniteDimensional.{u_2, u_3} F F'
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.fieldIso_finiteDimensional' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.fieldIso_isSeparable.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} {F' : Type u_3} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Field.{u_3} F'] [inst_3 : Algebra.{u_1, u_2} k F] [inst_4 : Algebra.{u_1, u_3} k F']
+  (σ : AlgEquiv.{u_1, u_2, u_3} k F F'), Algebra.IsSeparable.{u_2, u_3} F F'
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.fieldIso_isSeparable' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{u_1, u_2,
+    u_3} : {k : Type u_1} →
+  {F : Type u_2} →
+    {F' : Type u_3} →
+      [inst : Field.{u_1} k] →
+        [inst_1 : Field.{u_2} F] →
+          [inst_2 : Field.{u_3} F'] →
+            [inst_3 : Algebra.{u_1, u_2} k F] →
+              [inst_4 : Algebra.{u_1, u_3} k F'] →
+                [CharZero.{u_1} k] →
+                  AlgEquiv.{u_1, u_2, u_3} k F F' →
+                    TauCeti.IsFunctionField.{u_1, u_2} k F →
+                      TauCeti.IsFunctionField.{u_1, u_3} k F' →
+                        LinearMap.{u_1, u_1, max u_1 u_2, max u_1 u_3} (RingHom.id.{u_1} k)
+                          ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)
+                          ↥(TauCeti.weilDifferentialSpace.{u_1, u_3} k F')
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport_smul.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} {F' : Type u_3} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Field.{u_3} F'] [inst_3 : Algebra.{u_1, u_2} k F] [inst_4 : Algebra.{u_1, u_3} k F']
+  [inst_5 : CharZero.{u_1} k] (σ : AlgEquiv.{u_1, u_2, u_3} k F F') (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hF' : TauCeti.IsFunctionField.{u_1, u_3} k F') (a : F) (ω : ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)),
+  Eq.{max (u_1 + 1) (u_3 + 1)}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{u_1, u_2, u_3} σ hF hF')
+      (HSMul.hSMul.{u_2, max u_1 u_2, max u_1 u_2} a ω))
+    (HSMul.hSMul.{u_3, max u_1 u_3, max u_1 u_3} (σ a)
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{u_1, u_2, u_3} σ hF hF') ω))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport_smul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating_fieldTransport.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} {F' : Type u_3} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Field.{u_3} F'] [inst_3 : Algebra.{u_1, u_2} k F] [inst_4 : Algebra.{u_1, u_3} k F']
+  [inst_5 : CharZero.{u_1} k] (σ : AlgEquiv.{u_1, u_2, u_3} k F F') (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hF' : TauCeti.IsFunctionField.{u_1, u_3} k F') {x : F} (hx : Transcendental.{u_1, u_2} k x),
+  have hx' := ⋯;
+  Eq.{max (u_1 + 1) (u_3 + 1)}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{u_1, u_2, u_3} σ hF hF')
+      (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{u_1, u_2} hF hx))
+    (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{u_1, u_3} hF' hx')
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating_fieldTransport' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_fieldTransport.{u_1, u_2,
+    u_3} : ∀ {k : Type u_1} {F : Type u_2} {F' : Type u_3} [inst : Field.{u_1} k] [inst_1 : Field.{u_2} F]
+  [inst_2 : Field.{u_3} F'] [inst_3 : Algebra.{u_1, u_2} k F] [inst_4 : Algebra.{u_1, u_3} k F']
+  [inst_5 : CharZero.{u_1} k] (σ : AlgEquiv.{u_1, u_2, u_3} k F F') (hF : TauCeti.IsFunctionField.{u_1, u_2} k F)
+  (hF' : TauCeti.IsFunctionField.{u_1, u_3} k F') (hex : IsIntegrallyClosedIn.{u_1, u_2} k F)
+  (hex' : IsIntegrallyClosedIn.{u_1, u_3} k F') {x : F} (hx : Transcendental.{u_1, u_2} k x),
+  have hx' := ⋯;
+  ∀ (η : KaehlerDifferential.{u_1, u_2} k F),
+    Eq.{max (u_1 + 1) (u_3 + 1)}
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{u_1, u_2, u_3} σ hF hF')
+        ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{u_1, u_2} hF hex hx) η))
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{u_1, u_3} hF' hex' hx')
+        ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{u_1, u_2, u_3} σ) η))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_fieldTransport' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalDifferentialStalkData : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      ZInQ.Contrib.RC53Assist.AbelianCurveInputs.DifferentialStalkData f
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalDifferentialStalkData' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+        (↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+            (Opposite.op.{1} Top.top.{0})))
+        (KaehlerDifferential.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.holomorphicWeilSubmodule.{u_1,
+    u_2} : {k : Type u_1} →
+  {F : Type u_2} →
+    [inst : Field.{u_1} k] →
+      [inst_1 : Field.{u_2} F] →
+        [inst_2 : Algebra.{u_1, u_2} k F] →
+          Submodule.{u_1, max u_1 u_2} k ↥(TauCeti.weilDifferentialSpace.{u_1, u_2} k F)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.holomorphicWeilSubmodule' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      [AlgebraicGeometry.Smooth.{0} f] →
+        [inst_2 : AlgebraicGeometry.IsProper.{0} f] →
+          [AlgebraicGeometry.GeometricallyIntegral.{0} f] →
+            (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) →
+              (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} X)) →
+                Transcendental.{0, 0} ℚ x →
+                  have hF := ⋯;
+                  LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+                    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                        (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                          (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+                        (Opposite.op.{1} Top.top.{0}))
+                    ↥(TauCeti.weilDifferentialSpace.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison_injective : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ∀ {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+    [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+    (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+    (hx : Transcendental.{0, 0} ℚ x),
+    have hF := ⋯;
+    Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison f hdim x hx)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison_range : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ∀ {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+      [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+      (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+      (hx : Transcendental.{0, 0} ℚ x),
+      have hF := ⋯;
+      Eq.{1}
+        (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison f hdim x hx))
+        ZInQ.Contrib.RC53Assist.AbelianCurveInputs.holomorphicWeilSubmodule.{0, 0}
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison_range' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonImage : Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonImage' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparisonImage_of_uniformizer_inputs : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonImage
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparisonImage_of_uniformizer_inputs' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonImage.implies_dimension : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonImage →
+  ZInQ.Contrib.RC53Assist.AbelianCurve.RegularDifferentialComparison
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonImage.implies_dimension' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation_app : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (V : AlgebraicGeometry.Scheme.Opens.{0} (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} (AlgebraicGeometry.Spec.{0} ↧ℚ)))))
+        (Opposite.op.{1} V))),
+  Eq.{1}
+    ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Hom.app.{0} f V)) a))
+    0
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation_app' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.relativeDerivationMk : {Y : AlgebraicGeometry.Scheme.{0}} →
+  (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+    (M : AlgebraicGeometry.Scheme.Modules.{0} Y) →
+      (d :
+          {U : Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} Y)} →
+            AddMonoidHom.{0, 0}
+              ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} Y))))
+                  U)
+              ↑(PresheafOfModules.obj.{0, 0, 0, 0} (SheafOfModules.val.{0, 0, 0, 0} M) U)) →
+        (∀ {U : Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} Y)}
+            (a b :
+              ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                    (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                      (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                        (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} Y))))
+                  U)),
+            Eq.{1} (d (HMul.hMul.{0, 0, 0} a b))
+              (HAdd.hAdd.{0, 0, 0} (HSMul.hSMul.{0, 0, 0} a (d b)) (HSMul.hSMul.{0, 0, 0} b (d a)))) →
+          (∀ {U V : Opposite.{1} (AlgebraicGeometry.Scheme.Opens.{0} Y)} (i : Quiver.Hom.{0, 0} U V)
+              (a :
+                ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                    (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                      (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                        (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                          (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} Y))))
+                    U)),
+              Eq.{1}
+                (d
+                  ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+                      (CategoryTheory.Functor.map.{0, 0, 0, 1}
+                        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} Y))))
+                        i))
+                    a))
+                ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+                    (CategoryTheory.Functor.map.{0, 0, 0, 1} (AlgebraicGeometry.Scheme.Modules.presheaf.{0} M) i))
+                  (d a))) →
+            (∀ (V : AlgebraicGeometry.Scheme.Opens.{0} (AlgebraicGeometry.Spec.{0} ↧ℚ))
+                (a :
+                  ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                      (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+                        (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                          (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                            (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} (AlgebraicGeometry.Spec.{0} ↧ℚ)))))
+                      (Opposite.op.{1} V))),
+                Eq.{1}
+                  (d ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Hom.app.{0} g V)) a))
+                  0) →
+              PresheafOfModulesOfCommRing.Derivation'.{0, 0, 0, 0} (SheafOfModules.val.{0, 0, 0, 0} M)
+                (ZInQ.Contrib.RC53Assist.AbelianCurve.inverseImageStructureMap g)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.relativeDerivationMk' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf : {X Y : AlgebraicGeometry.Scheme.{0}} →
+  [AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+        (i : Quiver.Hom.{0, 1} X Y) →
+          Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} i g) f →
+            Quiver.Hom.{0, 1} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g)
+              (CategoryTheory.Functor.obj.{0, 0, 1, 1} (AlgebraicGeometry.Scheme.Modules.pushforward.{0} i)
+                (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf_D : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (i : Quiver.Hom.{0, 1} X Y) (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} i g) f)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} Y)
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} Y))))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (AlgebraicGeometry.Scheme.Modules.Hom.app.{0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf f g i hi) U))
+      ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation g))
+        a))
+    ((PresheafOfModulesOfCommRing.Derivation.d.{0, 0, 0, 0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialDerivation f))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0} (AlgebraicGeometry.Scheme.Hom.app.{0} i U)) a))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf_D' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback : {X Y : AlgebraicGeometry.Scheme.{0}} →
+  [AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+        (i : Quiver.Hom.{0, 1} X Y) →
+          Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} i g) f →
+            LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+              ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                    (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+                  (Opposite.op.{1} Top.top.{0}))
+              ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                  (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                    (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+                  (Opposite.op.{1} Top.top.{0}))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv : {X Y : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] →
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+        (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+          CategoryTheory.Iso.{0, 1} X Y →
+            AlgEquiv.{0, 0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} Y)
+              ↑(AlgebraicGeometry.Scheme.functionField.{0} X)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv_germ : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (i : CategoryTheory.Iso.{0, 1} X Y) (U : AlgebraicGeometry.Scheme.Opens.{0} Y)
+  (hp : Membership.mem.{0, 0} U (genericPoint.{0} ↥Y))
+  (a :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+          (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+              (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} Y))))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+              (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                  (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} Y))))
+            U (genericPoint.{0} ↥Y) hp))
+        a))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.PresheafedSpace.presheaf.{0, 1, 0}
+            (AlgebraicGeometry.SheafedSpace.toPresheafedSpace.{1, 0, 0}
+              (AlgebraicGeometry.LocallyRingedSpace.toSheafedSpace.{0}
+                (AlgebraicGeometry.Scheme.toLocallyRingedSpace.{0} X))))
+          (CategoryTheory.Functor.obj.{0, 0, 0, 0}
+            (TopologicalSpace.Opens.map.{0}
+              (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0}
+                  (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} (CategoryTheory.Iso.hom.{0, 1} i)))))
+            U)
+          (genericPoint.{0} ↥X) ⋯))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (AlgebraicGeometry.Scheme.Hom.app.{0} (CategoryTheory.Iso.hom.{0, 1} i) U))
+        a))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.generic_mem_iso_preimage : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (i : CategoryTheory.Iso.{0, 1} X Y) (U : AlgebraicGeometry.Scheme.Opens.{0} Y),
+  Membership.mem.{0, 0} U (genericPoint.{0} ↥Y) →
+    Membership.mem.{0, 0}
+      (CategoryTheory.Functor.obj.{0, 0, 0, 0}
+        (TopologicalSpace.Opens.map.{0}
+          (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+            (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0}
+              (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} (CategoryTheory.Iso.hom.{0, 1} i)))))
+        U)
+      (genericPoint.{0} ↥X)
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.generic_mem_iso_preimage' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullbackCocone : {X Y : AlgebraicGeometry.Scheme.{0}} →
+  [AlgebraicGeometry.IsIntegral.{0} X] →
+    [inst : AlgebraicGeometry.IsIntegral.{0} Y] →
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+        (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+          (i : CategoryTheory.Iso.{0, 1} X Y) →
+            Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f →
+              CategoryTheory.Limits.Cocone.{0, 0, 0, 1}
+                (CategoryTheory.Functor.comp.{0, 0, 0, 0, 0, 1}
+                  (CategoryTheory.Functor.op.{0, 0, 0, 0}
+                    (TopologicalSpace.OpenNhds.inclusion.{0} (genericPoint.{0} ↥Y)))
+                  (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                    (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g)))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullbackCocone' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullbackAdd : {X Y : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] →
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+        (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+          (i : CategoryTheory.Iso.{0, 1} X Y) →
+            Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f →
+              AddMonoidHom.{0, 0}
+                ↑(TopCat.Presheaf.stalk.{0, 1}
+                    (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                      (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+                    (genericPoint.{0} ↥Y))
+                ↑(TopCat.Presheaf.stalk.{0, 1}
+                    (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                      (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+                    (genericPoint.{0} ↥X))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullbackAdd' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullbackAdd_germ : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (i : CategoryTheory.Iso.{0, 1} X Y)
+  (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} Y) (hp : Membership.mem.{0, 0} U (genericPoint.{0} ↥Y))
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullbackAdd f g i hi)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g)) U
+            (genericPoint.{0} ↥Y) hp))
+        s))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+          (CategoryTheory.Functor.obj.{0, 0, 0, 0}
+            (TopologicalSpace.Opens.map.{0}
+              (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0}
+                  (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} (CategoryTheory.Iso.hom.{0, 1} i)))))
+            U)
+          (genericPoint.{0} ↥X) ⋯))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (AlgebraicGeometry.Scheme.Modules.Hom.app.{0}
+            (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf f g (CategoryTheory.Iso.hom.{0, 1} i)
+              hi)
+            U))
+        s))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullbackAdd_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback : {X Y : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] →
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+        (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+          (i : CategoryTheory.Iso.{0, 1} X Y) →
+            Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f →
+              LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ↑(AlgebraicGeometry.Scheme.functionField.{0} Y))
+                ↑(TopCat.Presheaf.stalk.{0, 1}
+                    (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                      (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+                    (genericPoint.{0} ↥Y))
+                ↑(TopCat.Presheaf.stalk.{0, 1}
+                    (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                      (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+                    (genericPoint.{0} ↥X))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback_germ : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (i : CategoryTheory.Iso.{0, 1} X Y)
+  (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f)
+  (U : AlgebraicGeometry.Scheme.Opens.{0} Y) (hp : Membership.mem.{0, 0} U (genericPoint.{0} ↥Y))
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+        (Opposite.op.{1} U))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback f g i hi)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g)) U
+            (genericPoint.{0} ↥Y) hp))
+        s))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+          (CategoryTheory.Functor.obj.{0, 0, 0, 0}
+            (TopologicalSpace.Opens.map.{0}
+              (AlgebraicGeometry.PresheafedSpace.Hom.base.{0, 1, 0}
+                (AlgebraicGeometry.LocallyRingedSpace.Hom.toHom.{0}
+                  (AlgebraicGeometry.Scheme.Hom.toLRSHom'.{0} (CategoryTheory.Iso.hom.{0, 1} i)))))
+            U)
+          (genericPoint.{0} ↥X) ⋯))
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (AlgebraicGeometry.Scheme.Modules.Hom.app.{0}
+            (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialPullbackSheaf f g (CategoryTheory.Iso.hom.{0, 1} i)
+              hi)
+            U))
+        s))
+'_private.ZInQKernel.Contrib.RC53Assist.AbelianCurveInputs.AuditScratch.0.ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback_equiv : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (i : CategoryTheory.Iso.{0, 1} X Y)
+  (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f)
+  (η : KaehlerDifferential.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} Y)),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback f g i hi)
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv g (genericPoint.{0} ↥Y)) η))
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv f (genericPoint.{0} ↥X))
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{0, 0, 0}
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i))
+        η))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback_equiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction_generic : ∀ {X : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+        (Opposite.op.{1} Top.top.{0}))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.stalkKaehlerEquiv f (genericPoint.{0} ↥X))
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction f) s))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+          Top.top.{0} (genericPoint.{0} ↥X) trivial))
+      s)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction_generic' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback_global_germ : ∀
+  {X Y : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+  [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) (i : CategoryTheory.Iso.{0, 1} X Y)
+  (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f)
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+        (Opposite.op.{1} Top.top.{0}))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback f g i hi)
+      ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+          (TopCat.Presheaf.germ.{0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+            Top.top.{0} (genericPoint.{0} ↥Y) trivial))
+        s))
+    ((CategoryTheory.ConcreteCategory.hom.{0, 0, 1, 0}
+        (TopCat.Presheaf.germ.{0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+          Top.top.{0} (genericPoint.{0} ↥X) trivial))
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback f g (CategoryTheory.Iso.hom.{0, 1} i) hi)
+        s))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.genericDifferentialPullback_global_germ' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction_pullback : ∀
+  {X Y : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+  [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) (i : CategoryTheory.Iso.{0, 1} X Y)
+  (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f)
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+        (Opposite.op.{1} Top.top.{0}))),
+  Eq.{1}
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction f)
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback f g (CategoryTheory.Iso.hom.{0, 1} i) hi)
+        s))
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{0, 0, 0}
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i))
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction g) s))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalRationalRestriction_pullback' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison_natural_iso : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_2 : AlgebraicGeometry.Smooth.{0} f]
+  [inst_3 : AlgebraicGeometry.IsProper.{0} f] [inst_4 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+  (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_5 : AlgebraicGeometry.Smooth.{0} g]
+  [inst_6 : AlgebraicGeometry.IsProper.{0} g] [inst_7 : AlgebraicGeometry.GeometricallyIntegral.{0} g]
+  (hdX : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (hdY : Eq.{1} (topologicalKrullDim.{0} ↥Y) 1)
+  (i : CategoryTheory.Iso.{0, 1} X Y)
+  (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f)
+  (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} Y)) (hx : Transcendental.{0, 0} ℚ x),
+  have σ := ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i;
+  have hx' := ⋯;
+  have hFY := ⋯;
+  have hFX := ⋯;
+  ∀
+    (s :
+      ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+          (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+          (Opposite.op.{1} Top.top.{0}))),
+    Eq.{1}
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison f hdX (σ x) hx')
+        ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback f g (CategoryTheory.Iso.hom.{0, 1} i)
+            hi)
+          s))
+      ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{0, 0, 0} σ hFY hFX)
+        ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison g hdY x hx) s))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison_natural_iso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonParameterized : Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonParameterized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparisonParameterized_of_uniformizer_inputs : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonParameterized
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparisonParameterized_of_uniformizer_inputs' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonParameterized.implies_dimension : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonParameterized →
+  ZInQ.Contrib.RC53Assist.AbelianCurve.RegularDifferentialComparison
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonParameterized.implies_dimension' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule : Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_parameter_independent : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule →
+  ∀ (k F : Type) [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] [inst_3 : CharZero.{0} k]
+    (hF : TauCeti.IsFunctionField.{0, 0} k F) (hex : IsIntegrallyClosedIn.{0, 0} k F) (x y : F)
+    (hx : Transcendental.{0, 0} k x) (hy : Transcendental.{0, 0} k y),
+    Eq.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF hex hx)
+      (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF hex hy)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_parameter_independent' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison : {X : AlgebraicGeometry.Scheme.{0}} →
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] →
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+      [AlgebraicGeometry.Smooth.{0} f] →
+        [inst_2 : AlgebraicGeometry.IsProper.{0} f] →
+          [AlgebraicGeometry.GeometricallyIntegral.{0} f] →
+            (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) →
+              have hF := ⋯;
+              LinearMap.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+                ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                    (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                      (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+                    (Opposite.op.{1} Top.top.{0}))
+                ↥(TauCeti.weilDifferentialSpace.{0, 0} ℚ ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_agrees : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule →
+  ∀ {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+    [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+    (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+    (hx : Transcendental.{0, 0} ℚ x),
+    have hF := ⋯;
+    Eq.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim)
+      (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison f hdim x hx)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_agrees' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_injective : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ∀ {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+    (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+    [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+    (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1),
+    have hF := ⋯;
+    Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_injective' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_range : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ∀ {X : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+      [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+      (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1),
+      have hF := ⋯;
+      Eq.{1} (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim))
+        ZInQ.Contrib.RC53Assist.AbelianCurveInputs.holomorphicWeilSubmodule.{0, 0}
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_range' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_natural_iso : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule →
+  ∀ {X Y : AlgebraicGeometry.Scheme.{0}} [inst : AlgebraicGeometry.IsIntegral.{0} X]
+    [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+    [inst_2 : AlgebraicGeometry.Smooth.{0} f] [inst_3 : AlgebraicGeometry.IsProper.{0} f]
+    [inst_4 : AlgebraicGeometry.GeometricallyIntegral.{0} f] (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+    [inst_5 : AlgebraicGeometry.Smooth.{0} g] [inst_6 : AlgebraicGeometry.IsProper.{0} g]
+    [inst_7 : AlgebraicGeometry.GeometricallyIntegral.{0} g] (hdX : Eq.{1} (topologicalKrullDim.{0} ↥X) 1)
+    (hdY : Eq.{1} (topologicalKrullDim.{0} ↥Y) 1) (i : CategoryTheory.Iso.{0, 1} X Y)
+    (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f),
+    have hFY := ⋯;
+    have hFX := ⋯;
+    ∀
+      (s :
+        ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+            (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+            (Opposite.op.{1} Top.top.{0}))),
+      Eq.{1}
+        ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdX)
+          ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback f g (CategoryTheory.Iso.hom.{0, 1} i)
+              hi)
+            s))
+        ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{0, 0, 0}
+            (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i) hFY hFX)
+          ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison g hdY) s))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison_natural_iso' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical : Prop
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparisonCanonical_of_local_inputs : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder →
+    ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule →
+      ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.regularDifferentialComparisonCanonical_of_local_inputs' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical.implies_dimension : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical →
+  ZInQ.Contrib.RC53Assist.AbelianCurve.RegularDifferentialComparison
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical.implies_dimension' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport_symm_apply : ∀ {k F F' : Type} [inst : Field.{0} k]
+  [inst_1 : Field.{0} F] [inst_2 : Field.{0} F'] [inst_3 : Algebra.{0, 0} k F] [inst_4 : Algebra.{0, 0} k F']
+  [CharZero.{0} k] (σ : AlgEquiv.{0, 0, 0} k F F'),
+  TauCeti.IsFunctionField.{0, 0} k F →
+    ∀ (η : KaehlerDifferential.{0, 0} k F),
+      Eq.{1}
+        ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{0, 0, 0} (AlgEquiv.symm.{0, 0, 0} σ))
+          ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport.{0, 0, 0} σ) η))
+        η
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.kaehlerFieldTransport_symm_apply' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv_symm : ∀ {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+  (i : CategoryTheory.Iso.{0, 1} X Y),
+  Eq.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv g f (CategoryTheory.Iso.symm.{0, 1} i))
+    (AlgEquiv.symm.{0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv_symm' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullbackEquiv : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis →
+  {X Y : AlgebraicGeometry.Scheme.{0}} →
+    [AlgebraicGeometry.IsIntegral.{0} X] →
+      [AlgebraicGeometry.IsIntegral.{0} Y] →
+        (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+          [AlgebraicGeometry.Smooth.{0} f] →
+            (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) →
+              [AlgebraicGeometry.Smooth.{0} g] →
+                Eq.{1} (topologicalKrullDim.{0} ↥X) 1 →
+                  Eq.{1} (topologicalKrullDim.{0} ↥Y) 1 →
+                    (i : CategoryTheory.Iso.{0, 1} X Y) →
+                      Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f →
+                        LinearEquiv.{0, 0, 0, 0} (RingHom.id.{0} ℚ)
+                          ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                              (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                                (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+                              (Opposite.op.{1} Top.top.{0}))
+                          ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                              (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                                (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf f))
+                              (Opposite.op.{1} Top.top.{0}))
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullbackEquiv' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullbackEquiv_apply : ∀
+  (hB : ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis) {X Y : AlgebraicGeometry.Scheme.{0}}
+  [inst : AlgebraicGeometry.IsIntegral.{0} X] [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y]
+  (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_2 : AlgebraicGeometry.Smooth.{0} f]
+  (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_3 : AlgebraicGeometry.Smooth.{0} g]
+  (hdX : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (hdY : Eq.{1} (topologicalKrullDim.{0} ↥Y) 1)
+  (i : CategoryTheory.Iso.{0, 1} X Y)
+  (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f)
+  (s :
+    ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+        (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+        (Opposite.op.{1} Top.top.{0}))),
+  Eq.{1} ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullbackEquiv hB f g hdX hdY i hi) s)
+    ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback f g (CategoryTheory.Iso.hom.{0, 1} i) hi) s)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullbackEquiv_apply' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_unique_of_D_self : ∀ {k F : Type} [inst : Field.{0} k]
+  [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] (hF : TauCeti.IsFunctionField.{0, 0} k F)
+  (hex : IsIntegrallyClosedIn.{0, 0} k F) {x : F} (hx : Transcendental.{0, 0} k x)
+  [inst_3 : Algebra.IsSeparable.{0, 0} (↥k⟮x⟯) F]
+  (φ :
+    LinearMap.{0, 0, 0, 0} (RingHom.id.{0} F) (KaehlerDifferential.{0, 0} k F)
+      ↥(TauCeti.weilDifferentialSpace.{0, 0} k F)),
+  Eq.{1} (φ ((KaehlerDifferential.D.{0, 0} k F) x))
+      (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{0, 0} hF hx) →
+    Eq.{1} φ ↑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison.{0, 0} hF hex hx)
+'ZInQ.Contrib.RC53Assist.AbelianCurveInputs.comparison_unique_of_D_self' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+def ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalUniformizerBasis : Prop :=
+∀ (k F : Type) [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] [CharZero.{0} k],
+  TauCeti.IsFunctionField.{0, 0} k F →
+    ∀ (P : TauCeti.Place.{0, 0} k F),
+      ∃ t,
+        Valuation.IsUniformizer.{0, 0} (TauCeti.Place.valuation.{0, 0} P) ↑t ∧
+          ∃ b, Eq.{1} (b ()) ((KaehlerDifferential.D.{0, 0} k ↥(TauCeti.Place.integers.{0, 0} P)) t)
+def ZInQ.Contrib.RC53Assist.AbelianCurveInputs.UniformizerResidueOrder : Prop :=
+∀ (k F : Type) [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] [inst_3 : CharZero.{0} k]
+  (hF : TauCeti.IsFunctionField.{0, 0} k F) (hex : IsIntegrallyClosedIn.{0, 0} k F) (x : F)
+  (hx : Transcendental.{0, 0} k x) [inst_4 : Algebra.IsSeparable.{0, 0} (↥k⟮x⟯) F] (P : TauCeti.Place.{0, 0} k F)
+  (t : F) (ht : Valuation.IsUniformizer.{0, 0} (TauCeti.Place.valuation.{0, 0} P) t),
+  Eq.{1} (TauCeti.weilDifferentialOrder.{0, 0} hF hex ⋯ ⋯ P) 0
+def ZInQ.Contrib.RC53Assist.AbelianCurveInputs.SeparatingCotraceChainRule : Prop :=
+∀ (k F : Type) [inst : Field.{0} k] [inst_1 : Field.{0} F] [inst_2 : Algebra.{0, 0} k F] [inst_3 : CharZero.{0} k]
+  (hF : TauCeti.IsFunctionField.{0, 0} k F),
+  IsIntegrallyClosedIn.{0, 0} k F →
+    ∀ (x y : F) (hx : Transcendental.{0, 0} k x) (hy : Transcendental.{0, 0} k y),
+      Eq.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{0, 0} hF hy)
+        (HSMul.hSMul.{0, 0, 0} ((TauCeti.derivativeOfSeparating.{0, 0} hx) y)
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.differentialOfSeparating.{0, 0} hF hx))
+structure ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical : Prop
+number of parameters: 0
+fields:
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical.image : ∀
+      (X : AlgebraicGeometry.Scheme.{0}) [inst : AlgebraicGeometry.IsIntegral.{0} X]
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+      [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+      (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1),
+      let hF := ⋯;
+      Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim) ∧
+        Eq.{1}
+          (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim))
+          ZInQ.Contrib.RC53Assist.AbelianCurveInputs.holomorphicWeilSubmodule.{0, 0}
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical.parameter_agreement : ∀
+      (X : AlgebraicGeometry.Scheme.{0}) [inst : AlgebraicGeometry.IsIntegral.{0} X]
+      (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+      [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+      (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+      (hx : Transcendental.{0, 0} ℚ x),
+      let hF := ⋯;
+      Eq.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim)
+        (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison f hdim x hx)
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical.naturality : ∀
+      (X Y : AlgebraicGeometry.Scheme.{0}) [inst : AlgebraicGeometry.IsIntegral.{0} X]
+      [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+      [inst_2 : AlgebraicGeometry.Smooth.{0} f] [inst_3 : AlgebraicGeometry.IsProper.{0} f]
+      [inst_4 : AlgebraicGeometry.GeometricallyIntegral.{0} f] (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ))
+      [inst_5 : AlgebraicGeometry.Smooth.{0} g] [inst_6 : AlgebraicGeometry.IsProper.{0} g]
+      [inst_7 : AlgebraicGeometry.GeometricallyIntegral.{0} g] (hdX : Eq.{1} (topologicalKrullDim.{0} ↥X) 1)
+      (hdY : Eq.{1} (topologicalKrullDim.{0} ↥Y) 1) (i : CategoryTheory.Iso.{0, 1} X Y)
+      (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f),
+      let hFY := ⋯;
+      let hFX := ⋯;
+      ∀
+        (s :
+          ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+              (AlgebraicGeometry.Scheme.Modules.presheaf.{0} (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+              (Opposite.op.{1} Top.top.{0}))),
+        Eq.{1}
+          ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdX)
+            ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback f g
+                (CategoryTheory.Iso.hom.{0, 1} i) hi)
+              s))
+          ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{0, 0, 0}
+              (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i) hFY hFX)
+            ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison g hdY) s))
+constructor:
+  ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical.mk
+    (image :
+      ∀ (X : AlgebraicGeometry.Scheme.{0}) [inst : AlgebraicGeometry.IsIntegral.{0} X]
+        (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+        [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+        (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1),
+        let hF := ⋯;
+        Function.Injective.{1, 1} ⇑(ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim) ∧
+          Eq.{1}
+            (LinearMap.range.{0, 0, 0, 0} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim))
+            ZInQ.Contrib.RC53Assist.AbelianCurveInputs.holomorphicWeilSubmodule.{0, 0})
+    (parameter_agreement :
+      ∀ (X : AlgebraicGeometry.Scheme.{0}) [inst : AlgebraicGeometry.IsIntegral.{0} X]
+        (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_1 : AlgebraicGeometry.Smooth.{0} f]
+        [inst_2 : AlgebraicGeometry.IsProper.{0} f] [inst_3 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+        (hdim : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (x : ↑(AlgebraicGeometry.Scheme.functionField.{0} X))
+        (hx : Transcendental.{0, 0} ℚ x),
+        let hF := ⋯;
+        Eq.{1} (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdim)
+          (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.canonicalWeilComparison f hdim x hx))
+    (naturality :
+      ∀ (X Y : AlgebraicGeometry.Scheme.{0}) [inst : AlgebraicGeometry.IsIntegral.{0} X]
+        [inst_1 : AlgebraicGeometry.IsIntegral.{0} Y] (f : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧ℚ))
+        [inst_2 : AlgebraicGeometry.Smooth.{0} f] [inst_3 : AlgebraicGeometry.IsProper.{0} f]
+        [inst_4 : AlgebraicGeometry.GeometricallyIntegral.{0} f]
+        (g : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧ℚ)) [inst_5 : AlgebraicGeometry.Smooth.{0} g]
+        [inst_6 : AlgebraicGeometry.IsProper.{0} g] [inst_7 : AlgebraicGeometry.GeometricallyIntegral.{0} g]
+        (hdX : Eq.{1} (topologicalKrullDim.{0} ↥X) 1) (hdY : Eq.{1} (topologicalKrullDim.{0} ↥Y) 1)
+        (i : CategoryTheory.Iso.{0, 1} X Y)
+        (hi : Eq.{1} (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} i) g) f),
+        let hFY := ⋯;
+        let hFX := ⋯;
+        ∀
+          (s :
+            ↑(CategoryTheory.Functor.obj.{0, 0, 0, 1}
+                (AlgebraicGeometry.Scheme.Modules.presheaf.{0}
+                  (ZInQ.Contrib.RC53Assist.AbelianCurve.differentialSheaf g))
+                (Opposite.op.{1} Top.top.{0}))),
+          Eq.{1}
+            ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison f hdX)
+              ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.globalDifferentialPullback f g
+                  (CategoryTheory.Iso.hom.{0, 1} i) hi)
+                s))
+            ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.weilFieldTransport.{0, 0, 0}
+                (ZInQ.Contrib.RC53Assist.AbelianCurveInputs.curveFunctionFieldEquiv f g i) hFY hFX)
+              ((ZInQ.Contrib.RC53Assist.AbelianCurveInputs.intrinsicWeilComparison g hdY) s))) :
+    ZInQ.Contrib.RC53Assist.AbelianCurveInputs.RegularDifferentialComparisonCanonical

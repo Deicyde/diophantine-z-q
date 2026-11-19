@@ -1,0 +1,61 @@
+# Verification of SeveralPlaces
+
+Source: `ZInQKernel/Contrib/RC53Assist/RetainedAssembly/SupportChange/SeveralPlaces.lean`
+SHA256: `e8b2c119eb63ae89286475328e454fa914c134c8be41c3ec0b58445c88101497`
+Size: 31,828 bytes; 635 lines.
+
+## Checks
+
+- Direct single-file source check: exit 0, empty diagnostics.
+- Statement/axiom audit: exit 0, no warnings or errors.
+- Exact moving residual consumer check: exit 0, empty diagnostics.
+
+All checks used `LEAN_NUM_THREADS=6`, `taskset -c 0-15`, `nice -n 10`, and
+`lake env lean` on the individual source or scratch file. Source
+`maxHeartbeats` is 800000. No aggregate build or version-control operation
+was performed.
+
+The audit covers every new explicit declaration, structure constructor and
+field: 32 declarations, 3 constructors and 18 field projections, for
+53 complete reports. Their axiom union is exactly:
+
+```text
+[propext, Classical.choice, Quot.sound]
+```
+
+The principal iteration, cochain-step residual-package theorem, canonical
+printed support-step constructor and original residual-support-control adapter
+all have that same standard axiom list. Exact output is in
+`SeveralPlacesAudit.txt`.
+
+`Scratch/SeveralAudit.lean` and `Scratch/SeveralMovingConsumer.lean` were
+verified to have the exact final source prefix. The moving consumer check
+appends the verbatim moving-family/global-complex and residual-package
+interface definitions, without importing that integration file. It then
+checks the new theorem against the exact `MovingResidualPackage Fam` type.
+The zero-place case is checked as well.
+
+## Arithmetic scope
+
+The completed finite iteration produces width `6k + sum c` and bound
+`B + 6k + sum c`. The cochain-step proof preserves each label's own local
+condition and counts the common compact complex only once. The canonical
+support constructor uses genuine residue-field continuous cochains and the
+printed support theorem with canonical unramified factorizations; it does not
+tensor a stage quasi-isomorphism through a nonflat coefficient change.
+
+The actual uniform base residual package, stage-specific coefficient/support
+cochain identifications, target condition identifications and local cohomology
+bounds remain explicit inputs. No unconditional construction for an
+unidentified moving conductor family is claimed. The separate comparison-only
+iteration is not mislabeled as an arithmetic discharge.
+
+All new declarations and fields have kind and manuscript-locator docstrings.
+There are no holes, new axioms, native decision or implementation replacement
+directives, new syntax/notation, evaluation commands, final-source diagnostics,
+wholesale Mathlib import, private identifiers or external work paths in the
+public source. All source lines are at most 100 characters.
+
+Earlier delivered editions remain unchanged. No outreach or memory write was
+performed. Manuscript locators: `diophantine_zq.tex`, lines 2727–2741,
+3483–3498, 4255–4280, 4385–4451, 4859–4873 and 4976–5135.

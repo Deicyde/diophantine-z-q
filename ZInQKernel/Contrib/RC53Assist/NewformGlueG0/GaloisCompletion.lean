@@ -8,15 +8,22 @@ import ZInQKernel.Contrib.RC53Assist.NewformGlueG0.BrauerNesbitt
 import ZInQKernel.Contrib.RC53Assist.NewformGlueG0.FrobeniusLocal
 
 /-!
-# Exact newform consequence and its representation comparison
+# Exact newform consequence and the actual Tate representations
 
-This module preserves the earlier component results and adds two explicit
-assemblies of the unchanged proposition `LiCarayolNewformOfModular`.
-The printed-corollary assembly uses coefficient-field descent, Carayol's
-rational Corollaire, and Faltings's local-factor rigidity. The representation
-assembly uses the actual rational Tate module and the normalized Carayol
-representation, with its two remaining Tate local readings named explicitly.
-All mathematical definitions and printed-source locators are stated below.
+This module preserves the component results and the printed-corollary assembly
+of the unchanged proposition `LiCarayolNewformOfModular`. That assembly uses
+coefficient-field descent, the joint Shimura–Carayol Euler-factor reading, and
+Faltings's local-factor rigidity; the two local-factor interfaces are labeled
+GLUE below.
+
+The earlier invariant-space representation route is not part of the Lean
+declarations in this edition. Its historical statements and the multiplicative-
+reduction obstruction are recorded in
+`docs/research/g0-representation-route-invariants.md`. The corrected route on
+inertia coinvariants is in `GlobalTrace/CoinvariantReadings.lean` and
+`GlobalTrace/CoinvariantAssembly.lean`. The definition `localTatePolynomial`
+is retained with its normalization warning. The printed-corollary assembly
+does not use it.
 -/
 
 
@@ -572,7 +579,7 @@ end ZInQ.Contrib.RC53Assist.NewformGlueG0.Completion.Arithmetic
 
 
 /-!
-# G0 by coefficient-field descent and the printed Euler-factor rigidity
+# G0 by coefficient-field descent and the local-factor readings
 
 The additional source used for descent is manuscript-cited Shimura 1973,
 Theorem 1, p. 526: its conjugate eigenforms at all embeddings of the coefficient
@@ -586,9 +593,10 @@ Euler factors. Faltings 1983, §5, Korollar 2, iii ⇒ iv, p. 361, transfers
 those factors to the original elliptic curve. The final coefficient assembly
 is proved. No input asserts existence of a newform for the original curve.
 
-The printed Euler-factor statements are specialized to the existing minimal
-Weierstrass local polynomials. Their Tate and scheme readings are recorded
-explicitly, rather than calling the newform-of-a-modular-curve conclusion a print.
+The two local-factor interfaces are GLUE readings of the printed results in
+the existing minimal Weierstrass polynomial language. Their Tate and scheme
+translations remain explicit; the newform-of-a-modular-curve conclusion is
+proved conditionally from the displayed interfaces, not called a print.
 -/
 
 noncomputable section
@@ -618,7 +626,96 @@ and every complex embedding gives a normalized full eigenform at the same
 level, with the embedded coefficients. The original form here is a genuine
 weight-two trivial-character newform. This does not assert that any elliptic
 curve has a newform. The number-field and subgroup readings are the usual
-readings of the printed `K` and `S₂(Γ₀(M))`. -/
+readings of the printed `K` and `S₂(Γ₀(M))`.
+
+Verbatim printed text, with mathematics transcribed in plain text / Unicode.
+The running heads identify printed pp. 525 and 526 as PDF pages 3 and 4.
+The definitions of `D_B` and `Y_B` begin on p. 524 and continue on p. 525;
+that preceding paragraph is included to make the definitions complete.
+
+Definitions (p. 524, continued on p. 525):
+
+Let us start with some definitions and notational convention. For an
+abelian variety B defined over C, we denote by D_B, or D(B), the vector space
+over C of all holomorphic 1-forms on B, and by Y_B, or Y(B), the tangent
+space of B at the origin. Then D_B is dual to Y_B, so that we have a C-
+bilinear pairing
+
+( , )_B: D_B × Y_B → C.
+
+If α is a homomorphism of B to another abelian variety B′, one can naturally
+define two maps
+
+dα: Y_B → Y_{B′},
+δα: D_{B′} → D_B,
+
+which satisfy
+
+(1.1) (δαu, v)_B = (u, dαv)_{B′} (u ∈ D_{B′}, v ∈ Y_B).
+
+By a quotient of B by an abelian subvariety, say C, of B, we understand
+a couple (A, ν) formed by an abelian variety A which canonically represents
+B/C and a natural map ν: B → A with C = Ker(ν) (cf. Chow [3]). We see
+easily that
+
+(1.2) Y_C = {v ∈ Y_B | (u, v)_B = 0 for all u ∈ δν(D_A)}.
+
+Let Γ be a group of level N, and J the jacobian variety of ℌ*/Γ. Let
+ψ: ℌ* → J be the map obtained by composing the natural map ℌ* → ℌ*/Γ with
+a canonical map of ℌ*/Γ into J. Then there is an isomorphism μ: S₂(Γ) → D_J
+defined by δψ(μ(f)) = f(z)dz for f ∈ S₂(Γ), where δψ is the “pull back” asso-
+ciated with ψ, and z is a standard variable on ℌ.
+Let Γ′ be a group of level M, and let
+
+Γ̃ = {α ∈ R · GL₂(Q) | det(α) > 0}.
+
+Define, for α ∈ Γ̃, an algebraic correspondence X(Γ′αΓ) on ℌ*/Γ × ℌ*/Γ′ as
+in [11, § 7.2]. (Briefly, it is the locus of z × α(z) modulo Γ × Γ′.) Let J′ and
+μ′ denote the corresponding geometric objects defined with Γ′ in place of Γ.
+One can attach to X(Γ′αΓ) a homomorphism of J into J′ as in Weil [15, § VI],
+which we denote by {Γ′αΓ}. Now the commutative diagrams (7.2.2) and
+(7.2.6) of [11] imply
+
+(1.3) μ ∘ [Γ′αΓ]₂ = δ{Γ′αΓ} ∘ μ′,
+
+where [Γ′αΓ]_k is the map S_k(Γ′) → S_k(Γ) defined in [11, § 3.4]. Then, from
+(1.1) and (1.3), we obtain
+
+(1.4) (μ′(f), d{Γ′αΓ}v)_{J′} = (μ(f | [Γ′αΓ]₂), v)_J (f ∈ S₂(Γ′), v ∈ Y_J).
+
+For a positive integer n, let q be the largest divisor of n prime to N, and
+put n = mq. Then we define T_n and ξ_n by T_n = T_m T_q, ξ_n = ξ_m ξ_q, T_m = [ΓαΓ]₂,
+ξ_m = {ΓαΓ} with α = [1 0; 0 m], and T_q = ∑_β [ΓβΓ]₂, ξ_q = ∑_β {ΓβΓ}, where ∑_β
+is extended over all distinct ΓβΓ with det(β) = q, β ≡ [1 0; 0 q] (mod N). Then
+μ ∘ T_n = δξ_n ∘ μ.
+
+Setting and Theorem 1 (p. 526):
+
+As shown in [11, § 7.3], there is a “standard model” of ℌ*/Γ defined
+over Q (see also § 4 below), so that J can naturally be defined over Q. Let
+f(z) = ∑_{n=1}^∞ a_n e^{2πinz}, with a₁ = 1, be an element of S₂(Γ), that is a common eigen-
+function of T_n for all n (i. e., f | T_n = a_n f). Fix f, and let K be the subfield
+of C generated over Q by the complex numbers a_n for all n. (Of course K
+depends on f.) Then we have
+THEOREM 1. There exists a triple (A, ν, θ) formed by the objects satisfying
+the following conditions:
+(i) (A, ν) is a quotient of J by an abelian subvariety rational over Q.
+(ii) θ is an isomorphism of K into End(A) ⊗ Q such that ν ∘ ξ_n = θ(a_n) ∘ ν
+for all n. (This implies especially θ(1) = id_A.)
+(iii) dim(A) = [K: Q].
+Moreover, let I denote the set of all isomorphisms of K into C. Then, for every
+σ ∈ I, there exists an element f_σ of S₂(Γ) such that f_σ | T_n = a_n^σ f for all n, and
+f_σ(z) = ∑_{n=1}^∞ a_n^σ e^{2πinz}. With these f_σ, one has
+(iv) δν(D_A) = μ(∑_{σ∈I} Cf_σ).
+Under the conditions (i, ii), the triple (A, ν, θ) is unique up to isomorphisms
+over Q. Furthermore, the one-dimensional part of the zeta function of A over
+Q coincides, up to finitely many Euler factors for bad primes, with ∏_{σ∈I}(∑_{n=1}^∞ a_n^σ n^{−s}),
+provided that Γ = Γ₀(N), or ∑_{σ∈I} Cf_σ is stable under the map h(z) ↦ h(−1/Nz)/z².
+
+The printed `f` after `a_n^σ` is retained verbatim in this transcription; the Lean statement reads
+it as `f_σ`, as in the proof on p. 527. No unreadable mathematical symbol remains in this
+transcription.
+-/
 def Shimura1973ConjugateEigenforms : Prop :=
   ∀ (M : ℕ) [NeZero M] (F : Newform M 2), F.χ = 1 →
     FiniteDimensional ℚ (coefficientField F) ∧
@@ -750,14 +847,14 @@ theorem coefficientField_eq_bot_of_almost_all_primes
   obtain ⟨b, hb⟩ := hrat n
   exact IntermediateField.mem_bot.mpr ⟨b, hb.symm⟩
 
-/-- **PRINTED-COROLLARY CONSEQUENCE**, manuscript bibitems `shimura-factors`
-and `carayol`: Shimura 1973, Theorem 1, pp. 525–526, at rational coefficient
-field, gives the associated elliptic curve; Carayol 1986, §0.8 Corollaire,
-p. 411, gives its equality of all local Euler factors with those of the
-rational newform. The Weierstrass and polynomial readings use the standard
-one-dimensional quotient and local-factor dictionaries. This is the reverse
-construction, from a rational genuine newform to its associated curve,
-not a newform-existence assertion for the input elliptic curve of G0. -/
+/-- **GLUE**: joint reading of Shimura 1973, Thm 1, and Carayol 1986, §0.8 Corollaire (a
+statement joining two sources is a reading, not a print).
+The rational coefficient field in Shimura's theorem gives the associated
+one-dimensional quotient; Carayol's Corollaire, p. 411, identifies its local
+Euler factors with those of the rational newform. The associated-curve,
+Weierstrass and local-polynomial dictionaries are joint readings, not the
+verbatim printed implication. This reverse construction starts with a
+rational genuine newform, not with the input elliptic curve of G0. -/
 def Carayol1986RationalNewformEulerFactors : Prop :=
   ∀ (M : ℕ) [NeZero M] (F : Newform M 2) (hχ : F.χ = 1),
     (∀ n : ℕ, ∃ b : ℚ, (qExpansion 1 F.toCuspForm).coeff n = (b : ℂ)) →
@@ -766,19 +863,21 @@ def Carayol1986RationalNewformEulerFactors : Prop :=
           (localPolynomialQ A (primeIdealQ p hp)).map (Int.castRingHom ℂ) =
             newformEulerPolynomial F hχ p
 
-/-- **PRINT SPECIALIZATION**, manuscript bibitem `faltings1983`,
-Faltings 1983, §5, Korollar 2, iii ⇒ iv, p. 361, page image checked.
+/-- **GLUE**: local-factor reading of Faltings 1983, §5, Korollar 2 (iii ⇒ iv); GLUE unless
+restated as the printed implication with the local-factor step proved.
 Equal local Euler factors almost everywhere imply equal local Euler factors
 everywhere, for two actual elliptic curves. The normalized factor is read
 as the reciprocal of the existing minimal Weierstrass local polynomial.
-The printed Tate-module interpretation is not replaced by a newform premise. -/
+This local-factor dictionary is not supplied as a proof of the printed
+implication's translation into the present Weierstrass polynomial interface. -/
 def Faltings1983EulerFactorRigidityQ : Prop :=
   ∀ E A : WeierstrassCurve ℚ, E.IsElliptic → A.IsElliptic →
     LocalPolynomialsAgreeAlmostEverywhere E A →
       ∀ v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ),
         localPolynomialQ E v = localPolynomialQ A v
 
-/-- **PROVED**, the exact G0 consequence from independent printed inputs.
+/-- **PROVED**, the exact G0 consequence from the two PRINT inputs and the two
+GLUE local-factor readings displayed above.
 Locators: Shimura 1973, Theorem 1, p. 526; Li 1975, Theorem 5, p. 298;
 Carayol 1986, §0.8 Corollaire, p. 411; Faltings 1983, §5, Korollar 2,
 iii ⇒ iv, p. 361. Divisor-level extraction, coefficient-field descent,
@@ -840,27 +939,26 @@ end ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent
 
 
 /-!
-# Printed representation inputs and the explicit Tate readings for G0
+# Tate local definitions retained for G0
 
-Carayol 1986, Théorème (A), §0.7, pp. 410–411, gives the compatible system
-and local–global compatibility. The normalized representation below is the
-dual of Carayol's cohomological normalization: arithmetic Frobenius has trace
-`a_p` and determinant `p`. The irreducibility statement is the printed
-Remarque immediately after (A), p. 411, not an extra clause silently added
-to the theorem.
+The integral and rational Tate representations above are the actual actions
+on the elliptic curve's torsion. Their good-reduction trace and determinant
+dictionary is proved locally here and globally in
+`GlobalTrace/GoodReductionReading.lean`. Faltings 1983, §5, Satz 3, p. 360,
+is retained as the explicit rational semisimplicity proposition.
 
-For a rational weight-two newform the coefficient completion can be taken
-to be `ℚ_ℓ`, by the realization on the associated elliptic curve in §0.8.
-The rationality premise is separate and is proved by coefficient-field descent
-in `ConjugateG0.lean` when the prime coefficients agree with those of the
-input elliptic curve almost everywhere.
+For the extracted weight-two newform, rationality of every coefficient is
+proved separately by `Descent.coefficients_rational_of_almost_all_primes`.
+The rational newform polynomial below is only a definition of its classical
+Euler polynomial. The realization and local comparison used by the corrected
+representation route are stated in `GlobalTrace/CoinvariantReadings.lean`.
 
-The two elliptic-curve local readings are explicitly GLUE, not attributed to
-Carayol as statements about an arbitrary elliptic curve. The newly proved
-local good-reduction dictionary is not re-assumed. The remaining good reading
-is its globalization; the bad reading identifies the actual Tate invariants
-with the actual minimal-reduction polynomial. The independent route through
-Carayol's rational Corollaire and Faltings's iii ⇒ iv does not assume them.
+The definition `localTatePolynomial` reads arithmetic Frobenius on the
+inertia invariants of the homological Tate representation. Its good-prime
+reading is proved, but it is not the classical local factor at a prime of
+multiplicative reduction. The excluded invariant-space statements are
+recorded, as historical text only, in
+`docs/research/g0-representation-route-invariants.md`.
 -/
 
 noncomputable section
@@ -916,13 +1014,13 @@ theorem inertiaAt_normalized {p : ℕ} (D : LocalArithmeticFrobenius p) :
 inertia-fixed space. Locator: `inertiaEulerPolynomial`, Carayol §0.5,
 p. 410, with arithmetic and dual normalization displayed above.
 
-**Warning: false as stated at primes of multiplicative reduction.** The polynomial uses the
-arithmetic Frobenius on the inertia invariants of the homological representation. For a Tate
-curve the invariants are the line `ℚ_ℓ(1) ⊗ ε`, on which the arithmetic Frobenius acts by `ε p`,
-so this side is `1 - ε p X`, while the classical factor is `1 - ε X` (for the curve 11a1 at
+**Warning: not the classical local factor at primes of multiplicative reduction.** The polynomial
+uses the arithmetic Frobenius on the inertia invariants of the homological representation. For a
+Tate curve the invariants are the line `ℚ_ℓ(1) ⊗ ε`, on which the arithmetic Frobenius acts by
+`ε p`, so this side is `1 - ε p X`, while the classical factor is `1 - ε X` (for the curve 11a1 at
 `p = 11`: `1 - 11 X` against `1 - X`). The correct reading uses the inertia coinvariants
 (equivalently the dual representation with the inverse Frobenius). The printed-corollary route
-`Descent.liCarayolNewformOfModular_of_printed_corollaries` does not use this statement. -/
+`Descent.liCarayolNewformOfModular_of_printed_corollaries` does not use this definition. -/
 def localTatePolynomial (E : WeierstrassCurve ℚ) [E.IsElliptic]
     (ℓ : ℕ) [Fact ℓ.Prime] {p : ℕ} (D : LocalArithmeticFrobenius p) : Polynomial ℚ_[ℓ] :=
   inertiaEulerPolynomial (rationalTateRep E ℓ) (inertiaAt D) D.element
@@ -937,119 +1035,24 @@ def rationalNewformPolynomial (M ℓ : ℕ) [Fact ℓ.Prime] (b : ℕ → ℚ) (
   1 - Polynomial.C (b p : ℚ_[ℓ]) * Polynomial.X +
     Polynomial.C (if Nat.Coprime p M then (p : ℚ_[ℓ]) else 0) * Polynomial.X ^ 2
 
-/-- **DEFINITION OF PRINTED DATA**, a normalized representation attached to
-an actual rational weight-two newform. Locators: Carayol 1986, (A),
-pp. 410–411, the Remarque p. 411, and the rational realization §0.8.
-The local-factor clause reads (A) using Li 1975 Theorem 3 and Casselman
-1973 Theorem 4, p. 313; it is a consequence of these printed local readings,
-not the conclusion that the input elliptic curve has a newform. -/
-structure CarayolRationalRealization {M : ℕ} [NeZero M]
-    (F : Newform M 2) (hχ : F.χ = 1) (b : ℕ → ℚ)
-    (hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ))
-    (ℓ : ℕ) [Fact ℓ.Prime] where
-  /-- **PRINTED DATA**, the dual-normalized representation. Locator: Carayol (A), pp. 410–411. -/
-  normalizedRep : Representation ℚ_[ℓ] GlueC10.GQ (Fin 2 → ℚ_[ℓ])
-  /-- **PRINTED PROPERTY**, coordinate continuity. Locator: Carayol (A), pp. 410–411. -/
-  continuous_matrix : Continuous fun g : GlueC10.GQ =>
-    LinearMap.toMatrix (Pi.basisFun ℚ_[ℓ] (Fin 2)) (Pi.basisFun ℚ_[ℓ] (Fin 2)) (normalizedRep g)
-  /-- **PRINTED PROPERTY**, the irreducibility Remarque after (A), p. 411. -/
-  irreducible : normalizedRep.IsIrreducible
-  /-- **PRINTED GOOD-PRIME READING**, arithmetic trace. Locator: Carayol §§0.5–0.7, pp. 410–411. -/
-  good_trace : ∀ (p : ℕ), p.Prime → ¬p ∣ M * ℓ →
-    ∀ g : GlueC10.GQ, GlueC10.IsFrobAt g p →
-      LinearMap.trace ℚ_[ℓ] (Fin 2 → ℚ_[ℓ]) (normalizedRep g) = (b p : ℚ_[ℓ])
-  /-- **CONSEQUENCE OF PRINTED LOCAL COMPATIBILITY**, at every `p ≠ ℓ`,
-  with the actual subgroup and actual Frobenius. Locators: Carayol (A), pp. 410–411;
-  Li Theorem 3(i), p. 295; Casselman Theorem 4, p. 313.
-
-  **Warning: false as stated at primes of multiplicative reduction.** The polynomial uses the
-  arithmetic Frobenius on the inertia invariants of the homological representation. For a Tate
-  curve the invariants are the line `ℚ_ℓ(1) ⊗ ε`, on which the arithmetic Frobenius acts by `ε p`,
-  so this side is `1 - ε p X`, while the classical factor is `1 - ε X` (for the curve 11a1 at
-  `p = 11`: `1 - 11 X` against `1 - X`). The correct reading uses the inertia coinvariants
-  (equivalently the dual representation with the inverse Frobenius). The printed-corollary route
-  `Descent.liCarayolNewformOfModular_of_printed_corollaries` does not use this statement. -/
-  local_factor : ∀ (p : ℕ), p.Prime → p ≠ ℓ → ∀ D : LocalArithmeticFrobenius p,
-    inertiaEulerPolynomial normalizedRep (inertiaAt D) D.element (inertiaAt_normalized D) =
-      rationalNewformPolynomial M ℓ b p
-
-/-- **DEFINITION**, Carayol's cohomological normalization is explicitly the
-dual of the normalized representation used for Tate comparison. Locators:
-Carayol §§0.4–0.5 and the proof of §0.8, pp. 409–411. -/
-def CarayolRationalRealization.cohomologicalRep {M : ℕ} [NeZero M]
-    {F : Newform M 2} {hχ : F.χ = 1} {b : ℕ → ℚ}
-    {hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ)}
-    {ℓ : ℕ} [Fact ℓ.Prime] (R : CarayolRationalRealization F hχ b hb ℓ) :
-    Representation ℚ_[ℓ] GlueC10.GQ (Module.Dual ℚ_[ℓ] (Fin 2 → ℚ_[ℓ])) :=
-  R.normalizedRep.dual
-
-/-- **PRINT SPECIALIZATION WITH EXPLICIT NORMALIZATION READINGS**,
-manuscript bibitem `carayol`, Carayol 1986, §§0.6–0.7, Théorème (A),
-pp. 410–411, and the irreducibility Remarque p. 411. A finite realization
-field is an actual number subfield of the complex numbers containing the
-actual coefficients; the representations live over its actual completions
-at every place above the auxiliary prime. The displayed representation is
-dual-normalized for arithmetic Frobenius; its dual is Carayol's cohomological
-normalization. The local polynomial reading uses manuscript-cited Li 1975,
-Theorem 3(i), p. 295, and Casselman 1973, Theorem 4, p. 313. Compatibility
-at all `p ≠ ℓ` is retained; no claim is made at `p = ℓ`. This source proposition
-contains no input elliptic curve and no newform-existence conclusion for it. -/
-def Carayol1986ThmAWeightTwoQ : Prop :=
-  ∀ (M : ℕ) [NeZero M] (F : Newform M 2), F.χ = 1 →
-    ∃ (K : IntermediateField ℚ ℂ) (hK : NumberField K),
-      letI := hK
-      ∃ hcoeff : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n ∈ K,
-        ∀ (ℓ : ℕ) [Fact ℓ.Prime]
-          (lam : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)),
-          (ℓ : NumberField.RingOfIntegers K) ∈ lam.asIdeal →
-          ∃ ρ : Representation (lam.adicCompletion K) GlueC10.GQ (Fin 2 → lam.adicCompletion K),
-            Continuous (fun g : GlueC10.GQ =>
-              LinearMap.toMatrix (Pi.basisFun (lam.adicCompletion K) (Fin 2))
-                (Pi.basisFun (lam.adicCompletion K) (Fin 2)) (ρ g)) ∧
-            ρ.IsIrreducible ∧
-            (∀ (p : ℕ), p.Prime → ¬p ∣ M * ℓ →
-              ∀ g : GlueC10.GQ, GlueC10.IsFrobAt g p →
-                LinearMap.trace (lam.adicCompletion K) (Fin 2 → lam.adicCompletion K) (ρ g) =
-                  algebraMap K (lam.adicCompletion K)
-                    ⟨(qExpansion 1 F.toCuspForm).coeff p, hcoeff p⟩) ∧
-            ∀ (p : ℕ), p.Prime → p ≠ ℓ → ∀ D : LocalArithmeticFrobenius p,
-              inertiaEulerPolynomial ρ (inertiaAt D) D.element (inertiaAt_normalized D) =
-                1 - Polynomial.C (algebraMap K (lam.adicCompletion K)
-                    ⟨(qExpansion 1 F.toCuspForm).coeff p, hcoeff p⟩) *
-                    (Polynomial.X : Polynomial (lam.adicCompletion K)) +
-                  Polynomial.C (if Nat.Coprime p M then (p : lam.adicCompletion K) else 0) *
-                    (Polynomial.X : Polynomial (lam.adicCompletion K)) ^ 2
-
-/-- **PRINT SPECIALIZATION WITH EXPLICIT LOCAL READINGS**, manuscript
-bibitem `carayol`, Carayol 1986, Théorème (A), pp. 410–411, Remarque and
-§0.8, p. 411, at a rational weight-two newform. The conductor/newvector
-reading is manuscript-cited Casselman 1973, Theorem 4, p. 313, with Li 1975,
-Theorem 3(i), p. 295. Rationality of `F` is a premise here and is proved
-separately for the extracted form, rather than assumed for the input curve.
-This is a proposition, not an axiom or a proof of these printed facts.
-
-**Warning: false as formalized.** Its field `CarayolRationalRealization.local_factor` reads the
-local factor on inertia invariants with the arithmetic Frobenius, which fails at primes `p ∥ M`
-(for the rational newform of level 11 at `p = 11`); see the warning on `local_factor`. -/
-def Carayol1986ThmARationalWeightTwo : Prop :=
-  ∀ (M : ℕ) [NeZero M] (F : Newform M 2) (hχ : F.χ = 1) (b : ℕ → ℚ)
-    (hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ))
-    (ℓ : ℕ) [Fact ℓ.Prime], Nonempty (CarayolRationalRealization F hχ b hb ℓ)
-
 /-- **PRINT SPECIALIZATION**, manuscript bibitem `faltings1983`,
 Faltings 1983, §5, Satz 3, p. 360, page image checked: the actual rational
 Tate module of an elliptic curve over the rationals is semisimple.
-No scalar-extension semisimplicity is silently added to this statement. -/
+No scalar-extension semisimplicity is silently added to this statement.
+
+Verbatim printed text (§5, p. 360): "§ 5. Endomorphismen. Sei K Zahlkörper, A/K eine abelsche
+Varietät der Dimension g, l eine Primzahl, T_l = T_l(A) der Tate-Modul, auf dem π = Gal(K̄/K)
+operiert. Satz 3. Die Operation von π auf T_l ⊗_{ℤ_l} ℚ_l ist halbeinfach." -/
 def Faltings1983Satz3EllipticQ : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (ℓ : ℕ) [Fact ℓ.Prime],
     IsSemisimpleModule (MonoidAlgebra ℚ_[ℓ] GlueC10.GQ) (rationalTateRep E ℓ).asModule
 
-/-- **GLUE, GLOBALIZATION OF A PROVED DICTIONARY**, the global integral-
-closure Frobenius reading of the exact local dictionary. Locators:
-Silverman VII.3.1, VII.7.1 and the completion restriction of the Tate action.
-The premise is the existing local dictionary, proved above by
-`goodReductionFrobeniusTraceDictionaryQ_proved`, not an unproved local formula. This globalization is not proved
-here, and is not called a statement of Carayol (A). -/
+/-- **GLOBALIZATION OF A PROVED DICTIONARY**, PROVED in `GlobalTrace/GoodReductionReading.lean` as
+`globalGoodReductionTraceReading_proved` (that proof does not use the premise); first stated here as
+GLUE. The global integral-closure Frobenius reading of the exact local dictionary. Locators:
+Silverman VII.3.1, VII.7.1 and the completion restriction of the Tate action. The premise is the
+existing local dictionary, proved above by `goodReductionFrobeniusTraceDictionaryQ_proved`, not an
+unproved local formula. It is not called a statement of Carayol (A). -/
 def GlobalGoodReductionTraceReading : Prop :=
   GoodReductionFrobeniusTraceDictionaryQ →
     ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (ℓ : ℕ) [Fact ℓ.Prime]
@@ -1060,87 +1063,6 @@ def GlobalGoodReductionTraceReading : Prop :=
         LinearMap.trace ℚ_[ℓ] (rationalTate E ℓ) (rationalTateRep E ℓ g) =
             (E.LFunction p : ℚ_[ℓ]) ∧
           LinearMap.det (rationalTateRep E ℓ g) = (p : ℚ_[ℓ])
-
-/-- **GLUE, BAD-PRIME TATE LOCAL READING**, the actual minimal-reduction
-polynomial is the Frobenius polynomial on the actual Tate inertia invariants.
-Locators: the local determinant definition before Faltings Korollar 2,
-p. 361; Silverman VII.6–7 and Appendix C.16, p. 449 (body not page-checked).
-Carayol's theorem concerns the newform representation, not this assertion
-for every arbitrary elliptic curve. This proposition remains explicit.
-
-**Warning: false as stated at primes of multiplicative reduction.** The polynomial uses the
-arithmetic Frobenius on the inertia invariants of the homological representation. For a Tate
-curve the invariants are the line `ℚ_ℓ(1) ⊗ ε`, on which the arithmetic Frobenius acts by `ε p`,
-so this side is `1 - ε p X`, while the classical factor is `1 - ε X` (for the curve 11a1 at
-`p = 11`: `1 - 11 X` against `1 - X`). The correct reading uses the inertia coinvariants
-(equivalently the dual representation with the inverse Frobenius). The printed-corollary route
-`Descent.liCarayolNewformOfModular_of_printed_corollaries` does not use this statement. -/
-def BadReductionTatePolynomialReading : Prop :=
-  ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (ℓ : ℕ) [Fact ℓ.Prime]
-    (p : ℕ) (hp : p.Prime), p ≠ ℓ → ¬GoodReductionAt E (primeIdealQ p hp) →
-      ∀ D : LocalArithmeticFrobenius p,
-        localTatePolynomial E ℓ D =
-          (localPolynomialQ E (primeIdealQ p hp)).map (Int.castRingHom ℚ_[ℓ])
-
-/-- **PROVED FROM THE PRINTED SEMISIMPLICITY AND EXPLICIT GLOBAL READING**,
-by the discharged Čebotarev–Brauer–Nesbitt comparison. Locators:
-`representationEquiv_of_BN_frobenius`, `brauerNesbittChar0`, Carayol (A),
-pp. 410–411, and Faltings Satz 3, p. 360. The representation compared with
-Carayol's is precisely the actual rational Tate representation of `E`. -/
-theorem tate_equiv_Carayol_of_almost_all_primes
-    (hFa : Faltings1983Satz3EllipticQ) (hG : GlobalGoodReductionTraceReading)
-    (E : WeierstrassCurve ℚ) [E.IsElliptic]
-    {M : ℕ} [NeZero M] (F : Newform M 2) (hχ : F.χ = 1) (b : ℕ → ℚ)
-    (hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ))
-    (S : Finset ℕ) (hFp : ∀ p : ℕ, p.Prime → p ∉ S →
-      (qExpansion 1 F.toCuspForm).coeff p = (E.LFunction p : ℂ))
-    (ℓ : ℕ) [Fact ℓ.Prime] (R : CarayolRationalRealization F hχ b hb ℓ) :
-    Nonempty (Representation.Equiv (rationalTateRep E ℓ) R.normalizedRep) := by
-  classical
-  have hEr : IsSemisimpleModule (MonoidAlgebra ℚ_[ℓ] GlueC10.GQ)
-      (rationalTateRep E ℓ).asModule := hFa E ℓ
-  have hR : R.normalizedRep.IsIrreducible := R.irreducible
-  have hRs : IsSemisimpleModule (MonoidAlgebra ℚ_[ℓ] GlueC10.GQ) R.normalizedRep.asModule :=
-    inferInstance
-  obtain ⟨T, hT⟩ := goodReductionAt_almost_all_primes E inferInstance
-  apply representationEquiv_of_BN_frobenius brauerNesbittChar0 ℚ_[ℓ]
-    (rationalTate E ℓ) (Fin 2 → ℚ_[ℓ]) (Fin 2) (Fin 2)
-    (rationalTateBasis E ℓ) (Pi.basisFun ℚ_[ℓ] (Fin 2))
-    (rationalTateRep E ℓ) R.normalizedRep (continuous_rationalTateRep_matrix E ℓ)
-    R.continuous_matrix hEr hRs ((S ∪ T) ∪ (M * ℓ).primeFactors)
-  intro g p hp hpNot hg
-  have hpS : p ∉ S := fun h => hpNot (Finset.mem_union_left _ (Finset.mem_union_left _ h))
-  have hpT : p ∉ T := fun h => hpNot (Finset.mem_union_left _ (Finset.mem_union_right _ h))
-  have hpMℓ : ¬p ∣ M * ℓ := fun h => hpNot
-    (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr
-      ⟨hp, h, mul_ne_zero (NeZero.ne M) (Fact.out : ℓ.Prime).ne_zero⟩))
-  have hpℓ : p ≠ ℓ := by
-    rintro rfl
-    exact hpMℓ (dvd_mul_left _ _)
-  have hgE := (hG goodReductionFrobeniusTraceDictionaryQ_proved E ℓ p hp hpℓ
-    (hT p hp hpT)).2 g hg
-  rw [hgE.1, R.good_trace p hp hpMℓ g hg]
-  have hbp : b p = (E.LFunction p : ℚ) := by
-    have h := (hb p).symm.trans (hFp p hp hpS)
-    exact_mod_cast h
-  rw [hbp, Rat.cast_intCast]
-
-/-- **PROVED**, the comparison transports all local invariants, including
-bad primes. Locators: `inertiaEulerPolynomial_eq_of_equiv`, Carayol (A),
-pp. 410–411. No local equality between `E` and `F` is assumed. -/
-theorem localTatePolynomial_eq_newform_of_comparison
-    (hFa : Faltings1983Satz3EllipticQ) (hG : GlobalGoodReductionTraceReading)
-    (E : WeierstrassCurve ℚ) [E.IsElliptic]
-    {M : ℕ} [NeZero M] (F : Newform M 2) (hχ : F.χ = 1) (b : ℕ → ℚ)
-    (hb : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (b n : ℂ))
-    (S : Finset ℕ) (hFp : ∀ p : ℕ, p.Prime → p ∉ S →
-      (qExpansion 1 F.toCuspForm).coeff p = (E.LFunction p : ℂ))
-    (ℓ : ℕ) [Fact ℓ.Prime] (R : CarayolRationalRealization F hχ b hb ℓ)
-    (p : ℕ) (hp : p.Prime) (hpℓ : p ≠ ℓ) (D : LocalArithmeticFrobenius p) :
-    localTatePolynomial E ℓ D = rationalNewformPolynomial M ℓ b p := by
-  obtain ⟨e⟩ := tate_equiv_Carayol_of_almost_all_primes hFa hG E F hχ b hb S hFp ℓ R
-  exact (inertiaEulerPolynomial_eq_of_equiv e (inertiaAt D) D.element
-    (inertiaAt_normalized D)).trans (R.local_factor p hp hpℓ D)
 
 /-- **PROVED**, trivial actual inertia identifies the fixed-space
 Frobenius polynomial with the full-space Frobenius polynomial. Locator:
@@ -1250,61 +1172,5 @@ theorem exists_auxiliary_prime_ne (p : ℕ) : ∃ ℓ : ℕ, ℓ.Prime ∧ p ≠
   by_cases hp : p = 2
   · exact ⟨3, by decide, by omega⟩
   · exact ⟨2, by decide, hp⟩
-
-/-- **PROVED CONDITIONAL REPRESENTATION ASSEMBLY**, the exact G0 conclusion.
-Locators: Carayol (A) and §0.8, pp. 410–411; Faltings Satz 3, p. 360;
-Shimura Theorem 1, p. 526; Li Theorem 5, p. 298. The two actual Tate local
-readings remain displayed hypotheses. Brauer–Nesbitt, actual invariant-space
-transport, avoidance of `p = ℓ`, and coefficient assembly are all proved.
-No input asserts the existence conclusion of G0 for the original curve.
-
-**Warning.** The hypotheses `hC` and `hB` are false as formalized (see the warnings on
-`CarayolRationalRealization.local_factor` and `BadReductionTatePolynomialReading`), so this
-route is not usable until both are restated on inertia coinvariants. -/
-theorem liCarayolNewformOfModular_of_representations
-    (hS : ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent.Shimura1973ConjugateEigenforms)
-    (hL : Li1975StrongMultiplicityOneWeightTwo)
-    (hC : Carayol1986ThmARationalWeightTwo) (hFa : Faltings1983Satz3EllipticQ)
-    (hG : GlobalGoodReductionTraceReading) (hB : BadReductionTatePolynomialReading) :
-    ZInQ.Contrib.CloudB3RC53.ModularWeil.LiCarayolNewformOfModular := by
-  classical
-  intro E hE N hN f hf
-  have : E.IsElliptic := hE
-  obtain ⟨M, hM0, F, hMN, hχ, S, hFp⟩ :=
-    exists_newform_almost_all_prime_coeff E hE N hN f hf
-  have hrat := ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent.coefficients_rational_of_almost_all_primes
-    hS hL E F hχ S hFp
-  choose b hb using hrat
-  have hP : ∀ (p : ℕ) (hp : p.Prime),
-      (localPolynomialQ E (primeIdealQ p hp)).map (Int.castRingHom ℂ) =
-        newformEulerPolynomial F hχ p := by
-    intro p hp
-    obtain ⟨ℓ, hℓ, hpℓ⟩ := exists_auxiliary_prime_ne p
-    have : Fact ℓ.Prime := ⟨hℓ⟩
-    obtain ⟨R⟩ := hC M F hχ b hb ℓ
-    obtain ⟨D⟩ := localArithmeticFrobenius_nonempty p hp
-    have hcompare := localTatePolynomial_eq_newform_of_comparison
-      hFa hG E F hχ b hb S hFp ℓ R p hp hpℓ D
-    have hT : localTatePolynomial E ℓ D =
-        (localPolynomialQ E (primeIdealQ p hp)).map (Int.castRingHom ℚ_[ℓ]) := by
-      by_cases hgood : GoodReductionAt E (primeIdealQ p hp)
-      · exact localTatePolynomial_of_good hG E ℓ p hp hpℓ hgood D
-      · exact hB E ℓ p hp hpℓ hgood D
-    exact complexPolynomial_of_adicPolynomial E F hχ b hb ℓ p hp (hT.symm.trans hcompare)
-  have hpow := fun p hp r => newform_prime_pow_coeff_of_local_polynomial E F hχ p hp (hP p hp) r
-  have hall : ∀ n : ℕ, (qExpansion 1 F.toCuspForm).coeff n = (E.LFunction n : ℂ) := by
-    intro n
-    induction n using Nat.recOnPrimeCoprime with
-    | zero =>
-      rw [CuspFormClass.qExpansion_coeff_zero F.toCuspForm one_pos
-        (TauCeti.one_mem_strictPeriods_Gamma1_map M)]
-      simp
-    | prime_pow p r hp => exact hpow p hp r
-    | coprime m n _ _ hmn hm hn =>
-      change newformCoefficients F (m * n) = _
-      rw [(newformCoefficients_isMultiplicative F).2 hmn,
-        newformCoefficients_apply, newformCoefficients_apply, hm, hn,
-        (lFunction_isMultiplicative E).2 hmn, Int.cast_mul]
-  exact ⟨M, hM0, F, hMN, hχ, fun n _ => hall n⟩
 
 end ZInQ.Contrib.RC53Assist.NewformGlueG0.Completion

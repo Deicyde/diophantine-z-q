@@ -1,0 +1,72 @@
+# Verification of StageLinks
+
+Source: `ZInQKernel/Contrib/RC53Assist/RetainedAssembly/SupportChange/StageLinks.lean`
+SHA256: `03a19c4c5bf163a7195a72ae78206655cb820aaba6a3eabf9a6e682926403ed8`
+Size: 40,113 bytes; 707 lines.
+Compiler: Lean 4.35.0. Resource limits: `LEAN_NUM_THREADS=6`, `taskset -c 0-15`,
+`nice -n 10`; source `maxHeartbeats = 800000`.
+
+## Successful single-file checks
+
+1. `Scratch/StageLinksConsumers.lean`: exit 0, empty diagnostic output.
+   It re-elaborates the unchanged `Realized.lean` source body and the exact
+   `StageLinks.lean` source body after their required imports. Six consumer
+   checks validate the projection homotopy link, the original all-degree trace
+   transport in the projection-model interface's shape, the three exact
+   residue-consumer trace types, and preservation of stages when residue
+   identifications are attached.
+2. `Scratch/StageLinksAudit.lean`: exit 0, no warnings or errors.
+   It uses the same exact two source bodies, followed by statement and axiom
+   queries for every new explicit declaration, constructor and field.
+
+The copied source bodies were compared byte-for-byte with their final source
+files. The imports for re-elaboration are precisely the existing assembly,
+stage arithmetic producer and full residue transport modules. No proof body or
+statement was substituted, weakened or assumed.
+
+The audit covers 35 explicit declarations, 3 structure constructors and
+20 field projections: 58 complete reports. Their axiom union is exactly:
+
+```text
+[propext, Classical.choice, Quot.sound]
+```
+
+The principal `assemble_from_support_change_realized'` and the conditional
+`assemble_from_support_change_residue_realized'` both have that same standard
+axiom list. Exact statement and axiom output is in `StageLinksAudit.txt`.
+
+## Ordinary imported-module check
+
+The ordinary direct check of `StageLinks.lean` is blocked by the absent shared
+compiler object for:
+
+```text
+ZInQKernel.Contrib.RC53Assist.RetainedAssembly.SupportChange.Realized
+```
+
+The proof source itself is checked by the successful exact-source
+re-elaborations above. A single-file compiler object of the unchanged realized
+source was also generated in a new scratch-only object directory, but that
+partial directory is not a complete import root for the existing library;
+its use does not constitute a successful ordinary imported-module check.
+No existing shared build-cache file was written or replaced. Normal library
+integration must provide the realized dependency object first.
+
+## Source restrictions and scope
+
+Every new declaration and field has a kind and manuscript locator docstring.
+There are no holes, new axioms, native decision directives, implementation
+replacement directives, new syntax or notation, evaluation commands, final
+source diagnostics, wholesale Mathlib import, private identifiers or external
+working paths in the public source. Every source line is at most 100 characters.
+
+The projection model and transports against `originalCupTrace` are proved from
+the existing construction and preserved through the strengthened stage choice.
+The independent residue-arithmetic cup identifications remain OPEN as the three
+fields of `OriginalResidueTraceIdentification`. The conditional residue-linked
+assembler consumes those fields explicitly; it does not claim to discharge them.
+
+Earlier assembly and realization editions are unchanged. No version-control
+operation, aggregate build, integration, outreach or memory write was performed.
+Manuscript locators: `diophantine_zq.tex`, lines 3483–3498, 4385–4451,
+4859–4873 and 4976–5135.
