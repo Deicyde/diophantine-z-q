@@ -55,7 +55,7 @@ polynomial. It is retired and kept at the tag
 [`route-k-final`](https://github.com/Deicyde/diophantine-z-q/tree/route-k-final);
 [`docs/research/rs-pole.md`](docs/research/rs-pole.md) explains why it existed.
 
-## Status (fork `main` at `c4e2a8c5`, 2026-11-19)
+## Status (fork `main` at `dab5129f`, 2026-11-19)
 
 - **One theorem, [`ZInQ.OneProof.frozenTarget`](ZInQKernel/OneProof/Main.lean), proves `ZInQ.FrozenTarget` from 31
   open hypotheses, statements not yet proved in Lean.** Lean's kernel checks it with no `sorry` and only the standard
@@ -64,7 +64,7 @@ polynomial. It is retired and kept at the tag
   cache](.github/workflows/main-build-cache.yml) workflow builds the theorem after a push to `main` that changes Lean
   and fails unless its axioms are among these three. Its [first passing
   run](https://github.com/Deicyde/diophantine-z-q/actions/runs/44219370755) was at `be73b91c`, it [passed at this
-  commit](https://github.com/Deicyde/diophantine-z-q/actions/runs/44519135860), and its [run
+  commit](https://github.com/Deicyde/diophantine-z-q/actions/runs/44571578491), and its [run
   list](https://github.com/Deicyde/diophantine-z-q/actions/workflows/main-build-cache.yml) shows the other commits it
   has passed on ([#62](https://github.com/Deicyde/diophantine-z-q/issues/62)). The [build-cost
   table](docs/one-proof/CONTRIBUTING.md#what-it-costs-to-build) has no build by anyone outside the project yet.
@@ -72,8 +72,8 @@ polynomial. It is retired and kept at the tag
   to the six-contact height estimate (the manuscript's Theorem 4.1). The other four are the inputs from which Lean
   proves pole completeness (the manuscript's Theorem 5.2), as the manuscript does: its Theorem 5.3, the Cassels–Tate
   pairing on its curves E_ℓ: y² = x(x − ℓ)(x + 3ℓ) (from which Lean proves its Lemma 5.4), and consequences of the
-  modularity theorem of Breuil, Conrad, Diamond and Taylor and of Kolyvagin's Theorem 1. Of the 27, 11 are classed as
-  published theorems and 16 as consequences of a published theorem or of the manuscript's text. Under the strict count
+  modularity theorem of Breuil, Conrad, Diamond and Taylor and of Kolyvagin's Theorem 1. Of the 27, 12 are classed as
+  published theorems and 15 as consequences of a published theorem or of the manuscript's text. Under the strict count
   (a refereed theorem as printed, checked against the page), 6 qualify; the other 21 still need an argument or a
   reading. AI raters assigned these classes. The live list, with each statement's source, rating and holder, is
   [`docs/one-proof/OPEN.md`](docs/one-proof/OPEN.md).

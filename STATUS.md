@@ -6,7 +6,7 @@ coefficients such that a rational number q is an integer exactly when P(q, w) = 
 numbers. This project checks that proof in the Lean 4 proof assistant, with the Mathlib library.
 
 - Development fork: https://github.com/Deicyde/diophantine-z-q. This file describes the Lean state of fork main
-  c4e2a8c5 (2026-11-19), where a single Lean theorem, `ZInQ.OneProof.frozenTarget`, proves the manuscript's Theorem 1.1
+  dab5129f (2026-11-19), where a single Lean theorem, `ZInQ.OneProof.frozenTarget`, proves the manuscript's Theorem 1.1
   from exactly the statements that are still open.
 - Upstream: https://github.com/elliotglazer/diophantine-z-q. Its pull request #139 holds this fork as of c1e4ed1b,
   before the switch away from Route K (below).
@@ -37,8 +37,8 @@ in the Glossary at the end):
   (Breuil–Conrad–Diamond–Taylor, Theorem A) and of Kolyvagin's Theorem 1. This is the manuscript's route. Lean proves
   everything else, including every finite computation about the polynomial.
 - **Reduced in Lean:** H follows from 27 statements that are still open, and Lean proves every step from them to H
-  (`HDec.HSyn.sixContactMin_of_open89`, the H part of `ZInQ.OneProof.frozenTarget`). By the project's ratings, 11 of
-  them are published theorems (some specialized or weakened) and 16 are consequences of published theorems or of the
+  (`HDec.HSyn.sixContactMin_of_open90`, the H part of `ZInQ.OneProof.frozenTarget`). By the project's ratings, 12 of
+  them are published theorems (some specialized or weakened) and 15 are consequences of published theorems or of the
   manuscript's own text. Under the strict count, which also requires that a reader has checked the statement against
   the printed page, 6 of the 27 count as published statements in their printed form and 21 do not.
 - **Open:** the 27 statements behind H, and the four inputs of pole completeness: the manuscript's Theorem 5.3, the
@@ -46,7 +46,7 @@ in the Glossary at the end):
 
 These 31 statements are exactly the hypotheses of `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`).
 Folding in a proof of one removes it from that theorem. The count block above is regenerated at every landing; the
-numbers in the prose describe fork main c4e2a8c5.
+numbers in the prose describe fork main dab5129f.
 
 ## How far to trust each part
 
@@ -79,7 +79,7 @@ The headline Lean theorem is
 `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`
 (`ZInQKernel/MainGreenTao.lean`), with the two hypotheses `hH : SixContactMin` and `hPC : PoleCompleteness`.
 `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`) applies it to H and to pole completeness. It takes the
-open statements of H as the fields of `HDec.HSyn.OpenResearchLeaves70` and `HDec.HSyn.OpenAddedLeaves28` (the third
+open statements of H as the fields of `HDec.HSyn.OpenResearchLeaves71` and `HDec.HSyn.OpenAddedLeaves28` (the third
 bundle, `HDec.HSyn.OpenTextbookLeaves18`, has no open field left), and the four inputs of pole completeness as the
 hypotheses `hRC` (Theorem 5.3), `hCT` (the Cassels–Tate pairing on the curves of Theorem 5.3, from which Lean proves
 Lemma 5.4), `hB` (Breuil–Conrad–Diamond–Taylor, Theorem A) and `hK` (Kolyvagin, Theorem 1), and nothing else.
@@ -97,8 +97,8 @@ docs/one-proof/OPEN.md gives each statement's Lean form, source, rating and hold
 - abelian varieties: Faltings' semisimplicity and Tate theorems (1983, §5), and the duality between the Tate module
   and étale cohomology (Milne, Theorem 12.1(a));
 - Néron models and semistable reduction: existence of Néron models over a Dedekind base, Raynaud's criterion in the
-  form of Silverberg–Zarhin, Theorem 3.5, Faltings' extension lemma for semiabelian schemes (1983, Lemma 1), and the
-  triviality of wild inertia;
+  form of Silverberg–Zarhin, Theorem 3.5, their inertia criterion for semistable reduction (Theorem 3.3), and
+  Faltings' extension lemma for semiabelian schemes (1983, Lemma 1);
 - Faltings heights: Gaudron–Rémond's Theorem 1.4 and the lower bound recorded in their Section 9, Javanpeykar's
   Theorem 1.1.1, and Pazuki's Corollary 1.3;
 - p-adic Hodge theory: Berger's p-adic monodromy theorem, Scholze's comparison theorem for the first cohomology of
@@ -108,10 +108,9 @@ docs/one-proof/OPEN.md gives each statement's Lean form, source, rating and hold
   in the form of Darmon–Diamond–Taylor, Pan's theorem on the Fontaine–Mazur conjecture, and the Hodge–Tate weights of
   the Galois representations of modular forms.
 
-Several of them are steps of the manuscript itself rather than citations: the degree of a CM j-invariant, the
-triviality of wild inertia and the Hodge numbers in its de Rham descent lemma (part of `scholzeH1AbVar`) are uncited
-there, and the integral model of the level-three curve and its map to the
-projective line are the manuscript's own arguments from cited papers. Each entry's Source line in
+Several of them are steps of the manuscript itself rather than citations: the degree of a CM j-invariant and the
+Hodge numbers in its de Rham descent lemma (part of `scholzeH1AbVar`) are uncited there, and the integral model of the
+level-three curve and its map to the projective line are the manuscript's own arguments from cited papers. Each entry's Source line in
 docs/one-proof/OPEN.md says which.
 
 AI models have compared most of the statements with their printed sources (rows flagged unread or pending reading in
@@ -183,7 +182,7 @@ main that changes Lean files or the Lake configuration, in the main build cache 
 (.github/workflows/main-build-cache.yml). The job fails unless the build finishes and the axioms of
 `ZInQ.OneProof.frozenTarget` are among `propext`, `Classical.choice` and `Quot.sound`; any other axiom, `sorryAx`
 included, fails it. The first such build finished on 2026-11-18 (run 44219370755, at be73b91c). The build at fork main
-c4e2a8c5 finished and passed the axiom check (run 44519135860); there `frozenTarget` takes the three H bundles, with 27
+dab5129f finished and passed the axiom check (run 44571578491); there `frozenTarget` takes the three H bundles, with 27
 open fields between them, and the four inputs of pole completeness: 31 open hypotheses. A cold build takes more than
 one job, so the workflow resumes from saved progress.
 
@@ -216,8 +215,9 @@ docs/one-proof/STATEMENT-CHECKS.md.
   2-primary Selmer group; docs/research/cassels-tate-pairing.md, lemma54-ct.md and lem54-ct-check.md: Lemma 5.4 from
   the Cassels–Tate pairing; docs/research/fold-b112.md, fold-b115.md, fold-b116.md, fold-c8.md, fold-cm.md,
   hecke-sqrt.md, nos-narrow-fold.md, cm-port2.md, faltings-dict2.md, fowler-unique.md, fowler-bridges.md and
-  bsh-family.md: the folds since, with a check of the manuscript steps they touch (the fold that proved
-  `cmPotentialGood`, fork PR #132, has no report there).
+  bsh-family.md: the folds since, with a check of the manuscript steps they touch (the folds of fork PRs
+  #132 and #133, which proved `cmPotentialGood` and replaced the triviality of wild inertia by Silverberg–Zarhin's
+  Theorem 3.3, have no report there).
 - blueprint/roadmap/height-decomposition/: the blueprint chapter with one article per open statement of H, giving
   its statement in mathematical terms, how it differs from the print, and its source.
 - docs/research/h-trust.md: a dated note (2026-11-11, on an earlier route) that follows the proof of Theorem 4.1 step
