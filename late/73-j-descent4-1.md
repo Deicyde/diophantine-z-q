@@ -1,0 +1,2 @@
+
+Late note (from the lead; read it before you write the report): the counts on this base are stale. Main has moved (the Fowler fold and others landed), and more folds are queued. In the report and in the .fleet summary, state the effect of your work as a delta on whatever main is at fold time ("strict GLUE −1 once both the genus comparison and the coordinate comparison are proved", or "no change by itself"), not as absolute LEAF/GLUE counts. You may still record the dry-run output of this base as evidence, labelled as this base's numbers.
