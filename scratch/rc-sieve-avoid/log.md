@@ -7,3 +7,9 @@
 - Fourier: original lattice witness for the diamond and the integral all-index formula at a fresh prime.
 - Hecke: ambient plus excluded allowed tests give the restricted all-index formula; coefficient one requires only an excluded coefficient-one equality.
 - Levels, Attachment, Fourier, Hecke: compiled sequentially in the Lake environment; all 11 axiom audits passed.
+- Model: restricted trace inertia plus `SieveInertia` gives the original Kummer comparison. Extra sieve input: inertia at `q ∈ Scoeff`, `q ∉ support ∪ U` dies modulo squares and the reduced trace stabilizer.
+- Window: restricted inertia from retained levels; the conditional common-space builder and `window_good_hecke` use the original lattice.
+- Assembly: `Scoeff ⊆ avoid` supplies the ambient exclusion; `realize_of_stage'` retains the original levels, coefficients and source premises.
+- Consumers: omission chooses four fresh representatives; fixed-set and primary consume only prescribed fresh pairs. No unguarded dictionary result asserted.
+- Theta, Stage: exact and stage-precision routes give the same two restricted trace identities; the finite-window route uses ambient representatives for omission.
+- Final compile: Levels, Attachment, Fourier, Hecke, Model, Window, Assembly, Consumers, Theta, Stage all passed individually in the Lake environment with `lean -j1`; no warnings. 47 theorems and 3 constructors audited; only `propext`, `Classical.choice`, `Quot.sound`.
