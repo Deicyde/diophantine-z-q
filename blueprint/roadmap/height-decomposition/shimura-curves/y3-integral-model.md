@@ -3,7 +3,7 @@ article_id: af_50bd0369777a972e912e2747
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves70.y3FullThreeRepZ30
+lean: HDec.HSyn.OpenResearchLeaves71.y3FullThreeRepZ30
 ---
 
 # The integral model of Y₃ over ℤ[1/30]

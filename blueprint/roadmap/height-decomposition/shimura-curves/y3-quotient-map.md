@@ -3,7 +3,7 @@ article_id: af_1d3baf6e12425de888228aca
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves70.y3ToP1j
+lean: HDec.HSyn.OpenResearchLeaves71.y3ToP1j
 ---
 
 # The quotient map from Y₃ to the projective line

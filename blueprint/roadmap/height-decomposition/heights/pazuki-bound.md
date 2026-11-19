@@ -3,7 +3,7 @@ article_id: af_347612b60d11e0f53cbbd819
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves70.pazukiCor13Upper
+lean: HDec.HSyn.OpenResearchLeaves71.pazukiCor13Upper
 ---
 
 # Pazuki's comparison of the theta height with the Faltings height

@@ -228,38 +228,43 @@ Milne prints the isomorphism for an abelian variety over a separably closed fiel
 J. S. Milne, *Abelian varieties*, course notes, version 2.0 (March 16, 2008), Part I, Theorem 12.1(a), p. 55, and Remark 12.5, p. 56, read in the author's PDF; this is the version the manuscript cites (`diophantine_zq.tex`, lines 10966–10970). The 1986 chapter *Abelian varieties* in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Theorem 15.1(a), is not read. Pro-étale cohomology and its comparison with étale cohomology: B. Bhatt and P. Scholze, *The pro-étale topology for schemes*, Astérisque 369 (2015), Definition 6.8.1 and §5.6; these two numbers are unverified.
 """,
     ),
-    'elliotWildInertiaTrivial': dict(
-        group='neron-models', slug='wild-inertia-trivial',
-        title='Wild inertia acts trivially under semistable reduction',
-        anchor='Wild inertia on Tate modules',
+    'silverbergZarhinThm33': dict(
+        group='neron-models', slug='inertia-criterion',
+        title="Silverberg and Zarhin's inertia criterion for semistable reduction",
+        anchor='Inertia criterion',
         statement=r"""
-The *wild inertia statement* is the following assertion. Let $K$ be a number field, $\mathcal O$ a
-discrete valuation ring with fraction field $K$, $\Omega$ an algebraic closure of $K$, $w$ a
-valuation ring of $\Omega$ over $\mathcal O$, and $\ell$ a prime invertible in $\mathcal O$. Let $A$
-be an abelian variety over $K$ with semistable reduction at $\mathcal O$ in the sense of Silverberg
-and Zarhin: some Néron model of $A$ over $\mathcal O$ has a special fibre over the residue field
-whose identity component is an extension of an abelian variety by a torus, not necessarily split.
-Then every element $\sigma$ of $\operatorname{Gal}(\Omega/K)$ in the inertia group of $w$ that is
-wild, in the sense that $v_w(\sigma x-x)>v_w(x)$ for every nonzero $x\in\Omega$, where $v_w$ is the
-valuation of $w$, acts trivially on $T_\ell A=\varprojlim_n A(\Omega)[\ell^n]$.
+The *inertia criterion statement* is the following assertion. Let $K$ be a field, $\mathcal O$ a
+valuation ring of $K$ that is a discrete valuation ring, $\Omega$ an algebraic closure of $K$, $w$ a
+valuation ring of $\Omega$ over $\mathcal O$, $\ell$ a prime invertible in $\mathcal O$, and $A$ an
+abelian variety over $K$, with $V_\ell A=\mathbb Q_\ell\otimes_{\mathbb Z_\ell}T_\ell A$. Say that an
+abelian variety has semistable reduction at a discrete valuation ring when some Néron model of it
+there has a special fibre over the residue field whose identity component is an extension of an
+abelian variety by a torus, not necessarily split. Suppose that $A$ has semistable reduction at
+$\mathcal O$, or that for some finite separable extension $E$ of $K$ inside $\Omega$ such that
+$w\cap E$ is a discrete valuation ring, $A_E$ has semistable reduction at $w\cap E$. Then $A$ has
+semistable reduction at $\mathcal O$ if and only if the inertia group $I$ of $w$ acts trivially on
+$V_\ell A/(V_\ell A)^I$: that is, $\tau(\sigma x-x)=\sigma x-x$ for all $\sigma,\tau\in I$ and all
+$x\in V_\ell A$.
 """,
         caveat=r"""
-This is a sentence of the manuscript, which cites nothing for it. At a prime $p$, once Raynaud's
-criterion gives semistable reduction over the local field $F$ obtained from the completion by
-adjoining the $3$-torsion of $A$ (the $5$-torsion if $p=3$), the manuscript says: "Its wild inertia
-acts trivially on each $V_\ell(A)$ with $\ell\ne p$." The statement reads this at a finite place of
-a number field, through two standard identifications (the decomposition group of $w$ is the Galois
-group of the completion, and Néron models commute with completion), and on $T_\ell A$, which embeds
-in $V_\ell(A)$. It is true and standard: under semistable reduction inertia acts unipotently on
-$T_\ell A$ (SGA 7 I, Exposé IX, Proposition 3.5), and wild inertia is pro-$p$, so it acts on each
-$A(\Omega)[\ell^n]$ with period prime to $\ell$. An argument given here derives the statement from
-these two facts, neither of which is proved here.
+It is Theorem 3.3 of Silverberg and Zarhin, which they attribute to Grothendieck, for the print's
+Galois extension taken to be the separable closure, as their proofs of Lemma 5.5 and Proposition 6.1
+take it; the algebraic closure $\Omega$ stands in for the separable closure. The print defines
+semistability at a place only for a discrete valuation, so for the infinite extension "semistable at
+$w$" is read as semistable at some finite separable subextension, the base allowed: that is the
+hypothesis above. A two-lens review rated the statement glue rather than the printed form, for these
+readings and because $K$ is any field; a page reading alone would not change that. The manuscript
+cites Theorem 3.5 of the same paper (Raynaud's criterion) and then states, without citation, that wild
+inertia acts trivially on each $V_\ell(A)$ with $\ell\ne p$. Lean derives that sentence from this
+statement.
 """,
         src=r"""
-The 11/5 manuscript (`diophantine_zq.tex`, lines 817–818), without citation, right after its
-citation of Silverberg and Zarhin's Theorem 3.5 (line 816). For the standard argument: SGA 7 I,
-Exposé IX (A. Grothendieck), LNM 288 (1972), Proposition 3.5, p. 350, read in the MSRI/SLMath scan;
-that wild inertia is pro-$p$, J.-P. Serre, *Corps locaux*, Chapter IV, §2 (numbers unverified).
+A. Silverberg and Yu. G. Zarhin, *Semistable reduction and torsion subgroups of abelian varieties*,
+Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.3, p. 405, with semistable reduction as defined in
+§3, p. 405; the proofs of Lemma 5.5 (p. 411) and Proposition 6.1 (pp. 412–413) apply it at the
+separable closure. Read by an AI model (2026-11-17). The manuscript cites the paper at
+`diophantine_zq.tex` line 816 and in its bibliography (lines 11077–11080); the uncited sentence is
+at lines 817–818.
 """,
     ),
     'neronSchemeExtensionDedekind': dict(

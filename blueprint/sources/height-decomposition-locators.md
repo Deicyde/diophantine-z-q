@@ -75,13 +75,6 @@ arXiv:2202.05818v2: Fact 4.20 in §4.19, p. 28, with the conventions on pp. 2–
 *Galois representations*, Ann. Fac. Sci. Toulouse Math. (6) 13 (2004). Kato's §11.3, Taylor and the
 journal numbering of Gee are unverified.
 
-## Wild inertia on Tate modules
-
-The 11/5 manuscript (`diophantine_zq.tex`, lines 817–818), without citation, right after its
-citation of Silverberg and Zarhin's Theorem 3.5 (line 816). For the standard argument: SGA 7 I,
-Exposé IX (A. Grothendieck), LNM 288 (1972), Proposition 3.5, p. 350, read in the MSRI/SLMath scan;
-that wild inertia is pro-$p$, J.-P. Serre, *Corps locaux*, Chapter IV, §2 (numbers unverified).
-
 ## Berger monodromy theorem
 
 O. Brinon and B. Conrad, *CMI summer school notes on $p$-adic Hodge theory* (preliminary version,
@@ -199,6 +192,15 @@ and 733 for other results.
 G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
 Proc. Cambridge Philos. Soc. 180 (2026), 607–641, Proposition 2.7, p. 615, with the class number
 defined on p. 613; the manuscript's citation (`diophantine_zq.tex`, lines 588–593).
+
+## Inertia criterion
+
+A. Silverberg and Yu. G. Zarhin, *Semistable reduction and torsion subgroups of abelian varieties*,
+Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.3, p. 405, with semistable reduction as defined in
+§3, p. 405; the proofs of Lemma 5.5 (p. 411) and Proposition 6.1 (pp. 412–413) apply it at the
+separable closure. Read by an AI model (2026-11-17). The manuscript cites the paper at
+`diophantine_zq.tex` line 816 and in its bibliography (lines 11077–11080); the uncited sentence is
+at lines 817–818.
 
 ## Conrad Appendix B
 

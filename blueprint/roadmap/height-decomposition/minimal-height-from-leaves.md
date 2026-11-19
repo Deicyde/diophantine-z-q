@@ -4,7 +4,7 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: HDec.HSyn.sixContactMin_of_open89
+lean: HDec.HSyn.sixContactMin_of_open90
 ---
 
 # The minimal height hypothesis from twenty-seven statements
@@ -17,8 +17,8 @@ of this chapter taken together: theorems from the literature, grouped by the the
 [Faltings 1983 and Faltings heights](heights/README.md),
 [p-adic Hodge theory](p-adic-hodge/README.md),
 [Galois representations of modular forms](modular-galois/README.md)). Of the twenty-seven statements
-from the literature, eleven are published statements, some of them specialized or weakened; and
-sixteen are consequences of published theorems, which take further theorems to reach from the print.
+from the literature, twelve are published statements, some of them specialized or weakened; and
+fifteen are consequences of published theorems, which take further theorems to reach from the print.
 The project's strict convention, which counts a published statement only once its reading against
 the print and its review are complete, counts six of the twenty-seven as published. None of the
 twenty-seven is proved here.
@@ -48,7 +48,6 @@ height hypothesis.
 - [Pan's Fontaine–Mazur theorem](p-adic-hodge/pan-fontaine-mazur.md)
 - [Frobenius on the Tate module of Shimura's abelian variety](modular-galois/shimura-af-frobenius.md)
 - [Hodge–Tate weights of the representation of a newform](modular-galois/kato-hodge-tate-weights.md)
-- [Wild inertia acts trivially under semistable reduction](neron-models/wild-inertia-trivial.md)
 - [Berger's theorem: de Rham representations are potentially semistable](p-adic-hodge/berger-de-rham-potentially-semistable.md)
 - [Shimura's Main Theorem I on Y₃ in Deligne's form](shimura-curves/shimura-main-theorem-y3.md)
 - [The lower bound for the Faltings height](heights/bost-lower-bound.md)
@@ -63,6 +62,7 @@ height hypothesis.
 - [The quotient map from Y₃ to the projective line](shimura-curves/y3-quotient-map.md)
 - [Homomorphisms of semiabelian schemes over a discrete valuation ring extend uniquely](heights/faltings-extension-lemma.md)
 - [Fowler's bound for discriminants of bounded class number](cm-fibres/fowler-class-number-bound.md)
+- [Silverberg and Zarhin's inertia criterion for semistable reduction](neron-models/inertia-criterion.md)
 - [Local algebraicity of Hodge–Tate characters](p-adic-hodge/conrad-local-algebraicity.md)
 - [Scholze's comparison theorem for H¹ of an abelian variety](p-adic-hodge/scholze-de-rham-comparison.md)
 - [The first ℓ-adic cohomology of an abelian variety is dual to its Tate module](abelian-varieties/tate-module-duality.md)

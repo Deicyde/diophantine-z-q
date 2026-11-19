@@ -3,7 +3,7 @@ article_id: af_52f83cb7f78009bae0bddab3
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves70.cmjDegree
+lean: HDec.HSyn.OpenResearchLeaves71.cmjDegree
 ---
 
 # The degree of a field of definition of a CM elliptic curve

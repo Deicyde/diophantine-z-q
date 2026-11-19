@@ -3,7 +3,7 @@ article_id: af_45fff05ecc3aee55a906d96a
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves70.shimuraThm1Af
+lean: HDec.HSyn.OpenResearchLeaves71.shimuraThm1Af
 ---
 
 # Shimura's abelian variety attached to a newform
