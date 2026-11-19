@@ -1,0 +1,12 @@
+{
+  "name": "bsh-fold",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.BShFamily"
+  ],
+  "discharges": [
+    {
+      "field": "bShStandardModel",
+      "proof": "_root_.BShFamily.bShStandardModel_proof"
+    }
+  ]
+}

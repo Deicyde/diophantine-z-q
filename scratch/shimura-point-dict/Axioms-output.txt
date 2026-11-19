@@ -1,0 +1,81 @@
+ShimuraPointDictGerms.lean
+'ShimuraPointDict.hasValue_coe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.hasValue_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGerms.0.ShimuraPointDict.hasValue_const' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGerms.0.ShimuraPointDict.hasValue_add' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGerms.0.ShimuraPointDict.hasValue_mul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGerms.0.ShimuraPointDict.hasValue_neg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraPointDict.isUnit_germ_of_eventually_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGerms.0.ShimuraPointDict.inverse_germ_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraPointDict.hasValue_inv_of_not_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.finiteValue_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+ShimuraPointDictField.lean
+'ShimuraPointDict.algEval_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.exists_polynomial_fraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictField.0.ShimuraPointDict.eventually_good' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraPointDict.map_punctured_coe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.tendsto_quotient_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.polynomialGerm_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictField.0.ShimuraPointDict.polynomial_eventually_ne_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictField.0.ShimuraPointDict.evalOnRange_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictField.0.ShimuraPointDict.evalOnRange_units' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictField.0.ShimuraPointDict.fractionRing_of_generation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraPointDict.fieldGerm_fraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.fieldGerm_meromorphic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.hasValue_fraction_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+ShimuraPointDictGeometry.lean
+'ShimuraPointDict.regAt_iff_stalk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGeometry.0.ShimuraPointDict.spec_to_rat_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGeometry.0.ShimuraPointDict.specMap_to_generic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGeometry.0.ShimuraPointDict.centerMap_comp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDictGeometry.0.ShimuraPointDict.centerMap_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraPointDict.exists_regAt_of_valuation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.point_eq_of_stalk_to_valuation' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+ShimuraPointDict.lean
+'ShimuraPointDict.exists_atTau' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDict.0.ShimuraPointDict.stalk_witness_of_hasValue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDict.0.ShimuraPointDict.stalk_mem_tauValuation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.ShimuraPointDict.0.ShimuraPointDict.tauValue_stalkToTau' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraPointDict.atTau_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.existsUnique_atTau' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.x1TauPoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.constOnTauPoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.exists_xi_of_compositeActions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraPointDict.shimuraHeckeRelations_of_compositeActions' depends on axioms: [propext, Classical.choice, Quot.sound]

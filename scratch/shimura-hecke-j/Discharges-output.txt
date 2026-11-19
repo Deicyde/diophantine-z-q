@@ -1,0 +1,9 @@
+DISCHARGES [shimuraThm1Af] by ShimuraSteps.shimuraThm1Af_of_printed
+  still assumes: [ShimuraSteps.ShimuraThm1AsPrinted,
+ ShimuraSteps.ShimuraHeckeRelations,
+ ShimuraSteps.SameDimSurjectiveFinite]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [shimuraThm1Af] by ShimuraSteps.shimuraThm1Af_of_printed'
+  still assumes: [ShimuraSteps.ShimuraThm1AsPrinted, ShimuraSteps.ShimuraHeckeRelations]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 1 open hypotheses, 1931 theorems checked, 2 discharge one

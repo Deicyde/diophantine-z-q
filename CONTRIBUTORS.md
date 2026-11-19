@@ -28,6 +28,7 @@ Upstream's README says the project "uses the collective agentic notes from" the 
 - **Carlos Toledo** ([@carlostoledo1891](https://github.com/carlostoledo1891)): the frozen target's statement from eight explicit hypotheses and the audit files of upstream [#5](https://github.com/elliotglazer/diophantine-z-q/pull/5) and [#6](https://github.com/elliotglazer/diophantine-z-q/pull/6) (imported in #71 and #73).
 - **Cameron Freer** ([@cameronfreer](https://github.com/cameronfreer)): quadratic rows and durable tables for the quartic stack, upstream [#23](https://github.com/elliotglazer/diophantine-z-q/pull/23) (imported in #73).
 - **Junyan Xu** ([@alreadydone](https://github.com/alreadydone)): the statement check of `javanpeykarThm111An` ([#91](https://github.com/Deicyde/diophantine-z-q/pull/91)), which corrected the row's semistability note, and a survey of the Picard rows' formalization status on #14.
+- **Ryan McCorvie** ([@mccorvie](https://github.com/mccorvie)): the reduction of `neronSchemeExtensionDedekind` to its discrete-valuation-ring case (`neronSchemeExtensionDedekind_of_dvr`, BLR §1.3 Cor. 2 with §1.4 Prop. 1 and Thm 3), [#137](https://github.com/Deicyde/diophantine-z-q/pull/137).
 
 ## Claims and discussion on #14
 
