@@ -1,0 +1,40 @@
+rc-pool-character: the fixed-pool character identification, the residue test oldCharacter_comp_eq_iff reduces hchar to (base: wip/rc-gauss-sign at 47aa1251116905a35abe9772daecd7134e438f79).
+
+Why: the owner said "I feel like we're spending way too much time re-reading literature and not nearly enough time trying to prove Elliot's manuscript", then approved the project's hosts taking Theorem 5.3's appendices. oldStageLaw_of_finiteAction (RC/OldStageLaw/) takes a character input hchar: ξ.comp (ZMod.unitsMap Dₗ.old_dvd) = (Units.map κ).comp (bCharacter C ∅). rc-weil-index (on this base) computed the old character as the product of the local root characters times Jacobi(m, d) at the old level, and oldCharacter_comp_eq_iff (RC/WeilIndex/Character.lean) turns hchar into one residue test: for every u in (ℤ/M)ˣ, ((Units.map κ) ∘ bCharacter(C, ∅))(u) = (∏_p α_p(u mod c_p)) · Jacobi(m, (u : ℤ/M).val) as complex numbers (docs/research/rc-weil-index.md, "Remaining hypotheses" 4). It is rated an ELLIOT input (tex 8891-8936, 8978-8986, 9012-9015): the identification with the fixed-pool character at the chosen computational level. The owner's line: keep producing Lean until only cited prints remain; ELLIOT inputs are the targets. The integrator approved this task. Do not overlap the sibling tasks: rc-metaplectic (RC/Metaplectic/), rc-modfn-field (RC/ModFnField/), rc-x0-branch (RC/X0Branch/), rc-heegner-values (another host), rc-stage-kummer (RC/StageKummer/), rc-theta-close (RC/ThetaClose/: PMLocal's fields and support), rc-o7-orbits and rc-o7-character; the reviewer's own briefs on the RCLeaves fields stage_support, even_upper, companion, address, calibration and base_zero; (3.5), which is on hold while the cloud root restates eq35; (O.7) (rc-o7-actual); PMLocal (rc-theta-join). Import existing modules; do not edit them.
+
+Setup: your worktree is already on branch wip/rc-pool-character at 47aa1251116905a35abe9772daecd7134e438f79 (the head of wip/rc-gauss-sign). Origin refs in the shared repository are refreshed for you; do not run git fetch or git push yourself (a separate job pushes your commits). Your files go under ZInQKernel/Contrib/OneProof/RC/PoolCharacter/ (a new directory).
+
+What exists (read first):
+- RC/WeilIndex/Character.lean (oldCharacter, oldCharacter_comp_eq_iff, the local root characters α_p and their conductors c_p) and docs/research/rc-weil-index.md.
+- RC/BlocksPerU/Diamond.lean (DiamondCharacters, bCharacter) and how the fixed pool C is chosen (RC/BlocksPerU/, RC/O12*/, docs/research/rc-blocks-per-u.md), RC/OldStageLaw/ (oldStageLaw_of_finiteAction, hchar) and its report.
+- The manuscript, diophantine_zq.tex: 8891-8936, 8978-8986, 9012-9015, and wherever the fixed pool's diamond characters are chosen (git grep the tex for the pool and its characters; start from the lines rc-blocks-per-u cites).
+
+Your work:
+1. Identify, from the manuscript and the tree, how bCharacter C ∅ is defined on the actual fixed pool, and state the residue test for the actual data.
+2. Prove the residue test, or reduce it to its smallest statement, stated exactly.
+3. Say plainly whether that smallest statement is the manuscript's own step (with tex lines; then it is an ELLIOT input, and say whether the text justifies it) or a Lean-side shortcut of the interface (then say what the faithful statement is).
+Out of scope for this run: the metaplectic action (rc-metaplectic); StageGrid; the old-level realization data (classwise depth, unit scaling) except as named hypotheses.
+Prints: none.
+
+RESOURCE LIMITS (hard rules; breaking one fails your task):
+- At most ONE Lean process (lean, lake, repl, or a pytest run that starts real Lean) at a time. Never start Lean jobs in the background with &, xargs -P, or shards.
+- A Lean REPL session gets at most 10 commands, then restart it. Or send the header once and pass "env" on later commands so it doesn't re-import.
+- Check `uptime` and `sysctl vm.swapusage` before every Lean or pytest run. If load is above 40 or swap used is above 8 GB, don't start it; report that you were blocked.
+- Ground-truth or differential checks use a sample of at most 30 inputs, run one after another.
+Host note (devserver): check `uptime` and `free -g` instead of vm.swapusage; hold Lean only above load 120 or below 20 GB available memory; do not sleep and poll.
+
+The owner's rules: follow the manuscript (diophantine_zq.tex) first, then the literature it cites. Label any step that is in neither as on-the-spot (provenance (c)). Cited prints become printed-form leaves exactly as Elliot uses them (the owner's Gross-Zagier ruling: "Follow the manuscript: CST Thm 1.1 and Kolyvagin Thm 1 become printed-form leaves exactly as Elliot cites them; we write no GZ argument of our own"). Reuse the print statements already in the tree (RC/PrintsArith, RC/PrintsAnalytic, RC/AppF/Prints.lean, the shared layer's Prints) and add only the prints named in this brief. No network is needed and you have none: mark page and theorem numbers you give from memory UNVERIFIED. If a source has a known issue, document it. Report any error you find in the manuscript or a source at once, first in the report and in .fleet/rc-pool-character.md.
+
+Hygiene, for everything bound for the fork (Lean, report, commit messages): no session names, host names or user paths. Write paths relative to the repository root, and refer to people by role ("the lead", "the reviewer", "the cloud agent").
+
+The stop rule, for this unattended run: if a step needs a large missing theory, build only the minimal faithful pieces the next step needs. Otherwise finish what can be finished and write a scoped report: what is missing, how large it is, the smallest faithful statement of it, and what would follow once it exists. Never add a leaf beyond the prints named here, and never weaken a statement to make it provable.
+
+Deliverables: new files only, under ZInQKernel/Contrib/OneProof/RC/PoolCharacter/. Never import ZInQKernel.OneProof.Main, and edit nothing outside that directory except the report, .fleet/rc-pool-character.md and scratch/rc-pool-character/. Do not use local notation; write abbreviations with explicit arguments, or inline (the merge rule blocks local notation). Compile each file with lake env lean (one Lean process at a time), with no sorry and no axiom, and give #print axioms of each new theorem (only propext, Classical.choice and Quot.sound). Any new structure or Prop that a theorem takes as a hypothesis must not restate the result it is used for: say in the report, for each one, why it is strictly weaker than the target and which manuscript step it is. The report docs/research/rc-pool-character.md needs:
+- the main result, or the scoped stop, first;
+- the statement of each new theorem, and which input of oldStageLaw_of_finiteAction it supplies;
+- the exact list of hypotheses that remain, each with its tex lines and its owner (sibling lane, ELLIOT input, or missing theory and its size);
+- a Known-issues section;
+- a section "Manuscript check": one line per manuscript step you formalize or rely on, with its tex lines and one verdict: OK (right as written), gap filled (what was missing), error (what is wrong), or unverified (why).
+Commit on your branch wip/rc-pool-character (only that branch) with the report (a background job pushes it; do not run git push), and give the final SHA in your last message and in .fleet/rc-pool-character.md.
+
+Output and commits: besides the report, keep a results log at scratch/rc-pool-character/log.md (statements, findings, compile outcomes; no narrative), and at the end write .fleet/rc-pool-character.md (half a page: main result or scoped stop, what compiles, what remains). Commit as you go with git add of your own paths and git commit (never git add -A). Commit .fleet/rc-pool-character.md last. Resuming: if scratch/rc-pool-character/log.md exists, an earlier run was interrupted; read it and the report, and continue where it stopped. Keep working until .fleet/rc-pool-character.md is written and committed.
