@@ -34,7 +34,11 @@ input $B$ as above, the descent works in four steps:
 - So the 2-part of the Tate–Shafarevich group vanishes, and the class $(\beta,1)$ comes from a rational
   point on each curve. Rescaled to abscissas $A$ and $Az^2$, those points give the witnesses.
 
-That derivation is not yet formalized here (fork issue #83). The [pole obstruction](../multiplication/pole-obstruction.md),
+That derivation is formalized here (fork issue #83), with Lemma 5.4 proved from the Cassels–Tate
+pairing on the curves $E_\ell$. It leaves four inputs: Theorem 5.3; that pairing, as Poonen and Stoll restate
+Cassels' theorem; the modularity theorem of Breuil, Conrad, Diamond and Taylor; and a consequence of
+Kolyvagin's theorem. Theorem 5.3 is the manuscript's own theorem, proved in its Sections 7–9 and
+Appendices E–G. The [pole obstruction](../multiplication/pole-obstruction.md),
 the manuscript's Lemma 5.1, is proved for this polynomial.
 
 Until fork issues #76 and #77 the project used another polynomial here, with the factors $A+e$ and $Az^2+eH$

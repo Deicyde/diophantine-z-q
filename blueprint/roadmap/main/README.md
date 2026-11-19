@@ -51,7 +51,8 @@ inequality, so the $j$-form at $S=S_{\rm mul}$ implies the minimal height hypoth
 Pole completeness asserts the rational solubility of one explicit polynomial for all
 suitably prepared inputs. A rational zero puts two points on curves $y^2=x(x-\ell)(x+3\ell)$. It is the
 manuscript's Theorem 5.2 and a hypothesis of the main theorem; the manuscript derives it from its
-restricted converse theorem by a simultaneous 2-descent (Section 5.1), which is not yet formalized here.
+restricted converse theorem by a simultaneous 2-descent (Section 5.1). That descent is formalized here,
+from Theorem 5.3 and three cited inputs.
 
 - [Pole completeness](pole-completeness.md)
 

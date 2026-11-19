@@ -13,7 +13,7 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**27 hypotheses of the H part** (in the bundles `OpenAddedLeaves30`, `OpenResearchLeaves71`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
+**27 hypotheses of the H part** (in the bundles `OpenAddedLeaves30`, `OpenResearchLeaves71`), plus four hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`, from which Lean proves pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
 
 * **Strict count: 6 published / 21 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
@@ -550,11 +550,14 @@ SZRaynaud.SilverbergZarhinThm35
 
 > Silverberg-Zarhin, Semistable reduction and torsion subgroups of abelian varieties, Ann. Inst. Fourier 45 (1995), 403-420, Theorem 3.5, p. 406 (Raynaud's criterion as diophantine_zq.tex L816 cites it; the manuscript's bibliography L11077): over any field with a discrete valuation, n >= 3 not divisible by the residue characteristic, the n-torsion defined over the field itself (the print allows an unramified extension), then semistable reduction in Silverberg-Zarhin's sense (section 3, p. 405): the identity component of the special fibre over the residue field of every Neron model is an extension of an abelian variety by a torus, not necessarily split (DictModels.RaynaudOr.IsSemistableResT). Replaces raynaudSemistableSHOr (SGA 7 IX 4.7, not in the manuscript's bibliography): its specialization to strictly henselian DVRs, left disjunct (SZRaynaud.raynaudSemistableSHOr_of_sz35). The step to the kernel's semistability (geometric fibre, split torus) is SZRaynaud.isSemistable_of_sz (Stacks 04KV, proved)
 
-## Manuscript hypotheses outside the H part
+## Hypotheses outside the H part
 
 These are `frozenTarget`'s other arguments (outside the H bundles); they are not part of the counts above.
 Pole completeness PC (`ZInQ.PoleCompleteness`) is Theorem 5.2 of the 11/5 manuscript for its own pole
-polynomial; the manuscript derives it from its restricted converse, Theorem 5.3. The former Route K inputs
+polynomial. Lean proves it from these by the manuscript's descent (Section 5.1):
+`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`
+(`ZInQKernel/Contrib/OneProof/CasselsTatePairing.lean`). Only `hRC`, the restricted converse (Theorem 5.3), is
+the manuscript's own theorem; each entry's kind says what the others are. The former Route K inputs
 (Tian–Yuan–Zhang and Gross–Zagier) are no longer hypotheses.
 
 ### hRC

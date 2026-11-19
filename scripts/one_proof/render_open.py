@@ -327,8 +327,9 @@ def render(m):
     count_lines = [
         f'**{n} hypotheses of the H part** (in the bundles '
         f'`{"`, `".join(sorted({h["bundle"] for h in hyps if h["bundle"] != "frozenTarget"}))}`), '
-        f'plus {words(len(tops))} manuscript hypothes{"is" if len(tops) == 1 else "es"} outside the H part '
-        f'(`{"`, `".join(tops)}`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.',
+        f'plus {words(len(tops))} hypothes{"is" if len(tops) == 1 else "es"} outside the H part '
+        f'(`{"`, `".join(tops)}`, from which Lean proves pole completeness, Theorem 5.2 of the 11/5 manuscript), '
+        f'listed at the end.',
         '',
         f'* **Strict count: {strictest["LEAF"]} published / {strictest["GLUE"]} glue** (the strictest flagged reading; '
         + (f'{strict["LEAF"]}/{strict["GLUE"]} without the {words(n_flags)} strictest-reading '
@@ -516,11 +517,14 @@ def render(m):
     w('')
     for f in order:
         section(f)
-    w('## Manuscript hypotheses outside the H part')
+    w('## Hypotheses outside the H part')
     w('')
     w("These are `frozenTarget`'s other arguments (outside the H bundles); they are not part of the counts above.")
     w('Pole completeness PC (`ZInQ.PoleCompleteness`) is Theorem 5.2 of the 11/5 manuscript for its own pole')
-    w('polynomial; the manuscript derives it from its restricted converse, Theorem 5.3. The former Route K inputs')
+    w('polynomial. Lean proves it from these by the manuscript\'s descent (Section 5.1):')
+    w('`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`')
+    w('(`ZInQKernel/Contrib/OneProof/CasselsTatePairing.lean`). Only `hRC`, the restricted converse (Theorem 5.3), is')
+    w('the manuscript\'s own theorem; each entry\'s kind says what the others are. The former Route K inputs')
     w('(Tian–Yuan–Zhang and Gross–Zagier) are no longer hypotheses.')
     w('')
     for f in tops:

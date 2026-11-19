@@ -3,7 +3,7 @@ article_id: af_51dfcd18479cbca8bce85948
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves40.dsThm965Printed
+lean: HDec.HSyn.OpenResearchLeaves70.dsThm965Printed
 ---
 
 # Deligne's Galois representations of eigenforms
@@ -17,10 +17,12 @@ polynomial of $\rho(\sigma)$ is $x^2-a_p(f)x+\chi(p)p^{k-1}$ or $\rho(\sigma)$ s
 polynomial.
 
 It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
-Either wording of Diamond and Shurman's theorem (the characteristic polynomial, or "satisfies")
-gives it directly. That $K_f$ is a number field, which the theorem presupposes, is the
-[coefficient-field statement](coefficient-field-finite.md). The statement has not been read against
-the book. It is a hypothesis, not proved here.
+Its reading against the print or its review is not complete, and until both are the project's strict
+count does not count it as published. Diamond and Shurman's theorem prints the characteristic
+polynomial ("the characteristic equation", in an AI reading of the 2005 and 2016 printings), which
+gives the statement directly; the alternative "satisfies" only weakens it. The statement drops the
+irreducibility of $\rho$, which the theorem also asserts, and assumes that $K_f$ is a number field,
+which the theorem presupposes. It is a hypothesis, not proved here.
 
 ## Depends on
 

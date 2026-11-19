@@ -58,8 +58,6 @@ assert count['project glue'] == sum(1 for f in fields if LEAVES[f]['group'] is N
 for f in fields:
     if kind[f] != 'published':
         assert kinds[f]['strict'] != 'LEAF', (f, kinds[f]['strict'])
-    if kind[f] == 'published' and kinds[f]['strict'] != 'LEAF':
-        assert kinds[f]['flag'].startswith('pending reading'), (f, kinds[f]['flag'])
 strict = sum(1 for f in fields if kinds[f]['strict'] == 'LEAF')
 pending = [f for f in fields if kind[f] == 'published' and kinds[f]['strict'] != 'LEAF']
 assert len({LEAVES[f]['slug'] for f in fields}) == len(fields)
@@ -88,10 +86,9 @@ KIND_SENTENCE = {
 
 # Statement dependencies inside the chapter (an article whose statement uses another's objects).
 DEPS = {
-    'gagaMorphism': ['uniformizationLeafAll'],
-    'picZeroAbVar': ['picRepresentableAbVar'],
-    'phiAmpleIsogeny': ['picZeroAbVar'],
-    'weilPairingMumford': ['picZeroAbVar', 'phiAmpleIsogeny'],
+    'afCharpolyDS965': ['shimuraThm1Af'],
+    'gaudronRemondThm14AnSS': ['gaudronRemondSec9LowerAnSS'],
+    'javanpeykarThm111An': ['gaudronRemondSec9LowerAnSS'],
 }
 
 
@@ -217,8 +214,8 @@ for f in fields:
             para(L['statement']), '']
     tail = KIND_SENTENCE[kind[f]]
     if f in pending:
-        tail += (" Its reading against the print is pending, and until it is checked the project's strict count "
-                 "does not count it as published.")
+        tail += (" Its reading against the print or its review is not complete, and until both are the project's "
+                 "strict count does not count it as published.")
     if L['caveat'].strip():
         tail += ' ' + L['caveat'].strip()
     tail += ' It is a hypothesis, not proved here.'
@@ -254,8 +251,22 @@ for g in groups:
 glue = [f for f in fields if LEAVES[f]['group'] is None]
 assert len(glue) <= 1, glue
 strict_sentence = (f"The project's strict convention, which counts a published statement only once its reading "
-                   f"against the print is checked, counts {w(strict)} of the {w(len(fields))} as published."
-                   if pending else '')
+                   f"against the print and its review are complete, counts {w(strict)} of the {w(len(fields))} as "
+                   f"published." if pending else '')
+
+
+def kinds_list(published, consequence, composite):
+    """'twelve are published statements, ...; and seventeen are consequences ...', omitting zero counts."""
+    parts = []
+    if published:
+        parts.append(f"{w(published)} {'is a published statement' if published == 1 else 'are published statements'}, "
+                     f"some of them specialized or weakened")
+    if consequence:
+        parts.append(f"{w(consequence)} {'is a consequence' if consequence == 1 else 'are consequences'} of published "
+                     f"theorems, which take further theorems to reach from the print")
+    if composite:
+        parts.append(f"{w(composite)} {'combines' if composite == 1 else 'combine'} several published theorems")
+    return '; '.join(parts[:-1]) + ('; and ' if len(parts) > 1 else '') + parts[-1]
 nlit = len(fields) - len(glue)
 top = os.path.join(CH, 'minimal-height-from-leaves.md')
 glue_links = ', '.join(f"[{LEAVES[f]['title'].lower()}]({LEAVES[f]['slug']}.md)" for f in glue)
@@ -266,9 +277,7 @@ body = [front(top, declaration='theorem', origin='bridged', statement='formalize
 The [minimal height hypothesis](../main/six-contact-min.md) follows from the {w(len(fields))} statements
 of this chapter taken together: {w(nlit) + ' statements' if glue else 'theorems'} from the literature, grouped by
 the theory they come from ({group_links}){f", and one step of the project's own argument, {glue_links}" if glue else ''}.
-Of the {w(nlit)} statements from the literature, {w(count['published'])} are published statements, some of
-them specialized or weakened; {w(count['consequence'])} are consequences of published theorems, which take
-further theorems to reach from the print; and {w(count['composite'])} combine several published theorems.
+Of the {w(nlit)} statements from the literature, {kinds_list(count['published'], count['consequence'], count['composite'])}.
 {strict_sentence} None of the {w(len(fields))} is proved here.
 """), '',
         para(f"""
@@ -304,8 +313,7 @@ convenience.
         para(f"""
 Of the {w(nlit)} statements from the literature, {w(count['published'])} are published statements: the
 printed theorem, or a direct instance of it that needs no argument. {w(count['consequence']).capitalize()}
-are consequences of published theorems, which take further theorems to reach from the print, and
-{w(count['composite'])} combine several published theorems.{f' The remaining statement, {glue_links}, has no published form.' if glue else ''} {strict_sentence} None of the {w(len(fields))} is proved here, and every step from
+are consequences of published theorems, which take further theorems to reach from the print{f", and {w(count['composite'])} combine several published theorems" if count['composite'] else ''}.{f' The remaining statement, {glue_links}, has no published form.' if glue else ''} {strict_sentence} None of the {w(len(fields))} is proved here, and every step from
 them to the minimal height hypothesis is.
 """), '',
         '## The theorem', '',
@@ -340,7 +348,8 @@ write(SRC, '\n'.join(body))
 # ---- the coverage row ----
 cov = os.path.join(vault, 'blueprint/coverage/README.md')
 kinds_text = (f"{w(count['published'])} published statements, {w(count['consequence'])} consequences of published "
-              f"theorems and {w(count['composite'])} that combine several published theorems")
+              f"theorems" + (f" and {w(count['composite'])} that combine several published theorems"
+                             if count['composite'] else ''))
 row = ('| Section 4 replaced: the minimal height hypothesis from statements of the literature (project notes '
        'h-decomposition, leaf-fold9 §3; docs/one-proof/OPEN.md) | `DECOMPOSED` | The [height-decomposition chapter]'
        '(../roadmap/height-decomposition/README.md) proves [the minimal height hypothesis from '
