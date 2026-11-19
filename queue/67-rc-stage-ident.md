@@ -12,6 +12,7 @@ What exists (read first):
 Your work:
 1. Identify the order level, detecting prime, extracted index m = |h_*| and detector of the Appendix F stage (RC/Stages, rc-pm's Eichler order) with those of the selected skeleton stage, as equalities of the tree's data.
 2. Identify the full intrinsic odd filter used by the source with the one the valuation reads, and prove the support coverage: the primes over 6ℓ lie in the Fourier support, and the budget condition holds.
+State the identification of m and of the support against the fields of PMLocal as given (PMLocal.m, which rc-theta-join sets to |h_*|, and PMLocal.support, a finite set containing the primes dividing 2·m·N·ℓ₀), so that the two lanes meet without a bridge lemma.
 3. Feed these to inputs_of_pm and list exactly what remains (PMLocal, adelic data, (O.7), the sieve, App G's bound).
 Out of scope for this run: PMLocal (rc-theta-join); adelic level structures (pm-adelic-join); (O.7); the exact Fourier sieve; App G's coarse bound (rc-appg-coarse).
 Prints: only those already in the tree.
