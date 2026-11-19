@@ -21,13 +21,13 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 6
+          fetch-depth: 10
 
       - name: Confirm the pinned merge and build inputs
         run: |
           set -euo pipefail
           merge=21eabf226ad1c8b85c0b9b5c5eadbe2014135a48
-          trimmed=031b38419b6f3fd88bef154aca6ff8f41189dd23
+          trimmed=165b2d710f1eea82097dc27f9c4f4053b99d647b
           git merge-base --is-ancestor "$merge" "$trimmed"
           git merge-base --is-ancestor "$trimmed" HEAD
           test "$(git rev-parse "$merge^1")" = 3078ae6a303664e35926a8196d6a592dd561cf6b
