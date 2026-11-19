@@ -1,0 +1,91 @@
+{
+  "id": "Eq (K7)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (stronger): The vendored Tau Ceti lemma proves the degree-one Mackey formula res_V cor_U = sum over V\\G/U of cor_{V meet sUs^-1} (s)_* res, for any topological group G, open finite-index U, any subgroup V and any topological G-module; [M] states it for G_K, H = G_L, an inertia group I and M = T/2^a. It is proved but not applied to Galois groups or used elsewhere in the repository.",
+  "relation": "broadMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 94,
+        "rect": [
+          0.107843,
+          0.306407,
+          0.784314,
+          0.051919
+        ]
+      },
+      "title": "Eq. (K7)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K7)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "TauCeti.ContCohomology.explicitCor1_mackey",
+        "module": "ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Basic"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "TauCeti.ContCohomology.explicitCor1_mackey@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem explicitCor1_mackey (x : H1 U M) :\n    explicitRes1 G M V (explicitCor1 G M U hU x) =\n      letI := Fintype.ofFinite (DoubleCoset.Quotient (V : Set G) (U : Set G))\n      ∑ D : DoubleCoset.Quotient (V : Set G) (U : Set G),\n        explicitMackeyTerm1 G M U V hU (r D) x := by",
+            "line": 322,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Basic.lean",
+            "fragment": "L322"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (stronger): The vendored Tau Ceti lemma proves the degree-one Mackey formula res_V cor_U = sum over V\\G/U of cor_{V meet sUs^-1} (s)_* res, for any topological group G, open finite-index U, any subgroup V and any topological G-module; [M] states it for G_K, H = G_L, an inertia group I and M = T/2^a. It is proved but not applied to Galois groups or used elsewhere in the repository."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          94
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q states more than [M] prints (stronger).",
+          "evidence": [
+            "explicitCor1_mackey needs only a topological group G, U open of finite index, any subgroup V and a topological G-module M with continuous action, and its summand cor^V_{V meet sUs^-1} o (s)_* o res matches [M]'s summand under V=I, U=H; this strictly contains [M]'s case G_K, H=G_L, inertia I, M=T/2^a. Neither the declaration nor its summand is used outside Mackey/Basic.lean.",
+            "explicitCor1_mackey has only section variables: a topological group G, a topological G-module M with continuous action, an open subgroup U of finite index, any subgroup V and double-coset representatives r. It concludes res_V cor_U x = sum over V\\G/U of cor^V_{V meet sUs^-1} (s)_* res x, which is (K7) with G = G_K, U = H = G_L, V = I and discrete M = T/2^a. The general statement covers more cases, so it is stronger. The note is accurate: outside its own file, only the degree-two Mackey formula is applied (CorestrictionLocalization.lean), and the degree-one formula is used nowhere."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

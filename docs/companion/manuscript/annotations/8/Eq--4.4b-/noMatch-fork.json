@@ -1,0 +1,47 @@
+{
+  "id": "Eq (4.4b)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] here asserts the extension condition κ_r(res α_a) = −Σ m_j w_j for the power-residue character, part of Section 8's Heegner/Selmer-complex argument for the restricted converse. [F] formalizes none of Section 8; it assumes Theorem 5.3 whole as RestrictedConverseGenuine (and Theorem 5.2 as ZInQ.PoleCompleteness in its headline).",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 49,
+        "rect": [
+          0.107843,
+          0.273075,
+          0.784314,
+          0.052069
+        ]
+      },
+      "title": "Eq. (4.4b)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (4.4b)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          49
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

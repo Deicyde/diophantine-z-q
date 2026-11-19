@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 period and reflection",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: For b > 2 the declarations state the trace formula, index folding, and signed period and reflection congruences (natural indices, not U_{-j} = -U_j), and for b > 3 v = bU_m - 2U_{m-1} > 2U_m. [M]'s step M^{2m} = -I mod v follows from `alphaMat_pow` at j = 0, 1; all proved.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.48585,
+          0.784314,
+          0.070889
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 period and reflection",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 period and reflection"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.alphaZ_reflection",
+        "module": "ZInQKernel.Compiler.Exponential.AlphaPeriod"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.alphaZ_reflection@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem alphaZ_reflection (b m j l : ℕ) (hb : 2 < b) (hj : 0 < j) (hjlt : j < 2 * l * m) :\n    (alphaZ b (m + 1) - alphaZ b (m - 1)) ∣ alphaZ b (2 * l * m - j) - -((-1) ^ l * alphaZ b j) := by",
+            "line": 45,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/AlphaPeriod.lean",
+            "fragment": "L45"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

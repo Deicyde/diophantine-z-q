@@ -1,0 +1,88 @@
+{
+  "id": "Definition 7.4",
+  "kind": "definition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.RouteK.Config.glue a definition: ZInQ.RouteK.Config, from [F]'s Route K congruent-number Selmer systems rather than [M]'s Section 7 argument, records classes mod 8 with reciprocity-constrained residue bits and Config.glue contracts a cluster by multiplying classes and summing external bits, which is the S = {2} case without characters of a typed graph and its contraction. Types at a general support with character values and stationary labels, primary and neutral vertices, and the projections between type groups are not defined.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 28,
+        "rect": [
+          0.107843,
+          0.836834,
+          0.784314,
+          0.076327
+        ]
+      },
+      "title": "Definition 7.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 7.4#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 29,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.437709
+        ]
+      },
+      "title": "Definition 7.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 7.4#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.RouteK.Config.glue",
+        "module": "ZInQKernel.RouteK.System.Glue"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.RouteK.Config.glue@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def glue (𝒞 : Config (S' ⊕ (Option G ⊕ G))) : Config (Option S') where\n  cls := fun\n    | none => ∏ o, 𝒞.cls (.inr (.inl o))\n    | some s => 𝒞.cls (.inl s)\n  cls_mem := fun\n    | none => prod_mem_oddClasses _ _ fun _ _ => 𝒞.cls_mem _\n    | some _ => 𝒞.cls_mem _\n  bit := fun\n    | some y, some y' => 𝒞.bit (.inl y) (.inl y')\n    | some y, none => ∑ o, 𝒞.bit (.inl y) (.inr (.inl o))\n    | none, some y => ∑ o, 𝒞.bit (.inr (.inl o)) (.inl y)\n    | none, none => 0\n  recip := by\n    rintro (_ | x) (_ | y) h\n    · exact absurd rfl h\n    · show ∑ o, 𝒞.bit (.inr (.inl o)) (.inl y) + ∑ o, 𝒞.bit (.inl y) (.inr (.inl o)) =\n        lam8 (∏ o, 𝒞.cls (.inr (.inl o))) * lam8 (𝒞.cls (.inl y))\n      rw [← Finset.sum_add_distrib, lam8_prod _ _ fun _ _ => 𝒞.cls_mem _, Finset.sum_mul]\n      exact Finset.sum_congr rfl fun o _ => 𝒞.recip _ _ Sum.inr_ne_inl\n    · show ∑ o, 𝒞.bit (.inl x) (.inr (.inl o)) + ∑ o, 𝒞.bit (.inr (.inl o)) (.inl x) =\n        lam8 (𝒞.cls (.inl x)) * lam8 (∏ o, 𝒞.cls (.inr (.inl o)))\n      rw [← Finset.sum_add_distrib, lam8_prod _ _ fun _ _ => 𝒞.cls_mem _, Finset.mul_sum]\n      exact Finset.sum_congr rfl fun o _ => 𝒞.recip _ _ Sum.inl_ne_inr\n    · exact 𝒞.recip _ _ fun e => h (congrArg some (Sum.inl_injective e))",
+            "line": 29,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/RouteK/System/Glue.lean",
+            "fragment": "L29"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          28,
+          29
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; a judge ruled after a skeptic refuted the claim; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

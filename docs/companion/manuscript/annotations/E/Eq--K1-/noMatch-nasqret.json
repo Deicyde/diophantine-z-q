@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K1)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: No declaration constructs a retained-smoothed class in H^1(G_{Q,S}, T tensor Lambda[G](chi_0 psi kappa^{-1})); Galois cohomology of Iwasawa-algebra coefficients for the fixed curve is absent.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 92,
+        "rect": [
+          0.107843,
+          0.790688,
+          0.784314,
+          0.036695
+        ]
+      },
+      "title": "Eq. (K1)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K1)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          92
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

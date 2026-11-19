@@ -1,0 +1,22 @@
+'HDec.CMBranch.CMjBridges.hasDoublePoleAtZero_of_localParameter' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent2Analytic.0.HDec.CMBranch.CMjBridges.affine_weierstrassP_of_even' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent2Analytic.0.HDec.CMBranch.CMjBridges.exists_value_weierstrassP' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.shortCubic_coordinates_of_doublePole' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent2.0.HDec.CMBranch.CMjBridges.modelEval_const' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.shortWeierstrassComparison_of_doublePole' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.cmPeriodShortWeierstrassComparison_of_doublePole' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_doublePole' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,138 @@
+{
+  "id": "Eq (K6)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (stronger): With c = d_s = smoothingInteger e n f = 1 + 2^e*3*n*f, s_F appears inline as (c(c-1))^2, and [F] proves v_2 of it is 2e for every e >= 1 and all odd n, f, where [M] fixes e >= max{3, v_2(N)}, n = N_odd and F the squarefree odd conductor lcm. The identification of s_F as the central scalar of Kato's Theorem 6.6 is not formalized; the arithmetic is proved unconditionally and used nowhere else in [F].",
+  "relation": "broadMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 93,
+        "rect": [
+          0.107843,
+          0.834405,
+          0.784314,
+          0.026615
+        ]
+      },
+      "title": "Eq. (K6)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K6)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.smoothing_square_exact_two_depth",
+        "module": "lean.ZInQ.SmoothingArithmetic"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.smoothing_square_exact_two_depth@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem smoothing_square_exact_two_depth\n    (e n f : ℕ) (he : 1 ≤ e) (hn : Odd n) (hf : Odd f) :\n    2 ^ (2 * e) ∣ (smoothingInteger e n f * (smoothingInteger e n f - 1)) ^ 2 ∧\n      ¬2 ^ (2 * e + 1) ∣\n        (smoothingInteger e n f * (smoothingInteger e n f - 1)) ^ 2 := by",
+            "line": 127,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/SmoothingArithmetic.lean",
+            "fragment": "L127"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (stronger): With c = d_s = smoothingInteger e n f = 1 + 2^e*3*n*f, s_F appears inline as (c(c-1))^2, and [F] proves v_2 of it is 2e for every e >= 1 and all odd n, f, where [M] fixes e >= max{3, v_2(N)}, n = N_odd and F the squarefree odd conductor lcm. The identification of s_F as the central scalar of Kato's Theorem 6.6 is not formalized; the arithmetic is proved unconditionally and used nowhere else in [F]."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.smoothing_square_multiplicity_two",
+        "module": "lean.ZInQ.SmoothingArithmetic"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.smoothing_square_multiplicity_two@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem smoothing_square_multiplicity_two\n    (e n f : ℕ) (he : 1 ≤ e) (hn : Odd n) (hf : Odd f) :\n    multiplicity (2 : ℕ)\n      ((smoothingInteger e n f * (smoothingInteger e n f - 1)) ^ 2) = 2 * e := by",
+            "line": 152,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/SmoothingArithmetic.lean",
+            "fragment": "L152"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (stronger): With c = d_s = smoothingInteger e n f = 1 + 2^e*3*n*f, s_F appears inline as (c(c-1))^2, and [F] proves v_2 of it is 2e for every e >= 1 and all odd n, f, where [M] fixes e >= max{3, v_2(N)}, n = N_odd and F the squarefree odd conductor lcm. The identification of s_F as the central scalar of Kato's Theorem 6.6 is not formalized; the arithmetic is proved unconditionally and used nowhere else in [F]."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          93
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q states more than [M] prints (stronger).",
+          "evidence": [
+            "ZInQ.smoothing_square_multiplicity_two proves multiplicity 2 of (c(c-1))^2 equals 2e for c = 1+2^e*3*n*f under only e>=1 and n, f odd, which contains [M]'s case c=d_s with e>=max{3,v_2(N)}, n=N_odd, F odd squarefree; I found no overlooked hypothesis, and the Kato central-scalar identification is indeed absent. The file is imported only by lean/ZInQ.lean.",
+            "With c = d_s the display's s_F is (c(c-1))^2, and the Lean theorems prove its 2-adic valuation is 2e for smoothingInteger e n f under only e >= 1 and n, f odd; [M] takes e >= max{3, v_2(N)}, n = N_odd and F odd squarefree, all special cases, so the Lean statement is strictly more general and no overlooked hypothesis narrows it. The Kato central-scalar identification is prose around the display and is correctly reported as unformalized; the lemmas are used only inside SmoothingArithmetic.lean."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "ndep's lean/ZInQ/SmoothingArithmetic.lean is identical to fork's and proves v_2((c(c-1))^2)=2e for any e>=1 and odd n, f, wider than [M]'s parameters; nasqret has no smoothing declaration of its own and never references these, so the via-dependency stronger verdict stands.",
+            "[N] has no smoothing declaration (grep of nasqret/ for smoothing finds nothing), so ndep's copies carry the item; they are identical to the fork's and prove v_2((c(c-1))^2) = 2e for c = 1 + 2^e*3*n*f with e >= 1 and n, f odd, which includes [M]'s case e >= max{3, v_2(N)}, n = N_odd, F odd squarefree. No hypothesis restricts it further, and the central-scalar identification is not formalized, as the claim says."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

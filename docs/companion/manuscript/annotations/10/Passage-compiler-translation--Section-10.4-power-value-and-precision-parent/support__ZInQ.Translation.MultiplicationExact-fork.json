@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-translation: Section 10.4 power value and precision parent",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Translation.MultiplicationExact a definition: The power-value semantics (under M), the counts and scope conditions of the precision parent, and the soundness and completeness of replacing each private block by its power-value call are stated and proved. The saved root equality [17751579,15] is an index into the saved file with no Lean counterpart.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.743126,
+          0.784314,
+          0.102645
+        ]
+      },
+      "title": "Passage (compiler-translation): Section 10.4 power value and precision parent",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Section 10.4 power value and precision parent"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.MultiplicationExact",
+        "module": "ZInQKernel.Compiler.Translation.NaturalCode"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.MultiplicationExact@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def MultiplicationExact (I : Constructors E) (cstar ell T : ℤ) : Prop :=\n  ∀ p q r : Fin 5 → ℚ, (multiplyTemplate I cstar ell T).Rel (Fin.append (Fin.append p q) r) ↔\n    ∃ a b : ℤ, p = iota a ∧ q = iota b ∧ r = iota (a * b)",
+            "line": 30,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/NaturalCode.lean",
+            "fragment": "L30"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

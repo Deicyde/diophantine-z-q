@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Section 10 precision predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The span defines the encoding and decision predicate (enc, accepts with A0 = H6(S_ht)) and asserts that the reference program and the total ideal IR compute it, that the projective formulas preserve the curve, the threshold equivalence and the saturation identities; each is a proved [F] declaration with no assumed hypothesis. [F]'s Jacobian identities are organized as items 1-8 rather than counted as nine.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.102941,
+          0.211819,
+          0.794118,
+          0.55947
+        ]
+      },
+      "title": "Passage (assembly): Section 10 precision predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 10 precision predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.saturatedArithmetic",
+        "module": "ZInQKernel.Compiler.Precision.Saturation"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.saturatedArithmetic@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem saturatedArithmetic (L : ℕ) :\n    (∀ x, saturate L x ≤ L ↔ x ≤ L) ∧ (∀ x k, k ≤ L → (saturate L x ≤ k ↔ x ≤ k)) ∧\n    (∀ x, saturate L (saturate L x) = saturate L x) ∧ saturate L 0 = 0 ∧ saturate L 1 = 1 ∧\n    (∀ x y, saturate L (saturate L x + saturate L y) = saturate L (x + y)) ∧\n    (∀ x y, saturate L (saturate L x * saturate L y) = saturate L (x * y)) ∧\n    (∀ x y, saturate L (max (saturate L x) (saturate L y)) = saturate L (max x y)) ∧\n    (∀ x n, saturate L (saturate L x ^ n) = saturate L (x ^ n)) ∧\n    (1 ≤ L → ∀ x n, saturate L (x ^ saturate L n) = saturate L (x ^ n)) ∧\n    (1 ≤ L → ∀ x n, saturate L (saturate L x ^ saturate L n) = saturate L (x ^ n)) ∧\n    (∀ n, saturate L (n + 1).factorial = saturate L (saturate L n.factorial * (n + 1))) :=",
+            "line": 34,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/Saturation.lean",
+            "fragment": "L34"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

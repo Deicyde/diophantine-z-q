@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Pole input of a completed slope",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: weak_approx_q, pole_input_valuations and pole_input_small state the choice of q, the valuations of R/Theta^2 at S_b, at the selected primes and elsewhere, the square denominator and the positivity limit, with no named hypothesis. The unit claim for a and the trace residue count are steps of pole_input_valuations.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.196469,
+          0.784314,
+          0.195067
+        ]
+      },
+      "title": "Passage (multiplication): Pole input of a completed slope",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Pole input of a completed slope"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.clearing_arithmetic",
+        "module": "ZInQKernel.Multiplication.Certificate.ClearingArithmetic"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.clearing_arithmetic@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem clearing_arithmetic :\n    (∀ B ∈ ({1, 4} : Finset ℕ), ∀ v ∈ ({0, 1, 2} : Finset ℕ),\n      v < 2 * (52 * (14 * B) + v + 4) - 14 * B - 2 * (51 * (14 * B)) ∧\n        2 * (52 * (14 * B) + v + 4) - 14 * B - 2 * v = 103 * (14 * B) + 8 ∧\n        4 ≤ 103 * (14 * B) + 8) ∧\n      52 * 56 + 4 = 2916 ∧ 52 * 14 + 4 = 732 ∧\n      padicValNat 2 12 = 2 ∧ padicValNat 3 12 = 1 ∧\n      ∀ p : ℕ, p.Prime → 5 ≤ p → padicValNat p 12 = 0 :=",
+            "line": 55,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/ClearingArithmetic.lean",
+            "fragment": "L55"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

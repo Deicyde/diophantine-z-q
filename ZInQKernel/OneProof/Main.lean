@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailZ93
+import ZInQKernel.OneProof.H.TailZ98
 import ZInQKernel.MainGreenTao
 import ZInQKernel.Contrib.OneProof.DeRhamRange
 import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
@@ -168,7 +168,8 @@ fold-cm (the CM-branch package, cm-branch, cm-branch2, cox-lattice and cm-fold-r
 at +4 (Recommended)") replaced the base of the chain, NoCM (FS5, from González–Rotger's Thm 5.12 on `X₆`, its count and the
 `X₆` Kummer fibre), by the manuscript's CM branch (L581-631): the research field `gonzalezRotgerThm512X6RCF` is no longer
 read, and the CM-branch inputs `cmFibreSplit` (glue), `fowlerProp27`, `cmjDegree`, `cmPotentialGood` and `cmHeight62`
-(leaves pending review) are fields. `OpenResearchLeaves62` (`TailZ88`) is the new generation, and
+(leaves pending review) became fields (of these only `cmHeight62` is still a field; the others were discharged or
+replaced by the folds below). `OpenResearchLeaves62` (`TailZ88`) is the new generation, and
 `HDec.HSyn.sixContactMin_of_open81` goes through the chain of `sixContactMin_of_open80` with the CM inputs threaded and the
 CM branch at its base (`Contrib/OneProof/CMBranchUC8.lean`, `OneProof/H/CMTopLive.lean`), the moduli row carried in its
 weak form (`R5ptProps` as `True`, `OneProof/H/CMR5*.lean`) and the bundles without the field (`OneProof/H/CMOpen.lean`);
@@ -199,6 +200,24 @@ printed (`faltingsLemma1DVRPrint`, Invent. Math. 73 (1983) p. 350; leaf, rated L
 `ZInQ.FaltingsRestate.faltingsSemistableHeightBC_of_faltingsLemma1Print` from the leaf, `silverbergZarhinThm35` and
 `neronSchemeExtensionDedekind`. `OpenResearchLeaves67` (`TailZ93`, autofold) is the new generation and
 `HDec.HSyn.sixContactMin_of_open86` the new top.
+fowler-unique (with fowler-bridges) replaced `fowlerProp27` by Fowler's Proposition 2·7 as printed
+(`fowlerProp27PrintCanonical`, Math. Proc. Cambridge Philos. Soc. 180 (2026) p. 615; leaf, rated LEAF): the field is
+`HDec.CMBranch.FowlerBridges.fowlerProp27_of_canonical` from the leaf, Lean proving that the order of discriminant Δ and
+its proper class number are determined by Δ. `OpenResearchLeaves68` (`TailZ94`, autofold) is the new generation and
+`HDec.HSyn.sixContactMin_of_open87` the new top.
+bsh-family proved `bShStandardModel` outright (`BShFamily.bShStandardModel_proof`, no new leaf).
+`OpenResearchLeaves69` (`TailZ95`, autofold) is the new generation and `HDec.HSyn.sixContactMin_of_open88` the new top.
+cm-serre-tate (fork PR #132) proved `cmPotentialGood` from the leaf `neronSchemeExtensionDedekind` by the Serre–Tate route
+(`HDec.CMSerreTate.cmPotentialGood_of_neronSchemeExtensionDedekind`, no new leaf). `OpenResearchLeaves70` (`TailZ96`,
+autofold) is the new generation and `HDec.HSyn.sixContactMin_of_open89` the new top.
+elliot-wild (fork PR #133) replaced `elliotWildInertiaTrivial` by Silverberg–Zarhin's Theorem 3.3 (`silverbergZarhinThm33`;
+rated glue) through Raynaud's criterion (`SZRaynaud.elliot_of_sz33`). `OpenResearchLeaves71` (`TailZ97`, autofold) is the
+new generation and `HDec.HSyn.sixContactMin_of_open90` the new top.
+cmj-close (j-descent4, j-descent5) replaced `cmjDegree` by Fowler's degree statement as printed (`cmjDegreePrint`,
+Math. Proc. Cambridge Philos. Soc. 180 (2026) section 2·1, p. 613; leaf, rated LEAF): the field is
+`HDec.CMBranch.CMjBridges.cmjDegree_of_print_closed` from the leaf, with j-descent4's `abVarFunctionFieldGenusOne`
+(proved unconditionally) and Lean proving that the order of discriminant Δ and its proper class number are determined
+by Δ. `OpenResearchLeaves72` (`TailZ98`, autofold) is the new generation and `HDec.HSyn.sixContactMin_of_open91` the new top.
 
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
 hypothesis by its proof; the theorem's statement then loses that hypothesis.
@@ -212,13 +231,13 @@ leaf BCDT Theorem A and a consequence of Kolyvagin's Theorem 1 (through Shimura'
 completeness PC (the manuscript's Theorem 5.2) is proved from the last four, with Lemma 5.4 proved from the pairing
 (`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`). -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves67) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
+    (r : HDec.HSyn.OpenResearchLeaves72) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
     (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves) (hB : ZInQ.Manuscript.PoleS12.BCDTThmA)
     (hK : ZInQ.Manuscript.PoleS12.KolyvaginThm1) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
-    (HDec.HSyn.sixContactMin_of_open86 r t l)
+    (HDec.HSyn.sixContactMin_of_open91 r t l)
     (ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing hRC hCT hB hK)
 
 end ZInQ.OneProof

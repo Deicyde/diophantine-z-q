@@ -74,6 +74,13 @@ Notes on the local files, at the time of the index:
   `CloudB3W17bOkaComparison` have a `LICENSE` and no notice file. Where they use outside code (AxiomMath/Stacks in
   the first, chrisflav/oka in the third), the file headers or `VERIFICATION.md` name the source and revision.
 
+## Vendored viewer code
+
+- `docs/companion/manuscript/pdf-overlay/`: the PDF overlay viewer that mathlib-initiative/formal-companion 0.2.0
+  generates (commit `7c58ed8dcbf815aa108f92160aff43ba851e8f91`, Apache License 2.0). It vendors PDF.js 6.2.108
+  (Apache License 2.0), Literature Links 1.0.1 (Apache License 2.0) and KaTeX 0.19.1 (MIT License). The authoritative
+  record, with digests, is `docs/companion/manuscript/pdf-overlay/THIRD_PARTY.md`. The files are unmodified.
+
 ## NOTICE: vendored Selberg sieve (PrimeNumberTheoremAnd)
 
 The files `ZInQKernel/Sieve/AuxResults.lean`, `ZInQKernel/Sieve/Basic.lean`,

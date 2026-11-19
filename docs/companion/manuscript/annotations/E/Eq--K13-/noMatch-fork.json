@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K13)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] has no declaration about the period identity per_f((K12))^eps = s_F L_{prime(2Nd)}(f,chi,1) b_eps e_B^eps (Kato Theorem 6.6); Appendix E serves the restricted converse behind Theorem 5.2, which [F] takes as the hypothesis ZInQ.PoleCompleteness instead of proving.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 96,
+        "rect": [
+          0.107843,
+          0.247186,
+          0.784314,
+          0.031325
+        ]
+      },
+      "title": "Eq. (K13)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K13)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          96
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

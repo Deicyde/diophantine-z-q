@@ -1,0 +1,65 @@
+{
+  "id": "Passage assembly: Section 10 precision predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency: ndep's declarations state the span's definitions and claims in parts, all proved without assumed hypotheses; [N] has no declaration of its own and ndep's file is identical to [F]'s. [N]'s `ZOverQ.Qualitative.closeAt_iff` uses `accepts`, `enc`, `rRatio` and `epsIdx`.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.102941,
+          0.211819,
+          0.794118,
+          0.55947
+        ]
+      },
+      "title": "Passage (assembly): Section 10 precision predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 10 precision predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.four_eps_lt_iff",
+        "module": "ZInQKernel.Compiler.Precision.Threshold"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.four_eps_lt_iff@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Compiler/Precision/Threshold.lean",
+            "fragment": "L25"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

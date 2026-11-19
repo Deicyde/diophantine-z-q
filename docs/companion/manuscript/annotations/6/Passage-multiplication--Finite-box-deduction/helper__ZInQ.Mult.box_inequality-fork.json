@@ -1,0 +1,86 @@
+{
+  "id": "Passage multiplication: Finite-box deduction",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin, or by another key from other hypotheses; ZInQ.Mult.box_inequality proved: The passage is Proposition 6.1 with its proof: finite_box states it with T = (48 A_ht)^13, and each proof step is a proved helper lemma. The height estimate enters as the hypothesis ZInQ.SixContactMin, so the verdict is conditional on it.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.102941,
+          0.465845,
+          0.794118,
+          0.239257
+        ]
+      },
+      "title": "Passage (multiplication): Finite-box deduction",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Finite-box deduction"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.box_inequality",
+        "module": "ZInQKernel.Multiplication.Soundness.BoxInequality"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.box_inequality@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem box_inequality {A : ℝ} (hA : 1 ≤ A) (N : ℕ)\n    (h : (N : ℝ) ^ 2 < 24 * A * (N : ℝ) ^ ((48 : ℝ) / 25) + 10) :\n    (N : ℝ) < (48 * A) ^ 13 := by",
+            "line": 13,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Soundness/BoxInequality.lean",
+            "fragment": "L13"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "[N]'s private finite_box assumes UniformHeight m (h(t) <= m M_S(t)^24 off the contact set, integer m>=1) and concludes |n_i| < (48m)^13, matching [M]'s bound, but its hypothesis is ndep's HeightCert whose slope predicate imposes the Route K Phi, a different certificate, so the statement differs; the proof steps (finite_box_of_heights, box_inequality, heightB0_lt_ten) match [M].",
+            "[N]'s finite_box takes UniformHeight m with integer m >= 1 and a cert of type ndep HeightCert, and concludes |n_i| < (48m)^13. That certificate's slope predicate imposes the Route K Phi (x+e), so the hypothesis is about a different certificate from [M]'s, and the result is conditional on UniformHeight as stated."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Proposition 6.2",
+  "kind": "proposition",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, stated, neither proved nor assumed; ZInQ.GoodPatternPrime a definition: FixedPrimePattern states Proposition 6.2 with the same shifts, catalogue, multipliers and prime conditions. It is neither proved nor assumed by a headline: only the non-headline three-hypothesis theorem in Main.lean takes it, and the headline replaces it by route AP.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 19,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.3828
+        ]
+      },
+      "title": "Proposition 6.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 6.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.GoodPatternPrime",
+        "module": "ZInQKernel.Hypotheses.PrimePattern"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.GoodPatternPrime@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def GoodPatternPrime (p : ℕ) : Prop :=\n  p.Prime ∧ p ≠ 2 ∧ ∃ r : ZMod p, r ^ 2 = 2 ∧\n    (75 - 53 * r : ZMod p) ≠ 0 ∧ (75 + 53 * r : ZMod p) ≠ 0 ∧\n    Nat.gcd (pointCount p (-(75 - 53 * r) ^ 2)) (pointCount p (-(75 + 53 * r) ^ 2)) = 4 ∧\n    ¬ p ∣ pointCount p (-(75 - 53 * r) ^ 2) * pointCount p (-(75 + 53 * r) ^ 2)",
+            "line": 95,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/PrimePattern.lean",
+            "fragment": "L95"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          19
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+DISCHARGES [OpenResearchLeaves66.fowlerProp27] by HDec.CMBranch.FowlerBridges.fowlerProp27_of_canonical
+  still assumes: [HDec.CMBranch.FowlerBridges.FowlerProp27PrintCanonical]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 33 open hypotheses, 15221 theorems checked, 377 discharge one

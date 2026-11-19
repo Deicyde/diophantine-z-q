@@ -1,0 +1,70 @@
+{
+  "id": "Theorem 1.1",
+  "kind": "theorem",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin and ZInQ.PoleCompleteness, or by another key from other hypotheses; ZInQ.FrozenTarget a definition: FrozenTarget is Theorem 1.1 verbatim (292890231905 variables, degree < 2^^7, coefficients < 2^^8, rational zero projection exactly Z). It is proved only from SixContactMin and PoleCompleteness (headline) or from the open bundles of OPEN.md (OneProof.frozenTarget); the unconditional copy in lean/Frozen is sorry.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.107843,
+          0.473373,
+          0.784314,
+          0.198598
+        ]
+      },
+      "title": "Theorem 1.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Theorem 1.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.FrozenTarget",
+        "module": "ZInQKernel.Target"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.FrozenTarget@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def FrozenTarget : Prop :=\n  ∃ P : MvPolynomial (Fin 292890231905) Int,\n    P.totalDegree < hyperoperation 4 2 7 ∧\n    (∀ m : Fin 292890231905 →₀ Nat,\n      (P.coeff m).natAbs < hyperoperation 4 2 8) ∧\n    ∀ q : Rat,\n      (∃ w : Fin 292890231904 → Rat,\n        MvPolynomial.eval₂ (Int.castRingHom Rat) (Fin.cons q w) P = 0) ↔\n      ∃ z : Int, (z : Rat) = q",
+            "line": 18,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Target.lean",
+            "fragment": "L18"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

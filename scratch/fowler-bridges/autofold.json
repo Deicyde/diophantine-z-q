@@ -1,0 +1,21 @@
+{
+  "name": "fowler-bridges",
+  "imports": ["ZInQKernel.Contrib.OneProof.FowlerBridges"],
+  "discharges": [
+    {
+      "field": "fowlerProp27",
+      "proof": "HDec.CMBranch.FowlerBridges.fowlerProp27_of_print {n}.fowlerProp27Print",
+      "leaves": [
+        {
+          "name": "fowlerProp27Print",
+          "type": "HDec.CMBranch.FowlerBridges.FowlerProp27Print",
+          "doc": "Fowler (2026), Proposition 2·7, p. 615: for a negative discriminant congruent to 0 or 1 modulo 4 and positive n, h(Δ) ≤ n implies √|Δ| ≤ 2n² exp(21000n²); h(Δ) counts proper fractional ideal classes (p. 613).",
+          "kind": "published",
+          "flag": "Human read of the publisher PDF: fork issue #14, comment 6973387139; the lattice discriminant, proper ideal class number, and Picard finiteness bridges are proved in Lean.",
+          "flag_class": "note",
+          "source": "Fowler, Some uniform effective results on André–Oort for sums of powers in ℂⁿ, Math. Proc. Cambridge Philos. Soc. 180 (2026) 607–641, Proposition 2·7, p. 615; class number on p. 613; manuscript L588–593."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "Eq (8)",
+  "kind": "equation",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.Translation.MultiplicationExact; through its dependency's ZInQ.Compiler.Precision.bound and ZInQ.Translation.MultiplicationExact; confirmed finding (differs): closeAt_sound states (8) with [M]'s bound B for CloseAt T, the Close relation of ndep's library at any guard T; that library's pole curves are x(x-l)(x+l), not [M]'s x(x-l)(x+3l), so the generality in T does not contain [M]'s relation and the claim concerns another polynomial. It is proved under ndep's MultiplicationExact at T (conditional); ndep's close_sound is not used by [N].",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 81,
+        "rect": [
+          0.107843,
+          0.337886,
+          0.784314,
+          0.028068
+        ]
+      },
+      "title": "Eq. (8)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (8)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.closeAt_sound",
+        "module": "bounded.QualitativePrecision"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.closeAt_sound@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem closeAt_sound\n    (hM : MultiplicationExact specConstructors FixedConst.cstar.value FixedConst.ell.value T)\n    {n κ : ℤ} {t : ℚ} (h : CloseAt T (iota n) (iota κ) t) :\n    (n : ℚ) ∉ contactSet ∧ κ ≠ 0 ∧ |(t : ℝ) - n| < Real.exp (-(bound n κ : ℝ)) := by",
+            "line": 101,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativePrecision.lean",
+            "fragment": "L101"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.Translation.MultiplicationExact; through its dependency's ZInQ.Compiler.Precision.bound and ZInQ.Translation.MultiplicationExact; confirmed finding (differs): closeAt_sound states (8) with [M]'s bound B for CloseAt T, the Close relation of ndep's library at any guard T; that library's pole curves are x(x-l)(x+l), not [M]'s x(x-l)(x+3l), so the generality in T does not contain [M]'s relation and the claim concerns another polynomial. It is proved under ndep's MultiplicationExact at T (conditional); ndep's close_sound is not used by [N]."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          81
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "closeAt_sound states |t-n|<exp(-bound n k) with bound = A0|kF(n)|^24, A0 = H_6, matching [M]'s B, but for CloseAt T, whose compiled polynomial uses ndep's Route K pole template (x+l), and only under MultiplicationExact at T; no guard T gives [M]'s polynomial. No [N] file uses ndep's close_sound, as grep shows.",
+            "closeAt_sound gives (8) with [M]'s B but for CloseAt T, whose polynomial contains ndep's Route K pole template (x+l) at every guard T, not [M]'s Q_pole (x+3l); it is proved under ndep's MultiplicationExact, which is a statement about that other polynomial."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-translation: Section 10.4 typing order",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Mult.heightCertificate_rel_iff proved: Each typing step has a proved statement (membership, raw addition, fixed scalars, the forced root memberships of height_certificate, natural and signed encoding under M), and the source-DAG induction is translate_sound, with (C.4) applied in precision_rel_iff_accepts_of. The ordering remarks are how these proofs are arranged rather than separate claims.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.102941,
+          0.416119,
+          0.794118,
+          0.327006
+        ]
+      },
+      "title": "Passage (compiler-translation): Section 10.4 typing order",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Section 10.4 typing order"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.heightCertificate_rel_iff",
+        "module": "ZInQKernel.Multiplication.Certificate.HeightCertificate"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.heightCertificate_rel_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem heightCertificate_rel_iff (ℓ : ℚ) (c : Fin 4 → ℤ) (a : Fin 36 → ℚ) (hℓ : a 15 = ℓ)\n    (hc : ∀ (i : Fin 4) (k : Fin 5), a ⟨16 + (5 * i + k), by omega⟩ = iota (c i) k) :\n    heightTemplate.Rel a ↔\n      (∃ n : Fin 3 → ℤ, ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k) ∧\n        HeightCert (fun i k => a ⟨5 * i + k, by omega⟩) ℓ c := by",
+            "line": 114,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/HeightCertificate.lean",
+            "fragment": "L114"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

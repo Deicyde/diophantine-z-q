@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Rank and odd index",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The torsion of E(K0) is the displayed two-torsion (mem_torsion_E_iff, card_torsion_E); Mordell-Weil (mordellWeilE, proved) gives rank one (exists_generator_C' unconditionally on C, exists_generator_E on E from MordellWeilE, which mordellWeilE discharges); odd_free_index proves the free index of R odd via the sign of its x-class. All proved, no open hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.704596,
+          0.784314,
+          0.050248
+        ]
+      },
+      "title": "Passage (model): Rank and odd index",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Rank and odd index"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.mordellWeilE",
+        "module": "ZInQKernel.Model.Descent.MordellWeil"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.mordellWeilE@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem mordellWeilE : MordellWeilE := by",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Descent/MordellWeil.lean",
+            "fragment": "L24"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

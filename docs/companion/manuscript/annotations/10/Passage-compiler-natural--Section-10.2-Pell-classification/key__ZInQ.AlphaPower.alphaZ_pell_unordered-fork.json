@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 Pell classification",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: alphaZ_pell_unordered states the classification for b > 2 with no ordering assumption, and alphaZ_pell_converse that adjacent pairs are ordered natural solutions, stated for b >= 2, more general than [M]'s b > 2; both proved with no assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.305054,
+          0.784314,
+          0.067757
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 Pell classification",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 Pell classification"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.alphaZ_pell_unordered",
+        "module": "ZInQKernel.Compiler.Exponential.AlphaPell"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.alphaZ_pell_unordered@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem alphaZ_pell_unordered {b x y : ℕ} (hb : 2 < b) (h : x ^ 2 + y ^ 2 = 1 + b * x * y) :\n    ∃ n : ℕ, ((x : ℤ) = alphaZ b n ∧ (y : ℤ) = alphaZ b (n + 1)) ∨\n      ((x : ℤ) = alphaZ b (n + 1) ∧ (y : ℤ) = alphaZ b n) := by",
+            "line": 22,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/AlphaPell.lean",
+            "fragment": "L22"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

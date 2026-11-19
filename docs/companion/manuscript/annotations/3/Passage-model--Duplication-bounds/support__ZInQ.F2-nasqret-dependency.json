@@ -1,0 +1,65 @@
+{
+  "id": "Passage model: Duplication bounds",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; ZInQ.F2 a definition: ndep's source files for these declarations are identical to [F]'s; all proved. No [N] declaration uses them; [N]'s CanonicalOrbit lemmas take the constants 392 and 676 only as abstract hypotheses on a sequence.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.102941,
+          0.754844,
+          0.794118,
+          0.161593
+        ]
+      },
+      "title": "Passage (model): Duplication bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Duplication bounds"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.F2",
+        "module": "ZInQKernel.Model.Heights.DuplicationForms"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.F2@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Model/Heights/DuplicationForms.lean",
+            "fragment": "L33"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

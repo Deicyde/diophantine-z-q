@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K13)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [N] and ndep have no declaration about the period identity per_f((K12))^eps = s_F L_{prime(2Nd)}(f,chi,1) b_eps e_B^eps (Kato Theorem 6.6); [N] has no Kato Euler system, Iwasawa cohomology or even-scalar construction.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 96,
+        "rect": [
+          0.107843,
+          0.247186,
+          0.784314,
+          0.031325
+        ]
+      },
+      "title": "Eq. (K13)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K13)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          96
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

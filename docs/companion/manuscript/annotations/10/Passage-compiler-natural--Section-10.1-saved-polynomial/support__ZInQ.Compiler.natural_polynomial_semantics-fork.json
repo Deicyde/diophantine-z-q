@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 saved polynomial",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: precisionCircuit_counts proves that the Lean precision circuit has 1,305,811 variables of which the first five are inputs; the SHA256 of the saved file is not stated, so the Lean circuit is tied to the saved polynomial only by construction. Proved, no assumed hypothesis.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.771289,
+          0.784314,
+          0.097189
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 saved polynomial",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 saved polynomial"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.natural_polynomial_semantics",
+        "module": "ZInQKernel.Compiler.Universal.WrapperCode"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.natural_polynomial_semantics@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem natural_polynomial_semantics (c : Fin 5 → ℕ) :\n    precisionCircuit.NatRel powerTemplate c ↔ Precision.accepts c :=",
+            "line": 136,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Universal/WrapperCode.lean",
+            "fragment": "L136"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

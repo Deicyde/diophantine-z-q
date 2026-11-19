@@ -1,0 +1,167 @@
+{
+  "manuscript": {
+    "url": "https://raw.githubusercontent.com/elliotglazer/diophantine-z-q/97cec7fdd757d9a8e4f468151a47a6d3610fb2f2/diophantine_zq.tex",
+    "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+    "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b",
+    "numbered statements": 71
+  },
+  "repositories": {
+    "fork": {
+      "url": "https://github.com/Deicyde/diophantine-z-q",
+      "commit": "636c2761c6bc6099cd76b9fb9a515149beec7f6d",
+      "annotations": 559,
+      "declaration ends": 1615,
+      "without declaration": 10,
+      "chapters": {
+        "assembly": 48,
+        "compiler": 139,
+        "main": 34,
+        "model": 83,
+        "multiplication": 86,
+        "progressions": 2,
+        "route-ap": 4,
+        "size": 60,
+        "syntax": 103
+      },
+      "blueprint pages": 701,
+      "pages with no manuscript passage": 363
+    },
+    "upstream": {
+      "url": "https://github.com/elliotglazer/diophantine-z-q",
+      "commit": "d8266eaf8108f30bba88ca55dc467e52a8ac7e9a",
+      "annotations": 554,
+      "declaration ends": 1646,
+      "without declaration": 0,
+      "chapters": {
+        "assembly": 48,
+        "compiler": 139,
+        "main": 29,
+        "model": 83,
+        "multiplication": 86,
+        "progressions": 2,
+        "route-ap": 4,
+        "size": 60,
+        "syntax": 103
+      },
+      "blueprint pages": 597,
+      "pages with no manuscript passage": 261
+    }
+  },
+  "passages": 136,
+  "passages with the same declarations in every repository": 130,
+  "passages that differ": 6,
+  "declarations only in one repository": {
+    "fork": 4,
+    "upstream": 35
+  },
+  "numbered statements with a link in some repository": 11,
+  "numbered statements unlinked": 60,
+  "unlinked": [
+    "Theorem 5.3",
+    "Lemma 5.4",
+    "Lemma 5.5",
+    "Remark 7.1",
+    "Proposition 7.2",
+    "Proposition 7.3",
+    "Definition 7.4",
+    "Definition 7.5",
+    "Lemma 7.6",
+    "Lemma 7.7",
+    "Definition 7.8",
+    "Lemma 7.9",
+    "Definition 7.10",
+    "Lemma 7.11",
+    "Lemma 7.12",
+    "Proposition 7.13",
+    "Proposition 7.14",
+    "Proposition 7.15",
+    "Lemma 7.16",
+    "Proposition 7.17",
+    "Definition 8.1",
+    "Lemma 8.2",
+    "Proposition 8.3",
+    "Lemma 8.4",
+    "Proposition 8.5",
+    "Proposition 8.6",
+    "Definition 8.7",
+    "Lemma 8.8",
+    "Proposition 8.9",
+    "Lemma 8.10",
+    "Lemma 8.11",
+    "Lemma 9.1",
+    "Lemma 9.2",
+    "Lemma 9.3",
+    "Lemma 9.4",
+    "Lemma 9.5",
+    "Proposition 9.6",
+    "Lemma 9.7",
+    "Proposition 9.8",
+    "Proposition 9.9",
+    "Corollary 13.1",
+    "Corollary 13.2",
+    "Corollary 13.3",
+    "Proposition E.1",
+    "Proposition E.2",
+    "Proposition E.3",
+    "Proposition E.4",
+    "Proposition F.1",
+    "Proposition F.2",
+    "Proposition F.3",
+    "Proposition F.4",
+    "Proposition F.5",
+    "Proposition G.1",
+    "Proposition G.2",
+    "Proposition G.3",
+    "Proposition G.4",
+    "Proposition G.5",
+    "Proposition G.6",
+    "Proposition G.7",
+    "Lemma H.1"
+  ],
+  "linked statements": {
+    "Theorem 1.1": {
+      "fork": 20,
+      "upstream": 48
+    },
+    "Lemma 1.2": {
+      "fork": 12,
+      "upstream": 12
+    },
+    "Proposition 3.1": {
+      "fork": 7,
+      "upstream": 7
+    },
+    "Theorem 4.1": {
+      "fork": 7,
+      "upstream": 6
+    },
+    "Lemma 5.1": {
+      "fork": 2,
+      "upstream": 2
+    },
+    "Theorem 5.2": {
+      "fork": 7,
+      "upstream": 6
+    },
+    "Proposition 6.1": {
+      "fork": 12,
+      "upstream": 12
+    },
+    "Proposition 6.2": {
+      "fork": 8,
+      "upstream": 7
+    },
+    "Lemma 11.1": {
+      "fork": 8,
+      "upstream": 8
+    },
+    "Lemma 11.2": {
+      "fork": 12,
+      "upstream": 12
+    },
+    "Proposition 12.1": {
+      "fork": 9,
+      "upstream": 9
+    }
+  }
+}

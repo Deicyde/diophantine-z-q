@@ -1,0 +1,47 @@
+{
+  "id": "Eq (H4)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] does not formalize Section 8; no declaration states the CM congruence reducing y_{d l} to Frobenius of y_d at an inert prime.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 40,
+        "rect": [
+          0.107843,
+          0.808715,
+          0.784314,
+          0.0317
+        ]
+      },
+      "title": "Eq. (H4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (H4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          40
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

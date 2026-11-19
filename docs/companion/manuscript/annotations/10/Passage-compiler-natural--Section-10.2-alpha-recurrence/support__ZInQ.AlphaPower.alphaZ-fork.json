@@ -1,0 +1,88 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 alpha recurrence",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.AlphaPower.alphaZ a definition: Each claim of the passage (growth, matrix power, determinant one, coprimality, quadratic identity, parameter congruence, alpha_2(n)=n) has its own proved declaration with no assumed hypotheses, so no single declaration states it; growth is stated for b >= 2 and the identities for every natural b, more general than [M]'s b >= 3, which the taxonomy keeps as parts.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.820763,
+          0.784314,
+          0.071038
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 alpha recurrence",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 alpha recurrence#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.212392
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 alpha recurrence",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 alpha recurrence#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.alphaZ",
+        "module": "lean.ZInQ.AlphaCore"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.alphaZ@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "@[expose] def alphaZ (B : Nat) : Nat → Int\n  | 0 => 0\n  | 1 => 1\n  | n + 2 => (B : Int) * alphaZ B (n + 1) - alphaZ B n",
+            "line": 19,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/AlphaCore.lean",
+            "fragment": "L19"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77,
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

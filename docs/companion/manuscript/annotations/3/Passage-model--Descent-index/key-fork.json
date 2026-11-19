@@ -1,0 +1,98 @@
+{
+  "id": "Passage model: Descent index",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: index_two_E states [E(K0):2E(K0)] = 8; it is proved by identifying 2E(K0) with the kernel of the composite Kummer map rather than by the exact sequence remark of [M]. Proved.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.633328,
+          0.784314,
+          0.051323
+        ]
+      },
+      "title": "Passage (model): Descent index",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Descent index"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.index_two_E",
+        "module": "ZInQKernel.Model.Descent.Index"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.index_two_E@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem index_two_E :\n    (nsmulAddMonoidHom (α := (shortCurve (-genD ^ 2)).toAffine.Point) 2).range.index = 8 := by",
+            "line": 78,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Descent/Index.lean",
+            "fragment": "L78"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.index_two_genCurve",
+        "module": "ZInQKernel.Model.Descent.Index"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.index_two_genCurve@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem index_two_genCurve :\n    (nsmulAddMonoidHom (α := genCurve.toAffine.Point) 2).range.index = 8 :=",
+            "line": 95,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Descent/Index.lean",
+            "fragment": "L95"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

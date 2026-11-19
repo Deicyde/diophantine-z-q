@@ -1,0 +1,88 @@
+{
+  "id": "Passage model: Point references and fixed point codes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Syntax.FixedExpr.val a definition: The definitions (point references, generator equations in every model recipe, node semantics, fixed integer expressions, psi_component with A = (-11243,7950)) have matching definitions, and the fact that the fixed point codes are given by x_n, y_n with nonzero denominators (nontorsion) is proved unconditionally in iota_eq_psi_unconditional. The terminating searches are cataloguePrime_spec and ZInQ.Size.M0_bounds.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.102941,
+          0.542758,
+          0.794118,
+          0.347263
+        ]
+      },
+      "title": "Passage (model): Point references and fixed point codes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Point references and fixed point codes#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.092092
+        ]
+      },
+      "title": "Passage (model): Point references and fixed point codes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Point references and fixed point codes#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.FixedExpr.val",
+        "module": "ZInQKernel.Syntax.Constants.Expr"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.FixedExpr.val@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def val (env : R → ℤ) : FixedExpr R → ℤ\n  | literal z => z\n  | ref r => env r\n  | add a b => val env a + val env b\n  | mul a b => val env a * val env b\n  | pow a b => val env a ^ (val env b).toNat\n  | max a as => valMax env (val env a) as\n  | factorial a => ((val env a).toNat.factorial : ℤ)\n  | catalogueProduct W k B =>\n      (_root_.ZInQ.Syntax.catalogueProduct (val env W).toNat (val env k).toNat\n        (val env B).toNat : ℤ)\n  | catalogueMax W k B =>\n      (_root_.ZInQ.Syntax.catalogueMax (val env W).toNat (val env k).toNat\n        (val env B).toNat : ℤ)\n  | leastFormalMultiple N =>\n      (_root_.ZInQ.Syntax.leastFormalMultiple (val env N).toNat : ℤ)",
+            "line": 57,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Constants/Expr.lean",
+            "fragment": "L57"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89,
+          90
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

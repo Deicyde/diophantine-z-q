@@ -1,0 +1,26 @@
+'_private.ZInQKernel.Contrib.OneProof.JDescent4Places.0.HDec.CMBranch.CMjBridges.stalk_functionField_square' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_functionFieldMap_isScalarTower' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_ramificationIdx_eq_one_of_finite_unramified' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_exists_placeCenter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_exists_placeOf_closedPoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.genericFiber_isPullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.genericFiber_finite_finrank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarDouble_etale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarDouble_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarDouble_dominant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarDouble_over' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent4Degree.0.HDec.CMBranch.CMjBridges.double_baseChange_pullback' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent4Degree.0.HDec.CMBranch.CMjBridges.abVarDouble_finrank_of_isAlgClosed' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarDouble_functionField_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarFunctionFieldGenusOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_identityPoleSpaces' depends on axioms: [propext, Classical.choice, Quot.sound]

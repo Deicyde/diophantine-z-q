@@ -1,0 +1,22 @@
+{
+  "name": "elliot-wild",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.SZThm33"
+  ],
+  "discharges": [
+    {
+      "field": "elliotWildInertiaTrivial",
+      "proof": "_root_.SZRaynaud.elliot_of_sz33 {n}.silverbergZarhinThm33",
+      "leaves": [
+        {
+          "name": "silverbergZarhinThm33",
+          "type": "_root_.SZRaynaud.SilverbergZarhinThm33",
+          "doc": "Silverberg–Zarhin, Theorem 3.3, p. 405 (AI page read 11-17; provenance (b)). Both directions at the separable closure: semistability at a finite subextension (possibly the base) implies the criterion relating semistability at the base to triviality of inertia on the rational Tate module modulo its inertia invariants. Replaces the uncited L817–818 sentence through elliot_of_sz33 and the proved wild period.",
+          "kind": "published",
+          "flag": "pending review: AI page read 11-17; provenance (b). Full criterion at the separable closure with the semistability-at-finite-subextension reading; GLUE until rated",
+          "source": "Silverberg–Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.3, p. 405; paper cited at diophantine_zq.tex L816 and L11077–11080; fills the uncited step at L817–818"
+        }
+      ]
+    }
+  ]
+}

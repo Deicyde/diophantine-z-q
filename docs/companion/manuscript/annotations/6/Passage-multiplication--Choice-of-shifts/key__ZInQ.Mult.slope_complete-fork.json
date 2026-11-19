@@ -1,0 +1,88 @@
+{
+  "id": "Passage multiplication: Choice of shifts",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.FixedPrimePattern and ZInQ.PoleCompleteness; ZInQ.Mult.slope_complete proved only from ZInQ.PoleCompleteness: shift_choice proves the CRT choice of the shift with no hypothesis. pattern_slopes (from FixedPrimePattern) and slope_complete (from PoleCompleteness) give the six-prime bound and the private-group assignment, so those parts are conditional.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 24,
+        "rect": [
+          0.107843,
+          0.725004,
+          0.784314,
+          0.189285
+        ]
+      },
+      "title": "Passage (multiplication): Choice of shifts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Choice of shifts#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.050721
+        ]
+      },
+      "title": "Passage (multiplication): Choice of shifts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Choice of shifts#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.slope_complete",
+        "module": "ZInQKernel.Multiplication.Completeness.SlopeCompleteness"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.slope_complete@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem slope_complete (hPC : PoleCompleteness) (n₁ n₂ : ℤ) {t : ℚ}\n    {B₀ : ℝ} (ht : GoodSlope B₀ t) :\n    SlopePred t Syntax.ell (certShifts ![n₁, n₂, n₁ * n₂]) := by",
+            "line": 75,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Completeness/SlopeCompleteness.lean",
+            "fragment": "L75"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          24,
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

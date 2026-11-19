@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K3)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: No declaration states a 2-adic valuation formula for the dual exponential of F_E(Z_F)_x(0) in terms of L_*(h), point counts #E^h(F_q) and 2e.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 93,
+        "rect": [
+          0.107843,
+          0.12487,
+          0.784314,
+          0.043422
+        ]
+      },
+      "title": "Eq. (K3)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K3)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          93
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

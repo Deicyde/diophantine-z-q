@@ -24,6 +24,7 @@ OPEN = os.path.join(FX, 'open-statements.json')
 CROSSWALK = os.path.join(FX, 'frontier-crosswalk.tsv')
 KINDS = os.path.join(FX, 'kinds.tsv')
 CLAIMS = os.path.join(FX, 'claims.tsv')
+CREDITS = os.path.join(FX, 'credits.tsv')
 NO_ISSUES = os.path.join(FX, 'no-such-issues.json')
 FORK14 = 'https://github.com/Deicyde/diophantine-z-q/issues/14'
 UP = 'https://github.com/elliotglazer/diophantine-z-q/issues/'
@@ -34,11 +35,20 @@ BATCH2 = ['mumfordTorsionAlgClosed', 'mulEtaleAbelianScheme', 'cartierSmooth', '
 
 def run(*args, claims=CLAIMS, kinds=KINDS, crosswalk=CROSSWALK, live=LIVE):
     argv = ['--from-json', live, '--claims', claims, '--kinds', kinds, '--open', OPEN,
-            '--crosswalk', crosswalk, '--issues', NO_ISSUES] + list(args)
+            '--crosswalk', crosswalk, '--issues', NO_ISSUES, '--credits', CREDITS] + list(args)
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         code = sc.main(argv)
     return code, buf.getvalue()
+
+
+def on14(*comments):
+    """A fetch whose claims issue has the given (login, createdAt, body) comments; comment i (from 0) has the URL
+    FORK14#issuecomment-(9001 + i)."""
+    nodes = [{'url': f'{FORK14}#issuecomment-{9001 + i}', 'author': {'login': login}, 'createdAt': at, 'body': body}
+             for i, (login, at, body) in enumerate(comments)]
+    return {'repos': {'Deicyde/diophantine-z-q': {'issues': [{'number': 14, 'url': FORK14, 'comments': nodes}],
+                                                  'pullRequests': [], 'branches': ['main', 'wip/pazuki']}}}
 
 
 def read_json(path):
@@ -97,6 +107,11 @@ class Parsing(unittest.TestCase):
         self.assertEqual(self.names('Claiming H-98–H-102'), (five, []))
         found, bad = self.names('Claiming H-102-H-98')
         self.assertEqual((found, bad), ([], [('H-102-H-98', 'range not supported')]))
+
+    def test_overlong_range_is_reported(self):
+        # more than 4300 digits makes int() raise in Python 3.12; the range is reported instead
+        name = 'H1-' + '9' * 5000
+        self.assertEqual(self.names('Claiming ' + name), ([], [(name, 'range not supported')]))
 
     def test_slash_list_and_names_after_ids(self):
         self.assertEqual(self.names('Claiming H120/H121')[0], ['tateTwistInvariants', 'axSenTate'])
@@ -276,6 +291,28 @@ class Write(unittest.TestCase):
         for f in BATCH2[1:]:
             self.assertEqual(by[f]['hold'], 'held', f)
 
+    def test_project_claims_mode(self):
+        # default: project claims with no row are only reported
+        _, by0, out0 = self.write()
+        missing = sorted({line.split(':')[0].strip() for line in out0.splitlines()
+                          if 'project claim with no claims.tsv row' in line})
+        shutil.copy(CLAIMS, self.claims)
+        code, out = run('--write', '--today', '2026-11-14', '--project-claims', claims=self.claims)
+        self.assertEqual(code, 0)
+        _, rows = sc.read_tsv(self.claims)
+        by = {r['field']: r for r in rows}
+        # an interest row backed by a project claim becomes held, with the claim's link
+        r = by['mumfordTorsionAlgClosed']
+        self.assertEqual((r['hold'], r['holder_kind'], r['public_holder']), ('held', 'project', 'project'))
+        self.assertTrue(r['claim_url'].startswith('https://github.com/'), r['claim_url'])
+        # project claims with no row get a held project row
+        for f in missing:
+            self.assertIn(f, by, f)
+            self.assertEqual((by[f]['hold'], by[f]['holder_kind']), ('held', 'project'), f)
+        # rows with no project claim line are still left alone
+        self.assertEqual(by['shimuraFamilyAb'], by0['shimuraFamilyAb'])
+        self.assertEqual(by['milneIsogenyQuasiInverse']['hold'], by0['milneIsogenyQuasiInverse']['hold'])
+
     def test_outside_rows(self):
         _, by, out = self.write()
         # a held outside row with no parsed claim is not downgraded; the other claimant is reported
@@ -340,6 +377,193 @@ class Write(unittest.TestCase):
         run('--write', '--today', '2026-11-14', claims=self.claims)
         fields = [r['field'] for r in sc.read_tsv(self.claims)[1]]
         self.assertEqual(len(fields), len(set(fields)))
+
+
+class PublicText(unittest.TestCase):
+    def test_markup_quotes_and_whitespace(self):
+        self.assertEqual(sc.public_text('  "\u201cneeds  GAGA\n for <b>proper</b> morphisms<!-- synthetic-marker -->'),
+                         'needs GAGA for proper morphisms')
+        self.assertEqual(sc.public_text('stopped <!-- synthetic-marker'), 'stopped')   # an unclosed comment
+        self.assertEqual(sc.public_text('p < 5 and q > 3; <a href="https://x.y/z">link</a>'), 'p < 5 and q > 3; link')
+
+    def test_absolute_paths(self):
+        self.assertEqual(sc.public_text('log at /home/alice/work/build.log, and `/Users/al/x/`; '
+                                        'C:\\Users\\al\\x and ~/w/x/y.'),
+                         'log at [path], and `[path]`; [path] and [path].')
+        # IDs, relative paths, single-separator paths and URLs stay
+        text = 'H-98/H-102, and/or /tmp, docs/one-proof/OPEN.md, https://github.com/a/b/c'
+        self.assertEqual(sc.public_text(text), text)
+
+    def test_local_path_backstop(self):
+        # paths glued to ':' or '.' escape ABS_PATH; render_open's own pattern must still never get through
+        out = sc.public_text('see file:///home/alice/x.log and dir/.swarm-worktrees/y, also x:/Users/al/z')
+        self.assertEqual(out, 'see [path] and [path] also [path]')
+        self.assertNotRegex(out, sc.LOCAL_PATH)
+        self.assertEqual(sc.public_text('runner path /home/runner/work/x stays a path'), 'runner path [path] stays a path')
+
+    def test_length_and_empty(self):
+        long = sc.public_text('word ' * 100)
+        self.assertEqual((len(long), long[-3:]), (sc.STATUS_MAX, '...'))
+        self.assertEqual(sc.release_status({'release': {'blocker': '<!-- x -->'}}, None), 'released')
+
+
+class SoleWriter(unittest.TestCase):
+    """--project-claims, the mode of the claims-sync workflow (the only writer of claims.tsv)."""
+
+    HEADER = ['field', 'task', 'status', 'since', 'issue', 'holder_kind', 'public_holder', 'claim_url', 'hold']
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.claims = os.path.join(self.tmp, 'claims.tsv')
+        self.live = os.path.join(self.tmp, 'live.json')
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp)
+
+    def sync(self, rows, *comments, mode=('--project-claims',)):
+        """Write claims.tsv (rows of cells; None keeps the file) and the comments on #14, run --write and return
+        (rows by field, the report)."""
+        if rows is not None:
+            with open(self.claims, 'w', encoding='utf-8') as fh:
+                fh.write(''.join('\t'.join(r) + '\n' for r in [self.HEADER] + list(rows)))
+        with open(self.live, 'w', encoding='utf-8') as fh:
+            json.dump(on14(*comments), fh)
+        code, out = run('--write', '--today', '2026-11-18', *mode, claims=self.claims, live=self.live)
+        self.assertEqual(code, 0)
+        return {r['field']: r for r in sc.read_tsv(self.claims)[1]}, out
+
+    def test_rows_of_fields_no_longer_open_are_dropped(self):
+        pr48 = 'https://github.com/Deicyde/diophantine-z-q/pull/48'
+        gone = ('dsThm966Printed', '', 'claimed', '2026-11-17', 'Deicyde/diophantine-z-q#48', 'project', 'project',
+                pr48, 'held')
+        kept = ('igusaChi10', '', 'claimed', '2026-11-16', 'Deicyde/diophantine-z-q#14', 'outside', 'dave-ff',
+                FORK14 + '#issuecomment-9001', 'held')
+        claim = ('dave-ff', '2026-11-16T08:00:00Z', 'Claiming igusaChi10 at abc1234')
+        # the default mode keeps the row and reports it
+        by, out = self.sync([gone, kept], claim, mode=())
+        self.assertIn('dsThm966Printed', by)
+        self.assertIn('dsThm966Printed: claims.tsv row names no open field', out)
+        by, out = self.sync([gone, kept], claim)
+        self.assertEqual(sorted(by), ['igusaChi10'])
+        self.assertIn('# rows removed (field no longer open)', out)
+        self.assertIn('dsThm966Printed\tproject\tproject\theld\t' + pr48, out)
+
+    def test_outside_claim_takes_a_released_project_row(self):
+        claim = ('Deicyde', '2026-11-16T12:42:00Z', 'Claiming igusaChi10 at 2880fef1')
+        release = ('Deicyde', '2026-11-16T13:10:00Z', 'Releasing igusaChi10: stopped; the route needs a new identity')
+        outside = ('alice-nt', '2026-11-17T20:57:00Z', 'Claiming igusaChi10 at b1615c9b')
+        by, _ = self.sync([], claim)
+        self.assertEqual((by['igusaChi10']['hold'], by['igusaChi10']['holder_kind']), ('held', 'project'))
+        by, _ = self.sync(None, claim, release)
+        self.assertEqual((by['igusaChi10']['hold'], by['igusaChi10']['status']),
+                         ('released', 'stopped; the route needs a new identity'))
+        # the default mode leaves a project row alone
+        by, out = self.sync(None, claim, release, outside, mode=())
+        self.assertEqual((by['igusaChi10']['hold'], by['igusaChi10']['holder_kind']), ('released', 'project'))
+        self.assertIn('igusaChi10: claimed by alice-nt', out)
+        by, _ = self.sync(None, claim, release, outside)
+        r = by['igusaChi10']
+        self.assertEqual((r['hold'], r['holder_kind'], r['public_holder'], r['status'], r['claim_url']),
+                         ('held', 'outside', 'alice-nt', 'claimed', FORK14 + '#issuecomment-9003'))
+
+    def test_outside_claim_takes_a_project_interest_row(self):
+        row = ('milneIsogenyQuasiInverse', 'batch 2', 'briefed', '2026-11-15', 'elliotglazer/diophantine-z-q#81',
+               'project', 'project', '', 'interest')
+        claim = ('bob-q', '2026-11-17T09:00:00Z', 'Claiming milneIsogenyQuasiInverse at abc1234')
+        by, out = self.sync([row], claim, mode=())
+        self.assertEqual(by['milneIsogenyQuasiInverse']['hold'], 'interest')
+        self.assertIn('milneIsogenyQuasiInverse: claimed by bob-q', out)
+        by, _ = self.sync([row], claim)
+        r = by['milneIsogenyQuasiInverse']
+        self.assertEqual((r['hold'], r['holder_kind'], r['public_holder'], r['task'], r['status'], r['claim_url']),
+                         ('held', 'outside', 'bob-q', '', 'claimed', FORK14 + '#issuecomment-9001'))
+
+    def test_project_claim_takes_an_outside_released_row(self):
+        row = ('weilPairingMumford', '', 'the Weil pairing API is missing', '2026-10-15', 'Deicyde/diophantine-z-q#14',
+               'outside', 'tina-w', FORK14 + '#issuecomment-1030', 'released')
+        claim = ('Deicyde', '2026-11-17T08:00:00Z', 'Claiming weilPairingMumford at abc1234')
+        by, _ = self.sync([row], claim, mode=())
+        self.assertEqual((by['weilPairingMumford']['hold'], by['weilPairingMumford']['public_holder']),
+                         ('released', 'tina-w'))
+        by, _ = self.sync([row], claim)
+        r = by['weilPairingMumford']
+        self.assertEqual((r['hold'], r['holder_kind'], r['public_holder'], r['status'], r['claim_url']),
+                         ('held', 'project', 'project', 'claimed', FORK14 + '#issuecomment-9001'))
+
+    def test_project_release_of_a_branch_held_row(self):
+        branch = 'https://github.com/Deicyde/diophantine-z-q/tree/wip/pazuki'
+        row = ('pazukiCor13Upper', 'pazuki-inputs', 'host task running', '2026-11-16', '', 'project', 'project',
+               branch, 'held')
+        old = ('Deicyde', '2026-11-15T08:00:00Z', 'Releasing pazukiCor13Upper: an older release')
+        new = ('Deicyde', '2026-11-17T08:00:00Z', 'Releasing pazukiCor13Upper: no activity since 11-17')
+        # a release dated before the row's since does not undo the newer hold
+        by, _ = self.sync([row], old)
+        self.assertEqual(by['pazukiCor13Upper']['hold'], 'held')
+        # the default mode never changes a project row
+        by, _ = self.sync([row], old, new, mode=())
+        self.assertEqual(by['pazukiCor13Upper']['hold'], 'held')
+        by, _ = self.sync([row], old, new)
+        r = by['pazukiCor13Upper']
+        self.assertEqual((r['hold'], r['status'], r['holder_kind'], r['claim_url']),
+                         ('released', 'no activity since 11-17', 'project', branch))
+
+    def test_release_of_a_claim_in_a_closed_pull_request(self):
+        row = ('picZeroAbVar', '', 'claimed', '2026-11-10', 'Deicyde/diophantine-z-q#99', 'outside', 'Rosa-U',
+               'https://github.com/Deicyde/diophantine-z-q/pull/99', 'held')
+        by, out = self.sync([row])
+        self.assertEqual(by['picZeroAbVar']['hold'], 'held')
+        self.assertIn('picZeroAbVar: kept held by Rosa-U; no parsed claim backs it (gone)', out)
+        # a project line naming the holder releases it, and so does the holder's own line
+        for login, line in (('Deicyde', 'Releasing picZeroAbVar @rosa-u: the pull request was closed'),
+                            ('rosa-u', 'Releasing picZeroAbVar: the pull request was closed')):
+            by, _ = self.sync([row], (login, '2026-11-17T08:00:00Z', line))
+            r = by['picZeroAbVar']
+            self.assertEqual((r['hold'], r['status'], r['public_holder']),
+                             ('released', 'the pull request was closed', 'Rosa-U'), login)
+
+    def test_release_text_is_cleaned_in_every_mode(self):
+        claim = ('dana-p', '2026-11-16T08:00:00Z', 'Claiming igusaChi10 at abc1234')
+        release = ('dana-p', '2026-11-16T09:00:00Z',
+                   'Releasing igusaChi10: "build log at /home/dana/work/build.log <b>fails</b>  <!-- synthetic-marker')
+        for mode in ((), ('--project-claims',)):
+            by, _ = self.sync([], claim, release, mode=mode)
+            self.assertEqual((by['igusaChi10']['hold'], by['igusaChi10']['status']),
+                             ('released', 'build log at [path] fails'), mode)
+
+    def test_overlong_id_range_does_not_stop_the_run(self):
+        name = 'H1-' + '9' * 5000
+        by, out = self.sync([], ('eve-z', '2026-11-17T08:00:00Z', f'Progress {name}: half done\nClaiming {name}'),
+                            ('bob-q', '2026-11-17T09:00:00Z', 'Claiming igusaPsi4 at abc1234'))
+        self.assertEqual(sorted(by), ['igusaPsi4'])
+        self.assertIn('\trange not supported\teve-z\t', out)
+
+    def test_one_claim_rule(self):
+        three = ('new-c', '2026-11-17T08:00:00Z', 'Claiming r9b, igusaPsi4, igusaChi10 at abc1234')
+        # the default mode writes every claim
+        by, _ = self.sync([], three, mode=())
+        self.assertEqual(sorted(f for f, r in by.items() if r['hold'] == 'held'), ['igusaChi10', 'igusaPsi4', 'r9b'])
+        # one held row: the earliest claim, here a tie broken by field name; the others are reported
+        by, out = self.sync([], three)
+        self.assertEqual(sorted(by), ['igusaChi10'])
+        for f in ('igusaPsi4', 'r9b'):
+            self.assertIn(f'{f}: claimed by new-c ({FORK14}#issuecomment-9001), over the one-claim rule', out)
+        # a login with a row in credits.tsv, the maintainer and the project are exempt
+        by, _ = self.sync([], ('Vet-K', '2026-11-17T08:00:00Z', 'Claiming r9b, igusaPsi4'),
+                          ('ElliotGlazer', '2026-11-17T08:01:00Z', 'Claiming r9a, yuThm11'),
+                          ('Deicyde', '2026-11-17T08:02:00Z', 'Claiming bostLowerBound, javanpeykarBound'))
+        self.assertEqual(sorted(f for f, r in by.items() if r['hold'] == 'held'),
+                         ['bostLowerBound', 'igusaPsi4', 'javanpeykarBound', 'r9a', 'r9b', 'yuThm11'])
+        # claiming, releasing and claiming again does not get round it
+        once = ('new-c', '2026-11-17T08:00:00Z', 'Claiming r9b, igusaPsi4\nReleasing r9b, igusaPsi4: changed my mind')
+        by, _ = self.sync([], once)
+        self.assertEqual({f: r['hold'] for f, r in by.items()}, {'igusaPsi4': 'released', 'r9b': 'released'})
+        by, out = self.sync(None, once, ('new-c', '2026-11-17T09:00:00Z', 'Claiming r9b, igusaPsi4'))
+        self.assertEqual({f: r['hold'] for f, r in by.items()}, {'igusaPsi4': 'held', 'r9b': 'released'})
+        self.assertIn('r9b: claimed by new-c', out)
+        # once the held claim is released, the next claim is written
+        by, _ = self.sync(None, once, ('new-c', '2026-11-17T09:00:00Z', 'Claiming r9b, igusaPsi4'),
+                          ('new-c', '2026-11-17T10:00:00Z', 'Releasing igusaPsi4: done for now'))
+        self.assertEqual({f: r['hold'] for f, r in by.items()}, {'igusaPsi4': 'released', 'r9b': 'held'})
 
 
 class Check(unittest.TestCase):

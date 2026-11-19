@@ -1,0 +1,88 @@
+{
+  "id": "Passage size: Section 12.1 constructor bounds",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The coordinate heights 2^(2^30 (T+1)^3), the 3H^4 rule for quadratic-field operations, the 8(T+1)^3 guard factors and the bounds deg <= B^4, ||.||_1 <= 2^(B^8) for each constructor are stated; the uniform bounds hold for every B >= 2^20, not only B = T+1.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.107843,
+          0.861115,
+          0.784314,
+          0.053173
+        ]
+      },
+      "title": "Passage (size): Section 12.1 constructor bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 constructor bounds#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.107843,
+          0.090238,
+          0.784314,
+          0.076716
+        ]
+      },
+      "title": "Passage (size): Section 12.1 constructor bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 constructor bounds#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.specConstructors_bounds",
+        "module": "ZInQKernel.Size.Majorants.Cutoff"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.specConstructors_bounds@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem specConstructors_bounds {B : ℕ} (hB : 2 ^ 20 ≤ B) : ConstructorBounds specConstructors B :=",
+            "line": 65,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Majorants/Cutoff.lean",
+            "fragment": "L65"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84,
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

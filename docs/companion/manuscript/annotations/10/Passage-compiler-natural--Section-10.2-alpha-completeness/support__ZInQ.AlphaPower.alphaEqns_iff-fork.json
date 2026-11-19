@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 alpha completeness",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: For b > 3 and every N, alphaEqns_complete proves AlphaEqns (alpha_b(N)) b N, the completeness half of (C.2), with the choice of u, m = ku, v and the CRT witness w in its proof; proved, no assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.810353,
+          0.784314,
+          0.10229
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 alpha completeness",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 alpha completeness"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.alphaEqns_iff",
+        "module": "ZInQKernel.Compiler.Exponential.AlphaEquations"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.alphaEqns_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem alphaEqns_iff (X b N : ℕ) : AlphaEqns X b N ↔ 3 < b ∧ (X : ℤ) = alphaZ b N := by",
+            "line": 134,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/AlphaEquations.lean",
+            "fragment": "L134"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

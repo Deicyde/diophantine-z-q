@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Pole predicate",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, a definition; through its dependency's ZInQ.polePoly: [N]'s own ManuscriptV15.Arithmetic.pole defines Phi with [M]'s Q_pole, but Q_pole and S_0 have no standalone definition (inline, S_0 only inside PoleCompleteness). The claims that m is a signed divisor of 2730, that a zero gives points on E_e and E_{eH}, and the degree 75 are not stated for this polynomial; ndep's polePoly, which [N]'s bounded tree uses, has the different curves x+l.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.08965,
+          0.784314,
+          0.270491
+        ]
+      },
+      "title": "Passage (multiplication): Pole predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Pole predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "Sun28.Ordinary.poleBranch",
+        "module": "Lean.Topics.sun-28.ordinary-contact.PoleEquations"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "Sun28.Ordinary.poleBranch@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def poleBranch (μ B e z : ℚ) : Prop :=\n  let A := μ*B\n  let H := A*(A-B^2)\n  A*e*H*z ≠ 0 ∧ ∃ y₁ y₂ : ℚ,\n    y₁^2=A*(A-e)*(A+3*e) ∧\n    y₂^2=A*(A*z^2-e*H)*(A*z^2+3*e*H)",
+            "line": 8,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/sun-28/ordinary-contact/PoleEquations.lean",
+            "fragment": "L8"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

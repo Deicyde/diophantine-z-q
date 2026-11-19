@@ -1,0 +1,47 @@
+{
+  "id": "Definition 7.5",
+  "kind": "definition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: No definition of the F_2-valued symbol A(D) = [v_2 a(D) = delta + omega(D)] of a coefficient source exists.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 29,
+        "rect": [
+          0.107843,
+          0.53037,
+          0.784314,
+          0.344929
+        ]
+      },
+      "title": "Definition 7.5",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 7.5"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          29
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

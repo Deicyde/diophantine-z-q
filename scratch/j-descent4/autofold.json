@@ -1,0 +1,7 @@
+{
+  "name": "Genus of the abelian function field (no row discharge)",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.JDescent4Genus"
+  ],
+  "discharges": []
+}

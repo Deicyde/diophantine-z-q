@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 nonzero and branch masks",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: nonzero_indicator proves the mask equation determines N_j, branch_split the split into nonzero and zero branch histories, and indicator_digits the zero-one digits of the indicators; proved, no assumed hypothesis.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.471697,
+          0.784314,
+          0.216235
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 nonzero and branch masks",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 nonzero and branch masks"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Packed.branch_split",
+        "module": "ZInQKernel.Compiler.Circuits.Packed.Branches"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Packed.branch_split@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem branch_split {b q : ℕ} (σ ν : ℕ → ℕ) (hσ : ∀ t ≤ q, σ t ≤ 1) (hν : ∀ t ≤ q, ν t ≤ 1)\n    (hb : 1 ≤ b) (V W : ℕ) :\n    (V = Nat.land (∑ t ∈ range (q + 1), σ t * (2 ^ b) ^ t) (∑ t ∈ range (q + 1), ν t * (2 ^ b) ^ t) ∧\n        ∑ t ∈ range (q + 1), σ t * (2 ^ b) ^ t = V + W) ↔\n      (V = ∑ t ∈ range (q + 1), σ t * ν t * (2 ^ b) ^ t ∧\n        W = ∑ t ∈ range (q + 1), σ t * (1 - ν t) * (2 ^ b) ^ t) := by",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Packed/Branches.lean",
+            "fragment": "L24"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

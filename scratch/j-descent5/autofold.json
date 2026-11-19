@@ -1,0 +1,23 @@
+{
+  "name": "Fowler singular modulus degree (conditional on genus)",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.JDescent5"
+  ],
+  "discharges": [
+    {
+      "field": "cmjDegree",
+      "proof": "HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_genusOne (by exact HDec.CMBranch.CMjBridges.abVarFunctionFieldGenusOne_proof) {n}.cmjDegreePrint",
+      "leaves": [
+        {
+          "name": "cmjDegreePrint",
+          "type": "HDec.CMBranch.CMjBridges.CMjDegreePrint",
+          "doc": "Fowler (2026), section 2·1, p. 613: a singular modulus of primitive equation discriminant Δ has degree h(Δ) over ℚ, with h(Δ) the proper ideal class number.",
+          "kind": "published",
+          "flag": "Supplied reading of the publisher PDF. Conditional preview: the genus provider name is a placeholder.",
+          "flag_class": "note",
+          "source": "Fowler, Some uniform effective results on André–Oort for sums of powers in ℂⁿ, Math. Proc. Cambridge Philos. Soc. 180 (2026) 607–641, section 2·1, pp. 612–613; manuscript L584–587."
+        }
+      ]
+    }
+  ]
+}

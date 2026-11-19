@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Silverman",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Size.E0sub a definition: [F] proves, rather than cites, the part of Silverman VII.2.1 that [M] uses: for y^2 = x^3 + Ax over the localization of Z[s] at a prime pi not dividing 2, reduction is a homomorphism from W0(pi) to the nonsingular reduced points with kernel W1(pi), so the reduced point's order sends Q into W1(pi). It is specialized to these curves and global localizations and omits the surjectivity in Silverman's exact sequence, which [M] does not use; the standing is proved without hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.107843,
+          0.17873,
+          0.784314,
+          0.015453
+        ]
+      },
+      "title": "Passage (assembly): Silverman",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Silverman"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.E0sub",
+        "module": "ZInQKernel.Size.FormalMultiple.Reduction"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.E0sub@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def E0sub : AddSubgroup (shortCurve A).toAffine.Point where\n  carrier := {P | InE0 π ρ A Ab P}\n  zero_mem' := trivial\n  add_mem' hP hQ :=\n    (inE0_add_redK_add hπ ρ hρ hA hAb (two_ne_zero_of_not_dvd ρ hρ h2) hP hQ).1\n  neg_mem' hP := inE0_neg hπ ρ hρ hA hP",
+            "line": 470,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/FormalMultiple/Reduction.lean",
+            "fragment": "L470"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

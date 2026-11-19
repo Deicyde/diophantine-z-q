@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Section 10.4 translation",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Translation.MultiplicationExact a definition: The typing facts (member, raw addition, natural), the soundness and completeness of the translation by induction on the circuit, the power-value and precision semantics and the polynomial compilation are stated and proved; the natural, power-value and precision statements are conditional on the multiplication statement M (MultiplicationExact), as in [M]. The saved-file facts (root equality [17751579,15], the saved AST) have no Lean counterpart and are not mathematics Lean could state.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.098039,
+          0.416119,
+          0.803922,
+          0.498169
+        ]
+      },
+      "title": "Passage (assembly): Section 10.4 translation",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 10.4 translation"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.MultiplicationExact",
+        "module": "ZInQKernel.Compiler.Translation.NaturalCode"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.MultiplicationExact@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def MultiplicationExact (I : Constructors E) (cstar ell T : ℤ) : Prop :=\n  ∀ p q r : Fin 5 → ℚ, (multiplyTemplate I cstar ell T).Rel (Fin.append (Fin.append p q) r) ↔\n    ∃ a b : ℤ, p = iota a ∧ q = iota b ∧ r = iota (a * b)",
+            "line": 30,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/NaturalCode.lean",
+            "fragment": "L30"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

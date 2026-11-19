@@ -1,0 +1,86 @@
+{
+  "id": "Passage multiplication: Local congruence",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The valuation pattern, the common group and place, the passage from the tests to p^25 | n_1n_2 - n_3, and the assembled local congruence are stated with [M]'s predicate and constants; the steps on integrality transfer and the congruences mod p^25 are inside tests_to_congruence.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.107843,
+          0.144072,
+          0.784314,
+          0.214542
+        ]
+      },
+      "title": "Passage (multiplication): Local congruence",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Local congruence"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.tests_to_congruence",
+        "module": "ZInQKernel.Multiplication.Soundness.TestsToCongruence"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.tests_to_congruence@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem tests_to_congruence (hp324 : 324 < p) {π : Zs} (hπ : Prime π) (hπp : π ∣ (p : Zs))\n    {c : ℤ} (hc : ¬ (p : ℤ) ∣ c) (n z : Fin 3 → ℤ) {h : ℤ} (hh : h ≠ 0) (hhc : h ≠ c)\n    (hτ : ∀ j : Fin 12, Vge (vP π hπ) (prec j) (testValues h z ![c, c * n 0, c * n 1, c * n 2] j)) :\n    (p : ℤ) ^ 25 ∣ n 0 * n 1 - n 2 := by",
+            "line": 252,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Soundness/TestsToCongruence.lean",
+            "fragment": "L252"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's local_congruence takes SlopePred t ell (certShifts n), whose pole conjunct is the Route K PoleSoluble (curves x+l), so its hypothesis differs from [M]'s slope predicate; [N] reaches it only through slope_height_le_of in slope_bound.",
+            "local_congruence has the hypothesis SlopePred t ell (certShifts n), whose Phi is the Route K pole polynomial, so its hypothesis concerns a different predicate from [M]'s, though the conclusion is the same. One small correction: [N]'s slope_bound reaches it through slope_height_le_of, which calls local_congruence_of (the general form) and not local_congruence itself."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

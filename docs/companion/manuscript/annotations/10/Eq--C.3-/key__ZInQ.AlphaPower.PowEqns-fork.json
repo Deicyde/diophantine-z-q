@@ -1,0 +1,70 @@
+{
+  "id": "Eq (C.3)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: The third branch of PowEqns contains the conditions a1 = alpha_b(R), a2 = alpha_b(R+1) (via AlphaEqns) and P + b a1 = Q a1 + a2 mod m, written with Nat %; a definition.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.107843,
+          0.147103,
+          0.784314,
+          0.025652
+        ]
+      },
+      "title": "Eq. (C.3)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (C.3)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.PowEqns",
+        "module": "ZInQKernel.Compiler.Exponential.PowerEquations"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.PowEqns@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def PowEqns (P Q R : ℕ) : Prop :=\n  (Q = 0 ∧ R = 0 ∧ P = 1) ∨ (Q = 0 ∧ 0 < R ∧ P = 0) ∨\n    (0 < Q ∧ ∃ b m a0 a1 a2 : ℕ, AlphaEqns a0 (Q + 4) (R + 1) ∧ b = a0 + Q ^ 2 + 2 ∧\n      m + Q ^ 2 + 1 = b * Q ∧ P < m ∧ AlphaEqns a1 b R ∧ AlphaEqns a2 b (R + 1) ∧\n      (P + b * a1) % m = (Q * a1 + a2) % m)",
+            "line": 17,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/PowerEquations.lean",
+            "fragment": "L17"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "subject": {
+    "type": "latex",
+    "uri": "https://raw.githubusercontent.com/elliotglazer/diophantine-z-q/97cec7fdd757d9a8e4f468151a47a6d3610fb2f2/diophantine_zq.tex",
+    "version": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+    "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b",
+    "citation": {
+      "id": "z_in_q_2026",
+      "type": "manuscript",
+      "title": "ℤ is Diophantine in ℚ",
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            11,
+            5
+          ]
+        ]
+      },
+      "URL": "https://github.com/elliotglazer/diophantine-z-q",
+      "note": "Manuscript dated November 5, 2026. Author field intentionally omitted, as in the repository's CITATION.bib."
+    }
+  }
+}

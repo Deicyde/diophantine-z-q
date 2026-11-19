@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Finite search",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: `search_box` covers [M]'s nine finite-search ranges; `smallHeight_search` certifies 7004 quadratics, 14008 roots, 111 rationals and seven survivors, and `canonHeight_eq_of_hx_lt` with `abs_free_index_eq_one` gives the contradiction. The independent-replay remark is not formal; all proved.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.107843,
+          0.194414,
+          0.784314,
+          0.224662
+        ]
+      },
+      "title": "Passage (model): Finite search",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Finite search"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.smallHeight_search",
+        "module": "ZInQKernel.Model.Heights.Search"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.smallHeight_search@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem smallHeight_search :\n    searchQ.card = 7004 ∧ searchX2.card = 14008 ∧ searchX1.card = 111 ∧\n      ∀ x ∈ searchX1.image (fun r : ℚ => (r : K0)) ∪ searchX2,\n        (IsSquare (fC x) ↔ x ∈ smallSurvivors) := by",
+            "line": 411,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Heights/Search.lean",
+            "fragment": "L411"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

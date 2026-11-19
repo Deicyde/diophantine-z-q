@@ -1,0 +1,88 @@
+{
+  "id": "Passage multiplication: Generator height",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The span repeats the duplication bounds and the height comparison: archimedean and local bounds give hx_two_smul_bounds, hence hx_le_two_canonHeight; two_smul_pointR and hx_two_R give x(2R)=(57-28s)/8 of height log 41; hx_lt_log_nine_of_multiple and height_comparisons give h_x(S)<log 9 for |m|>=3. All proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.805243,
+          0.784314,
+          0.111194
+        ]
+      },
+      "title": "Passage (multiplication): Generator height",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Generator height#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.102941,
+          0.086121,
+          0.794118,
+          0.144271
+        ]
+      },
+      "title": "Passage (multiplication): Generator height",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Generator height#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.search_box",
+        "module": "ZInQKernel.Model.Heights.SearchBox"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.search_box@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem search_box (x : K0) (hx : hK0 x < Real.log 9) :\n    (x.im = 0 → ∃ p q : ℤ, Int.gcd p q = 1 ∧ |p| ≤ 8 ∧ 1 ≤ q ∧ q ≤ 8 ∧\n      x = (((p : ℚ) / q : ℚ) : K0)) ∧\n    (x.im ≠ 0 → ∃ a b c k : ℤ, 1 ≤ a ∧ a ≤ 81 ∧ |b| ≤ 162 ∧ |c| ≤ 81 ∧\n      Int.gcd (Int.gcd a b) c = 1 ∧ b ^ 2 - 4 * a * c = 2 * k ^ 2 ∧ 1 ≤ k ∧ k ≤ 162 ∧\n      (x = ⟨((-b : ℤ) : ℚ) / (2 * (a : ℚ)), (k : ℚ) / (2 * (a : ℚ))⟩ ∨\n        x = ⟨((-b : ℤ) : ℚ) / (2 * (a : ℚ)), ((-k : ℤ) : ℚ) / (2 * (a : ℚ))⟩) ∧\n      (a : K0) * x ^ 2 + (b : K0) * x + (c : K0) = 0) := by",
+            "line": 91,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Heights/SearchBox.lean",
+            "fragment": "L91"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6,
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

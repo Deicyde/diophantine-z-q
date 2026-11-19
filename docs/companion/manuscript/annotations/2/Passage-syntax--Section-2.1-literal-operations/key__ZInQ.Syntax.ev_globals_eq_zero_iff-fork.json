@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Section 2.1 literal operations",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The sum-of-squares and product equivalences, the private witness blocks (inactive branches through Formula.Lift of a disjunction), rational constants as global equations qc = p, the P0 constants 8g0 = 1641, 4g1 = -15465, 32g2 = 87483 conjoined outside the disjunctions, and inverses uv = 1 are each proved. The sentence on shared nodes is about the JSON representation and asserts nothing further.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.102941,
+          0.091745,
+          0.794118,
+          0.297658
+        ]
+      },
+      "title": "Passage (syntax): Section 2.1 literal operations",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 2.1 literal operations"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.ev_globals_eq_zero_iff",
+        "module": "ZInQKernel.Syntax.Language.Build"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.ev_globals_eq_zero_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem ev_globals_eq_zero_iff (eqs : List (ℕ × ℤ × ℤ)) (hq : ∀ e ∈ eqs, e.2.2 ≠ 0)\n    (φ : Formula) (x : ℕ → ℚ) :\n    ev x (Formula.and (eqs.map globalEq ++ [φ])).compile = 0 ↔\n      (∀ e ∈ eqs, x e.1 = e.2.1 / e.2.2) ∧ φ.Holds x := by",
+            "line": 121,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Build.lean",
+            "fragment": "L121"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "id": "Eq (C.2)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: AlphaEqns X b N lists exactly the fifteen conditions of (C.2) over natural witnesses r,s,t,u,v,w,x,y, with each congruence as equality of remainders (Nat.ModEq); AlphaFormula is its compiler alias. It is a definition.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.593196,
+          0.784314,
+          0.074585
+        ]
+      },
+      "title": "Eq. (C.2)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (C.2)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.AlphaEqns",
+        "module": "ZInQKernel.Compiler.Exponential.AlphaEquations"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.AlphaEqns@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def AlphaEqns (X b N : ℕ) : Prop :=\n  ∃ r s t u v w x y : ℕ, 3 < b ∧ u ^ 2 + t ^ 2 = 1 + b * u * t ∧\n    s ^ 2 + r ^ 2 = 1 + b * s * r ∧ r < s ∧ u ^ 2 ∣ s ∧ v + 2 * r = b * s ∧\n    w % v = b % v ∧ w % u = 2 % u ∧ 2 < w ∧ x ^ 2 + y ^ 2 = 1 + w * x * y ∧\n    2 * X < u ∧ 2 * X < v ∧ x % v = X % v ∧ 2 * N < u ∧ x % u = N % u",
+            "line": 28,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/AlphaEquations.lean",
+            "fragment": "L28"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Natural.AlphaFormula",
+        "module": "ZInQKernel.Compiler.Circuits.MacroSemantics"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Natural.AlphaFormula@fork",
+            "kind": "abbrev · fork"
+          },
+          "snippet": {
+            "text": "abbrev AlphaFormula (X b N : ℕ) : Prop := AlphaPower.AlphaEqns X b N",
+            "line": 260,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/MacroSemantics.lean",
+            "fragment": "L260"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Fowler singular modulus degree (CM degree row closed)",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.CMjClose"
+  ],
+  "discharges": [
+    {
+      "field": "cmjDegree",
+      "proof": "HDec.CMBranch.CMjBridges.cmjDegree_of_print_closed {n}.cmjDegreePrint",
+      "leaves": [
+        {
+          "name": "cmjDegreePrint",
+          "type": "HDec.CMBranch.CMjBridges.CMjDegreePrint",
+          "doc": "Fowler (2026), section 2·1, p. 613: a singular modulus of primitive equation discriminant Δ has degree h(Δ) over ℚ, with h(Δ) the proper ideal class number.",
+          "kind": "published",
+          "flag": "p. 613: \"[Q(x_i) : Q] = [Q(sqrt(Delta), x_i) : Q(sqrt(Delta))] = h(Delta), where h(Delta) denotes the class number of the imaginary quadratic order of discriminant Delta.\" Lean uses the equality over Q; Delta is the primitive-equation discriminant of p. 612; the order and its proper class number are determined by Delta (orders_ringEquiv_of_discr_eq, properClassNumber_ringEquiv).",
+          "flag_class": "note",
+          "source": "Fowler, Some uniform effective results on André–Oort for sums of powers in ℂⁿ, Math. Proc. Cambridge Philos. Soc. 180 (2026) 607–641, section 2·1, pp. 612–613; manuscript L584–587."
+        }
+      ]
+    }
+  ]
+}

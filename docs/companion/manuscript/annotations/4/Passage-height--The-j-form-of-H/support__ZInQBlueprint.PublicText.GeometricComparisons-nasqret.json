@@ -1,0 +1,121 @@
+{
+  "id": "Passage height: The j-form of H",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved; ZInQBlueprint.PublicText.GeometricComparisons a definition; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.275409,
+          0.784314,
+          0.044489
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.319899,
+          0.784314,
+          0.233765
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#1"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.553664,
+          0.784314,
+          0.131143
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.PublicText.GeometricComparisons",
+        "module": "Lean.Topics.theorem-blueprint.PublicAssembly"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.PublicText.GeometricComparisons@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def GeometricComparisons (S : Finset ℕ) : Prop :=\n  ∀ u : ℚ, u ∉ contactSet → ∃ stable theta : ℝ,\n    ratHeight (SixContact.J u) ≤ 40*theta+22 ∧\n    theta ≤ (10000*2^24)*max 1 stable ∧\n    max 1 stable ≤ max 1 (max (heightCcm:ℝ) (heightQ (heightD:ℝ)^17)) *\n      (contactSupport S u : ℝ)^24",
+            "line": 120,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/PublicAssembly.lean",
+            "fragment": "L120"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          14
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics, then by two more after a judge revised it; note corrected after a review of the headline statements; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "[N] has no general-R form of max(1,h_F(A)) <= max(1,C_cm,Q_R^17) M_S^24: a search for Q^17 finds it only at heightQ heightD. Besides GeometricComparisons, it also appears in the proved ZInQBlueprint.HeightBudget.third_comparison, but only at R = D and S = S_mul, from a von Kaenel bound taken as hypothesis, so the R = D restriction stands. The other parts are as described; [N]'s constants there (+16, 2^23) are better than [M]'s.",
+            "Survives: the j identity, h(j) <= 40h+22 (and +16, level-two form) and theta_le (2^23, conditional on Pazuki's inequality as hypothesis) are as described, while the first display is proved only as third_comparison, an arithmetic bound for any real below vonKaenelBudget at S = S_mul, so the clause for general S is missing. One correction: restricting to R = D is not itself a weakening, since D is the least admissible R when max S <= D and Q_R increases with R; the real loss is the fixed S = S_mul (and the von Kanel input in place of the CM/non-CM argument).",
+            "third_comparison fixes R = D (heightQ heightD) and S = S_mul and takes the stable-height bound as hypothesis hv; no nasqret declaration uses heightQ at a general R in this comparison, while [M] lines 392-405 allow any S and R >= max(D, max S, 10^12). The other parts (IgusaRatio.quotient, ratHeight_le +22/+16, level-two form, theta_le from Pazuki as hypothesis) are as described, so the weaker finding stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Section 2.1 positivity and absolute value",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: pos_iff_four_squares states s > 0 iff s(z1^2+...+z4^2) = 1 for some rational z, and eq_abs_iff_four_squares states a = |x| iff a is a sum of four rational squares with a^2 = x^2; both are proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.102941,
+          0.389403,
+          0.794118,
+          0.160014
+        ]
+      },
+      "title": "Passage (syntax): Section 2.1 positivity and absolute value",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 2.1 positivity and absolute value"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.RationalGuards.rational_pos_iff_four_squares_inverse",
+        "module": "lean.ZInQ.RationalPositiveGuard"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.RationalGuards.rational_pos_iff_four_squares_inverse@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem rational_pos_iff_four_squares_inverse (x : ℚ) :\n    0 < x ↔ ∃ s : Fin 4 → ℚ, x * ∑ i, s i ^ 2 = 1 := by",
+            "line": 30,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/RationalPositiveGuard.lean",
+            "fragment": "L30"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

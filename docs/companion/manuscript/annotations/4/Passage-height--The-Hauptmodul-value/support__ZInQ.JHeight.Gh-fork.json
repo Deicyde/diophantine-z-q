@@ -1,0 +1,70 @@
+{
+  "id": "Passage height: The Hauptmodul value",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: contactSet is {0,-15,-20,-24,-30,-60}, and Fq, Gq are F(u) and G(u) over Q; Jmap, Fh and Gh use the same F and G.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.107843,
+          0.740697,
+          0.784314,
+          0.11512
+        ]
+      },
+      "title": "Passage (height): The Hauptmodul value",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The Hauptmodul value"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.JHeight.Gh",
+        "module": "ZInQKernel.Hypotheses.JHeight"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.JHeight.Gh@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Gh (a b : ℤ) : ℤ := 7 * a ^ 2 + 300 * a * b + 3600 * b ^ 2",
+            "line": 34,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/JHeight.lean",
+            "fragment": "L34"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

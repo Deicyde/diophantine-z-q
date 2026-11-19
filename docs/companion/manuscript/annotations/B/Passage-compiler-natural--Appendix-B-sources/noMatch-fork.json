@@ -1,0 +1,47 @@
+{
+  "id": "Passage compiler-natural: Appendix B sources",
+  "kind": "passage",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, nothing to formalize: The passage is four rows of the source table (file names S21-S24 and their uses); it asserts no mathematics. [F]'s compiler-natural locators record that these sources are not in the repository.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 88,
+        "rect": [
+          0.107843,
+          0.804006,
+          0.784314,
+          0.06843
+        ]
+      },
+      "title": "Passage (compiler-natural): Appendix B sources",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Appendix B sources"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          88
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "id": "Eq (O.10)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, proved; confirmed finding (stronger): With the split condition a_p = p+1 mod 4 written a=p+1+4h, the proved divided_shell gives both the evenness of b_{s+1}-b_s and (O.10) for every s>=0. It is stated for any odd integers p and k, where [M] has a prime p and the character value kappa in {1,-1}; this is a mild generalization.",
+  "relation": "broadMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 126,
+        "rect": [
+          0.107843,
+          0.293265,
+          0.784314,
+          0.035922
+        ]
+      },
+      "title": "Eq. (O.10)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (O.10)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "HeckeShell.divided_shell",
+        "module": "Lean.Foundations.HeckeShell"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "HeckeShell.divided_shell@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem divided_shell (t h z : Int) (s : Nat) :\n    let p := 2*t+1\n    let a := p+1+4*h\n    let k := 2*z+1\n    let d := shell p a k (s+1)-shell p a k s\n    2 ∣ d ∧ d/2 % 2 = (a-k-1)/2 % 2 := by",
+            "line": 44,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Foundations/HeckeShell.lean",
+            "fragment": "L44"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved; confirmed finding (stronger): With the split condition a_p = p+1 mod 4 written a=p+1+4h, the proved divided_shell gives both the evenness of b_{s+1}-b_s and (O.10) for every s>=0. It is stated for any odd integers p and k, where [M] has a prime p and the character value kappa in {1,-1}; this is a mild generalization."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          126
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "shell matches b_0=1, b_1=a-k, b_{s+2}=a b_{s+1}-p b_s; divided_shell with p=2t+1, a=p+1+4h, k=2z+1 gives 2|d and d/2 = (a-k-1)/2 mod 2 for all s, which is (O.10) with kappa=k. It needs only odd p and odd k, where [M] has a prime p with kappa in {1,-1}; no extra hypothesis was overlooked.",
+            "HeckeShell.shell is exactly [M]'s recurrence (b_0=1, b_1=a-k, b_{s+2}=a b_{s+1}-p b_s), and divided_shell proves, with no further hypotheses, that b_{s+1}-b_s is even and (b_{s+1}-b_s)/2 = (a-k-1)/2 mod 2 for all s, for any odd integer p=2t+1, any a=p+1+4h and any odd k=2z+1; [M] needs p a prime and kappa in {1,-1} (p not dividing D), so the Lean statement is a strict, if mild, generalization and I found no overlooked hypothesis (the divisions are exact since both numerators are even, so Int ediv/emod agree with [M]'s congruence)."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

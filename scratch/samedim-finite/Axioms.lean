@@ -1,0 +1,19 @@
+import ZInQKernel.Contrib.OneProof.SameDimFinite
+import Batteries.Tactic.OpenPrivate
+
+open private genericPoint_map fromSpecStalk_generic_comp functionField_essFiniteType
+  quasiFiniteAt_generic_of_sameDim subsingleton_genericFiber finite_genericFiber
+  finite_geometricGenericFiber finite_sections finite_kerPts_of_sameDim
+  from ZInQKernel.Contrib.OneProof.SameDimFinite
+
+#print axioms genericPoint_map
+#print axioms fromSpecStalk_generic_comp
+#print axioms functionField_essFiniteType
+#print axioms quasiFiniteAt_generic_of_sameDim
+#print axioms subsingleton_genericFiber
+#print axioms finite_genericFiber
+#print axioms finite_geometricGenericFiber
+#print axioms finite_sections
+#print axioms finite_kerPts_of_sameDim
+#print axioms ShimuraSteps.sameDimSurjectiveFinite
+#print axioms ShimuraSteps.shimuraThm1Af_of_printed'

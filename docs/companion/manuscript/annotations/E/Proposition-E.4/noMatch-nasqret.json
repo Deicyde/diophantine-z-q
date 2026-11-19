@@ -1,0 +1,47 @@
+{
+  "id": "Proposition E.4",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [M] states the existence of a weight-3/2 cusp form with coefficients a(D) = z_D r_D, r_D^2 = L_*(sigma D)/L_*(sigma D_0), and the good-prime recurrence (E.12) (Appendix E). [N] replaces [M]'s rank argument by Tian's parity criterion for congruent number curves and holds no Selmer-complex, central L-value or half-integral weight statement for [M]'s twists E^h; ndep has none either.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 104,
+        "rect": [
+          0.107843,
+          0.428213,
+          0.784314,
+          0.222371
+        ]
+      },
+      "title": "Proposition E.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition E.4"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          104
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

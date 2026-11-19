@@ -1,0 +1,195 @@
+{
+  "id": "Passage multiplication: Prime pattern",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, stated, neither proved nor assumed, through its dependency: [N] has no declaration of its own; ndep's FixedPrimePattern states the proposition and nothing proves it, so the passage's proof (Green-Tao count, sieves, bad-value and fiber bounds) has no counterpart in [N] or ndep.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 19,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.3828
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 19,
+        "rect": [
+          0.107843,
+          0.475462,
+          0.784314,
+          0.440173
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#1"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 20,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.827825
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#2"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 21,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.826181
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#3"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 22,
+        "rect": [
+          0.102941,
+          0.080538,
+          0.794118,
+          0.823161
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#4"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 23,
+        "rect": [
+          0.102941,
+          0.089135,
+          0.794118,
+          0.825307
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#5"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 24,
+        "rect": [
+          0.102941,
+          0.089135,
+          0.794118,
+          0.635868
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#6"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.FixedPrimePattern",
+        "module": "ZInQKernel.Hypotheses.PrimePattern"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.FixedPrimePattern@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Hypotheses/PrimePattern.lean",
+            "fragment": "L119"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.GoodPatternPrime",
+        "module": "ZInQKernel.Hypotheses.PrimePattern"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.GoodPatternPrime@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Hypotheses/PrimePattern.lean",
+            "fragment": "L95"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

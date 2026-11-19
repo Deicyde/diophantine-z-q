@@ -1,0 +1,86 @@
+{
+  "id": "Passage assembly: Section 11.1 approximation",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation): CloseRel, close_relation_iff and bound give Close and B as printed, and close_sound and close_complete state (8) and (9); all the stated facts are proved only from the multiplication statement M (MultiplicationExact), so the verdict is conditional on it. The accumulation and derivative lemmas are proved outright but are proof steps (helpers), and do not make the passage's claims proved.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 81,
+        "rect": [
+          0.102941,
+          0.201357,
+          0.794118,
+          0.344408
+        ]
+      },
+      "title": "Passage (assembly): Section 11.1 approximation",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 11.1 approximation"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.close_relation_iff",
+        "module": "ZInQKernel.Assembly.Close.Relation"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.close_relation_iff@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem close_relation_iff\n    (hM : MultiplicationExact specConstructors FixedConst.cstar.value FixedConst.ell.value\n      FixedConst.T.value)\n    (N K : Fin 5 → ℚ) (t : ℚ) :\n    ValRel (getEx closeSpecLib 2) (List.ofFn N ++ (List.ofFn K ++ [t])) ↔\n      ∃ n κ a l : ℤ, N = iota n ∧ K = iota κ ∧\n        accepts ![enc n, enc κ, enc a, enc l, enc (n * a)] ∧\n        |t - rRatio a (n * a)| < epsIdx l := by",
+            "line": 74,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Close/Relation.lean",
+            "fragment": "L74"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          81
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "CloseAt T is ValRel of entry 2 of specLib, whose multiply template's height certificate calls ndep's poleTemplate (polePoly with A+e and Az^2+eH, curves x(x-l)(x+l)), so it is not [M]'s Close polynomial; closeAt_iff/sound/complete give [M]'s semantics, (8) with bound = A0|kF(n)|^24 = H_6(S_ht)|kF(n)|^24 and (9), only under hM, and the approximation step exists_rRatio_close is ndep's. I found nothing that makes the two relations equal unconditionally.",
+            "CloseAt T is the specLib/templateLibrary relation, whose multiplication height certificate calls ndep's poleTemplate (Route K curves x(x-l)(x+l)) for every T, while [M]'s certificate calls Phi for x(x-l)(x+3l); so it is another polynomial, with [M]'s semantics only under ndep's MultiplicationExact. The description (same B = A0|kF(n)|^24, approximation only in ndep's exists_rRatio_close/z_ratio_tendsto) checks out."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

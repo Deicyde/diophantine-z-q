@@ -1,0 +1,15 @@
+'_private.ZInQKernel.Contrib.OneProof.JDescent.0.HDec.CMBranch.CMjBridges.sectionEval_const' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent.0.HDec.CMBranch.CMjBridges.exists_weierstrassP_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.modularJ_mem_range_of_shortCoordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.cmPeriodJDescends_of_shortWeierstrassComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_shortWeierstrassComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

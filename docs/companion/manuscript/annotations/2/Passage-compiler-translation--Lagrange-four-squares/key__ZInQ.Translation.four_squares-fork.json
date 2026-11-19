@@ -1,0 +1,88 @@
+{
+  "id": "Passage compiler-translation: Lagrange four squares",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Translation.four_squares proved: The positivity display and its four-square proof are proved outright; the fragment at line 370 (the natural predicate is exactly iota(N) by Lagrange) is natural_rel_iff, which takes multiplication exactness MultiplicationExact as hypothesis, as [M] says.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.107843,
+          0.389403,
+          0.784314,
+          0.107727
+        ]
+      },
+      "title": "Passage (compiler-translation): Lagrange four squares",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Lagrange four squares#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 7,
+        "rect": [
+          0.107843,
+          0.695126,
+          0.784314,
+          0.017108
+        ]
+      },
+      "title": "Passage (compiler-translation): Lagrange four squares",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Lagrange four squares#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.four_squares",
+        "module": "ZInQKernel.Compiler.Translation.FourSquares"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.four_squares@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem four_squares (n : ℕ) : ∃ a₀ a₁ a₂ a₃ : ℕ, n = a₀ ^ 2 + a₁ ^ 2 + a₂ ^ 2 + a₃ ^ 2 := by",
+            "line": 16,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/FourSquares.lean",
+            "fragment": "L16"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5,
+          7
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

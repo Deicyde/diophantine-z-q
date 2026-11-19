@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Fixed local clearing",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Mult.S_b a definition: The constants S_b, B_p, C_p = 14B_p, D_p = 51C_p, E_p are the definitions; the valuation bounds on R_0, t-1, D_gj and ell_0 are proved lemmas, and v_p(C_gj) >= -D_p is a step of pole_input_valuations (PoleValuations.lean:122-207).",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.109856,
+          0.784314,
+          0.086612
+        ]
+      },
+      "title": "Passage (multiplication): Fixed local clearing",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Fixed local clearing"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.S_b",
+        "module": "ZInQKernel.Multiplication.Certificate.Constants"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.S_b@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def S_b : Finset ℕ := S_ht ∪ catalogue",
+            "line": 37,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Constants.lean",
+            "fragment": "L37"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

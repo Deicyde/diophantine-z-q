@@ -1,0 +1,70 @@
+{
+  "id": "Eq (O.5b)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine assumed, not proved: The local theta multiplier alpha_p(a)(a, det Q)_p belongs to the proof of Theorem 5.3, which [F] takes as the hypothesis RestrictedConverseGenuine; [F] has no theta multiplier or local Weil operators.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 117,
+        "rect": [
+          0.107843,
+          0.680787,
+          0.784314,
+          0.02903
+        ]
+      },
+      "title": "Eq. (O.5b)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (O.5b)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine",
+        "module": "ZInQKernel.Contrib.OneProof.SelmerTwoPower"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine@fork",
+            "kind": "def · fork · assumed"
+          },
+          "snippet": {
+            "text": "def RestrictedConverseGenuine : Prop :=\n  ZInQ.Manuscript.RestrictedConverse SelmerCorankOne",
+            "line": 217,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean",
+            "fragment": "L217"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          117
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

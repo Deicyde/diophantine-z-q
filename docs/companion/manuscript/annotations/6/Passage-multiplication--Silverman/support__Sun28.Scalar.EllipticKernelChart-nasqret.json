@@ -1,0 +1,100 @@
+{
+  "id": "Passage multiplication: Silverman",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved; Sun28.Scalar.EllipticKernelChart a definition; through its dependency's ZInQ.Mult.formal_val_x_y, ZInQ.Mult.summable_log, ZInQ.Mult.vge_logTerm, ZInQ.Mult.evalLog_isometry, ZInQ.Mult.ellLog_zsmul and ZInQ.Mult.val_z_zsmul_eq; confirmed finding (weaker): [N]'s own Sun28 declarations prove, for y^2 = x^3 + bx with integral b, the unit form x z^2 = U(z), convergence and additivity of the logarithm (hence log([n]Q) = n log Q), and v(z([m]Q)) = v(z(Q)) + e v_p(m) only for e <= 3, a truncation-error bound and an isometry only for e = 1 (the latter for p > 65), while ndep's general-e versions (vge_logTerm, evalLog_isometry, val_z_zsmul_eq) are unused by [N]. The inverse exponential and the identification with the reduction kernel of a minimal model appear only inside the unproved Prop MinimalFormalGroupTheorems (p > 2, v(p) = 1), which the theorems using it take as a hypothesis; the verdict is proved for the proved parts, with those two claims unproved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.107843,
+          0.286648,
+          0.784314,
+          0.171076
+        ]
+      },
+      "title": "Passage (multiplication): Silverman",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Silverman"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "Sun28.Scalar.EllipticKernelChart",
+        "module": "Lean.Topics.sun-28.formal-log.FormalKernelLog"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "Sun28.Scalar.EllipticKernelChart@nasqret",
+            "kind": "structure · nasqret"
+          },
+          "snippet": {
+            "text": "structure EllipticKernelChart (v : AddValuation L (WithTop ℤ)) (b : L) where\n  kernel : AddSubgroup (curve b).Point\n  membership {Q : (curve b).Point} : 0<v (reciprocal Q) → parameter Q≠0 → Q∈kernel\n  F : Type u\n  [addGroup : AddCommGroup F]\n  coordinate : F → L\n  integral (X : F) : (1:WithTop ℤ)≤v (coordinate X)\n  chart : kernel ≃+ F\n  chart_parameter (Q : kernel) : coordinate (chart Q)=parameter Q.1",
+            "line": 15,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/sun-28/formal-log/FormalKernelLog.lean",
+            "fragment": "L15"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics, then by two more after a judge revised it; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "[F]'s Local/FormalLog.lean and Local/FormalLogarithm.lean prove convergence, the term bound, the isometry, log([n]P)=n log P, v(z([n]P))=v(z(P))+v(n) and injectivity on W_k with (p-1)k>e, but no surjectivity or formal exponential exists anywhere in the kernel (searched surj/SurjOn/BijOn/exp), so the 'inverse exponential' clause is missing and `weaker` stands. One side remark of the note is inaccurate: [F] does formalize Silverman VII.2.2 (formal group = kernel of reduction) for integral Weierstrass curves over adic completions, in Contrib (WeierstrassCurve.formalPointAddEquivKerReduction, proved), though it is not connected to W_1/zCoord and is unused by the multiplication proof.",
+            "[F] proves formal_val_x_y, uSeries_genE_unit, summable_log, vge_logTerm, evalLog_isometry, ellLog_zsmul and val_z_zsmul_eq for y^2=x^3+Ax with v(A)>=0 over a complete Z^m0-valued field with ResidueChar p e, as claimed. No declaration gives surjectivity or an exponential (only ellLog_injOn / ellLog_unramified InjOn), and the minimal-model identification is not formalized."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "Survives: no [N] declaration proves v(z([m]Q)) = v(z(Q)) + e v_p(m) beyond e <= 3 (parameter_order_multiple), the truncation bound and isometry use v(n) = v_p(n) (e = 1, isometry also p > 65), and the inverse exponential and minimal-model kernel identification appear only in MinimalFormalGroupTheorems, which no theorem proves and LocalCharts/odd_prime_scalar48 take as hypothesis; ndep's vge_logTerm, evalLog_isometry, val_z_zsmul_eq are not referenced in nasqret/. Minor: for e <= 3 parameter_order_multiple holds on all of v(z) >= 1, a wider range than [M]'s v(z) > e/(p-1) at p = 2, 3, which does not change the weaker verdict.",
+            "The nasqret Sun28 statements match the description: parameter_order_multiple needs e <= 3, log_trunc_error and series_isometry take v(n) = v_p(n) (e = 1) and the isometry needs 65 < p, kernelLog is an additive hom (so log([n]Q)=n log Q), and the inverse exponential / bijection on layers and the kernel identification occur only in LogarithmOnLayers/EllipticKernelChart inside the unproved Prop MinimalFormalGroupTheorems (p > 2, v(p)=1). ndep's vge_logTerm, evalLog_isometry and val_z_zsmul_eq have no use in nasqret (only summable_log and formal_val_x_y are used), and no general-e isometry or valuation-of-multiple theorem exists in nasqret, so the claim stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

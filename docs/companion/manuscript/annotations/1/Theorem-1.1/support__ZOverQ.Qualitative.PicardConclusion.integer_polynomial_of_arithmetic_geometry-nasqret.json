@@ -1,0 +1,70 @@
+{
+  "id": "Theorem 1.1",
+  "kind": "theorem",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.SixContactMin, ZInQBlueprint.OriginalRank.PublishedGenusRows.PublishedTian47 and ZOverQ.Bounded.SimpleZeroRank; ZOverQ.Qualitative.PicardConclusion.integer_polynomial_of_arithmetic_geometry proved only from 12 named hypotheses; through its dependency's ZInQ.FrozenTarget and ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk: bounded_from_height_tian_gross_zagier concludes ndep's FrozenTarget, which is Theorem 1.1 verbatim. It assumes ndep's SixContactMin, PublishedTian47 and SimpleZeroRank; the other headline gives only IntegerPolynomial, without the variable count or bounds.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.107843,
+          0.473373,
+          0.784314,
+          0.198598
+        ]
+      },
+      "title": "Theorem 1.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Theorem 1.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.PicardConclusion.integer_polynomial_of_arithmetic_geometry",
+        "module": "Lean.Lemmas.picard-application.PicardConclusion"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.PicardConclusion.integer_polynomial_of_arithmetic_geometry@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem integer_polynomial_of_arithmetic_geometry\n    (cm : FiniteSplitValues) (prym : PicardPrym.PublishedPrymEndomorphisms)\n    (multi : MultiplicationTheorem) (multipliers : RationalMultipliers) (guitart : GeometricDescent)\n    (tate : ∀ L, TateSplitting L)\n    (hF : GroupScheme ℚ → ℝ) (heights : HeightComparisons hF) (vk : VonKanel hF)\n    (ddmm : PicardGoodReduction.SplitSexticDDMM) (st : ∀ (p : ℕ) [Fact p.Prime], SerreTateAt p)\n    (tian : ZInQBlueprint.OriginalRank.PublishedGenusRows.PublishedTian47)\n    (grossZagier : ZOverQ.Bounded.SimpleZeroRank) : IntegerPolynomial := by",
+            "line": 65,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/picard-application/PicardConclusion.lean",
+            "fragment": "L65"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

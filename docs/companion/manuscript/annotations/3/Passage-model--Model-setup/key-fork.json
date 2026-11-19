@@ -1,0 +1,238 @@
+{
+  "id": "Passage model: Model setup",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: K0, s, d, E and P0 are defined with the same data, and pointCode/iota encode points exactly as (1,0,0,0,0) and (0,x0,x1,y0,y1); uniqueness of the code is built into the pair structure of K0 (pointCode_injective). Definitions, with the membership of P0 proved.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.258153,
+          0.784314,
+          0.173919
+        ]
+      },
+      "title": "Passage (model): Model setup",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Model setup"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.K0",
+        "module": "ZInQKernel.Hypotheses.MordellWeil"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.K0@fork",
+            "kind": "abbrev · fork"
+          },
+          "snippet": {
+            "text": "abbrev K0 : Type := QuadraticAlgebra ℚ 2 0",
+            "line": 25,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/MordellWeil.lean",
+            "fragment": "L25"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.genCurve",
+        "module": "ZInQKernel.Hypotheses.MordellWeil"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.genCurve@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def genCurve : WeierstrassCurve K0 where\n  a₁ := 0\n  a₂ := 0\n  a₃ := 0\n  a₄ := -genD ^ 2\n  a₆ := 0",
+            "line": 34,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/MordellWeil.lean",
+            "fragment": "L34"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.genD",
+        "module": "ZInQKernel.Hypotheses.MordellWeil"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.genD@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def genD : K0 := ⟨75, -53⟩",
+            "line": 31,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/MordellWeil.lean",
+            "fragment": "L31"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.genP0",
+        "module": "ZInQKernel.Model.Field.Curve"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.genP0@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def genP0 : genCurve.toAffine.Point := Point.mk genP0_equation",
+            "line": 118,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Field/Curve.lean",
+            "fragment": "L118"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.iota",
+        "module": "ZInQKernel.Model.Field.Codes"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.iota@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def iota (n : ℤ) : Fin 5 → ℚ := pointCode (n • genP0)",
+            "line": 27,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Field/Codes.lean",
+            "fragment": "L27"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.pointCode",
+        "module": "ZInQKernel.Model.Field.Codes"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.pointCode@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def pointCode : genCurve.toAffine.Point → Fin 5 → ℚ\n  | .zero => ![1, 0, 0, 0, 0]\n  | .some x y _ => ![0, x.re, x.im, y.re, y.im]",
+            "line": 22,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Field/Codes.lean",
+            "fragment": "L22"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.sqrt2",
+        "module": "ZInQKernel.Hypotheses.MordellWeil"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.sqrt2@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def sqrt2 : K0 := ⟨0, 1⟩",
+            "line": 28,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/MordellWeil.lean",
+            "fragment": "L28"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

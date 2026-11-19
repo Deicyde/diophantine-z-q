@@ -1,0 +1,86 @@
+{
+  "id": "Passage multiplication: Section 6 opening",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Syntax.multiplyTemplate a definition: Each claim is stated: membership inside the height certificate, codes for any accepted rational input, injectivity of iota, and the witness count 35,134. The pointers to S03 and S13 are bookkeeping.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.107843,
+          0.172819,
+          0.784314,
+          0.113829
+        ]
+      },
+      "title": "Passage (multiplication): Section 6 opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Section 6 opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.multiplyTemplate",
+        "module": "ZInQKernel.Syntax.Templates.Multiply"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.multiplyTemplate@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def multiplyTemplate (I : Constructors E) (cstar ell T : ℤ) : ExPoly :=\n  Build.template 15 (multiplyBuild I cstar ell T (varPoint 0) (varPoint 5) (varPoint 10))",
+            "line": 209,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Templates/Multiply.lean",
+            "fragment": "L209"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's multiply_rel_iff and multiplyTemplate_witnesses (35134) do state membership forcing and the witness count, but for ndep's template whose slope calls use the Route K pole polynomial (x+l), a different object from [M]'s template; [N]'s own saved_multiply_allocation only checks the witness count of the saved specification, so the finding holds.",
+            "The membership forcing and accepted-code statements in ndep (multiply_rel_iff, heightCertificate_rel_iff) concern ndep's multiplyTemplate, whose slope calls carry the Route K pole polynomial (x+e), so they are about a different template. [N]'s own saved_multiply_allocation only checks that the saved specification's ranges add up to 35,134, which the claim already records."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "id": "Passage compiler-translation: Appendix C.2 model recipes",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: ModelRecipe.conjuncts lists the generator equations, the natural call of each source row with a start, the scalar-constant calls, the add/multiply/power-value calls by operation kind and the five root differences, and Recipe.poly sums their squares, as the passage prescribes.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.107843,
+          0.342252,
+          0.784314,
+          0.121888
+        ]
+      },
+      "title": "Passage (compiler-translation): Appendix C.2 model recipes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Appendix C.2 model recipes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.ModelRecipe",
+        "module": "ZInQKernel.Syntax.Language.Nodes"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.ModelRecipe@fork",
+            "kind": "structure · fork"
+          },
+          "snippet": {
+            "text": "structure ModelRecipe where\n  /-- The parameter count. -/\n  parameterCount : ℕ\n  /-- The variable count. -/\n  variableCount : ℕ\n  /-- The generator variable indices `g₀, g₁, g₂`. -/\n  generator : Fin 3 → ℕ\n  /-- Source variable rows `(r, s)`: a point reference and a natural start or none. -/\n  sources : List (ℤ × Option ℕ)\n  /-- Constant definitions `(σ, r, s)`: a scalar template, a point reference, a start. -/\n  constants : List (ℕ × ℤ × ℕ)\n  /-- The operations. -/\n  operations : List Operation\n  /-- The root equality `(r, r')`. -/\n  rootEq : ℤ × ℤ\n  /-- The natural template `ν`. -/\n  natural : ℕ\n  /-- The raw addition template `α`. -/\n  addition : ℕ\n  /-- The multiplication template `μ`. -/\n  multiplication : ℕ\n  /-- The power recipe `π`, if any. -/\n  power : Option ℕ",
+            "line": 206,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Nodes.lean",
+            "fragment": "L206"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.ModelRecipe.conjuncts",
+        "module": "ZInQKernel.Syntax.Language.Nodes"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.ModelRecipe.conjuncts@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def ModelRecipe.conjuncts (templates recipes : List ExPoly) (r : ModelRecipe) :\n    List Formula :=\n  let ref := pointRefList r.generator\n  let ν := getEx templates r.natural\n  let α := getEx templates r.addition\n  let μ := getEx templates r.multiplication\n  let π := match r.power with\n    | some i => getEx recipes i\n    | none => ExPoly.empty\n  (generatorConstraints r.generator).map .atom ++\n    r.sources.filterMap (fun row => row.2.map fun s => callListFormula ν (ref row.1) s) ++\n    r.constants.map (fun d =>\n      callListFormula (getEx templates d.1) (ref (-2) ++ ref d.2.1) d.2.2) ++\n    r.operations.map (fun\n      | .add a b o s => callListFormula α (ref a ++ ref b ++ ref o) s\n      | .mul a b o s => callListFormula μ (ref a ++ ref b ++ ref o) s\n      | .power a b c o s => callListFormula π (ref a ++ ref b ++ ref c ++ ref o) s) ++\n    (List.ofFn fun i : Fin 5 =>\n      pointRef r.generator r.rootEq.1 i - pointRef r.generator r.rootEq.2 i).map .atom",
+            "line": 278,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Nodes.lean",
+            "fragment": "L278"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.Recipe.poly",
+        "module": "ZInQKernel.Syntax.Language.Nodes"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.Recipe.poly@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def Recipe.poly (templates recipes : List ExPoly) : Recipe → Poly\n  | .composition r => r.connective.apply (r.constraints templates recipes)\n  | .model r => Connective.sumSq.apply (r.constraints templates recipes)",
+            "line": 316,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Nodes.lean",
+            "fragment": "L316"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          90
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

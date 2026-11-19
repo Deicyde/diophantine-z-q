@@ -1,0 +1,70 @@
+{
+  "id": "Lemma 7.12",
+  "kind": "lemma",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.CoefficientAllocation.coeff_mul_at_one_two_exponent proved: [F] formalizes none of [M]'s Section 7 coefficient-symbol machinery; its route assumes Theorem 4.1 as ZInQ.SixContactMin. No two-symbol address lemma; the proved generic lemmas exists_simultaneous_one and coeff_mul_at_one_two_exponent (sourced to a graphs note's address proof) state only the polynomial step of taking an ordinary product before Boolean reduction.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 31,
+        "rect": [
+          0.107843,
+          0.720952,
+          0.784314,
+          0.193337
+        ]
+      },
+      "title": "Lemma 7.12",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 7.12"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.CoefficientAllocation.coeff_mul_at_one_two_exponent",
+        "module": "lean.ZInQ.CoefficientAllocation"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.CoefficientAllocation.coeff_mul_at_one_two_exponent@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem coeff_mul_at_one_two_exponent (n : Nat)\n    (p q : MvPolynomial (Fin n) (ZMod 2))\n    (hp : ∀ d ∈ p.support, ∀ i : Fin n, d i <= 1)\n    (hq : ∀ d ∈ q.support, ∀ i : Fin n, d i <= 1)\n    (s₁ s₂ : Finset (Fin n))\n    (hdisj : Disjoint s₁ s₂) :\n    (p * q).coeff\n      (squarefreeExponent n s₁ + 2 • squarefreeExponent n s₂) =\n      ∑ t ∈ s₁.powerset,\n        p.coeff\n          (squarefreeExponent n s₂ + squarefreeExponent n t) *\n        q.coeff\n          (squarefreeExponent n s₂ + squarefreeExponent n (s₁ \\ t)) := by",
+            "line": 128,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/lean/ZInQ/CoefficientAllocation.lean",
+            "fragment": "L128"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          31
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

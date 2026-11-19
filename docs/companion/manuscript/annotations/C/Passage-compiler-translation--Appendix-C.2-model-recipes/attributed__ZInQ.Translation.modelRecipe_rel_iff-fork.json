@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-translation: Appendix C.2 model recipes",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.Translation.modelRecipe_rel_iff proved: ModelRecipe.conjuncts lists the generator equations, the natural call of each source row with a start, the scalar-constant calls, the add/multiply/power-value calls by operation kind and the five root differences, and Recipe.poly sums their squares, as the passage prescribes.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.107843,
+          0.342252,
+          0.784314,
+          0.121888
+        ]
+      },
+      "title": "Passage (compiler-translation): Appendix C.2 model recipes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Appendix C.2 model recipes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.modelRecipe_rel_iff",
+        "module": "ZInQKernel.Compiler.Translation.RecipeRelation"
+      },
+      "role": "attributed",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.modelRecipe_rel_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem modelRecipe_rel_iff (templates recipes : List ExPoly) (r : ModelRecipe)\n    (hsc : ScopedIn (r.formula templates recipes) r.parameterCount r.variableCount)\n    (a : Fin r.parameterCount → ℚ) :\n    ((Recipe.model r).denote templates recipes).Rel a ↔\n      ∃ x : ℕ → ℚ, (∀ i (hi : i < r.parameterCount), x i = a ⟨i, hi⟩) ∧\n        ModelHolds templates recipes r x := by",
+            "line": 197,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/RecipeRelation.lean",
+            "fragment": "L197"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          90
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

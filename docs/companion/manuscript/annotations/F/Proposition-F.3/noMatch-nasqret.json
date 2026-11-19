@@ -1,0 +1,47 @@
+{
+  "id": "Proposition F.3",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: The proposition compares H_M(mD) with lambda_M of LP_D modulo 2^M; [N]'s 'theta comparison' (Picard.Theta) concerns Pazuki heights of theta constants, a different object, and [N] states no counterpart.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 120,
+        "rect": [
+          0.102941,
+          0.47829,
+          0.794118,
+          0.153717
+        ]
+      },
+      "title": "Proposition F.3",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition F.3"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          120
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

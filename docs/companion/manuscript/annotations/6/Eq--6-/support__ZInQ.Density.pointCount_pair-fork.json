@@ -1,0 +1,100 @@
+{
+  "id": "Eq (6)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (stronger): card_TL_le, its hypothesis proved by uniformBadBound_holds, bounds all class primes up to N that a prime l > L makes bad by A(3 log 4)/(L log L) N/log N + 20 N^(3/4), with A independent of L; [M]'s bad prime values of one form lie in that set (pointCount_pair, gcd_pointCount_eq, mod_four_of_dvd_cp), so the display follows with N = beta_A X, an extra 1/log L and a smaller error term. The containment is not stated as a Lean theorem.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 23,
+        "rect": [
+          0.107843,
+          0.870183,
+          0.784314,
+          0.04426
+        ]
+      },
+      "title": "Eq. (6)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (6)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Density.pointCount_pair",
+        "module": "ZInQKernel.Density.Description"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Density.pointCount_pair@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem pointCount_pair (hC : InClass p) {r : ZMod p} (hr : r ^ 2 = 2) :\n    ((pointCount p (-(75 - 53 * r) ^ 2) : ℤ) = p + 1 - 2 * cp p ∧\n        (pointCount p (-(75 + 53 * r) ^ 2) : ℤ) = p + 1 + 2 * cp p) ∨\n      ((pointCount p (-(75 - 53 * r) ^ 2) : ℤ) = p + 1 + 2 * cp p ∧\n        (pointCount p (-(75 + 53 * r) ^ 2) : ℤ) = p + 1 - 2 * cp p) := by",
+            "line": 112,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Density/Description.lean",
+            "fragment": "L112"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          23
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; status changed from no-match after an independent review; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q states more than [M] prints (stronger).",
+          "evidence": [
+            "[M]'s primes (p ≡ 1 mod 8, p ≡ 3 mod 7) are in InClass, pointCount_pair makes [M]'s a equal to ±c_p, and mod_four_of_dvd_cp gives ℓ ≡ 1 mod 4, so every bad prime value lies in T_L ∩ [0, β_A X]; card_TL_le, with uniformBadBound_holds (no hypotheses, no sorry), bounds that set with A independent of L, an extra 1/log L and N^{3/4} ≤ X^{7/8}.",
+            "Every bad prime value is in TL L: same class, same twists, and an odd ℓ dividing both orders divides c_p and p + 1 (pointCount_pair, gcd_pointCount_eq), ℓ ≡ 1 mod 4 (mod_four_of_dvd_cp). card_TL_le's bound is at least as strong, with A and N₁ chosen before L; no per-form statement exists in [F]."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "[M]'s primes (p ≡ 1 mod 8, p ≡ 3 mod 7) are in InClass, pointCount_pair makes [M]'s a equal to ±c_p, and mod_four_of_dvd_cp gives ℓ ≡ 1 mod 4, so every bad prime value lies in T_L ∩ [0, β_A X]; card_TL_le, with uniformBadBound_holds (no hypotheses, no sorry), bounds that set with A independent of L, an extra 1/log L and N^{3/4} ≤ X^{7/8}.",
+            "Every bad prime value is in TL L: same class, same twists, and an odd ℓ dividing both orders divides c_p and p + 1 (pointCount_pair, gcd_pointCount_eq), ℓ ≡ 1 mod 4 (mod_four_of_dvd_cp). card_TL_le's bound is at least as strong, with A and N₁ chosen before L; no per-form statement exists in [F]."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

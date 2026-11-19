@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Saved specification outer recipes",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin and ZInQ.PoleCompleteness, or by another key from other hypotheses; ZInQ.Syntax.specPstar a definition: The passage is Theorem 1.1 with its notation (h, the tower), the pointer to the saved P_* and the corollaries named for Section 13; FrozenTarget states the theorem exactly (hyperoperation 4 2 n is the tower), and specPstar is [F]'s P_*. The theorem is conditional: the headline assumes SixContactMin and PoleCompleteness, and OneProof.frozenTarget assumes the open bundles of OPEN.md.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.102941,
+          0.431768,
+          0.794118,
+          0.330292
+        ]
+      },
+      "title": "Passage (assembly): Saved specification outer recipes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Saved specification outer recipes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.specPstar",
+        "module": "ZInQKernel.Syntax.Recipes.Literal"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.specPstar@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def specPstar : MvPolynomial (Fin 292890231905) ℤ := Pstar (precisionCircuitOf c3) c3",
+            "line": 93,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Recipes/Literal.lean",
+            "fragment": "L93"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 alpha formula",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.Natural.alpha a definition: AlphaEqns (also AlphaFormula) is the formula (C.2); the gadget lemmas state the replacements of <, | and congruence by equations with fresh witnesses, including the zero-modulus case, and alpha_spec that the compiled macro means the formula. The lemmas are proved without assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.102941,
+          0.556739,
+          0.794118,
+          0.167633
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 alpha formula",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 alpha formula"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Natural.alpha",
+        "module": "ZInQKernel.Compiler.Circuits.Construction"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Natural.alpha@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def alpha (X b N : Ex) : NM NForm := do\n  note .alpha\n  let r ← fresh\n  let s ← fresh\n  let t ← fresh\n  let u ← fresh\n  let v ← fresh\n  let w ← fresh\n  let x ← fresh\n  let y ← fresh\n  let one ← constant 1\n  let two ← constant 2\n  andM [\n    do lt (← constant 3) b,\n    do pure (.eq (← addL [one, ← mulL [b, u, t]]) (← addL [← square u, ← square t])),\n    do pure (.eq (← addL [one, ← mulL [b, s, r]]) (← addL [← square s, ← square r])),\n    lt r s,\n    do divides (← square u) s,\n    do pure (.eq (← addL [v, ← scale 2 r]) (← mulL [b, s])),\n    congruent b v w,\n    congruent two u w,\n    lt two w,\n    do pure (.eq (← addL [one, ← mulL [w, x, y]]) (← addL [← square x, ← square y])),\n    do lt (← scale 2 X) u,\n    do lt (← scale 2 X) v,\n    congruent x v X,\n    do lt (← scale 2 N) u,\n    congruent x u N]",
+            "line": 248,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Construction.lean",
+            "fragment": "L248"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

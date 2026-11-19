@@ -1,0 +1,18 @@
+'HDec.CMBranch.CMjBridges.modularJ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.weierstrass_j_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.degree_le_of_mem_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.toOrder_discr_eq_orderDisc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.card_pic_eq_properClassNumber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.card_pic_le_of_singular_modulus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.mem_latticeMultipliers_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.periodDiscriminant_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.periodDiscriminant_iff_orderDisc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.uniformization_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.exists_complex_baseChange_cm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.cmPeriodLattice_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.exists_cm_period' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_periodJDescends' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.group_model_uniformization_check' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.modularJ_surjective_check' depends on axioms: [propext, Classical.choice, Quot.sound]

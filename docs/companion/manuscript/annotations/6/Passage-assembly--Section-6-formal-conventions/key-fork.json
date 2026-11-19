@@ -1,0 +1,303 @@
+{
+  "id": "Passage assembly: Section 6 formal conventions",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark.",
+  "relation": "narrowMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.102941,
+          0.286648,
+          0.794118,
+          0.188459
+        ]
+      },
+      "title": "Passage (assembly): Section 6 formal conventions",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 6 formal conventions"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.ellLog_zsmul",
+        "module": "ZInQKernel.Multiplication.Local.FormalLogarithm"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.ellLog_zsmul@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem ellLog_zsmul (h : ResidueChar K p e) {A : K} (hA : 0 ≤ vK K A)\n    {P : (shortCurve A).toAffine.Point} (hP : P ∈ W1 (vK K) A) (n : ℤ) :\n    ellLog (n • P) = n * ellLog P := by",
+            "line": 96,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalLogarithm.lean",
+            "fragment": "L96"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.evalLog_isometry",
+        "module": "ZInQKernel.Multiplication.Local.FormalLog"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.evalLog_isometry@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem evalLog_isometry [CompleteSpace K] (h : ResidueChar K p e) {A t : K} (hA : 0 ≤ vK K A)\n    {m : ℤ} (ht : vK K t = m) (hm : (e : ℤ) < ((p : ℤ) - 1) * m) :\n    vK K t < vK K (evalLog A t - t) ∧ vK K (evalLog A t) = vK K t := by",
+            "line": 169,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalLog.lean",
+            "fragment": "L169"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.formal_val_x_y",
+        "module": "ZInQKernel.Multiplication.Local.FormalGroup"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.formal_val_x_y@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem formal_val_x_y (hA : 0 ≤ v A) {x y : K} (h : (shortCurve A).toAffine.Nonsingular x y)\n    (hx : v x < 0) :\n    ∃ N : ℤ, 1 ≤ N ∧ v x = (-2 * N : ℤ) ∧ v y = (-3 * N : ℤ) ∧ y ≠ 0 ∧\n      v (zCoord (.some x y h)) = N ∧ v (wCoord (.some x y h)) = (2 * N : ℤ) ∧\n      v (omegaCoord (.some x y h)) = (3 * N : ℤ) := by",
+            "line": 78,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalGroup.lean",
+            "fragment": "L78"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.summable_log",
+        "module": "ZInQKernel.Multiplication.Local.FormalLog"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.summable_log@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem summable_log [CompleteSpace K] (h : ResidueChar K p e) {A t : K} (hA : 0 ≤ vK K A)\n    (ht : 1 ≤ vK K t) : Summable fun r => logCoeffA A r * t ^ r := by",
+            "line": 142,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalLog.lean",
+            "fragment": "L142"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.uSeries_genE_unit",
+        "module": "ZInQKernel.Multiplication.Local.LogSeries"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.uSeries_genE_unit@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem uSeries_genE_unit :\n    ∃ w : PowerSeries Zs, IsUnit w ∧\n      uSeries (-genD ^ 2 : K0) = X ^ 2 * PowerSeries.map Zs.toK0 w := by",
+            "line": 148,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/LogSeries.lean",
+            "fragment": "L148"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.val_z_zsmul_eq",
+        "module": "ZInQKernel.Multiplication.Local.FormalLogarithm"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.val_z_zsmul_eq@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem val_z_zsmul_eq (h : ResidueChar K p e) [CharZero K] {A : K} (hA : 0 ≤ vK K A) {k : ℤ}\n    (hk : (e : ℤ) < ((p : ℤ) - 1) * k) {P : (shortCurve A).toAffine.Point}\n    (hP : P ∈ formalFilt A hA k) {n : ℤ} :\n    vK K (zCoord (n • P)) = vK K (zCoord P) + vK K (n : K) := by",
+            "line": 138,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalLogarithm.lean",
+            "fragment": "L138"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.vge_logTerm",
+        "module": "ZInQKernel.Multiplication.Local.FormalLog"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.vge_logTerm@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem vge_logTerm (h : ResidueChar K p e) {A t : K} (hA : 0 ≤ vK K A) {m : ℤ}\n    (ht : Vge (vK K) m t) (r : ℕ) :\n    Vge (vK K) (r * m - e * padicValNat p r) (logCoeffA A r * t ^ r) := by",
+            "line": 127,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalLog.lean",
+            "fragment": "L127"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): For y² = x³ + Ax with v(A) >= 0 over a complete discretely valued field (more general than [M]), [F] proves the valuation, convergence, isometry and multiplication facts for log, but only injectivity, not the 'inverse exponential' (surjectivity onto the disc). The reduction-kernel identification is an unformalized citation remark."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "[F]'s Local/FormalLog.lean and Local/FormalLogarithm.lean prove convergence, the term bound, the isometry, log([n]P)=n log P, v(z([n]P))=v(z(P))+v(n) and injectivity on W_k with (p-1)k>e, but no surjectivity or formal exponential exists anywhere in the kernel (searched surj/SurjOn/BijOn/exp), so the 'inverse exponential' clause is missing and `weaker` stands. One side remark of the note is inaccurate: [F] does formalize Silverman VII.2.2 (formal group = kernel of reduction) for integral Weierstrass curves over adic completions, in Contrib (WeierstrassCurve.formalPointAddEquivKerReduction, proved), though it is not connected to W_1/zCoord and is unused by the multiplication proof.",
+            "[F] proves formal_val_x_y, uSeries_genE_unit, summable_log, vge_logTerm, evalLog_isometry, ellLog_zsmul and val_z_zsmul_eq for y^2=x^3+Ax with v(A)>=0 over a complete Z^m0-valued field with ResidueChar p e, as claimed. No declaration gives surjectivity or an exponential (only ellLog_injOn / ellLog_unramified InjOn), and the minimal-model identification is not formalized."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "Survives: no [N] declaration proves v(z([m]Q)) = v(z(Q)) + e v_p(m) beyond e <= 3 (parameter_order_multiple), the truncation bound and isometry use v(n) = v_p(n) (e = 1, isometry also p > 65), and the inverse exponential and minimal-model kernel identification appear only in MinimalFormalGroupTheorems, which no theorem proves and LocalCharts/odd_prime_scalar48 take as hypothesis; ndep's vge_logTerm, evalLog_isometry, val_z_zsmul_eq are not referenced in nasqret/. Minor: for e <= 3 parameter_order_multiple holds on all of v(z) >= 1, a wider range than [M]'s v(z) > e/(p-1) at p = 2, 3, which does not change the weaker verdict.",
+            "The nasqret Sun28 statements match the description: parameter_order_multiple needs e <= 3, log_trunc_error and series_isometry take v(n) = v_p(n) (e = 1) and the isometry needs 65 < p, kernelLog is an additive hom (so log([n]Q)=n log Q), and the inverse exponential / bijection on layers and the kernel identification occur only in LogarithmOnLayers/EllipticKernelChart inside the unproved Prop MinimalFormalGroupTheorems (p > 2, v(p)=1). ndep's vge_logTerm, evalLog_isometry and val_z_zsmul_eq have no use in nasqret (only summable_log and formal_val_x_y are used), and no general-e isometry or valuation-of-multiple theorem exists in nasqret, so the claim stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

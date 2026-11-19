@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-translation: Section 10.4 power value and precision parent",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Translation.translate_complete proved: The power-value semantics (under M), the counts and scope conditions of the precision parent, and the soundness and completeness of replacing each private block by its power-value call are stated and proved. The saved root equality [17751579,15] is an index into the saved file with no Lean counterpart.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.743126,
+          0.784314,
+          0.102645
+        ]
+      },
+      "title": "Passage (compiler-translation): Section 10.4 power value and precision parent",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Section 10.4 power value and precision parent"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.translate_complete",
+        "module": "ZInQKernel.Compiler.Translation.Completeness"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.translate_complete@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem translate_complete (S : TranslationShape templates recipes scalarOf r P N value natIn)\n    (hwf : WellFormed P N V) (hsem : CalleeSemantics (getEx templates r.natural)\n      (getEx templates r.addition) (getEx templates r.multiplication) scalarOf)\n    (hπ : HasCall N → PowerValueSpec (powerCallee recipes r) P)\n    {θ : ℕ → ℤ} (hθ : Admissible P N θ) (hin : natIn = true → ∀ i < N.inputCount, 0 ≤ θ i) :\n    (∀ i < N.inputCount, refVal r.generator (S.witness θ) (5 * i) = iota (θ i)) ∧\n      (value = true →\n        refVal r.generator (S.witness θ) (5 * N.inputCount) = iota (circuitValue P N θ)) ∧\n      (∀ j < N.nodes.length, refVal r.generator (S.witness θ) (S.pt j) = iota (nodeVal P N θ j)) ∧\n      ModelHoldsExceptRoot templates recipes r (S.witness θ) ∧\n      (value = true ∨ circuitValue P N θ = 0 →\n        ModelHolds templates recipes r (S.witness θ)) := by",
+            "line": 84,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/Completeness.lean",
+            "fragment": "L84"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

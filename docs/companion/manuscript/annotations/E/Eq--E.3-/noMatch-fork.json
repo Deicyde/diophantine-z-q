@@ -1,0 +1,47 @@
+{
+  "id": "Eq (E.3)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] has no declaration about the quasi-isomorphism C^+ (x) B ~ B^2[-1] of the residual positive complex; Appendix E serves the restricted converse behind Theorem 5.2, which [F] takes as the hypothesis ZInQ.PoleCompleteness instead of proving.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 100,
+        "rect": [
+          0.107843,
+          0.74447,
+          0.784314,
+          0.033782
+        ]
+      },
+      "title": "Eq. (E.3)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (E.3)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          100
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

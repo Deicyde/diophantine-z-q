@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Twelve tests",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Mult.Lam a definition: The passage defines H, U_i, V_0, V_i, L and the twelve tests, all defined as in [M] (identity inverse abscissas zero), and asserts that L is 16575 times the degree-25 truncation, which truncLog_eq_trunc proves; the guard is SlopePred's h_g != 0, c_0 with log25_z_ne_zero. Proved, unconditional.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.107843,
+          0.594892,
+          0.784314,
+          0.168689
+        ]
+      },
+      "title": "Passage (multiplication): Twelve tests",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Twelve tests"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.Lam",
+        "module": "ZInQKernel.Multiplication.Certificate.Tests"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.Lam@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def Lam (Q : genCurve.toAffine.Point) : K0 := truncLog (genD ^ 2) (zOf Q)",
+            "line": 35,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Tests.lean",
+            "fragment": "L35"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

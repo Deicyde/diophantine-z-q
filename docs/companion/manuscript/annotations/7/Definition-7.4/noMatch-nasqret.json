@@ -1,0 +1,65 @@
+{
+  "id": "Definition 7.4",
+  "kind": "definition",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart; through its dependency's ZInQ.RouteK.Config and ZInQ.RouteK.Config.glue: ndep's Route K ZInQ.RouteK.Config records classes mod 8 with reciprocity-constrained residue bits and Config.glue contracts a cluster by multiplying classes and summing external bits, the S = {2} case without characters of a typed graph and its contraction; no [N] declaration names either. Types at a general support, primary and neutral vertices, and the projections between type groups are not defined in [N] or ndep.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 28,
+        "rect": [
+          0.107843,
+          0.836834,
+          0.784314,
+          0.076327
+        ]
+      },
+      "title": "Definition 7.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 7.4#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 29,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.437709
+        ]
+      },
+      "title": "Definition 7.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Definition 7.4#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          28,
+          29
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; a judge ruled after a skeptic refuted the claim; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

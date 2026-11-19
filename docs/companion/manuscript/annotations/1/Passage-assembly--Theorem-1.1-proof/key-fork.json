@@ -1,0 +1,116 @@
+{
+  "id": "Passage assembly: Theorem 1.1 proof",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin and ZInQ.PoleCompleteness, or by another key from other hypotheses: The proof assembles G, H, PC, M, C, B and applies Lemma 1.2 to P_*; [F] does the same through assembly_AP with G, M, C, B proved, but H and PC, which the passage says are proved in Sections 4-9, are hypotheses (SixContactMin, PoleCompleteness) or follow from the open bundles of OPEN.md. 22P is replaced by route AP, proved from Green-Tao and Proposition D.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 3,
+        "rect": [
+          0.107843,
+          0.473373,
+          0.784314,
+          0.198598
+        ]
+      },
+      "title": "Passage (assembly): Theorem 1.1 proof",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Theorem 1.1 proof#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 4,
+        "rect": [
+          0.107843,
+          0.337538,
+          0.784314,
+          0.172726
+        ]
+      },
+      "title": "Passage (assembly): Theorem 1.1 proof",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Theorem 1.1 proof#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.OneProof.frozenTarget",
+        "module": "ZInQKernel.OneProof.Main"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.OneProof.frozenTarget@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem _root_.ZInQ.OneProof.frozenTarget\n    (r : HDec.HSyn.OpenResearchLeaves66) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)\n    (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)\n    (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves) (hB : ZInQ.Manuscript.PoleS12.BCDTThmA)\n    (hK : ZInQ.Manuscript.PoleS12.KolyvaginThm1) :\n    ZInQ.FrozenTarget :=",
+            "line": 209,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/OneProof/Main.lean",
+            "fragment": "L209"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness",
+        "module": "ZInQKernel.MainGreenTao"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness\n    (hH : SixContactMin) (hPC : PoleCompleteness) : FrozenTarget :=",
+            "line": 33,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/MainGreenTao.lean",
+            "fragment": "L33"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          3,
+          4
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

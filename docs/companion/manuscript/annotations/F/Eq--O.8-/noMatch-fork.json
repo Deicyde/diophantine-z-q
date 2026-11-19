@@ -1,0 +1,47 @@
+{
+  "id": "Eq (O.8)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The display (the lower bound for v_2 a_M(D) and the visibility implication) has no counterpart in [F].",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 124,
+        "rect": [
+          0.107843,
+          0.407891,
+          0.784314,
+          0.053373
+        ]
+      },
+      "title": "Eq. (O.8)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (O.8)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          124
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

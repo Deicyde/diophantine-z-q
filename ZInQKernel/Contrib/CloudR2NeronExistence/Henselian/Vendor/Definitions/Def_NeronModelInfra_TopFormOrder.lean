@@ -1,0 +1,147 @@
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.Lemmas01
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.MvPolynomialCoeff
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.TensorProductInduction
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal
+import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt
+/-
+Copyright 2026 Anthropic, PBC.
+Released under the Apache License, Version 2.0; see LICENSE, NOTICE, ATTRIBUTION.md.
+Source: anthropics/fermats-last-theorem@6e837e75355538c7f80bab5b956861e86c4eacc2
+Original file: Definitions/Def_NeronModelInfra_TopFormOrder.lean
+Original Git blob: 18b7d6cfdec590aaa47beb4cb5eb20fc4f759ba1
+NOTICE OF MODIFICATION (2026-11-14): isolated namespace/import port to Lean 4.35.0,
+Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679; shared H76 declarations are imported,
+not redeclared. No constructor hypothesis or conclusion has been weakened.
+* Removed 1 namespace-sensitive axiom-print diagnostics; full final AX3 audit is separate.
+-/
+import ZInQKernel.Contrib.CloudR2NeronExistence.Henselian.PortUtil
+import Mathlib
+
+namespace ZInQ.Contrib.CloudR2NeronExistence.Henselian
+h77_bridge_namespace
+
+h77_import_shared
+h77_open "IsLocalRing TensorProduct"
+h77_open "AlgebraicGeometry NeronModelInfra GoodReductionJacobian"
+open ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+set_option autoImplicit false
+
+
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+set_option backward.defeqAttrib.useBackward true
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+
+noncomputable section
+
+universe u
+
+open scoped TensorProduct
+
+namespace NeronModelInfra.TopFormOrder
+h77_bridge_namespace
+
+variable (R' K' O F : Type u) [CommRing R'] [CommRing K'] [Algebra R' K']
+  [CommRing O] [Algebra R' O] [CommRing F] [Algebra O F] [Algebra K' F] [Algebra R' F]
+  [IsScalarTower R' O F] [IsScalarTower R' K' F] (d : ℕ)
+
+@[reducible] def moduleAlong (N : Type u) [AddCommGroup N] [Module F N] : Module O N :=
+  Module.compHom N (algebraMap O F)
+
+set_option backward.isDefEq.respectTransparency false in
+def ιMultiAlong :
+    letI := moduleAlong O F (⋀[F]^d (Ω[F⁄K']))
+    (Ω[O⁄R']) [⋀^Fin d]→ₗ[O] (⋀[F]^d (Ω[F⁄K'])) :=
+  letI := moduleAlong O F (⋀[F]^d (Ω[F⁄K']))
+  haveI : IsScalarTower O F (⋀[F]^d (Ω[F⁄K'])) := IsScalarTower.of_algebraMap_smul fun _ _ => rfl
+  { ((exteriorPower.ιMulti F d (M := Ω[F⁄K'])).toMultilinearMap.restrictScalars O).compLinearMap
+      (fun _ => KaehlerDifferential.map R' K' O F) with
+    map_eq_zero_of_eq' := fun v i j h hij =>
+      (exteriorPower.ιMulti F d (M := Ω[F⁄K'])).map_eq_zero_of_eq _ (by simp [h]) hij }
+
+def topFormMap :
+    letI := moduleAlong O F (⋀[F]^d (Ω[F⁄K']))
+    ⋀[O]^d (Ω[O⁄R']) →ₗ[O] ⋀[F]^d (Ω[F⁄K']) :=
+  letI := moduleAlong O F (⋀[F]^d (Ω[F⁄K']))
+  exteriorPower.alternatingMapLinearEquiv (ιMultiAlong R' K' O F d)
+
+def integralTopForms :
+    letI := moduleAlong O F (⋀[F]^d (Ω[F⁄K']))
+    Submodule O (⋀[F]^d (Ω[F⁄K'])) :=
+  letI := moduleAlong O F (⋀[F]^d (Ω[F⁄K']))
+  LinearMap.range (topFormMap R' K' O F d)
+
+section Order
+
+variable [IsDomain O] [IsDiscreteValuationRing O]
+variable (L : Type u) [Field L] [Algebra O L] [IsFractionRing O L] [Algebra K' L] [Algebra R' L]
+  [IsScalarTower R' O L] [IsScalarTower R' K' L]
+
+open IsDedekindDomain IsLocalRing in
+
+def maximalSpectrum : HeightOneSpectrum O :=
+  ⟨maximalIdeal O, inferInstance, IsDiscreteValuationRing.not_a_field O⟩
+
+open IsDedekindDomain in
+
+def addOrd (a : L) : ℤ :=
+  open scoped Classical in
+  if h : a = 0 then 0
+  else -(Multiplicative.toAdd (WithZero.unzero
+    (((maximalSpectrum O).valuation L).ne_zero_iff.mpr h)))
+
+def ord (ω : ⋀[L]^d (Ω[L⁄K'])) : ℤ :=
+  open scoped Classical in
+  letI := moduleAlong O L (⋀[L]^d (Ω[L⁄K']))
+  if h : ∃ ρ : ⋀[L]^d (Ω[L⁄K']), integralTopForms R' K' O L d = Submodule.span O {ρ} ∧ ∃ a : L, ω = a • ρ
+  then addOrd O L (a := h.choose_spec.2.choose)
+  else 0
+
+omit K' d in
+
+theorem addOrd_uniformizer (ϖ : O) (hϖ : IsLocalRing.maximalIdeal O = Ideal.span {ϖ}) :
+    addOrd O L (algebraMap O L ϖ) = 1 := by
+  have hϖ0 : ϖ ≠ 0 := by
+    intro h; apply IsDiscreteValuationRing.not_a_field O; simpa [h] using hϖ
+  have hne : algebraMap O L ϖ ≠ 0 := by
+    simpa using (IsFractionRing.injective O L).ne hϖ0
+  unfold addOrd
+  rw [dif_neg hne]
+  have hv : (maximalSpectrum O).valuation L (algebraMap O L ϖ) = Multiplicative.ofAdd (-1 : ℤ) := by
+    rw [IsDedekindDomain.HeightOneSpectrum.valuation_of_algebraMap]
+    exact (maximalSpectrum O).intValuation_singleton hϖ0 hϖ
+  have : WithZero.unzero (((maximalSpectrum O).valuation L).ne_zero_iff.mpr hne) =
+      Multiplicative.ofAdd (-1 : ℤ) := by
+    apply WithZero.coe_injective
+    rw [WithZero.coe_unzero, hv]
+  rw [this]; simp
+
+omit K' d in
+
+theorem addOrd_uniformizer_sq (ϖ : O) (hϖ : IsLocalRing.maximalIdeal O = Ideal.span {ϖ}) :
+    addOrd O L (algebraMap O L ϖ ^ 2) = 2 := by
+  have hϖ0 : ϖ ≠ 0 := by
+    intro h; apply IsDiscreteValuationRing.not_a_field O; simpa [h] using hϖ
+  have hne : algebraMap O L ϖ ≠ 0 := by
+    simpa using (IsFractionRing.injective O L).ne hϖ0
+  have hne2 : algebraMap O L ϖ ^ 2 ≠ 0 := pow_ne_zero 2 hne
+  unfold addOrd
+  rw [dif_neg hne2]
+  have hv : (maximalSpectrum O).valuation L (algebraMap O L ϖ ^ 2) = Multiplicative.ofAdd (-2 : ℤ) := by
+    rw [map_pow, IsDedekindDomain.HeightOneSpectrum.valuation_of_algebraMap,
+      (maximalSpectrum O).intValuation_singleton hϖ0 hϖ]; rfl
+  have : WithZero.unzero (((maximalSpectrum O).valuation L).ne_zero_iff.mpr hne2) =
+      Multiplicative.ofAdd (-2 : ℤ) := by
+    apply WithZero.coe_injective
+    rw [WithZero.coe_unzero, hv]
+  rw [this]; simp
+
+end Order
+
+end NeronModelInfra.TopFormOrder
+
+end
+
+end ZInQ.Contrib.CloudR2NeronExistence.Henselian

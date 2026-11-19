@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10 decision predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: accepts carries [M]'s early tests and the tests |r(a,j) - n| < eps_l and 4 eps_l 4^B < 1 with B = A0 |kappa F(n)|^24, plus admissibility guards on l, a, j that admissible_of_ne_zero proves redundant; the definitions of z, eps, r, the identity A0 = H6(S_ht) and decidability are proved without assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.279643,
+          0.784314,
+          0.185471
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10 decision predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10 decision predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.rRatio_eq_half_trace",
+        "module": "ZInQKernel.Compiler.Precision.ZCoordinate"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.rRatio_eq_half_trace@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem rRatio_eq_half_trace (a j : ℤ) :\n    rRatio a j = QuadraticAlgebra.trace (zIdx j / zIdx a) / 2 := by",
+            "line": 88,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/ZCoordinate.lean",
+            "fragment": "L88"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

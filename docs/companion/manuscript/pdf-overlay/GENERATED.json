@@ -1,0 +1,150 @@
+{
+  "schema": "formal-companion/overlay-generated",
+  "schema_version": 3,
+  "generator": {
+    "name": "formal-companion",
+    "version": "0.2.0",
+    "commit": "768b0f935c228561c4d6730347e87ececb2143ab"
+  },
+  "format": {
+    "package": "literature-links",
+    "version": "1.0.1",
+    "commit": "789af9af85ae7590d7149cb8312f09cfac0752b4",
+    "tag": "v1.0.1"
+  },
+  "instance_files": [
+    "overlay.config.json"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "92bd579475aacec017db27bcbfd225ddcc73fbc457f0428ba9ef11e4d8e27fac"
+    },
+    {
+      "path": "THIRD_PARTY.md",
+      "sha256": "5c8edbb1218a07c2ef240192ca711971c8064e9fb96dab7692fd156ad39c385b"
+    },
+    {
+      "path": "schema/overlay-config-v1.schema.json",
+      "sha256": "140262a36d8bf211774ce2be9a315116cb08bce2f40df57b21ca73bbbbe6c1c0"
+    },
+    {
+      "path": "tools/build_site.py",
+      "sha256": "c296cb98bdfb9f5fc326fa50bacf218903294c847aeeef846ff417d768299882"
+    },
+    {
+      "path": "tools/check_generated.py",
+      "sha256": "ca9ad71e5d3e770db5c4998184cbc106c0d6c92d923f2642b5685662e5e5e4e1"
+    },
+    {
+      "path": "tools/literature_links/__init__.py",
+      "sha256": "9d1e7fb5494ee9bdd88ce05a8dcfcf478674fd06573fb38cda0fdb7eb6fa6ae2"
+    },
+    {
+      "path": "tools/literature_links/__main__.py",
+      "sha256": "42e1507a2bd4e3ab9e856c59434480b58aeb4babddd1afb0efa0191d7bf119e1"
+    },
+    {
+      "path": "tools/literature_links/cli.py",
+      "sha256": "b8a1c8e1fff7815cd0dd2a526db4e4c8cc3df7285b291a0761a97bdf757d6774"
+    },
+    {
+      "path": "tools/literature_links/companion.py",
+      "sha256": "fd7409e71c37ac51a560c841aaa27dd7f1a451e34da7112a9d78fef82d0c5186"
+    },
+    {
+      "path": "tools/literature_links/discovery.py",
+      "sha256": "dbf60c983fb4975a137352b3c9bbebfd4aec6e918aa04439b286612197c84036"
+    },
+    {
+      "path": "tools/literature_links/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tools/literature_links/schema/companion.schema.json",
+      "sha256": "9387537f21e69dc368357fcc8939fffa3c6846d33ab2b3a3b7c2a20a4350a797"
+    },
+    {
+      "path": "tools/literature_links/schemacheck.py",
+      "sha256": "e75c42cc8fd7a297492903f8d404618cf397e7f591155b2502e3ce69fd18bbd0"
+    },
+    {
+      "path": "tools/overlay_annotations.py",
+      "sha256": "869fc31950d64fdbd52504b5819d96828ec6763fcb08f0cda6561be40f22eb6a"
+    },
+    {
+      "path": "tools/serve.py",
+      "sha256": "acc591fb9ed489eadf16b6746931b67245af39c414e28508611c648d7975387a"
+    },
+    {
+      "path": "tools/verso_extract.py",
+      "sha256": "ea285ea7084dbbc714cbdfa7e976227105586be768671e2e285dd8577407f0f8"
+    },
+    {
+      "path": "vendor/katex/LICENSE",
+      "sha256": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3"
+    },
+    {
+      "path": "vendor/katex/README.md",
+      "sha256": "2e2b60e1f93a18e1881be2e213ae36a92302dee75712536cecbb226a8be13390"
+    },
+    {
+      "path": "vendor/katex/katex.mjs",
+      "sha256": "5f0c3749f8b28ce1a63b68de34d3950bb4aa1a9e0130865e4b09ecc9a250c8b7"
+    },
+    {
+      "path": "vendor/pdfjs/LICENSE",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "path": "vendor/pdfjs/PINNED.md",
+      "sha256": "fe251b44aeba59dfcf860877949bf74d3f7ce59e6d9eb08ce92b3b341ee70191"
+    },
+    {
+      "path": "vendor/pdfjs/pdf.min.mjs",
+      "sha256": "9fab0c910bf1484835c5c2aeb68f7eb3dfce7f9eb435a004526c5af86d70890c"
+    },
+    {
+      "path": "vendor/pdfjs/pdf.worker.min.mjs",
+      "sha256": "bc0d1b88ea0b66196b1d36a58ac243c6d92adfe725624e2a9fdd381bdf8ef434"
+    },
+    {
+      "path": "viewer/index.html",
+      "sha256": "c79cdebc7f78d9962adbcf895238ad872e4f85c510e9918973e2b86f93f49405"
+    },
+    {
+      "path": "viewer/viewer-core.js",
+      "sha256": "aee68d0aa4a750dc9cec590d4458d9aad70ba88f008dabb75b33fa5fa2b8f6d9"
+    },
+    {
+      "path": "viewer/viewer-layout.js",
+      "sha256": "d32c779f81b15685388d90d983709ab6737982eed35818779666cbe5712f1b45"
+    },
+    {
+      "path": "viewer/viewer-math.js",
+      "sha256": "ef0fc8e4283e134628ab94a1bf9ad17eea0c04bf8acdf91eabba5753ffc73266"
+    },
+    {
+      "path": "viewer/viewer-search.js",
+      "sha256": "ce9c6a0dafef98986f26545c1bfec467dc41cb8bcdebcd7b41be64b62dad028c"
+    },
+    {
+      "path": "viewer/viewer.css",
+      "sha256": "b22d4ba21a1d8a8467bab92a550965bd15b463a4d6c5f022b1e8bd9ac7f79e65"
+    },
+    {
+      "path": "viewer/viewer.js",
+      "sha256": "6329aa60875a03f5bc42c508f90cbade15167936b633d1d23ad7760118b420b9"
+    }
+  ],
+  "annotations": {
+    "bundle": {
+      "path": "annotations.bundle.json",
+      "sha256": "2cb635a5c874f02a95d1c3114f5b6d9a0b03f6d4500c1361466e9fc0e8d6a2e0"
+    },
+    "count": 2021,
+    "directory": "annotations",
+    "extension": "org.mathlib-initiative.formal-companion.overlay",
+    "manifest_sha256": "3423fc5ed5fa643ea9f2a9297017b813d285a5e35e88d6b59180c54a40fbfa2f"
+  }
+}

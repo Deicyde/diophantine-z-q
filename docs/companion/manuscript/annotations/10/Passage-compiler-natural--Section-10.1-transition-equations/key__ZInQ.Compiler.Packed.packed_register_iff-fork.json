@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 transition equations",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The transition equations are the regEq and stateEq fields of PackedConditions; packed_register_iff and packed_state_iff state the digit decoding, packed_sound the resulting run (q = 0 included) and packed_complete the converse. All are proved without assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.664578,
+          0.784314,
+          0.156184
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 transition equations",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 transition equations"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Packed.packed_register_iff",
+        "module": "ZInQKernel.Compiler.Circuits.Packed.Transitions"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Packed.packed_register_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem packed_register_iff {B K q ι : ℕ} (hKB : K < B) (ρ α γ : ℕ → ℕ)\n    (hρ : ∀ t ≤ q, ρ t < K) (hα : ∀ t ≤ q, α t ≤ 1) (hγ : ∀ t ≤ q, γ t ≤ 1) (hι : ι < K) :\n    (∑ t ∈ range (q + 1), ρ t * B ^ t) + B * (∑ t ∈ range (q + 1), γ t * B ^ t) =\n        ι + B * (∑ t ∈ range (q + 1), ρ t * B ^ t) + B * (∑ t ∈ range (q + 1), α t * B ^ t) ↔\n      ρ 0 = ι ∧ (∀ t < q, ρ (t + 1) + γ t = ρ t + α t) ∧ γ q = ρ q + α q := by",
+            "line": 34,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Packed/Transitions.lean",
+            "fragment": "L34"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

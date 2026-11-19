@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 interpreter",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The tape code, the list and arithmetic blocks, the one-loop simulation and the final equivalence of interpreter acceptance (final state, all registers zero) with halting of the numbered program are stated and proved; no assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.107843,
+          0.508839,
+          0.784314,
+          0.15518
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 interpreter",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 interpreter"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Universal.listSet_listCode",
+        "module": "ZInQKernel.Compiler.Interpreter.TapeLists"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Universal.listSet_listCode@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem listSet_listCode (l : List ℕ) (i v : ℕ) :\n    listSet (listCode l) i v = listCode (listSetPad l i v) := by",
+            "line": 171,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Interpreter/TapeLists.lean",
+            "fragment": "L171"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

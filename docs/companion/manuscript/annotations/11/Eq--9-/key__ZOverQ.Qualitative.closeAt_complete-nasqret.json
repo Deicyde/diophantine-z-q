@@ -1,0 +1,91 @@
+{
+  "id": "Eq (9)",
+  "kind": "equation",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.Translation.MultiplicationExact; through its dependency's ZInQ.Assembly.exists_rRatio_close and ZInQ.Translation.MultiplicationExact; confirmed finding (differs): closeAt_complete states (9) for CloseAt T at any guard T, but CloseAt is built from ndep's library with pole curves x(x-l)(x+l) instead of [M]'s x(x-l)(x+3l), so it is a different polynomial relation rather than a generalization of [M]'s. It is proved under ndep's MultiplicationExact at T (conditional).",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 81,
+        "rect": [
+          0.107843,
+          0.365954,
+          0.784314,
+          0.025176
+        ]
+      },
+      "title": "Eq. (9)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (9)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.closeAt_complete",
+        "module": "bounded.QualitativePrecision"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.closeAt_complete@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem closeAt_complete\n    (hM : MultiplicationExact specConstructors FixedConst.cstar.value FixedConst.ell.value T)\n    (n κ : ℤ) (hn : (n : ℚ) ∉ contactSet) (hκ : κ ≠ 0) :\n    CloseAt T (iota n) (iota κ) (n : ℚ) := by",
+            "line": 112,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativePrecision.lean",
+            "fragment": "L112"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.Translation.MultiplicationExact; through its dependency's ZInQ.Assembly.exists_rRatio_close and ZInQ.Translation.MultiplicationExact; confirmed finding (differs): closeAt_complete states (9) for CloseAt T at any guard T, but CloseAt is built from ndep's library with pole curves x(x-l)(x+l) instead of [M]'s x(x-l)(x+3l), so it is a different polynomial relation rather than a generalization of [M]'s. It is proved under ndep's MultiplicationExact at T (conditional)."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          81
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "closeAt_complete gives CloseAt T (iota n)(iota k) n for n not in C and k != 0 under MultiplicationExact at T, using ndep's exists_rRatio_close. Its relation is built on the Route K pole template (curves x(x-l)(x+l)), not [M]'s x(x-l)(x+3l), so the stated difference holds.",
+            "closeAt_complete states (9) for CloseAt T under ndep's MultiplicationExact; the relation is built from templateLibrary whose pole template is the x(x-l)(x+l) polynomial for every T, so it is not [M]'s Close polynomial; the approximation comes from ndep's exists_rRatio_close as claimed."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

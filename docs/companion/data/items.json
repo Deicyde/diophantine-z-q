@@ -1,0 +1,5024 @@
+{
+ "source": {
+  "repository": "https://github.com/elliotglazer/diophantine-z-q",
+  "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+  "file": "diophantine_zq.tex",
+  "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+ },
+ "counts": {
+  "statements": 71,
+  "displays": 132,
+  "passages": 127,
+  "passages that are statements": 9
+ },
+ "passages_that_are_statements": [
+  [
+   "manuscript: Proposition 12.1",
+   "Proposition 12.1"
+  ],
+  [
+   "manuscript: Proposition 3.1",
+   "Proposition 3.1"
+  ],
+  [
+   "manuscript: Proposition 6.2",
+   "Proposition 6.2"
+  ],
+  [
+   "manuscript: Theorem 1.1",
+   "Theorem 1.1"
+  ],
+  [
+   "manuscript: Theorem 4.1",
+   "Theorem 4.1"
+  ],
+  [
+   "manuscript: Theorem 5.2",
+   "Theorem 5.2"
+  ],
+  [
+   "model: Generator certificate statement",
+   "Proposition 3.1"
+  ],
+  [
+   "multiplication: Pole completeness",
+   "Theorem 5.2"
+  ],
+  [
+   "size: Proposition 12.1",
+   "Proposition 12.1"
+  ]
+ ],
+ "items": [
+  {
+   "id": "Theorem 1.1",
+   "kind": "theorem",
+   "number": "1.1",
+   "name": null,
+   "label": "thm:target",
+   "section": "1",
+   "enclosing": "Passage assembly: Saved specification outer recipes",
+   "lines": [
+    [
+     60,
+     76
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 1.2",
+   "kind": "lemma",
+   "number": "1.2",
+   "name": null,
+   "label": "lem:assembly",
+   "section": "1",
+   "enclosing": "Passage assembly: Lemma 1.2",
+   "lines": [
+    [
+     110,
+     113
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 3.1",
+   "kind": "proposition",
+   "number": "3.1",
+   "name": null,
+   "label": "prop:generator",
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     268,
+     270
+    ]
+   ]
+  },
+  {
+   "id": "Theorem 4.1",
+   "kind": "theorem",
+   "number": "4.1",
+   "name": null,
+   "label": "thm:height",
+   "section": "4",
+   "enclosing": null,
+   "lines": [
+    [
+     404,
+     409
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 5.1",
+   "kind": "lemma",
+   "number": "5.1",
+   "name": null,
+   "label": "lem:pole",
+   "section": "5",
+   "enclosing": "Passage multiplication: One-sided obstruction",
+   "lines": [
+    [
+     988,
+     991
+    ]
+   ]
+  },
+  {
+   "id": "Theorem 5.2",
+   "kind": "theorem",
+   "number": "5.2",
+   "name": null,
+   "label": "hyp:PC",
+   "section": "5",
+   "enclosing": null,
+   "lines": [
+    [
+     1001,
+     1004
+    ]
+   ]
+  },
+  {
+   "id": "Theorem 5.3",
+   "kind": "theorem",
+   "number": "5.3",
+   "name": null,
+   "label": "hyp:RC",
+   "section": "5",
+   "enclosing": null,
+   "lines": [
+    [
+     1005,
+     1011
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 5.4",
+   "kind": "lemma",
+   "number": "5.4",
+   "name": null,
+   "label": "lem:corank",
+   "section": "5",
+   "enclosing": null,
+   "lines": [
+    [
+     1072,
+     1075
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 5.5",
+   "kind": "lemma",
+   "number": "5.5",
+   "name": null,
+   "label": "lem:forward-rank",
+   "section": "5",
+   "enclosing": null,
+   "lines": [
+    [
+     1086,
+     1090
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 6.1",
+   "kind": "proposition",
+   "number": "6.1",
+   "name": null,
+   "label": "prop:box",
+   "section": "6",
+   "enclosing": "Passage multiplication: Finite-box deduction",
+   "lines": [
+    [
+     1225,
+     1229
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 6.2",
+   "kind": "proposition",
+   "number": "6.2",
+   "name": null,
+   "label": "prop:fixed-prime-pattern",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1267,
+     1297
+    ]
+   ]
+  },
+  {
+   "id": "Remark 7.1",
+   "kind": "remark",
+   "number": "7.1",
+   "name": null,
+   "label": "ex:sec7-rc-scope",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     1797,
+     1814
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 7.2",
+   "kind": "proposition",
+   "number": "7.2",
+   "name": null,
+   "label": "ex:sec7-even-scalar",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     1832,
+     1844
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 7.3",
+   "kind": "proposition",
+   "number": "7.3",
+   "name": null,
+   "label": "ex:sec7-nonvanishing",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     1969,
+     1981
+    ]
+   ]
+  },
+  {
+   "id": "Definition 7.4",
+   "kind": "definition",
+   "number": "7.4",
+   "name": null,
+   "label": "ex:sec7-typed-graph",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2015,
+     2066
+    ]
+   ]
+  },
+  {
+   "id": "Definition 7.5",
+   "kind": "definition",
+   "number": "7.5",
+   "name": null,
+   "label": "ex:sec7-symbol",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2068,
+     2100
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 7.6",
+   "kind": "lemma",
+   "number": "7.6",
+   "name": null,
+   "label": "ex:sec7-coefficient-rules",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2102,
+     2136
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 7.7",
+   "kind": "lemma",
+   "number": "7.7",
+   "name": null,
+   "label": "ex:sec7-realization",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2151,
+     2160
+    ]
+   ]
+  },
+  {
+   "id": "Definition 7.8",
+   "kind": "definition",
+   "number": "7.8",
+   "name": null,
+   "label": "ex:sec7-seed-partition",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2176,
+     2186
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 7.9",
+   "kind": "lemma",
+   "number": "7.9",
+   "name": null,
+   "label": "ex:sec7-seed-certificate",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2188,
+     2196
+    ]
+   ]
+  },
+  {
+   "id": "Definition 7.10",
+   "kind": "definition",
+   "number": "7.10",
+   "name": null,
+   "label": "ex:sec7-address",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2209,
+     2220
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 7.11",
+   "kind": "lemma",
+   "number": "7.11",
+   "name": null,
+   "label": "ex:sec7-one-symbol-address",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2222,
+     2238
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 7.12",
+   "kind": "lemma",
+   "number": "7.12",
+   "name": null,
+   "label": "ex:sec7-two-symbol-address",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2240,
+     2258
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 7.13",
+   "kind": "proposition",
+   "number": "7.13",
+   "name": null,
+   "label": "ex:sec7-even-upper",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2295,
+     2301
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 7.14",
+   "kind": "proposition",
+   "number": "7.14",
+   "name": null,
+   "label": "ex:sec7-rough-companion",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2343,
+     2356
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 7.15",
+   "kind": "proposition",
+   "number": "7.15",
+   "name": null,
+   "label": "ex:sec7-genus-lower",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2418,
+     2426
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 7.16",
+   "kind": "lemma",
+   "number": "7.16",
+   "name": null,
+   "label": "ex:sec7-ksplit-seed",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2628,
+     2632
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 7.17",
+   "kind": "proposition",
+   "number": "7.17",
+   "name": null,
+   "label": "ex:sec7-final-family",
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2674,
+     2694
+    ]
+   ]
+  },
+  {
+   "id": "Definition 8.1",
+   "kind": "definition",
+   "number": "8.1",
+   "name": null,
+   "label": "ex:arith-data",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2743,
+     2760
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 8.2",
+   "kind": "lemma",
+   "number": "8.2",
+   "name": null,
+   "label": "ex:arith-conjugate-duality",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2761,
+     2775
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 8.3",
+   "kind": "proposition",
+   "number": "8.3",
+   "name": null,
+   "label": "ex:arith-finite-heegner",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2858,
+     2879
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 8.4",
+   "kind": "lemma",
+   "number": "8.4",
+   "name": null,
+   "label": "ex:arith-local-kummer",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3413,
+     3423
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 8.5",
+   "kind": "proposition",
+   "number": "8.5",
+   "name": null,
+   "label": "ex:arith-moving-character",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3500,
+     3515
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 8.6",
+   "kind": "proposition",
+   "number": "8.6",
+   "name": null,
+   "label": "ex:arith-paired-functional",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3705,
+     3725
+    ]
+   ]
+  },
+  {
+   "id": "Definition 8.7",
+   "kind": "definition",
+   "number": "8.7",
+   "name": null,
+   "label": "ex:arith-coordinate",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3877,
+     3892
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 8.8",
+   "kind": "lemma",
+   "number": "8.8",
+   "name": null,
+   "label": "ex:arith-central-specialization",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3895,
+     3910
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 8.9",
+   "kind": "proposition",
+   "number": "8.9",
+   "name": null,
+   "label": "ex:arith-central-calibration",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3987,
+     4005
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 8.10",
+   "kind": "lemma",
+   "number": "8.10",
+   "name": null,
+   "label": "ex:arith-common-coordinate",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     4142,
+     4156
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 8.11",
+   "kind": "lemma",
+   "number": "8.11",
+   "name": null,
+   "label": "ex:arith-base-zero",
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     4330,
+     4339
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 9.1",
+   "kind": "lemma",
+   "number": "9.1",
+   "name": null,
+   "label": "ex:limits-inner-limit",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4391,
+     4407
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 9.2",
+   "kind": "lemma",
+   "number": "9.2",
+   "name": null,
+   "label": "ex:limits-residual-bound",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4453,
+     4464
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 9.3",
+   "kind": "lemma",
+   "number": "9.3",
+   "name": null,
+   "label": "ex:limits-outer-evaluation",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4651,
+     4672
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 9.4",
+   "kind": "lemma",
+   "number": "9.4",
+   "name": null,
+   "label": "ex:limits-kernel-detection",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4748,
+     4764
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 9.5",
+   "kind": "lemma",
+   "number": "9.5",
+   "name": null,
+   "label": "ex:limits-derivative-switch",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4834,
+     4852
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 9.6",
+   "kind": "proposition",
+   "number": "9.6",
+   "name": null,
+   "label": "ex:limits-uniform-lower-bound",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4909,
+     4926
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 9.7",
+   "kind": "lemma",
+   "number": "9.7",
+   "name": null,
+   "label": "ex:limits-fixed-field-budget",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5208,
+     5226
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 9.8",
+   "kind": "proposition",
+   "number": "9.8",
+   "name": null,
+   "label": "ex:limits-fixed-field-clearing",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5487,
+     5507
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 9.9",
+   "kind": "proposition",
+   "number": "9.9",
+   "name": null,
+   "label": "ex:limits-coefficient-transfer",
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5647,
+     5664
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 11.1",
+   "kind": "lemma",
+   "number": "11.1",
+   "name": null,
+   "label": "lem:test",
+   "section": "11",
+   "enclosing": "Passage assembly: Lemma 11.1",
+   "lines": [
+    [
+     6151,
+     6154
+    ]
+   ]
+  },
+  {
+   "id": "Lemma 11.2",
+   "kind": "lemma",
+   "number": "11.2",
+   "name": null,
+   "label": "lem:test-complete",
+   "section": "11",
+   "enclosing": "Passage assembly: Lemma 11.2",
+   "lines": [
+    [
+     6202,
+     6205
+    ]
+   ]
+  },
+  {
+   "id": "Proposition 12.1",
+   "kind": "proposition",
+   "number": "12.1",
+   "name": null,
+   "label": "prop:cutoff",
+   "section": "12",
+   "enclosing": "Passage assembly: Section 12 size",
+   "lines": [
+    [
+     6285,
+     6293
+    ]
+   ]
+  },
+  {
+   "id": "Corollary 13.1",
+   "kind": "corollary",
+   "number": "13.1",
+   "name": null,
+   "label": "cor:mazur",
+   "section": "13",
+   "enclosing": null,
+   "lines": [
+    [
+     6470,
+     6475
+    ]
+   ]
+  },
+  {
+   "id": "Corollary 13.2",
+   "kind": "corollary",
+   "number": "13.2",
+   "name": null,
+   "label": "cor:rational-universal",
+   "section": "13",
+   "enclosing": null,
+   "lines": [
+    [
+     6497,
+     6510
+    ]
+   ]
+  },
+  {
+   "id": "Corollary 13.3",
+   "kind": "corollary",
+   "number": "13.3",
+   "name": null,
+   "label": "cor:htp-degree",
+   "section": "13",
+   "enclosing": null,
+   "lines": [
+    [
+     6541,
+     6550
+    ]
+   ]
+  },
+  {
+   "id": "Proposition E.1",
+   "kind": "proposition",
+   "number": "E.1",
+   "name": null,
+   "label": "ex:app-kato-system",
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     6846,
+     6889
+    ]
+   ]
+  },
+  {
+   "id": "Proposition E.2",
+   "kind": "proposition",
+   "number": "E.2",
+   "name": null,
+   "label": "ex:app-even-scalar",
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7367,
+     7385
+    ]
+   ]
+  },
+  {
+   "id": "Proposition E.3",
+   "kind": "proposition",
+   "number": "E.3",
+   "name": null,
+   "label": "ex:app-central-calibration",
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7614,
+     7630
+    ]
+   ]
+  },
+  {
+   "id": "Proposition E.4",
+   "kind": "proposition",
+   "number": "E.4",
+   "name": null,
+   "label": "ex:app-even-phase",
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7792,
+     7811
+    ]
+   ]
+  },
+  {
+   "id": "Proposition F.1",
+   "kind": "proposition",
+   "number": "F.1",
+   "name": null,
+   "label": "ex:app-detector",
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8225,
+     8245
+    ]
+   ]
+  },
+  {
+   "id": "Proposition F.2",
+   "kind": "proposition",
+   "number": "F.2",
+   "name": null,
+   "label": "ex:app-theta-form",
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8409,
+     8429
+    ]
+   ]
+  },
+  {
+   "id": "Proposition F.3",
+   "kind": "proposition",
+   "number": "F.3",
+   "name": null,
+   "label": "ex:app-theta-comparison",
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9103,
+     9117
+    ]
+   ]
+  },
+  {
+   "id": "Proposition F.4",
+   "kind": "proposition",
+   "number": "F.4",
+   "name": null,
+   "label": "ex:app-visibility",
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9407,
+     9420
+    ]
+   ]
+  },
+  {
+   "id": "Proposition F.5",
+   "kind": "proposition",
+   "number": "F.5",
+   "name": null,
+   "label": "ex:app-coefficient-rules",
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9447,
+     9469
+    ]
+   ]
+  },
+  {
+   "id": "Proposition G.1",
+   "kind": "proposition",
+   "number": "G.1",
+   "name": null,
+   "label": "ex:app-five-prime",
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10001,
+     10011
+    ]
+   ]
+  },
+  {
+   "id": "Proposition G.2",
+   "kind": "proposition",
+   "number": "G.2",
+   "name": null,
+   "label": "ex:app-rough-companion",
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10056,
+     10077
+    ]
+   ]
+  },
+  {
+   "id": "Proposition G.3",
+   "kind": "proposition",
+   "number": "G.3",
+   "name": null,
+   "label": "ex:app-odd-minimum",
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10152,
+     10170
+    ]
+   ]
+  },
+  {
+   "id": "Proposition G.4",
+   "kind": "proposition",
+   "number": "G.4",
+   "name": null,
+   "label": "ex:app-nonempty-seeds",
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10259,
+     10274
+    ]
+   ]
+  },
+  {
+   "id": "Proposition G.5",
+   "kind": "proposition",
+   "number": "G.5",
+   "name": null,
+   "label": "ex:app-odd-stabilization",
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10508,
+     10524
+    ]
+   ]
+  },
+  {
+   "id": "Proposition G.6",
+   "kind": "proposition",
+   "number": "G.6",
+   "name": null,
+   "label": "ex:app-simultaneous-address",
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10554,
+     10586
+    ]
+   ]
+  },
+  {
+   "id": "Proposition G.7",
+   "kind": "proposition",
+   "number": "G.7",
+   "name": null,
+   "label": "ex:app-final-family",
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10792,
+     10813
+    ]
+   ]
+  },
+  {
+   "id": "Lemma H.1",
+   "kind": "lemma",
+   "number": "H.1",
+   "name": null,
+   "label": "lem:de-rham-descent",
+   "section": "H",
+   "enclosing": null,
+   "lines": [
+    [
+     10939,
+     10951
+    ]
+   ]
+  },
+  {
+   "id": "Eq (1)",
+   "kind": "equation",
+   "number": "1",
+   "name": null,
+   "label": "eq:prime-density44",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1394,
+     1399
+    ]
+   ]
+  },
+  {
+   "id": "Eq (2)",
+   "kind": "equation",
+   "number": "2",
+   "name": null,
+   "label": "eq:prime-lower",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1448,
+     1453
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3)",
+   "kind": "equation",
+   "number": "3",
+   "name": null,
+   "label": "eq:prime-residue-error",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1467,
+     1470
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4)",
+   "kind": "equation",
+   "number": "4",
+   "name": null,
+   "label": "eq:prime-selberg",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1500,
+     1502
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5)",
+   "kind": "equation",
+   "number": "5",
+   "name": null,
+   "label": "eq:prime-truncated-denominator",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1528,
+     1530
+    ]
+   ]
+  },
+  {
+   "id": "Eq (6)",
+   "kind": "equation",
+   "number": "6",
+   "name": null,
+   "label": "eq:prime-bad-values",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1639,
+     1642
+    ]
+   ]
+  },
+  {
+   "id": "Eq (7)",
+   "kind": "equation",
+   "number": "7",
+   "name": null,
+   "label": "eq:prime-fiber",
+   "section": "6",
+   "enclosing": "Passage multiplication: Prime pattern",
+   "lines": [
+    [
+     1673,
+     1677
+    ]
+   ]
+  },
+  {
+   "id": "Eq (RC)",
+   "kind": "equation",
+   "number": "RC",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     1772,
+     1775
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.1)",
+   "kind": "equation",
+   "number": "3.1",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     1875,
+     1878
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.2)",
+   "kind": "equation",
+   "number": "3.2",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     1944,
+     1947
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.3a)",
+   "kind": "equation",
+   "number": "3.3a",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2305,
+     2307
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.3b)",
+   "kind": "equation",
+   "number": "3.3b",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2333,
+     2336
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.3)",
+   "kind": "equation",
+   "number": "3.3",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2388,
+     2391
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.4)",
+   "kind": "equation",
+   "number": "3.4",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2436,
+     2439
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.5)",
+   "kind": "equation",
+   "number": "3.5",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2444,
+     2447
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.6)",
+   "kind": "equation",
+   "number": "3.6",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2449,
+     2451
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.7)",
+   "kind": "equation",
+   "number": "3.7",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2490,
+     2494
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.8)",
+   "kind": "equation",
+   "number": "3.8",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": null,
+   "lines": [
+    [
+     2524,
+     2529
+    ]
+   ]
+  },
+  {
+   "id": "Eq (3.9)",
+   "kind": "equation",
+   "number": "3.9",
+   "name": null,
+   "label": null,
+   "section": "7",
+   "enclosing": "Proposition 7.17",
+   "lines": [
+    [
+     2687,
+     2691
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H1)",
+   "kind": "equation",
+   "number": "H1",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2886,
+     2888
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H2)",
+   "kind": "equation",
+   "number": "H2",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2894,
+     2896
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.1)",
+   "kind": "equation",
+   "number": "4.1",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2924,
+     2930
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H4)",
+   "kind": "equation",
+   "number": "H4",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2949,
+     2952
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H5)",
+   "kind": "equation",
+   "number": "H5",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2976,
+     2981
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H6)",
+   "kind": "equation",
+   "number": "H6",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2987,
+     2991
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H7)",
+   "kind": "equation",
+   "number": "H7",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     2994,
+     2997
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H8)",
+   "kind": "equation",
+   "number": "H8",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3008,
+     3013
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H9)",
+   "kind": "equation",
+   "number": "H9",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3018,
+     3020
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H10)",
+   "kind": "equation",
+   "number": "H10",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3038,
+     3041
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H11)",
+   "kind": "equation",
+   "number": "H11",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3073,
+     3076
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H12)",
+   "kind": "equation",
+   "number": "H12",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3091,
+     3094
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H13)",
+   "kind": "equation",
+   "number": "H13",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3106,
+     3110
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H14)",
+   "kind": "equation",
+   "number": "H14",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3115,
+     3118
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H15)",
+   "kind": "equation",
+   "number": "H15",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3141,
+     3143
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H16)",
+   "kind": "equation",
+   "number": "H16",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3153,
+     3157
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H17)",
+   "kind": "equation",
+   "number": "H17",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3159,
+     3162
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H18)",
+   "kind": "equation",
+   "number": "H18",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3169,
+     3172
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H19)",
+   "kind": "equation",
+   "number": "H19",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3186,
+     3190
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H20)",
+   "kind": "equation",
+   "number": "H20",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3206,
+     3211
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H21)",
+   "kind": "equation",
+   "number": "H21",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3224,
+     3228
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.2)",
+   "kind": "equation",
+   "number": "4.2",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3275,
+     3278
+    ]
+   ]
+  },
+  {
+   "id": "Eq (H22)",
+   "kind": "equation",
+   "number": "H22",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3377,
+     3380
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.3)",
+   "kind": "equation",
+   "number": "4.3",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3459,
+     3464
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.4)",
+   "kind": "equation",
+   "number": "4.4",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3476,
+     3478
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.4a)",
+   "kind": "equation",
+   "number": "4.4a",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3547,
+     3550
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.4b)",
+   "kind": "equation",
+   "number": "4.4b",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3589,
+     3592
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.4c)",
+   "kind": "equation",
+   "number": "4.4c",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3628,
+     3630
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.4d)",
+   "kind": "equation",
+   "number": "4.4d",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3640,
+     3643
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.5)",
+   "kind": "equation",
+   "number": "4.5",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     3913,
+     3916
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.6)",
+   "kind": "equation",
+   "number": "4.6",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     4042,
+     4046
+    ]
+   ]
+  },
+  {
+   "id": "Eq (4.7)",
+   "kind": "equation",
+   "number": "4.7",
+   "name": null,
+   "label": null,
+   "section": "8",
+   "enclosing": null,
+   "lines": [
+    [
+     4185,
+     4188
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.1a)",
+   "kind": "equation",
+   "number": "5.1a",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4472,
+     4474
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.1b)",
+   "kind": "equation",
+   "number": "5.1b",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4493,
+     4497
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.1)",
+   "kind": "equation",
+   "number": "5.1",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4603,
+     4610
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.2)",
+   "kind": "equation",
+   "number": "5.2",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4677,
+     4680
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.3)",
+   "kind": "equation",
+   "number": "5.3",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4721,
+     4725
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.4)",
+   "kind": "equation",
+   "number": "5.4",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4822,
+     4824
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.5)",
+   "kind": "equation",
+   "number": "5.5",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     4965,
+     4967
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.5a)",
+   "kind": "equation",
+   "number": "5.5a",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5073,
+     5079
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.5b)",
+   "kind": "equation",
+   "number": "5.5b",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5095,
+     5098
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.6)",
+   "kind": "equation",
+   "number": "5.6",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5233,
+     5237
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.7a)",
+   "kind": "equation",
+   "number": "5.7a",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5278,
+     5281
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.7b)",
+   "kind": "equation",
+   "number": "5.7b",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5299,
+     5303
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.7c)",
+   "kind": "equation",
+   "number": "5.7c",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5346,
+     5349
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.7d)",
+   "kind": "equation",
+   "number": "5.7d",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5361,
+     5365
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.7)",
+   "kind": "equation",
+   "number": "5.7",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5384,
+     5387
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.8)",
+   "kind": "equation",
+   "number": "5.8",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5433,
+     5435
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.9)",
+   "kind": "equation",
+   "number": "5.9",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5626,
+     5629
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.10)",
+   "kind": "equation",
+   "number": "5.10",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5688,
+     5691
+    ]
+   ]
+  },
+  {
+   "id": "Eq (5.11)",
+   "kind": "equation",
+   "number": "5.11",
+   "name": null,
+   "label": null,
+   "section": "9",
+   "enclosing": null,
+   "lines": [
+    [
+     5725,
+     5727
+    ]
+   ]
+  },
+  {
+   "id": "Eq (C.1)",
+   "kind": "equation",
+   "number": "C.1",
+   "name": null,
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage compiler-natural: Section 10.2 divisibility",
+   "lines": [
+    [
+     5890,
+     5893
+    ]
+   ]
+  },
+  {
+   "id": "Eq (C.2)",
+   "kind": "equation",
+   "number": "C.2",
+   "name": null,
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage compiler-natural: Section 10.2 alpha formula",
+   "lines": [
+    [
+     5909,
+     5918
+    ]
+   ]
+  },
+  {
+   "id": "Eq (C.3)",
+   "kind": "equation",
+   "number": "C.3",
+   "name": null,
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage compiler-natural: Section 10.2 power formula",
+   "lines": [
+    [
+     5951,
+     5954
+    ]
+   ]
+  },
+  {
+   "id": "Eq (C.4)",
+   "kind": "equation",
+   "number": "C.4",
+   "name": null,
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage compiler-natural: Section 10.3 specialization",
+   "lines": [
+    [
+     6042,
+     6047
+    ]
+   ]
+  },
+  {
+   "id": "Eq (8)",
+   "kind": "equation",
+   "number": "8",
+   "name": null,
+   "label": "eq:close-sound",
+   "section": "11",
+   "enclosing": "Passage assembly: Section 11.1 approximation",
+   "lines": [
+    [
+     6111,
+     6112
+    ]
+   ]
+  },
+  {
+   "id": "Eq (9)",
+   "kind": "equation",
+   "number": "9",
+   "name": null,
+   "label": "eq:close-complete",
+   "section": "11",
+   "enclosing": "Passage assembly: Section 11.1 approximation",
+   "lines": [
+    [
+     6113,
+     6114
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K1)",
+   "kind": "equation",
+   "number": "K1",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": "Proposition E.1",
+   "lines": [
+    [
+     6862,
+     6866
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K2)",
+   "kind": "equation",
+   "number": "K2",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": "Proposition E.1",
+   "lines": [
+    [
+     6870,
+     6875
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K3)",
+   "kind": "equation",
+   "number": "K3",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": "Proposition E.1",
+   "lines": [
+    [
+     6879,
+     6883
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K4)",
+   "kind": "equation",
+   "number": "K4",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     6905,
+     6909
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K5)",
+   "kind": "equation",
+   "number": "K5",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     6934,
+     6936
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K6)",
+   "kind": "equation",
+   "number": "K6",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     6943,
+     6946
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K7)",
+   "kind": "equation",
+   "number": "K7",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     6974,
+     6979
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K8)",
+   "kind": "equation",
+   "number": "K8",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     6995,
+     7000
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K9)",
+   "kind": "equation",
+   "number": "K9",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7013,
+     7016
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K10)",
+   "kind": "equation",
+   "number": "K10",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7040,
+     7044
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.1)",
+   "kind": "equation",
+   "number": "E.1",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7090,
+     7093
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.2)",
+   "kind": "equation",
+   "number": "E.2",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7101,
+     7104
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K12)",
+   "kind": "equation",
+   "number": "K12",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7122,
+     7125
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K13)",
+   "kind": "equation",
+   "number": "K13",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7132,
+     7136
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K14)",
+   "kind": "equation",
+   "number": "K14",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7149,
+     7153
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K15)",
+   "kind": "equation",
+   "number": "K15",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7237,
+     7241
+    ]
+   ]
+  },
+  {
+   "id": "Eq (K16)",
+   "kind": "equation",
+   "number": "K16",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7260,
+     7263
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.3)",
+   "kind": "equation",
+   "number": "E.3",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7505,
+     7507
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.4)",
+   "kind": "equation",
+   "number": "E.4",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7523,
+     7526
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.4a)",
+   "kind": "equation",
+   "number": "E.4a",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7579,
+     7586
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.5)",
+   "kind": "equation",
+   "number": "E.5",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7603,
+     7606
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.6)",
+   "kind": "equation",
+   "number": "E.6",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7641,
+     7643
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.7)",
+   "kind": "equation",
+   "number": "E.7",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7656,
+     7659
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.8)",
+   "kind": "equation",
+   "number": "E.8",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7773,
+     7776
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.9)",
+   "kind": "equation",
+   "number": "E.9",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     7783,
+     7785
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.10)",
+   "kind": "equation",
+   "number": "E.10",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     8018,
+     8024
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.11)",
+   "kind": "equation",
+   "number": "E.11",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     8139,
+     8142
+    ]
+   ]
+  },
+  {
+   "id": "Eq (E.12)",
+   "kind": "equation",
+   "number": "E.12",
+   "name": null,
+   "label": null,
+   "section": "E",
+   "enclosing": null,
+   "lines": [
+    [
+     8157,
+     8161
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.1)",
+   "kind": "equation",
+   "number": "O.1",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8214,
+     8218
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.2)",
+   "kind": "equation",
+   "number": "O.2",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8396,
+     8399
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.3)",
+   "kind": "equation",
+   "number": "O.3",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8506,
+     8508
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.4)",
+   "kind": "equation",
+   "number": "O.4",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8600,
+     8604
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.5a)",
+   "kind": "equation",
+   "number": "O.5a",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8849,
+     8853
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.5b)",
+   "kind": "equation",
+   "number": "O.5b",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8874,
+     8876
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.5c)",
+   "kind": "equation",
+   "number": "O.5c",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8908,
+     8911
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.5)",
+   "kind": "equation",
+   "number": "O.5",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     8982,
+     8986
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.6)",
+   "kind": "equation",
+   "number": "O.6",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9086,
+     9090
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.7)",
+   "kind": "equation",
+   "number": "O.7",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": "Proposition F.3",
+   "lines": [
+    [
+     9111,
+     9114
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.8)",
+   "kind": "equation",
+   "number": "O.8",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9431,
+     9438
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.9)",
+   "kind": "equation",
+   "number": "O.9",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9571,
+     9574
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.10)",
+   "kind": "equation",
+   "number": "O.10",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9587,
+     9590
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.11)",
+   "kind": "equation",
+   "number": "O.11",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9629,
+     9631
+    ]
+   ]
+  },
+  {
+   "id": "Eq (O.12)",
+   "kind": "equation",
+   "number": "O.12",
+   "name": null,
+   "label": null,
+   "section": "F",
+   "enclosing": null,
+   "lines": [
+    [
+     9881,
+     9884
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.1)",
+   "kind": "equation",
+   "number": "F.1",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10088,
+     10092
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.2)",
+   "kind": "equation",
+   "number": "F.2",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10124,
+     10127
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.3)",
+   "kind": "equation",
+   "number": "F.3",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10143,
+     10145
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.4)",
+   "kind": "equation",
+   "number": "F.4",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10174,
+     10177
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.5)",
+   "kind": "equation",
+   "number": "F.5",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10182,
+     10185
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.6)",
+   "kind": "equation",
+   "number": "F.6",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10197,
+     10201
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.7)",
+   "kind": "equation",
+   "number": "F.7",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10245,
+     10249
+    ]
+   ]
+  },
+  {
+   "id": "Eq (G.4a)",
+   "kind": "equation",
+   "number": "G.4a",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10348,
+     10350
+    ]
+   ]
+  },
+  {
+   "id": "Eq (G.4b)",
+   "kind": "equation",
+   "number": "G.4b",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10390,
+     10392
+    ]
+   ]
+  },
+  {
+   "id": "Eq (G.4c)",
+   "kind": "equation",
+   "number": "G.4c",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10411,
+     10420
+    ]
+   ]
+  },
+  {
+   "id": "Eq (G.4d)",
+   "kind": "equation",
+   "number": "G.4d",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10432,
+     10435
+    ]
+   ]
+  },
+  {
+   "id": "Eq (G.1a)",
+   "kind": "equation",
+   "number": "G.1a",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10737,
+     10741
+    ]
+   ]
+  },
+  {
+   "id": "Eq (F.8)",
+   "kind": "equation",
+   "number": "F.8",
+   "name": null,
+   "label": null,
+   "section": "G",
+   "enclosing": null,
+   "lines": [
+    [
+     10887,
+     10894
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Saved specification outer recipes",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Saved specification outer recipes",
+   "label": null,
+   "section": "1",
+   "enclosing": null,
+   "lines": [
+    [
+     55,
+     84
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Theorem 1.1 proof",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Theorem 1.1 proof",
+   "label": null,
+   "section": "1",
+   "enclosing": null,
+   "lines": [
+    [
+     60,
+     76
+    ],
+    [
+     123,
+     140
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Lemma 1.2",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Lemma 1.2",
+   "label": null,
+   "section": "1",
+   "enclosing": null,
+   "lines": [
+    [
+     93,
+     121
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Multiplication input M",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Multiplication input M",
+   "label": null,
+   "section": "1",
+   "enclosing": "Passage assembly: Lemma 1.2",
+   "lines": [
+    [
+     96,
+     97
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 1 input C",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 1 input C",
+   "label": null,
+   "section": "1",
+   "enclosing": "Passage assembly: Lemma 1.2",
+   "lines": [
+    [
+     102,
+     104
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Input C",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Input C",
+   "label": null,
+   "section": "1",
+   "enclosing": "Passage assembly: Lemma 1.2",
+   "lines": [
+    [
+     102,
+     104
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Input B",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Input B",
+   "label": null,
+   "section": "1",
+   "enclosing": "Passage assembly: Lemma 1.2",
+   "lines": [
+    [
+     105,
+     107
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 2 opening",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 2 opening",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     141,
+     164
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 2.1 literal operations",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 2.1 literal operations",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     166,
+     188
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Rational constants and inverses",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Rational constants and inverses",
+   "label": null,
+   "section": "2",
+   "enclosing": "Passage syntax: Section 2.1 literal operations",
+   "lines": [
+    [
+     180,
+     188
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Lagrange four squares",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Lagrange four squares",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     190,
+     197
+    ],
+    [
+     370,
+     370
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 2.1 positivity and absolute value",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 2.1 positivity and absolute value",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     190,
+     201
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Division polynomials",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Division polynomials",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     210,
+     236
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 2.2 division polynomials",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 2.2 division polynomials",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     210,
+     236
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Least formal multiple",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Least formal multiple",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     238,
+     252
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 2.2 catalogue and formal multiple",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 2.2 catalogue and formal multiple",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     238,
+     252
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 2.2 catalogue and formal multiple",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 2.2 catalogue and formal multiple",
+   "label": null,
+   "section": "2",
+   "enclosing": null,
+   "lines": [
+    [
+     238,
+     252
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 3 codes",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 3 codes",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     254,
+     266
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Model setup",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Model setup",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     254,
+     266
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 3 point codes",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 3 point codes",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     254,
+     266
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Class number and units",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Class number and units",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     273,
+     276
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: First descent image",
+   "kind": "passage",
+   "number": null,
+   "name": "model: First descent image",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     277,
+     283
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Second descent image",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Second descent image",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     285,
+     288
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Descent index",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Descent index",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     289,
+     291
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Torsion bound",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Torsion bound",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     293,
+     295
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Rank and odd index",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Rank and odd index",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     295,
+     297
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Duplication bounds",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Duplication bounds",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     299,
+     313
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Generator height",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Generator height",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     303,
+     325
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Height comparison",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Height comparison",
+   "label": null,
+   "section": "3",
+   "enclosing": "Passage multiplication: Generator height",
+   "lines": [
+    [
+     314,
+     322
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Finite search",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Finite search",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     324,
+     344
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Transfer to the generator",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Transfer to the generator",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     346,
+     347
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Membership and addition",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Membership and addition",
+   "label": null,
+   "section": "3",
+   "enclosing": "Passage syntax: Section 3.1 membership and natural codes",
+   "lines": [
+    [
+     350,
+     371
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 3.1 membership and natural codes",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 3.1 membership and natural codes",
+   "label": null,
+   "section": "3",
+   "enclosing": null,
+   "lines": [
+    [
+     350,
+     374
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Section 3.1 natural predicate",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Section 3.1 natural predicate",
+   "label": null,
+   "section": "3",
+   "enclosing": "Passage model: Membership and addition",
+   "lines": [
+    [
+     362,
+     371
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 4 height constants",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 4 height constants",
+   "label": null,
+   "section": "4",
+   "enclosing": null,
+   "lines": [
+    [
+     377,
+     403
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 4 height constants",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 4 height constants",
+   "label": null,
+   "section": "4",
+   "enclosing": "Passage assembly: Section 4 height constants",
+   "lines": [
+    [
+     377,
+     399
+    ]
+   ]
+  },
+  {
+   "id": "Passage height: The Hauptmodul value",
+   "kind": "passage",
+   "number": null,
+   "name": "height: The Hauptmodul value",
+   "label": null,
+   "section": "4",
+   "enclosing": "Passage compiler-natural: Section 4 height constants",
+   "lines": [
+    [
+     377,
+     383
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 4 constants",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 4 constants",
+   "label": null,
+   "section": "4",
+   "enclosing": null,
+   "lines": [
+    [
+     377,
+     403
+    ]
+   ]
+  },
+  {
+   "id": "Passage height: The j-form of H",
+   "kind": "passage",
+   "number": null,
+   "name": "height: The j-form of H",
+   "label": null,
+   "section": "4",
+   "enclosing": null,
+   "lines": [
+    [
+     900,
+     905
+    ],
+    [
+     908,
+     932
+    ],
+    [
+     934,
+     947
+    ]
+   ]
+  },
+  {
+   "id": "Passage height: Step F4",
+   "kind": "passage",
+   "number": null,
+   "name": "height: Step F4",
+   "label": null,
+   "section": "4",
+   "enclosing": null,
+   "lines": [
+    [
+     949,
+     954
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Contact prime sets",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Contact prime sets",
+   "label": null,
+   "section": "4",
+   "enclosing": null,
+   "lines": [
+    [
+     967,
+     971
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 4 height prime set",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 4 height prime set",
+   "label": null,
+   "section": "4",
+   "enclosing": "Passage multiplication: Contact prime sets",
+   "lines": [
+    [
+     968,
+     971
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Pole predicate",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Pole predicate",
+   "label": null,
+   "section": "5",
+   "enclosing": null,
+   "lines": [
+    [
+     973,
+     987
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: One-sided obstruction",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: One-sided obstruction",
+   "label": null,
+   "section": "5",
+   "enclosing": null,
+   "lines": [
+    [
+     988,
+     1000
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Theorem 5.2",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Theorem 5.2",
+   "label": null,
+   "section": "5",
+   "enclosing": "Theorem 5.2",
+   "lines": [
+    [
+     1001,
+     1003
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Section 6 opening",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Section 6 opening",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage syntax: Section 6 multiplication template",
+   "lines": [
+    [
+     1123,
+     1129
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 6 multiplication template",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 6 multiplication template",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1123,
+     1224
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 6 formal conventions",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 6 formal conventions",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage syntax: Section 6 multiplication template",
+   "lines": [
+    [
+     1131,
+     1150
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Local conventions",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Local conventions",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage assembly: Section 6 formal conventions",
+   "lines": [
+    [
+     1131,
+     1149
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Silverman",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Silverman",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage multiplication: Local conventions",
+   "lines": [
+    [
+     1132,
+     1149
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Logarithm series",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Logarithm series",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage syntax: Section 6 multiplication template",
+   "lines": [
+    [
+     1150,
+     1161
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Twelve tests",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Twelve tests",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage syntax: Section 6 multiplication template",
+   "lines": [
+    [
+     1162,
+     1176
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Slope predicate",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Slope predicate",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage syntax: Section 6 multiplication template",
+   "lines": [
+    [
+     1177,
+     1192
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Local congruence",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Local congruence",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage syntax: Section 6 multiplication template",
+   "lines": [
+    [
+     1194,
+     1213
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Height certificate",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Height certificate",
+   "label": null,
+   "section": "6",
+   "enclosing": "Passage syntax: Section 6 multiplication template",
+   "lines": [
+    [
+     1215,
+     1223
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Finite-box deduction",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Finite-box deduction",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1225,
+     1246
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Finite guard",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Finite guard",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1248,
+     1259
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Prime pattern",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Prime pattern",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1267,
+     1297
+    ],
+    [
+     1299,
+     1704
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Choice of shifts",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Choice of shifts",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1705,
+     1723
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Fixed local clearing",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Fixed local clearing",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1723,
+     1730
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Pole input of a completed slope",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Pole input of a completed slope",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1732,
+     1748
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Conclusion of the multiplication proof",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Conclusion of the multiplication proof",
+   "label": null,
+   "section": "6",
+   "enclosing": null,
+   "lines": [
+    [
+     1748,
+     1754
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10 signed encoding",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10 signed encoding",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5745,
+     5750
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 10 precision predicate",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 10 precision predicate",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5746,
+     5789
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10 decision predicate",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10 decision predicate",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10 precision predicate",
+   "lines": [
+    [
+     5751,
+     5764
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10 reference program and IR",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10 reference program and IR",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10 precision predicate",
+   "lines": [
+    [
+     5766,
+     5775
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10 threshold",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10 threshold",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10 precision predicate",
+   "lines": [
+    [
+     5777,
+     5781
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10 saturation",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10 saturation",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10 precision predicate",
+   "lines": [
+    [
+     5782,
+     5788
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.1 saved polynomial",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.1 saved polynomial",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5790,
+     5795
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.1 wrapper specialization",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.1 wrapper specialization",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5796,
+     5805
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.1 packed histories",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.1 packed histories",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5807,
+     5824
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.1 nonzero and branch masks",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.1 nonzero and branch masks",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5826,
+     5841
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.1 transition equations",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.1 transition equations",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5841,
+     5853
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 alpha recurrence",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 alpha recurrence",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5855,
+     5878
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 Pell classification",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 Pell classification",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5880,
+     5885
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 divisibility",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 divisibility",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5887,
+     5896
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 period and reflection",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 period and reflection",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5898,
+     5905
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 alpha formula",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 alpha formula",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5907,
+     5922
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 alpha soundness",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 alpha soundness",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5924,
+     5932
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 alpha completeness",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 alpha completeness",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5934,
+     5943
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 power formula",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 power formula",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5945,
+     5960
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.2 binomial and bits",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.2 binomial and bits",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5962,
+     5975
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.3 numbering",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.3 numbering",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5977,
+     5982
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.3 interpreter",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.3 interpreter",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5984,
+     5997
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.3 precision IR",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.3 precision IR",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     5999,
+     6016
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.3 lowering",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.3 lowering",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     6018,
+     6025
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.3 unpairing and wrapper",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.3 unpairing and wrapper",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     6027,
+     6034
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.3 specialization",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.3 specialization",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     6036,
+     6050
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Section 10.3 specialization",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Section 10.3 specialization",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     6036,
+     6050
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 10.4 translation",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 10.4 translation",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     6052,
+     6093
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Section 10.4 typing order",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Section 10.4 typing order",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10.4 translation",
+   "lines": [
+    [
+     6052,
+     6076
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Translation typing",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Translation typing",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage compiler-translation: Section 10.4 typing order",
+   "lines": [
+    [
+     6052,
+     6058
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 10 translation",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 10 translation",
+   "label": null,
+   "section": "10",
+   "enclosing": null,
+   "lines": [
+    [
+     6052,
+     6093
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 10.4 power blocks",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 10.4 power blocks",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10.4 translation",
+   "lines": [
+    [
+     6078,
+     6086
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Section 10.4 power value and precision parent",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Section 10.4 power value and precision parent",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10.4 translation",
+   "lines": [
+    [
+     6078,
+     6086
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Section 10.4 primitive formulas",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Section 10.4 primitive formulas",
+   "label": null,
+   "section": "10",
+   "enclosing": "Passage assembly: Section 10.4 translation",
+   "lines": [
+    [
+     6088,
+     6092
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 11 opening",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 11 opening",
+   "label": null,
+   "section": "11",
+   "enclosing": null,
+   "lines": [
+    [
+     6094,
+     6101
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 11.1 approximation",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 11.1 approximation",
+   "label": null,
+   "section": "11",
+   "enclosing": null,
+   "lines": [
+    [
+     6102,
+     6129
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 11.2 six local tests",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 11.2 six local tests",
+   "label": null,
+   "section": "11",
+   "enclosing": null,
+   "lines": [
+    [
+     6130,
+     6150
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Lemma 11.1",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Lemma 11.1",
+   "label": null,
+   "section": "11",
+   "enclosing": null,
+   "lines": [
+    [
+     6151,
+     6201
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Lemma 11.2",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Lemma 11.2",
+   "label": null,
+   "section": "11",
+   "enclosing": null,
+   "lines": [
+    [
+     6202,
+     6235
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 11.3 exact ordinary value",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 11.3 exact ordinary value",
+   "label": null,
+   "section": "11",
+   "enclosing": null,
+   "lines": [
+    [
+     6236,
+     6271
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Section 12 size",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Section 12 size",
+   "label": null,
+   "section": "12",
+   "enclosing": null,
+   "lines": [
+    [
+     6272,
+     6442
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Fixed constants",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Fixed constants",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage assembly: Section 12 size",
+   "lines": [
+    [
+     6272,
+     6283
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 12 opening",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 12 opening",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage assembly: Section 12 size",
+   "lines": [
+    [
+     6272,
+     6283
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Proof of Proposition 12.1, catalogue",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Proof of Proposition 12.1, catalogue",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage assembly: Section 12 size",
+   "lines": [
+    [
+     6294,
+     6309
+    ]
+   ]
+  },
+  {
+   "id": "Passage multiplication: Least formal multiple exists",
+   "kind": "passage",
+   "number": null,
+   "name": "multiplication: Least formal multiple exists",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage size: Proof of Proposition 12.1, formal multiple",
+   "lines": [
+    [
+     6310,
+     6349
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Proof of Proposition 12.1, formal multiple",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Proof of Proposition 12.1, formal multiple",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage assembly: Section 12 size",
+   "lines": [
+    [
+     6310,
+     6350
+    ]
+   ]
+  },
+  {
+   "id": "Passage assembly: Silverman",
+   "kind": "passage",
+   "number": null,
+   "name": "assembly: Silverman",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage multiplication: Least formal multiple exists",
+   "lines": [
+    [
+     6322,
+     6322
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Proof of Proposition 12.1, cutoff",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Proof of Proposition 12.1, cutoff",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage assembly: Section 12 size",
+   "lines": [
+    [
+     6351,
+     6360
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 12.1 norms and division polynomials",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 12.1 norms and division polynomials",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage syntax: Section 12.2 syntax bounds",
+   "lines": [
+    [
+     6362,
+     6371
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Section 12.2 syntax bounds",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Section 12.2 syntax bounds",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage assembly: Section 12 size",
+   "lines": [
+    [
+     6362,
+     6441
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 12.1 checked facts",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 12.1 checked facts",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage syntax: Section 12.2 syntax bounds",
+   "lines": [
+    [
+     6372,
+     6383
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Section 12 literal constants",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Section 12 literal constants",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage size: Section 12.1 checked facts",
+   "lines": [
+    [
+     6373,
+     6376
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 12.1 constructor bounds",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 12.1 constructor bounds",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage syntax: Section 12.2 syntax bounds",
+   "lines": [
+    [
+     6385,
+     6394
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 12.1 syntax heights",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 12.1 syntax heights",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage syntax: Section 12.2 syntax bounds",
+   "lines": [
+    [
+     6396,
+     6431
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Section 12.1 final comparison",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Section 12.1 final comparison",
+   "label": null,
+   "section": "12",
+   "enclosing": "Passage syntax: Section 12.2 syntax bounds",
+   "lines": [
+    [
+     6432,
+     6441
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-natural: Appendix B sources",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-natural: Appendix B sources",
+   "label": null,
+   "section": "B",
+   "enclosing": null,
+   "lines": [
+    [
+     6636,
+     6639
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Appendix C opening",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Appendix C opening",
+   "label": null,
+   "section": "C",
+   "enclosing": null,
+   "lines": [
+    [
+     6666,
+     6682
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Point references and fixed point codes",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Point references and fixed point codes",
+   "label": null,
+   "section": "C",
+   "enclosing": null,
+   "lines": [
+    [
+     6672,
+     6710
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Appendix C.1 scalar nodes",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Appendix C.1 scalar nodes",
+   "label": null,
+   "section": "C",
+   "enclosing": null,
+   "lines": [
+    [
+     6683,
+     6721
+    ]
+   ]
+  },
+  {
+   "id": "Passage compiler-translation: Appendix C.2 model recipes",
+   "kind": "passage",
+   "number": null,
+   "name": "compiler-translation: Appendix C.2 model recipes",
+   "label": null,
+   "section": "C",
+   "enclosing": "Passage syntax: Appendix C.2 recipes and counts",
+   "lines": [
+    [
+     6722,
+     6730
+    ]
+   ]
+  },
+  {
+   "id": "Passage syntax: Appendix C.2 recipes and counts",
+   "kind": "passage",
+   "number": null,
+   "name": "syntax: Appendix C.2 recipes and counts",
+   "label": null,
+   "section": "C",
+   "enclosing": null,
+   "lines": [
+    [
+     6722,
+     6782
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Bennett-Martin-O'Bryant-Rechnitzer",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Bennett-Martin-O'Bryant-Rechnitzer",
+   "label": null,
+   "section": "References",
+   "enclosing": null,
+   "lines": [
+    [
+     11111,
+     11114
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Sutherland lecture notes",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Sutherland lecture notes",
+   "label": null,
+   "section": "References",
+   "enclosing": null,
+   "lines": [
+    [
+     11140,
+     11143
+    ]
+   ]
+  },
+  {
+   "id": "Passage model: Silverman",
+   "kind": "passage",
+   "number": null,
+   "name": "model: Silverman",
+   "label": null,
+   "section": "References",
+   "enclosing": null,
+   "lines": [
+    [
+     11144,
+     11145
+    ]
+   ]
+  },
+  {
+   "id": "Passage size: Silverman",
+   "kind": "passage",
+   "number": null,
+   "name": "size: Silverman",
+   "label": null,
+   "section": "References",
+   "enclosing": null,
+   "lines": [
+    [
+     11144,
+     11145
+    ]
+   ]
+  }
+ ]
+}

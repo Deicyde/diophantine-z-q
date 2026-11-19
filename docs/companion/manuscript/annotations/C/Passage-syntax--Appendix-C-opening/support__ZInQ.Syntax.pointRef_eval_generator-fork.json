@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Appendix C opening",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.Syntax.pointRef_eval_generator proved: Point references and the three generator equations of every model recipe agree with [M] (references below -3 are junk zeros). [F] builds the root integers and P_* in Lean rather than reading them from the bytes of the JSON file, and it fixes the range X_0..X_292890231904 by truncation while proving only that integers has at most 292890231904 witnesses, not exactly that many.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.107843,
+          0.446036,
+          0.784314,
+          0.220438
+        ]
+      },
+      "title": "Passage (syntax): Appendix C opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.pointRef_eval_generator",
+        "module": "ZInQKernel.Syntax.Language.PointRef"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.pointRef_eval_generator@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem pointRef_eval_generator (g : Fin 3 → ℕ) (x : ℕ → ℚ)\n    (h : ∀ c ∈ generatorConstraints g, ev x c = 0) :\n    evCode x (pointRef g (-1)) = ![1, 0, 0, 0, 0] ∧ evCode x (pointRef g (-2)) = codeP0 ∧\n      evCode x (pointRef g (-3)) = codeNegP0 := by",
+            "line": 70,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/PointRef.lean",
+            "fragment": "L70"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

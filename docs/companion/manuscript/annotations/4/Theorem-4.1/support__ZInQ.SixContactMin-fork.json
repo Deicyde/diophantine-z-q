@@ -1,0 +1,86 @@
+{
+  "id": "Theorem 4.1",
+  "kind": "theorem",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, stated, neither proved nor assumed; ZInQ.SixContactMin assumed, not proved: SixContactEstimate states Theorem 4.1 exactly but is neither proved nor assumed. The headline assumes only its instance SixContactMin (S = S_mul, R = D), which OneProof derives from the open bundles of OPEN.md.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 8,
+        "rect": [
+          0.107843,
+          0.322056,
+          0.784314,
+          0.059067
+        ]
+      },
+      "title": "Theorem 4.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Theorem 4.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.SixContactMin",
+        "module": "ZInQKernel.Hypotheses.HeightMin"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.SixContactMin@fork",
+            "kind": "def · fork · assumed"
+          },
+          "snippet": {
+            "text": "def SixContactMin : Prop :=\n  ∀ u : ℚ, u ∉ contactSet →\n    ratHeight u ≤ heightH6 (heightD : ℝ) * (contactSupport Mult.S_mul u : ℝ) ^ 24",
+            "line": 50,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/HeightMin.lean",
+            "fragment": "L50"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          8
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "HeightInstance S is h(u) <= H6(D) M_S(u)^24 with no hypothesis on S; heightH6 is monotone in R (ndep heightH6_mono_of_one_le), and M_S grows as S shrinks, so for max S <= D it follows from Theorem 4.1, while for S with a prime above D it asserts the smaller H6(D) that [M] does not give. The rest of the note (definition standing, proved only from GeometricComparisons, headlines on ndep SixContactMin) checks out; ndep's SixContactEstimate is the exact form but no [N] declaration uses it.",
+            "HeightInstance S has no hypothesis on S and uses heightH6 at R = heightD, with contactSupport matching M_S and the constants matching [M]'s F0, D, G0, E0, Q_R, B_cm, C_cm, H6 literally. Since Q_R increases with R and D >= 10^12, it agrees with Theorem 4.1 when max S <= D and claims more otherwise, so 'stronger' stands; it is a Prop proved only from the unproved GeometricComparisons."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

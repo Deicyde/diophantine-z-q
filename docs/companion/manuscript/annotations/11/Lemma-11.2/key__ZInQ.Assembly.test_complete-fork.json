@@ -1,0 +1,86 @@
+{
+  "id": "Lemma 11.2",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.PoleCompleteness: test_complete states that every integer n not in C has kappa != 0 with Test(n,kappa,n). It takes ZInQ.PoleCompleteness (Theorem 5.2), which [M]'s proof invokes, so it is conditional on that assumed hypothesis.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 82,
+        "rect": [
+          0.107843,
+          0.556035,
+          0.784314,
+          0.028767
+        ]
+      },
+      "title": "Lemma 11.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 11.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.test_complete",
+        "module": "ZInQKernel.Assembly.Local.TestCompleteness"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.test_complete@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem test_complete (hPC : PoleCompleteness) (n : ℤ) (hn : (n : ℚ) ∉ contactSet) :\n    ∃ κ : ℤ, κ ≠ 0 ∧ Test n κ n := by",
+            "line": 35,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Local/TestCompleteness.lean",
+            "fragment": "L35"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          82
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "test_complete assumes ndep's PoleCompleteness and concludes Test n k n for ndep's Test. Both are stated for the Route K pole polynomial (x+l), whereas [M]'s Lemma 11.2 uses [M]'s PC and Test with the x+3l curves. So it is a different, conditional claim, which [N] uses at QualitativePrecision.lean:180.",
+            "test_complete gives kappa != 0 with ndep's Test(n,kappa,n) from ndep's PoleCompleteness, both about the Route K pole polynomial (x+l), so the claim is about a different relation and conditional on that PC."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

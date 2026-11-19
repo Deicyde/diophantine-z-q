@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 precision IR",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.Precision.accepts a definition: The norm-zero lemma, the Jacobian identities and branches, the fixed point, capped arithmetic, totality and agreement of the IR with accepts on all of N^5 are stated and proved; no assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.107843,
+          0.664019,
+          0.784314,
+          0.205291
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 precision IR",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 precision IR"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.accepts",
+        "module": "ZInQKernel.Compiler.Precision.Relation"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.accepts@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def accepts (c : Fin 5 → ℕ) : Prop :=\n  acceptsInt (dec (c 0)) (dec (c 1)) (dec (c 2)) (dec (c 3)) (dec (c 4))",
+            "line": 44,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/Relation.lean",
+            "fragment": "L44"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

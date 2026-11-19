@@ -1,0 +1,47 @@
+{
+  "id": "Eq (3.3a)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] formalizes none of [M]'s Section 7 coefficient-symbol machinery; its route assumes Theorem 4.1 as ZInQ.SixContactMin. No statement of L_*(d) nonzero with v_2 L_*(d) <= 2 omega(d) + C_0; the L-series files concern only C_d : y^2 = x^3 - d^2 x.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 32,
+        "rect": [
+          0.107843,
+          0.584617,
+          0.784314,
+          0.034166
+        ]
+      },
+      "title": "Eq. (3.3a)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (3.3a)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          32
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

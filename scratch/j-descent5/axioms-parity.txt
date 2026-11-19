@@ -1,0 +1,6 @@
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Parity.0.HDec.CMBranch.CMjBridges.parity_poleExpansion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.shortCubic_parity_of_place_involution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -1,0 +1,70 @@
+{
+  "id": "Passage size: Section 12.1 syntax heights",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: Maj encodes degree and log-norm at most B^(8h); the substitution and renaming inequalities, the model wrapper (safe height 4) and composition majorants, the recipe heights 228..256 and deg P_* <= (T+1)^2048, |coeff| <= 2^((T+1)^2048) are stated. Its hypotheses CatalogueBound8 and HaltingAddMulBound are proved in the repository (ZInQ.catalogueBound8, ZInQ.Compiler.NodeCheck.haltingAddMulBound) and are not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.107843,
+          0.166955,
+          0.784314,
+          0.403468
+        ]
+      },
+      "title": "Passage (size): Section 12.1 syntax heights",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 syntax heights"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.l1_rename_eq",
+        "module": "ZInQKernel.Size.Norms.Substitution"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.l1_rename_eq@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem l1_rename_eq [DecidableEq τ] (f : σ → τ) (P : MvPolynomial σ ℤ) :\n    l1 (rename f P) = ∑ β ∈ P.support.image (Finsupp.mapDomain f),\n      (∑ α ∈ P.support with α.mapDomain f = β, P.coeff α).natAbs := by",
+            "line": 44,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Norms/Substitution.lean",
+            "fragment": "L44"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

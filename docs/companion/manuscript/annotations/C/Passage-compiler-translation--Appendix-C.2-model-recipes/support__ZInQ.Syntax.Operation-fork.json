@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-translation: Appendix C.2 model recipes",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: ModelRecipe.conjuncts lists the generator equations, the natural call of each source row with a start, the scalar-constant calls, the add/multiply/power-value calls by operation kind and the five root differences, and Recipe.poly sums their squares, as the passage prescribes.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 90,
+        "rect": [
+          0.107843,
+          0.342252,
+          0.784314,
+          0.121888
+        ]
+      },
+      "title": "Passage (compiler-translation): Appendix C.2 model recipes",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Appendix C.2 model recipes"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.Operation",
+        "module": "ZInQKernel.Syntax.Language.Nodes"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.Operation@fork",
+            "kind": "inductive · fork"
+          },
+          "snippet": {
+            "text": "inductive Operation\n  /-- Kind `0`: raw addition `(a, b, o)` with witness start `s`. -/\n  | add (a b o : ℤ) (s : ℕ)\n  /-- Kind `1`: multiplication `(a, b, o)` with witness start `s`. -/\n  | mul (a b o : ℤ) (s : ℕ)\n  /-- Kind `2`: power `(a, b, c, o)` with witness start `s`. -/\n  | power (a b c o : ℤ) (s : ℕ)",
+            "line": 197,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Nodes.lean",
+            "fragment": "L197"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          90
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

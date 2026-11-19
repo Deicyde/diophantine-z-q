@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Least formal multiple",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Syntax.unitResidues a definition: The passage defines the catalogue, H_cat, N_s and M0 and asserts that the catalogue terminates, that M0 is a successful index, and that the guard's fixed point coordinates have nonzero denominators; [F] defines all of these as [M] does and proves the three facts unconditionally (infinite_catalogue_class, M0_bounds, iota_eq_psi_unconditional). Two packagings differ: normalizedRep takes c as the lcm of denominators (isNormalizedRep_iff proves it equal to the gcd form), and leastFormalMultiple is 0 when no index succeeds, which M0_bounds excludes; the closing remark asserts nothing.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.165492
+        ]
+      },
+      "title": "Passage (multiplication): Least formal multiple",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Least formal multiple"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.unitResidues",
+        "module": "ZInQKernel.Syntax.Constants.Catalogue"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.unitResidues@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def unitResidues (W : ℕ) : Finset ℕ :=\n  (Finset.range W).filter fun r => 1 ≤ r ∧ r.Coprime W",
+            "line": 26,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Constants/Catalogue.lean",
+            "fragment": "L26"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

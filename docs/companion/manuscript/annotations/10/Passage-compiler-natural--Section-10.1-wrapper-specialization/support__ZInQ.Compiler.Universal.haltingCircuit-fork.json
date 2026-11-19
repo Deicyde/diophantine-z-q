@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 wrapper specialization",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.Universal.haltingCircuit a definition: wrapper is the Cantor-unpairing prefix followed by the unchanged precision machine; pairing_system_iff proves the pairing equations have the unique Cantor solution, and precisionCircuit_poly gives the new polynomial as the specialized halting polynomial squared plus the four squared differences. Proved, no assumed hypothesis.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.130407
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 wrapper specialization",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 wrapper specialization"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Universal.haltingCircuit",
+        "module": "ZInQKernel.Compiler.Universal.Halting"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Universal.haltingCircuit@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def haltingCircuit : NatCircuit := compiled interpreter 204 2",
+            "line": 32,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Universal/Halting.lean",
+            "fragment": "L32"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

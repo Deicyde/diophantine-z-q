@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-translation: Input C",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation): natural_polynomial_semantics gives the computation semantics of the five-input natural polynomial with the power template, and precision_rel_iff the semantics of its rational translation; the latter takes input M (MultiplicationExact) as a hypothesis.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 4,
+        "rect": [
+          0.107843,
+          0.158223,
+          0.784314,
+          0.043649
+        ]
+      },
+      "title": "Passage (compiler-translation): Input C",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-translation: Input C"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Translation.precision_rel_iff",
+        "module": "ZInQKernel.Compiler.Translation.Rational"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Translation.precision_rel_iff@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem precision_rel_iff (hI : I.psi = psiComponent) (hM : MultiplicationExact I cstar ell T)\n    (recipes : List ExPoly) (hrec : ∃ rs, getEx recipes 0 =\n      (Recipe.model powerValueRecipe).denote (templateLibrary I cstar ell T c3) rs)\n    (E : Fin 5 → Fin 5 → ℚ) :\n    ((Recipe.model (precisionRecipe precisionCircuit c3)).denote\n        (templateLibrary I cstar ell T c3) recipes).Rel\n        (fun k : Fin 25 => E ⟨k / 5, by omega⟩ ⟨k % 5, by omega⟩) ↔\n      ∃ c : Fin 5 → ℕ, (∀ i, E i = iota (c i)) ∧ ∃ z : Fin 1305806 → ℕ,\n        MvPolynomial.eval (fun i => (NatCircuit.natPoint 5 1305806 c z i : ℤ))\n          (precisionCircuit.poly powerTemplate) = 0 := by",
+            "line": 91,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Translation/Rational.lean",
+            "fragment": "L91"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          4
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

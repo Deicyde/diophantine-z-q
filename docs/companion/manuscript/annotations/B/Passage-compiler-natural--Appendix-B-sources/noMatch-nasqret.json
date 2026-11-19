@@ -1,0 +1,47 @@
+{
+  "id": "Passage compiler-natural: Appendix B sources",
+  "kind": "passage",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, nothing to formalize: A bibliography-style table of source files S21-S24 with their roles; nothing provable is asserted.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 88,
+        "rect": [
+          0.107843,
+          0.804006,
+          0.784314,
+          0.06843
+        ]
+      },
+      "title": "Passage (compiler-natural): Appendix B sources",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Appendix B sources"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          88
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

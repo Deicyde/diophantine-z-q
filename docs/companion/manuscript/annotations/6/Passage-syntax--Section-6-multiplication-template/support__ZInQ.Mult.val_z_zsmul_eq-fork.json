@@ -1,0 +1,118 @@
+{
+  "id": "Passage syntax: Section 6 multiplication template",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (weaker): The section's construction and claims are stated in parts (witness count, membership forcing, local formal-group facts, log series and truncation error, the twelve tests, the slope predicate, the local congruence, the height certificate), with [M]'s curve, Q_pole and constants. The one claim stated only in a weaker form is the 'inverse exponential' of the formal logarithm: [F] proves isometry and injectivity, not surjectivity.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 17,
+        "rect": [
+          0.098039,
+          0.172819,
+          0.803922,
+          0.730785
+        ]
+      },
+      "title": "Passage (syntax): Section 6 multiplication template",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 6 multiplication template#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.102941,
+          0.080538,
+          0.794118,
+          0.385307
+        ]
+      },
+      "title": "Passage (syntax): Section 6 multiplication template",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 6 multiplication template#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.val_z_zsmul_eq",
+        "module": "ZInQKernel.Multiplication.Local.FormalLogarithm"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.val_z_zsmul_eq@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem val_z_zsmul_eq (h : ResidueChar K p e) [CharZero K] {A : K} (hA : 0 ≤ vK K A) {k : ℤ}\n    (hk : (e : ℤ) < ((p : ℤ) - 1) * k) {P : (shortCurve A).toAffine.Point}\n    (hP : P ∈ formalFilt A hA k) {n : ℤ} :\n    vK K (zCoord (n • P)) = vK K (zCoord P) + vK K (n : K) := by",
+            "line": 138,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Local/FormalLogarithm.lean",
+            "fragment": "L138"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          17,
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "All listed declarations exist and [F]'s pole polynomial uses [M]'s curves x+3l (fork Hypotheses/Pole.lean), the template has 35134 witnesses, and SlopePred.poleInput_ne_zero covers the nonvanishing remark; the one gap I could not close is the inverse exponential, since [F] has no surjectivity or exponential for its formal logarithm, only ellLog_injOn.",
+            "All the listed declarations exist and state the claimed parts with [M]'s curve and x+3l pole curves (fork poleT1/poleT2 use A+3e). I found no surjectivity or exponential for the formal logarithm anywhere in [F]; it proves only v(log)=v(z) and InjOn, so the inverse exponential really is missing."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's polePoly has factors A+e and Az^2+eH (curves x+l) where [M]'s Q_pole has x+3l, and ndep's SlopePred imposes PoleSoluble of that polynomial, so the template, certificate and congruence hypotheses concern a different object; [N] has no own copy of [M]'s pole polynomial or slope predicate (its saved specification abstracts the callees), and multiplication_exact rewrites with ndep's multiply_rel_iff_cert.",
+            "ndep's SlopePred conjoins PoleSoluble, whose polePoly uses the curves x(x-e)(x+e), while [M]'s Q_pole uses x+3e; ndep's multiplication files are otherwise identical to [F]'s. [N] has its own x+3l pole definition (ManuscriptV15.Arithmetic.pole) but no slope predicate, certificate or template built on it, and multiplication_exact rewrites with ndep's multiply_rel_iff_cert."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+'HDec.CMBranch.CMjBridges.germToFunctionField_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Sections.0.HDec.CMBranch.CMjBridges.exists_section_of_mem_stalks_at_closedPoints' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarPunctured_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Sections.0.HDec.CMBranch.CMjBridges.abVar_section_of_nonnegative_orders' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.germToFunctionField_abVarSectionConst' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_shortSections_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]

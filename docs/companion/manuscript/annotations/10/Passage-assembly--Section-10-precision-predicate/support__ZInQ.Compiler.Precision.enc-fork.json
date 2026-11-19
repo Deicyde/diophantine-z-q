@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Section 10 precision predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.Precision.enc a definition: The span defines the encoding and decision predicate (enc, accepts with A0 = H6(S_ht)) and asserts that the reference program and the total ideal IR compute it, that the projective formulas preserve the curve, the threshold equivalence and the saturation identities; each is a proved [F] declaration with no assumed hypothesis. [F]'s Jacobian identities are organized as items 1-8 rather than counted as nine.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.102941,
+          0.211819,
+          0.794118,
+          0.55947
+        ]
+      },
+      "title": "Passage (assembly): Section 10 precision predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 10 precision predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.enc",
+        "module": "ZInQKernel.Compiler.Precision.Encoding"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.enc@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def enc (n : ℤ) : ℕ := if 0 ≤ n then 2 * n.toNat else 2 * (-n).toNat - 1",
+            "line": 16,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/Encoding.lean",
+            "fragment": "L16"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

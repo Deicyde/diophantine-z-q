@@ -1,0 +1,13 @@
+{
+  "name": "cm-serre-tate",
+  "imports": [
+    "ZInQKernel.Contrib.CloudR2CM.SerreTate.CMPotentialGoodFinal"
+  ],
+  "discharges": [
+    {
+      "field": "cmPotentialGood",
+      "proof": "_root_.HDec.CMSerreTate.cmPotentialGood_of_neronSchemeExtensionDedekind {n}.neronSchemeExtensionDedekind",
+      "leaves": []
+    }
+  ]
+}

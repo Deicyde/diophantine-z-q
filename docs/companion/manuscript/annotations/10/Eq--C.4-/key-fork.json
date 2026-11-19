@@ -1,0 +1,98 @@
+{
+  "id": "Eq (C.4)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: For every c in N^5, some z in N^1305806 with [[N]](c,z)=0 exists iff accepts c, with no hypothesis; proved. The polynomial is the one Lean builds from the precision circuit, which [M] calls the saved polynomial C.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.107843,
+          0.336313,
+          0.784314,
+          0.031587
+        ]
+      },
+      "title": "Eq. (C.4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (C.4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.natural_polynomial_semantics",
+        "module": "ZInQKernel.Compiler.Universal.WrapperCode"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.natural_polynomial_semantics@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem natural_polynomial_semantics (c : Fin 5 → ℕ) :\n    precisionCircuit.NatRel powerTemplate c ↔ Precision.accepts c :=",
+            "line": 136,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Universal/WrapperCode.lean",
+            "fragment": "L136"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.natural_polynomial_semantics'",
+        "module": "ZInQKernel.Compiler.Universal.WrapperCode"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.natural_polynomial_semantics'@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem natural_polynomial_semantics' (c : Fin 5 → ℕ) :\n    (∃ z : Fin 1305806 → ℕ,\n      MvPolynomial.eval (fun i => (NatCircuit.natPoint 5 1305806 c z i : ℤ))\n        (precisionCircuit.poly powerTemplate) = 0) ↔ Precision.accepts c :=",
+            "line": 156,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Universal/WrapperCode.lean",
+            "fragment": "L156"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

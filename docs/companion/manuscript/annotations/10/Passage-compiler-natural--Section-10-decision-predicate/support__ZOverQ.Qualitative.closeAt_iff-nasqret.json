@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10 decision predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; ZOverQ.Qualitative.closeAt_iff proved only from ZInQ.Translation.MultiplicationExact: ndep's precision definitions and lemmas state the passage in parts, proved without assumed hypotheses; [N] has no declaration of its own and ndep's file is identical to [F]'s. [N]'s `ZOverQ.Qualitative.closeAt_iff` uses `accepts`, `rRatio` and `epsIdx`.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.279643,
+          0.784314,
+          0.185471
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10 decision predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10 decision predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.closeAt_iff",
+        "module": "bounded.QualitativePrecision"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.closeAt_iff@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem closeAt_iff\n    (hM : MultiplicationExact specConstructors FixedConst.cstar.value FixedConst.ell.value T)\n    (N K : Fin 5 → ℚ) (t : ℚ) :\n    CloseAt T N K t ↔\n      ∃ n κ a l : ℤ, N = iota n ∧ K = iota κ ∧\n        accepts ![enc n, enc κ, enc a, enc l, enc (n * a)] ∧\n        |t - rRatio a (n * a)| < epsIdx l := by",
+            "line": 59,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativePrecision.lean",
+            "fragment": "L59"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

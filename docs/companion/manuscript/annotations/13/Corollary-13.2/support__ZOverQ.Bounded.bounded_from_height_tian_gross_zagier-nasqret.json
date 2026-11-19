@@ -1,0 +1,70 @@
+{
+  "id": "Corollary 13.2",
+  "kind": "corollary",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart; ZOverQ.Bounded.bounded_from_height_tian_gross_zagier proved only from ZInQ.SixContactMin, ZInQBlueprint.OriginalRank.PublishedGenusRows.PublishedTian47 and ZOverQ.Bounded.SimpleZeroRank: [N] has no machine, halting or computably-enumerable notion and no universal rational Diophantine polynomial; its headlines end at Theorem 1.1 and the qualitative IntegerPolynomial.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 86,
+        "rect": [
+          0.107843,
+          0.671257,
+          0.784314,
+          0.143404
+        ]
+      },
+      "title": "Corollary 13.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Corollary 13.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Bounded.bounded_from_height_tian_gross_zagier",
+        "module": "bounded.BoundedFromGenus"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Bounded.bounded_from_height_tian_gross_zagier@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem bounded_from_height_tian_gross_zagier (height : ZInQ.SixContactMin)\n    (criterion : PublishedTian47) (rank : SimpleZeroRank) : ZInQ.FrozenTarget :=",
+            "line": 101,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/BoundedFromGenus.lean",
+            "fragment": "L101"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          86
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

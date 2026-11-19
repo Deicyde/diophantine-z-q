@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 power formula",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Compiler.Natural.PowerFormula a definition: PowEqns states the formula with the separated Q = 0 branches and the Q >= 1 conditions; powEqns_iff proves it holds exactly when P = Q^R, the bound Q^R < m and the congruence E_R = Q^R mod m being helper lemmas; proved, no assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.102941,
+          0.089135,
+          0.794118,
+          0.155615
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 power formula",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 power formula"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Natural.PowerFormula",
+        "module": "ZInQKernel.Compiler.Circuits.MacroSemantics"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Natural.PowerFormula@fork",
+            "kind": "abbrev · fork"
+          },
+          "snippet": {
+            "text": "abbrev PowerFormula (P Q R : ℕ) : Prop := AlphaPower.PowEqns P Q R",
+            "line": 388,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/MacroSemantics.lean",
+            "fragment": "L388"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

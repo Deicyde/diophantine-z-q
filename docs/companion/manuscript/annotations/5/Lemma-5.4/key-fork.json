@@ -1,0 +1,126 @@
+{
+  "id": "Lemma 5.4",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves, or by another key from other hypotheses: Lemma54 states the lemma over the genuine Selmer groups; it is proved only from Mordell-Weil and the existence of an alternating Cassels-Tate pairing with divisible radical (named Props), and at the curves E_l from CasselsTatePairingCurves, a hypothesis of frozenTarget.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 16,
+        "rect": [
+          0.107843,
+          0.498042,
+          0.784314,
+          0.043686
+        ]
+      },
+      "title": "Lemma 5.4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 5.4"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.PoleS12.Lemma54",
+        "module": "ZInQKernel.Contrib.OneProof.PoleS12.Leaves"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.PoleS12.Lemma54@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Lemma54 : Prop :=\n  ∀ E : WeierstrassCurve ℚ, E.IsElliptic → FullTwoTorsion E →\n    Nat.card (selmerAt E 1) = 8 → SelmerCorankOne E",
+            "line": 96,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/PoleS12/Leaves.lean",
+            "fragment": "L96"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.PoleS12.lemma54At_of_casselsTatePairing",
+        "module": "ZInQKernel.Contrib.OneProof.CasselsTatePairing"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.PoleS12.lemma54At_of_casselsTatePairing@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem lemma54At_of_casselsTatePairing (h : CasselsTatePairingCurves) :\n    PoleRC.Lemma54At SelmerTwoPower.SelmerCorankOne :=",
+            "line": 488,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/CasselsTatePairing.lean",
+            "fragment": "L488"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.PoleS12.lemma54_of_casselsTatePairing",
+        "module": "ZInQKernel.Contrib.OneProof.CasselsTatePairing"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.PoleS12.lemma54_of_casselsTatePairing@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem lemma54_of_casselsTatePairing (hMW : PoleRC.MordellWeil)\n    (h : ∀ E : WeierstrassCurve ℚ, E.IsElliptic → CasselsTatePairing E) : Lemma54 :=",
+            "line": 493,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/CasselsTatePairing.lean",
+            "fragment": "L493"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          16
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

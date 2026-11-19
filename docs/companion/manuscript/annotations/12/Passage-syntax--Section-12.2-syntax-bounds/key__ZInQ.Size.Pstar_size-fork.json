@@ -1,0 +1,88 @@
+{
+  "id": "Passage syntax: Section 12.2 syntax bounds",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The claims are stated in parts: norms, division-polynomial sizes, constants at most T, constructor bounds (for B >= 2^20), recipe heights up to 256, P_* bounds and the tower comparison. The artifact counts 173 and 50 are not stated; `CatalogueBound8` and `HaltingAddMulBound` are proved, not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.098039,
+          0.578151,
+          0.803922,
+          0.336138
+        ]
+      },
+      "title": "Passage (syntax): Section 12.2 syntax bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 12.2 syntax bounds#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.102941,
+          0.090238,
+          0.794118,
+          0.621838
+        ]
+      },
+      "title": "Passage (syntax): Section 12.2 syntax bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 12.2 syntax bounds#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.Pstar_size",
+        "module": "ZInQKernel.Size.Majorants.Bound"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.Pstar_size@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem Pstar_size (hCAT : CatalogueBound8) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}\n    (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :\n    ((specPstar c3).totalDegree ≤ (Syntax.T + 1) ^ 2048 ∧\n        (Syntax.T + 1) ^ 2048 < hyperoperation 4 2 7) ∧\n      (∀ m : Fin 292890231905 →₀ ℕ, ((specPstar c3).coeff m).natAbs ≤ 2 ^ (Syntax.T + 1) ^ 2048) ∧\n      2 ^ (Syntax.T + 1) ^ 2048 < hyperoperation 4 2 8 := by",
+            "line": 57,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Majorants/Bound.lean",
+            "fragment": "L57"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84,
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

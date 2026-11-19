@@ -1,0 +1,70 @@
+{
+  "id": "Theorem 5.2",
+  "kind": "theorem",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from 4 named hypotheses; ZInQ.poleS0 a definition: ZInQ.PoleCompleteness states Theorem 5.2 for the manuscript's Q_pole (square denominator, 0 < B < 1/2, v_p(B) >= 4 on S_0). It is assumed by the main headline and proved only conditionally, from Theorem 5.3 (RestrictedConverseGenuine), the Cassels-Tate pairing for E_l, BCDT's Theorem A and a consequence of Kolyvagin's Theorem 1 (the case r = 1 for modular curves).",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.504299,
+          0.784314,
+          0.044848
+        ]
+      },
+      "title": "Theorem 5.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Theorem 5.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.poleS0",
+        "module": "ZInQKernel.Hypotheses.Pole"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.poleS0@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def poleS0 : Finset ℕ := {2, 3, 5, 7, 13}",
+            "line": 19,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/Pole.lean",
+            "fragment": "L19"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; note corrected after a review of the headline statements; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

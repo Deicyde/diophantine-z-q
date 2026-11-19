@@ -1,0 +1,47 @@
+{
+  "id": "Eq (H15)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [M] states the integer quotient point U_0 compared with the derivative point U in the finite Heegner descent of Section 8. Neither [N] nor ndep formalizes this descent; CentralSpecialization holds only abstract cocycle algebra that does not state it.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 43,
+        "rect": [
+          0.107843,
+          0.408694,
+          0.784314,
+          0.033216
+        ]
+      },
+      "title": "Eq. (H15)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (H15)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          43
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

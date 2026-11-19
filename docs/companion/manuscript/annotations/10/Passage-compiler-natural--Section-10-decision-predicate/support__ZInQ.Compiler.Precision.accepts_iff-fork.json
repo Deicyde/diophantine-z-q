@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10 decision predicate",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: accepts carries [M]'s early tests and the tests |r(a,j) - n| < eps_l and 4 eps_l 4^B < 1 with B = A0 |kappa F(n)|^24, plus admissibility guards on l, a, j that admissible_of_ne_zero proves redundant; the definitions of z, eps, r, the identity A0 = H6(S_ht) and decidability are proved without assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 76,
+        "rect": [
+          0.107843,
+          0.279643,
+          0.784314,
+          0.185471
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10 decision predicate",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10 decision predicate"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.accepts_iff",
+        "module": "ZInQKernel.Compiler.Precision.Relation"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.accepts_iff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem accepts_iff (c : Fin 5 → ℕ) :\n    accepts c ↔\n      (dec (c 0) ∉ contacts ∧ dec (c 1) ≠ 0 ∧ 1 ≤ dec (c 2) ∧ 1 ≤ dec (c 3) ∧\n        dec (c 4) = dec (c 0) * dec (c 2)) ∧\n      (Admissible (dec (c 3)) ∧ Admissible (dec (c 2)) ∧ Admissible (dec (c 4))) ∧\n      |rRatio (dec (c 2)) (dec (c 4)) - dec (c 0)| < epsIdx (dec (c 3)) ∧\n      4 * epsIdx (dec (c 3)) * 4 ^ bound (dec (c 0)) (dec (c 1)) < 1 := Iff.rfl",
+            "line": 47,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Precision/Relation.lean",
+            "fragment": "L47"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          76
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "Proposition 7.15",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] formalizes no part of Section 7's proof of the restricted converse; it takes Theorem 5.3 itself as the open hypothesis ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine (hRC of ZInQ.OneProof.frozenTarget), so this genus lower bound (3.4)-(3.6) with index valuations j_gen, j_rc has no counterpart.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 34,
+        "rect": [
+          0.107843,
+          0.130798,
+          0.784314,
+          0.098686
+        ]
+      },
+      "title": "Proposition 7.15",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 7.15"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          34
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

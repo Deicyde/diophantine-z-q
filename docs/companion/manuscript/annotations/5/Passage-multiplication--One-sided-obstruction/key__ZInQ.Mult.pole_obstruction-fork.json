@@ -1,0 +1,86 @@
+{
+  "id": "Passage multiplication: One-sided obstruction",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The lemma with its proof is proved for the manuscript's pole polynomial: B != 0 and Phi(B) give, for every prime p outside S_0, that v_p(B) is not negative and odd.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.102941,
+          0.360141,
+          0.794118,
+          0.144158
+        ]
+      },
+      "title": "Passage (multiplication): One-sided obstruction",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: One-sided obstruction"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.pole_obstruction",
+        "module": "ZInQKernel.Multiplication.Certificate.Parity"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.pole_obstruction@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem pole_obstruction (B : ℚ) (hB : B ≠ 0) (hΦ : PoleSoluble B) (p : ℕ) (hp : p.Prime)\n    (hpS0 : p ∉ poleS0) : ¬ (padicValRat p B < 0 ∧ Odd (padicValRat p B)) := by",
+            "line": 78,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Certificate/Parity.lean",
+            "fragment": "L78"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "poleBranch uses exactly [M]'s cubics A(A-e)(A+3e) and A(Az^2-eH)(Az^2+3eH) with the guard AeHz != 0, and polePredicate_sound needs only p > 3 prime and p-adic-unit multipliers. The values of m are the signed divisors of 2730=2*3*5*7*13, which are units exactly at primes outside S_0, so this generalizes Lemma 5.1. [N]'s own copy of Phi(B) (ManuscriptV15.Arithmetic.pole) has no bridge to polePredicate, as the claim says.",
+            "polePredicate_sound has only the hypotheses p prime, p > 3, every multiplier a p-adic unit, polePredicate M B and odd v_p(B), and poleBranch uses [M]'s curves with A+3e and Az^2+3eH; with M the 64 values of m it is the lemma for p not in S_0, so it is more general in M. Grep finds no theorem relating ManuscriptV15.Arithmetic.pole (Phi) to polePredicate, and [N]'s multiplier sets (smallMultipliers) are not 2730's divisors, so the missing bridge is accurately noted."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

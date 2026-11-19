@@ -1,0 +1,712 @@
+[
+ {
+  "kind": "theorem",
+  "number": "1.1",
+  "name": "Theorem 1.1",
+  "title": "A polynomial definition of the integers",
+  "label": "thm:target",
+  "start": 60,
+  "section": "The main theorem and proof structure",
+  "end": 76
+ },
+ {
+  "kind": "lemma",
+  "number": "1.2",
+  "name": "Lemma 1.2",
+  "title": "Assembly",
+  "label": "lem:assembly",
+  "start": 110,
+  "section": "The main theorem and proof structure",
+  "end": 113
+ },
+ {
+  "kind": "proposition",
+  "number": "3.1",
+  "name": "Proposition 3.1",
+  "title": "Generator certificate",
+  "label": "prop:generator",
+  "start": 268,
+  "section": "The elliptic model of integer indices",
+  "end": 270
+ },
+ {
+  "kind": "theorem",
+  "number": "4.1",
+  "name": "Theorem 4.1",
+  "title": "Six-contact estimate",
+  "label": "thm:height",
+  "start": 404,
+  "section": "The six-contact height estimate",
+  "end": 409
+ },
+ {
+  "kind": "lemma",
+  "number": "5.1",
+  "name": "Lemma 5.1",
+  "title": "One-sided obstruction",
+  "label": "lem:pole",
+  "start": 988,
+  "section": "The pole predicate and its converse input",
+  "end": 991
+ },
+ {
+  "kind": "theorem",
+  "number": "5.2",
+  "name": "Theorem 5.2",
+  "title": "Pole completeness, $\\mathsf{PC}$",
+  "label": "hyp:PC",
+  "start": 1001,
+  "section": "The pole predicate and its converse input",
+  "end": 1004
+ },
+ {
+  "kind": "theorem",
+  "number": "5.3",
+  "name": "Theorem 5.3",
+  "title": "Restricted converse, $\\mathsf{RC}$",
+  "label": "hyp:RC",
+  "start": 1005,
+  "section": "The pole predicate and its converse input",
+  "end": 1011
+ },
+ {
+  "kind": "lemma",
+  "number": "5.4",
+  "name": "Lemma 5.4",
+  "title": "Dimension three gives corank one",
+  "label": "lem:corank",
+  "start": 1072,
+  "section": "The pole predicate and its converse input",
+  "end": 1075
+ },
+ {
+  "kind": "lemma",
+  "number": "5.5",
+  "name": "Lemma 5.5",
+  "title": "Forward analytic rank zero and one",
+  "label": "lem:forward-rank",
+  "start": 1086,
+  "section": "The pole predicate and its converse input",
+  "end": 1090
+ },
+ {
+  "kind": "proposition",
+  "number": "6.1",
+  "name": "Proposition 6.1",
+  "title": "Finite-box deduction",
+  "label": "prop:box",
+  "start": 1225,
+  "section": "Multiplication and the finite false-triple guard",
+  "end": 1229
+ },
+ {
+  "kind": "proposition",
+  "number": "6.2",
+  "name": "Proposition 6.2",
+  "title": "The fixed twenty-two-prime pattern",
+  "label": "prop:fixed-prime-pattern",
+  "start": 1267,
+  "section": "Multiplication and the finite false-triple guard",
+  "end": 1297
+ },
+ {
+  "kind": "remark",
+  "number": "7.1",
+  "name": "Remark 7.1",
+  "title": "Why this family is the input to the converse",
+  "label": "ex:sec7-rc-scope",
+  "start": 1797,
+  "section": "The restricted converse and its dependency order",
+  "end": 1814
+ },
+ {
+  "kind": "proposition",
+  "number": "7.2",
+  "name": "Proposition 7.2",
+  "title": "The fixed-form even scalar",
+  "label": "ex:sec7-even-scalar",
+  "start": 1832,
+  "section": "The restricted converse and its dependency order",
+  "end": 1844
+ },
+ {
+  "kind": "proposition",
+  "number": "7.3",
+  "name": "Proposition 7.3",
+  "title": "Nonvanishing in a prescribed unit filter",
+  "label": "ex:sec7-nonvanishing",
+  "start": 1969,
+  "section": "The restricted converse and its dependency order",
+  "end": 1981
+ },
+ {
+  "kind": "definition",
+  "number": "7.4",
+  "name": "Definition 7.4",
+  "title": "Compatible typed graphs",
+  "label": "ex:sec7-typed-graph",
+  "start": 2015,
+  "section": "The restricted converse and its dependency order",
+  "end": 2066
+ },
+ {
+  "kind": "definition",
+  "number": "7.5",
+  "name": "Definition 7.5",
+  "title": "Coefficient symbols",
+  "label": "ex:sec7-symbol",
+  "start": 2068,
+  "section": "The restricted converse and its dependency order",
+  "end": 2100
+ },
+ {
+  "kind": "lemma",
+  "number": "7.6",
+  "name": "Lemma 7.6",
+  "title": "The coefficient rules",
+  "label": "ex:sec7-coefficient-rules",
+  "start": 2102,
+  "section": "The restricted converse and its dependency order",
+  "end": 2136
+ },
+ {
+  "kind": "lemma",
+  "number": "7.7",
+  "name": "Lemma 7.7",
+  "title": "Finite realization",
+  "label": "ex:sec7-realization",
+  "start": 2151,
+  "section": "The restricted converse and its dependency order",
+  "end": 2160
+ },
+ {
+  "kind": "definition",
+  "number": "7.8",
+  "name": "Definition 7.8",
+  "title": "Unit seeds and partitionable lists",
+  "label": "ex:sec7-seed-partition",
+  "start": 2176,
+  "section": "The restricted converse and its dependency order",
+  "end": 2186
+ },
+ {
+  "kind": "lemma",
+  "number": "7.9",
+  "name": "Lemma 7.9",
+  "title": "Minimum seeds and contraction certificates",
+  "label": "ex:sec7-seed-certificate",
+  "start": 2188,
+  "section": "The restricted converse and its dependency order",
+  "end": 2196
+ },
+ {
+  "kind": "definition",
+  "number": "7.10",
+  "name": "Definition 7.10",
+  "title": "Addresses and terminal polynomials",
+  "label": "ex:sec7-address",
+  "start": 2209,
+  "section": "The restricted converse and its dependency order",
+  "end": 2220
+ },
+ {
+  "kind": "lemma",
+  "number": "7.11",
+  "name": "Lemma 7.11",
+  "title": "One symbol with a stationary base",
+  "label": "ex:sec7-one-symbol-address",
+  "start": 2222,
+  "section": "The restricted converse and its dependency order",
+  "end": 2238
+ },
+ {
+  "kind": "lemma",
+  "number": "7.12",
+  "name": "Lemma 7.12",
+  "title": "Two symbols on one address family",
+  "label": "ex:sec7-two-symbol-address",
+  "start": 2240,
+  "section": "The restricted converse and its dependency order",
+  "end": 2258
+ },
+ {
+  "kind": "proposition",
+  "number": "7.13",
+  "name": "Proposition 7.13",
+  "title": "The partitionable even upper estimate",
+  "label": "ex:sec7-even-upper",
+  "start": 2295,
+  "section": "The restricted converse and its dependency order",
+  "end": 2301
+ },
+ {
+  "kind": "proposition",
+  "number": "7.14",
+  "name": "Proposition 7.14",
+  "title": "A bounded companion in the prepared filter",
+  "label": "ex:sec7-rough-companion",
+  "start": 2343,
+  "section": "The restricted converse and its dependency order",
+  "end": 2356
+ },
+ {
+  "kind": "proposition",
+  "number": "7.15",
+  "name": "Proposition 7.15",
+  "title": "The genus bound before odd normalization",
+  "label": "ex:sec7-genus-lower",
+  "start": 2418,
+  "section": "The restricted converse and its dependency order",
+  "end": 2426
+ },
+ {
+  "kind": "lemma",
+  "number": "7.16",
+  "name": "Lemma 7.16",
+  "title": "The nonempty seed for the present curve",
+  "label": "ex:sec7-ksplit-seed",
+  "start": 2628,
+  "section": "The restricted converse and its dependency order",
+  "end": 2632
+ },
+ {
+  "kind": "proposition",
+  "number": "7.17",
+  "name": "Proposition 7.17",
+  "title": "One family for the two coefficient tests",
+  "label": "ex:sec7-final-family",
+  "start": 2674,
+  "section": "The restricted converse and its dependency order",
+  "end": 2694
+ },
+ {
+  "kind": "definition",
+  "number": "8.1",
+  "name": "Definition 8.1",
+  "title": "Coefficient and local-condition conventions",
+  "label": "ex:arith-data",
+  "start": 2743,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 2760
+ },
+ {
+  "kind": "lemma",
+  "number": "8.2",
+  "name": "Lemma 8.2",
+  "title": "Conjugate coefficients and local duality",
+  "label": "ex:arith-conjugate-duality",
+  "start": 2761,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 2775
+ },
+ {
+  "kind": "proposition",
+  "number": "8.3",
+  "name": "Proposition 8.3",
+  "title": "Finite Heegner descent with one multiplier",
+  "label": "ex:arith-finite-heegner",
+  "start": 2858,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 2879
+ },
+ {
+  "kind": "lemma",
+  "number": "8.4",
+  "name": "Lemma 8.4",
+  "title": "The actual derived Kummer condition",
+  "label": "ex:arith-local-kummer",
+  "start": 3413,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 3423
+ },
+ {
+  "kind": "proposition",
+  "number": "8.5",
+  "name": "Proposition 8.5",
+  "title": "One moving character for the complete active list",
+  "label": "ex:arith-moving-character",
+  "start": 3500,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 3515
+ },
+ {
+  "kind": "proposition",
+  "number": "8.6",
+  "name": "Proposition 8.6",
+  "title": "The paired functional and its integral representatives",
+  "label": "ex:arith-paired-functional",
+  "start": 3705,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 3725
+ },
+ {
+  "kind": "definition",
+  "number": "8.7",
+  "name": "Definition 8.7",
+  "title": "The class-functional coordinate",
+  "label": "ex:arith-coordinate",
+  "start": 3877,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 3892
+ },
+ {
+  "kind": "lemma",
+  "number": "8.8",
+  "name": "Lemma 8.8",
+  "title": "Central specialization preserves the same class",
+  "label": "ex:arith-central-specialization",
+  "start": 3895,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 3910
+ },
+ {
+  "kind": "proposition",
+  "number": "8.9",
+  "name": "Proposition 8.9",
+  "title": "Arithmetic calibration at known simple zeros",
+  "label": "ex:arith-central-calibration",
+  "start": 3987,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 4005
+ },
+ {
+  "kind": "lemma",
+  "number": "8.10",
+  "name": "Lemma 8.10",
+  "title": "Unused-prime comparison and one corrected coordinate",
+  "label": "ex:arith-common-coordinate",
+  "start": 4142,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 4156
+ },
+ {
+  "kind": "lemma",
+  "number": "8.11",
+  "name": "Lemma 8.11",
+  "title": "The unknown base has zero coordinate if its derivative vanishes",
+  "label": "ex:arith-base-zero",
+  "start": 4330,
+  "section": "Actual classes, local conditions and central comparison",
+  "end": 4339
+ },
+ {
+  "kind": "lemma",
+  "number": "9.1",
+  "name": "Lemma 9.1",
+  "title": "Finite free models and retained inner-limit diagrams",
+  "label": "ex:limits-inner-limit",
+  "start": 4391,
+  "section": "The two limits and determinant transfer",
+  "end": 4407
+ },
+ {
+  "kind": "lemma",
+  "number": "9.2",
+  "name": "Lemma 9.2",
+  "title": "The reduced generic residual rank bound",
+  "label": "ex:limits-residual-bound",
+  "start": 4453,
+  "section": "The two limits and determinant transfer",
+  "end": 4464
+ },
+ {
+  "kind": "lemma",
+  "number": "9.3",
+  "name": "Lemma 9.3",
+  "title": "Evaluation, coefficient change and the outer DVR",
+  "label": "ex:limits-outer-evaluation",
+  "start": 4651,
+  "section": "The two limits and determinant transfer",
+  "end": 4672
+ },
+ {
+  "kind": "lemma",
+  "number": "9.4",
+  "name": "Lemma 9.4",
+  "title": "The common kernel and finite realization of a rank-two test",
+  "label": "ex:limits-kernel-detection",
+  "start": 4748,
+  "section": "The two limits and determinant transfer",
+  "end": 4764
+ },
+ {
+  "kind": "lemma",
+  "number": "9.5",
+  "name": "Lemma 9.5",
+  "title": "Derivative local conditions and determinant-preserving switch",
+  "label": "ex:limits-derivative-switch",
+  "start": 4834,
+  "section": "The two limits and determinant transfer",
+  "end": 4852
+ },
+ {
+  "kind": "proposition",
+  "number": "9.6",
+  "name": "Proposition 9.6",
+  "title": "Uniform ring lower bound and height-one regularity",
+  "label": "ex:limits-uniform-lower-bound",
+  "start": 4909,
+  "section": "The two limits and determinant transfer",
+  "end": 4926
+ },
+ {
+  "kind": "lemma",
+  "number": "9.7",
+  "name": "Lemma 9.7",
+  "title": "Augmentation and the fixed-field rank budget",
+  "label": "ex:limits-fixed-field-budget",
+  "start": 5208,
+  "section": "The two limits and determinant transfer",
+  "end": 5226
+ },
+ {
+  "kind": "proposition",
+  "number": "9.8",
+  "name": "Proposition 9.8",
+  "title": "A common denominator for the corrected coordinate",
+  "label": "ex:limits-fixed-field-clearing",
+  "start": 5487,
+  "section": "The two limits and determinant transfer",
+  "end": 5507
+ },
+ {
+  "kind": "proposition",
+  "number": "9.9",
+  "name": "Proposition 9.9",
+  "title": "Finite coefficient transfer and the final contradiction",
+  "label": "ex:limits-coefficient-transfer",
+  "start": 5647,
+  "section": "The two limits and determinant transfer",
+  "end": 5664
+ },
+ {
+  "kind": "lemma",
+  "number": "11.1",
+  "name": "Lemma 11.1",
+  "title": "Divisibility",
+  "label": "lem:test",
+  "start": 6151,
+  "section": "A variable-shift relation for ordinary values",
+  "end": 6154
+ },
+ {
+  "kind": "lemma",
+  "number": "11.2",
+  "name": "Lemma 11.2",
+  "title": "One suitable shift",
+  "label": "lem:test-complete",
+  "start": 6202,
+  "section": "A variable-shift relation for ordinary values",
+  "end": 6205
+ },
+ {
+  "kind": "proposition",
+  "number": "12.1",
+  "name": "Proposition 12.1",
+  "title": "Literal cutoff",
+  "label": "prop:cutoff",
+  "start": 6285,
+  "section": "The cutoff and polynomial size",
+  "end": 6293
+ },
+ {
+  "kind": "corollary",
+  "number": "13.1",
+  "name": "Corollary 13.1",
+  "title": "Negation of Mazur's finite-component conjecture",
+  "label": "cor:mazur",
+  "start": 6470,
+  "section": "Consequences of the integer definition",
+  "end": 6475
+ },
+ {
+  "kind": "corollary",
+  "number": "13.2",
+  "name": "Corollary 13.2",
+  "title": "A universal rational Diophantine polynomial",
+  "label": "cor:rational-universal",
+  "start": 6497,
+  "section": "Consequences of the integer definition",
+  "end": 6510
+ },
+ {
+  "kind": "corollary",
+  "number": "13.3",
+  "name": "Corollary 13.3",
+  "title": "The many-one degree of $\\operatorname{HTP}(\\Q)$",
+  "label": "cor:htp-degree",
+  "start": 6541,
+  "section": "Consequences of the integer definition",
+  "end": 6550
+ },
+ {
+  "kind": "proposition",
+  "number": "E.1",
+  "name": "Proposition E.1",
+  "title": "One retained Kato system and its two comparisons",
+  "label": "ex:app-kato-system",
+  "start": 6846,
+  "section": "Fixed-form arithmetic and the even coefficient source",
+  "end": 6889
+ },
+ {
+  "kind": "proposition",
+  "number": "E.2",
+  "name": "Proposition E.2",
+  "title": "One integral even scalar for the family",
+  "label": "ex:app-even-scalar",
+  "start": 7367,
+  "section": "Fixed-form arithmetic and the even coefficient source",
+  "end": 7385
+ },
+ {
+  "kind": "proposition",
+  "number": "E.3",
+  "name": "Proposition E.3",
+  "title": "Central calibration of the even scalar",
+  "label": "ex:app-central-calibration",
+  "start": 7614,
+  "section": "Fixed-form arithmetic and the even coefficient source",
+  "end": 7630
+ },
+ {
+  "kind": "proposition",
+  "number": "E.4",
+  "name": "Proposition E.4",
+  "title": "An actual even form with rational normalized phase",
+  "label": "ex:app-even-phase",
+  "start": 7792,
+  "section": "Fixed-form arithmetic and the even coefficient source",
+  "end": 7811
+ },
+ {
+  "kind": "proposition",
+  "number": "F.1",
+  "name": "Proposition F.1",
+  "title": "One witness and a compatible detecting sequence",
+  "label": "ex:app-detector",
+  "start": 8225,
+  "section": "Actual odd theta forms and their operators",
+  "end": 8245
+ },
+ {
+  "kind": "proposition",
+  "number": "F.2",
+  "name": "Proposition F.2",
+  "title": "The actual odd theta form and its recurrence",
+  "label": "ex:app-theta-form",
+  "start": 8409,
+  "section": "Actual odd theta forms and their operators",
+  "end": 8429
+ },
+ {
+  "kind": "proposition",
+  "number": "F.3",
+  "name": "Proposition F.3",
+  "title": "The unaveraged weighted theta comparison",
+  "label": "ex:app-theta-comparison",
+  "start": 9103,
+  "section": "Actual odd theta forms and their operators",
+  "end": 9117
+ },
+ {
+  "kind": "proposition",
+  "number": "F.4",
+  "name": "Proposition F.4",
+  "title": "Visibility and the native genus index",
+  "label": "ex:app-visibility",
+  "start": 9407,
+  "section": "Actual odd theta forms and their operators",
+  "end": 9420
+ },
+ {
+  "kind": "proposition",
+  "number": "F.5",
+  "name": "Proposition F.5",
+  "title": "Arithmetic realization of the coefficient rules",
+  "label": "ex:app-coefficient-rules",
+  "start": 9447,
+  "section": "Actual odd theta forms and their operators",
+  "end": 9469
+ },
+ {
+  "kind": "proposition",
+  "number": "G.1",
+  "name": "Proposition G.1",
+  "title": "Nonvanishing with five primes and finite local prescriptions",
+  "label": "ex:app-five-prime",
+  "start": 10001,
+  "section": "Nonvanishing, normalization and the final family",
+  "end": 10011
+ },
+ {
+  "kind": "proposition",
+  "number": "G.2",
+  "name": "Proposition G.2",
+  "title": "A uniformly bounded partitionable companion",
+  "label": "ex:app-rough-companion",
+  "start": 10056,
+  "section": "Nonvanishing, normalization and the final family",
+  "end": 10077
+ },
+ {
+  "kind": "proposition",
+  "number": "G.3",
+  "name": "Proposition G.3",
+  "title": "The odd minimum and every finite operator budget",
+  "label": "ex:app-odd-minimum",
+  "start": 10152,
+  "section": "Nonvanishing, normalization and the final family",
+  "end": 10170
+ },
+ {
+  "kind": "proposition",
+  "number": "G.4",
+  "name": "Proposition G.4",
+  "title": "Nonempty seeds after fixing the complementary twist",
+  "label": "ex:app-nonempty-seeds",
+  "start": 10259,
+  "section": "Nonvanishing, normalization and the final family",
+  "end": 10274
+ },
+ {
+  "kind": "proposition",
+  "number": "G.5",
+  "name": "Proposition G.5",
+  "title": "Compatible finite graph tables on one ultrafilter",
+  "label": "ex:app-odd-stabilization",
+  "start": 10508,
+  "section": "Nonvanishing, normalization and the final family",
+  "end": 10524
+ },
+ {
+  "kind": "proposition",
+  "number": "G.6",
+  "name": "Proposition G.6",
+  "title": "Stationary and simultaneous address constructions",
+  "label": "ex:app-simultaneous-address",
+  "start": 10554,
+  "section": "Nonvanishing, normalization and the final family",
+  "end": 10586
+ },
+ {
+  "kind": "proposition",
+  "number": "G.7",
+  "name": "Proposition G.7",
+  "title": "One actual stage for the final family",
+  "label": "ex:app-final-family",
+  "start": 10792,
+  "section": "Nonvanishing, normalization and the final family",
+  "end": 10813
+ },
+ {
+  "kind": "lemma",
+  "number": "H.1",
+  "name": "Lemma H.1",
+  "title": null,
+  "label": "lem:de-rham-descent",
+  "start": 10939,
+  "section": "De Rham comparison and finite descent in the height argument",
+  "end": 10951
+ }
+]

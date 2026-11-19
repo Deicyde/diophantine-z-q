@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K14)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] has no declaration about the descended scalar s_F b_eps L_*(h)/h times the omitted local factors at 2N; Appendix E serves the restricted converse behind Theorem 5.2, which [F] takes as the hypothesis ZInQ.PoleCompleteness instead of proving.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 96,
+        "rect": [
+          0.107843,
+          0.388456,
+          0.784314,
+          0.050007
+        ]
+      },
+      "title": "Eq. (K14)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K14)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          96
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 numbering",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: split2, decodeInstr and decodeMachine define the numbering e+1 = 2^w(2D+1), halting at w = 0, and the four digits per state with the same opcode table; digit is total, so missing digits are zero; definitions.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.107843,
+          0.40527,
+          0.784314,
+          0.103569
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 numbering",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 numbering"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Universal.decodeInstr",
+        "module": "ZInQKernel.Compiler.Interpreter.Numbering"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Universal.decodeInstr@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def decodeInstr (o j x y : ℕ) : Instr :=\n  if o = 1 then .inc j x else if o = 2 then .dec j x y else .halt",
+            "line": 32,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Interpreter/Numbering.lean",
+            "fragment": "L32"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Universal.decodeMachine",
+        "module": "ZInQKernel.Compiler.Interpreter.Numbering"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Universal.decodeMachine@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def decodeMachine (e : ℕ) : Machine := fun i =>\n  if (split2 e).1 = 0 then .halt else\n    decodeInstr (digit (split2 e).1 (split2 e).2 (4 * i))\n      (digit (split2 e).1 (split2 e).2 (4 * i + 1))\n      (digit (split2 e).1 (split2 e).2 (4 * i + 2))\n      (digit (split2 e).1 (split2 e).2 (4 * i + 3))",
+            "line": 36,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Interpreter/Numbering.lean",
+            "fragment": "L36"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Universal.split2",
+        "module": "ZInQKernel.Compiler.Interpreter.Numbering"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Universal.split2@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def split2 (e : ℕ) : ℕ × ℕ :=\n  (padicValNat 2 (e + 1), ((e + 1) / 2 ^ padicValNat 2 (e + 1)) / 2)",
+            "line": 25,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Interpreter/Numbering.lean",
+            "fragment": "L25"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

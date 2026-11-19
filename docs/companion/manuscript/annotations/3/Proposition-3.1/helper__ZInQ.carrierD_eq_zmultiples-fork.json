@@ -1,0 +1,70 @@
+{
+  "id": "Proposition 3.1",
+  "kind": "proposition",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: generator_certificate states that P0 has infinite order and 2E(K0) = Z P0, with no hypothesis (Mordell-Weil is proved as ZInQ.mordellWeilE). Proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.432072,
+          0.784314,
+          0.028436
+        ]
+      },
+      "title": "Proposition 3.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 3.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.carrierD_eq_zmultiples",
+        "module": "ZInQKernel.Model.Generator.Certificate"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.carrierD_eq_zmultiples@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem carrierD_eq_zmultiples : carrierD = AddSubgroup.zmultiples genP0 := by",
+            "line": 158,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Generator/Certificate.lean",
+            "fragment": "L158"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

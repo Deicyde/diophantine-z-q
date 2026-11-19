@@ -1,0 +1,15 @@
+'HDec.CMBranch.CMjBridges.abVar_isIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_smoothRelDimOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_isFunctionField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarIdentity_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent3FunctionField.0.HDec.CMBranch.CMjBridges.degree_eq_one_of_section_stalk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_exists_identityPlace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent3FunctionField.0.HDec.CMBranch.CMjBridges.isIntegrallyClosedIn_of_rationalPlace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_exactConstants' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_identityPoleSpaces_of_genusOne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

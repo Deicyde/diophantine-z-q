@@ -1,0 +1,70 @@
+{
+  "id": "Eq (4.4)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine assumed, not proved: [M] here asserts the tame split local free model with N_q(g)=(q+1)/2+(q−1)/2·g and DC=CA, part of Section 8's Heegner/Selmer-complex argument for the restricted converse. [F] formalizes none of Section 8; it assumes Theorem 5.3 whole as RestrictedConverseGenuine (and Theorem 5.2 as ZInQ.PoleCompleteness in its headline).",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 47,
+        "rect": [
+          0.107843,
+          0.599275,
+          0.784314,
+          0.04147
+        ]
+      },
+      "title": "Eq. (4.4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (4.4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine",
+        "module": "ZInQKernel.Contrib.OneProof.SelmerTwoPower"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine@fork",
+            "kind": "def · fork · assumed"
+          },
+          "snippet": {
+            "text": "def RestrictedConverseGenuine : Prop :=\n  ZInQ.Manuscript.RestrictedConverse SelmerCorankOne",
+            "line": 217,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean",
+            "fragment": "L217"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          47
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

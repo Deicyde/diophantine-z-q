@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.1 packed histories",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: PackedConditions fixes [M]'s parameters and conditions (F and D through B F + 1 = F + B T and D + F = K F, which packed_masks proves equal to the sums), and packed_masks and one_active_state prove the digit consequences; proved, no assumed hypothesis.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 77,
+        "rect": [
+          0.107843,
+          0.223068,
+          0.784314,
+          0.248629
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.1 packed histories",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.1 packed histories"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.Packed.packed_sound",
+        "module": "ZInQKernel.Compiler.Circuits.Packed.Sound"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Packed.packed_sound@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem packed_sound {p : Program} {r k : ℕ} (hp : p.Valid r) (hk1 : 1 ≤ k) (hkr : k ≤ r)\n    {a : Fin k → ℕ} {q c K B T F D : ℕ} {R N S V W : ℕ → ℕ}\n    (h : PackedConditions p r k a q c K B T F D R N S V W) :\n    ∃ cfg, RM.stepN p.toMachine q ⟨0, initFile a⟩ = some cfg ∧ cfg.state = p.length - 1 ∧\n      ∀ j, cfg.regs j = 0 := by",
+            "line": 236,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Circuits/Packed/Sound.lean",
+            "fragment": "L236"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          77
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

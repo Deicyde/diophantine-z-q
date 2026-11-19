@@ -1,0 +1,88 @@
+{
+  "id": "Passage multiplication: Choice of shifts",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.FixedPrimePattern and ZInQ.PoleCompleteness; ZInQ.Mult.shift_choice proved: shift_choice proves the CRT choice of the shift with no hypothesis. pattern_slopes (from FixedPrimePattern) and slope_complete (from PoleCompleteness) give the six-prime bound and the private-group assignment, so those parts are conditional.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 24,
+        "rect": [
+          0.107843,
+          0.725004,
+          0.784314,
+          0.189285
+        ]
+      },
+      "title": "Passage (multiplication): Choice of shifts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Choice of shifts#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.050721
+        ]
+      },
+      "title": "Passage (multiplication): Choice of shifts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Choice of shifts#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.shift_choice",
+        "module": "ZInQKernel.Multiplication.Completeness.ShiftChoice"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.shift_choice@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem shift_choice (M d₁ d₂ : ℕ) (hM : 1 ≤ M) (hd₁ : 1 ≤ d₁) (hd₂ : 1 ≤ d₂)\n    (hg : Nat.gcd d₁ d₂ = 4) :\n    ∃ h : ℤ, 4 * (M : ℤ) < h ∧ ((Nat.lcm M d₁ : ℕ) : ℤ) ∣ h ∧ (d₂ : ℤ) ∣ h - 4 * M := by",
+            "line": 14,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Completeness/ShiftChoice.lean",
+            "fragment": "L14"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          24,
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

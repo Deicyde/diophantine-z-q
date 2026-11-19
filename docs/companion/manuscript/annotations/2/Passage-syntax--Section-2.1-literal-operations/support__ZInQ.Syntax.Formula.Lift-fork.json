@@ -1,0 +1,70 @@
+{
+  "id": "Passage syntax: Section 2.1 literal operations",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Syntax.Formula.Lift a definition: The sum-of-squares and product equivalences, the private witness blocks (inactive branches through Formula.Lift of a disjunction), rational constants as global equations qc = p, the P0 constants 8g0 = 1641, 4g1 = -15465, 32g2 = 87483 conjoined outside the disjunctions, and inverses uv = 1 are each proved. The sentence on shared nodes is about the JSON representation and asserts nothing further.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.102941,
+          0.091745,
+          0.794118,
+          0.297658
+        ]
+      },
+      "title": "Passage (syntax): Section 2.1 literal operations",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 2.1 literal operations"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.Formula.Lift",
+        "module": "ZInQKernel.Syntax.Language.Lifting"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.Formula.Lift@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def Lift (x : ℕ → ℚ) : Formula → Prop\n  | .eq a b => ev x a = ev x b\n  | .atom f => ev x f = 0\n  | .call τ g _ => τ.Rel fun k => ev x (g k)\n  | .and fs => ∀ φ, (_ : φ ∈ fs) → Lift x φ\n  | .or fs => ∃ φ, ∃ (_ : φ ∈ fs), Lift x φ\ndecreasing_by all_goals (have := List.sizeOf_lt_of_mem ‹_ ∈ fs›; simp; omega)",
+            "line": 63,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Lifting.lean",
+            "fragment": "L63"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

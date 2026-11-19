@@ -1,0 +1,100 @@
+{
+  "id": "Lemma 5.5",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Manuscript.PoleS12.BCDTThmA and ZInQ.Manuscript.PoleS12.KolyvaginThm1; ZInQ.Manuscript.PoleRC.KolyvaginRankOne a definition; confirmed finding (weaker): [F] states only the case r = 1: the assumed KolyvaginThm1 gives rank one and finite Sha for modular curves, and kolyvaginRankOne_of_printed proves the rank-one half for all elliptic curves from the assumed BCDTThmA and KolyvaginThm1. The case r = 0 and the corank of Sel_{2^infinity} are not stated, and nothing here is proved without those two hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 16,
+        "rect": [
+          0.107843,
+          0.639045,
+          0.784314,
+          0.046533
+        ]
+      },
+      "title": "Lemma 5.5",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 5.5"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.PoleRC.KolyvaginRankOne",
+        "module": "ZInQKernel.Contrib.PoleRC.CRM"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.PoleRC.KolyvaginRankOne@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def KolyvaginRankOne : Prop :=\n  ∀ E : WeierstrassCurve ℚ, E.IsElliptic → AnalyticRankOne E →\n    Module.rank ℤ E.toAffine.Point = 1",
+            "line": 54,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/PoleRC/CRM.lean",
+            "fragment": "L54"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          16
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "KolyvaginThm1 (assumed) covers only analytic rank one for modular curves, giving rank 1 and finite Sha, and kolyvaginRankOne_of_printed derives rank 1 for all elliptic curves from BCDTThmA and KolyvaginThm1. I found no r = 0 statement and no derivation of corank Sel_{2^infinity} = r from rank and Sha in [F]; selmerCorankOne_of_card_selmerAt_one is Lemma 5.4's route, not this.",
+            "KolyvaginThm1 (assumed) covers only analytic rank one for modular curves, and kolyvaginRankOne_of_printed derives only the rank-one half from it and BCDTThmA; a name search for rank-zero, corank and Kolyvagin declarations finds nothing stating the r = 0 case or corank Sel_{2^infinity} = r, so weaker stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "SimpleZeroRank is an abbrev for ndep's GrossZagier: a simple zero at s = 1 gives a point of infinite order, and the headlines assume it. A grep of [N] finds no rank-zero case, no rank-exactly-r statement, no Sha finiteness and no corank statement tied to analytic rank.",
+            "SimpleZeroRank is an abbrev for ndep's GrossZagier: a simple zero of an L-continuation at s = 1 gives a non-torsion point. Searches of nasqret for Kolyvagin, Sha, analytic rank and rank-zero find only algebraic rank-zero arguments for specific curves, so rank exactly r, the r = 0 case, finite Sha and the corank are absent."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

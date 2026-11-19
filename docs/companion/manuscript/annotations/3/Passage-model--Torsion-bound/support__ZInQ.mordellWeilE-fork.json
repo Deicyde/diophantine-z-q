@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Torsion bound",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The point counts 20 and 24, injectivity of reduction on prime-to-p torsion, torsion equal to the four two-torsion points, and rank one (E(K0) = Z S + E[2]) are each stated; exists_generator_E takes MordellWeilE, which mordellWeilE proves, and exists_generator_C' is unconditional. Proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.684651,
+          0.784314,
+          0.053086
+        ]
+      },
+      "title": "Passage (model): Torsion bound",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Torsion bound"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.mordellWeilE",
+        "module": "ZInQKernel.Model.Descent.MordellWeil"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.mordellWeilE@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem mordellWeilE : MordellWeilE := by",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Descent/MordellWeil.lean",
+            "fragment": "L24"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

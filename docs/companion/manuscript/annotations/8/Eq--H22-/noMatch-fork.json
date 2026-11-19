@@ -1,0 +1,47 @@
+{
+  "id": "Eq (H22)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] here asserts the Selmer-cone witnesses loc_v p − ι_v u_v = dq_v, part of Section 8's Heegner/Selmer-complex argument for the restricted converse. [F] formalizes none of Section 8; it assumes Theorem 5.3 whole as RestrictedConverseGenuine (and Theorem 5.2 as ZInQ.PoleCompleteness in its headline).",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 46,
+        "rect": [
+          0.107843,
+          0.392426,
+          0.784314,
+          0.025885
+        ]
+      },
+      "title": "Eq. (H22)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (H22)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          46
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "Proposition 9.9",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] does not state the coefficient transfer v_2(u_x(0) - u_0(0)) >= M - 2c > B or the deduction of ord_{s=1} L(E,s) = 1; it assumes the restricted converse as RestrictedConverseGenuine and proves only the generic Boolean-cube lemmas of the address-selection step.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 75,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.164438
+        ]
+      },
+      "title": "Proposition 9.9",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 9.9"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          75
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

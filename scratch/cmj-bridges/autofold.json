@@ -1,0 +1,21 @@
+{
+  "name": "Fowler singular modulus degree (conditional preview)",
+  "imports": ["ZInQKernel.Contrib.OneProof.CMjBridges"],
+  "discharges": [
+    {
+      "field": "cmjDegree",
+      "proof": "HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_periodJDescends (by exact HDec.CMBranch.CMjBridges.cmPeriodJDescends_proof) {n}.cmjDegreePrint",
+      "leaves": [
+        {
+          "name": "cmjDegreePrint",
+          "type": "HDec.CMBranch.CMjBridges.CMjDegreePrint",
+          "doc": "Fowler (2026), section 2·1, p. 613: a singular modulus of primitive equation discriminant Δ has degree h(Δ) over ℚ, with h(Δ) the proper ideal class number.",
+          "kind": "published",
+          "flag": "Human read of the publisher PDF: fork issue #14, comment 6973419601. The period lattice, endomorphism ring, primitive discriminant, class number and degree inequality bridges are proved in Lean. Conditional preview: requires the still missing cmPeriodJDescends_proof before folding.",
+          "flag_class": "note",
+          "source": "Fowler, Some uniform effective results on André–Oort for sums of powers in ℂⁿ, Math. Proc. Cambridge Philos. Soc. 180 (2026) 607–641, section 2·1, pp. 612–613; manuscript L584–587."
+        }
+      ]
+    }
+  ]
+}

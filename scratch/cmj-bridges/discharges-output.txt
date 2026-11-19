@@ -1,0 +1,4 @@
+DISCHARGES [OpenResearchLeaves66.cmjDegree] by HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_periodJDescends
+  still assumes: [HDec.CMBranch.CMjBridges.CMPeriodJDescends, HDec.CMBranch.CMjBridges.CMjDegreePrint]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 33 open hypotheses, 15189 theorems checked, 377 discharge one

@@ -1,0 +1,111 @@
+{
+  "id": "Passage compiler-natural: Section 4 height prime set",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, a definition, through its dependency: [N] defines no prime sets of its own and uses ndep's S_ht and S_mul (for example in UniformHeight); these are identical to [F]'s and to [M]'s definitions.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.856078,
+          0.784314,
+          0.05821
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 4 height prime set",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 4 height prime set"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Compiler.Precision.heightPrimes",
+        "module": "ZInQKernel.Compiler.Precision.HeightConstant"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.Precision.heightPrimes@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Compiler/Precision/HeightConstant.lean",
+            "fragment": "L116"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Mult.S_ht",
+        "module": "ZInQKernel.Multiplication.Certificate.Constants"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.S_ht@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Multiplication/Certificate/Constants.lean",
+            "fragment": "L30"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Mult.S_mul",
+        "module": "ZInQKernel.Multiplication.Certificate.Constants"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.S_mul@nasqret-dependency",
+            "kind": "def · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Multiplication/Certificate/Constants.lean",
+            "fragment": "L40"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          14
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "Lemma 9.5",
+  "kind": "lemma",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] formalizes none of Section 9; it states no counterpart of derivative local conditions at a derivative prime, the strict/relaxed orthogonality, the cone triangles and the determinant-preserving switch. It takes the theorem this section proves (Theorem 5.3, RC) whole as the assumed Prop RestrictedConverseGenuine, so this step has no formal counterpart.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 64,
+        "rect": [
+          0.107843,
+          0.783076,
+          0.784314,
+          0.12416
+        ]
+      },
+      "title": "Lemma 9.5",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 9.5#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 65,
+        "rect": [
+          0.107843,
+          0.090238,
+          0.784314,
+          0.059318
+        ]
+      },
+      "title": "Lemma 9.5",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 9.5#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          64,
+          65
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

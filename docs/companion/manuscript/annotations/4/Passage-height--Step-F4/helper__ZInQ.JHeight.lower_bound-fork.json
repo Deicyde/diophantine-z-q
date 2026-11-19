@@ -1,0 +1,100 @@
+{
+  "id": "Passage height: Step F4",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved; confirmed finding (stronger): For u outside the contact set, [F] proves 12 h(u) <= h(J(u)) + 450, which implies h(u) < h(j) + 74 since h(j) >= 0 and is stronger.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.684806,
+          0.784314,
+          0.069062
+        ]
+      },
+      "title": "Passage (height): Step F4",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: Step F4"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.JHeight.lower_bound",
+        "module": "ZInQKernel.Hypotheses.JHeight"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.JHeight.lower_bound@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem lower_bound {a b m : ℤ} (ha : |a| ≤ m) (hb : |b| ≤ m) (hm : 0 < m)\n    (hmax : m = |a| ∨ m = |b|) :\n    m ^ 12 ≤ 10 ^ 48 * max (57600 * Fh a b ^ 2) (Gh a b ^ 6) := by",
+            "line": 99,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/JHeight.lean",
+            "fragment": "L99"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          14
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q states more than [M] prints (stronger).",
+          "evidence": [
+            "twelve_mul_ratHeight_le proves 12h(u) <= h(J(u))+450 for u outside the contact set, with Jmap = -57600F^2/G^6, the same J as [M]. Since h(J) >= 0, this gives h(u) <= h(J)+37.5 < h(J)+74. [M]'s step also works with u outside C (j finite and nonzero), so no hypothesis was overlooked.",
+            "twelve_mul_ratHeight_le gives h(u) <= (h(J(u)) + 450)/12 for u outside the contact set, the same range as [M]'s step (j finite and nonzero); since h(j) >= 0 this is below h(j) + 36.5 and implies both h(u) <= h(j) + log(2*4000^6) and h(u) < h(j) + 74, and is strictly better for large h(j)."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "root_height proves h(u) <= h(J u)+50 for every rational u, with no hypothesis (it handles the J u = 0 branch separately), and J is -57600F^2/G^6. That is a better constant and a wider range than [M]'s h(u) < h(j)+74 on u outside C; fibre_root_bound restates the +74 form with <=.",
+            "root_height proves h(u) <= h(J(u)) + 50 for every rational u, with J(u) = -57600F(u)^2/G(u)^6, and 50 < log(2*4000^6) ~ 50.46 < 74, so it beats both of [M]'s bounds and drops the contact-set exclusion; fibre_root_bound is the +74 form (non-strict)."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -28,10 +28,8 @@ Upstream's README says the project "uses the collective agentic notes from" the 
 - **Carlos Toledo** ([@carlostoledo1891](https://github.com/carlostoledo1891)): the frozen target's statement from eight explicit hypotheses and the audit files of upstream [#5](https://github.com/elliotglazer/diophantine-z-q/pull/5) and [#6](https://github.com/elliotglazer/diophantine-z-q/pull/6) (imported in #71 and #73).
 - **Cameron Freer** ([@cameronfreer](https://github.com/cameronfreer)): quadratic rows and durable tables for the quartic stack, upstream [#23](https://github.com/elliotglazer/diophantine-z-q/pull/23) (imported in #73).
 - **Junyan Xu** ([@alreadydone](https://github.com/alreadydone)): the statement check of `javanpeykarThm111An` ([#91](https://github.com/Deicyde/diophantine-z-q/pull/91)), which corrected the row's semistability note, and a survey of the Picard rows' formalization status on #14.
-
-## Claims and discussion on #14
-
-- **zachbaugher** ([@zachbaugher](https://github.com/zachbaugher)): claimed `hCM`, worked on a lattice-level file for it (offered on request), and released the claim when the project took the row over.
+- **Ryan McCorvie** ([@mccorvie](https://github.com/mccorvie)): the reduction of `neronSchemeExtensionDedekind` to its discrete-valuation-ring case (`neronSchemeExtensionDedekind_of_dvr`, BLR §1.3 Cor. 2 with §1.4 Prop. 1 and Thm 3), [#137](https://github.com/Deicyde/diophantine-z-q/pull/137).
+- **Zach Baugher** ([@zachbaugher](https://github.com/zachbaugher)): statement checks read against the print on #14: `fowlerProp27` against Fowler's Proposition 2·7 ([report](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973387139)), which the project then proved its way to a fully checked row; `cmjDegree` against Fowler §2·1 ([report](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973419601)); and `dsThm965Printed` against Diamond–Shurman Thm 9.6.5 ([report](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7000317188)), which confirmed its locator. Earlier they claimed `hCM`, worked on a lattice-level file for it, and released it when the project took the row over.
 
 ## The project
 

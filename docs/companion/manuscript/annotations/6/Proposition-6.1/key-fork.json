@@ -1,0 +1,114 @@
+{
+  "id": "Proposition 6.1",
+  "kind": "proposition",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.SixContactMin, or by another key from other hypotheses: finite_box states Proposition 6.1 for the codes iota(n_i), with T = (48A_ht)^13 and A_ht = H_6(R); the height estimate enters as the assumed SixContactMin (Theorem 4.1), so the verdict is conditional. The local test identities are proved.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.107843,
+          0.465845,
+          0.784314,
+          0.038847
+        ]
+      },
+      "title": "Proposition 6.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition 6.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.finite_box",
+        "module": "ZInQKernel.Multiplication.Soundness.FiniteBox"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.finite_box@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem finite_box (hH : SixContactMin) (n : Fin 3 → ℤ)\n    (hf : n 0 * n 1 ≠ n 2) (a : Fin 36 → ℚ)\n    (hY : ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k)\n    (hℓ : a 15 = (Syntax.ell : ℚ))\n    (hc : ∀ (i : Fin 4) (k : Fin 5), a ⟨16 + (5 * i + k), by omega⟩ = iota (certShifts n i) k)\n    (hacc : Syntax.heightTemplate.Rel a) :\n    ∀ i, |n i| < (Syntax.T : ℤ) := by",
+            "line": 212,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Soundness/FiniteBox.lean",
+            "fragment": "L212"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.finite_box_of_heightCert",
+        "module": "ZInQKernel.Multiplication.Soundness.FiniteBox"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.finite_box_of_heightCert@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem finite_box_of_heightCert (hH : SixContactMin) (n : Fin 3 → ℤ)\n    (hf : n 0 * n 1 ≠ n 2)\n    (hcert : HeightCert (fun i => iota (n i)) (Syntax.ell : ℚ) (certShifts n)) :\n    ∀ i, |n i| < (Syntax.T : ℤ) := by",
+            "line": 187,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Soundness/FiniteBox.lean",
+            "fragment": "L187"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "The conclusion |n_i| < (48m)^13 and the UniformHeight hypothesis match [M] with A_ht taken as an integer m>=1, but the accepted certificate is ndep's HeightCert with the Route K pole polynomial (x+l) instead of [M]'s x+3l, so the proposition is stated for a different certificate; conditional on UniformHeight.",
+            "[N]'s finite_box takes UniformHeight m with integer m >= 1 and a cert of type ndep HeightCert, and concludes |n_i| < (48m)^13. That certificate's slope predicate imposes the Route K Phi (x+e), so the hypothesis is about a different certificate from [M]'s, and the result is conditional on UniformHeight as stated."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,69 @@
+JDescent5Cubic.lean
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Cubic.0.HDec.CMBranch.CMjBridges.place_ord_add_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Cubic.0.HDec.CMBranch.CMjBridges.abVar_cubicRelation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Cubic.0.HDec.CMBranch.CMjBridges.abVar_no_simplePole' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Cubic.0.HDec.CMBranch.CMjBridges.abVar_shortCubic_nonsingular' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_shortCubic_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5Sections.lean
+'HDec.CMBranch.CMjBridges.germToFunctionField_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Sections.0.HDec.CMBranch.CMjBridges.exists_section_of_mem_stalks_at_closedPoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarPunctured_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Sections.0.HDec.CMBranch.CMjBridges.abVar_section_of_nonnegative_orders' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.germToFunctionField_abVarSectionConst' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_shortSections_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5Parity.lean
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Parity.0.HDec.CMBranch.CMjBridges.parity_poleExpansion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.shortCubic_parity_of_place_involution' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5Inversion.lean
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.fixedStalkMap_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.fixedStalkMap_germ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.fixedStalkMap_specializes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.abVarInv_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.abVarInv_fix_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.abVarInv_fix_generic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.abVarInvFunctionField_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Inversion.0.HDec.CMBranch.CMjBridges.abVarInvFunctionField_map_place' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarInv_stable_punctured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarInvFunctionField_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarInv_eq_id_of_germInversion_trivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarInv_abscissa_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5Parameter.lean
+'HDec.CMBranch.CMjBridges.abVar_orderTwo_localParameter' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5Doubling.lean
+'HDec.CMBranch.CMjBridges.abVarDouble_fix_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Doubling.0.HDec.CMBranch.CMjBridges.derivation_of_residue_parameter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Doubling.0.HDec.CMBranch.CMjBridges.abVar_identity_parameter_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Doubling.0.HDec.CMBranch.CMjBridges.fixedStalkMap_residue_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_double_parameter_mod_square' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5Odd.lean
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Odd.0.HDec.CMBranch.CMjBridges.generate_of_poleOrders_two_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Odd.0.HDec.CMBranch.CMjBridges.fix_of_fix_generators' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Odd.0.HDec.CMBranch.CMjBridges.abVar_period_inversion_ne_id' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Odd.0.HDec.CMBranch.CMjBridges.abVar_germInversion_nontrivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarInv_ordinate_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVarInv_sections_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5Period.lean
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.cpt_one_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.cpt_support_eq_identity_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.cEvalAt_eq_stalkClosedPointTo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.cEvalAt_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.cEvalAt_via_germ_nonunit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.cEvalAt_via_germ_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_period_mem_punctured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.deriv_ne_zero_of_eventual_doubling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.cEvalAt_doubling_pullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.JDescent5Period.0.HDec.CMBranch.CMjBridges.abVar_period_parameter_derivative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_evaluatedPole_of_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+JDescent5.lean
+'_private.ZInQKernel.Contrib.OneProof.JDescent5.0.HDec.CMBranch.CMjBridges.cEvalAt_inv_eq_of_fixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.abVar_period_abscissa_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.cmPeriodShortCoordinatesDoublePole_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_genusOne' depends on axioms: [propext, Classical.choice, Quot.sound]

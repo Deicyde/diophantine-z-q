@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 1 input C",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.Translation.MultiplicationExact (itself proved only from ZInQ.SixContactMin, ZInQ.PoleCompleteness and ZInQ.Mult.SlopeRepresentation); ZInQ.Compiler.natural_polynomial_semantics proved: natural_polynomial_semantics gives the computation semantics of the five-input natural polynomial with the power template, and precision_rel_iff the semantics of its rational translation; the latter takes input M (MultiplicationExact) as a hypothesis.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 4,
+        "rect": [
+          0.107843,
+          0.158223,
+          0.784314,
+          0.043649
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 1 input C",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 1 input C"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.natural_polynomial_semantics",
+        "module": "ZInQKernel.Compiler.Universal.WrapperCode"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.natural_polynomial_semantics@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem natural_polynomial_semantics (c : Fin 5 → ℕ) :\n    precisionCircuit.NatRel powerTemplate c ↔ Precision.accepts c :=",
+            "line": 136,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Universal/WrapperCode.lean",
+            "fragment": "L136"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          4
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

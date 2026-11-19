@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.3 specialization",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The specialization (program input fixed to the wrapper code, X_1 to X_5, X_i to X_{i+7}, pairing variables X_5..X_8, four appended squared Cantor equations) and its natural-zero characterization are stated, and (C.4) is natural_polynomial_semantics' with no height, restricted-converse or rational-model hypothesis, all proved. Lean builds the polynomial from the circuit; its identity with the saved file is outside Lean, and the remark on the height expression is commentary.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 80,
+        "rect": [
+          0.102941,
+          0.246717,
+          0.794118,
+          0.169402
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.3 specialization",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.3 specialization"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Compiler.natural_polynomial_semantics'",
+        "module": "ZInQKernel.Compiler.Universal.WrapperCode"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Compiler.natural_polynomial_semantics'@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem natural_polynomial_semantics' (c : Fin 5 → ℕ) :\n    (∃ z : Fin 1305806 → ℕ,\n      MvPolynomial.eval (fun i => (NatCircuit.natPoint 5 1305806 c z i : ℤ))\n        (precisionCircuit.poly powerTemplate) = 0) ↔ Precision.accepts c :=",
+            "line": 156,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Universal/WrapperCode.lean",
+            "fragment": "L156"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          80
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

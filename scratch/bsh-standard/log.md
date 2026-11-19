@@ -1,0 +1,17 @@
+- Merged point dictionary commit `3245d5b23180e40a75d7b382a84fa4d7c42ef95d`.
+- `BShStandardModel` and `HeckeJ1DS`: definitionally the same proposition.
+- Diamond coordinate: lattice homothety uses the factor `cτ+d`; the difference from `d/N` is a period. Tau Ceti provides the multiplication identity `x' ΨSq_d(x) = Φ_d(x)`.
+- Hecke input inventory: modular polynomial fibre results control quotient j-invariants. Vélu has algebraic point maps. No combined analytic comparison of quotient and marked point located.
+- Local prerequisite: restored the ignored `lean/.lake/build` artifacts for the local package. Offline Lake target for Tau Ceti division-polynomial `Descent` built successfully.
+- `BShStandardWeber`: compiled with Lean 4.35.0; all 11 axiom checks report only `propext`, `Classical.choice`, `Quot.sound`.
+- `diamond_fraction`: polynomials in `ℚ[J][T]` depending only on the integer lift of the diamond residue; denominator nonzero whenever both generic Weber tests hold.
+- `BShStandardField`: compiled with Lean 4.35.0; all eight axiom checks report only `propext`, `Classical.choice`, `Quot.sound`.
+- `exists_diamond_fieldMap`: rational pullback on the model function field, with equivalence of the finite germ values at each source and translated parameter, including exceptional parameters.
+- `BShStandardGeometry`: compiled with Lean 4.35.0; all five axiom checks report only `propext`, `Classical.choice`, `Quot.sound`.
+- Geometry: extends the generic point map into a proper target; translates a Jacobian-valued map for the Albanese property; compares valuation specializations by separatedness; descends an invariant point over a finite Galois extension.
+- `BShStandard`: compiled with Lean 4.35.0; all six axiom checks report only `propext`, `Classical.choice`, `Quot.sound`.
+- `exists_diamonds`: exact `IsDiamond` at every unit under the fixed model hypotheses.
+- `exists_hecke_of_trace`: `IsPrimeTrace` yields `IsHeckeT`. `bShStandardModel_of_primeTraces`: supplying the trace morphisms for all primes and models gives the unchanged row.
+- Open: marked cyclic quotient comparison over the generic field, then specialization of the resulting prime traces. No discharge for `bShStandardModel`.
+- `lake --offline --no-cache build +ZInQKernel.Contrib.OneProof.BShStandard`: success; built `BShStandardWeber`, `BShStandardGeometry`, `BShStandardField`, `BShStandard`.
+- Build axiom scan: 30 results, each exactly `propext`, `Classical.choice`, `Quot.sound`.

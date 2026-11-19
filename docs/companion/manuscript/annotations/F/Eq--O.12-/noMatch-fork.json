@@ -1,0 +1,47 @@
+{
+  "id": "Eq (O.12)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: The trace identity U_p^{(2)}{t(g tau phi)-t(g phi)}=d(phi){t(g tau)-t(g)} on a ramified block has no counterpart in [F].",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 129,
+        "rect": [
+          0.107843,
+          0.716724,
+          0.784314,
+          0.03405
+        ]
+      },
+      "title": "Eq. (O.12)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (O.12)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          129
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

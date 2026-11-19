@@ -1,0 +1,65 @@
+{
+  "id": "Lemma 7.6",
+  "kind": "lemma",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: None of the three coefficient rules (graph dependence and omission, contraction Delta_vw A(Gamma) = A(Gamma/(v,w)), primary isolation) is stated, since the even and odd symbols and typed graphs are not defined.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 29,
+        "rect": [
+          0.107843,
+          0.875299,
+          0.784314,
+          0.038989
+        ]
+      },
+      "title": "Lemma 7.6",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 7.6#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 30,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.371872
+        ]
+      },
+      "title": "Lemma 7.6",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 7.6#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          29,
+          30
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

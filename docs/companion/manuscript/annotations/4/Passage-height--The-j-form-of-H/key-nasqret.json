@@ -1,0 +1,291 @@
+{
+  "id": "Passage height: The j-form of H",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop.",
+  "relation": "narrowMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.275409,
+          0.784314,
+          0.044489
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.319899,
+          0.784314,
+          0.233765
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#1"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.553664,
+          0.784314,
+          0.131143
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.HeightBudget.third_comparison",
+        "module": "Lean.Topics.marked-moduli.height.HeightBudget"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.HeightBudget.third_comparison@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem third_comparison (u : ℚ) (stable : ℝ) (hv : stable ≤ vonKaenelBudget u) :\n    max 1 stable ≤ max 1 (max (heightCcm:ℝ) (heightQ (heightD:ℝ)^17)) *\n        (contactSupport Mult.S_mul u : ℝ)^24 := by",
+            "line": 69,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/marked-moduli/height/HeightBudget.lean",
+            "fragment": "L69"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.IgusaRatio.quotient",
+        "module": "Lean.Topics.marked-moduli.theta.IgusaRatio"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.IgusaRatio.quotient@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem quotient {φ : K →+* E} {j : K} {z : Fin 10 → K}\n    (hj : j ≠ 0) (w : ThetaIdentities φ j z) :\n    (∑ i, z i^8)^5 ≠ 0 ∧ j = 3779136 * (∏ i, z i)^4 / (∑ i, z i^8)^5 := by",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/marked-moduli/theta/IgusaRatio.lean",
+            "fragment": "L24"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.ThetaMetric.theta_le",
+        "module": "Lean.Topics.marked-moduli.theta.ThetaMetric"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.ThetaMetric.theta_le@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem theta_le (θ h : ℝ)\n    (hp : |max 1 θ - max 1 (h + Real.log Real.pi)/2| ≤\n      pazukiConstant * Real.log (min (max 1 θ) (max 1 (h + Real.log Real.pi)) + 2)) :\n    θ ≤ (2:ℝ)^23 * max 1 h := by",
+            "line": 54,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/marked-moduli/theta/ThetaMetric.lean",
+            "fragment": "L54"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.ThetaQuotient.ratHeight_le",
+        "module": "Lean.Lemmas.theta-quotient.ThetaQuotient"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.ThetaQuotient.ratHeight_le@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem ratHeight_le (z : Fin 10 → K) (j : ℚ)\n    (h : (j : K) = numerator z / denominator z) (hd : denominator z ≠ 0) :\n    ZInQ.ratHeight j ≤ 40 * normalizedHeight z + 22 :=",
+            "line": 186,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/theta-quotient/ThetaQuotient.lean",
+            "fragment": "L186"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.ThetaQuotient.ratHeight_le_level_two",
+        "module": "Lean.Lemmas.theta-quotient.ThetaQuotient"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.ThetaQuotient.ratHeight_le_level_two@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem ratHeight_le_level_two (x : Fin 16 → K) (j : ℚ)\n    (h : (j : K) = numerator (x ∘ evenIndices) / denominator (x ∘ evenIndices))\n    (hd : denominator (x ∘ evenIndices) ≠ 0) :\n    ZInQ.ratHeight j ≤ 40 * euclideanHeight x + 22 :=",
+            "line": 246,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/theta-quotient/ThetaQuotient.lean",
+            "fragment": "L246"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.ThetaQuotient.ratHeight_le_sixteen",
+        "module": "Lean.Lemmas.theta-quotient.ThetaQuotient"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.ThetaQuotient.ratHeight_le_sixteen@nasqret",
+            "kind": "theorem · nasqret"
+          },
+          "snippet": {
+            "text": "theorem ratHeight_le_sixteen (z : Fin 10 → K) (j : ℚ)\n    (h : (j : K) = numerator z / denominator z) (hd : denominator z ≠ 0) :\n    ZInQ.ratHeight j ≤ 40 * normalizedHeight z + 16 := by",
+            "line": 171,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/theta-quotient/ThetaQuotient.lean",
+            "fragment": "L171"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved; through its dependency's GlueAssembly.max_one_hA_le; confirmed finding (weaker): [N] proves the j identity from the Lin-Yang and LNY values (IgusaRatio.quotient), h(j) <= 40h(z)+22 (also +16, and with the odd coordinates adjoined), and h(z) <= 2^23 max(1, h) from Pazuki's inequality as hypothesis. The first display is proved (third_comparison) only at S = S_mul (with R = D), from von Kanel's bound on the stable height as hypothesis in place of [M]'s CM and non-CM argument, so the clause for general S is missing; GeometricComparisons restates it as an unproved Prop."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          14
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics, then by two more after a judge revised it; note corrected after a review of the headline statements; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "[N] has no general-R form of max(1,h_F(A)) <= max(1,C_cm,Q_R^17) M_S^24: a search for Q^17 finds it only at heightQ heightD. Besides GeometricComparisons, it also appears in the proved ZInQBlueprint.HeightBudget.third_comparison, but only at R = D and S = S_mul, from a von Kaenel bound taken as hypothesis, so the R = D restriction stands. The other parts are as described; [N]'s constants there (+16, 2^23) are better than [M]'s.",
+            "Survives: the j identity, h(j) <= 40h+22 (and +16, level-two form) and theta_le (2^23, conditional on Pazuki's inequality as hypothesis) are as described, while the first display is proved only as third_comparison, an arithmetic bound for any real below vonKaenelBudget at S = S_mul, so the clause for general S is missing. One correction: restricting to R = D is not itself a weakening, since D is the least admissible R when max S <= D and Q_R increases with R; the real loss is the fixed S = S_mul (and the von Kanel input in place of the CM/non-CM argument).",
+            "third_comparison fixes R = D (heightQ heightD) and S = S_mul and takes the stable-height bound as hypothesis hv; no nasqret declaration uses heightQ at a general R in this comparison, while [M] lines 392-405 allow any S and R >= max(D, max S, 10^12). The other parts (IgusaRatio.quotient, ratHeight_le +22/+16, level-two form, theta_le from Pazuki as hypothesis) are as described, so the weaker finding stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

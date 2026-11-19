@@ -1,0 +1,47 @@
+{
+  "id": "Corollary 13.1",
+  "kind": "corollary",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: No declaration states the falsity of Mazur's finite-components conjecture, nor anything about real closures of rational points or connected components; [F] stops at Theorem 1.1 (FrozenTarget), whose own map covers Section 13 only for its input table.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 86,
+        "rect": [
+          0.107843,
+          0.417413,
+          0.784314,
+          0.045536
+        ]
+      },
+      "title": "Corollary 13.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Corollary 13.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          86
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

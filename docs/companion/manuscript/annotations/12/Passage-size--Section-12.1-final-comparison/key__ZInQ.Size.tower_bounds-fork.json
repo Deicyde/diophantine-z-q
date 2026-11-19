@@ -1,0 +1,70 @@
+{
+  "id": "Passage size: Section 12.1 final comparison",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: tower_bounds gives (T+1)^2048 < 2^2^2^9014 < 2^^7 and 2^((T+1)^2048) < 2^^8 for T < 2^2^2^9013; Pstar_size types P_* over Fin 292890231905 (input plus the witnesses, at most 292890231904 by specIntegers_variableCount_le). Its hypotheses CatalogueBound8 and HaltingAddMulBound are proved in the repository (ZInQ.catalogueBound8, ZInQ.Compiler.NodeCheck.haltingAddMulBound) and are not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.107843,
+          0.570422,
+          0.784314,
+          0.141654
+        ]
+      },
+      "title": "Passage (size): Section 12.1 final comparison",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 final comparison"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.tower_bounds",
+        "module": "ZInQKernel.Size.Majorants.Towers"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.tower_bounds@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem tower_bounds (T : ℕ) (hT : T < 2 ^ 2 ^ 2 ^ 9013) :\n    (T + 1) ^ 2048 < 2 ^ 2 ^ 2 ^ 9014 ∧ 2 ^ 2 ^ 2 ^ 9014 < hyperoperation 4 2 7 ∧\n      2 ^ (T + 1) ^ 2048 < hyperoperation 4 2 8 := by",
+            "line": 34,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Majorants/Towers.lean",
+            "fragment": "L34"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

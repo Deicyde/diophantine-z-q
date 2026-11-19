@@ -1,0 +1,47 @@
+{
+  "id": "Eq (5.5b)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [N] and ndep formalize none of Section 9; neither states the evaluation identity c_delta((tau h)^2) = (1 + delta J) c_delta(h) for sign-delta cocycles on the exact kernel. [N]'s routes replace Theorem 5.3 by rank inputs (Tian, Gross-Zagier) and state RC only as the unused typed interface ManuscriptV15.Arithmetic.RestrictedConverse.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 68,
+        "rect": [
+          0.107843,
+          0.176524,
+          0.784314,
+          0.024033
+        ]
+      },
+      "title": "Eq. (5.5b)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (5.5b)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          68
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

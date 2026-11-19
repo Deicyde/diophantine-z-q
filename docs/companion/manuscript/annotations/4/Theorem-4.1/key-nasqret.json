@@ -1,0 +1,124 @@
+{
+  "id": "Theorem 4.1",
+  "kind": "theorem",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQBlueprint.PublicText.GeometricComparisons; through its dependency's ZInQ.SixContactMin and ZInQ.SixContactEstimate; confirmed finding (stronger): HeightInstance S fixes R = D and puts no condition on S. For admissible S whose primes are at most D it is Theorem 4.1 at (S, D); for S with a prime above D it claims the smaller constant H6(S;D), which [M] does not. For general S, [N] proves it only from the unproved Prop GeometricComparisons (height_of_comparisons); at S = S_mul, where it is ndep's SixContactMin, [N] also derives it from other unproved Props, and its bounded headline assumes ndep's SixContactMin.",
+  "relation": "broadMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 8,
+        "rect": [
+          0.107843,
+          0.322056,
+          0.784314,
+          0.059067
+        ]
+      },
+      "title": "Theorem 4.1",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Theorem 4.1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.PublicText.HeightInstance",
+        "module": "Lean.Topics.theorem-blueprint.PublicAssembly"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.PublicText.HeightInstance@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def HeightInstance (S : Finset ℕ) : Prop := ∀ u : ℚ, u ∉ contactSet →\n  ratHeight u ≤ heightH6 (heightD : ℝ) * (contactSupport S u : ℝ)^24",
+            "line": 117,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/PublicAssembly.lean",
+            "fragment": "L117"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved only from ZInQBlueprint.PublicText.GeometricComparisons; through its dependency's ZInQ.SixContactMin and ZInQ.SixContactEstimate; confirmed finding (stronger): HeightInstance S fixes R = D and puts no condition on S. For admissible S whose primes are at most D it is Theorem 4.1 at (S, D); for S with a prime above D it claims the smaller constant H6(S;D), which [M] does not. For general S, [N] proves it only from the unproved Prop GeometricComparisons (height_of_comparisons); at S = S_mul, where it is ndep's SixContactMin, [N] also derives it from other unproved Props, and its bounded headline assumes ndep's SixContactMin."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZInQBlueprint.PublicText.height_of_comparisons",
+        "module": "Lean.Topics.theorem-blueprint.PublicAssembly"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQBlueprint.PublicText.height_of_comparisons@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem height_of_comparisons {S : Finset ℕ} (h : GeometricComparisons S) : HeightInstance S := by",
+            "line": 131,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Topics/theorem-blueprint/PublicAssembly.lean",
+            "fragment": "L131"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved only from ZInQBlueprint.PublicText.GeometricComparisons; through its dependency's ZInQ.SixContactMin and ZInQ.SixContactEstimate; confirmed finding (stronger): HeightInstance S fixes R = D and puts no condition on S. For admissible S whose primes are at most D it is Theorem 4.1 at (S, D); for S with a prime above D it claims the smaller constant H6(S;D), which [M] does not. For general S, [N] proves it only from the unproved Prop GeometricComparisons (height_of_comparisons); at S = S_mul, where it is ndep's SixContactMin, [N] also derives it from other unproved Props, and its bounded headline assumes ndep's SixContactMin."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          8
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; note corrected after a review of the headline statements; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "HeightInstance S is h(u) <= H6(D) M_S(u)^24 with no hypothesis on S; heightH6 is monotone in R (ndep heightH6_mono_of_one_le), and M_S grows as S shrinks, so for max S <= D it follows from Theorem 4.1, while for S with a prime above D it asserts the smaller H6(D) that [M] does not give. The rest of the note (definition standing, proved only from GeometricComparisons, headlines on ndep SixContactMin) checks out; ndep's SixContactEstimate is the exact form but no [N] declaration uses it.",
+            "HeightInstance S has no hypothesis on S and uses heightH6 at R = heightD, with contactSupport matching M_S and the constants matching [M]'s F0, D, G0, E0, Q_R, B_cm, C_cm, H6 literally. Since Q_R increases with R and D >= 10^12, it agrees with Theorem 4.1 when max S <= D and claims more otherwise, so 'stronger' stands; it is a Prop proved only from the unproved GeometricComparisons."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

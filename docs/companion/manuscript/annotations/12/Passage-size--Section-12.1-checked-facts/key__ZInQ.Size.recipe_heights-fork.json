@@ -1,0 +1,70 @@
+{
+  "id": "Passage size: Section 12.1 checked facts",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: Instead of [M]'s artifact check, the Lean library proves constants and psi indices at most T (`admissible_cutoff`), the 23 templates and seven recipes satisfying the majorant at root height 256, and recipe sizes below 2^20. The counts 173 and 50 and the replay are not stated; `CatalogueBound8` and `HaltingAddMulBound` are proved, not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.102941,
+          0.727092,
+          0.794118,
+          0.134023
+        ]
+      },
+      "title": "Passage (size): Section 12.1 checked facts",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 checked facts"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.recipe_heights",
+        "module": "ZInQKernel.Size.Majorants.RecipeHeights"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.recipe_heights@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem recipe_heights (h : LibraryAdmissible B I cstar ell T c3) (hN : PrecisionShape N c3) :\n    Maj B 228 (getEx (specLib I cstar ell T c3 N) 0).poly ∧\n      Maj B 233 (getEx (specLib I cstar ell T c3 N) 1).poly ∧\n      Maj B 235 (getEx (specLib I cstar ell T c3 N) 2).poly ∧\n      Maj B 251 (getEx (specLib I cstar ell T c3 N) 3).poly ∧\n      Maj B 252 (getEx (specLib I cstar ell T c3 N) 4).poly ∧\n      Maj B 254 (getEx (specLib I cstar ell T c3 N) 5).poly ∧\n      Maj B 256 (getEx (specLib I cstar ell T c3 N) 6).poly :=",
+            "line": 438,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Majorants/RecipeHeights.lean",
+            "fragment": "L438"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

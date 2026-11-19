@@ -1,0 +1,86 @@
+{
+  "id": "Passage multiplication: Finite-box deduction",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZOverQ.Qualitative.UniformHeight; ZOverQ.Qualitative.UniformHeight a definition; through its dependency's ZInQ.Mult.HeightCert, ZInQ.Mult.finite_box_of_heights, ZInQ.Mult.slope_height_le_of, ZInQ.Mult.generator_height, ZInQ.Mult.heightB0_lt_ten and ZInQ.Mult.box_inequality; confirmed finding (differs): [N]'s private `finite_box` assumes the height estimate as `ZOverQ.Qualitative.UniformHeight m` (abstract constant for A_ht) and bounds |n_i| by (48m)^13, but the accepted certificate is ndep's `HeightCert`, whose slope predicate uses x(x − l)(x + l) on the pole curves instead of [M]'s x(x − l)(x + 3l). Conditional on `UniformHeight`.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 18,
+        "rect": [
+          0.102941,
+          0.465845,
+          0.794118,
+          0.239257
+        ]
+      },
+      "title": "Passage (multiplication): Finite-box deduction",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Finite-box deduction"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.UniformHeight",
+        "module": "bounded.QualitativeMultiplication"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.UniformHeight@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def UniformHeight (C : ℝ) : Prop :=\n  ∀ t : ℚ, t ∉ contactSet → ratHeight t ≤ C * (contactSupport Mult.S_mul t : ℝ) ^ 24",
+            "line": 12,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/QualitativeMultiplication.lean",
+            "fragment": "L12"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          18
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "[N]'s private finite_box assumes UniformHeight m (h(t) <= m M_S(t)^24 off the contact set, integer m>=1) and concludes |n_i| < (48m)^13, matching [M]'s bound, but its hypothesis is ndep's HeightCert whose slope predicate imposes the Route K Phi, a different certificate, so the statement differs; the proof steps (finite_box_of_heights, box_inequality, heightB0_lt_ten) match [M].",
+            "[N]'s finite_box takes UniformHeight m with integer m >= 1 and a cert of type ndep HeightCert, and concludes |n_i| < (48m)^13. That certificate's slope predicate imposes the Route K Phi (x+e), so the hypothesis is about a different certificate from [M]'s, and the result is conditional on UniformHeight as stated."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

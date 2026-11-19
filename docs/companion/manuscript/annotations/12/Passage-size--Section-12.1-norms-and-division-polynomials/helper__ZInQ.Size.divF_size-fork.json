@@ -1,0 +1,70 @@
+{
+  "id": "Passage size: Section 12.1 norms and division polynomials",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The l1 norm and the pair norm ||a+bs|| = ||a||_1 + 2||b||_1 are defined, their submultiplicativity is proved, and normDiv_size gives deg f_n <= (n+1)^3 and ||f_n|| <= 2^(100(n+1)^3); the recurrence slack is handled inside divF_size.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.107843,
+          0.578151,
+          0.784314,
+          0.148942
+        ]
+      },
+      "title": "Passage (size): Section 12.1 norms and division polynomials",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 norms and division polynomials"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.divF_size",
+        "module": "ZInQKernel.Size.Norms.DivisionPolynomials"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.divF_size@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem divF_size (n : ℕ) : Sz (divF n) ((n + 1) ^ 3) (100 * (n + 1) ^ 3) := by",
+            "line": 150,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Norms/DivisionPolynomials.lean",
+            "fragment": "L150"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

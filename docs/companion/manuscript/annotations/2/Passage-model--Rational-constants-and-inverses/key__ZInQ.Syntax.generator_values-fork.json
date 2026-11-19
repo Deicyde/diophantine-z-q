@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Rational constants and inverses",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: Rational constants as fresh variables with global equations qc = p (ev_globals_eq_zero_iff), the three P0 equations (generator_values), their place outside the internal disjunctions of the multiplication, signed-encoding and exception templates (the three *_rel_iff), and inverses as uv = 1 (exists_mul_eq_one_iff) are each proved.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 5,
+        "rect": [
+          0.107843,
+          0.274555,
+          0.784314,
+          0.114848
+        ]
+      },
+      "title": "Passage (model): Rational constants and inverses",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Rational constants and inverses"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.generator_values",
+        "module": "ZInQKernel.Syntax.Language.Build"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.generator_values@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem generator_values (g0 g1 g2 : ℚ) :\n    (8 * g0 = 1641 ∧ 4 * g1 = -15465 ∧ 32 * g2 = 87483) ↔\n      (g0 = 1641 / 8 ∧ g1 = -15465 / 4 ∧ g2 = 87483 / 32) := by",
+            "line": 136,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Build.lean",
+            "fragment": "L136"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          5
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

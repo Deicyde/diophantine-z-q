@@ -4,30 +4,26 @@ article_id: af_365f8fdb1d4c4d16ef353d77
 
 # Shimura curves of discriminant 6
 
-Let $B=\left(\frac{2,-3}{\mathbb Q}\right)$ be the quaternion algebra over $\mathbb Q$ of
-discriminant $6$ and $\mathcal O$ a maximal order of $B$. A *QM abelian surface* over a field is an
-abelian surface $A$ with an embedding $\iota:\mathcal O\to\operatorname{End}(A)$. The Shimura curve
-$X_6=X_0(6,1)$ is a coarse moduli space for these pairs, and $Y_3$ a fine moduli scheme for the
-pairs with a level-$3$ structure; the automorphisms of $\mathcal O$ act on the pairs, and through
-them the Atkin–Lehner group $W=\{1,w_2,w_3,w_6\}$ acts on $X_6$. These four statements describe the
-two curves: their complex uniformization and Shimura's reciprocity law at CM points, the coarse
-moduli description of $X_6$, the residue fields of its CM points, and Elkies' coordinate on $X_6/W$. Throughout, a
-*moduli pair* is a pair of proper smooth curves $Y$ and $X$ over $\mathbb Q$, each with a
-$\overline{\mathbb Q}$-point, with a morphism $Y\to X$, such that: $Y$ is a fine moduli scheme for
-QM abelian surfaces with level-$3$ structure, with its moduli properties stated for abelian schemes
-and compatible with extension of the base field; $X(\overline{\mathbb Q})$ is in Galois-equivariant
-bijection with the isomorphism classes of QM abelian surfaces over $\overline{\mathbb Q}$, and every
-automorphism of $\mathcal O$ acts on these classes through an automorphism of $X$ over $\mathbb Q$;
-and $Y\to X$ forgets the level structure on $\overline{\mathbb Q}$-points. For a QM abelian surface
-$(A,\iota)$, $\operatorname{End}_{\mathcal O}(A)$ is the ring of endomorphisms commuting with
-$\iota(\mathcal O)$; the pair has *CM by an order* $R$ of an imaginary quadratic field when this
-ring is isomorphic to $R$.
+Let $B=\left(\frac{2,-3}{\mathbb Q}\right)$ be the quaternion algebra over $\mathbb Q$ with basis
+$1,i,j,ij$, where $i^2=2$, $j^2=-3$ and $ij=-ji$; it has discriminant $6$, and
+$\mathcal O=\mathbb Z+\mathbb Zi+\mathbb Z\frac{1+j}2+\mathbb Z\frac{i+ij}2$ is a maximal order. A
+*QM abelian surface* over a field $F$ is an abelian surface $A$ over $F$ with an injective ring
+homomorphism $\iota:\mathcal O\to\operatorname{End}_F(A)$; its *twist* by a ring automorphism
+$\alpha$ of $\mathcal O$ is $(A,\iota\circ\alpha)$. A *level-$3$ structure* on $(A,\iota)$ is an
+$\mathcal O$-linear homomorphism $\eta:\mathcal O\to A(F)$ with kernel $3\mathcal O$, where
+$\mathcal O$ acts on $A(F)$ through $\iota$. Isomorphisms are isomorphisms of abelian surfaces
+compatible with $\iota$ and, when a level structure is part of the data, with $\eta$. In the
+manuscript $Y_3$ is the Shimura curve of $B$ of level
+$K_3=\ker\bigl(\widehat{\mathcal O}^\times\to(\mathcal O/3\mathcal O)^\times\bigr)$, where
+$\widehat{\mathcal O}=\mathcal O\otimes\widehat{\mathbb Z}$, obtained as the generic fibre of a fine
+moduli scheme over $\mathbb Z[1/30]$ for QM abelian surfaces with their canonical principal
+polarization and a level-$3$ structure. A statement about $Y_3$ over $\mathbb Q$ is made for every
+curve with the moduli properties that it lists, and asserts nothing about the existence of such a
+curve; the lists differ from one statement to another. A *proper smooth curve* over a base is a
+scheme over it that is proper and smooth of relative dimension $1$; it need not be connected.
 
-Of these four statements, the project classes two as published statements, with the reading
-against the print still pending, and two combine several published theorems; none is proved here.
-The number of CM points of $X_6$, which the chapter used to assume, is no longer needed.
+All three are consequences of published theorems; none is proved here.
 
-- [González–Rotger: residue fields of CM points on X₆](gonzalez-rotger-residue-fields.md)
-- [X₀(6,1) as a coarse moduli scheme](x6-coarse-moduli.md)
 - [Shimura's Main Theorem I on Y₃ in Deligne's form](shimura-main-theorem-y3.md)
-- [Elkies' coordinate on X₆/W](elkies-coordinate.md)
+- [The integral model of Y₃ over ℤ[1/30]](y3-integral-model.md)
+- [The quotient map from Y₃ to the projective line](y3-quotient-map.md)

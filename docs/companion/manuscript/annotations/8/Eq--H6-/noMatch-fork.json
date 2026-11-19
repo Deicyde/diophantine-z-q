@@ -1,0 +1,47 @@
+{
+  "id": "Eq (H6)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] does not formalize Section 8; no declaration defines the Kolyvagin derivative operators D_l = sum j sigma_l^j or proves (sigma_l - 1)D_l = (l+1) - Tr_l.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 41,
+        "rect": [
+          0.107843,
+          0.372894,
+          0.784314,
+          0.055313
+        ]
+      },
+      "title": "Eq. (H6)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (H6)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          41
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

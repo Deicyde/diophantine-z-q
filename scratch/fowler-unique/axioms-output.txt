@@ -1,0 +1,66 @@
+'HDec.CMBranch.FowlerBridges.quadraticAlgebra_basis_discr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.order_finrank_eq_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.order_discr_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.orders_ringEquiv_of_discr_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.fields_ringEquiv_of_order_discr_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.FowlerBridges.fields_ringEquiv_of_discr_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.discr_and_index_eq_of_order_discr_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.FowlerBridges.index_sq_eq_discr_ediv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.mem_order_iff_intCast_add_index_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.FowlerBridges.mem_isImagQuadOrder_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.map_order_of_index_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.properClassNumber_ringEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.properClassNumber_eq_of_discr_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.CMBranch.FowlerBridges.hDelta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.hDelta_eq_properClassNumber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.field_ringEquiv_sqrt_orderDiscr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.field_ringEquiv_sqrt_discr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.isFundamentalDiscr_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.FowlerProp27PrintCanonical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.fowlerProp27Print_of_canonical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.fowlerProp27Print_iff_canonical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.FowlerBridges.fowlerProp27_of_canonical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUniqueDiscriminant.0.HDec.CMBranch.FowlerBridges.exists_basis_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUniqueDiscriminant.0.HDec.CMBranch.FowlerBridges.basis_discr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUniqueDiscriminant.0.HDec.CMBranch.FowlerBridges.exists_order_algEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.picEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.modelDiscr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.modelNonsquare' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.modelIntNonsquare' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.modelNumberField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.modelTotallyComplex' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.canonicalOrder' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.canonicalOrder_discr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.FowlerUnique.0.HDec.CMBranch.FowlerBridges.fieldDiscrNeg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

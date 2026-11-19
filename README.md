@@ -7,9 +7,10 @@
 - **Contributed work on `main`:** loning ([@loning](https://github.com/loning)),
   Chey Loveday ([@CheyLoveday](https://github.com/CheyLoveday)),
   Carlos Toledo ([@carlostoledo1891](https://github.com/carlostoledo1891)),
-  Cameron Freer ([@cameronfreer](https://github.com/cameronfreer)) and
-  Junyan Xu ([@alreadydone](https://github.com/alreadydone)).
-- **Claims and discussion:** zachbaugher ([@zachbaugher](https://github.com/zachbaugher)).
+  Cameron Freer ([@cameronfreer](https://github.com/cameronfreer)),
+  Junyan Xu ([@alreadydone](https://github.com/alreadydone)),
+  Ryan McCorvie ([@mccorvie](https://github.com/mccorvie)) and
+  Zach Baugher ([@zachbaugher](https://github.com/zachbaugher)).
 - **The October 11 manuscript:** Sohail Farhangi.
 - **Credited by the upstream project for its collective notes:** Stefan Baranczuk, Jose Brox
   ([@JoseBrox](https://github.com/JoseBrox)), Gabe Conant, Sohail Farhangi, Cameron Freer, James Freitag, Elliot
@@ -54,30 +55,39 @@ polynomial. It is retired and kept at the tag
 [`route-k-final`](https://github.com/Deicyde/diophantine-z-q/tree/route-k-final);
 [`docs/research/rs-pole.md`](docs/research/rs-pole.md) explains why it existed.
 
-## Status (fork `main` at `09be94bd`, 2026-11-17)
+## Status (fork `main` at `e1dddb4d`, 2026-11-18)
 
-- **One theorem, [`ZInQ.OneProof.frozenTarget`](ZInQKernel/OneProof/Main.lean), proves `ZInQ.FrozenTarget` from
-  30 open hypotheses, statements not yet proved in Lean.** Lean's kernel checks it with no `sorry` and only the
-  standard axioms `propext`, `Classical.choice` and `Quot.sound`. Everything else, including every finite
-  computation, is proved in Lean. So far only the project's own machines have run this check: no hosted runner or
-  third party has finished a build of the theorem ([#62](https://github.com/Deicyde/diophantine-z-q/issues/62)).
-  The [main build cache](.github/workflows/main-build-cache.yml) workflow builds it after each push to `main` and,
-  once a build finishes, fails unless the axioms are among these three.
+- **One theorem, [`ZInQ.OneProof.frozenTarget`](ZInQKernel/OneProof/Main.lean), proves `ZInQ.FrozenTarget` from 33
+  open hypotheses, statements not yet proved in Lean.** Lean's kernel checks it with no `sorry` and only the standard
+  axioms `propext`, `Classical.choice` and `Quot.sound`. Everything else, including every finite computation, is
+  proved in Lean. Since 2026-11-18 GitHub's hosted runners run this check too: the [main build
+  cache](.github/workflows/main-build-cache.yml) workflow builds the theorem after a push to `main` that changes Lean
+  and fails unless its axioms are among these three. Its [first passing
+  run](https://github.com/Deicyde/diophantine-z-q/actions/runs/44219370755) was at `be73b91c`, it [passed at this
+  commit](https://github.com/Deicyde/diophantine-z-q/actions/runs/44447567722), and its [run
+  list](https://github.com/Deicyde/diophantine-z-q/actions/workflows/main-build-cache.yml) shows the other commits it
+  has passed on ([#62](https://github.com/Deicyde/diophantine-z-q/issues/62)). The [build-cost
+  table](docs/one-proof/CONTRIBUTING.md#what-it-costs-to-build) has no build by anyone outside the project yet.
 - **The hypotheses are premises, not axioms:** Lean proves "if they all hold, then ℤ is Diophantine in ℚ". 29 belong
-  to the six-contact height estimate (the manuscript's Theorem 4.1). The other one is pole completeness (the
-  manuscript's Theorem 5.2), which is the manuscript's own claim and not a published theorem. Of the 29, 12 are
-  classed as published theorems and 17 as consequences of one. Under the project's strict count, 5 are published
-  theorems in their printed form; the other 24 still need an argument or a reading. AI raters assigned these
-  classes, and an AI audit on 2026-11-17 re-rated the list
-  ([#63](https://github.com/Deicyde/diophantine-z-q/issues/63),
-  [#65](https://github.com/Deicyde/diophantine-z-q/issues/65)). The live list, with each statement's source, rating
-  and holder, is [`docs/one-proof/OPEN.md`](docs/one-proof/OPEN.md).
-- **Progress:** 65 open hypotheses on 2026-11-15, 30 on 2026-11-17. The count falls when a hypothesis is proved,
-  when it is restated as one or more printed statements, and when the route changes (the switch away from Route K
-  removed five hypotheses and added pole completeness), so it does not measure proved content.
+  to the six-contact height estimate (the manuscript's Theorem 4.1). The other four are the inputs from which Lean
+  proves pole completeness (the manuscript's Theorem 5.2), as the manuscript does: its Theorem 5.3, the Cassels–Tate
+  pairing on its curves E_ℓ: y² = x(x − ℓ)(x + 3ℓ) (from which Lean proves its Lemma 5.4), and consequences of the
+  modularity theorem of Breuil, Conrad, Diamond and Taylor and of Kolyvagin's Theorem 1. Of the 29, 11 are classed as
+  published theorems and 18 as consequences of a published theorem or of the manuscript's text. Under the strict count
+  (a refereed theorem as printed, checked against the page), 5 qualify; the other 24 still need an argument or a
+  reading. AI raters assigned these classes. The live list, with each statement's source, rating and holder, is
+  [`docs/one-proof/OPEN.md`](docs/one-proof/OPEN.md).
+- **Progress:** 65 open hypotheses on 2026-11-15, 30 on 2026-11-17, 33 now. The count falls when a hypothesis is
+  proved, can rise or fall when one is restated as printed statements, and changes when the proof follows the
+  manuscript more closely: the switch away from Route K removed five hypotheses and added pole completeness, following
+  the manuscript's complex-multiplication argument in Section 4 added four, and deriving pole completeness from its
+  Section 5 replaced one by four. So it does not measure proved content.
 - **AI caveat.** The manuscript was written with AI models and audited by an AI model, and the project's Lean was
-  written by AI coding agents. Published hypotheses have been compared with their printed sources only by AI readers,
-  and the newest (flagged `unread` on OPEN.md) not at all; no person has confirmed one yet.
+  written by AI coding agents. Published hypotheses have been compared with their printed sources by AI readers, and
+  those flagged `unread` on OPEN.md have had no statement check against the page yet. Contributors have also posted
+  statement checks on [#14](https://github.com/Deicyde/diophantine-z-q/issues/14), credited in
+  `docs/one-proof/credits.tsv`; two of them (2026-11-18) were made by a person against the publisher's PDF, with AI
+  used only for drafting. `docs/one-proof/reviews.tsv` does not record them as readings yet.
 
 ## Upstream
 
@@ -116,10 +126,12 @@ lists axioms only: the open hypotheses are premises in the theorem's statement, 
 [`scripts/one_proof/check_axioms.py`](scripts/one_proof/check_axioms.py) checks that output.
 
 A cold build is long. The default `lake build` does not build this theorem, so name the target as above. On a
-12-core, 18 GB machine, 694 of the 5,225 project modules built in 41 minutes; on GitHub's hosted runners a cold
-build has not yet finished within a job. Allow roughly 20 GB of disk and use a short checkout path, because Lake
-writes a file of several megabytes per module that embeds absolute paths. Clone with
-`git clone --depth 1 --single-branch`: the fork has several hundred branches.
+12-core, 18 GB machine, 694 of the 5,225 project modules built in 41 minutes. On GitHub's hosted runners the first
+cold build, of this target and the discharges target, took about seven and a half hours of build time over two
+runs (16,331 Lake jobs); a run that starts from the previous build of `main` takes 10 to 14 minutes when a push
+changes few files. Allow about 50 GB of disk: the finished hosted build is 37 GiB for this repository and 6.7 GiB
+for Mathlib. Use a short checkout path, because Lake writes a file of several megabytes per module that embeds
+absolute paths. Clone with `git clone --depth 1 --single-branch`: the fork has several hundred branches.
 
 ## More
 
@@ -134,7 +146,8 @@ writes a file of several megabytes per module that embeds absolute paths. Clone 
   its README.
 - The previous, longer README, with the earlier five-hypothesis theorem and its trust statements, is
   [here](https://github.com/Deicyde/diophantine-z-q/blob/222c98bfaaade688e1c0afdef7c857ce59ab6081/README.md).
-- [Blueprint site](https://deicyde.github.io/diophantine-z-q/) (a snapshot from 2026-11-13).
+- [Blueprint site](https://deicyde.github.io/diophantine-z-q/) (redeployed after each main build cache run that
+  passes on `main`).
 - Licence: the fork's own material is under the Apache License 2.0 ([LICENSE](LICENSE)). It does not cover the
   manuscripts, `construction/` and `lean/`, which came from upstream, or the vendored libraries
   ([NOTICE](NOTICE), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

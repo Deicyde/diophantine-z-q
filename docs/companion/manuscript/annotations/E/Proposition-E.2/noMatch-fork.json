@@ -1,0 +1,65 @@
+{
+  "id": "Proposition E.2",
+  "kind": "proposition",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [F] has no declaration about the integral even scalar u^ev with u^ev in Lambda[1/2][G] and 2^{c_E}u^ev in Lambda[G], with C^+ (x) B ~ B^2[-1]; Appendix E serves the restricted converse behind Theorem 5.2, which [F] takes as the hypothesis ZInQ.PoleCompleteness instead of proving.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 98,
+        "rect": [
+          0.107843,
+          0.858151,
+          0.784314,
+          0.056137
+        ]
+      },
+      "title": "Proposition E.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition E.2#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 99,
+        "rect": [
+          0.107843,
+          0.089135,
+          0.784314,
+          0.155489
+        ]
+      },
+      "title": "Proposition E.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Proposition E.2#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          98,
+          99
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

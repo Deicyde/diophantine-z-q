@@ -1,0 +1,128 @@
+{
+  "id": "Eq (6)",
+  "kind": "equation",
+  "status": "formalized",
+  "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (stronger): [N] has no declaration of its own: ndep's Density files are identical to [F]'s, and its card_TL_le, from uniformBadBound_holds, bounds all bad class primes up to N uniformly in L, a set containing [M]'s bad prime values of one form (pointCount_pair, gcd_pointCount_eq, mod_four_of_dvd_cp), so the display follows with an extra 1/log L and a smaller error term. No [N] declaration names them; [N] reaches route AP through ndep's goodPrimeAP_of_greenTaoDense' (bounded/QualitativeMultiplication.lean:98).",
+  "relation": "broadMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 23,
+        "rect": [
+          0.107843,
+          0.870183,
+          0.784314,
+          0.04426
+        ]
+      },
+      "title": "Eq. (6)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (6)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Density.card_TL_le",
+        "module": "ZInQKernel.Density.PropD"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Density.card_TL_le@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Density/PropD.lean",
+            "fragment": "L80"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (stronger): [N] has no declaration of its own: ndep's Density files are identical to [F]'s, and its card_TL_le, from uniformBadBound_holds, bounds all bad class primes up to N uniformly in L, a set containing [M]'s bad prime values of one form (pointCount_pair, gcd_pointCount_eq, mod_four_of_dvd_cp), so the display follows with an extra 1/log L and a smaller error term. No [N] declaration names them; [N] reaches route AP through ndep's goodPrimeAP_of_greenTaoDense' (bounded/QualitativeMultiplication.lean:98)."
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/elliotglazer/diophantine-z-q",
+      "version": "2358394558aafae202a1ce6d3bd1b536b79ad3d0",
+      "location": {
+        "declaration": "ZInQ.Density.uniformBadBound_holds",
+        "module": "ZInQKernel.Density.PropDFinal"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Density.uniformBadBound_holds@nasqret-dependency",
+            "kind": "theorem · nasqret dependency"
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/elliotglazer/diophantine-z-q/blob/2358394558aafae202a1ce6d3bd1b536b79ad3d0/ZInQKernel/Density/PropDFinal.lean",
+            "fragment": "L16"
+          },
+          "declaration_verdict": {
+            "verdict": "deviation",
+            "status": "unconfirmed",
+            "note": "[N] nasqret/z-in-q-lean, proved, through its dependency; confirmed finding (stronger): [N] has no declaration of its own: ndep's Density files are identical to [F]'s, and its card_TL_le, from uniformBadBound_holds, bounds all bad class primes up to N uniformly in L, a set containing [M]'s bad prime values of one form (pointCount_pair, gcd_pointCount_eq, mod_four_of_dvd_cp), so the display follows with an extra 1/log L and a smaller error term. No [N] declaration names them; [N] reaches route AP through ndep's goodPrimeAP_of_greenTaoDense' (bounded/QualitativeMultiplication.lean:98)."
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          23
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; finding confirmed by two skeptics; status changed from no-match after an independent review; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q states more than [M] prints (stronger).",
+          "evidence": [
+            "[M]'s primes (p ≡ 1 mod 8, p ≡ 3 mod 7) are in InClass, pointCount_pair makes [M]'s a equal to ±c_p, and mod_four_of_dvd_cp gives ℓ ≡ 1 mod 4, so every bad prime value lies in T_L ∩ [0, β_A X]; card_TL_le, with uniformBadBound_holds (no hypotheses, no sorry), bounds that set with A independent of L, an extra 1/log L and N^{3/4} ≤ X^{7/8}.",
+            "Every bad prime value is in TL L: same class, same twists, and an odd ℓ dividing both orders divides c_p and p + 1 (pointCount_pair, gcd_pointCount_eq), ℓ ≡ 1 mod 4 (mod_four_of_dvd_cp). card_TL_le's bound is at least as strong, with A and N₁ chosen before L; no per-form statement exists in [F]."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states more than [M] prints (stronger).",
+          "evidence": [
+            "[M]'s primes (p ≡ 1 mod 8, p ≡ 3 mod 7) are in InClass, pointCount_pair makes [M]'s a equal to ±c_p, and mod_four_of_dvd_cp gives ℓ ≡ 1 mod 4, so every bad prime value lies in T_L ∩ [0, β_A X]; card_TL_le, with uniformBadBound_holds (no hypotheses, no sorry), bounds that set with A independent of L, an extra 1/log L and N^{3/4} ≤ X^{7/8}.",
+            "Every bad prime value is in TL L: same class, same twists, and an odd ℓ dividing both orders divides c_p and p + 1 (pointCount_pair, gcd_pointCount_eq), ℓ ≡ 1 mod 4 (mod_four_of_dvd_cp). card_TL_le's bound is at least as strong, with A and N₁ chosen before L; no per-form statement exists in [F]."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

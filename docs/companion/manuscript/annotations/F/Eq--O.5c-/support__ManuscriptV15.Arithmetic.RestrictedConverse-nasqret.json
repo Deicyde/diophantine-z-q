@@ -1,0 +1,70 @@
+{
+  "id": "Eq (O.5c)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart; ManuscriptV15.Arithmetic.RestrictedConverse a definition: The Hilbert-reciprocity identity prod_{p|2m}(d,m)_p=(m/d) belongs to the proof of Theorem 5.3, which [N] only states as a typed definition; [N] and ndep do not state this identity or a Hilbert-symbol reciprocity for it.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 118,
+        "rect": [
+          0.107843,
+          0.197915,
+          0.784314,
+          0.05308
+        ]
+      },
+      "title": "Eq. (O.5c)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (O.5c)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ManuscriptV15.Arithmetic.RestrictedConverse",
+        "module": "Lean.Lemmas.blueprint-manuscript.ManuscriptArithmetic"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ManuscriptV15.Arithmetic.RestrictedConverse@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def RestrictedConverse (selmerCorank₂ orderAtOne : WeierstrassCurve ℚ → WithTop ℕ) : Prop :=\n  ∀ l : ℕ, 0 < l → squarefree l → l % 12 = 11 → selmerCorank₂ (twist l) = 1 → orderAtOne (twist l) = 1",
+            "line": 178,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/Lean/Lemmas/blueprint-manuscript/ManuscriptArithmetic.lean",
+            "fragment": "L178"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          118
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

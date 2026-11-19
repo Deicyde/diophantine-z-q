@@ -1,0 +1,121 @@
+{
+  "id": "Passage height: The j-form of H",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: [F] proves each claim of the passage: the two case bounds of the first display for every Q >= 10^12 (transfer_of_level, cm_branch_nat; combined into the max form only at R = D by max_one_hA_le), the theta-null form of j from the cited Lin-Yang and LNY values (f1_algebra), h(j) <= 40h(z) + log 3779136 <= 40h(z) + 16 (sharper than +22), the invariance under the six zero odd coordinates, and h(z) <= 10^4 2^24 X. The case bounds and the Pazuki step take the cited literature inequalities as hypotheses, and Pazuki's corollary is an open row (PazukiCor13Upper).",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.275409,
+          0.784314,
+          0.044489
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.319899,
+          0.784314,
+          0.233765
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#1"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 14,
+        "rect": [
+          0.107843,
+          0.553664,
+          0.784314,
+          0.131143
+        ]
+      },
+      "title": "Passage (height): The j-form of H",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage height: The j-form of H#2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "GlueAssembly.ratHeight_le_of_theta",
+        "module": "ZInQKernel.HDecomp.Assembly"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "GlueAssembly.ratHeight_le_of_theta@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem ratHeight_le_of_theta {K : Type} [Field K] [NumberField K] (z : Fin 10 → K) (j : ℚ)\n    (hF1 : 3779136 * (∏ i, z i) ^ 4 / (∑ i, z i ^ 8) ^ 5 = algebraMap ℚ K j) :\n    ratHeight j ≤ 40 * (logHeight z / Module.finrank ℚ K) + log 3779136 := by",
+            "line": 649,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/HDecomp/Assembly.lean",
+            "fragment": "L649"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          14
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; claimed finding withdrawn after a skeptic refuted it; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "[N] has no general-R form of max(1,h_F(A)) <= max(1,C_cm,Q_R^17) M_S^24: a search for Q^17 finds it only at heightQ heightD. Besides GeometricComparisons, it also appears in the proved ZInQBlueprint.HeightBudget.third_comparison, but only at R = D and S = S_mul, from a von Kaenel bound taken as hypothesis, so the R = D restriction stands. The other parts are as described; [N]'s constants there (+16, 2^23) are better than [M]'s.",
+            "Survives: the j identity, h(j) <= 40h+22 (and +16, level-two form) and theta_le (2^23, conditional on Pazuki's inequality as hypothesis) are as described, while the first display is proved only as third_comparison, an arithmetic bound for any real below vonKaenelBudget at S = S_mul, so the clause for general S is missing. One correction: restricting to R = D is not itself a weakening, since D is the least admissible R when max S <= D and Q_R increases with R; the real loss is the fixed S = S_mul (and the von Kanel input in place of the CM/non-CM argument).",
+            "third_comparison fixes R = D (heightQ heightD) and S = S_mul and takes the stable-height bound as hypothesis hv; no nasqret declaration uses heightQ at a general R in this comparison, while [M] lines 392-405 allow any S and R >= max(D, max S, 10^12). The other parts (IgusaRatio.quotient, ratHeight_le +22/+16, level-two form, theta_le from Pazuki as hypothesis) are as described, so the weaker finding stands."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

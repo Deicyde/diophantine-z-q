@@ -1,0 +1,59 @@
+name: Claims sync
+
+# The only writer of docs/one-proof/claims.tsv (OWNERS.tsv). On every comment on the claims issue, and on a schedule
+# for claims made elsewhere (pull requests, upstream area issues), it reads the public claim lines
+# (scripts/claims/sync_claims.py) and commits claims.tsv to main when it changed. It never touches OPEN.md: the folds
+# render the holder column from claims.tsv.
+
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+  schedule:
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.event_name != 'issue_comment' || github.event.issue.number == 14
+    # On the job, not the workflow: a run for a comment elsewhere, whose job the `if` skips, never joins the group,
+    # so it cannot cancel a pending sync.
+    concurrency:
+      group: claims-sync
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          sparse-checkout: |
+            scripts/claims
+            docs/one-proof
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12.14'
+      - name: Read the public claims
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/claims/sync_claims.py --fetch "$RUNNER_TEMP/claims.json"
+      - name: Update claims.tsv on the newest main and push it
+        # Each try recomputes claims.tsv from a fresh main, so a push that lost a race is redone, never rebased.
+        run: |
+          git config user.name "claims-sync"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main
+            git reset -q --hard FETCH_HEAD
+            python scripts/claims/sync_claims.py --from-json "$RUNNER_TEMP/claims.json" --write --project-claims
+            other=$(git status --porcelain | grep -vxF ' M docs/one-proof/claims.tsv' || true)
+            if [ -n "$other" ]; then echo "unexpected changes besides claims.tsv:"; echo "$other"; exit 1; fi
+            if git diff --quiet -- docs/one-proof/claims.tsv; then echo "claims.tsv unchanged"; exit 0; fi
+            git add docs/one-proof/claims.tsv
+            git commit -q -m "claims: sync from the public claim lines"
+            git push -q origin HEAD:main && exit 0
+            sleep $((i * 10))
+          done
+          echo "push failed after 5 tries"; exit 1

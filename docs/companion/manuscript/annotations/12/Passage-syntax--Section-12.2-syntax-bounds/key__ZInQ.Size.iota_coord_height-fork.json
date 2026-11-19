@@ -1,0 +1,88 @@
+{
+  "id": "Passage syntax: Section 12.2 syntax bounds",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The claims are stated in parts: norms, division-polynomial sizes, constants at most T, constructor bounds (for B >= 2^20), recipe heights up to 256, P_* bounds and the tower comparison. The artifact counts 173 and 50 are not stated; `CatalogueBound8` and `HaltingAddMulBound` are proved, not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.098039,
+          0.578151,
+          0.803922,
+          0.336138
+        ]
+      },
+      "title": "Passage (syntax): Section 12.2 syntax bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 12.2 syntax bounds#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.102941,
+          0.090238,
+          0.794118,
+          0.621838
+        ]
+      },
+      "title": "Passage (syntax): Section 12.2 syntax bounds",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Section 12.2 syntax bounds#1"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.iota_coord_height",
+        "module": "ZInQKernel.Size.Norms.Coordinates"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.iota_coord_height@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem iota_coord_height (T : ℕ) (n : ℤ) (hn : n.natAbs ≤ T) (i : Fin 5) :\n    ((iota n) i).num.natAbs ≤ 2 ^ (2 ^ 30 * (T + 1) ^ 3) ∧\n      ((iota n) i).den ≤ 2 ^ (2 ^ 30 * (T + 1) ^ 3) := by",
+            "line": 228,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Norms/Coordinates.lean",
+            "fragment": "L228"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          84,
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

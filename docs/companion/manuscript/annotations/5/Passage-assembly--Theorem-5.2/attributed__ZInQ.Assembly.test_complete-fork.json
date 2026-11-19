@@ -1,0 +1,70 @@
+{
+  "id": "Passage assembly: Theorem 5.2",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from 4 named hypotheses; ZInQ.Assembly.test_complete proved only from ZInQ.PoleCompleteness: The passage is the statement of Theorem 5.2 and maps like it: ZInQ.PoleCompleteness is assumed by the headline and proved only from Theorem 5.3, the Cassels-Tate pairing for E_l, BCDT's Theorem A and a consequence of Kolyvagin's Theorem 1.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 15,
+        "rect": [
+          0.107843,
+          0.504299,
+          0.784314,
+          0.044848
+        ]
+      },
+      "title": "Passage (assembly): Theorem 5.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Theorem 5.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.test_complete",
+        "module": "ZInQKernel.Assembly.Local.TestCompleteness"
+      },
+      "role": "attributed",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.test_complete@fork",
+            "kind": "theorem · fork · conditional"
+          },
+          "snippet": {
+            "text": "theorem test_complete (hPC : PoleCompleteness) (n : ℤ) (hn : (n : ℚ) ∉ contactSet) :\n    ∃ κ : ℤ, κ ≠ 0 ∧ Test n κ n := by",
+            "line": 35,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Local/TestCompleteness.lean",
+            "fragment": "L35"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          15
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; note corrected after a review of the headline statements; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

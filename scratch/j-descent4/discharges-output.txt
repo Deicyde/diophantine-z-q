@@ -1,0 +1,10 @@
+DISCHARGES [cmjDegree] by HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_doublePole
+  still assumes: [HDec.CMBranch.CMjBridges.CMPeriodShortCoordinatesDoublePole, HDec.CMBranch.CMjBridges.CMjDegreePrint]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [cmjDegree] by HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_periodJDescends
+  still assumes: [HDec.CMBranch.CMjBridges.CMPeriodJDescends, HDec.CMBranch.CMjBridges.CMjDegreePrint]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [cmjDegree] by HDec.CMBranch.CMjBridges.cmjDegree_of_print_of_shortWeierstrassComparison
+  still assumes: [HDec.CMBranch.CMjBridges.CMPeriodShortWeierstrassComparison, HDec.CMBranch.CMjBridges.CMjDegreePrint]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 1 open hypotheses, 236 theorems checked, 3 discharge one

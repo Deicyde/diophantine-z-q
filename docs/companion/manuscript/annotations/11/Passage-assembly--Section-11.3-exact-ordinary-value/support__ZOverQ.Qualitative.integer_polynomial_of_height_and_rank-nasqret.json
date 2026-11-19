@@ -1,0 +1,86 @@
+{
+  "id": "Passage assembly: Section 11.3 exact ordinary value",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[N] nasqret/z-in-q-lean, proved only from ZInQ.Translation.MultiplicationExact and ZInQ.PoleCompleteness; ZOverQ.Qualitative.integer_polynomial_of_height_and_rank proved only from ZInQ.RouteK.Rank.CertifiedRankTYZClRk and ZOverQ.Qualitative.UniformHeight; through its dependency's ZInQ.Assembly.value_relation_iff; confirmed finding (differs): [N]'s main_iff takes [M]'s place with another relation: a test shift kappa, a precision shift m*kappa joined by a scalar template, [N]'s CloseAt and ndep's Test, no exceptional branches, and a uniform height hypothesis with constant m; it gives N=iota n, t=n, n not in C. Conditional on ndep's MultiplicationExact and PoleCompleteness and the height hypothesis; ndep's own value_relation_iff is not used by [N].",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 83,
+        "rect": [
+          0.107843,
+          0.091745,
+          0.784314,
+          0.366448
+        ]
+      },
+      "title": "Passage (assembly): Section 11.3 exact ordinary value",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 11.3 exact ordinary value"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.integer_polynomial_of_height_and_rank",
+        "module": "bounded.IntegerPolynomial"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.integer_polynomial_of_height_and_rank@nasqret",
+            "kind": "theorem · nasqret · conditional"
+          },
+          "snippet": {
+            "text": "theorem integer_polynomial_of_height_and_rank {C : ℝ} (height : UniformHeight C)\n    (rank : RouteK.Rank.CertifiedRankTYZClRk) : IntegerPolynomial := by",
+            "line": 92,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/IntegerPolynomial.lean",
+            "fragment": "L92"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          83
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; note corrected after an independent review; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "main_iff relates N,t through valueTestTemplate at shift k, scalarTemplate m from k to K', and CloseAt at K'. It has no exceptional branches and concludes N=iota n, t=n, n not in C, under hM, ndep's PC and a uniform height hypothesis with constant m. [M]'s Val uses the same K in both calls, includes the six exceptional branches and has the full graph t=n. The exceptions appear only later, in integer_polynomial_of_height_and_rank's projected polynomial (exceptional * P), and grep finds no use of value_relation_iff in [N].",
+            "main_iff's left side is a different relation (valueTest at kappa, scalarTemplate m linking to K', CloseAt at m*kappa, no exceptional disjuncts) under hM, ndep PC and a uniform height hypothesis, concluding N = iota n, t = n, n not in C; exceptions are only added later at the t-level in integer_polynomial_of_height_and_rank, and value_relation_iff is not used by [N]."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

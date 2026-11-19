@@ -1,0 +1,47 @@
+{
+  "id": "Eq (K4)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: No declaration constructs Kato's zeta elements z_m(f,1,1,xi,S_m) in H^1(Z[zeta_m,1/2], L_f(1)).",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 93,
+        "rect": [
+          0.107843,
+          0.448169,
+          0.784314,
+          0.029333
+        ]
+      },
+      "title": "Eq. (K4)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (K4)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          93
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

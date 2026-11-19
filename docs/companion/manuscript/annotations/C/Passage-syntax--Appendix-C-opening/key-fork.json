@@ -1,0 +1,210 @@
+{
+  "id": "Passage syntax: Appendix C opening",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition: Point references and the three generator equations of every model recipe agree with [M] (references below -3 are junk zeros). [F] builds the root integers and P_* in Lean rather than reading them from the bytes of the JSON file, and it fixes the range X_0..X_292890231904 by truncation while proving only that integers has at most 292890231904 witnesses, not exactly that many.",
+  "relation": "closeMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 89,
+        "rect": [
+          0.107843,
+          0.446036,
+          0.784314,
+          0.220438
+        ]
+      },
+      "title": "Passage (syntax): Appendix C opening",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Appendix C opening"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.ModelRecipe.conjuncts",
+        "module": "ZInQKernel.Syntax.Language.Nodes"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.ModelRecipe.conjuncts@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def ModelRecipe.conjuncts (templates recipes : List ExPoly) (r : ModelRecipe) :\n    List Formula :=\n  let ref := pointRefList r.generator\n  let ν := getEx templates r.natural\n  let α := getEx templates r.addition\n  let μ := getEx templates r.multiplication\n  let π := match r.power with\n    | some i => getEx recipes i\n    | none => ExPoly.empty\n  (generatorConstraints r.generator).map .atom ++\n    r.sources.filterMap (fun row => row.2.map fun s => callListFormula ν (ref row.1) s) ++\n    r.constants.map (fun d =>\n      callListFormula (getEx templates d.1) (ref (-2) ++ ref d.2.1) d.2.2) ++\n    r.operations.map (fun\n      | .add a b o s => callListFormula α (ref a ++ ref b ++ ref o) s\n      | .mul a b o s => callListFormula μ (ref a ++ ref b ++ ref o) s\n      | .power a b c o s => callListFormula π (ref a ++ ref b ++ ref c ++ ref o) s) ++\n    (List.ofFn fun i : Fin 5 =>\n      pointRef r.generator r.rootEq.1 i - pointRef r.generator r.rootEq.2 i).map .atom",
+            "line": 278,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/Nodes.lean",
+            "fragment": "L278"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.Pstar",
+        "module": "ZInQKernel.Syntax.Recipes.Polynomial"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.Pstar@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def Pstar : MvPolynomial (Fin 292890231905) ℤ :=\n  PstarOf specConstructors FixedConst.cstar.value FixedConst.ell.value FixedConst.T.value c3 N",
+            "line": 233,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Recipes/Polynomial.lean",
+            "fragment": "L233"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.generatorConstraints",
+        "module": "ZInQKernel.Syntax.Language.PointRef"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.generatorConstraints@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def generatorConstraints (g : Fin 3 → ℕ) : List Poly :=\n  [8 * X (g 0) - 1641, 4 * X (g 1) + 15465, 32 * X (g 2) - 87483]",
+            "line": 43,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/PointRef.lean",
+            "fragment": "L43"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.integersRecipe",
+        "module": "ZInQKernel.Syntax.Recipes.Outer"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.integersRecipe@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def integersRecipe (wValue : ℕ) : CompositionRecipe := CompM.run .sumSq 1 do\n  let N ← CompM.fresh 5\n  CompM.call (.recipe 5) (point N ++ [0]) wValue",
+            "line": 105,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Recipes/Outer.lean",
+            "fragment": "L105"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.pointRef",
+        "module": "ZInQKernel.Syntax.Language.PointRef"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.pointRef@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def pointRef (g : Fin 3 → ℕ) : ℤ → Fin 5 → Poly\n  | .ofNat r => fun i => X (r + i)\n  | .negSucc 0 => ![1, 0, 0, 0, 0]\n  | .negSucc 1 => ![0, X (g 0), -145, X (g 1), X (g 2)]\n  | .negSucc 2 => ![0, X (g 0), -145, -X (g 1), -X (g 2)]\n  | .negSucc (_ + 3) => fun _ => 0",
+            "line": 21,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Language/PointRef.lean",
+            "fragment": "L21"
+          }
+        }
+      }
+    },
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.specPstar",
+        "module": "ZInQKernel.Syntax.Recipes.Literal"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.specPstar@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def specPstar : MvPolynomial (Fin 292890231905) ℤ := Pstar (precisionCircuitOf c3) c3",
+            "line": 93,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Recipes/Literal.lean",
+            "fragment": "L93"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          89
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, a judge ruled; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

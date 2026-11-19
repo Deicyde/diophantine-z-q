@@ -1,0 +1,86 @@
+{
+  "id": "Passage syntax: Input B",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: specPstar is the saved expression built from the templates and fixed constructors, specPstar_spec identifies it with [[integers]] in the Fin variables, and Pstar_target_bounds applies the size calculation to it; the hypotheses of the last two are discharged by proved theorems.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 4,
+        "rect": [
+          0.107843,
+          0.201872,
+          0.784314,
+          0.046051
+        ]
+      },
+      "title": "Passage (syntax): Input B",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage syntax: Input B"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.catalogueBound8",
+        "module": "ZInQKernel.Progressions.Final.Instance"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.catalogueBound8@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem catalogueBound8 : CatalogueBound8 :=",
+            "line": 34,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Progressions/Final/Instance.lean",
+            "fragment": "L34"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          4
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "ndep's specPstar is built with poleT1/poleT2 using A+e and Az^2+eH, so it is not [M]'s P_*; [N] has no literal specification of [M]'s P_* (its ManuscriptV15.Fixed314 is a different 314-variable quartic). Minor: the size statement Pstar_target_bounds is conditional on CatalogueBound8 and HaltingAddMulBound, and specPstar_spec on HaltingAddMulBound.",
+            "No nasqret file mentions Pstar or a literal specification (grep), and ManuscriptV15's Fixed314/Frozen concern another manuscript's polynomial. ndep's specPstar is built from poleT1/poleT2 with A+e and Az^2+eH in place of [M]'s A+3e and Az^2+3eH, so it is a different expression; its specification and size theorems (which need HaltingAddMulBound, proved as haltingAddMulBound, and CatalogueBound8) hold for that expression."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

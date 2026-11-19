@@ -1,0 +1,47 @@
+{
+  "id": "Eq (5.1b)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] bounds |S_T| by 2s-r and the 2-rank of the S_T-class group of the ring instance's field by r-1. [F] has no counterpart of either claim; its Redei genus bound ZInQ.RouteK.Redei.card_ker_sq_le (proved) concerns Cl(O_K)[2] of Q(sqrt -n) for another argument, and Section 9 is replaced by the assumed RestrictedConverseGenuine.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 60,
+        "rect": [
+          0.107843,
+          0.391443,
+          0.784314,
+          0.033152
+        ]
+      },
+      "title": "Eq. (5.1b)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (5.1b)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          60
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

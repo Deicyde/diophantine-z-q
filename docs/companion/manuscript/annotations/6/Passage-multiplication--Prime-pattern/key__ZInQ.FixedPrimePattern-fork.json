@@ -1,0 +1,177 @@
+{
+  "id": "Passage multiplication: Prime pattern",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, stated, neither proved nor assumed: The passage is Proposition 6.2 and its proof; FixedPrimePattern states the proposition but nothing proves it (locators: 'replaced in this project by the hypothesis 22P'). The Green-Tao count, the Selberg upper sieves and the bad-value and fiber bounds have no counterpart; only the conjugate-orders arithmetic reappears in route AP's Density lemmas.",
+  "relation": "exactMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 19,
+        "rect": [
+          0.107843,
+          0.092662,
+          0.784314,
+          0.3828
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 19,
+        "rect": [
+          0.107843,
+          0.475462,
+          0.784314,
+          0.440173
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#1"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 20,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.827825
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#2"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 21,
+        "rect": [
+          0.102941,
+          0.092662,
+          0.794118,
+          0.826181
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#3"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 22,
+        "rect": [
+          0.102941,
+          0.080538,
+          0.794118,
+          0.823161
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#4"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 23,
+        "rect": [
+          0.102941,
+          0.089135,
+          0.794118,
+          0.825307
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#5"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 24,
+        "rect": [
+          0.102941,
+          0.089135,
+          0.794118,
+          0.635868
+        ]
+      },
+      "title": "Passage (multiplication): Prime pattern",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Prime pattern#6"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.FixedPrimePattern",
+        "module": "ZInQKernel.Hypotheses.PrimePattern"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.FixedPrimePattern@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "def FixedPrimePattern : Prop :=\n  ∀ (A : ℤ) (B₀ : ℝ), ∃ u₁ u₂ v : ℤ, v ≠ 0 ∧\n    ∀ x ∈ patternValues A u₁ u₂ v, ∃ (ε : ℤ) (k p : ℕ),\n      (ε = 1 ∨ ε = -1) ∧ k ∈ catalogueMultipliers ∧ B₀ < p ∧ GoodPatternPrime p ∧\n        x = ε * k * p",
+            "line": 119,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Hypotheses/PrimePattern.lean",
+            "fragment": "L119"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

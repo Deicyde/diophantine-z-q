@@ -1,0 +1,47 @@
+{
+  "id": "Eq (H19)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] states the local relations f_new=0 and s_new=J f_old at precision 2^m in the finite Heegner descent of Section 8. [F] takes Theorem 5.2 as the hypothesis ZInQ.PoleCompleteness and formalizes none of this descent; no declaration states it.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 43,
+        "rect": [
+          0.107843,
+          0.879758,
+          0.784314,
+          0.020219
+        ]
+      },
+      "title": "Eq. (H19)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (H19)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          43
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

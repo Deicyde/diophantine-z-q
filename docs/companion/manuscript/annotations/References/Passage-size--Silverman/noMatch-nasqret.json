@@ -1,0 +1,47 @@
+{
+  "id": "Passage size: Silverman",
+  "kind": "passage",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, nothing to formalize: A bibliography entry citing Silverman's textbook; it asserts nothing provable.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 146,
+        "rect": [
+          0.107843,
+          0.29232,
+          0.784314,
+          0.045343
+        ]
+      },
+      "title": "Passage (size): Silverman",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Silverman"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          146
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

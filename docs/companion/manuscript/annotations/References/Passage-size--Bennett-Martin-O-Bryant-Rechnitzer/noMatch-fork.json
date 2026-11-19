@@ -1,0 +1,47 @@
+{
+  "id": "Passage size: Bennett-Martin-O'Bryant-Rechnitzer",
+  "kind": "passage",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, nothing to formalize: A bibliography entry citing Theorem 1.2 of Bennett-Martin-O'Bryant-Rechnitzer; it asserts nothing provable. The cited bound's use is mapped at the items that apply it.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 145,
+        "rect": [
+          0.107843,
+          0.673718,
+          0.784314,
+          0.062644
+        ]
+      },
+      "title": "Passage (size): Bennett-Martin-O'Bryant-Rechnitzer",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Bennett-Martin-O'Bryant-Rechnitzer"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          145
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "Passage model: Model setup",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, a definition; ZInQ.genP0_equation proved: K0, s, d, E and P0 are defined with the same data, and pointCode/iota encode points exactly as (1,0,0,0,0) and (0,x0,x1,y0,y1); uniqueness of the code is built into the pair structure of K0 (pointCode_injective). Definitions, with the membership of P0 proved.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 6,
+        "rect": [
+          0.107843,
+          0.258153,
+          0.784314,
+          0.173919
+        ]
+      },
+      "title": "Passage (model): Model setup",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage model: Model setup"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.genP0_equation",
+        "module": "ZInQKernel.Model.Field.Curve"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.genP0_equation@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem genP0_equation : genCurve.toAffine.Equation genX0 genY0 :=",
+            "line": 114,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Model/Field/Curve.lean",
+            "fragment": "L114"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          6
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

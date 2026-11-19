@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 binomial and bits",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: The four declarations state the binomial digit selection, Lucas bit inclusion, the disjointness criterion via C(a+b,a) and the AND gadget, each for all naturals; proved, no assumed hypotheses.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 79,
+        "rect": [
+          0.107843,
+          0.244751,
+          0.784314,
+          0.160519
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 binomial and bits",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 binomial and bits"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.lucas_choose_add_odd_iff_disjoint",
+        "module": "ZInQKernel.Compiler.Exponential.LucasBits"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.lucas_choose_add_odd_iff_disjoint@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem lucas_choose_add_odd_iff_disjoint (a b : ℕ) :\n    Odd (Nat.choose (a + b) a) ↔ a &&& b = 0 :=",
+            "line": 20,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/LucasBits.lean",
+            "fragment": "L20"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          79
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

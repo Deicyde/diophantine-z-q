@@ -1,0 +1,47 @@
+{
+  "id": "Eq (E.10)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] states Waldspurger's formula for a_f(D)^2 as a ratio of twisted central L-values (Appendix E, part of the proof of Theorem 5.3). [F] formalizes no part of Appendix E: its main-theorem page says Sections 7-9 and Appendices E-G are not formalized, and Theorem 5.2 enters as the hypothesis ZInQ.PoleCompleteness.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 107,
+        "rect": [
+          0.107843,
+          0.281108,
+          0.784314,
+          0.056566
+        ]
+      },
+      "title": "Eq. (E.10)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (E.10)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          107
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

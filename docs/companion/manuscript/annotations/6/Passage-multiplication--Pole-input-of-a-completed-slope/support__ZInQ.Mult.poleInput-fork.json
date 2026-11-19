@@ -1,0 +1,70 @@
+{
+  "id": "Passage multiplication: Pole input of a completed slope",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Mult.poleInput a definition: weak_approx_q, pole_input_valuations and pole_input_small state the choice of q, the valuations of R/Theta^2 at S_b, at the selected primes and elsewhere, the square denominator and the positivity limit, with no named hypothesis. The unit claim for a and the trace residue count are steps of pole_input_valuations.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 25,
+        "rect": [
+          0.107843,
+          0.196469,
+          0.784314,
+          0.195067
+        ]
+      },
+      "title": "Passage (multiplication): Pole input of a completed slope",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage multiplication: Pole input of a completed slope"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Mult.poleInput",
+        "module": "ZInQKernel.Multiplication.Completeness.PoleValuations"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Mult.poleInput@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def poleInput (ℓ η q t : ℚ) (D : Fin 6 → Fin 12 → K0) : ℚ :=\n  slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t) /\n    traceTheta (fun g => groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))\n      (normTests (slopeR0 η t) t (D g))) ^ 2",
+            "line": 24,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Multiplication/Completeness/PoleValuations.lean",
+            "fragment": "L24"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          25
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

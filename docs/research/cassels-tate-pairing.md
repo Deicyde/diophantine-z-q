@@ -28,8 +28,9 @@ whose restriction to `ℚ_p` for every prime `p` (`embFin`) and to `ℝ` (`embIn
 
 1. **B. Poonen and M. Stoll, *The Cassels–Tate pairing on polarized abelian varieties*, Ann. of Math. (2) 150
    (1999), no. 3, 1109–1149.** Author's version https://math.mit.edu/~poonen/papers/sha.pdf (dated
-   November 6, 1998, minor correction August 23, 2014); page numbers below are the author's version's, and the
-   journal pages were not determined.
+   November 6, 1998, minor correction August 23, 2014); page numbers below are the author's version's. The
+   Introduction's first paragraph is on p. 1110 of the journal, read on 2026-11-18 from arXiv:math/9911267v1,
+   which carries the Annals page numbers (fork issue #125); the other journal pages were not determined.
    * Introduction, first paragraph (p. 2): "Cassels [Ca], in one of the first papers devoted to the study of
      Ш, proved that in the case where E is an elliptic curve over a number field, there exists a pairing
      Ш(E) × Ш(E) → Q/Z that becomes nondegenerate after one divides Ш(E) by its maximal divisible subgroup.

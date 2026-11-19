@@ -1,0 +1,70 @@
+{
+  "id": "Eq (4.5)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart; ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine assumed, not proved: The finite-stage boundary relation (4.5) of the split norm relation is not formalized.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 53,
+        "rect": [
+          0.107843,
+          0.306462,
+          0.784314,
+          0.030781
+        ]
+      },
+      "title": "Eq. (4.5)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (4.5)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine",
+        "module": "ZInQKernel.Contrib.OneProof.SelmerTwoPower"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine@fork",
+            "kind": "def · fork · assumed"
+          },
+          "snippet": {
+            "text": "def RestrictedConverseGenuine : Prop :=\n  ZInQ.Manuscript.RestrictedConverse SelmerCorankOne",
+            "line": 217,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean",
+            "fragment": "L217"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          53
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; note corrected after an independent review; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

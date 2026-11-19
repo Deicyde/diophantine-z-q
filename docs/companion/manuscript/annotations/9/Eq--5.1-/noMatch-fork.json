@@ -1,0 +1,47 @@
+{
+  "id": "Eq (5.1)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[F] Deicyde/diophantine-z-q, no counterpart: [M] states the total rank chain bound by 56v+8A+56j+70 in the proof of Lemma 9.2. [F] does not formalize Section 9, which with Sections 6-8 proves [M]'s restricted converse; [F] takes that theorem as the hypothesis ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine of frozenTarget instead.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 61,
+        "rect": [
+          0.107843,
+          0.730062,
+          0.784314,
+          0.06957
+        ]
+      },
+      "title": "Eq. (5.1)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (5.1)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          61
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

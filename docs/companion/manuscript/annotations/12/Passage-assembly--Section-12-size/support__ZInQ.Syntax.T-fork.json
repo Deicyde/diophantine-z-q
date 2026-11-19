@@ -1,0 +1,136 @@
+{
+  "id": "Passage assembly: Section 12 size",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved; ZInQ.Syntax.T a definition; confirmed finding (weaker): Proposition 12.1, M0 <= Ns^10 and the P_* bounds are stated, but the catalogue estimates are weaker: Hmax < 2^(W^8), Hcat <= (2^(W^8))^(22W), Ns < 2^2^4613 and c_* < 2^2^4617 in place of [M]'s 2^(W^3), log2 Ns < 2^2054 and c_* < 2^(2^2059). Its hypotheses CatalogueBound8 and HaltingAddMulBound are proved in the repository (ZInQ.catalogueBound8, ZInQ.Compiler.NodeCheck.haltingAddMulBound) and are not assumed.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 83,
+        "rect": [
+          0.102941,
+          0.458193,
+          0.794118,
+          0.457442
+        ]
+      },
+      "title": "Passage (assembly): Section 12 size",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 12 size#0"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 84,
+        "rect": [
+          0.093137,
+          0.092662,
+          0.813725,
+          0.821627
+        ]
+      },
+      "title": "Passage (assembly): Section 12 size",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 12 size#1"
+        }
+      }
+    },
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.102941,
+          0.090238,
+          0.794118,
+          0.621838
+        ]
+      },
+      "title": "Passage (assembly): Section 12 size",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage assembly: Section 12 size#2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Syntax.T",
+        "module": "ZInQKernel.Syntax.Constants.Fixed"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Syntax.T@fork",
+            "kind": "def · fork"
+          },
+          "snippet": {
+            "text": "noncomputable def T : ℕ := FixedFormula.T Aht",
+            "line": 118,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Syntax/Constants/Fixed.lean",
+            "fragment": "L118"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          83,
+          84,
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; finding confirmed by two skeptics; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[F] Deicyde/diophantine-z-q proves less than [M] prints (weaker).",
+          "evidence": [
+            "I checked every catalogue-chain statement and searched the built kernel for a 2^(W^3), 2^2054 or 2^(2^2059) bound; the only such statements are in contrib-upstream/pr6 (not a ZInQKernel target, and conditional on Hmax < 2^(W^3)), so the Hmax, Hcat, Ns and c_* estimates are weaker as claimed while Prop 12.1, M0 <= Ns^10 and the P_* bounds match, with CatalogueBound8 and HaltingAddMulBound proved.",
+            "The size chain is proved only from CatalogueBound8 (primes below 2^(W^8)), giving Hmax < 2^(W^8), Ns < 2^2^4613 and cstar < 2^2^4617; no declaration in [F] proves the 2^(W^3) form, log2 Ns < 2^2054 or c_* < 2^(2^2059) (no 2054/2059 bound anywhere in ZInQKernel; only contrib-upstream/pr6 comments mention them as cruder-bound remarks). CatalogueBound8 and HaltingAddMulBound are discharged by proved theorems."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        },
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean proves less than [M] prints (weaker).",
+          "evidence": [
+            "ndep's Size directory is byte-identical to the fork's, and ndep proves catalogueBound8 and haltingAddMulBound too, so the same catalogue estimates are weaker. Grepping nasqret/ found no [N] declaration that states or names these size theorems (ManuscriptV15's private tower_bounds concerns the quartic Fixed314, not P_*). The only route to the size chain is ndep Assembly/Top/Assembly.lean:50.",
+            "ndep's Size files are byte-identical to [F]'s and carry the same 2^(W^8)-based bounds; [N] has no own declaration on Hmax, Ns, M0, c_* or P_* size (greps of nasqret for these and for 9013/2048/catalogue find only unrelated files), and only reaches the chain through ndep Assembly/Top/Assembly.lean:50."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}

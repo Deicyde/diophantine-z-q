@@ -1,0 +1,47 @@
+{
+  "id": "Eq (F.2)",
+  "kind": "equation",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart: [N] has no declaration stating the bound v_2 L_*(d) - 2 omega(d) - s(d) <= C_{e,unit} + 2 C_loc in the proof of Proposition G.2; its maps do not cover Appendix G and the searches in [N] and ndep find no counterpart.",
+  "relation": "noMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 132,
+        "rect": [
+          0.107843,
+          0.809113,
+          0.784314,
+          0.032187
+        ]
+      },
+      "title": "Eq. (F.2)",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Eq (F.2)"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6"
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          132
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; absence confirmed by a skeptic; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

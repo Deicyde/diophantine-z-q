@@ -21,14 +21,17 @@ The last action per field per person wins. Frontier IDs and constant names are m
 docs/one-proof/frontier-crosswalk.tsv (optional) and docs/one-proof/open-statements.json; every ID or
 CamelCase name in a claim's name list that maps to no open field is reported, not dropped.
 
-Rows of claims.tsv: `hold` is held, interest (project rows only) or released (the blocker is in `status`).
-The script never changes a project row; it reports what it would change for the integrator. It changes an
-outside or maintainer row only on a parsed claim, a parsed Releasing line, or the lapse rule.
+Rows of claims.tsv: `hold` is held, interest (project rows only) or released (the blocker is in `status`,
+cleaned by public_text()). By default the script never changes a project row; it reports what it would change
+for the integrator. It changes an outside or maintainer row only on a parsed claim, a parsed Releasing line, or
+the lapse rule. With --project-claims (the claims-sync workflow, the only writer of claims.tsv) it also writes
+project rows from the project's own claim and release lines, drops rows whose field is no longer open, and
+holds an outside login with no row in credits.tsv to one held row; plan() has the rules.
 
 Usage, from anywhere:
   sync_claims.py --fetch OUT.json            fetch the comments and pull requests to OUT.json, then stop
   sync_claims.py [--from-json FILE]          report what claims.tsv would become (default: fetch first)
-  sync_claims.py [--from-json FILE] --write [--today YYYY-MM-DD]
+  sync_claims.py [--from-json FILE] --write [--project-claims] [--today YYYY-MM-DD]
                                              update claims.tsv in place
   sync_claims.py [--from-json FILE] --check FIELD [FIELD ...]
                                              exit 1 if a field is held by someone other than the project or
@@ -63,6 +66,8 @@ PING_TEXT = 'Ping (claim lapse): {field}'   # the marker line the batched run wr
 NEW_COLUMNS = ['holder_kind', 'public_holder', 'claim_url', 'hold']
 OFFER_LABELS = ('good-first', 'outside-first')
 RANGE_MAX = 30                         # longest ID range expanded
+ID_DIGITS = 6                          # longest number read in an ID range (int() refuses over 4300 digits)
+STATUS_MAX = 200                       # longest release text written to claims.tsv
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DOCS = os.path.join(ROOT, 'docs', 'one-proof')
@@ -87,6 +92,15 @@ CAMEL = re.compile(r'[a-z0-9][A-Z]|[A-Z]{2}[a-z]')
 NOT_NAMES = {'arXiv', 'GitHub', 'LaTeX', 'TeX'}
 # where the list of names in a claim line ends
 CLAIM_END = re.compile(r'\s+at\s|;|:|\.\s|\.$|\s-{1,2}\s|\u2014|\u2013\s')
+# for public_text(): an HTML comment (to its end, or to the end of the text) or tag; an absolute path (/a/b, ~/a/b,
+# C:\a\b) with at least two separators, not inside a URL or a relative path
+TAG = re.compile(r'<!--.*?(?:-->|$)|</?[A-Za-z][\w-]*(?:\s[^<>]*)?/?>', re.S)
+ABS_PATH = re.compile(r'(?<![\w.:/\\~-])(?:~/|/|[A-Za-z]:[\\/])[^\s/\\]*(?:[\\/][^\s/\\]*)+')
+PATH_TAIL = '.,;:!?)]}>\'"`'           # punctuation after a path, kept when the path is replaced
+# render_open.py's built-in 'a local path' hygiene pattern: a token matching it anywhere would fail the folds'
+# render_open.py --check, so public_text replaces the whole token (ABS_PATH misses paths glued to ':' or '.').
+LOCAL_PATH = re.compile(r'/Users/|/home/(?!runner/)\w+/|\.swarm-worktrees')
+QUOTES = '"\'\u201c\u201d\u2018\u2019'
 
 
 def key_of(login):
@@ -304,7 +318,8 @@ def names_in(text, fields):
             add(t, True)
     rest = BACKTICK.sub(' ', text)
     for m in RANGE.finditer(rest):
-        letter, lo, hi = m.group(1), int(m.group(2)), int(m.group(3))
+        letter, lo, hi = m.group(1), m.group(2), m.group(3)
+        lo, hi = (int(lo), int(hi)) if max(len(lo), len(hi)) <= ID_DIGITS else (0, 0)   # (0, 0): reported below
         if lo < hi <= lo + RANGE_MAX:
             for n in range(lo, hi + 1):
                 add(f'{letter}-{n}', True)
@@ -464,7 +479,8 @@ def compute_holds(events):
     """(subject, holder key) -> hold state; subject is a field or 'reading R<n>'. The last action wins.
 
     A Releasing line by the project account that names @login releases that holder's claim instead of the
-    project's own.
+    project's own. A release whose claim is not in the fetch (a branch-held project row, or a claim in a pull
+    request that has closed) is kept with claim None; plan() releases a row on it only with project_claims.
     """
     st = {}
     for e in events:
@@ -477,13 +493,11 @@ def compute_holds(events):
                 st[k] = {'subject': s, 'login': e['login'], 'active': True, 'claim': e, 'release': None,
                          'urls': urls}
                 continue
-            targets = [holder_key(x) for x in e['for']] if e['for'] else [holder_key(e['login'])]
-            for k in targets:
+            for login in e['for'] or [e['login']]:
+                k = holder_key(login)
                 cur = st.get((s, k))
                 if cur is None:
-                    if e['for']:
-                        continue      # the project releasing a holder who never claimed it here
-                    cur = {'subject': s, 'login': e['login'], 'claim': None}
+                    cur = {'subject': s, 'login': login, 'claim': None}
                 cur.update(active=False, release=e)
                 st[(s, k)] = cur
     return st
@@ -584,28 +598,73 @@ def new_row(header, f, h, hold, status):
     return r
 
 
+def public_text(text):
+    """Free text from a comment, fit for a claims.tsv cell: HTML comments and tags removed, absolute paths
+    replaced by [path], whitespace collapsed, leading quote characters dropped, at most STATUS_MAX characters."""
+    def path(m):
+        tail = m.group(0)[len(m.group(0).rstrip(PATH_TAIL)):]
+        return '[path]' + tail
+    text = ABS_PATH.sub(path, TAG.sub(' ', text or ''))
+    text = ' '.join('[path]' if LOCAL_PATH.search(t) else t for t in text.split()).lstrip(QUOTES + ' ')
+    return text if len(text) <= STATUS_MAX else text[:STATUS_MAX - 3].rstrip() + '...'
+
+
 def release_status(h, lapsed):
     if lapsed is not None:
         return f'lapsed: no reply within {RELEASE_DAYS} days of the ping of {lapsed.strftime("%Y-%m-%d")}'
-    return (h['release'] or {}).get('blocker') or 'released'
+    return public_text((h['release'] or {}).get('blocker')) or 'released'
 
 
-def plan(header, rows, st, data, threads, fields, lapsed=None):
+def release_since(h, since):
+    """h if it is a released hold whose Releasing line is dated on or after since (a row's YYYY-MM-DD), else None.
+
+    Its claim need not be in the fetch. The date check keeps an older release from undoing a newer hold.
+    """
+    if h and not h['active'] and h['release'] and h['release']['date'].strftime('%Y-%m-%d') >= (since or ''):
+        return h
+    return None
+
+
+def plan(header, rows, st, data, threads, fields, lapsed=None, project_claims=False, credited=frozenset()):
     """The new header and rows of claims.tsv, plus what changed and what the integrator should look at.
 
     lapsed maps (field, holder key) to the ping date for claims the lapse rule releases.
+    project_claims: the mode of the claims-sync workflow, the only writer of claims.tsv. It also writes project rows
+    from the project's own public claim and release lines (project rows without such lines are still left alone),
+    and it
+    - drops rows whose field is no longer open (a fold discharged it);
+    - lets a claim take a released row of any holder, and an outside or maintainer claim take a project interest row;
+    - releases a held row on a Releasing line dated on or after the row's since, even when the claim it releases
+      is not in the fetch;
+    - writes at most one held row for an outside login not in credited (casefolded logins with a row in
+      credits.tsv): its earliest claim (by date, then field name), and reports the others.
     """
     lapsed = lapsed or {}
     header = list(header) + [c for c in NEW_COLUMNS if c not in header]
     active = active_by_holder(st)
     released = {k: h for k, h in st.items()
                 if not h['active'] and h['claim'] and h['release'] and not k[0].startswith('reading ')}
-    out, changes, notes, matched = [], [], [], set()
+    out, changes, notes, matched, removed, deferred = [], [], [], set(), [], {}
 
     def snap(r):
         return (r.get('hold') or '', r.get('claim_url') or '', r.get('public_holder') or '', r.get('status') or '')
 
+    def capped(k):
+        """True if the one-claim rule allows holder key k one held row."""
+        return project_claims and k != PROJECT_HOLDER and kind_of(k) == 'outside' and k not in credited
+
+    def hold_row(r, h):
+        """Mark r held on its own holder's active claim h."""
+        cur = r.get('claim_url') or ''
+        keep = cur and '#issuecomment' not in cur and url_state(cur, data, threads) not in ('gone', 'unbacked')
+        if r['hold'] != 'held':
+            r.update(status='claimed', since=h['claim']['date'].strftime('%Y-%m-%d'), issue=h['claim']['thread'])
+        r.update(hold='held', claim_url=cur if keep else h['claim']['url'], public_holder=h['login'])
+
     for r in rows:
+        if project_claims and r['field'] not in fields.open_set:
+            removed.append(r)
+            continue
         r = dict(r)
         f = r['field']
         ph = r.get('public_holder') or PROJECT_HOLDER
@@ -621,12 +680,25 @@ def plan(header, rows, st, data, threads, fields, lapsed=None):
                          'interest' if r['holder_kind'] == 'project' else 'released')
         cur = r.get('claim_url') or ''
         before = snap(r)
+        # the release of a held row with no active claim; with project_claims, its claim need not be in the fetch
+        rel = (release_since(st.get((f, k)), r.get('since')) if project_claims and not h and r['hold'] == 'held'
+               else released.get((f, k)))
+        if r['holder_kind'] == 'project' and project_claims and h and r['hold'] != 'held':
+            r.update(hold='held', claim_url=h['claim']['url'], status='claimed',
+                     since=h['claim']['date'].strftime('%Y-%m-%d'), issue=h['claim']['thread'])
+            changes.append((f, r['public_holder'], before, snap(r)))
+            out.append(r)
+            continue
+        if r['holder_kind'] == 'project' and project_claims and not h and r['hold'] == 'held' and rel:
+            r.update(hold='released', status=release_status(rel, None))
+            changes.append((f, r['public_holder'], before, snap(r)))
+            out.append(r)
+            continue
         if r['holder_kind'] == 'project':
             # the integrator manages project rows: report, never change
             if h and r['hold'] != 'held':
                 notes.append(f'{f}: project row is {r["hold"]}, but a project claim backs it: {h["claim"]["url"]}')
             elif not h and r['hold'] == 'held':
-                rel = released.get((f, k))
                 state = url_state(cur, data, threads)
                 if rel:
                     notes.append(f'{f}: held project row, but the project released it: {rel["release"]["url"]}')
@@ -640,14 +712,14 @@ def plan(header, rows, st, data, threads, fields, lapsed=None):
             continue
         if h and (f, k) in lapsed:
             r.update(hold='released', status=release_status(h, lapsed[(f, k)]), public_holder=h['login'])
+        elif h and r['hold'] != 'held' and capped(k):
+            deferred[(f, k)] = r   # claimed again: the one-claim rule decides below, in claim order
         elif h:
-            keep = cur and '#issuecomment' not in cur and url_state(cur, data, threads) not in ('gone', 'unbacked')
-            if r['hold'] != 'held':
-                r.update(status='claimed', since=h['claim']['date'].strftime('%Y-%m-%d'), issue=h['claim']['thread'])
-            r.update(hold='held', claim_url=cur if keep else h['claim']['url'], public_holder=h['login'])
-        elif (f, k) in released and r['hold'] == 'held':
-            rel = released[(f, k)]
-            r.update(hold='released', status=release_status(rel, None), public_holder=rel['login'])
+            hold_row(r, h)
+        elif rel and r['hold'] == 'held':
+            # a release whose claim is not in the fetch keeps the row's login (a mention may differ in case)
+            r.update(hold='released', status=release_status(rel, None),
+                     public_holder=rel['login'] if rel['claim'] else ph)
         elif r['hold'] == 'held':
             state = url_state(cur, data, threads)
             if state in ('gone', 'unbacked', 'unverified'):
@@ -659,15 +731,44 @@ def plan(header, rows, st, data, threads, fields, lapsed=None):
     by_field = {}
     for r in out:
         by_field.setdefault(r['field'], r)
+    holders = {key_of(r['public_holder']) for r in out if r['hold'] == 'held' and r['holder_kind'] != 'project'}
+
+    def over(f, h):
+        notes.append(f'{f}: claimed by {h["login"]} ({h["claim"]["url"]}), over the one-claim rule (one held row '
+                     'until a first contribution is in credits.tsv); not written')
+
+    def taken(f, h, r):
+        notes.append(f'{f}: claimed by {h["login"]} ({h["claim"]["url"]}), but claims.tsv has a '
+                     f'{r["hold"]} row for {r["public_holder"]}; left for the integrator')
+
     adds = []
     for (f, k), h in sorted(active.items(), key=lambda kv: (kv[1]['claim']['date'], kv[0])):
+        if (f, k) in deferred:   # the holder's own released row, claimed again
+            r = deferred[(f, k)]
+            if r['hold'] == 'held':   # an earlier claim in this loop took it
+                taken(f, h, r)
+            elif k in holders:
+                over(f, h)
+            else:
+                before = snap(r)
+                hold_row(r, h)
+                changes.append((f, r['public_holder'], before, snap(r)))
+                holders.add(k)
+            continue
         if (f, k) in matched or f not in fields.open_set:
             continue
         r = by_field.get(f)
         hold, status = ('released', release_status(h, lapsed[(f, k)])) if (f, k) in lapsed else ('held', 'claimed')
-        if k == PROJECT_HOLDER:
+        if k == PROJECT_HOLDER and not project_claims:
             if r is None:
                 notes.append(f'{f}: project claim with no claims.tsv row (for the integrator): {h["claim"]["url"]}')
+            continue
+        # a row this claim takes: a released one (by default, only a non-project one), or a project interest row
+        free = r is not None and (
+            (r['hold'] == 'released' and (project_claims or r['holder_kind'] != 'project'))
+            or (project_claims and r['holder_kind'] == 'project' and r['hold'] == 'interest'))
+        if hold == 'held' and (r is None or free) and capped(k) and k in holders:
+            over(f, h)
             continue
         if r is None:
             r = new_row(header, f, h, hold, status)
@@ -676,13 +777,15 @@ def plan(header, rows, st, data, threads, fields, lapsed=None):
             by_field[f] = r
         elif hold == 'released':
             continue
-        elif r['holder_kind'] != 'project' and r['hold'] == 'released':
+        elif free:
             before = snap(r)
             r.update(new_row(header, f, h, hold, status))
             changes.append((f, r['public_holder'], before, snap(r)))
         else:
-            notes.append(f'{f}: claimed by {h["login"]} ({h["claim"]["url"]}), but claims.tsv has a '
-                         f'{r["hold"]} row for {r["public_holder"]}; left for the integrator')
+            taken(f, h, r)
+            continue
+        if hold == 'held':
+            holders.add(k)
     for (f, k), h in sorted(released.items(), key=lambda kv: (kv[1]['release']['date'], kv[0])):
         if (f, k) in matched or f not in fields.open_set or k == PROJECT_HOLDER or f in by_field:
             continue
@@ -690,8 +793,8 @@ def plan(header, rows, st, data, threads, fields, lapsed=None):
         adds.append(r)
         out.append(r)
         by_field[f] = r
-    not_open = sorted({r['field'] for r in rows if r['field'] not in fields.open_set})
-    return header, out, {'adds': adds, 'changes': changes, 'notes': notes, 'not_open': not_open}
+    not_open = sorted({r['field'] for r in out if r['field'] not in fields.open_set})
+    return header, out, {'adds': adds, 'changes': changes, 'notes': notes, 'not_open': not_open, 'removed': removed}
 
 
 # ---- the modes -----------------------------------------------------------------------------------------
@@ -715,6 +818,12 @@ def report(rows, info, st, unmatched, mentions, fields):
     for f, ph, old, new in info['changes']:
         w('\t'.join([f, ph, ' '.join(x for x in old if x) or '(none)', ' '.join(x for x in new if x)]))
     w('')
+    if info.get('removed'):
+        w('# rows removed (field no longer open)')
+        w('field\tholder_kind\tpublic_holder\thold\tclaim_url')
+        for r in info['removed']:
+            w('\t'.join(r.get(c) or '' for c in ('field', 'holder_kind', 'public_holder', 'hold', 'claim_url')))
+        w('')
     w('# unmatched names (map to no open field)')
     w('name\treason\tholder\turl')
     seen = set()
@@ -880,10 +989,16 @@ def main(argv=None):
     mode.add_argument('--write', action='store_true', help='update claims.tsv in place')
     mode.add_argument('--check', nargs='+', metavar='FIELD', help='refuse fields not free for a project brief')
     mode.add_argument('--sweep', action='store_true', help='print the ping and release queue')
+    ap.add_argument('--project-claims', action='store_true',
+                    help="with --write: also write project rows from the project's public claim lines, drop rows "
+                         'whose field is no longer open and apply the one-claim rule (the claims-sync workflow, '
+                         'the only writer of claims.tsv)')
     ap.add_argument('--today', metavar='YYYY-MM-DD',
                     help='count the lapse policy from this date at 00:00 UTC (default: now)')
     ap.add_argument('--claims', default=os.path.join(DOCS, 'claims.tsv'))
     ap.add_argument('--kinds', default=os.path.join(DOCS, 'kinds.tsv'))
+    ap.add_argument('--credits', default=os.path.join(DOCS, 'credits.tsv'),
+                    help='with --project-claims: logins in its contributor column are exempt from the one-claim rule')
     ap.add_argument('--open', default=os.path.join(DOCS, 'open-statements.json'))
     ap.add_argument('--crosswalk', default=os.path.join(DOCS, 'frontier-crosswalk.tsv'))
     ap.add_argument('--issues', default=os.path.join(DOCS, 'issues.json'),
@@ -917,7 +1032,11 @@ def main(argv=None):
         return 0
     lapsed = {(s, k): ping for a_, s, k, h, url, last, ping in lapse(st, events, threads, now, cfg)
               if a_ == 'release'}
-    new_header, new_rows, info = plan(header, rows, st, data, threads, fields, lapsed)
+    credited = set()
+    if a.project_claims and os.path.exists(a.credits):
+        credited = {key_of(r.get('contributor', '').strip().lstrip('@')) for r in read_tsv(a.credits)[1]}
+    new_header, new_rows, info = plan(header, rows, st, data, threads, fields, lapsed,
+                                      project_claims=a.project_claims, credited=credited)
     if a.write:
         write_tsv(a.claims, new_header, new_rows)
         print(f'wrote {a.claims}: {len(new_rows)} rows, {len(info["adds"])} added, '

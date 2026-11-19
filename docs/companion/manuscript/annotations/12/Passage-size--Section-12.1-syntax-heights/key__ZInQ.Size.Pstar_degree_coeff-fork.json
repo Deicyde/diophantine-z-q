@@ -1,0 +1,70 @@
+{
+  "id": "Passage size: Section 12.1 syntax heights",
+  "kind": "passage",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved: Maj encodes degree and log-norm at most B^(8h); the substitution and renaming inequalities, the model wrapper (safe height 4) and composition majorants, the recipe heights 228..256 and deg P_* <= (T+1)^2048, |coeff| <= 2^((T+1)^2048) are stated. Its hypotheses CatalogueBound8 and HaltingAddMulBound are proved in the repository (ZInQ.catalogueBound8, ZInQ.Compiler.NodeCheck.haltingAddMulBound) and are not assumed.",
+  "relation": "hasPart",
+  "subject": [
+    {
+      "location": {
+        "page": 85,
+        "rect": [
+          0.107843,
+          0.166955,
+          0.784314,
+          0.403468
+        ]
+      },
+      "title": "Passage (size): Section 12.1 syntax heights",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage size: Section 12.1 syntax heights"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Size.Pstar_degree_coeff",
+        "module": "ZInQKernel.Size.Majorants.Bound"
+      },
+      "role": "key",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Size.Pstar_degree_coeff@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem Pstar_degree_coeff (hCAT : CatalogueBound8) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}\n    (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :\n    (specPstar c3).totalDegree ≤ (Syntax.T + 1) ^ 2048 ∧\n      l1 (specPstar c3) ≤ 2 ^ (Syntax.T + 1) ^ 2048 ∧\n      ∀ m, ((specPstar c3).coeff m).natAbs ≤ l1 (specPstar c3) := by",
+            "line": 42,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Size/Majorants/Bound.lean",
+            "fragment": "L42"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          85
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

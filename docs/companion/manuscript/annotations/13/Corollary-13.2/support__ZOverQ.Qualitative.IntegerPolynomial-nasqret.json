@@ -1,0 +1,70 @@
+{
+  "id": "Corollary 13.2",
+  "kind": "corollary",
+  "status": "not_formalized",
+  "note": "[N] nasqret/z-in-q-lean, no counterpart; ZOverQ.Qualitative.IntegerPolynomial a definition: [N] has no machine, halting or computably-enumerable notion and no universal rational Diophantine polynomial; its headlines end at Theorem 1.1 and the qualitative IntegerPolynomial.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 86,
+        "rect": [
+          0.107843,
+          0.671257,
+          0.784314,
+          0.143404
+        ]
+      },
+      "title": "Corollary 13.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Corollary 13.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/nasqret/z-in-q-lean",
+      "version": "de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6",
+      "location": {
+        "declaration": "ZOverQ.Qualitative.IntegerPolynomial",
+        "module": "bounded.IntegerPolynomial"
+      },
+      "role": "support",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZOverQ.Qualitative.IntegerPolynomial@nasqret",
+            "kind": "def · nasqret"
+          },
+          "snippet": {
+            "text": "def IntegerPolynomial : Prop :=\n  ∃ k : ℕ, ∃ p : MvPolynomial (Fin (k + 1)) ℤ, ∀ t : ℚ,\n    (∃ w : Fin k → ℚ, eval₂ (Int.castRingHom ℚ) (Fin.cons t w) p = 0) ↔\n      ∃ z : ℤ, (z : ℚ) = t",
+            "line": 15,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/nasqret/z-in-q-lean/blob/de33a32dc47dfdb1efa6c70d0b837bc6a5c9a2c6/bounded/IntegerPolynomial.lean",
+            "fragment": "L15"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          86
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of nasqret/z-in-q-lean and its dependency at their pins read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

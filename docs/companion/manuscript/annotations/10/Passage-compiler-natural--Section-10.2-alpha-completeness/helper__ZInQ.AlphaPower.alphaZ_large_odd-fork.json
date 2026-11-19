@@ -1,0 +1,70 @@
+{
+  "id": "Passage compiler-natural: Section 10.2 alpha completeness",
+  "kind": "passage",
+  "status": "formalized",
+  "note": "[F] Deicyde/diophantine-z-q, proved: For b > 3 and every N, alphaEqns_complete proves AlphaEqns (alpha_b(N)) b N, the completeness half of (C.2), with the choice of u, m = ku, v and the CRT witness w in its proof; proved, no assumed hypotheses.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 78,
+        "rect": [
+          0.107843,
+          0.810353,
+          0.784314,
+          0.10229
+        ]
+      },
+      "title": "Passage (compiler-natural): Section 10.2 alpha completeness",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Passage compiler-natural: Section 10.2 alpha completeness"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.AlphaPower.alphaZ_large_odd",
+        "module": "ZInQKernel.Compiler.Exponential.AlphaLargeOdd"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.AlphaPower.alphaZ_large_odd@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem alphaZ_large_odd (b a : ℕ) (hb : 3 < b) :\n    ∃ k : ℕ, 0 < k ∧ Odd (alphaZ b k) ∧ 2 * (a : ℤ) < alphaZ b k ∧\n      alphaZ b k < alphaZ b (k + 1) ∧\n      alphaZ b k ^ 2 + alphaZ b (k + 1) ^ 2 = 1 + (b : ℤ) * alphaZ b k * alphaZ b (k + 1) := by",
+            "line": 14,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Compiler/Exponential/AlphaLargeOdd.lean",
+            "fragment": "L14"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          78
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "Lemma 11.2",
+  "kind": "lemma",
+  "status": "partial",
+  "note": "[F] Deicyde/diophantine-z-q, proved only from ZInQ.PoleCompleteness; ZInQ.Assembly.poleInput_local proved: test_complete states that every integer n not in C has kappa != 0 with Test(n,kappa,n). It takes ZInQ.PoleCompleteness (Theorem 5.2), which [M]'s proof invokes, so it is conditional on that assumed hypothesis.",
+  "relation": "relatedMatch",
+  "subject": [
+    {
+      "location": {
+        "page": 82,
+        "rect": [
+          0.107843,
+          0.556035,
+          0.784314,
+          0.028767
+        ]
+      },
+      "title": "Lemma 11.2",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "region": "Lemma 11.2"
+        }
+      }
+    }
+  ],
+  "object": [
+    {
+      "type": "lean",
+      "uri": "https://github.com/Deicyde/diophantine-z-q",
+      "version": "f81ade8be515a0864bab15aacb80ffdbfd923d5d",
+      "location": {
+        "declaration": "ZInQ.Assembly.poleInput_local",
+        "module": "ZInQKernel.Assembly.Local.PoleInputLocal"
+      },
+      "role": "helper",
+      "extensions": {
+        "org.mathlib-initiative.formal-companion.overlay": {
+          "declaration": {
+            "id": "ZInQ.Assembly.poleInput_local@fork",
+            "kind": "theorem · fork"
+          },
+          "snippet": {
+            "text": "theorem poleInput_local {n : ℤ} (hn : (n : ℚ) ∉ contactSet) {η : ℚ} (hη : η ^ 2 = 1) {κ : ℤ}\n    (hκ : 1 ≤ κ)\n    (hdeep : ∀ (π : Zs) (hπ : Prime π), π ∣ ((2730 ^ 6 * sixF n : ℤ) : Zs) →\n      ∃ N : ℤ, 1 ≤ N ∧ vp π (sixF n : K0) ≤ N ∧ κ • genP0 ∈ Ek π hπ N)\n    {q : ℚ} (hq : ∀ p : ℕ, p.Prime → (p : ℤ) ∣ 2730 ^ 6 * sixF n → 0 ≤ padicValRat p q)\n    (ha0 : 1 - testR₀ η n * q ^ 2 ≠ 0)\n    (hW : poleW (testR η q n) (testC n κ n (2 * κ) (2 * κ * n)) ≠ 0)\n    (hΘ : poleTheta (testR η q n) (testC n κ n (2 * κ) (2 * κ * n)) ≠ 0) :\n    4 ≤ padicValRat 2 (testB n κ n η q (2 * κ) (2 * κ * n)) ∧\n      (∀ p ∈ ({3, 5, 7, 13} : Finset ℕ),\n        6 ≤ padicValRat p (testB n κ n η q (2 * κ) (2 * κ * n))) ∧\n      IsSquare (testB n κ n η q (2 * κ) (2 * κ * n)).den := by",
+            "line": 254,
+            "truncated": false
+          },
+          "destination": {
+            "resolution": "exact",
+            "href": "https://github.com/Deicyde/diophantine-z-q/blob/f81ade8be515a0864bab15aacb80ffdbfd923d5d/ZInQKernel/Assembly/Local/PoleInputLocal.lean",
+            "fragment": "L254"
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "org.mathlib-initiative.formal-companion.overlay": {
+      "locator": {
+        "physical": [
+          82
+        ]
+      },
+      "provenance": {
+        "actor": "agent",
+        "method": "mapper and verifier agents, agreed; source of Deicyde/diophantine-z-q at its pin read, not built",
+        "confirmed_by_human": false
+      },
+      "verdicts": [
+        {
+          "verdict": "deviation",
+          "status": "unconfirmed",
+          "summary": "[N] nasqret/z-in-q-lean states a different claim; neither implies the other (differs).",
+          "evidence": [
+            "test_complete assumes ndep's PoleCompleteness and concludes Test n k n for ndep's Test. Both are stated for the Route K pole polynomial (x+l), whereas [M]'s Lemma 11.2 uses [M]'s PC and Test with the x+3l curves. So it is a different, conditional claim, which [N] uses at QualitativePrecision.lean:180.",
+            "test_complete gives kappa != 0 with ndep's Test(n,kappa,n) from ndep's PoleCompleteness, both about the Route K pole polynomial (x+l), so the claim is about a different relation and conditional on that PC."
+          ],
+          "provenance": {
+            "actor": "agent",
+            "method": "two skeptics, each reading the LaTeX of [M] and the source of the repository, failed to refute it",
+            "confirmed_by_human": false
+          }
+        }
+      ]
+    }
+  }
+}
