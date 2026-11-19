@@ -32,7 +32,8 @@ jobs:
       - name: Confirm the pinned merge and build inputs
         run: |
           set -euo pipefail
-          merge=$(git rev-parse HEAD^)
+          merge=c9936b7dc6ee83abfcadd6274cc6c80bcd1152f2
+          git merge-base --is-ancestor "$merge" HEAD
           base=$(git rev-parse "$merge^1")
           test "$base" = da47dac4524b4ed001cf2468d7da44228f7991a0
           cached_main=c4e2a8c5455789b9feb9afc7bc732ce8e754a5ca
@@ -46,6 +47,16 @@ jobs:
           port_delta=$(git diff --raw -z --no-abbrev --no-renames "$base" "$merge" -- ZInQKernel/Contrib | sha256sum)
           test "${port_delta%% *}" = 9c87a54211dc4e02f8e59376f00479d5af70d3b4f5bf6558e9a82ea8b23e3a75
           printf 'Verification source: %s\n' "$merge"
+
+      - name: Require a completed main build with a passing axiom check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/44519135860/attempts/2" |
+            jq -e '.head_sha == "c4e2a8c5455789b9feb9afc7bc732ce8e754a5ca" and .head_branch == "main"
+              and .path == ".github/workflows/main-build-cache.yml" and .run_attempt == 2
+              and .status == "completed" and .conclusion == "success"' > /dev/null
 
       - name: Free disk space and add swap
         run: |
@@ -115,7 +126,7 @@ jobs:
           path: |
             .lake/build
             lean/.lake/build
-          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-c4e2a8c5455789b9feb9afc7bc732ce8e754a5ca-44519135860-1
+          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-c4e2a8c5455789b9feb9afc7bc732ce8e754a5ca-44519135860-2
           fail-on-cache-miss: true
 
       - name: Require an exact checkpoint and clear old compiler setup inputs
