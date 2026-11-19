@@ -1,62 +1,46 @@
-# Builds +ZInQKernel.OneProof.Main and +ZInQKernel.OneProof.Discharges after a push to main that changes Lean or
-# the Lake configuration, and saves the build to the Actions cache. The discharge check of a pull request
-# (contrib-discharges.yml) restores it, so it builds only the files the pull request adds instead of the whole
-# project. Pull request runs can read this cache but never write to it: GitHub scopes the caches a pull request
-# run saves to that pull request's own ref. This workflow builds only commits on main.
-#
-# It is also the only hosted check of the headline theorem. When the build finishes, the job asks Lean for the
-# axioms of ZInQ.OneProof.frozenTarget and fails unless they are among propext, Classical.choice and Quot.sound
-# (scripts/one_proof/check_axioms.py). A run that passes is the evidence that this commit's proof compiles on a
-# hosted runner; blueprint-pages.yml deploys the site only for such a commit.
-#
-# For that reason it also runs after a push that changes what the site is built from besides Lean and the
-# blueprint: the formal companion, the theme and mkdocs.yml. Such a change would otherwise wait, unpublished, for
-# the next Lean change. Its run restores the cache, has nothing new to compile, and checks the axioms again.
-
-name: main build cache
+# This workflow is scoped to the isolated PR #48 verification ref.
+name: PR 48 Deligne-Serre verification on the BSh baseline
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '**.lean'
-      - 'lakefile.toml'
-      - 'lake-manifest.json'
-      - 'lean-toolchain'
-      - 'lean/lakefile.toml'
-      - '.github/workflows/main-build-cache.yml'
-      # Site inputs that are not Lean (see the note above). blueprint/ is not listed: it changes with nearly
-      # every pull request, almost always beside the Lean it describes.
-      - 'docs/companion/**'
-      - 'theme/**'
-      - 'mkdocs.yml'
-      # scratch/ is outside every build target.
-      - '!scratch/**'
   workflow_dispatch:
+    inputs:
+      resume_from:
+        description: Previous run of this exact revision with a FLT checkpoint
+        type: string
+        required: false
 
 permissions:
   contents: read
-  # Only to confirm that the save step kept this run's build.
   actions: read
 
-# One build at a time; a newer push waits and then builds on the cache the earlier run saved.
 concurrency:
-  group: main-build-cache
+  group: pr48-verification-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  build:
-    name: build and save
+  verify:
+    if: github.repository == 'Deicyde/diophantine-z-q' && github.ref == 'refs/heads/codex/pr48-verify-3078ae6'
     runs-on: ubuntu-latest
-    # Inside the 360-minute hosted limit. The build step stops itself at 310 minutes (its 320-minute limit is a
-    # backstop) so the save step still runs, and a cold first build that does not finish saves its progress for
-    # the next run (or a re-run).
     timeout-minutes: 355
     steps:
-      - name: Check out main
+      - name: Check out the verification candidate
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 3
+
+      - name: Confirm the pinned merge and build inputs
+        run: |
+          set -euo pipefail
+          merge=$(git rev-parse HEAD^)
+          test "$(git rev-parse "$merge^1")" = 3078ae6a303664e35926a8196d6a592dd561cf6b
+          test "$(git rev-parse "$merge^2")" = bc93461db09a054c3ebcba7b88b98d3e08393b1c
+          git diff --exit-code "$merge" HEAD -- ZInQKernel ZInQKernel.lean lean ThirdParty lakefile.toml lake-manifest.json lean-toolchain docs/one-proof
+          # Allow reuse of the completed port only when every incoming source path,
+          # mode and blob is exactly the one used by the successful predecessor.
+          port_delta=$(git diff --raw -z --no-abbrev --no-renames 3078ae6a303664e35926a8196d6a592dd561cf6b "$merge" -- ZInQKernel/Contrib | sha256sum)
+          test "${port_delta%% *}" = 9c87a54211dc4e02f8e59376f00479d5af70d3b4f5bf6558e9a82ea8b23e3a75
+          printf 'Verification source: %s\n' "$merge"
 
       - name: Free disk space and add swap
         run: |
@@ -119,133 +103,147 @@ jobs:
           done
           exit 1
 
-      # The newest earlier build of main for the same toolchain and Lake configuration, if any.
-      - name: Restore the previous build of main
-        id: restore
+      - name: Restore the verified build of the pinned main commit
+        id: baseline
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             .lake/build
             lean/.lake/build
-          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}
-          restore-keys: |
-            zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-
+          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-3078ae6a303664e35926a8196d6a592dd561cf6b-44513481236-1
+          fail-on-cache-miss: true
 
-      # The build stops itself at 310 minutes, before the step's time limit, so that the save step keeps an
-      # unfinished build and the next run continues from it. It also stops if / falls below 15 GB, to keep room
-      # for the save step's archive. It runs in its own process group so that stopping it also stops the Lean
-      # processes it started.
-      - name: Build the OneProof targets
-        id: build
-        timeout-minutes: 320
-        continue-on-error: true
-        run: |
-          # GitHub runs steps with bash -e. Errexit is off here so that a failed or stopped build still reaches
-          # the measurements and the exit status below.
-          set +e -uo pipefail
-          deadline=$(($(date +%s) + 310 * 60))
-          setsid lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges &
-          pid=$!
-          stopped=
-          peak_mem=0
-          peak_swap=0
-          while kill -0 "$pid" 2> /dev/null; do
-            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
-            read -r mem swap <<< "$(free -m | awk '/^Mem:/ {m = $3} /^Swap:/ {s = $3} END {print m + 0, s + 0}')"
-            if [ "$mem" -gt "$peak_mem" ]; then peak_mem=$mem; fi
-            if [ "$swap" -gt "$peak_swap" ]; then peak_swap=$swap; fi
-            if [ "$avail" -lt 15 ]; then
-              stopped="only ${avail} GB free on /"
-            elif [ "$(date +%s)" -ge "$deadline" ]; then
-              stopped="310 minutes reached"
-            fi
-            if [ -n "$stopped" ]; then
-              echo "::warning::Stopping the build ($stopped) so that its progress can be saved."
-              kill -TERM -- "-$pid" 2> /dev/null
-              for _ in $(seq 60); do kill -0 "$pid" 2> /dev/null || break; sleep 1; done
-              kill -KILL -- "-$pid" 2> /dev/null
-              break
-            fi
-            sleep 30
-          done
-          wait "$pid"
-          status=$?
-          echo "::notice::Peak use, sampled every 30 s: ${peak_mem} MB of memory and ${peak_swap} MB of swap."
-          if sudo dmesg | grep -i -E 'oom-kill|out of memory'; then
-            echo "::warning::The kernel killed a process for lack of memory during the build."
-          fi
-          df -h / /mnt
-          du -sh .lake/build lean/.lake/build .lake/packages/mathlib/.lake/build 2> /dev/null
-          # A build that finished just as the stop fired counts as finished.
-          if [ -n "$stopped" ] && [ "$status" -ne 0 ]; then exit 1; fi
-          exit "$status"
-
-      # One entry per run, so a re-run of an unfinished build also saves its progress. The discharge check's
-      # restore matches by prefix and takes the newest.
-      - name: Save the build of this commit
-        if: ${{ !cancelled() }}
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: |
-            .lake/build
-            lean/.lake/build
-          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
-
-      # Main.lean prints these axioms only while it compiles, which a cached build skips, so ask again here.
-      # The summary records the commit and the list; the step fails on any other axiom, `sorryAx` included.
-      - name: Check the axioms of frozenTarget
-        if: ${{ steps.build.outcome == 'success' }}
+      - name: Require an exact checkpoint and clear old compiler setup inputs
+        env:
+          CACHE_HIT: ${{ steps.baseline.outputs.cache-hit }}
         run: |
           set -euo pipefail
-          probe="$RUNNER_TEMP/FrozenTargetAxioms.lean"
-          printf '%s\n' 'import ZInQKernel.OneProof.Main' '#print axioms ZInQ.OneProof.frozenTarget' > "$probe"
-          lake env lean "$probe" | tee "$RUNNER_TEMP/frozen-target-axioms.txt"
-          python3 -I scripts/one_proof/check_axioms.py "$RUNNER_TEMP/frozen-target-axioms.txt" \
-            | tee -a "$GITHUB_STEP_SUMMARY"
+          test "$CACHE_HIT" = true
+          for root in .lake/build/ir lean/.lake/build/ir; do
+            if [[ -d $root ]]; then
+              find "$root" -type f -name '*.setup.json' -delete
+            fi
+          done
+          df -h /
 
-      # The blueprint site links each Lean name to its declaration through these files.
-      - name: Keep the build's name references for the site
-        if: ${{ steps.build.outcome == 'success' && github.event_name == 'push' }}
+      - name: Restore the verified FLT port
+        timeout-minutes: 22
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESUME_FROM: ${{ inputs.resume_from }}
+        run: |
+          set -euo pipefail
+          if [[ -n $RESUME_FROM ]]; then
+            [[ $RESUME_FROM =~ ^[0-9]+$ ]]
+            src_run=$RESUME_FROM
+            src_sha=$GITHUB_SHA
+            src_ref=$GITHUB_REF_NAME
+            required_conclusion=
+          else
+            src_run=44445426874
+            src_sha=3030a4b062cc8a273f283c872350d6340e5b8113
+            src_ref=codex/pr48-verify-9664901
+            required_conclusion=success
+          fi
+          record=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$src_run")
+          jq -e --arg sha "$src_sha" --arg branch "$src_ref" --arg result "$required_conclusion" \
+            '.head_sha == $sha and .head_branch == $branch and .path == ".github/workflows/main-build-cache.yml" and .status == "completed" and ($result == "" or .conclusion == $result)' \
+            <<< "$record" > /dev/null
+          restore_dir=$(mktemp -d "$RUNNER_TEMP/pr48-restore.XXXXXX")
+          if [[ -n $RESUME_FROM ]]; then
+            gh run download "$src_run" -n pr48-flt-checkpoint -D "$restore_dir"
+            bash scratch/pr48-validation/checkpoint.sh restore "$restore_dir"
+          else
+            # Pin the upload from the successful run. Check the ZIP digest as well
+            # as the checkpoint's recorded revision and its internal tar digest.
+            artifact_id=14502364005
+            digest=1fd4e277db8aa55eb978d29b45da95ac89af6e2ef46e483353fd382242fc30ad
+            route="repos/$GITHUB_REPOSITORY/actions/artifacts/$artifact_id"
+            gh api "$route" | jq -e --arg repo "$GITHUB_REPOSITORY_ID" \
+              --arg sha "$src_sha" --arg digest "sha256:$digest" '
+              .id == 14502364005 and .name == "pr48-flt-checkpoint" and .expired == false and .digest == $digest and
+              .workflow_run.id == 44445426874 and .workflow_run.head_sha == $sha and
+              (.workflow_run.repository_id|tostring) == $repo and (.workflow_run.head_repository_id|tostring) == $repo
+              ' >/dev/null
+            gh api "$route/zip" > "$restore_dir/checkpoint.zip"
+            printf '%s  %s\n' "$digest" "$restore_dir/checkpoint.zip" | sha256sum --check --strict
+            unzip -q "$restore_dir/checkpoint.zip" flt.tar.zst source.txt SHA256SUMS -d "$restore_dir"
+            rm -f "$restore_dir/checkpoint.zip"
+            test "$(cat "$restore_dir/source.txt")" = "$src_sha"
+            (cd "$restore_dir" && sha256sum --check --strict SHA256SUMS)
+            zstd -dc -- "$restore_dir/flt.tar.zst" | tar --extract --no-same-owner --no-same-permissions -f -
+          fi
+          rm -f "$restore_dir/flt.tar.zst"
+
+      - name: Verify the witness and the fold
+        id: verify
+        continue-on-error: true
+        timeout-minutes: 265
+        env:
+          LEAN_NUM_THREADS: 2
+        run: |
+          set -euo pipefail
+          uptime
+          free -h
+          awk '{exit ($1 > 40)}' /proc/loadavg
+          free -m | awk '/^Swap:/ {exit ($3 > 8192)}'
+          mkdir -p "$RUNNER_TEMP/pr48-evidence"
+          deadline=$(($(date +%s) + 260 * 60))
+          setsid bash scratch/pr48-validation/verify.sh "$RUNNER_TEMP/pr48-evidence" &
+          pid=$!
+          printf 'Verification process group: %s\n' "$pid"
+          while kill -0 "$pid" 2>/dev/null; do
+            available=$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')
+            if [[ $available -lt 15 || $(date +%s) -ge $deadline ]]; then
+              echo "Stopping verification at the disk/time limit; $available GiB remain."
+              kill -TERM -- "-$pid" 2>/dev/null || true
+              for attempt in $(seq 30); do
+                if ! kill -0 -- "-$pid" 2>/dev/null; then break; fi
+                sleep 1
+              done
+              kill -KILL -- "-$pid" 2>/dev/null || true
+              break
+            fi
+            sleep 20
+          done
+          status=0
+          wait "$pid" || status=$?
+          free -h
+          df -h /
+          du -sh .lake/build
+          exit "$status"
+
+      - name: Preserve verification evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: pr48-verification
+          path: ${{ runner.temp }}/pr48-evidence/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Pack the FLT artifacts from this candidate
+        if: ${{ !cancelled() && steps.verify.outcome != 'skipped' && steps.verify.outcome != '' }}
+        continue-on-error: true
+        timeout-minutes: 15
+        run: bash scratch/pr48-validation/checkpoint.sh pack "$RUNNER_TEMP/pr48-checkpoint"
+
+      - name: Keep the FLT checkpoint for a follow-up run
+        if: ${{ !cancelled() }}
         continue-on-error: true
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: autoform-ileans
-          path: .lake/build/lib/lean/**/*.ilean
-          include-hidden-files: true
+          name: pr48-flt-checkpoint
+          path: |
+            ${{ runner.temp }}/pr48-checkpoint/flt.tar.zst
+            ${{ runner.temp }}/pr48-checkpoint/source.txt
+            ${{ runner.temp }}/pr48-checkpoint/SHA256SUMS
+          compression-level: 0
+          if-no-files-found: ignore
+          retention-days: 4
 
-      # actions/cache/save only warns when it keeps nothing (an archive over 10 GB, for one), so ask the cache API
-      # whether this run's entry exists. A missing entry is a warning, not a failure: the site still deploys a
-      # commit whose build and axiom check passed.
-      - name: Confirm that the build was saved
-        id: saved
-        if: ${{ !cancelled() }}
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-          KEY: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Require Lean verification to pass
+        if: ${{ !cancelled() && steps.verify.outcome != 'success' }}
         run: |
-          set -euo pipefail
-          for attempt in 1 2 3; do
-            n="$(gh api -X GET "repos/$GITHUB_REPOSITORY/actions/caches" -f key="$KEY" --jq .total_count)"
-            if [ "$n" != 0 ]; then break; fi
-            sleep 10
-          done
-          if [ "$n" = 0 ]; then
-            echo "saved=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::The build was not saved to the Actions cache; the save step's warning says why."
-          else
-            echo "saved=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      # The job fails when the build did not finish, and says whether the next run can continue from it.
-      - name: Report an unfinished build
-        if: ${{ steps.build.outcome != 'success' }}
-        env:
-          SAVED: ${{ steps.saved.outputs.saved }}
-        run: |
-          if [ "$SAVED" = true ]; then
-            echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}); its progress was saved for the next run."
-          else
-            echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}), and its save could not be confirmed."
-          fi
+          echo "::error::The PR #48 proof and fold did not both verify. See the job log and verification artifact."
           exit 1
