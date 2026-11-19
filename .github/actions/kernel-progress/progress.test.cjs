@@ -85,8 +85,8 @@ test('workflow keeps ordinary kernel commands even if optional diagnostics fail'
   for(const name of ['Install and test optional resource uploader','Start optional resource uploader','Stop optional resource uploader']){
     const step=steps.find(s=>s.startsWith(name));assert.ok(step.includes('continue-on-error: true'));
   }
-  assert.ok(steps.find(s=>s.startsWith('Build all kernel modules')).includes('run: python -B scripts/check_kernel.py --phase build'));
-  assert.ok(steps.find(s=>s.startsWith('Replay all kernel proofs')).includes('run: python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json'));
+  assert.ok(steps.find(s=>s.startsWith('Build all kernel modules')).includes('python -B scripts/check_kernel.py --phase build'));
+  assert.ok(steps.find(s=>s.startsWith('Replay all kernel proofs')).includes('python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json'));
   assert.ok(steps.find(s=>s.startsWith('Replay all kernel proofs')).includes("LEAN_NUM_THREADS: '1'"));
   for(const name of ['Build all kernel modules','Replay all kernel proofs']){
     const step=steps.find(s=>s.startsWith(name));assert.ok(!step.includes('progress_start'));assert.ok(!step.includes('continue-on-error'));

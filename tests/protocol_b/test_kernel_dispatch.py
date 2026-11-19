@@ -105,10 +105,13 @@ class KernelDispatch(unittest.TestCase):
         self.patch.stop()
         self.tmp.cleanup()
 
-    def test_gate_pin_matches_cache_restricted_workflow(self):
+    def test_gate_pin_matches_verified_main_output_workflow(self):
         kernel = (ROOT / '.github/workflows/kernel-lean.yml').read_text(encoding='utf-8')
         self.assertEqual(gate.LEAN_WORKFLOW_SHA256, hashlib.sha256(kernel.encode()).hexdigest())
-        self.assertIn("if: steps.cache_ref.outputs.is_main == 'true' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')", kernel)
+        publish = kernel.split('      - name: Publish verified successful main build outputs', 1)[1]
+        self.assertIn("steps.verified_bundle.outputs.publish == 'true' && steps.cache_ref.outputs.is_main == 'true'", publish)
+        self.assertIn("(github.event_name == 'push' || github.event_name == 'workflow_dispatch')", publish)
+        self.assertNotIn('uses: actions/cache', kernel)
 
     def test_existing_direct_run_cannot_bypass_old_cache_workflow_rejection(self):
         for branch in ['Main', 'MAIN', 'contributor-branch']:

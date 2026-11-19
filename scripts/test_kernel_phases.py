@@ -55,9 +55,10 @@ class PhaseTests(unittest.TestCase):
         self.assertEqual([name for _, name, _ in self.commands],
                          ["root-build", "modules-0", "modules-1", "modules-2", "frozen-target-build"])
         built = [arg[1:] for command, name, _ in self.commands if name.startswith("modules-")
-                 for arg in command[2:]]
+                 for arg in command[3:]]
         self.assertEqual(built, sorted(self.contract["modules"]))
-        for _, name, options in self.commands[:-1]:
+        for command, name, options in self.commands[:-1]:
+            self.assertEqual(command[:3], ["lake", "--rehash", "build"])
             self.assertTrue(options["audit_metrics"], name)
         marker = json.loads((self.output / "build-complete.json").read_text())
         self.assertEqual(marker["identity"]["head_sha"], HEAD)

@@ -40,9 +40,10 @@ def exact_ref_output(ref):
         return result.split('=', 1)[1]
 
 
-def condition(step, ref, outcome='skipped', full_build='', event='workflow_dispatch'):
+def condition(step, ref, outcome='skipped', full_build='', event='workflow_dispatch', publish='true'):
     expression = re.search(r'^        if: (.*)$', step, re.M).group(1)
     for name, value in [('steps.cache_ref.outputs.is_main', exact_ref_output(ref)),
+                        ('steps.verified_bundle.outputs.publish', publish),
                         ('github.ref', ref), ('github.event_name', event),
                         ('steps.scope.outcome', outcome), ('steps.scope.outputs.full_build', full_build)]:
         expression = expression.replace(name, repr(value))
@@ -82,30 +83,69 @@ class KernelCacheTests(unittest.TestCase):
                 self.assertEqual(exact_ref_output(ref), expected)
 
     def test_every_non_main_ref_skips_all_project_cache_actions(self):
-        self.assertEqual(len(RESTORES), 1)
-        self.assertEqual(len(SAVES), 1)
+        self.assertEqual(RESTORES, [])
+        self.assertEqual(SAVES, [])
+        publish = next(s for s in STEPS if s.startswith('Publish verified successful main build outputs'))
         refs = ['refs/heads/contributor-branch', 'refs/pull/133/merge',
                 'refs/tags/main', 'refs/heads/main-other', 'refs/heads/Main', 'refs/heads/MAIN',
                 'refs/heads/codex/protocol-b-kernel/133/'+HEAD+'/'+'b'*40]
-        for step in RESTORES+SAVES:
-            self.assertIn('path: .lake/build', step)
-            for ref in refs:
-                for outcome, full in [('skipped',''), ('failure',''), ('success','true'), ('success','false')]:
-                    with self.subTest(ref=ref, outcome=outcome, full=full):
-                        self.assertFalse(condition(step, ref, outcome, full, event='push'))
+        for ref in refs:
+            with self.subTest(ref=ref):
+                self.assertFalse(condition(publish, ref, event='push'))
+                self.assertFalse(condition(publish, ref, event='workflow_dispatch'))
 
     def test_legacy_string_guard_reproduces_case_variant_failure(self):
-        legacy = RESTORES[0].replace("steps.cache_ref.outputs.is_main == 'true'", "github.ref == 'refs/heads/main'")
+        publish = next(s for s in STEPS if s.startswith('Publish verified successful main build outputs'))
+        legacy = publish.replace("steps.cache_ref.outputs.is_main == 'true'", "github.ref == 'refs/heads/main'")
         for ref in ['refs/heads/Main', 'refs/heads/MAIN']:
             self.assertTrue(condition(legacy, ref))
-            self.assertFalse(condition(RESTORES[0], ref))
+            self.assertFalse(condition(publish, ref))
 
-    def test_main_restore_save_and_scope_skip_are_preserved(self):
-        self.assertTrue(condition(RESTORES[0], 'refs/heads/main'))
-        self.assertTrue(condition(RESTORES[0], 'refs/heads/main', 'success', 'true'))
-        self.assertFalse(condition(RESTORES[0], 'refs/heads/main', 'success', 'false'))
-        self.assertTrue(condition(SAVES[0], 'refs/heads/main', event='push'))
-        self.assertFalse(condition(SAVES[0], 'refs/heads/main'))
+    def test_main_publication_requires_completed_bundle_and_main_event(self):
+        publish = next(s for s in STEPS if s.startswith('Publish verified successful main build outputs'))
+        for event in ('push', 'workflow_dispatch'):
+            self.assertTrue(condition(publish, 'refs/heads/main', event=event))
+            self.assertFalse(condition(publish, 'refs/heads/main', event=event, publish='false'))
+        self.assertFalse(condition(publish, 'refs/heads/main', event='pull_request'))
+        self.assertIn('include-hidden-files: true', publish)
+        self.assertIn('kernel-main-build-${{ github.run_id }}-${{ github.run_attempt }}', publish)
+
+    def test_selector_is_installed_from_main_before_candidate_checkout(self):
+        names = [s.splitlines()[0] for s in STEPS]
+        read = names.index('Read the protected main reuse driver')
+        select = names.index('Select and download verified main outputs')
+        checkout = names.index('Check out candidate')
+        self.assertLess(read, select)
+        self.assertLess(select, checkout)
+        self.assertIn('ref: main', STEPS[read])
+        self.assertIn('persist-credentials: false', STEPS[read])
+        self.assertIn('persist-credentials: false', STEPS[checkout])
+        self.assertIn('enabled=false', STEPS[select])
+        self.assertIn('building cold', STEPS[select])
+        self.assertIn('cp "$trusted/scripts/"kernel_build_*.py', STEPS[select])
+
+    def test_reuse_never_skips_the_full_build_or_audit(self):
+        names = [s.splitlines()[0] for s in STEPS]
+        sequence = ['Prepare verified reuse without credentials', 'Build all kernel modules',
+                    'Bind completed build to the prepared inputs', 'Replay all kernel proofs and exact targets',
+                    'Bind full audit and prepare a main-only output bundle',
+                    'Publish verified successful main build outputs']
+        indices = [names.index(n) for n in sequence]
+        self.assertEqual(indices, sorted(indices))
+        for name in ('Build all kernel modules', 'Replay all kernel proofs and exact targets'):
+            step = STEPS[names.index(name)]
+            self.assertNotIn('cache-hit', step)
+            self.assertNotIn('reuse_driver.outputs', step)
+            self.assertIn('-u GH_TOKEN -u GITHUB_TOKEN', step)
+            self.assertIn('-u ACTIONS_RUNTIME_TOKEN', step)
+            self.assertIn('-u LAKE_CACHE_KEY', step)
+        self.assertNotIn('--skip-build', KERNEL)
+
+    def test_all_reuse_execution_respects_the_existing_scope_skip(self):
+        for step in STEPS:
+            if step.startswith(('Read the protected', 'Select and download', 'Prepare verified',
+                                'Bind completed', 'Bind full audit')):
+                self.assertIn("steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'", step)
 
     def test_contract_pins_this_workflow_and_this_test(self):
         contract = json.loads((ROOT / 'KERNEL_CONTRACT.json').read_bytes())

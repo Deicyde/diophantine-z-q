@@ -69,12 +69,14 @@ timings. When available, it compares against an authenticated successful main-pu
 report for the base commit. Missing base evidence is shown as **not measured**.
 It is never treated as a count of zero proofs or as progress.
 
-The build cache contains only root `.lake/build` outputs. Cache writes occur on
-successful main pushes. The pinned Mathlib cache is fetched separately; toolchains
-and dependency trees are not archived in the project cache. Cached project
-declarations are still replayed and axiom-checked. New large dependencies need a
-measured cold build and warm rebuild before integration. Prefer the narrow module
-that supplies a theorem to a project's umbrella import.
+Project build reuse uses authenticated artifacts from successful exact-main
+pushes or dispatches, covering owned outputs under both `.lake/build` and
+`lean/.lake/build`. The pinned Mathlib cache is fetched separately; toolchains
+and dependency trees are not archived in the project bundle. Every run still
+performs the complete kernel audit. See [verified main build reuse](kernel-verified-reuse.md)
+for selection checks, cold fallbacks and deployment-validation limits. New large
+dependencies need a measured cold build and warm rebuild before integration.
+Prefer the narrow module that supplies a theorem to a project's umbrella import.
 
 ## Acceptance
 

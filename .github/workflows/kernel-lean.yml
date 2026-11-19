@@ -205,11 +205,43 @@ jobs:
           else
             echo 'is_main=false'
           fi >> "$GITHUB_OUTPUT"
+      - name: Read the protected main reuse driver
+        if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          path: .kernel-reuse-main
+          persist-credentials: false
+          sparse-checkout: |
+            /scripts/
+            /.github/workflows/kernel-lean.yml
+          sparse-checkout-cone-mode: false
+      - name: Select and download verified main outputs
+        id: reuse_driver
+        if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          trusted="$GITHUB_WORKSPACE/.kernel-reuse-main"
+          if [[ ! -f "$trusted/scripts/kernel_build_driver.py" ]]; then
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'Verified reuse is not installed on main yet; building cold.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          mkdir "$RUNNER_TEMP/kernel-reuse-driver"
+          cp "$trusted/scripts/"kernel_build_*.py "$RUNNER_TEMP/kernel-reuse-driver/"
+          cp "$trusted/scripts/check_kernel_contract.py" "$RUNNER_TEMP/kernel-reuse-driver/"
+          workflow_sha=$(sha256sum "$trusted/.github/workflows/kernel-lean.yml" | cut -d' ' -f1)
+          python -E -s -B "$RUNNER_TEMP/kernel-reuse-driver/kernel_build_driver.py" select --state "$RUNNER_TEMP/kernel-main-reuse" --repository "$GITHUB_REPOSITORY" --approved-workflow "$workflow_sha"
+          echo 'enabled=true' >> "$GITHUB_OUTPUT"
       - name: Check out candidate
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Set up Python
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
@@ -235,6 +267,7 @@ jobs:
           python -B scripts/test_kernel_pr_scope.py
           python -B scripts/test_kernel_contract.py
           python -B scripts/test_kernel_cache.py
+          python -B -m unittest discover -s scripts -p 'test_kernel_build_*.py'
           python -B scripts/check_kernel_contract.py --output build/kernel-ci/contract.json
       - name: Test rejection of invalid proofs
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
@@ -242,17 +275,13 @@ jobs:
       - name: Fetch pinned Mathlib cache
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         run: lake exe cache get
-      - name: Restore project build outputs
-        # Never restore on a branch, including a reused reserved dispatch ref.
-        # Its exact and fallback keys may have been populated by earlier code.
-        if: steps.cache_ref.outputs.is_main == 'true' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
-        id: restore
-        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
-        with:
-          path: .lake/build
-          key: kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-${{ github.sha }}
-          restore-keys: |
-            kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-
+      - name: Prepare verified reuse without credentials
+        if: steps.reuse_driver.outputs.enabled == 'true' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        shell: bash
+        run: |
+          set -euo pipefail
+          prefix=$(lean --print-prefix)
+          env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY -u LAKE_CACHE_ARTIFACT_ENDPOINT -u LAKE_CACHE_REVISION_ENDPOINT -u LAKE_CACHE_SERVICE python -E -s -B "$RUNNER_TEMP/kernel-reuse-driver/kernel_build_driver.py" prepare --state "$RUNNER_TEMP/kernel-main-reuse" --workspace "$GITHUB_WORKSPACE" --prefix "$prefix"
       - name: Load base proof-status evidence
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         env:
@@ -323,7 +352,11 @@ jobs:
         run: echo 'Periodic resource uploads unavailable. Running the original kernel checks with ordinary final evidence uploads.' >> "$GITHUB_STEP_SUMMARY"
       - name: Build all kernel modules
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
-        run: python -B scripts/check_kernel.py --phase build
+        run: env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY -u LAKE_CACHE_ARTIFACT_ENDPOINT -u LAKE_CACHE_REVISION_ENDPOINT -u LAKE_CACHE_SERVICE python -B scripts/check_kernel.py --phase build
+      - name: Bind completed build to the prepared inputs
+        if: steps.reuse_driver.outputs.enabled == 'true' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        shell: bash
+        run: env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY -u LAKE_CACHE_ARTIFACT_ENDPOINT -u LAKE_CACHE_REVISION_ENDPOINT -u LAKE_CACHE_SERVICE python -E -s -B "$RUNNER_TEMP/kernel-reuse-driver/kernel_build_driver.py" built --state "$RUNNER_TEMP/kernel-main-reuse" --workspace "$GITHUB_WORKSPACE"
       - name: Preserve completed build and resource samples
         if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -341,7 +374,19 @@ jobs:
         env:
           # Lower only the audit worker count; every replay and target check remains.
           LEAN_NUM_THREADS: '1'
-        run: python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json
+        run: env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY -u LAKE_CACHE_ARTIFACT_ENDPOINT -u LAKE_CACHE_REVISION_ENDPOINT -u LAKE_CACHE_SERVICE python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json
+      - name: Bind full audit and prepare a main-only output bundle
+        id: verified_bundle
+        if: steps.reuse_driver.outputs.enabled == 'true' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        shell: bash
+        run: env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY -u LAKE_CACHE_ARTIFACT_ENDPOINT -u LAKE_CACHE_REVISION_ENDPOINT -u LAKE_CACHE_SERVICE python -E -s -B "$RUNNER_TEMP/kernel-reuse-driver/kernel_build_driver.py" finish --state "$RUNNER_TEMP/kernel-main-reuse" --workspace "$GITHUB_WORKSPACE"
+      - name: Preserve reuse decisions and input evidence
+        if: always() && (github.event_name != 'pull_request' || steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false') && steps.reuse_driver.outputs.enabled == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-reuse-evidence-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/kernel-main-reuse/*.json
+          if-no-files-found: warn
       - name: Stop optional resource uploader
         if: always() && env.KERNEL_PROGRESS_DIR != '' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         continue-on-error: true
@@ -355,9 +400,11 @@ jobs:
           name: kernel-audit
           path: build/kernel-ci/
           if-no-files-found: error
-      - name: Save successful main build outputs
-        if: github.event_name == 'push' && steps.cache_ref.outputs.is_main == 'true' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
-        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+      - name: Publish verified successful main build outputs
+        if: (github.event_name != 'pull_request' || steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false') && steps.verified_bundle.outputs.publish == 'true' && steps.cache_ref.outputs.is_main == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          path: .lake/build
-          key: ${{ steps.restore.outputs.cache-primary-key }}
+          name: kernel-main-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/kernel-main-reuse/bundle/
+          include-hidden-files: true
+          if-no-files-found: error

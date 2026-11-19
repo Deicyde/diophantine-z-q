@@ -78,6 +78,10 @@ scripts/kernel_pr_scope.py text eol=lf
 scripts/check_target.py -text
 scripts/print_axioms.lean -text
 .github/workflows/kernel-lean.yml text eol=lf
+scripts/kernel_build_*.py text eol=lf
+scripts/validate_kernel_reuse_linux.py text eol=lf
+scripts/validate_kernel_reuse_project.py text eol=lf
+.github/workflows/kernel-reuse-validation.yml text eol=lf
 
 # Byte-pinned periodic kernel evidence action.
 .github/actions/kernel-progress/** text eol=lf
