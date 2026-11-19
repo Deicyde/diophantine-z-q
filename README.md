@@ -87,7 +87,7 @@ polynomial. It is retired and kept at the tag
   those flagged `unread` on OPEN.md have had no statement check against the page yet. Contributors have also posted
   statement checks on [#14](https://github.com/Deicyde/diophantine-z-q/issues/14), credited in
   `docs/one-proof/credits.tsv`; two of them (2026-11-18) were made by a person against the publisher's PDF, with AI
-  used only for drafting. `docs/one-proof/reviews.tsv` does not record them as readings yet.
+  drafting the reports, and `docs/one-proof/reviews.tsv` records them as the first human readings.
 
 ## Upstream
 

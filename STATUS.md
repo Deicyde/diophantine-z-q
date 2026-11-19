@@ -120,8 +120,9 @@ after such a reading (among them Gaudron–Rémond's Theorem 1.4). A statement c
 only once a reader has checked it against the page. Apart from the AI readings, contributors have posted statement
 checks on https://github.com/Deicyde/diophantine-z-q/issues/14, which docs/one-proof/credits.tsv credits; two of them,
 of Fowler's Proposition 2.7 (then the field `fowlerProp27`) and of `cmjDegree` against the publisher's PDF
-(2026-11-18), were made by a person with AI used only for drafting. docs/one-proof/reviews.tsv does not yet record any
-of them as a reading.
+(2026-11-18), were made by a person: an AI model proposed the passages and drafted the reports, and the reader read the
+print and checked each quote and step. docs/one-proof/reviews.tsv records these two as human readings, the first ones
+recorded; neither changes a count.
 
 ### Pole completeness (4)
 
@@ -197,8 +198,8 @@ nos-narrow-fold.md); hecke-sqrt.md, cm-port2.md and lem54-ct-check.md record dry
 The manuscript was written with AI models and audited by an AI model, and the project's Lean was written by AI coding
 agents. The ratings of the open statements are by AI models, and so are the readings of their printed sources, apart
 from the contributors' statement checks on issue #14 that docs/one-proof/credits.tsv credits (two of them, of
-2026-11-18, made by a person with AI used only for drafting); docs/one-proof/reviews.tsv does not yet record them as
-readings. A person's reading of a statement against its source counts for more: see
+2026-11-18, made by a person with AI drafting the reports, and recorded in docs/one-proof/reviews.tsv as human
+readings). A person's reading of a statement against its source counts for more: see
 docs/one-proof/STATEMENT-CHECKS.md.
 
 ## Where the details are
