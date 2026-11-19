@@ -6,19 +6,19 @@
   },
   "profile": {
     "path": "docs/current-manuscript.json",
-    "sha256": "4960b9816fec22913e8705c2a5311b24bd595a65144217926ad1765ae42f5710"
+    "sha256": "b3f8f4fd7ac7f44ce41caaa2369d0905e7d4b56ae373761199e40b214bd5763f"
   },
   "historical_review": {
     "path": "docs/audit-history/current.json",
     "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
   },
   "selected_manuscript": {
-    "path": "manuscripts/quartic_v20.tex",
-    "sha256": "95044840af8c3872c6298ea7c5eb4055fbbcd9d91be338ee33b97ba20c503c32"
+    "path": "manuscripts/quartic_v21.tex",
+    "sha256": "c98a66a0c50b9c186cb1efccd2be82c2e3bbb337b0511481fe69b64bc9d901e9"
   },
   "review": {
-    "path": "research/version20/reviews/v20-builder-review.json",
-    "sha256": "f1068ea2e4b0c0da8545ace9bee4ec005ce66ed8090933a3e4b11bb053e1f9f3"
+    "path": "research/version21/reviews/fable-v21-builder-review.json",
+    "sha256": "c7da018af315fed89b54002ecf7b024c4e064058da27fd354590d76032b2d9c7"
   },
-  "scope": "The original local Fable review binds the exact unchanged builder, Version 20 selector, source, PDF and recorded build, and checks preservation of released Version 16 through 19 files. Earlier reviews remain unchanged at their original paths. This is build correspondence only, not assembled-proof or protected App acceptance."
+  "scope": "The unchanged original local Fable record binds the exact builder, Version 21 selector, source, PDF and recorded build, and checks preservation of released Version 16 through 20 files. Its earlier-draft table checks are explicitly carried forward after comparison of the prose-only revision. This is build correspondence and stated finite checks only, not protected App or release acceptance. Earlier original reports remain unchanged."
 }

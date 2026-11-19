@@ -4,6 +4,8 @@ The project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, 
 
 This credit identifies contributors to the shared research notes. Supplied manuscripts and articles retain their separate printed authorship, dates and provenance. Historical archives remain unchanged; this is the current project credit.
 
+Version 21's explicit 229-variable construction and diagonal normalization are due to José Brox's project, building on Gemini 4 Carbon's three-detector construction and Brox's additive-detector framework. Brox's source package records additional independent exact-integer computations, repository comparisons and package preparation by GPT-6. OpenAI Codex's 6 Astra wrote the integrated presentation and independent finite checkers. The 195-variable polynomial is unchanged; the retained 247 and 250 constructions keep their earlier credits.
+
 Version 20's explicit 247-variable construction is due to Gemini 4 Carbon, building on José Brox's construction and the retained Version 19 arithmetic proof. OpenAI Codex's 6 Astra wrote the new presentation and independent finite checkers. The 195-variable result is unchanged.
 
 Version 19's 195-coordinate reduction is due to Jose Brox. Its explicit 250-coordinate construction is due to Gemini 4 Carbon, building on Brox's additive-detector framework. Astra wrote the new manuscript presentation and independent finite checkers; the component reviews identify their authors and limits. The source files retain their original attributions.

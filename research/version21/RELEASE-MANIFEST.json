@@ -1,0 +1,108 @@
+{
+  "schema": "version21-release-preparation/v1",
+  "version": 21,
+  "status": "Candidate source/PDF pair; independent acceptance and publication are not asserted.",
+  "preparation_base_commit": "b013ec5319c25d427b55a1f18e9be753ed392bf7",
+  "source": {
+    "path": "manuscripts/quartic_v21.tex",
+    "sha256": "c98a66a0c50b9c186cb1efccd2be82c2e3bbb337b0511481fe69b64bc9d901e9",
+    "bytes": 2862949
+  },
+  "pdf": {
+    "path": "manuscripts/quartic_v21.pdf",
+    "sha256": "61410502c6d71bcbd7f699a697c8ea2e7a7d9ea294c61b31225f1e37754e9d47",
+    "bytes": 5403293
+  },
+  "build_record": {
+    "path": "research/version21/BUILD.json",
+    "sha256": "5fd4ebf317b6c9abd77465f13bbe6305147ca99a9861cffeff1c29386b91e22e",
+    "bytes": 221618
+  },
+  "required_tex_inputs": [],
+  "claims": {
+    "explicit": {
+      "variables_including_input": 229,
+      "quadratic_rows": 207,
+      "coordinate_monomials": 3312,
+      "degree": 4,
+      "content": 1,
+      "input_fourth_power_coefficient": 1,
+      "N": 15,
+      "exact_height": "149^30",
+      "strict_bound": "2^217",
+      "plain_expression_bytes": 74007,
+      "plain_expression": {
+        "path": "research/version21/construction/inputs/brox229/quartic229-N15.txt",
+        "sha256": "45bdea1ea7876bf6ec10b5427f9403cf1f94c144fab35817aa545bcb2cea1975",
+        "bytes": 74007
+      }
+    },
+    "busy_beaver": {
+      "variables_including_input": 195,
+      "coordinate_monomials": 2956,
+      "parameter": "C = 149^BB(2^1000)",
+      "strict_bound": "BB(2^2000)",
+      "unchanged_from_version": 20
+    },
+    "retained_intermediates": [
+      247,
+      250
+    ]
+  },
+  "dependency_map": {
+    "path": "research/version21/DEPENDENCIES.md",
+    "sha256": "fb9afa06c8b0c1b7ee88da7b4bfdabf14ad2f7e52135ce3ae4d5bbfa5125237c",
+    "bytes": 7959
+  },
+  "corrections": {
+    "path": "research/version21/CORRECTIONS.json",
+    "sha256": "ee0a0b1db3c83ee2373edd58d4c94e29706a63113662c2c3aef5073d4a67eb02",
+    "bytes": 25002
+  },
+  "construction_inputs": {
+    "path": "research/version21/construction/INPUTS.json",
+    "sha256": "74b82764f4d56080068b0f96af084c240e3ff3a87e9c76547b4d9bea8f2a3198",
+    "bytes": 2493
+  },
+  "finite_checks": {
+    "path": "research/version21/FINITE-CHECKS.json",
+    "sha256": "3364ef713f9e193385a780d4e9d0052a37b4c645973e1c63fbe0e1efaa9f90ac",
+    "bytes": 13249
+  },
+  "finite_check_command": "python -B research/version21/construction/check.py",
+  "ci_scope": "Workflows unchanged; registration of the Version21 finite entry point is a separate follow-up. No hosted execution of it is claimed.",
+  "review": {
+    "accepted_head": null,
+    "app_check": null,
+    "reviewer_records": [],
+    "owner_overrides": []
+  },
+  "preservation": "All prior released manuscripts and research/versionK files remain byte-identical.",
+  "local_review_scope": "Original Fable text/table reviews concern draft f72580ea. Her issued builder record explicitly checks the prose-only transition to c98a66a0 and binds the current source/PDF/build. These are local scoped reviews, not protected App or release acceptance. Elliot has confirmed the credits and AI addition.",
+  "local_review_records": [
+    {
+      "path": "research/version21/reviews/fable-v21-builder-review.json",
+      "sha256": "c7da018af315fed89b54002ecf7b024c4e064058da27fd354590d76032b2d9c7",
+      "bytes": 13251
+    },
+    {
+      "path": "research/version21/reviews/fable-v21-builder-review-note.md",
+      "sha256": "ab331762232797149e53fd51f3e5deeead9d6abcf4828d21e1e3437feb4b995f",
+      "bytes": 1171
+    },
+    {
+      "path": "research/version21/reviews/fable-review-v21-text.md",
+      "sha256": "8083f4e60f559c6d28b8c39d698c36e1ab4901f87b0795885eff7cb3b4e9da6b",
+      "bytes": 16219
+    },
+    {
+      "path": "research/version21/reviews/fable-review-v21-tables.md",
+      "sha256": "6a539dbc3e4c6d32fcc2d04b403679da856ce2e47a7ee40bd03e5927498c0a12",
+      "bytes": 10333
+    }
+  ],
+  "credit_confirmation": {
+    "path": "research/version21/CREDIT-CONFIRMATION.json",
+    "sha256": "f2c62e4f03af411351717563d20f711752c7f75cf636ba5d73b1c32c18767234"
+  }
+}
