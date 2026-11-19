@@ -15,7 +15,7 @@ removes it. See
 
 **28 hypotheses of the H part** (in the bundles `OpenAddedLeaves29`, `OpenResearchLeaves69`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
 
-* **Strict count: 5 published / 23 glue** (the strictest flagged reading; 6/22 without the one strictest-reading flag).
+* **Strict count: 5 published / 23 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
@@ -124,13 +124,13 @@ p-adic Hodge theory and modular Galois representations. Claim it on [Deicyde #14
 
 Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
 
-* [`conradAppBPrint`](#conradappbprint) (GLUE; strictest): Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32–33 and Proposition B.3 (proof pp. 33–34); diophantine_zq.tex sec:height L760–764, conrad-local-characters L11046–11049
+* [`conradAppBPrint`](#conradappbprint) (GLUE): Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32–33 and Proposition B.3 (proof pp. 33–34); diophantine_zq.tex sec:height L760–764, conrad-local-characters L11046–11049
 
 ## Index
 
 | hypothesis | bundle | kind | strict | flag class | label | tier | area | human reads | status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [`conradAppBPrint`](#conradappbprint) | added | published | GLUE | strictest |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | open |
+| [`conradAppBPrint`](#conradappbprint) | added | published | GLUE | note |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | open |
 | [`scholzeH1AbVar`](#scholzeh1abvar) | added | consequence | GLUE | pending-review, unverified-locator | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
 | [`t10TateDuality`](#t10tateduality) | added | consequence | GLUE | note | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
 | [`afCharpolyDS965`](#afcharpolyds965) | research | consequence | GLUE | note |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
@@ -167,7 +167,7 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 
 ### conradAppBPrint
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves29.conradAppBPrint`; kind **published**, strict **GLUE**; flag: strictest reading: the manuscript's exact citation is an unrefereed author preprint (LEAF only if this source is eligible); pp. 32–33 read by the reading desk on 2026-11-17, also A011 for p. 32..
+* Bundle field `HDec.HSyn.OpenAddedLeaves29.conradAppBPrint`; kind **published**, strict **GLUE**; flag: glue (rated): a two-lens skeptic pass (print fidelity, Lean semantics) refuted the printed-form rating. Def. B.1's Q_p-homomorphism R_{L/Q_p}G_m -> R_{K/Q_p}G_m is encoded as an integer exponent with no Weil restriction formalized, and the reading paraphrases the p. 33 display, chaining p. 32 into p. 33; the full-group pure Hodge-Tate reading of Proposition B.3 is an on-the-spot reading and B.3 is quoted only with an ellipsis, so it is not known whether B.3 assumes or asserts Hodge-Tate. Also the citation is an unrefereed author preprint (eligibility open). To rate it LEAF: verbatim quotes of pp. 32-33 and of B.3, Def. B.1 formalized with the Weil-restriction homomorphism or the leaf restated in Conrad's line form, and a Hodge-Tate hypothesis if B.3 assumes it.
 * Source: Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32–33 and Proposition B.3 (proof pp. 33–34); diophantine_zq.tex sec:height L760–764, conrad-local-characters L11046–11049
 * packet [R10](#packet-r10); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
