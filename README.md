@@ -7,8 +7,9 @@
 - **Contributed work on `main`:** loning ([@loning](https://github.com/loning)),
   Chey Loveday ([@CheyLoveday](https://github.com/CheyLoveday)),
   Carlos Toledo ([@carlostoledo1891](https://github.com/carlostoledo1891)),
-  Cameron Freer ([@cameronfreer](https://github.com/cameronfreer)) and
-  Junyan Xu ([@alreadydone](https://github.com/alreadydone)).
+  Cameron Freer ([@cameronfreer](https://github.com/cameronfreer)),
+  Junyan Xu ([@alreadydone](https://github.com/alreadydone)) and
+  Ryan McCorvie ([@mccorvie](https://github.com/mccorvie)).
 - **Claims and discussion:** zachbaugher ([@zachbaugher](https://github.com/zachbaugher)).
 - **The October 11 manuscript:** Sohail Farhangi.
 - **Credited by the upstream project for its collective notes:** Stefan Baranczuk, Jose Brox

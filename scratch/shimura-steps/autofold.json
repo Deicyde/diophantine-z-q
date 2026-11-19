@@ -1,0 +1,37 @@
+{
+  "name": "shimura-steps",
+  "imports": ["ZInQKernel.Contrib.OneProof.ShimuraSteps"],
+  "discharges": [
+    {
+      "field": "shimuraThm1Af",
+      "proof": "_root_.ShimuraSteps.shimuraThm1Af_of_printed {n}.shimuraThm1AsPrinted {n}.shimuraHeckeRelations {n}.sameDimSurjectiveFinite",
+      "leaves": [
+        {
+          "name": "shimuraThm1AsPrinted",
+          "type": "_root_.ShimuraSteps.ShimuraThm1AsPrinted",
+          "doc": "Shimura's construction J/C, with C the images of the integral elements of the rational annihilator; (i) the quotient condition, (ii) intertwining for every positive index, (iii) the dimension, and uniqueness up to a Q-isomorphism.",
+          "kind": "published",
+          "flag": "AI page read pp. 525-527",
+          "source": "Shimura, On the factors of the jacobian variety of a modular function field, J. Math. Soc. Japan 25 (1973), 523-544, Theorem 1 and its construction; manuscript L770-773, L11053-11057."
+        },
+        {
+          "name": "shimuraHeckeRelations",
+          "type": "_root_.ShimuraSteps.ShimuraHeckeRelations",
+          "doc": "Composite Hecke correspondences act over Q on the same Jacobian with the stated divisor-class formula, agree with the existing prime operators, and satisfy the coprime and prime-power laws.",
+          "kind": "on-the-spot",
+          "flag": "on-the-spot: composite Jacobian operators, normalization dictionary and multiplication laws",
+          "source": "Shimura 1973 pp. 525-526 (Hecke ring and action; AI page read). The comparison with the kernel model is on-the-spot."
+        },
+        {
+          "name": "sameDimSurjectiveFinite",
+          "type": "_root_.ShimuraSteps.SameDimSurjectiveFinite",
+          "doc": "Every surjective homomorphism between equal-dimensional abelian varieties over Q is finite. This is the remaining dimension step for projection-compatible uniqueness.",
+          "kind": "on-the-spot",
+          "flag": "on-the-spot: finiteness of the induced surjective homomorphism in step 3",
+          "source": "On-the-spot argument from the dimension of the generic fibre, translation of geometric fibres, and proper quasi-finite implies finite; applied to Shimura 1973, Thm. 1, p. 526."
+        }
+      ]
+    }
+  ],
+  "note": "Candidate only. Do not fold if the GLUE count rises. See docs/research/shimura-steps.md."
+}

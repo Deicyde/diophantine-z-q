@@ -1,0 +1,29 @@
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.genericPoint_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.fromSpecStalk_generic_comp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.functionField_essFiniteType' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.quasiFiniteAt_generic_of_sameDim' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.subsingleton_genericFiber' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.finite_genericFiber' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.finite_geometricGenericFiber' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.finite_sections' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.SameDimFinite.0.ShimuraSteps.finite_kerPts_of_sameDim' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraSteps.sameDimSurjectiveFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.shimuraThm1Af_of_printed'' depends on axioms: [propext, Classical.choice, Quot.sound]

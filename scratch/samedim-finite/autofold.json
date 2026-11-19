@@ -1,0 +1,31 @@
+{
+  "name": "samedim-finite",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.SameDimFinite"
+  ],
+  "discharges": [
+    {
+      "field": "shimuraThm1Af",
+      "proof": "_root_.ShimuraSteps.shimuraThm1Af_of_printed' {n}.shimuraThm1AsPrinted {n}.shimuraHeckeRelations",
+      "leaves": [
+        {
+          "name": "shimuraThm1AsPrinted",
+          "type": "_root_.ShimuraSteps.ShimuraThm1AsPrinted",
+          "doc": "Shimura's construction J/C, with C the images of the integral elements of the rational annihilator; (i) the quotient condition, (ii) intertwining for every positive index, (iii) the dimension, and uniqueness up to a Q-isomorphism.",
+          "kind": "published",
+          "flag": "AI page read pp. 525-527",
+          "source": "Shimura, On the factors of the jacobian variety of a modular function field, J. Math. Soc. Japan 25 (1973), 523-544, Theorem 1 and its construction; manuscript L770-773, L11053-11057."
+        },
+        {
+          "name": "shimuraHeckeRelations",
+          "type": "_root_.ShimuraSteps.ShimuraHeckeRelations",
+          "doc": "Composite Hecke correspondences act over Q on the same Jacobian with the stated divisor-class formula, agree with the existing prime operators, and satisfy the coprime and prime-power laws.",
+          "kind": "consequence",
+          "flag": "on-the-spot: composite Jacobian operators, normalization dictionary and multiplication laws",
+          "source": "Shimura 1973 pp. 525-526 (Hecke ring and action; AI page read). The comparison with the kernel model is on-the-spot."
+        }
+      ]
+    }
+  ],
+  "note": "Candidate only; no fold requested. See docs/research/samedim-finite.md."
+}

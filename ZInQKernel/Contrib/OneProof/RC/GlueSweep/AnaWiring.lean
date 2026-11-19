@@ -8,8 +8,9 @@ Lane RC0 collects every remaining hypothesis of Theorem 5.3 in the structure `RC
 (`RC/Wiring/Leaves.lean`) and proves `restrictedConverseGenuine_of_leaves : Prints → RCLeaves →
 RestrictedConverseGenuine`. Its earlier field `levelSupport` (lane RC13's GLUE "the level of the
 functional equation is supported on the bad primes") was redundant: `levelSupport_of_modularNewform`
-proves it from the field `modularNewform` (lane RC8's print `ModularNewform`). Lane RC0 (round 3)
-dropped the field and uses `levelSupport_of_modularNewform` inside `RCLeaves.twistSign`, so the
+proves it from `ModularNewform` (lane RC8's print, then the field `modularNewform`, now the theorem
+`RCLeaves.modularNewform`). Lane RC0 (round 3) dropped the field and uses
+`levelSupport_of_modularNewform` inside `RCLeaves.twistSign`, so the
 reduced structure of this file is now `RCLeaves` itself:
 
 * `RCLeavesReduced := RCLeaves`;
