@@ -16,3 +16,12 @@ frozen-file preservation. Its original records and detailed local execution
 evidence are retained in the preparation workspace, not asserted here as
 protected review. No whole-argument or release acceptance is inferred from
 any of these scoped checks.
+
+## Author-issued timestamp correction
+
+Fable reissued the builder record to correct only `reviewed_at`, from an
+estimated future time to 03:40 UTC on 19 November. The selected file is
+`fable-v21-builder-review-corrected.json`; every other value, including the
+review decision, file hashes and limitations, is identical. Her original
+record and correction note are both retained unchanged. Neither timestamp
+is treated as cryptographic evidence of model execution.

@@ -17,8 +17,8 @@
     "sha256": "c98a66a0c50b9c186cb1efccd2be82c2e3bbb337b0511481fe69b64bc9d901e9"
   },
   "review": {
-    "path": "research/version21/reviews/fable-v21-builder-review.json",
-    "sha256": "c7da018af315fed89b54002ecf7b024c4e064058da27fd354590d76032b2d9c7"
+    "path": "research/version21/reviews/fable-v21-builder-review-corrected.json",
+    "sha256": "695f18ad31454d3563cd2033022752c58e54a0b86b4cc4b1dcb491f28aa69ea4"
   },
-  "scope": "The unchanged original local Fable record binds the exact builder, Version 21 selector, source, PDF and recorded build, and checks preservation of released Version 16 through 20 files. Its earlier-draft table checks are explicitly carried forward after comparison of the prose-only revision. This is build correspondence and stated finite checks only, not protected App or release acceptance. Earlier original reports remain unchanged."
+  "scope": "The unchanged author-corrected local Fable record binds the exact builder, Version 21 selector, source, PDF and recorded build, and checks preservation of released Version 16 through 20 files. Its earlier-draft table checks are explicitly carried forward after comparison of the prose-only revision. This is build correspondence and stated finite checks only, not protected App or release acceptance. Earlier original reports remain unchanged. The original timestamp-only superseded record and Fable's correction remain preserved."
 }

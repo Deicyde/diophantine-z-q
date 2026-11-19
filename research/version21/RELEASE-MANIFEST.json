@@ -78,7 +78,7 @@
     "owner_overrides": []
   },
   "preservation": "All prior released manuscripts and research/versionK files remain byte-identical.",
-  "local_review_scope": "Original Fable text/table reviews concern draft f72580ea. Her issued builder record explicitly checks the prose-only transition to c98a66a0 and binds the current source/PDF/build. These are local scoped reviews, not protected App or release acceptance. Elliot has confirmed the credits and AI addition.",
+  "local_review_scope": "Original Fable text/table reviews concern draft f72580ea. Her issued builder record explicitly checks the prose-only transition to c98a66a0 and binds the current source/PDF/build. These are local scoped reviews, not protected App or release acceptance. Elliot has confirmed the credits and AI addition. Fable's timestamp-only corrected original record is selected; the first record remains preserved.",
   "local_review_records": [
     {
       "path": "research/version21/reviews/fable-v21-builder-review.json",
@@ -99,6 +99,16 @@
       "path": "research/version21/reviews/fable-review-v21-tables.md",
       "sha256": "6a539dbc3e4c6d32fcc2d04b403679da856ce2e47a7ee40bd03e5927498c0a12",
       "bytes": 10333
+    },
+    {
+      "path": "research/version21/reviews/fable-v21-builder-review-corrected.json",
+      "sha256": "695f18ad31454d3563cd2033022752c58e54a0b86b4cc4b1dcb491f28aa69ea4",
+      "bytes": 13251
+    },
+    {
+      "path": "research/version21/reviews/fable-v21-builder-timestamp-correction.md",
+      "sha256": "136e1843191a287901cee8deed67ab496b351defc8ecdc71410cc3764875f1fc",
+      "bytes": 1441
     }
   ],
   "credit_confirmation": {
