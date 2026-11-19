@@ -9,6 +9,18 @@ Project licensing applies only to original project material. It does not relicen
 - Jonas Bayer, Marco David, Benedikt Stock, Abhik Pal, Yuri Matiyasevich, and Dierk Schleicher, [*Diophantine Equations and the DPRM Theorem*](https://isa-afp.org/entries/DPRM_Theorem.html), Archive of Formal Proofs, June 6, 2022. The entry is distributed under the BSD license linked on its page. The alpha-sequence and exponentiation constructions are credited in the relevant project sources. The curated construction directory does not vendor the Isabelle development.
 - Other mathematical sources for [Version 3](manuscripts/archive/quartic_9625.pdf) are identified in its bibliography and [dependency evidence](docs/quartic-9625/README.md). The October 11 manuscript has its own bibliography. Historical review reports preserve their particular citations and scope.
 
+## Version 21 construction sources
+
+José Brox supplied the explicit 229-variable construction accepted in PR158.
+It builds on Gemini 4 Carbon's three-detector construction and Brox's
+additive-detector framework. The source package also attributes its additional
+independent exact-integer computations and preparation to GPT-6.
+The [selected input inventory](research/version21/construction/INPUTS.json)
+pins nine original data files. The [construction notice](research/version21/construction/NOTICE.md)
+identifies their parent and inherited notices, and distinguishes them from
+the independently written manuscript and finite checkers. No earlier released
+source is changed.
+
 ## Version 20 construction sources
 
 Gemini 4 Carbon supplied the explicit247 data and normalization certificate,

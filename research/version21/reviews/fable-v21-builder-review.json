@@ -1,0 +1,134 @@
+{
+  "schema": "record-manuscript-policy-review/v1",
+  "decision": "accepted_within_scope",
+  "reviewer": "Claude Fable 5.2, in Elliot Glazer's Claude Code session (local review, not the Protocol B gate reviewer)",
+  "author_of_policy_or_implementation": false,
+  "reviewed_at": "2026-11-19T04:55:00+00:00",
+  "reviewed_root": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\version21-explicit229-20261118\\repo",
+  "request": "relay/to-fable/20261118-1938-from-astra-v21-rebuilt-pair.md (supersedes 20261118-1906-from-astra-v21-full-draft-and-binding.md)",
+  "files": [
+    {
+      "path": "scripts/build_paper.py",
+      "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f",
+      "bytes": 9646
+    },
+    {
+      "path": "scripts/check_current_manuscript.py",
+      "sha256": "ebc45e56fce617602002e9232d215e4f988f23fd4e6b10dd42bcea5e166e0dfe",
+      "bytes": 5642
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "b3f8f4fd7ac7f44ce41caaa2369d0905e7d4b56ae373761199e40b214bd5763f",
+      "bytes": 534
+    },
+    {
+      "path": "docs/audit-history/current.json",
+      "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4",
+      "bytes": 372544
+    },
+    {
+      "path": "manuscripts/quartic_v21.tex",
+      "sha256": "c98a66a0c50b9c186cb1efccd2be82c2e3bbb337b0511481fe69b64bc9d901e9",
+      "bytes": 2862949
+    },
+    {
+      "path": "manuscripts/quartic_v21.pdf",
+      "sha256": "61410502c6d71bcbd7f699a697c8ea2e7a7d9ea294c61b31225f1e37754e9d47",
+      "bytes": 5403293
+    },
+    {
+      "path": "research/version21/BUILD.json",
+      "sha256": "5fd4ebf317b6c9abd77465f13bbe6305147ca99a9861cffeff1c29386b91e22e",
+      "bytes": 221618
+    },
+    {
+      "path": "research/version18/build_pdf.py",
+      "sha256": "5afbf7050dd8b5ea45546560fc5e4f20b415c5c66c580e128fa93f8a349edf41",
+      "bytes": 17800
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "manuscripts/quartic_v16.pdf",
+      "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315",
+      "bytes": 2732163
+    },
+    {
+      "path": "manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12",
+      "bytes": 2338864
+    },
+    {
+      "path": "manuscripts/quartic_v17.pdf",
+      "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea",
+      "bytes": 3916929
+    },
+    {
+      "path": "manuscripts/quartic_v18.tex",
+      "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29",
+      "bytes": 2324626
+    },
+    {
+      "path": "manuscripts/quartic_v18.pdf",
+      "sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d",
+      "bytes": 4849204
+    },
+    {
+      "path": "manuscripts/quartic_v19.tex",
+      "sha256": "1f0e4db9e978115bb7f605f4bfcd84426a715b8cb6adaee3566107b33d61ad03",
+      "bytes": 2535915
+    },
+    {
+      "path": "manuscripts/quartic_v19.pdf",
+      "sha256": "cc1adfb0107661e001593cbfeae57e0221d6cfb8bc8f48a5e0be213144844172",
+      "bytes": 5088828
+    },
+    {
+      "path": "manuscripts/quartic_v20.tex",
+      "sha256": "95044840af8c3872c6298ea7c5eb4055fbbcd9d91be338ee33b97ba20c503c32",
+      "bytes": 2673450
+    },
+    {
+      "path": "manuscripts/quartic_v20.pdf",
+      "sha256": "061c435337b27e280535544b2d50caef920d8d2d4b33051f575d967b748e59fe",
+      "bytes": 5171261
+    }
+  ],
+  "scope": "Build selection and recorded source/PDF/build correspondence for this exact Version 21 candidate, and byte preservation of the ten released Version 16, 17, 18, 19 and 20 manuscript files in this checkout. No whole-proof or protected gate acceptance of Version 21 is given or implied by this record; the new arithmetic of Part I (the torsion-inclusive height bound, the cutoff-free extraction, the N = 15 argument and completeness) was not reviewed here.",
+  "checks": [
+    "Hashed all eighteen files in the reviewed root: the hashes and byte counts are as listed, and the three values named in the request (quartic_v21.tex, quartic_v21.pdf, research/version21/BUILD.json) equal the request's hashes.",
+    "Builders: scripts/build_paper.py, scripts/check_current_manuscript.py and research/version18/build_pdf.py are the same bytes as in my Version 20 record. The checkout's HEAD is b013ec5319c25d427b55a1f18e9be753ed392bf7, equal to origin/main, and git reports no modification under scripts/, .github/, tests/, releases/, KERNEL_CONTRACT.json or any earlier research/versionK/ folder.",
+    "Ran scripts/check_current_manuscript.py in the reviewed root: exit status 0. docs/current-manuscript.json declares version 21 with the tex, pdf and build-record hashes listed above and no required TeX inputs.",
+    "research/version21/BUILD.json: manuscript_version 21, status success, source and pdf hashes equal to the files, pdf_bytes 5403293, builder_sha256 equal to build_pdf.py, serial_passes 3 with return code 0 on each pass, no TeX error lines, no unresolved-reference lines on passes 2 and 3, tex_errors 0, unresolved_references 0, 833 pages.",
+    "PDF, with pdfinfo and pdftotext: 833 pages; title 'Z is Diophantine in Q, Version 21'; no '??'; no draft wording on the first pages; the abstract states 229 variables, 3 312 monomials, largest coefficient 149^30 < 2^217, 74 007 bytes, and 195 variables with 2 956 monomials; the AI usage statement is that of Version 20 followed by one added sentence on computations and package preparation by GPT-6 recorded in Brox's source package.",
+    "Released files: the ten Version 16 to 20 manuscript files hash, as working-tree files, to the Git blobs at HEAD and origin/main and to the values above (Versions 16 to 19 as in my Version 20 record; Version 20 as in its published release).",
+    "Source delta from Version 20, compared after normalizing line endings: seven hunks. Title, date and PDF title (one line each); three abstract lines; the new Part I (3,938 lines); and two insertions in the retained Version 20 body (five lines in the 244-coordinate starting system, ten lines after the change of equations). No other line differs, so the retained 195, 247 and 250 tables and map sections are line for line those of Version 20.",
+    "Printed tables of the new Part, parsed from the TeX with my own parser: the 207 printed source rows equal Jose Brox's source/quadratic229-v62.json at main b013ec53; the 207 printed normalized rows equal his quadratic.json; the printed exponent lists (229 coordinate, 207 row, a_1 = 0) equal his transformation.json; R_j = 149^{b_j} Q_j(149^15; 149^{a_i} y_i) reproduces every printed normalized row from the printed source rows. The expansion of the printed normalized rows has exactly coordinates 1 to 229, 3,312 monomials, degree four, content 1, coefficient of y_1^4 equal to 1 and largest coefficient exactly 149^30, attained at the three monomials named in the text; in the PR145 notation it is 74,007 bytes with SHA-256 45bdea1ea7876bf6ec10b5427f9403cf1f94c144fab35817aa545bcb2cea1975, byte-identical to quartic229-N15.txt and equal to polynomial.json on main. The unnormalized sum of squares at N = 15 has the same support and height 149^32, as stated.",
+    "Printed copy maps: the 34 coordinate copies and 31 row copies equal graft.json on main, both maps are injective, and each of the 31 copied source rows is the literal renaming of its original under the coordinate map.",
+    "Inserted determinant paragraph: from the six printed rows I recomputed det M_6 = 1/214450708242592116705963714180667354532074632082, the three 2x2 block determinants and their product, all as printed.",
+    "research/version21: the nine files in construction/INPUTS.json match their recorded hashes and byte counts and are byte-identical to the corresponding files of research/brox-explicit229-v68 at main; the eight path/hash entries of RELEASE-MANIFEST.json match the files; FINITE-CHECKS.json records the manuscript hash above and the current hashes of the five scripts it lists. I ran verify247_retained.py, verify229.py, verify_arithmetic.py and check_printed.py individually: each exited 0.",
+    "Revision after my reviews. The table, copy-map, determinant and Version 20 delta checks above were performed on the earlier draft (TeX f72580eaeaea95933fcd9d631d6f8577586543117ad10124abf4fe346befee07, preserved at work/version21-explicit229-20261118/draft-before-fable-notes-003). I diffed that TeX against the current one after normalizing line endings: exactly eight hunks, all prose. They are: the credit sentence at the head of Part I (now crediting Brox's project for the 229 construction and Gemini 4 Carbon's three-detector construction); one word in the next sentence; a five-line insertion on the companion rows 113-114, 129-130 and 145-146 fixing the stored-to-physical scale; a three-line insertion that the pole row forces 1+q_j nonzero; one clause on the threshold 8; two rewordings in the retained Version 20 part ('the 247-variable construction/polynomial'); and the added AI usage sentence. No printed table, exponent list, copy map, displayed number or theorem statement differs, so those checks carry over to the current TeX. I read each inserted passage in context and found it correct.",
+    "Reran on the current bytes: all eighteen file hashes (four changed: the TeX, PDF, BUILD.json and docs/current-manuscript.json, as listed); scripts/check_current_manuscript.py (exit 0); the BUILD.json fields; pdfinfo and first-page pdftotext; the ten released manuscript files against their Git blobs at origin/main."
+  ],
+  "observations": [
+    "Changed or added relative to origin/main when the checks above were run: CREDITS.md, README.md, THIRD_PARTY_NOTICES.md, docs/current-manuscript-build.md, docs/current-manuscript.json, the two Version 21 manuscript files and research/version21/ (32 untracked files in all). Nothing under .github/, scripts/, tests/ or releases/, and KERNEL_CONTRACT.json is untouched. The README contributor line is unchanged from main and includes Jennifer Park. At the time of this record CITATION.bib is also modified.",
+    "manuscripts/quartic_v21.tex, research/version21/BUILD.json and docs/current-manuscript.json have CRLF line endings; every earlier released TeX file has LF. The repository's attributes store these paths without conversion, so the hashes above bind the CRLF bytes. Normalizing the line endings would change every hash in this record.",
+    "docs/audit-history/builder-binding.json still binds the Version 20 selection, by design until a Version 21 record exists; scripts/check_audit_history.py --self-test currently stops with 'Changed bound file: docs/current-manuscript.json'.",
+    "The worktree was being edited while I reviewed it: at about 03:13 UTC CURRENT_VERSION21.md was added and docs/research-guide.md and manuscripts/README.md were modified. I rehashed the eight Version 21 selection and builder files afterwards and they were unchanged, and scripts/check_current_manuscript.py still exited 0. After that edit both documents still call Version 20 the current (published) manuscript and CITATION.bib has no Version 21 entry; README.md and RELEASE-MANIFEST.json describe Version 21 as a candidate. These are outside this record's scope and do not affect the listed hashes.",
+    "The credit sentence and the AI usage addition follow Brox's own package (PR158 PR_DESCRIPTION.md and REVIEW_NOTE.md). Confirmation by Brox or the owner, as release-policy condition 3 requires, was still pending when this record was written.",
+    "As for Version 20, the candidate adds no CI step for the new finite checks; three correction entries defer CI registration to a separate follow-up.",
+    "docs/current-manuscript.json and research/version21/BUILD.json must be committed byte for byte. If the TeX is edited, the source and PDF hashes change and this record no longer applies."
+  ],
+  "limitations": [
+    "I did not run pdfLaTeX or any build, and did not inspect page images of the PDF; I did not re-extract the full PDF text of the revised build beyond the first page, page count and a search for '??'.",
+    "I did not run research/version21/construction/check.py itself or research/version20/construction/check.py, because both write under build/; I ran the four Version 21 sub-checkers it calls.",
+    "This record does not cover the new arithmetic of Part I; that was reviewed separately (C:/Users/glaze/Documents/fable-review-v21-text.md, on the earlier draft, no error found) and is for the protected gate. I did not review DEPENDENCIES.md, the 25 dispositions in CORRECTIONS.json beyond confirming that the labels and files they name exist, or the handoff files.",
+    "I did not execute any program under research/brox-explicit229-v68/.",
+    "The candidate was not yet committed or pushed when reviewed; this record applies to these bytes only.",
+    "This is reviewer-authored evidence from a local session. It is not model authentication and not protected App acceptance."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "version21-credit-confirmation/v1",
+  "recorded_at": "2026-11-19T03:37:02.074765+00:00",
+  "authority": "Elliot direct chat",
+  "message": "I confirm the Version 21 credit wording and the AI usage addition as written in your 1935 decision note. If Jose gives more precise agent names later, we correct it in the next version.",
+  "decision_note": "20261118-1935-from-astra-v21-credit-confirmation.md",
+  "confirmed_wording": {
+    "construction": "The 229-coordinate construction and its diagonal normalization are due to José Brox's project. They build on the three-detector construction of Gemini 4 Carbon in the retained Version 19 construction section, itself built on Brox's additive-detector framework.",
+    "ai_addition": "Brox's source package also records additional independent exact-integer computations, repository comparisons and package preparation by GPT-6."
+  },
+  "scope": "Credit wording only. This does not constitute exact-head release approval, mathematical review or protected App acceptance.",
+  "later_names": "Any later, more precise agent names supplied by Jose are corrected in the next version."
+}

@@ -1,0 +1,32 @@
+{
+  "base": "manuscripts/quartic_v20.tex",
+  "new": "manuscripts/quartic_v21.tex",
+  "retained_body_changes": [
+    {
+      "at": "v20:overview starting 244 system",
+      "reason": "Explicit ladder deletion and source citation",
+      "backlog": [
+        "44075047861-1-fable-v20-n2-start-cite",
+        "44106224232-1-fable-v20-n2-starting-system-derivation"
+      ]
+    },
+    {
+      "at": "v20:normalization after det M6",
+      "reason": "Three block determinant derivation",
+      "backlog": [
+        "44075047861-1-fable-v20-n3-det-m6"
+      ]
+    },
+    {
+      "at": "v20:overview",
+      "reason": "Replace edition-relative new construction and new polynomial with the specific 247-variable construction",
+      "review_note": "Fable V21 N4"
+    },
+    {
+      "at": "AI usage statement",
+      "reason": "Record GPT-6 contribution reported by Brox in the accepted PR158 source package; operator/owner confirmation of complete agent list remains a release condition",
+      "source": "research/brox-explicit229-v68/PR_DESCRIPTION.md, Attribution and AI involvement"
+    }
+  ],
+  "exact_M6_det": "1/214450708242592116705963714180667354532074632082"
+}
