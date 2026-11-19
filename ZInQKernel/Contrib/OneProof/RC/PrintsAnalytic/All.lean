@@ -8,6 +8,9 @@ import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.Waldspurger
 import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.Bridges
 import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.Milne
 import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.Uses
+import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.TwistedFEKronecker
+import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.TwistedFEFricke
+import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.TwistedFE
 
 /-!
 # Lane RC8: the analytic printed theorems of the proof of Theorem 5.3
@@ -16,7 +19,7 @@ Umbrella module. The printed leaves (PRINT) and textbook facts (GLUE) of this la
 the shared vocabulary `ZInQ.Contrib.CloudB3RC53` (`qtwist`, `IsLContinuation`, `AnalyticRank`,
 `completedL`, `RootNumber`) and, for the literal prints, over the vendored genuine newforms:
 
-* PRINT: `HoffsteinLuoTheorem`, `TwistedFunctionalEquation`, `BFHTheorem` (literal, over newforms);
+* PRINT: `HoffsteinLuoTheorem`, `BFHTheorem` (literal, over newforms);
   `HoffsteinLuoCurve`, `TwistedRootNumberCurve`, `BFHCurve` (curve forms, PROVED from the literal
   ones in `Bridges.lean`); `DesjardinsRootNumberFilter` (global-consequence form);
   `WaldspurgerCor2`, `WaldspurgerNonvanishing` (print not read; the latter includes Elliot's local
@@ -25,6 +28,10 @@ the shared vocabulary `ZInQ.Contrib.CloudB3RC53` (`qtwist`, `IsLContinuation`, `
   Proposition 11.21).
 * GLUE: `HasseConvergence`, `TwistDictionary` (the latter PROVED as `twistDictionary`,
   `TwistDictionary/Dictionary.lean`).
+* PROVED: `TwistedFunctionalEquation` (literal, over newforms; lane RC33's
+  `twistedFunctionalEquation_proved`, `TwistedFE.lean`, from the primitive quadratic character
+  `χ_D` of `TwistedFEKronecker.lean` and the Fricke relation of the twist of
+  `TwistedFEFricke.lean`).
 * Dokchitser–Dokchitser Theorem 1.8, BCDT Theorem A, Kolyvagin Theorem 1 and Cai–Shu–Tian
   Theorem 1.1 are the shared blueprint's leaves (`ZInQ.Contrib.CloudB3RC53.Prints`) and are not
   restated.

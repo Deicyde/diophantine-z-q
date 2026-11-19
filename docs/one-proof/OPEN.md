@@ -81,6 +81,7 @@ ping, and is released if there is no reply within 7 days of the ping.
 | [`dsThm966Printed`](#dsthm966printed) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/48)) | 2026-11-17 |
 | [`carayolThmAFrob`](#carayolthmafrob) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6998146928)) | 2026-11-19 |
 | [`shimuraThm1Af`](#shimurathm1af) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6997431192)) | 2026-11-19 |
+| [`cmHeight62`](#cmheight62) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7005825482)) | 2026-11-19 |
 | [`t10TateDuality`](#t10tateduality) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6996190309)) | 2026-11-19 |
 | [`hRC`](#hrc) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/83)) | 2026-11-17 |
 
@@ -140,7 +141,7 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`afCharpolyDS965`](#afcharpolyds965) | research | consequence | GLUE | note |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`bergerSurveyF`](#bergersurveyf) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`carayolThmAFrob`](#carayolthmafrob) | research | published | GLUE | unread | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6998146928)) |
-| [`cmHeight62`](#cmheight62) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
+| [`cmHeight62`](#cmheight62) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7005825482)) |
 | [`cmjDegree`](#cmjdegree) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open (last released by [@zachbaugher](https://github.com/zachbaugher): reports delivered (https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973387139 for `fowlerProp27`, https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973419601 for...) |
 | [`deligneCanonicalModelY3EveryPrint`](#delignecanonicalmodely3everyprint) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`dsThm965Printed`](#dsthm965printed) | research | published | GLUE | unread, unverified-locator | good-first | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | held by [@zachbaugher](https://github.com/zachbaugher) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6985165731)) |
@@ -258,7 +259,7 @@ CarayolRefold.CarayolThmAFrob
 * Source: Barquero-Sanchez, Cadwallader, Cannon, Genao, Masri, Faltings heights of CM elliptic curves and special Gamma values, Res. Number Theory 3 (2017) art. 13, section 6, Eq. (6.2), pp. 13-14 (read by the upstream audit); manuscript \cite[Eq. (6.2)]{cmheight}, diophantine_zq.tex L605 (normalization L598-605)
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
-* Status: open.
+* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7005825482)).
 
 ```lean
 HDec.CMBranch.CMHeight62

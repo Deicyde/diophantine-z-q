@@ -68,8 +68,10 @@ def HoffsteinLuoTheorem : Prop :=
         ∃ F : ℂ → ℂ, IsEntireContinuation (twistCoeff (nfCoeff f) d) ((k : ℝ) / 2 + 1) F ∧
           F ((k : ℂ) / 2) ≠ 0}.Infinite
 
-/-- **The twisted functional equation** (PRINT, as quoted in Hoffstein–Luo p. 435, display (1),
-"proved by Hecke [5]", and in Bump–Friedberg–Hoffstein, Invent. Math. 102 (1990), p. 543:
+/-- **The twisted functional equation** (PROVED by lane RC33 as
+`twistedFunctionalEquation_proved`, `TwistedFE.lean`, in every weight; stated here as quoted in
+Hoffstein–Luo p. 435, display (1), "proved by Hecke [5]", and in Bump–Friedberg–Hoffstein,
+Invent. Math. 102 (1990), p. 543:
 "`Λ(s, f, χ_D) = (D²M)^{s/2}(2π)^{-s}Γ(s)L(s, f, χ_D)` ... provided `gcd(M, D) = 1`, satisfies the
 functional equation `Λ(s, f, χ_D) = εχ_D(-M)Λ(k - s, f, χ_D)`"). For a newform `f` of trivial
 nebentypus, weight `k`, level `N`, sign `ε = newformSign f` (`Λ(s, f) = εΛ(k - s, f)`), and a
