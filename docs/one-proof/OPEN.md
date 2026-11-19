@@ -13,14 +13,14 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**28 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves69`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
+**28 hypotheses of the H part** (in the bundles `OpenAddedLeaves29`, `OpenResearchLeaves69`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
 
-* **Strict count: 5 published / 23 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* **Strict count: 5 published / 23 glue** (the strictest flagged reading; 6/22 without the one strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
   column `flag`).
-* By kind: consequence 16, published 12.
+* By kind: consequence 15, published 13.
 
 ## Kernel-wide readings
 
@@ -124,13 +124,13 @@ p-adic Hodge theory and modular Galois representations. Claim it on [Deicyde #14
 
 Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
 
-* [`conradAppB`](#conradappb) (GLUE; pending-review): Conrad, Lifting global representations with local properties, author preprint Dec. 11 2011, App. B: p. 32 (arithmetic normalization, HT <=> locally algebraic paragraph after Def. B.1) and p. 33 Prop. B.3 (proof pp. 33-34), base field Q_p; diophantine_zq.tex L760-762, bibitem L11046-11049
+* [`conradAppBPrint`](#conradappbprint) (GLUE; strictest): Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32–33 and Proposition B.3 (proof pp. 33–34); diophantine_zq.tex sec:height L760–764, conrad-local-characters L11046–11049
 
 ## Index
 
 | hypothesis | bundle | kind | strict | flag class | label | tier | area | human reads | status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [`conradAppB`](#conradappb) | added | consequence | GLUE | pending-review |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | open |
+| [`conradAppBPrint`](#conradappbprint) | added | published | GLUE | strictest |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | open |
 | [`scholzeH1AbVar`](#scholzeh1abvar) | added | consequence | GLUE | pending-review, unverified-locator | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
 | [`t10TateDuality`](#t10tateduality) | added | consequence | GLUE | note | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
 | [`afCharpolyDS965`](#afcharpolyds965) | research | consequence | GLUE | note |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
@@ -165,23 +165,23 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 
 ## The hypotheses
 
-### conradAppB
+### conradAppBPrint
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves28.conradAppB`; kind **consequence**, strict **GLUE**; flag: pending review (new merged leaf, GLUE until a reviewer rates it); page read by the reading desk 11-17; unrefereed preprint, the manuscript's own citation. Part p. 32 (ConradAppBQp, unchanged): the reviewer's strict leaf review GLUE/GLUE, consequence with unproved bridges (HasHTWeights{w} => print-HT; Q_p-homs G_m -> R_{E/Q_p}G_m are x -> x^n). Part Prop. B.3 (ConradPropB3Qp): consequence, Conrad's conventions (arithmetic Artin map = Tau Ceti's; chi_cyc weight +1); bridge from the print's decomposition C_p (x) V = sum V_sigma, V_sigma = C_p(w_sigma), w_sigma = n, to dim_Qp H_n = [E:Q_p] is linear algebra plus Ax-Sen-Tate over Q_p (proved in the tree, CloudB3W11.axSenTate_proof), not formalized. On the spot in step C8 (proved glue, not a row): TwistCharHTWt0 (the twisting character is Hodge-Tate of weight 0 at 5, L758-760).
-* Source: Conrad, Lifting global representations with local properties, author preprint Dec. 11 2011, App. B: p. 32 (arithmetic normalization, HT <=> locally algebraic paragraph after Def. B.1) and p. 33 Prop. B.3 (proof pp. 33-34), base field Q_p; diophantine_zq.tex L760-762, bibitem L11046-11049
+* Bundle field `HDec.HSyn.OpenAddedLeaves29.conradAppBPrint`; kind **published**, strict **GLUE**; flag: strictest reading: the manuscript's exact citation is an unrefereed author preprint (LEAF only if this source is eligible); pp. 32–33 read by the reading desk on 2026-11-17, also A011 for p. 32..
+* Source: Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32–33 and Proposition B.3 (proof pp. 33–34); diophantine_zq.tex sec:height L760–764, conrad-local-characters L11046–11049
 * packet [R10](#packet-r10); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
 * Status: open.
 
 ```lean
-HDec.G0Galois.C8Conrad.ConradAppB
+HDec.G0Galois.C8Conrad.Bridges.ConradAppBPrint
 ```
 
-> Conrad, Lifting global representations with local properties (author preprint, Dec. 11 2011), App. B, p. 32 (Hodge-Tate => locally algebraic, `ConradAppBQp`) and p. 33 Prop. B.3 (the Hodge-Tate weight is the exponent, `ConradPropB3Qp`), base field `ℚ_p`: the manuscript's citation at diophantine_zq.tex L760-762 (step C8). Replaces the Picard route to `DetTate` (consumer (i)).
+> C8: Conrad Appendix B at local base Q_p, the p. 33 near-one display after the p. 32 Hodge–Tate implication, and Proposition B.3 as the full-group pure Hodge–Tate splitting.
 
 ### scholzeH1AbVar
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves28.scholzeH1AbVar`; kind **consequence**, strict **GLUE**; flag: pending review: new leaf (merges scholzeDeRhamAlg, used only for abelian varieties in degree 1, and hodgeNumberH1AbVar), consequence: rigid-analytic spaces and H^1_dR are not in Mathlib, so Cor. 1.8 and the Hodge numbers are stated on the etale side of the filtered comparison (dictionary steps: analytification + Thms 9.1/9.3 in the manuscript; Fbar vs C_p; Mathlib's pro-etale l-adic cohomology vs classical etale cohomology, on the spot); generalization (on the spot) in g: the manuscript's lemma is for abelian surfaces (g = 2, ScholzeH1AbSurf, stated and implied); general g is needed because the H field hodgeTateDecompAbVar (TailS L347) and R10 (ZInQ.Contrib.R10.DeRhamComparisonHT) are stated for every g, although their only end consumer (G9, g9GlueNoT23_of_fieldEmb) uses g = 2; h^{1,0}(A) = g (Mumford, Abelian varieties, section 4) locator UNVERIFIED; journal numbering of Scholze UNVERIFIED here (locators.md R10); Hodge numbers h^{1,0} = g: no statement in Milne AV v2.0 (closest: Part I Prop 2.1, A(C) = Tgt_0/lattice); the manuscript's 'two Hodge numbers ... are 2,2' (L10996) is uncited.
+* Bundle field `HDec.HSyn.OpenAddedLeaves29.scholzeH1AbVar`; kind **consequence**, strict **GLUE**; flag: pending review: new leaf (merges scholzeDeRhamAlg, used only for abelian varieties in degree 1, and hodgeNumberH1AbVar), consequence: rigid-analytic spaces and H^1_dR are not in Mathlib, so Cor. 1.8 and the Hodge numbers are stated on the etale side of the filtered comparison (dictionary steps: analytification + Thms 9.1/9.3 in the manuscript; Fbar vs C_p; Mathlib's pro-etale l-adic cohomology vs classical etale cohomology, on the spot); generalization (on the spot) in g: the manuscript's lemma is for abelian surfaces (g = 2, ScholzeH1AbSurf, stated and implied); general g is needed because the H field hodgeTateDecompAbVar (TailS L347) and R10 (ZInQ.Contrib.R10.DeRhamComparisonHT) are stated for every g, although their only end consumer (G9, g9GlueNoT23_of_fieldEmb) uses g = 2; h^{1,0}(A) = g (Mumford, Abelian varieties, section 4) locator UNVERIFIED; journal numbering of Scholze UNVERIFIED here (locators.md R10); Hodge numbers h^{1,0} = g: no statement in Milne AV v2.0 (closest: Part I Prop 2.1, A(C) = Tgt_0/lattice); the manuscript's 'two Hodge numbers ... are 2,2' (L10996) is uncited.
 * Source: diophantine_zq.tex lem:de-rham-descent L10939-10965 and L10996 (Scholze, Forum Math. Pi 1 (2013), Cor. 1.8, Thms 9.1, 9.3, corrigendum Forum Math. Pi 4 (2016) e6; Hodge numbers 2,2 of H^1_dR(A/F)); general g: h^{1,0}(A) = g, Mumford, Abelian varieties, section 4 (UNVERIFIED)
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -195,7 +195,7 @@ DeRhamScholze.HTMerge.ScholzeH1AbVar
 
 ### t10TateDuality
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves28.t10TateDuality`; kind **consequence**, strict **GLUE**; flag: Milne, Abelian Varieties v2.0 (March 16, 2008, bibitem milne-av), Thm 12.1(a) p. 55 (separably closed k) with Rem. 12.5 p. 56 (Galois compatibility, stated without proof in the notes); AI page read 11-17; steps: Mathlib's pro-etale H^1 vs etale H^1, K-bar vs K^sep (trivial in char 0), Rem. 12.5's compatibility; earlier: unread: the leaf T10Etale.T10_TateDuality reused unchanged (an earlier review: leaf, confirmed); Milne v2.00 Part I Thm 12.1(a) and Milne 1986 Thm 15.1(a) not read; equivariance from canonicity and the pro-etale/etale comparison (Bhatt-Scholze 2015 section 5.6) are dictionary steps; locator UNVERIFIED.
+* Bundle field `HDec.HSyn.OpenAddedLeaves29.t10TateDuality`; kind **consequence**, strict **GLUE**; flag: Milne, Abelian Varieties v2.0 (March 16, 2008, bibitem milne-av), Thm 12.1(a) p. 55 (separably closed k) with Rem. 12.5 p. 56 (Galois compatibility, stated without proof in the notes); AI page read 11-17; steps: Mathlib's pro-etale H^1 vs etale H^1, K-bar vs K^sep (trivial in char 0), Rem. 12.5's compatibility; earlier: unread: the leaf T10Etale.T10_TateDuality reused unchanged (an earlier review: leaf, confirmed); Milne v2.00 Part I Thm 12.1(a) and Milne 1986 Thm 15.1(a) not read; equivariance from canonicity and the pro-etale/etale comparison (Bhatt-Scholze 2015 section 5.6) are dictionary steps; locator UNVERIFIED.
 * Source: Milne, Abelian Varieties v2.0 (March 16, 2008, bibitem milne-av), Thm 12.1(a) p. 55 with Rem. 12.5 p. 56 (manuscript's citation, L10966-10970); earlier source text: Milne, Abelian varieties v2.00 Part I Thm 12.1(a) (manuscript's citation, L10966-10970) / Milne 1986 Thm 15.1(a): V_l(A) = H^1_et(A_Kbar, Q_l)^dual, Galois-equivariantly, over Mathlib's pro-etale l-adic cohomology (T10Etale.T10_TateDuality)
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.

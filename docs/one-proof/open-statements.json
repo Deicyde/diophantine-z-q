@@ -150,24 +150,24 @@
    "docstring":
    "Silverberg–Zarhin, Theorem 3.3, p. 405 (AI page read 11-17; provenance (b)). Both directions at the separable closure: semistability at a finite subextension (possibly the base) implies the criterion relating semistability at the base to triviality of inertia on the rational Tate module modulo its inertia invariants. Replaces the uncited L817–818 sentence through elliot_of_sz33 and the proved wild period. ",
    "bundle": "OpenResearchLeaves69"},
-  {"type": "HDec.G0Galois.C8Conrad.ConradAppB",
-   "statement": "HDec.G0Galois.C8Conrad.ConradAppB",
-   "field": "conradAppB",
-   "docstring":
-   "Conrad, Lifting global representations with local properties (author preprint, Dec. 11 2011), App. B, p. 32 (Hodge-Tate => locally algebraic, `ConradAppBQp`) and p. 33 Prop. B.3 (the Hodge-Tate weight is the exponent, `ConradPropB3Qp`), base field `ℚ_p`: the manuscript's citation at diophantine_zq.tex L760-762 (step C8). Replaces the Picard route to `DetTate` (consumer (i)). ",
-   "bundle": "OpenAddedLeaves28"},
   {"type": "DeRhamScholze.HTMerge.ScholzeH1AbVar",
    "statement": "DeRhamScholze.HTMerge.ScholzeH1AbVar",
    "field": "scholzeH1AbVar",
    "docstring":
    "Scholze, p-adic Hodge theory for rigid-analytic varieties, Forum Math. Pi 1 (2013), Cor. 1.8 with Thms 9.1, 9.3 (diophantine_zq.tex lem:de-rham-descent L10954-10965, step C3) with the Hodge numbers of `H¹_dR(A/F)` (L10996): `H¹_et(A_F̄, ℚ_p)` of an abelian variety of dimension g over a finite `F/ℚ_p` is de Rham with Hodge jumps in [0, 1] and `dim Fil¹ D_dR = [F:ℚ_p] g`, over Mathlib's pro-étale `Scheme.EllAdicCohomology`. General g is a generalization (the manuscript's lemma is g = 2, `ScholzeH1AbSurf`, implied). ",
-   "bundle": "OpenAddedLeaves28"},
+   "bundle": "OpenAddedLeaves29"},
   {"type": "T10Etale.T10_TateDuality",
    "statement": "T10Etale.T10_TateDuality",
    "field": "t10TateDuality",
    "docstring":
    "Milne, Abelian varieties v2.00, Part I, Thm 12.1(a), as the manuscript cites it (lem:de-rham-descent L10966-10970); Milne 1986 (Cornell-Silverman) Thm 15.1(a): `H¹(A_K̄, ℤ_ℓ) = Hom(T_ℓ A, ℤ_ℓ)`, Galois-equivariantly, over Mathlib's pro-étale `EllAdicCohomology`. ",
-   "bundle": "OpenAddedLeaves28"},
+   "bundle": "OpenAddedLeaves29"},
+  {"type": "HDec.G0Galois.C8Conrad.Bridges.ConradAppBPrint",
+   "statement": "HDec.G0Galois.C8Conrad.Bridges.ConradAppBPrint",
+   "field": "conradAppBPrint",
+   "docstring":
+   "C8: Conrad Appendix B at local base Q_p, the p. 33 near-one display after the p. 32 Hodge–Tate implication, and Proposition B.3 as the full-group pure Hodge–Tate splitting. ",
+   "bundle": "OpenAddedLeaves29"},
   {"type": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine",
    "statement": "ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine",
    "field": "hRC",

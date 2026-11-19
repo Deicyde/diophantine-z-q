@@ -183,7 +183,7 @@ DISCHARGES [OpenResearchLeaves69.dsThm965Printed] by DSCoeffExt.dsThm965Printed_
                                              (↥(DSCoeffExt.coeffField f)) lam))
                                          b)]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves28.scholzeH1AbVar] by DeRhamScholze.HTMerge.scholzeH1AbVar_of_old
+DISCHARGES [OpenAddedLeaves29.scholzeH1AbVar] by DeRhamScholze.HTMerge.scholzeH1AbVar_of_old
   still assumes: [DeRhamScholze.ScholzeDeRhamAlg, DeRhamScholze.HTAbVar.HodgeNumberH1AbVar]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves69.cmHeight62] by HDec.CMBranch.CMInputs2.cmHeight62
@@ -203,12 +203,6 @@ DISCHARGES [OpenResearchLeaves69.cmjDegree] by HDec.CMBranch.CMInputs3.cmjDegree
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves69.fowlerProp27] by HDec.CMBranch.CMInputs3.fowlerProp27
   still assumes: [HDec.CMBranch.CMInputs3]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves28.conradAppB] by HDec.G0Galois.C8Conrad.C8Inputs.conradAppB
-  still assumes: [HDec.G0Galois.C8Conrad.C8Inputs]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves28.conradAppB] by HDec.G0Galois.C8Conrad.C8Leaves.conradAppB
-  still assumes: [HDec.G0Galois.C8Conrad.C8Leaves]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves69.pazukiCor13Upper] by HDec.HSyn.GR9.OpenResearchLeaves14GMEBSFU_y3cNOS.pazukiCor13Upper
   still assumes: [HDec.HSyn.GR9.OpenResearchLeaves14GMEBSFU_y3cNOS]
@@ -1195,7 +1189,7 @@ DISCHARGES [OpenResearchLeaves69.pazukiCor13Upper] by ZInQ.SemiAbDescend.pazukiC
  AvSplit.MumfordTorsionAlgClosed,
  ZInQ.SemiAbDescend.ChevalleyPerfect]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 32 open hypotheses, 15263 theorems checked, 336 discharge one
+#discharges: 32 open hypotheses, 15321 theorems checked, 334 discharge one
 ```
 <!-- worked-example:end -->
 

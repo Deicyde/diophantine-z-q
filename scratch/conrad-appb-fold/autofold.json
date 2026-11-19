@@ -1,0 +1,21 @@
+{
+  "name": "conrad-b3-verbatim",
+  "imports": ["ZInQKernel.Contrib.OneProof.ConradB3Verbatim"],
+  "discharges": [
+    {
+      "field": "conradAppB",
+      "proof": "_root_.HDec.G0Galois.C8Conrad.Bridges.conradAppB_of_print {n}.conradAppBPrint",
+      "leaves": [
+        {
+          "name": "conradAppBPrint",
+          "type": "_root_.HDec.G0Galois.C8Conrad.Bridges.ConradAppBPrint",
+          "doc": "C8: Conrad Appendix B at local base Q_p, the p. 33 near-one display after the p. 32 Hodge–Tate implication, and Proposition B.3 as the full-group pure Hodge–Tate splitting.",
+          "kind": "published",
+          "flag": "strictest reading: the manuscript's exact citation is an unrefereed author preprint (LEAF only if this source is eligible); pp. 32–33 read by the reading desk on 2026-11-17, also A011 for p. 32.",
+          "flag_class": "strictest",
+          "source": "Brian Conrad, Lifting global representations with local properties, author preprint December 11, 2011, Appendix B pp. 32–33 and Proposition B.3 (proof pp. 33–34); diophantine_zq.tex sec:height L760–764, conrad-local-characters L11046–11049"
+        }
+      ]
+    }
+  ]
+}
