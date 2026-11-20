@@ -1,0 +1,104 @@
+{
+  "upstream": "https://github.com/AxiomMath/Stacks",
+  "commit": "c496df0d9beea9deaeabcea8492605f9a0a2313b",
+  "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "lean": "4.35.0",
+  "sources": [
+    {
+      "path": "StacksCore/RingTheory/Flat/FaithfullyFlat/Basic.lean",
+      "upstream_sha256": "372e09c425b6fa6bc32545e96143cd1661433d09ad4ac580f3392990e8e84ad3",
+      "recovered_sha256": "a620f78700708e4cb802d6a323d860aa05b1687c517f212cf0a1819080102aaf",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained."
+      ]
+    },
+    {
+      "path": "StacksFrontier/RingTheory/GeometricallyConnected/Defs.lean",
+      "upstream_sha256": "54e6811ef1e4fc764abcdd0e5d61f17d7803f60a560234c8770e2d68f1996f20",
+      "recovered_sha256": "a522a73d423890c56935e4635edd63051fdb65c01a3b860719ec3e117a1db3dc",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained.",
+        "Broad unrelated Mathlib imports replaced by spectrum and algebraic tensor-product definitions."
+      ]
+    },
+    {
+      "path": "StacksFrontier/RingTheory/TensorProduct/Connected.lean",
+      "upstream_sha256": "afc56017d624895d71585004f6a0cffe082d891a799fd006cdee4283d3099c33",
+      "recovered_sha256": "a0fcfe80890b57254871768484f599a47cde2dd5e23e4aea9dd27ddbcf63d33a",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained.",
+        "Only connected spectrum of a tensor product over a separably closed field is retained; unused idempotent/connected-components bijections and injectivity helper are omitted.",
+        "Broad unrelated Mathlib imports replaced by the spectrum, field, tensor-product, faithfully-flat and Jacobson dependencies used in this proof."
+      ]
+    },
+    {
+      "path": "StacksFrontier/AlgebraicGeometry/Variety/Geometrically/ConnectedAffine.lean",
+      "upstream_sha256": "a396368fc9844a1af62cd3c7416a5de154927e74eebd6371f7d15e57a0feae60",
+      "recovered_sha256": "d7122615e73e814099051e849a04b83870d0cf1cc88f0011ad9b4b1be0621f9f",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained."
+      ]
+    },
+    {
+      "path": "StacksFrontier/AlgebraicGeometry/Variety/Geometrically/ConnectedSeparablyClosed.lean",
+      "upstream_sha256": "efd7019c49973a81e273747ed4c586856fb2cd7dfc5891473305553075826725",
+      "recovered_sha256": "2061ca3f02b01b8e7713bbdf51874a282fcce9eb19d6a95b8823ac42d903e106",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained.",
+        "Geometric connectedness of a field extension over a separably closed field follows directly from the recovered tensor-product connectedness theorem. Ring finite-separable criteria and their extra topology lemmas are not needed."
+      ]
+    },
+    {
+      "path": "StacksFrontier/AlgebraicGeometry/Variety/Geometrically/ConnectedBaseChange.lean",
+      "upstream_sha256": "b979c86a1cb77d544806097aa79eb0429d21637d2d16e3787094a75e94d43409",
+      "recovered_sha256": "d39842690560eb1219d889f9cedb661d902f6afef78d576d01dc189da9028e4e",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained."
+      ]
+    },
+    {
+      "path": "StacksFrontier/AlgebraicGeometry/Variety/Geometrically/ConnectedSeparableClosure.lean",
+      "upstream_sha256": "6afc7b6718f49027d349c041e0001c5afb160336da6df5e08b9761de2140d37f",
+      "recovered_sha256": "2ee31e7add2cb806dee871517bf0ed9ee6d672f06396e8f6de8be9f1d95f59c2",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained.",
+        "Separable-closure equivalence proved directly from the recovered arbitrary-field-base-change and separably-closed-base equivalences, removing finite-separable-level/quasi-compact-open scheme descent."
+      ]
+    },
+    {
+      "path": "StacksFrontier/AlgebraicGeometry/Variety/Geometrically/ConnectedGalois.lean",
+      "upstream_sha256": "dff8f06ded2e4f3e3dbf55a5576e410d12a14b3e26dc9829dfffe839d33901de",
+      "recovered_sha256": "73f529932fb89c39329f1b144299c61f78a0a41e447355f07614b40deee6525b",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained."
+      ]
+    },
+    {
+      "path": "StacksFrontier/AlgebraicGeometry/Variety/Geometrically/ConnectedCriterion.lean",
+      "upstream_sha256": "3ee67e7ff7cbcc5b073e50de7b88ae8173d75b7c9e3fc17eb909cf883a49cb8a",
+      "recovered_sha256": "3a354e0aaf857637c1872e84beb741af20290baab84d778eedb03a742131dbed",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained."
+      ]
+    },
+    {
+      "path": "StacksFrontier/AlgebraicGeometry/Variety/Geometrically/ConnectedPoint.lean",
+      "upstream_sha256": "7b4cfebe34df7e0d493f1de1b4a81060edb3c3feec0905bbff3e96f95239c165",
+      "recovered_sha256": "ba08dc7ef53a865e099ce6ae7c804f1ab0a2a7643f83cfa3ae6d7aa0d3e78ff8",
+      "changes": [
+        "Import paths moved to CloudB3W16Connected.",
+        "Citation attributes/commands and registration imports omitted; mathematical references retained.",
+        "Only the rational-section consequence of Tag 04KV is retained; the unused residue-field criterion and algebraic-closure/irreducibility imports are omitted."
+      ]
+    }
+  ]
+}
