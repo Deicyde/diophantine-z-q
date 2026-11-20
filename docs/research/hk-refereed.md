@@ -32,6 +32,11 @@ It abstracts over the unchanged height supplier: instantiate `height` with
 `ZInQKernel/OneProof/H/TailZ98.lean`, of type
 `OpenResearchLeaves72 → OpenTextbookLeaves18 → OpenAddedLeaves28 → ZInQ.SixContactMin`.
 
+**VERIFIED (Lean).** The three new modules and
+`scratch/hk-refereed/Substitution.lean` pass `lake env lean` after building their
+imports. All four new theorems report only `propext`, `Classical.choice` and
+`Quot.sound`. The full height chain is outside this factored dry run.
+
 ## Candidate printed forms, pending a reading
 
 The two drafts have the same proposed **rank projection**. For a modular elliptic
