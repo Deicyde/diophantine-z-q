@@ -1,0 +1,420 @@
+import ZInQKernel.Contrib.OneProof.PoincareComplement
+import ZInQKernel.Contrib.OneProof.MumfordKLFinite
+import ZInQKernel.Contrib.OneProof.PicZeroAbVar
+import ZInQKernel.Contrib.OneProof.CartierSmooth
+
+/-!
+# `PicZeroAbVar` in characteristic `0`, from three LEAF statements and Cartier's theorem (piczero-char0)
+
+The open field `picZeroAbVar : T09Pic.PicZeroAbVar` (the identity component of `Pic_{A/K}` is an abelian variety)
+quantifies over every field `K`. In `ZInQ.OneProof.frozenTarget` it is used only at fields of characteristic `0`
+(scratch/piczero-char0, docs/research/piczero-char0.md): through `t09SymmIsogenyExists` (read only by
+`detTate_of_leaves4`, at number fields, and by T9, which reaches only the discarded antecedent of `G12Det`), through
+`mumfordKLFiniteSectionAC` and `phiAmpleIsogeny` (which feed only those two), and through `poincareComplement`,
+whose statement is already over fields of characteristic `0`.
+
+This file gives the characteristic-`0` form of each of these statements and proves them:
+
+* `PicZeroChar0.picZeroAbVar0_of_leaves : PicDict.PicLocFinType → PicDict.IdentityComponentLFT →
+  PicFix.KleimanPicZeroProper → PicZeroAbVar0` (pic-smooth's argument, with Cartier's theorem supplied by
+  `ZInQ.Contrib.OneProof.CartierSmooth.cartierSmooth_proof`; no `PicZeroSmoothPosChar`);
+* `mumfordKLFiniteSectionAC0_of_open`, `phiAmpleIsogeny0_of_printed`, `t09SymmIsogenyExists0_of_four`,
+  `poincareComplement_of_open0`: the proofs of `PhiAmple.mumfordKLFiniteSectionAC_of_open`,
+  `PicFix.phiAmpleIsogeny_of_printed`, `T09Pic.t09SymmIsogenyExists_of_four` and
+  `PoincareComplement.poincareComplement_of_open`, copied verbatim with `[CharZero K]` added (each applies its
+  hypotheses only at the field it is about, or at its algebraic closure, again of characteristic `0`).
+
+The rerouted bundle chain that reads these was `PicZeroAbVarCharZeroReroute.lean` (generated; moved to
+`scratch/piczero-char0/PicZeroAbVarCharZeroReroute.lean.txt` and regenerated as `OneProof/H/PicZeroCharZeroCopy.lean`
+by fold33-pic).
+-/
+
+open CategoryTheory AlgebraicGeometry Limits Opposite MonoidalCategory
+open scoped CategoryTheory.MonObj
+
+set_option linter.style.haveILetI false
+
+namespace PicZeroChar0
+
+open T09Pic PkgI3 PkgI3.AbVar PicDict PicFix
+
+/-! ## §1. pic-smooth's statements at one field (copied from wip/pic-smooth,
+`ZInQKernel/Contrib/OneProof/PicZeroSmoothCartier.lean`, lines 35-142, namespace changed) -/
+
+/-! ## Statements at one field -/
+
+/-- `PicDict.PicZeroSmooth` at the one field `K`. -/
+def PicZeroSmoothAt (K : Type) [Field K] : Prop :=
+  ∀ (A : AbVar K) (P : Over (Spec (CommRingCat.of K)))
+    (rep : (picardFunctor A.X.hom).obj.RepresentableBy P) (V : P.left.Opens),
+    letI := picardFunctorCommGrpObj A.X.hom rep
+    (V : Set P.left) = identityComponent P → Smooth (V.ι ≫ P.hom)
+
+/-- `PicDict.PicZeroProper` at the one field `K`. -/
+def PicZeroProperAt (K : Type) [Field K] : Prop :=
+  ∀ (A : AbVar K) (P : Over (Spec (CommRingCat.of K)))
+    (rep : (picardFunctor A.X.hom).obj.RepresentableBy P) (V : P.left.Opens),
+    letI := picardFunctorCommGrpObj A.X.hom rep
+    (V : Set P.left) = identityComponent P → IsProper (V.ι ≫ P.hom)
+
+/-- `T09Pic.PicZeroAbVar` at the one field `K`. -/
+def PicZeroAbVarAt (K : Type) [Field K] : Prop :=
+  ∀ (A : AbVar K) (P : Over (Spec (CommRingCat.of K)))
+    (rep : (picardFunctor A.X.hom).obj.RepresentableBy P),
+    ∃ (B : AbVar K) (j : B.X ⟶ P), IsPicZero rep B j
+
+theorem picZeroSmooth_iff : PicZeroSmooth ↔ ∀ (K : Type) [Field K], PicZeroSmoothAt K := Iff.rfl
+
+theorem picZeroAbVar_iff : PicZeroAbVar ↔ ∀ (K : Type) [Field K], PicZeroAbVarAt K := Iff.rfl
+
+/-- **`PicZeroAbVar` at one field `K`** from the two global leaves `PicLocFinType` and `IdentityComponentLFT` and
+smoothness and properness of `Pic⁰` at `K`. The proof of `PicDict.picZeroAbVar_of_leaves` (pic-dict) verbatim,
+with `K` fixed. -/
+theorem picZeroAbVarAt_of (h1 : PicLocFinType) (h2 : IdentityComponentLFT) (K : Type) [Field K]
+    (h3a : PicZeroSmoothAt K) (h3b : PicZeroProperAt K) : PicZeroAbVarAt K := by
+  intro A P rep
+  letI := picardFunctorCommGrpObj A.X.hom rep
+  obtain ⟨V, hV, hmulV, hinvV, hirr⟩ := h2 K P (h1 K A P rep)
+  let j := subι V
+  have hmem : ∀ x : P.left, x ∈ identityComponent P → x ∈ V := fun x hx => by
+    rw [← SetLike.mem_coe, hV]; exact hx
+  have hιV : ∀ y, V.ι y ∈ V := fun y => by
+    rw [← SetLike.mem_coe, ← Scheme.Opens.range_ι V]; exact ⟨y, rfl⟩
+  -- multiplication
+  let pj : subX V ⊗ subX V ⟶ P ⊗ P := CartesianMonoidalCategory.lift
+    (CartesianMonoidalCategory.fst (subX V) (subX V) ≫ j) (CartesianMonoidalCategory.snd (subX V) (subX V) ≫ j)
+  have hm : ∀ t, (pj ≫ μ[P]).left t ∈ V := fun t => by
+    rw [Over.comp_left]
+    apply hmulV
+    · change (pj ≫ CartesianMonoidalCategory.fst P P).left t ∈ V
+      rw [CartesianMonoidalCategory.lift_fst, Over.comp_left, Scheme.Hom.comp_apply]
+      exact hιV _
+    · change (pj ≫ CartesianMonoidalCategory.snd P P).left t ∈ V
+      rw [CartesianMonoidalCategory.lift_snd, Over.comp_left, Scheme.Hom.comp_apply]
+      exact hιV _
+  let mulY := liftV V (pj ≫ μ[P]) hm
+  have hmul : mulY ≫ j = CartesianMonoidalCategory.fst (subX V) (subX V) ≫ j *
+      CartesianMonoidalCategory.snd (subX V) (subX V) ≫ j := by
+    rw [liftV_comp, CategoryTheory.Hom.mul_def]
+  -- unit
+  have ho : ∀ t, (η[P]).left t ∈ V := fun t => hmem _ ⟨t, mem_connectedComponent⟩
+  let oneY := liftV V η[P] ho
+  have hone : oneY ≫ j = η[P] := liftV_comp V _ _
+  -- inverse
+  have hi : ∀ t, (j ≫ (𝟙 P)⁻¹).left t ∈ V := fun t => by
+    rw [Over.comp_left, Scheme.Hom.comp_apply]
+    exact hinvV _ (hιV t)
+  let invY := liftV V (j ≫ (𝟙 P)⁻¹) hi
+  have hinv : invY ≫ j = j⁻¹ := by
+    rw [liftV_comp, GrpObj.comp_inv, Category.comp_id]
+  letI : GrpObj (subX V) := AVGlue.grpObjOfMono j mulY hmul oneY hone invY hinv
+  have hjmon : IsMonHom j := AVGlue.isMonHom_grpObjOfMono j mulY hmul oneY hone invY hinv
+  haveI : IsProper (subX V).hom := h3b A P rep V hV
+  haveI : Smooth (subX V).hom := h3a A P rep V hV
+  haveI : GeometricallyReduced (subX V).hom := geometricallyReduced_of_smooth _
+  haveI : GeometricallyIrreducible (subX V).hom := hirr
+  haveI : GeometricallyIntegral (subX V).hom :=
+    GeometricallyIntegral.of_geometricallyReduced_of_geometricallyIrreducible _
+  refine ⟨AbVar.mk (subX V), j, ?_, ?_, hjmon⟩
+  · exact inferInstanceAs (IsOpenImmersion V.ι)
+  · change Set.range V.ι = _
+    rw [Scheme.Opens.range_ι, hV]
+
+/-! ## Characteristic `0`: Cartier's theorem -/
+
+/-- **The Picard scheme is smooth in characteristic `0`.** It is a group scheme over `K`
+(`picardFunctorCommGrpObj`), locally of finite type (`PicLocFinType`), so Cartier's theorem applies. -/
+theorem picard_smooth_of_cartier (hC : AVGlue.CartierSmooth) (h1 : PicLocFinType) (K : Type) [Field K]
+    [CharZero K] (A : AbVar K) (P : Over (Spec (CommRingCat.of K)))
+    (rep : (picardFunctor A.X.hom).obj.RepresentableBy P) : Smooth P.hom := by
+  letI := picardFunctorCommGrpObj A.X.hom rep
+  exact hC K P (h1 K A P rep)
+
+/-- **`Pic⁰` is smooth in characteristic `0`**: an open subscheme of the smooth Picard scheme. The hypothesis
+that `V` is the identity component is not needed. -/
+theorem picZeroSmoothAt_charZero (hC : AVGlue.CartierSmooth) (h1 : PicLocFinType) (K : Type) [Field K]
+    [CharZero K] : PicZeroSmoothAt K := by
+  intro A P rep V _
+  haveI := picard_smooth_of_cartier hC h1 K A P rep
+  infer_instance
+
+/-- `PicZeroProperAt` from Kleiman 9.5.4 in its printed form (pic-fix's `picZeroProper_of_kleiman`). -/
+theorem picZeroProperAt_of_kleiman (h : KleimanPicZeroProper) (K : Type) [Field K] : PicZeroProperAt K :=
+  fun A P rep V hV => picZeroProper_of_kleiman h K A P rep V hV
+
+/-- **`PicZeroAbVar` at every field of characteristic `0` from three LEAF statements** (Kleiman 9.4.8 / BLR 8.2
+Thm 3, SGA 3 VI_A 2.4, Kleiman 9.5.4) and Cartier's theorem. -/
+theorem picZeroAbVarAt_charZero_of_cartier (hC : AVGlue.CartierSmooth) (h1 : PicLocFinType)
+    (h2 : IdentityComponentLFT) (h3b : KleimanPicZeroProper) (K : Type) [Field K] [CharZero K] :
+    PicZeroAbVarAt K :=
+  picZeroAbVarAt_of h1 h2 K (picZeroSmoothAt_charZero hC h1 K) (picZeroProperAt_of_kleiman h3b K)
+
+/-! ## Positive characteristic: the remaining statement -/
+
+/-! ## §2. The characteristic-`0` statements -/
+
+/-- **`T09Pic.PicZeroAbVar` over fields of characteristic `0`** (a consequence of it, never stronger). -/
+def PicZeroAbVar0 : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (A : AbVar K) (P : Over (Spec (CommRingCat.of K)))
+    (rep : (picardFunctor A.X.hom).obj.RepresentableBy P),
+    ∃ (B : AbVar K) (j : B.X ⟶ P), IsPicZero rep B j
+
+/-- **`PicFix.MumfordKLFiniteSectionAC` over algebraically closed fields of characteristic `0`.** -/
+def MumfordKLFiniteSectionAC0 : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (X : AbVar k) (c₀ : X.X.left.Pic), IsAmple X.X.left c₀ →
+    (∃ s : 𝟙_ X.X.left.Modules ⟶ AC.modX c₀, s ≠ 0) →
+    {x : AC.Kpt X | AC.phi c₀ x = 1}.Finite
+
+/-- `PicDict.MumfordKLFiniteAC` over algebraically closed fields of characteristic `0`. -/
+def MumfordKLFiniteAC0 : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (X : AbVar k) (c₀ : X.X.left.Pic), IsAmple X.X.left c₀ →
+    {x : AC.Kpt X | AC.phi c₀ x = 1}.Finite
+
+/-- `PicDict.MumfordKLFinite` over fields of characteristic `0`. -/
+def MumfordKLFinite0 : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (A : AbVar K) (c₀ : (AK A).Pic), IsAmple (AK A) c₀ →
+    {x : A.Pt (AlgebraicClosure K) | phiPt c₀ x = 1}.Finite
+
+/-- **`T09Pic.PhiAmpleIsogeny` over fields of characteristic `0`.** -/
+def PhiAmpleIsogeny0 : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (A : AbVar K) (P : Over (Spec (CommRingCat.of K)))
+    (rep : (picardFunctor A.X.hom).obj.RepresentableBy P) (B : AbVar K) (j : B.X ⟶ P),
+    IsPicZero rep B j → ∀ L : A.X.left.Pic, IsAmple A.X.left L →
+      ∀ lam : A.X ⟶ B.X, lam ≫ j = phiL rep L → IsIsogenyMor lam
+
+/-- **`HDec.WeilPairing.T09_SymmIsogenyExists` over fields of characteristic `0`.** -/
+def T09_SymmIsogenyExists0 : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (A : AbVar K), Nonempty (HDec.WeilPairing.SymmIsogeny A)
+
+/-- Each characteristic-`0` form is a consequence of the general one. -/
+theorem picZeroAbVar0_of_picZeroAbVar (h : PicZeroAbVar) : PicZeroAbVar0 := fun K _ _ => h K
+theorem phiAmpleIsogeny0_of_phiAmpleIsogeny (h : PhiAmpleIsogeny) : PhiAmpleIsogeny0 := fun K _ _ => h K
+theorem mumfordKLFiniteSectionAC0_of (h : MumfordKLFiniteSectionAC) : MumfordKLFiniteSectionAC0 :=
+  fun k _ _ _ => h k
+theorem t09SymmIsogenyExists0_of (h : HDec.WeilPairing.T09_SymmIsogenyExists) : T09_SymmIsogenyExists0 :=
+  fun K _ _ => h K
+
+/-! ## §3. `PicZeroAbVar0` from three LEAF statements (no characteristic-`p` input) -/
+
+/-- **Main result.** `Pic⁰_{A/K}` is an abelian variety at every field of characteristic `0`, from
+`PicLocFinType` (Kleiman 9.4.8 / BLR 8.2 Thm 3), `IdentityComponentLFT` (SGA 3 VI_A 2.4) and
+`KleimanPicZeroProper` (Kleiman 9.5.4), with Cartier's theorem proved (`cartierSmooth_proof`). -/
+theorem picZeroAbVar0_of_leaves (h1 : PicLocFinType) (h2 : IdentityComponentLFT) (h3 : KleimanPicZeroProper) :
+    PicZeroAbVar0 := fun K _ _ =>
+  picZeroAbVarAt_charZero_of_cartier ZInQ.Contrib.OneProof.CartierSmooth.cartierSmooth_proof h1 h2 h3 K
+
+/-! ## §4. The consumers in characteristic `0` -/
+
+section KL
+
+open PhiAmple
+
+set_option backward.isDefEq.respectTransparency false in
+/-- `PhiAmple.mumfordKLFiniteAC_of_open` (phi-ample, `MumfordKLFinite.lean`) verbatim, characteristic `0`. -/
+theorem mumfordKLFiniteAC0_of_open (h1 : PicRepresentableAbVar) (h2 : PicZeroAbVar0) :
+    MumfordKLFiniteAC0 := by
+  intro k _ _ _ X c₀ hc₀
+  obtain ⟨P, ⟨rep⟩⟩ := h1 k X
+  obtain ⟨B, j, hj⟩ := h2 k X P rep
+  obtain ⟨lam, hlam⟩ := exists_hom_comp_eq_phiL rep hj c₀
+  letI := picardFunctorCommGrpObj X.X.hom rep
+  have hmon : IsMonHom j := hj.2.2
+  have hjm : Mono j := by
+    haveI : IsOpenImmersion j.left := hj.1
+    exact (Over.forget _).mono_of_mono_map (inferInstanceAs (Mono j.left))
+  have hF := finite_ker_pts rep hj hc₀ hlam
+  let u : ptK k ⟶ 𝟙_ (Over (Spec (CommRingCat.of k))) := CartesianMonoidalCategory.toUnit _
+  haveI : Epi u := by
+    haveI : Epi u.left := by
+      haveI : Surjective u.left := ⟨fun _ => ⟨IsLocalRing.closedPoint _, Subsingleton.elim _ _⟩⟩
+      haveI : Flat u.left := by
+        change Flat (Spec.map (CommRingCat.ofHom (algebraMap k (AlgebraicClosure k))))
+        rw [HasRingHomProperty.Spec_iff (P := @Flat), CommRingCat.hom_ofHom]
+        exact RingHom.flat_algebraMap_iff.mpr inferInstance
+      exact Flat.epi_of_flat_of_surjective u.left
+    exact (Over.forget _).epi_of_epi_map this
+  refine (hF.preimage (f := fun x : AC.Kpt X => u ≫ x) fun a _ b _ h => cancel_epi u |>.1 h).subset ?_
+  intro x hx
+  change AC.phi c₀ x = 1 at hx
+  change (u ≫ x) ≫ lam.hom = 1
+  have hx1 : x ≫ lam.hom = CartesianMonoidalCategory.toUnit _ ≫ η[B.X] := by
+    rw [← cancel_mono j, Category.assoc, hlam, phiL, comp_classify, map_mumfordBundle_kpt, hx,
+      Scheme.Pic.map_one, homEquiv_symm_one rep, Category.assoc, IsMonHom.one_hom j]
+  rw [Category.assoc, hx1, ← Category.assoc, CartesianMonoidalCategory.toUnit_unique (u ≫ _)
+    (CartesianMonoidalCategory.toUnit _)]
+  rfl
+
+/-- `PhiAmple.mumfordKLFiniteSectionAC_of_open`, characteristic `0`. -/
+theorem mumfordKLFiniteSectionAC0_of_open (h1 : PicRepresentableAbVar) (h2 : PicZeroAbVar0) :
+    MumfordKLFiniteSectionAC0 :=
+  fun k _ _ _ X c₀ hc₀ _ => mumfordKLFiniteAC0_of_open h1 h2 k X c₀ hc₀
+
+end KL
+
+section Phi
+
+set_option backward.isDefEq.respectTransparency false in
+/-- `PicFix.mumfordKLFiniteAC_of_section` (pic-fix) verbatim, characteristic `0`. -/
+theorem mumfordKLFiniteAC0_of_section (h : MumfordKLFiniteSectionAC0) : MumfordKLFiniteAC0 := by
+  intro k _ _ _ X c₀ hc₀
+  have : Nonempty X.X.left :=
+    ⟨η[X.X].left (show PrimeSpectrum k from Nonempty.some (inferInstance : Nonempty (PrimeSpectrum k)))⟩
+  obtain ⟨m, hm, s, hs⟩ := exists_pow_section c₀ hc₀
+  refine (h k X (c₀ ^ m) (isAmple_pow c₀ hc₀ hm) ⟨s, hs⟩).subset fun x hx => ?_
+  change AC.phi (c₀ ^ m) x = 1
+  rw [phi_pow, show AC.phi c₀ x = 1 from hx, one_pow]
+
+set_option backward.isDefEq.respectTransparency false in
+/-- `PicDict.mumfordKLFinite_of_ac` (pic-dict) verbatim, characteristic `0` (`AlgebraicClosure K` has
+characteristic `0`). -/
+theorem mumfordKLFinite0_of_ac (h : MumfordKLFiniteAC0) : MumfordKLFinite0 := by
+  intro K _ _ A c₀ hc₀
+  refine ((h (AlgebraicClosure K) (AKbar A) c₀ hc₀).preimage pts_injective.injOn).subset ?_
+  intro x hx
+  change AC.phi c₀ (pts x) = 1
+  rw [phi_pts]; exact hx
+
+set_option backward.isDefEq.respectTransparency false in
+/-- `PicDict.phiAmpleIsogeny_of_printed` (pic-dict) verbatim, characteristic `0`. -/
+theorem phiAmpleIsogeny0_of_parts (hKL : MumfordKLFinite0) (h8 : MumfordPhiSurjective)
+    (hamp : AmpleBaseChangeAlgClosure) (hsub : PicZeroPtsTranslInv) :
+    PhiAmpleIsogeny0 := by
+  have hfin := finiteOfFiniteKerPts
+  intro K _ _ A P rep B j hj L hL lam hlam
+  obtain ⟨lam', hlam'⟩ := exists_hom_comp_eq_phiL rep hj L
+  have hjm : Mono j := by
+    haveI : IsOpenImmersion j.left := hj.1
+    exact (Over.forget _).mono_of_mono_map (inferInstanceAs (Mono j.left))
+  have he : lam = lam'.hom := by rw [← cancel_mono j, hlam, hlam']
+  subst he
+  have hone : picClass rep j 1 = 1 := map_one (picHom rep hj)
+  refine ⟨hfin K A B lam' ((hKL K A _ (hamp K A L hL)).subset fun x hx => ?_), ?_⟩
+  · change x ≫ lam'.hom = 1 at hx
+    change phiPt (bcPic A L) x = 1
+    rw [← picClass_phiL rep L lam'.hom hlam x, hx, hone]
+  · apply surjective_of_forall_pt
+    intro y
+    obtain ⟨x, hx⟩ := h8 K A _ (hamp K A L hL) _ (hsub K A P rep B j hj y)
+    exact ⟨x, picClass_injective rep hj (by rw [picClass_phiL rep L lam'.hom hlam x, hx])⟩
+
+/-- **`PicFix.phiAmpleIsogeny_of_printed`, characteristic `0`**: from `MumfordKLFiniteSectionAC0` and Mumford §8
+Thm 1 (`MumfordPhiSurjectiveAC`, unchanged), through the same proved glue as pic-dict's `phiAmpleIsogeny_final`. -/
+theorem phiAmpleIsogeny0_of_printed (hKL : MumfordKLFiniteSectionAC0) (h8 : MumfordPhiSurjectiveAC) :
+    PhiAmpleIsogeny0 :=
+  phiAmpleIsogeny0_of_parts (mumfordKLFinite0_of_ac (mumfordKLFiniteAC0_of_section hKL))
+    (mumfordPhiSurjective_of_ac h8) ampleBaseChangeAlgClosure
+    (picZeroPtsTranslInv_of_leaves pushforwardUnitUniversal geomIntegralProd)
+
+end Phi
+
+section T9
+
+/-- `T09Pic.t09SymmIsogenyExists_of_leaves` (TailZ24) verbatim, characteristic `0`, with L3 and L4 in the form
+`t09SymmIsogenyExists_of_mumford` supplies them. -/
+theorem t09SymmIsogenyExists0_of_leaves (h1 : PicRepresentableAbVar) (h2 : PicZeroAbVar0)
+    (h3 : ∀ (K : Type) [Field K] [CharZero K] (A : AbVar K) (P : Over (Spec (CommRingCat.of K)))
+      (rep : (picardFunctor A.X.hom).obj.RepresentableBy P) (B : AbVar K) (j : B.X ⟶ P),
+      IsPicZero rep B j → ∀ L : A.X.left.Pic, IsVeryAmple A L →
+        ∀ lam : A.X ⟶ B.X, lam ≫ j = phiL rep L → IsIsogenyMor lam)
+    (h4 : WeilPairingPicZero) :
+    T09_SymmIsogenyExists0 := by
+  intro K _ _ A
+  obtain ⟨P, ⟨rep⟩⟩ := h1 K A
+  obtain ⟨B, j, hj⟩ := h2 K A P rep
+  obtain ⟨L, hL⟩ := exists_isVeryAmple A
+  obtain ⟨lam, hlam⟩ := exists_hom_comp_eq_phiL rep hj L
+  obtain ⟨e, hperf, hgal, hcompat, hdual, halt⟩ := h4 K A P rep B j hj
+  exact ⟨{ D := { dual := B, e := e, perfect := hperf, galois := hgal, compat := hcompat,
+                  dualEnd := hdual }
+           lam := lam
+           isogeny := h3 K A P rep B j hj L hL lam.hom hlam
+           symm := fun n hn hnK x => by
+             rw [HDec.WeilPairing.weil_apply]
+             exact halt L hL lam hlam n hn hnK x }⟩
+
+/-- **`T09Pic.t09SymmIsogenyExists_of_four`, characteristic `0`.** -/
+theorem t09SymmIsogenyExists0_of_four (h1 : PicRepresentableAbVar) (h2 : PicZeroAbVar0)
+    (h3 : PhiAmpleIsogeny0) (h4 : WeilPairingMumford) : T09_SymmIsogenyExists0 :=
+  t09SymmIsogenyExists0_of_leaves h1 h2
+    (fun K _ _ A P rep B j hj L hL lam hlam => h3 K A P rep B j hj L (veryAmpleIsAmple K A L hL) lam hlam)
+    (weilPairingPicZero_of_printed veryAmpleIsAmple (weilPairingPicZeroPrinted_of_mumford h4))
+
+end T9
+
+end PicZeroChar0
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj Opposite
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace PicZeroChar0.Poincare
+
+open PkgI3 PkgI3.AbVar ZInQ.Contrib.OneProof.PoincareComplement
+
+variable {k : Type} [Field k]
+
+/-- `PoincareComplement.exists_psi` (poincare-proof) verbatim, characteristic `0`. -/
+theorem exists_psi0 [CharZero k] (h1 : T09Pic.PicRepresentableAbVar) (h2 : PicZeroChar0.PicZeroAbVar0)
+    (h3 : PicZeroChar0.PhiAmpleIsogeny0) (J B : AbVar k) (i : Hom B J)
+    (hi : IsClosedImmersion i.hom.left) :
+    ∃ (D : AbVar k) (ψ : Hom J D), IsIsogenyMor (i.hom ≫ ψ.hom) := by
+  haveI := hi
+  obtain ⟨P, ⟨rep⟩⟩ := h1 k B
+  obtain ⟨D, j, hj⟩ := h2 k B P rep
+  obtain ⟨L, hL⟩ := T09Pic.exists_isVeryAmple J
+  let L' : B.X.left.Pic := Scheme.Pic.map i.hom.left L
+  have hL' : T09Pic.IsVeryAmple B L' := by
+    obtain ⟨N, hN, e, he, hover, hLe⟩ := hL
+    haveI := he
+    refine ⟨N, hN, i.hom.left ≫ e, inferInstance, ?_, ?_⟩
+    · rw [Category.assoc, hover, Over.w i.hom]
+    · change Scheme.Pic.map i.hom.left L = _
+      rw [hLe, Scheme.Pic.map_comp]
+  -- the family `(i × 1)^*Λ(L)` on `B × J` and its classifying map `ψ' : J → P`
+  let c : (pullback B.X.hom J.X.hom).Pic :=
+    Scheme.Pic.map (i.hom ▷ J.X).left (T09Pic.mumfordBundle J L)
+  let ψ' : J.X ⟶ P := rep.homEquiv.symm ((toPicardFunctor B.X.hom).app (op J.X) c)
+  -- `ψ' ∘ i = φ_{L'}`
+  have hiψ' : i.hom ≫ ψ' = T09Pic.phiL rep L' := by
+    rw [T09Pic.comp_classify, T09Pic.phiL]
+    congr 2
+    have e1 : JacobianChallenge.baseChangeMap B.X.hom i.hom = (B.X ◁ i.hom).left := by
+      apply pullback.hom_ext <;> simp [JacobianChallenge.baseChangeMap]
+    rw [e1, ← mumfordBundle_map]
+    change Scheme.Pic.map (B.X ◁ i.hom).left (Scheme.Pic.map (i.hom ▷ J.X).left _) = _
+    rw [← Scheme.Pic.map_comp, ← Over.comp_left, ← tensorHom_def']
+  -- `ψ'(0) = 0`
+  have hη : letI := picardFunctorCommGrpObj B.X.hom rep; η[J.X] ≫ ψ' = η[P] := by
+    letI := picardFunctorCommGrpObj B.X.hom rep
+    have e1 : JacobianChallenge.baseChangeMap B.X.hom η[J.X] = (B.X ◁ η[J.X]).left := by
+      apply pullback.hom_ext <;> simp [JacobianChallenge.baseChangeMap]
+    have e2 : JacobianChallenge.baseChangeMap J.X.hom η[J.X] = (J.X ◁ η[J.X]).left := by
+      apply pullback.hom_ext <;> simp [JacobianChallenge.baseChangeMap]
+    have hc : Scheme.Pic.map (JacobianChallenge.baseChangeMap B.X.hom η[J.X]) c = 1 := by
+      rw [e1]
+      change Scheme.Pic.map (B.X ◁ η[J.X]).left (Scheme.Pic.map (i.hom ▷ J.X).left _) = _
+      rw [← Scheme.Pic.map_comp, ← Over.comp_left, whisker_exchange, Over.comp_left,
+        Scheme.Pic.map_comp, ← e2, T09Pic.mumfordBundle_restrict_zero, Scheme.Pic.map_one]
+    rw [T09Pic.comp_classify, hc]
+    have h := (picardClassifyingHom B.X.hom rep (𝟙_ _)).map_one
+    rw [picardClassifyingHom_apply] at h
+    rw [h, show (1 : 𝟙_ (Over (Spec (CommRingCat.of k))) ⟶ P) =
+      CartesianMonoidalCategory.toUnit _ ≫ η from rfl]
+    simp
+  obtain ⟨ψ, hψ⟩ := exists_hom_lift rep hj ψ' hη
+  refine ⟨D, ψ, h3 k B P rep D j hj L' (T09Pic.veryAmpleIsAmple k B L' hL') _ ?_⟩
+  rw [Category.assoc, hψ, hiψ']
+
+/-- **`poincareComplement`, proved from the characteristic-`0` forms** (poincare-proof's
+`poincareComplement_of_open` verbatim, with `PicZeroAbVar0` and `PhiAmpleIsogeny0`). -/
+theorem poincareComplement_of_open0 (h1 : T09Pic.PicRepresentableAbVar) (h2 : PicZeroChar0.PicZeroAbVar0)
+    (h3 : PicZeroChar0.PhiAmpleIsogeny0) (hQ : AvSplit.MilneIsogenyQuasiInverse)
+    (hC : AVGlue.CartierSmooth) : ZInQ.Contrib.AVB1.PoincareComplement := by
+  intro k _ _ J B i hi
+  obtain ⟨D, ψ, hψ⟩ := exists_psi0 h1 h2 h3 J B i hi
+  exact complement_of_psi hQ hC J B D i ψ hψ
+
+end PicZeroChar0.Poincare
