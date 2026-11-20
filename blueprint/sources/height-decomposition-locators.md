@@ -10,29 +10,14 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the twenty-seven statements of the chapter in the
+The minimal height hypothesis is proved from the twenty-two statements of the chapter in the
 project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
 is the project-authored note `docs/research/h-trust.md`.
-
-## Faltings semisimplicity
-
-G. Faltings, *Endlichkeitssätze für abelsche Varietäten über Zahlkörpern*, Invent. Math. 73 (1983),
-349–366, §5, Satz 3, p. 360. Locator unverified.
-
-## Faltings Tate conjecture
-
-G. Faltings, Invent. Math. 73 (1983), §5, Satz 4 (the case $A=B$), p. 360, and Korollar 1 (Tate's
-conjecture), pp. 360–361. Locators unverified.
 
 ## Pazuki bound
 
 F. Pazuki, *Theta height and Faltings height*, Bull. SMF 140 (2012), Corollary 1.3(2), upper half,
 read by the locator audit. The level-$2$ coordinates are a risk (project note height-split, §8).
-
-## Neron models exist
-
-S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models* (1990), §1.4, Theorem 3, with §1.2,
-Definition 1, the existence half over an affine Dedekind base. Numbers unverified.
 
 ## Deligne representations
 
@@ -157,27 +142,6 @@ elliptic curves and special Gamma values*, Res. Number Theory 3 (2017), art. 13,
 manuscript's CM argument (project note `docs/reviews/height-replacement/height/AUDIT.md`, item 2);
 the manuscript's citation (`diophantine_zq.tex`, lines 595–605). The paper attributes the formula to
 Silverman, Proposition 1.1 (not read).
-
-## Y3 to P1j
-
-The 11/5 manuscript (`diophantine_zq.tex`, lines 420–440), in the proof of its Theorem 4.1: the
-normalizer quotient $\mathbf P^1_j$, with branch values $0,\infty,-16/27$ and indices $4,6,2$, cited
-to Baba–Granath and Lin–Yang (lines 420–422), and the action of $N/(\mathbb A_f^\times K_3)$ on
-$Y_3$ with the degree bound (lines 423–440). S. Baba and H. Granath, *Genus 2 curves with
-quaternionic multiplication*, Canad. J. Math. 60 (2008), Theorem 2.1, p. 737, and Lemma 3.1, pp.
-739–740, read by the locator audit; the table of §3.1, p. 740, is unverified. The manuscript's
-bibliography cites the 2005 preprint of that paper (MPI für Mathematik), Sections 2.1 and 3 and
-Proposition 10, which was not located. Y.-H. Lin and Y. Yang, *Quaternionic loci in Siegel's modular
-threefold*, arXiv:1807.00466v1 (2018), the version the manuscript cites (journal version Math. Z.
-295 (2020), 775–819, unverified); not read for this statement. The count
-$|(\mathcal O/3\mathcal O)^\times|=72$ is a computation of the project.
-
-## Faltings 1983 Lemma 1
-
-G. Faltings, *Endlichkeitssätze für abelsche Varietäten über Zahlkörpern*, Invent. Math. 73 (1983),
-349–366, §2, the Definition and Lemma 1, p. 350, read from the page image of the GDZ scan; the paper
-is in the manuscript's bibliography (`diophantine_zq.tex`, lines 11084–11086) and cited at lines 621
-and 733 for other results.
 
 ## Fowler Proposition 2.7
 

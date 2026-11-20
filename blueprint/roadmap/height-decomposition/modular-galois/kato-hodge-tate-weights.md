@@ -3,7 +3,7 @@ article_id: af_fd7881203a8c2c39e35944be
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves72.modularHTCoeff
+lean: HDec.HSyn.OpenResearchLeaves73.modularHTCoeff
 ---
 
 # Hodge–Tate weights of the representation of a newform

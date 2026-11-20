@@ -13,14 +13,14 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**27 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves72`), plus four hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`, from which Lean proves pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
+**22 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves73`), plus four hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`, from which Lean proves pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
 
-* **Strict count: 7 published / 20 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* **Strict count: 4 published / 18 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
   column `flag`).
-* By kind: consequence 14, published 13.
+* By kind: consequence 13, published 9.
 
 ## Kernel-wide readings
 
@@ -64,10 +64,8 @@ Readings that apply to every statement built on a shared kernel definition.
 
 ## Good first targets
 
-* [`r9a`](#r9a): a good first target; published, tier T4, [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * [`dsThm965Printed`](#dsthm965printed): a good first target; published, tier T4, [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * [`silverbergZarhinThm35`](#silverbergzarhinthm35): a good first target; published, [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
-* [`faltingsLemma1DVRPrint`](#faltingslemma1dvrprint): a good first target; published, [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 
 ## Held
 
@@ -77,7 +75,6 @@ ping, and is released if there is no reply within 7 days of the ping.
 
 | hypothesis | holder | since |
 | --- | --- | --- |
-| [`neronSchemeExtensionDedekind`](#neronschemeextensiondedekind) | @mccorvie ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7002504399)) | 2026-11-19 |
 | [`dsThm966Printed`](#dsthm966printed) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/48)) | 2026-11-17 |
 | [`afCharpolyDS965`](#afcharpolyds965) | @zachbaugher ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7015554620)) | 2026-11-19 |
 | [`carayolThmAFrob`](#carayolthmafrob) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6998146928)) | 2026-11-19 |
@@ -97,12 +94,6 @@ Reduction block: SGA 7 I Exp. IX, BLR 1.2 Prop. 4, Serre-Tate 1968. Claim it on 
 
 * [`silverbergZarhinThm35`](#silverbergzarhinthm35) (LEAF): Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.5, p. 406 (proof: SGA 7 IX Prop. 4.7), semistable reduction section 3, p. 405; cited by diophantine_zq.tex L816; sz-raynaud
 
-### Packet R2
-
-Unread locators: SGA 3, EGA IV, Faltings 1983 Lemma 5, GIT, BLR 1.4, 7.2, 7.3. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
-
-* [`neronSchemeExtensionDedekind`](#neronschemeextensiondedekind) (GLUE; unverified-locator): Bosch-Lutkebohmert-Raynaud, Neron models (1990), 1.4 Thm 3 with 1.2 Def 1: an abelian variety over the fraction field of a Dedekind domain D has a Neron model over Spec D (existence half; smooth, separated, quasi-compact, extension property for smooth D-schemes); numbers UNVERIFIED; group-law-dvr, goodmodel-iso. Replaces mumfordGroupLawConn (GIT 6.14 over a DVR follows: GoodModelIso.mumfordGroupLawDVR_of_dedekind) and the textbook field neronSchemeExtensionExists (its case D = O_L)
-
 ### Packet R5
 
 Heights. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
@@ -116,8 +107,6 @@ Heights. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/is
 
 p-adic Hodge theory and modular Galois representations. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
 
-* [`r9a`](#r9a) (LEAF): Faltings 1983 §5 Endomorphismen, Satz 3, p. 360
-* [`r9b`](#r9b) (LEAF): Faltings 1983 §5, Satz 4 p. 360 and Korollar 1 p. 361
 * [`dsThm965Printed`](#dsthm965printed) (GLUE; unread, unverified-locator): Diamond-Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for k = 2), printed form over K_{f,lambda}: rho_{f,lambda}(Frob_p) has characteristic polynomial (or satisfies) x^2 - a_p x + chi(p) p^(k-1)
 * [`dsThm966Printed`](#dsthm966printed) (LEAF): Deligne-Serre, Thm 4.1 with (4.1.1), pp. 513-514: f != 0 of type (1, eps), eigenvector of T_p (p not dividing N) with eigenvalues a_p => rho : G_Q -> GL_2(C), unramified outside N, Tr rho(Frob_p) = a_p, det rho(Frob_p) = eps(p)
 * [`panPrintedF`](#panprintedf) (GLUE): Pan, The Fontaine-Mazur conjecture in the residually reducible case, arXiv:1901.07166v2 (the version the manuscript cites), Thm 1.0.4 with Conj. 1.0.1 (published J. Amer. Math. Soc. 35 (2022), 1031-1169); 'potentially semi-stable in the sense of Fontaine' in Brinon-Conrad's dimension form (CMI notes, preliminary version June 24, 2009, 5.2 pp. 67-68, Thm 9.3.5 p. 148) over the image in B_dR of Brinon-Conrad's B_st (Def. 9.2.3 p. 138, abstract; embedded pp. 140-142 with log p = 0; injective by Thm 9.2.10 p. 143), B_cris Def. 9.1.4 p. 131, A_cris p. 128 (abstract) with its image in B_dR^+ p. 129 (p-adic topology), on a model V = E^n (model-independent: PstModel.localIsPstF_iff_forall); LocalIsPstF over BstFOf in Contrib/OneProof/PanBergerFontaine.lean
@@ -149,19 +138,14 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`gaudronRemondThm14AnSS`](#gaudronremondthm14anss) | research | published | GLUE | pending-review | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`javanpeykarThm111An`](#javanpeykarthm111an) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`modularHTCoeff`](#modularhtcoeff) | research | consequence | GLUE | pending-review, unverified-locator | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
-| [`neronSchemeExtensionDedekind`](#neronschemeextensiondedekind) | research | published | GLUE | unverified-locator |  | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by [@mccorvie](https://github.com/mccorvie) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7002504399)) |
 | [`panPrintedF`](#panprintedf) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`pazukiCor13Upper`](#pazukicor13upper) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`shimuraThm1Af`](#shimurathm1af) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6997431192)) |
 | [`silverbergZarhinThm33`](#silverbergzarhinthm33) | research | published | GLUE | note |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`y3FullThreeRepZ30`](#y3fullthreerepz30) | research | consequence | GLUE | unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
-| [`y3ToP1j`](#y3top1j) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`cmjDegreePrint`](#cmjdegreeprint) | research | published | LEAF | note |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 1 | open |
 | [`dsThm966Printed`](#dsthm966printed) | research | published | LEAF | note | good-first | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/48)) |
-| [`faltingsLemma1DVRPrint`](#faltingslemma1dvrprint) | research | published | LEAF | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`fowlerProp27PrintCanonical`](#fowlerprop27printcanonical) | research | published | LEAF | note |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 1 | open |
-| [`r9a`](#r9a) | research | published | LEAF |  | good-first | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
-| [`r9b`](#r9b) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`silverbergZarhinThm35`](#silverbergzarhinthm35) | research | published | LEAF | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`hRC`](#hrc) | frozenTarget | manuscript hypothesis | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/83)) |
 | [`hCT`](#hct) | frozenTarget | published | LEAF | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
@@ -214,7 +198,7 @@ T10Etale.T10_TateDuality
 
 ### afCharpolyDS965
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.afCharpolyDS965`; kind **consequence**, strict **GLUE**; flag: reviewer verdict queue11 (11-17; notes crowd-kit/ckpt/leaf-review/queue11-verdict.md): consequence, GLUE/GLUE; earlier: pending review (inbox 10a: new printed leaf, GLUE until a reviewer rates it); unread: new printed leaf (Diamond-Shurman Thm 9.6.5, 'the characteristic equation of rho_{f,lambda}(Frob_p) is x^2 - a_p x + chi(p) p^{k-1} = 0', at k = 2, with DS's identification on the same page that for k = 2 the representation is the Section 9.5 construction, whose characteristic equation Section 9.5 had not proved; AI-read by r16-det in the 2005 (p. 393) and 2016 (p. 404) printings, no human reading).
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.afCharpolyDS965`; kind **consequence**, strict **GLUE**; flag: reviewer verdict queue11 (11-17; notes crowd-kit/ckpt/leaf-review/queue11-verdict.md): consequence, GLUE/GLUE; earlier: pending review (inbox 10a: new printed leaf, GLUE until a reviewer rates it); unread: new printed leaf (Diamond-Shurman Thm 9.6.5, 'the characteristic equation of rho_{f,lambda}(Frob_p) is x^2 - a_p x + chi(p) p^{k-1} = 0', at k = 2, with DS's identification on the same page that for k = 2 the representation is the Section 9.5 construction, whose characteristic equation Section 9.5 had not proved; AI-read by r16-det in the 2005 (p. 393) and 2016 (p. 404) printings, no human reading).
 * Source: Diamond-Shurman, A First Course in Modular Forms, GTM 228 (2005), Theorem 9.6.5 and the paragraph after it, p. 393 (2016 fourth printing p. 404); rho_{f,lambda} and V_l(A_f) as in Lemma 9.5.3, Theorem 9.5.4, Exercise 9.5.2(a), pp. 389-391
 * discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -228,7 +212,7 @@ AfTateLam.AfCharpolyDS965
 
 ### bergerSurveyF
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.bergerSurveyF`; kind **consequence**, strict **GLUE**; flag: reviewer verdict queue29 (11-17): consequence, GLUE/GLUE: re-routed (Jack 11-17) to Brinon-Conrad Thm 9.3.5 p. 148, 'only if' half (de Rham implies potentially semistable), stated in BC without proof as a result of Berger and Andre-Kedlaya-Mebkhout; the conclusion is BC's dimension form (5.2 pp. 67-68), so the dimension-to-basis step is gone; de Rham matches BC since B_dR^{G_Qp} = Q_p is proved in Lean (BdRInv.bdRInvariantsPrinted_proof); deciding step: BC define B_st abstractly (Def. 9.2.3 p. 138) and BstFOf is its image in B_dR, so BC's conclusion gives the Lean's only through the injectivity of Thm 9.2.10 p. 143, not proved in Lean (BergerBst.LogPTildeTranscendental is an open Prop, reduced in Lean to log[p~] not in Frac(B_max) (LogPTransc.logPTildeTranscendental_iff_notInFrac, Contrib/OneProof/LogPTranscendenceBdR.lean)); co-step: BC define A_cris abstractly (p. 128) and AcrisOf is BC's printed description of its image (p. 129, proof omitted); LEAF if both are proved or ruled definitional; earlier: q22 GLUE (dimension-to-basis, survey ring).
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.bergerSurveyF`; kind **consequence**, strict **GLUE**; flag: reviewer verdict queue29 (11-17): consequence, GLUE/GLUE: re-routed (Jack 11-17) to Brinon-Conrad Thm 9.3.5 p. 148, 'only if' half (de Rham implies potentially semistable), stated in BC without proof as a result of Berger and Andre-Kedlaya-Mebkhout; the conclusion is BC's dimension form (5.2 pp. 67-68), so the dimension-to-basis step is gone; de Rham matches BC since B_dR^{G_Qp} = Q_p is proved in Lean (BdRInv.bdRInvariantsPrinted_proof); deciding step: BC define B_st abstractly (Def. 9.2.3 p. 138) and BstFOf is its image in B_dR, so BC's conclusion gives the Lean's only through the injectivity of Thm 9.2.10 p. 143, not proved in Lean (BergerBst.LogPTildeTranscendental is an open Prop, reduced in Lean to log[p~] not in Frac(B_max) (LogPTransc.logPTildeTranscendental_iff_notInFrac, Contrib/OneProof/LogPTranscendenceBdR.lean)); co-step: BC define A_cris abstractly (p. 128) and AcrisOf is BC's printed description of its image (p. 129, proof omitted); LEAF if both are proved or ruled definitional; earlier: q22 GLUE (dimension-to-basis, survey ring).
 * Source: Brinon-Conrad, CMI summer school notes on p-adic Hodge theory, preliminary version June 24, 2009 (bibitem brinon-conrad), Thm 9.3.5 p. 148 ('only if' half), with semistable = B_st-admissible in the dimension form (5.2 pp. 67-68), B_st Def. 9.2.3 p. 138 (abstract) embedded in B_dR pp. 140-142 (log p = 0) and injective by Thm 9.2.10 p. 143, B_cris Def. 9.1.4 p. 131, A_cris p. 128 (abstract) with its image in B_dR^+ p. 129 (p-adic topology), de Rham = B_dR-admissible (5.2; Thm 4.4.13 p. 64); the manuscript cites Berger, Invent. Math. 148 (2002), Theoreme 0.6 (= Theoreme 5.19 of arXiv:math/0102179v3) at tex 739-741; IsPstF (dimension form, BergerBst.IsAdmissible) over BstFOf in Contrib/OneProof/PanBergerFontaine.lean
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -242,7 +226,7 @@ HDec.PkgI4.PanDict.BergerSurveyF
 
 ### carayolThmAFrob
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.carayolThmAFrob`; kind **published**, strict **GLUE**; flag: unread: new printed leaf (packaged form; consequence of DDT 1997 Thm 3.1 (a)-(d) via CarayolRefold.frob_of_DDT31, of which every clause was found printed by reviewer verdict queue10 carIrr and AI audit #65); statement check: (i) irreducible over K_{f,lambda} (Ribet LNM 601 Thm 2.3 or DDT 3.1(c) 'absolutely irreducible'); (ii) arithmetic Frobenius polynomial X^2 - a_p X + p psi(p) (manuscript L9794 from Carayol's normalization; DDT 3.1 trace a_p and det = psi chi_l); (iii) the conductor clause is a consequence of Carayol 1986 Theoreme (A) with the conductor compatibility of local Langlands and Casselman 1973 Thm 1, printed as one statement only in DDT 3.1 ('N(rho) is the prime-to-l part of N', AI reading); Carayol's form of Theorem A is not expressible in Lean (report section 2); locators UNVERIFIED.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.carayolThmAFrob`; kind **published**, strict **GLUE**; flag: unread: new printed leaf (packaged form; consequence of DDT 1997 Thm 3.1 (a)-(d) via CarayolRefold.frob_of_DDT31, of which every clause was found printed by reviewer verdict queue10 carIrr and AI audit #65); statement check: (i) irreducible over K_{f,lambda} (Ribet LNM 601 Thm 2.3 or DDT 3.1(c) 'absolutely irreducible'); (ii) arithmetic Frobenius polynomial X^2 - a_p X + p psi(p) (manuscript L9794 from Carayol's normalization; DDT 3.1 trace a_p and det = psi chi_l); (iii) the conductor clause is a consequence of Carayol 1986 Theoreme (A) with the conductor compatibility of local Langlands and Casselman 1973 Thm 1, printed as one statement only in DDT 3.1 ('N(rho) is the prime-to-l part of N', AI reading); Carayol's form of Theorem A is not expressible in Lean (report section 2); locators UNVERIFIED.
 * Source: Darmon-Diamond-Taylor, Fermat's Last Theorem, Current Developments in Mathematics 1995 (1997), Thm 3.1 (a)-(d) and section 2 (conductor); Carayol, Ann. Sci. ENS (4) 19 (1986) 409-468, sections 0.3-0.7 and Theoreme (A), pp. 409-411 (the manuscript's locator, L9778; normalization L9784-9796); Casselman, Math. Ann. 201 (1973) Thm 1, pp. 302-306 (manuscript L9802-9806); Ribet, LNM 601 (1977) Thm 2.3; Shimura 1971 Thm 7.14; locators UNVERIFIED
 * label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -256,7 +240,7 @@ CarayolRefold.CarayolThmAFrob
 
 ### cmHeight62
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.cmHeight62`; kind **consequence**, strict **GLUE**; flag: pending review (new leaf, GLUE until a reviewer rates it); CITED-consequence (manuscript \cite[Eq. (6.2)]{cmheight}, diophantine_zq.tex L605): good-reduction case, <= half; the stable height over L1 bounds the height of E (L596-598); exact display of (6.2) unread on this host; pending review: GLUE until a reviewer rates it.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.cmHeight62`; kind **consequence**, strict **GLUE**; flag: pending review (new leaf, GLUE until a reviewer rates it); CITED-consequence (manuscript \cite[Eq. (6.2)]{cmheight}, diophantine_zq.tex L605): good-reduction case, <= half; the stable height over L1 bounds the height of E (L596-598); exact display of (6.2) unread on this host; pending review: GLUE until a reviewer rates it.
 * Source: Barquero-Sanchez, Cadwallader, Cannon, Genao, Masri, Faltings heights of CM elliptic curves and special Gamma values, Res. Number Theory 3 (2017) art. 13, section 6, Eq. (6.2), pp. 13-14 (read by the upstream audit); manuscript \cite[Eq. (6.2)]{cmheight}, diophantine_zq.tex L605 (normalization L598-605)
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -270,7 +254,7 @@ HDec.CMBranch.CMHeight62
 
 ### deligneCanonicalModelY3EveryPrint
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.deligneCanonicalModelY3EveryPrint`; kind **consequence**, strict **GLUE**; flag: pending review (new leaf, GLUE until a reviewer rates it; source: cited print (Deligne, Sem. Bourbaki 389 / Shimura 1967 as printed); y3-hodge;) pending review (new leaf, GLUE until a reviewer rates it): y3-hodge restatement of deligneCanonicalModelY3EveryH as its print (queue11 items: genuine H_1(A(C), Z) via pi_1^ab and exp_A, proved equivalent to IsHodgeH1; Lemma P on the genuine H_1, proved (lemmaP_H1); H^pm with B^x versus H with B^x_+, proved; sign of h fixed by holomorphy of F^0, proved); locators UNVERIFIED; reading risk (locators.md R1): the print is the polarized PEL problem over E(G,X) = Q.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.deligneCanonicalModelY3EveryPrint`; kind **consequence**, strict **GLUE**; flag: pending review (new leaf, GLUE until a reviewer rates it; source: cited print (Deligne, Sem. Bourbaki 389 / Shimura 1967 as printed); y3-hodge;) pending review (new leaf, GLUE until a reviewer rates it): y3-hodge restatement of deligneCanonicalModelY3EveryH as its print (queue11 items: genuine H_1(A(C), Z) via pi_1^ab and exp_A, proved equivalent to IsHodgeH1; Lemma P on the genuine H_1, proved (lemmaP_H1); H^pm with B^x versus H with B^x_+, proved; sign of h fixed by holomorphy of F^0, proved); locators UNVERIFIED; reading risk (locators.md R1): the print is the polarized PEL problem over E(G,X) = Q.
 * Source: Shimura, Ann. of Math. 85 (1967), Main Theorem I; Deligne, Travaux de Shimura, Sem. Bourbaki 389 (1971) sections 4-5 (Cor. 5.7, Ex. 5.8); Milne, Introduction to Shimura varieties (2005) sections 5-8, 12-14; at B = (2,-3|Q), level K3, as a consequence; locators UNVERIFIED
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -284,7 +268,7 @@ Y3Hodge.DeligneCanonicalModelY3EveryPrint
 
 ### dsThm965Printed
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.dsThm965Printed`; kind **published**, strict **GLUE**; flag: unread: new printed leaf (DS 9.6.5 over K_{f,lambda} as printed, DS Def 5.8.1 eigenforms, either wording by or-introduction); locator UNVERIFIED.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.dsThm965Printed`; kind **published**, strict **GLUE**; flag: unread: new printed leaf (DS 9.6.5 over K_{f,lambda} as printed, DS Def 5.8.1 eigenforms, either wording by or-introduction); locator UNVERIFIED.
 * Source: Diamond-Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for k = 2), printed form over K_{f,lambda}: rho_{f,lambda}(Frob_p) has characteristic polynomial (or satisfies) x^2 - a_p x + chi(p) p^(k-1)
 * packet [R7](#packet-r7); label good-first (a good first target); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -298,7 +282,7 @@ DSCoeffExt.DSThm965Printed
 
 ### gaudronRemondSec9LowerAnSS
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.gaudronRemondSec9LowerAnSS`; kind **published**, strict **GLUE**; flag: pending reading (GR p. 2098 normalization): new printed leaf, the GR14 section 9 inequality h(A) >= -(3/2) dim A (p. 2098, AUDIT-READ in locators R21, no statement check recorded; the normalization warning on that page is unread, and a Deligne reading would be weaker, bost-gr9 K3); cited inside a proof (Lemme 9.1; GR refer to Bost 1996 and GR CMH 2014 Cor. 8.4, bost-gr9 K2); R3' closed by r3prime-etale + r3prime-bc (ZInQ.R3Etale.isHolChart_iff_isSerreChart', ZInQ.R3BC.isHolChart_iff_isBCSerreChart, isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's complex space of A_tau = G x_{O_L,tau} C, from T35; fold-b112); semistability as printed (IsAnStableHeightSS, fold-b112, as semistab-assembly); provenance cited.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.gaudronRemondSec9LowerAnSS`; kind **published**, strict **GLUE**; flag: pending reading (GR p. 2098 normalization): new printed leaf, the GR14 section 9 inequality h(A) >= -(3/2) dim A (p. 2098, AUDIT-READ in locators R21, no statement check recorded; the normalization warning on that page is unread, and a Deligne reading would be weaker, bost-gr9 K3); cited inside a proof (Lemme 9.1; GR refer to Bost 1996 and GR CMH 2014 Cor. 8.4, bost-gr9 K2); R3' closed by r3prime-etale + r3prime-bc (ZInQ.R3Etale.isHolChart_iff_isSerreChart', ZInQ.R3BC.isHolChart_iff_isBCSerreChart, isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's complex space of A_tau = G x_{O_L,tau} C, from T35; fold-b112); semistability as printed (IsAnStableHeightSS, fold-b112, as semistab-assembly); provenance cited.
 * Source: Gaudron-Remond, Polarisations et isogenies, Duke Math. J. 163 (2014), 2057-2108, section 9, proof of Lemme 9.1, p. 2098 (locators.md R21); cited by diophantine_zq.tex L894-895 (step E4); over the stable height with the metric on A_tau(C)^an (r3-residual), semistability as printed (IsAnStableHeightSS; semistab-assembly); replaces Bost, Sem. Bourbaki 795 (not in the manuscript's bibliography; strictly stronger, bost-gr9)
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -312,7 +296,7 @@ ZInQ.BostGR9.GaudronRemondSec9LowerAnSS
 
 ### gaudronRemondThm14AnSS
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.gaudronRemondThm14AnSS`; kind **published**, strict **GLUE**; flag: pending review: semistability clause now printed form under the geometric and k(s) readings (semistab-assembly, proved); the SGA 7 IX 2.1.5 reading (no G_a) remains (task ga-rigidity); R3' closed by r3prime-etale + r3prime-bc (ZInQ.R3Etale.isHolChart_iff_isSerreChart', ZInQ.R3BC.isHolChart_iff_isBCSerreChart, isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's complex space of A_tau = G x_{O_L,tau} C, from T35; fold-b112); locator read by the audit.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.gaudronRemondThm14AnSS`; kind **published**, strict **GLUE**; flag: pending review: semistability clause now printed form under the geometric and k(s) readings (semistab-assembly, proved); the SGA 7 IX 2.1.5 reading (no G_a) remains (task ga-rigidity); R3' closed by r3prime-etale + r3prime-bc (ZInQ.R3Etale.isHolChart_iff_isSerreChart', ZInQ.R3BC.isHolChart_iff_isBCSerreChart, isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's complex space of A_tau = G x_{O_L,tau} C, from T35; fold-b112); locator read by the audit.
 * Source: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4, over the stable height with the metric on A_tau(C)^an (r3-residual), semistability as printed (geometric and k(s) readings; semistab-assembly)
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -326,7 +310,7 @@ ZInQ.SemistabAssembly.GaudronRemondThm14AnSS
 
 ### javanpeykarThm111An
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.javanpeykarThm111An`; kind **consequence**, strict **GLUE**; flag: R3' closed by r3prime-etale + r3prime-bc (ZInQ.R3Etale.isHolChart_iff_isSerreChart', ZInQ.R3BC.isHolChart_iff_isBCSerreChart, isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's complex space of A_tau = G x_{O_L,tau} C, from T35; fold-b112); the leaf is the composite of Thm 1.1.1 with the Section 2.3 identification h_Fal(X) = h_Fal(Jac X), stated with the Jacobian's height since h_Fal(X) of a curve is not defined in Lean (lead's ruling wanted on the composite); semistability clause: semi-abelian reduction of the Jacobian's Neron model (IsSemistablePrinted, equivalent to IsSemistableRes, jp-an-retype), not the print's curve-model semistability (Def. 2.2.1, which the row does not use); step outside the print: the Faltings height of a model with semi-abelian reduction everywhere does not depend on the number field or the model (Faltings 1983 section 1, Deligne Sem. Bourbaki 616 section 1; locators UNVERIFIED), so x is the stable height of W = Jac X, which Section 2.3 identifies with h_Fal(X); curve-to-Jacobian semistability enters only inside the print's Section 2.3 citation (Szpiro (ed.), Asterisque 127, Chap. I, Lemme 3.2.1); locators page-checked 11-17: arXiv v1 p. 1 (Thm 1.1.1), p. 9 (§2.3); ANT p. 90; ANT p. 98 not reachable, arXiv v1 is the cited print.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.javanpeykarThm111An`; kind **consequence**, strict **GLUE**; flag: R3' closed by r3prime-etale + r3prime-bc (ZInQ.R3Etale.isHolChart_iff_isSerreChart', ZInQ.R3BC.isHolChart_iff_isBCSerreChart, isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's complex space of A_tau = G x_{O_L,tau} C, from T35; fold-b112); the leaf is the composite of Thm 1.1.1 with the Section 2.3 identification h_Fal(X) = h_Fal(Jac X), stated with the Jacobian's height since h_Fal(X) of a curve is not defined in Lean (lead's ruling wanted on the composite); semistability clause: semi-abelian reduction of the Jacobian's Neron model (IsSemistablePrinted, equivalent to IsSemistableRes, jp-an-retype), not the print's curve-model semistability (Def. 2.2.1, which the row does not use); step outside the print: the Faltings height of a model with semi-abelian reduction everywhere does not depend on the number field or the model (Faltings 1983 section 1, Deligne Sem. Bourbaki 616 section 1; locators UNVERIFIED), so x is the stable height of W = Jac X, which Section 2.3 identifies with h_Fal(X); curve-to-Jacobian semistability enters only inside the print's Section 2.3 citation (Szpiro (ed.), Asterisque 127, Chap. I, Lemme 3.2.1); locators page-checked 11-17: arXiv v1 p. 1 (Thm 1.1.1), p. 9 (§2.3); ANT p. 90; ANT p. 98 not reachable, arXiv v1 is the cited print.
 * Source: Javanpeykar, Polynomial bounds for Arakelov invariants of Belyi curves, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90 (arXiv:1403.6404v1 Thm 1.1.1, p. 1) and section 2.3, p. 98 (arXiv p. 9); locators recorded by the locator audit (docs/research/locators.md row R18); cited at diophantine_zq.tex L870; over the stable height with the metric on A_tau(C)^an (r3-residual), semistability of the Jacobian's Neron model (semistab-assembly; not the print's Def. 2.2.1)
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -340,7 +324,7 @@ JavanpeykarAnRetype.JavanpeykarThm111An
 
 ### modularHTCoeff
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.modularHTCoeff`; kind **consequence**, strict **GLUE**; flag: pending review (new leaf, GLUE until a reviewer rates it; source: cited print (modular HT existence form, Gee 2022 Fact 4.20); inbox 33a;) unread: new printed leaf (existence form over the print's coefficient field K_{f,lambda} / F_lambda, Hodge-Tate weights 0, k-1 in the print's tensor-product definition, every level; the four normalization/sign-convention readings reduce to the two disjuncts in Lean; trace clause only); locator UNVERIFIED.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.modularHTCoeff`; kind **consequence**, strict **GLUE**; flag: pending review (new leaf, GLUE until a reviewer rates it; source: cited print (modular HT existence form, Gee 2022 Fact 4.20); inbox 33a;) unread: new printed leaf (existence form over the print's coefficient field K_{f,lambda} / F_lambda, Hodge-Tate weights 0, k-1 in the print's tensor-product definition, every level; the four normalization/sign-convention readings reduce to the two disjuncts in Lean; trace clause only); locator UNVERIFIED.
 * Source: Content: Deligne, Sem. Bourbaki 355 (1969/1971); Faltings, Math. Ann. 278 (1987); Saito, Invent. Math. 129 (1997); Kato, Asterisque 295 (2004) sections 9.2-9.4, (9.2.2), pp. 187-188 (V_{F_lambda}(f) over F_lambda; read by the locator audit, row R13) and 11.3 (UNVERIFIED). Existence form printed in Taylor, Galois representations, Ann. Fac. Sci. Toulouse Math. (6) 13 (2004); Gee, Modularity lifting theorems, Essent. Number Theory 1 (2022) section 2 (numbers UNVERIFIED)
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -352,23 +336,9 @@ HTNewAssembly.ModularHTCoeff
 
 > R13, printed existence form over a finite coefficient field (htnew-assembly): for a prime l, embeddings iota_C, iota_L and a Tau Ceti newform f of weight k >= 2 and level N (every level, l | N included), there are a finite extension E of Q_l inside Qbar_l (the print's K_{f,lambda} / Kato's F_lambda, embedded) and a continuous rho : G_Q -> GL_2(E), unramified outside N l, with either (arithmetic Frobenius trace a_p and Hodge-Tate weights {0, k-1}, cyclotomic weight +1) or (geometric Frobenius trace a_p and Hodge-Tate weights {0, k-1}, cyclotomic weight -1), the multiplicity of w being dim_E (V tensor_{Q_l} C_l(-+w))^{G_{Q_l}} (Mathlib tensor product, the print's definition). Replaces modularHTPrinted: the assembly lemma dim_E (V tensor C_l(w))^G = htMult(rho dual, -w) (trace-form isomorphism V tensor C_l = Hom(E^n, C_l)), HTDual and the coefficient extension E in Qbar_l are proved in Lean (ModularHTCoeff.lean).
 
-### neronSchemeExtensionDedekind
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.neronSchemeExtensionDedekind`; kind **published**, strict **GLUE**; flag: leaf restated with the hypothesis not IsField D (Addendum 2 reviewer fix; BLR Dedekind schemes are one-dimensional), stays LEAF/LEAF; locator UNVERIFIED (BLR, Neron models, 1.4 Thm 3 with 1.2 Def 1, existence half, affine Dedekind base).
-* Source: Bosch-Lutkebohmert-Raynaud, Neron models (1990), 1.4 Thm 3 with 1.2 Def 1: an abelian variety over the fraction field of a Dedekind domain D has a Neron model over Spec D (existence half; smooth, separated, quasi-compact, extension property for smooth D-schemes); numbers UNVERIFIED; group-law-dvr, goodmodel-iso. Replaces mumfordGroupLawConn (GIT 6.14 over a DVR follows: GoodModelIso.mumfordGroupLawDVR_of_dedekind) and the textbook field neronSchemeExtensionExists (its case D = O_L)
-* packet [R2](#packet-r2); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
-* Human readings recorded: none.
-* Status: held by [@mccorvie](https://github.com/mccorvie) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7002504399)).
-
-```lean
-ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-```
-
-> group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn.
-
 ### panPrintedF
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.panPrintedF`; kind **consequence**, strict **GLUE**; flag: reviewer verdict queue29 (11-17): consequence, GLUE/GLUE: Pan arXiv:1901.07166v2 Conj. 1.0.1 and Thm 1.0.4 checked clause by clause against the v2 LaTeX source (p = 3 proviso only, HT(eps) = -1, geometric Frobenius, iota_p fixed); pst is Brinon-Conrad's dimension form (5.2 pp. 67-68, Thm 9.3.5 p. 148) and the pst model clause is proved (PstModel.localIsPstF_iff_forall); deciding step: Brinon-Conrad define B_st abstractly (Def. 9.2.3 p. 138) and BstFOf is its image in B_dR, so identifying them needs the injectivity of Thm 9.2.10 p. 143, not proved in Lean (BergerBst.LogPTildeTranscendental is an open Prop, reduced in Lean to log[p~] not in Frac(B_max) (LogPTransc.logPTildeTranscendental_iff_notInFrac, Contrib/OneProof/LogPTranscendenceBdR.lean)); co-steps: LocalDistinctHTP on some finite model is equivalent to every model (HTModel.localDistinctHTP_iff_forall); BC define A_cris abstractly (p. 128) and AcrisOf is BC's printed description of its image in B_dR^+ (p. 129, proof omitted); LEAF once both are proved or ruled definitional; earlier: q22 GLUE (model clause, survey ring).
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.panPrintedF`; kind **consequence**, strict **GLUE**; flag: reviewer verdict queue29 (11-17): consequence, GLUE/GLUE: Pan arXiv:1901.07166v2 Conj. 1.0.1 and Thm 1.0.4 checked clause by clause against the v2 LaTeX source (p = 3 proviso only, HT(eps) = -1, geometric Frobenius, iota_p fixed); pst is Brinon-Conrad's dimension form (5.2 pp. 67-68, Thm 9.3.5 p. 148) and the pst model clause is proved (PstModel.localIsPstF_iff_forall); deciding step: Brinon-Conrad define B_st abstractly (Def. 9.2.3 p. 138) and BstFOf is its image in B_dR, so identifying them needs the injectivity of Thm 9.2.10 p. 143, not proved in Lean (BergerBst.LogPTildeTranscendental is an open Prop, reduced in Lean to log[p~] not in Frac(B_max) (LogPTransc.logPTildeTranscendental_iff_notInFrac, Contrib/OneProof/LogPTranscendenceBdR.lean)); co-steps: LocalDistinctHTP on some finite model is equivalent to every model (HTModel.localDistinctHTP_iff_forall); BC define A_cris abstractly (p. 128) and AcrisOf is BC's printed description of its image in B_dR^+ (p. 129, proof omitted); LEAF once both are proved or ruled definitional; earlier: q22 GLUE (model clause, survey ring).
 * Source: Pan, The Fontaine-Mazur conjecture in the residually reducible case, arXiv:1901.07166v2 (the version the manuscript cites), Thm 1.0.4 with Conj. 1.0.1 (published J. Amer. Math. Soc. 35 (2022), 1031-1169); 'potentially semi-stable in the sense of Fontaine' in Brinon-Conrad's dimension form (CMI notes, preliminary version June 24, 2009, 5.2 pp. 67-68, Thm 9.3.5 p. 148) over the image in B_dR of Brinon-Conrad's B_st (Def. 9.2.3 p. 138, abstract; embedded pp. 140-142 with log p = 0; injective by Thm 9.2.10 p. 143), B_cris Def. 9.1.4 p. 131, A_cris p. 128 (abstract) with its image in B_dR^+ p. 129 (p-adic topology), on a model V = E^n (model-independent: PstModel.localIsPstF_iff_forall); LocalIsPstF over BstFOf in Contrib/OneProof/PanBergerFontaine.lean
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -382,7 +352,7 @@ HDec.PkgI4.PanDict.PanPrintedF
 
 ### pazukiCor13Upper
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.pazukiCor13Upper`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling (dictionary pass, rater and skeptic): analytic principal polarizations of C^2/Lambda read as algebraic (A, L) through Appell-Humbert/Lefschetz with GAGA and NS(A_Qbar) = NS(A_C); the weak IsUniformization hypothesis needs clauses => biholomorphic (lead ruling (c)).
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.pazukiCor13Upper`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling (dictionary pass, rater and skeptic): analytic principal polarizations of C^2/Lambda read as algebraic (A, L) through Appell-Humbert/Lefschetz with GAGA and NS(A_Qbar) = NS(A_C); the weak IsUniformization hypothesis needs clauses => biholomorphic (lead ruling (c)).
 * Source: Pazuki, Bull. SMF 140 (2012) Cor. 1.3(2), upper half (read by the audit; RISK: Pazuki's level-2 coordinates, height-split §8)
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -396,7 +366,7 @@ ZInQ.HeightSplit.PazukiCor13Upper
 
 ### shimuraThm1Af
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.shimuraThm1Af`; kind **consequence**, strict **GLUE**; flag: pending review: Shimura 1973 Thm 1 as printed (AI page read: Ker nu p. 525, uniqueness up to isomorphisms over Q p. 526, tangent space and m = 1 from q-expansions p. 527, C from the ideal intersected with End(J) p. 526); on-the-spot steps: C = I_f J (the ideal is ker rho, saturation, Hecke relations in both directions), (ii) for all n from p and p^2 via xi_{p^2} = T_p^2 - p<p> (theorem step), nu-compatible isomorphisms; misprint in the f_sigma sentence before (iv) on p. 526 ('f_sigma | T_n = a_n^sigma f' for 'a_n^sigma f_sigma') recorded in docs/research/r16-thm1b.md.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.shimuraThm1Af`; kind **consequence**, strict **GLUE**; flag: pending review: Shimura 1973 Thm 1 as printed (AI page read: Ker nu p. 525, uniqueness up to isomorphisms over Q p. 526, tangent space and m = 1 from q-expansions p. 527, C from the ideal intersected with End(J) p. 526); on-the-spot steps: C = I_f J (the ideal is ker rho, saturation, Hecke relations in both directions), (ii) for all n from p and p^2 via xi_{p^2} = T_p^2 - p<p> (theorem step), nu-compatible isomorphisms; misprint in the f_sigma sentence before (iv) on p. 526 ('f_sigma | T_n = a_n^sigma f' for 'a_n^sigma f_sigma') recorded in docs/research/r16-thm1b.md.
 * Source: Shimura, On the factors of the jacobian variety of a modular function field, J. Math. Soc. Japan 25 (1973), 523-544, Theorem 1 and its construction (pp. 525-527; AI page read); cited by diophantine_zq.tex (shimura-factors)
 * discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -410,7 +380,7 @@ R16Thm1b.ShimuraThm1Af
 
 ### silverbergZarhinThm33
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.silverbergZarhinThm33`; kind **published**, strict **GLUE**; flag: glue (rated): a two-lens skeptic pass (print fidelity, Lean semantics) refuted the printed-form rating. Def. 3.1 defines semistable at w only for a discrete valuation, so reading it at the separable closure is an interpretation; the algebraic closure stands in for F^s with no Lean comparison of automorphism groups, inertia or torsion, and K is any field. A page reading alone would not change the rating. Re-route within a cited source: the manuscript cites Theorem 3.5 at L816, this row uses Theorem 3.3; a count-neutral swap of the uncited step at L817-818 for a cited print.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.silverbergZarhinThm33`; kind **published**, strict **GLUE**; flag: glue (rated): a two-lens skeptic pass (print fidelity, Lean semantics) refuted the printed-form rating. Def. 3.1 defines semistable at w only for a discrete valuation, so reading it at the separable closure is an interpretation; the algebraic closure stands in for F^s with no Lean comparison of automorphism groups, inertia or torsion, and K is any field. A page reading alone would not change the rating. Re-route within a cited source: the manuscript cites Theorem 3.5 at L816, this row uses Theorem 3.3; a count-neutral swap of the uncited step at L817-818 for a cited print.
 * Source: Silverberg–Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.3, p. 405; paper cited at diophantine_zq.tex L816 and L11077–11080; fills the uncited step at L817–818
 * discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -424,7 +394,7 @@ SZRaynaud.SilverbergZarhinThm33
 
 ### y3FullThreeRepZ30
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.y3FullThreeRepZ30`; kind **consequence**, strict **GLUE**; flag: ELLIOT: the manuscript's own claim (diophantine_zq.tex L473-477), derived there from Buzzard 1997 Thm 2.1 / Cor. 2.3 at V1(5) plus the Isom sheaf, the free G5 = (O/5O)^x quotient and descent (L443-477); not a print at level 3 (Buzzard excludes level at 3 | disc 6); polarization-free form equivalent to the manuscript's polarized problem through the canonical principal polarization (relative Lemma P), ON THE SPOT, not proved in the tree; Buzzard locator UNVERIFIED.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.y3FullThreeRepZ30`; kind **consequence**, strict **GLUE**; flag: ELLIOT: the manuscript's own claim (diophantine_zq.tex L473-477), derived there from Buzzard 1997 Thm 2.1 / Cor. 2.3 at V1(5) plus the Isom sheaf, the free G5 = (O/5O)^x quotient and descent (L443-477); not a print at level 3 (Buzzard excludes level at 3 | disc 6); polarization-free form equivalent to the manuscript's polarized problem through the canonical principal polarization (relative Lemma P), ON THE SPOT, not proved in the tree; Buzzard locator UNVERIFIED.
 * Source: diophantine_zq.tex L443-477 (Glazer, 11/5 manuscript): Buzzard, Integral models of certain Shimura curves, Duke Math. J. 87 (1997) Thm 2.1 and Cor. 2.3 at V1(5) over Z[1/30], full five-marking, Isom_O(O/3O, A[3]), free quotient by (O/5O)^x, etale descent; locators UNVERIFIED
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -436,23 +406,9 @@ Y3RouteA.Y3FullThreeRepZ30
 
 > y3-route-a, the manuscript's own conclusion (diophantine_zq.tex L473-477; one object: the integral model X35/G5 of Y3 with its universal family): the moduli problem of abelian surfaces with an action of the maximal order O of B = (2,-3|Q) and full O-linear level-3 structure (QMAbSchemeP: at every geometric point eta : O/3O = A_s[3], i.e. a section of Isom_O(O/3O, A[3])) is represented on locally noetherian Z[1/30]-schemes by a proper smooth curve over Z[1/30] with a universal QMAbSchemeP; its generic fibre is Y3 (proved: Y3RouteA.y3RepresentableQ_of_z30 gives Y3Audit.Y3RepresentableQ). Manuscript derivation: Buzzard, Duke Math. J. 87 (1997) Thm 2.1 and Cor. 2.3 at V1(5) over Z[1/30] (L443-446); full five-marking (L447-449); the finite etale sheaf Isom_O(O/3O, A[3]), nonempty on geometric fibres since the Tate lattice is free of rank one over O_3 (L449-462); free action of G5 = (O/5O)^x by torsion-freeness of 1 + 3M4(Z3) (L465-472); quotient X35/G5 and descent of the universal abelian scheme with polarization, O-action and three-marking (L472-477). Weaker than the manuscript: proper for projective, locally noetherian universe-0 bases, no polarization (equivalent through the canonical principal polarization, relative Lemma P: ON THE SPOT, not proved in the tree). Implies Y3Fix.Y3FineModuliAbP (Y3RouteA.y3FineModuliAbP_of_z30).
 
-### y3ToP1j
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.y3ToP1j`; kind **consequence**, strict **GLUE**; flag: pending review (new leaf, GLUE until a reviewer rates it); ELLIOT: the manuscript's own claim (diophantine_zq.tex L425-440: N/(A_f^* K_3) acts on Y_3 with all determinant components, central ideles trivially, quotient P^1_j, deg(Y_3 -> P^1_j) <= 4|(O/3O)^*| <= 324), with the normalizer quotient identified by Baba-Granath and Lin-Yang (L420-422); every-witness form over R1fpProps; quotient read on Qbar-points as Aut(O)-twist classes (orbit dictionary ON THE SPOT); CM branch values as the kernel's Baba-Granath section 3.1 reading, locator UNVERIFIED.
-* Source: diophantine_zq.tex L420-440 (Glazer, 11/5 manuscript); Baba-Granath, Canad. J. Math. 60 (2008) Thm 2.1 and Lemma 3.1 (V/W = P^1_Q, read by the locator audit) and section 3.1 table (UNVERIFIED); |(O/3O)^*| = 72 computed
-* discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
-* Human readings recorded: none.
-* Status: open.
-
-```lean
-Y3P1j.Y3ToP1j
-```
-
-> y3-p1j (leaf, kind consequence, flag ELLIOT): the manuscript's map `Y₃ → P¹_j` (diophantine_zq.tex L420-440; normalizer quotient cited to Baba–Granath and Lin–Yang at L420-422): on every fine witness, `π : Y → P¹` with fibres = `Aut 𝒪`-twist classes, CM values `0, ∞, −16/27` exactly at discriminants `−4, −3, −24`, onto `P¹(ℚ̄)`, fibres of at most 324 points (`Y3P1j.Y3ToP1j`).
-
 ### cmjDegreePrint
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.cmjDegreePrint`; kind **published**, strict **LEAF**; flag: p. 613: "[Q(x_i) : Q] = [Q(sqrt(Delta), x_i) : Q(sqrt(Delta))] = h(Delta), where h(Delta) denotes the class number of the imaginary quadratic order of discriminant Delta." Lean uses the equality over Q; Delta is the primitive-equation discriminant of p. 612; the order and its proper class number are determined by Delta (orders_ringEquiv_of_discr_eq, properClassNumber_ringEquiv)..
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.cmjDegreePrint`; kind **published**, strict **LEAF**; flag: p. 613: "[Q(x_i) : Q] = [Q(sqrt(Delta), x_i) : Q(sqrt(Delta))] = h(Delta), where h(Delta) denotes the class number of the imaginary quadratic order of discriminant Delta." Lean uses the equality over Q; Delta is the primitive-equation discriminant of p. 612; the order and its proper class number are determined by Delta (orders_ringEquiv_of_discr_eq, properClassNumber_ringEquiv)..
 * Source: Fowler, Some uniform effective results on André–Oort for sums of powers in ℂⁿ, Math. Proc. Cambridge Philos. Soc. 180 (2026) 607–641, section 2·1, pp. 612–613; manuscript L584–587.
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: 1.
@@ -466,7 +422,7 @@ HDec.CMBranch.CMjBridges.CMjDegreePrint
 
 ### dsThm966Printed
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.dsThm966Printed`; kind **published**, strict **LEAF**; flag: AI-read only (W24, cloud-checks 6912455099) (print not in the manuscript's bibliography).
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.dsThm966Printed`; kind **published**, strict **LEAF**; flag: AI-read only (W24, cloud-checks 6912455099) (print not in the manuscript's bibliography).
 * Source: Deligne-Serre, Thm 4.1 with (4.1.1), pp. 513-514: f != 0 of type (1, eps), eigenvector of T_p (p not dividing N) with eigenvalues a_p => rho : G_Q -> GL_2(C), unramified outside N, Tr rho(Frob_p) = a_p, det rho(Frob_p) = eps(p)
 * packet [R7](#packet-r7); label good-first (a good first target); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -478,23 +434,9 @@ DSThm966EV.DSThm966Printed
 
 > Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), pp. 513-514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix).
 
-### faltingsLemma1DVRPrint
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.faltingsLemma1DVRPrint`; kind **published**, strict **LEAF**; flag: page read verbatim from the page image by the reading desk (p. 350, Definition and Lemma 1); rated by the reviewer, a third two-lens skeptic pass (print fidelity, Lean semantics) could not refute it. Re-route within a cited source: the paper is in the manuscript's bibliography (L11084-11086) and cited at L621 and L733, but for other results, not Lemma 1. Proved bridges: faltingsLemma1DVRPrint_of_printed, isSemiabelianModelO_imp_faltingsDefScheme, hasTorusExtensionScheme_of_hasTorusExtension, faltingsLemma1DVR_iff_print. Encoding: U is an open immersion (jO_genericOpen); the two fibres are base changes along jO and along the residue map (specDVR_points shows they exhaust Spec O).
-* Source: Faltings, Invent. Math. 73 (1983), 349-366, p. 350, Definition and Lemma 1 (read verbatim from the page image by the reading desk); paper listed at diophantine_zq.tex L11084-11086, cited at L621 and L733 for other results
-* label good-first (a good first target); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
-* Human readings recorded: none.
-* Status: open.
-
-```lean
-ZInQ.FaltingsRestate.FaltingsLemma1DVRPrint
-```
-
-> Faltings 1983, p. 350, Lemma 1 (page read by the reading desk): a generic-fibre homomorphism of semiabelian schemes with abelian generic fibres extends uniquely as a morphism. S = Spec O is normal and U is its dense generic open. The model hypotheses give extensions by actual torus group schemes on both residue-field fibres, by isSemiabelianModelO_imp_faltingsDefScheme. The specialization is faltingsLemma1DVRPrint_of_printed; faltingsLemma1DVR_iff_print proves equivalence to the homomorphism form.
-
 ### fowlerProp27PrintCanonical
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.fowlerProp27PrintCanonical`; kind **published**, strict **LEAF**; flag: p. 615: "Proposition 2·7. Let Δ < 0 be such that Δ ≡ 0, 1 mod 4 and let k ∈ Z>0. If h(Δ) ≤ k, then |Δ|^{1/2} ≤ 2k²e^{21000k²}." p. 613: "where cl(Δ) denotes the class group of the unique imaginary quadratic order of discriminant Δ" and "where h(Δ) denotes the class number of the imaginary quadratic order of discriminant Δ." Lean proves the order and its proper class number are determined by Δ (orders_ringEquiv_of_discr_eq, properClassNumber_ringEquiv, hDelta_eq_properClassNumber).
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.fowlerProp27PrintCanonical`; kind **published**, strict **LEAF**; flag: p. 615: "Proposition 2·7. Let Δ < 0 be such that Δ ≡ 0, 1 mod 4 and let k ∈ Z>0. If h(Δ) ≤ k, then |Δ|^{1/2} ≤ 2k²e^{21000k²}." p. 613: "where cl(Δ) denotes the class group of the unique imaginary quadratic order of discriminant Δ" and "where h(Δ) denotes the class number of the imaginary quadratic order of discriminant Δ." Lean proves the order and its proper class number are determined by Δ (orders_ringEquiv_of_discr_eq, properClassNumber_ringEquiv, hDelta_eq_properClassNumber).
 * Source: Fowler, Some uniform effective results on André–Oort for sums of powers in ℂⁿ, Math. Proc. Cambridge Philos. Soc. 180 (2026), Proposition 2·7, p. 615; definition p. 613; manuscript L588–593.
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: 1.
@@ -506,40 +448,9 @@ HDec.CMBranch.FowlerBridges.FowlerProp27PrintCanonical
 
 > Fowler, Proposition 2·7: for an imaginary quadratic order discriminant Δ < 0 congruent to 0 or 1 modulo 4 and positive n, h(Δ) ≤ n implies √|Δ| ≤ 2n² exp(21000n²), with h(Δ) the proper ideal class number of the unique order of discriminant Δ.
 
-### r9a
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.r9a`; kind **published**, strict **LEAF**.
-* Source: Faltings 1983 §5 Endomorphismen, Satz 3, p. 360
-* packet [R7](#packet-r7); label good-first (a good first target); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
-* Human readings recorded: none.
-* Status: open.
-
-```lean
-PkgI3.FaltingsSemisimple
-```
-
-> **I3.F1 — Faltings 1983, Satz 3 (semisimplicity).** For an abelian variety `A` over a number
-> field `K` and a prime `ℓ`, the representation of `G_K` on `V_ℓ(A)` is semisimple.
-
-### r9b
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.r9b`; kind **published**, strict **LEAF**.
-* Source: Faltings 1983 §5, Satz 4 p. 360 and Korollar 1 p. 361
-* packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
-* Human readings recorded: none.
-* Status: open.
-
-```lean
-PkgI3.FaltingsTate
-```
-
-> **I3.F2 — Faltings 1983, Satz 4 (`A = B`) and Korollar 1 (Tate's conjecture).** For abelian
-> varieties `A, B` over a number field `K` and a prime `ℓ`, the natural map
-> `Hom_K(A, B) ⊗ ℤ_ℓ → Hom_{ℤ_ℓ}(T_ℓ A, T_ℓ B)` is injective with image the `G_K`-equivariant maps.
-
 ### silverbergZarhinThm35
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves72.silverbergZarhinThm35`; kind **published**, strict **LEAF**; flag: reading 11-17 (the fleet's print reader, page image of Ann. Inst. Fourier 45 (1995) p. 406, relayed by the lead; notes scratch/sz-raynaud/sz-thm35-reading.md): the hypothesis line is n >= 3 (numdam's OCR shows '>'); any field with a discrete valuation; semistable as on p. 405 (torus not necessarily split); the n = 3 flag of locators R6 cleared.
+* Bundle field `HDec.HSyn.OpenResearchLeaves73.silverbergZarhinThm35`; kind **published**, strict **LEAF**; flag: reading 11-17 (the fleet's print reader, page image of Ann. Inst. Fourier 45 (1995) p. 406, relayed by the lead; notes scratch/sz-raynaud/sz-thm35-reading.md): the hypothesis line is n >= 3 (numdam's OCR shows '>'); any field with a discrete valuation; semistable as on p. 405 (torus not necessarily split); the n = 3 flag of locators R6 cleared.
 * Source: Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.5, p. 406 (proof: SGA 7 IX Prop. 4.7), semistable reduction section 3, p. 405; cited by diophantine_zq.tex L816; sz-raynaud
 * packet [R1](#packet-r1); label good-first (a good first target); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.

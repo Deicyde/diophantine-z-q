@@ -3,7 +3,7 @@ article_id: af_095c27de41c3a3a60de425ba
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves72.afCharpolyDS965
+lean: HDec.HSyn.OpenResearchLeaves73.afCharpolyDS965
 ---
 
 # Frobenius on the Tate module of Shimura's abelian variety

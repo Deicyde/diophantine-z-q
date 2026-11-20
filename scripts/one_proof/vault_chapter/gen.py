@@ -27,7 +27,8 @@ assert len(calls) == 1, calls
 top_name = calls.pop()
 TOP_LEAN = 'HDec.HSyn.' + top_name
 sources = {n: open(os.path.join(HDIR, n)).read() for n in sorted(os.listdir(HDIR)) if n.endswith('.lean')}
-heads = [m for t in sources.values() for m in re.finditer(rf'^theorem {top_name} ((?:\(\w+ : \w+\) ?)+):', t, re.M)]
+head_pattern = rf'^theorem {top_name}\s+((?:\(\w+ : \w+\)\s*)+):'
+heads = [m for t in sources.values() for m in re.finditer(head_pattern, t, re.M)]
 assert len(heads) == 1, top_name
 BUNDLES = re.findall(r': (\w+)\)', heads[0].group(1))
 fields, bundle_of = [], {}

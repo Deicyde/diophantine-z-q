@@ -22,8 +22,7 @@ curve with the moduli properties that it lists, and asserts nothing about the ex
 curve; the lists differ from one statement to another. A *proper smooth curve* over a base is a
 scheme over it that is proper and smooth of relative dimension $1$; it need not be connected.
 
-All three are consequences of published theorems; none is proved here.
+All two are consequences of published theorems; none is proved here.
 
 - [Shimura's Main Theorem I on Y₃ in Deligne's form](shimura-main-theorem-y3.md)
 - [The integral model of Y₃ over ℤ[1/30]](y3-integral-model.md)
-- [The quotient map from Y₃ to the projective line](y3-quotient-map.md)

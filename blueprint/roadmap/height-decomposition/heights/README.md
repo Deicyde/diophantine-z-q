@@ -18,13 +18,10 @@ as each statement that uses it says. This is Faltings' normalization $h_F$; Deli
 $h_D=h_F+\frac g2\log\pi$. The height and semistable reduction enter through the project's own
 definitions; that these agree with the published ones is a judgement of AI reviews.
 
-Of these seven statements, five are published statements and two are consequences of published
+Of these four statements, two are published statements and two are consequences of published
 theorems; none is proved here.
 
-- [Faltings' semisimplicity theorem](faltings-semisimplicity.md)
-- [Faltings' theorem on Tate's conjecture](faltings-tate-conjecture.md)
 - [Pazuki's comparison of the theta height with the Faltings height](pazuki-bound.md)
 - [The lower bound for the Faltings height](bost-lower-bound.md)
 - [The isogeny theorem of Gaudron and Rémond](gaudron-remond-isogeny-bound.md)
 - [Javanpeykar's bound for curves with a Belyi map](javanpeykar-bound.md)
-- [Homomorphisms of semiabelian schemes over a discrete valuation ring extend uniquely](faltings-extension-lemma.md)

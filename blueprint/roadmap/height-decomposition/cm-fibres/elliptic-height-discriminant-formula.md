@@ -3,7 +3,7 @@ article_id: af_42ae9e5c84d2ded23483e64e
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves72.cmHeight62
+lean: HDec.HSyn.OpenResearchLeaves73.cmHeight62
 ---
 
 # The discriminant formula for the Faltings height of an elliptic curve

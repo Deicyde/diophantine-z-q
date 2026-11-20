@@ -3,7 +3,7 @@ article_id: af_e630dc970208f2ef80403e45
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves72.silverbergZarhinThm33
+lean: HDec.HSyn.OpenResearchLeaves73.silverbergZarhinThm33
 ---
 
 # Silverberg and Zarhin's inertia criterion for semistable reduction

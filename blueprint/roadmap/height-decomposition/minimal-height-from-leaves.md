@@ -4,24 +4,24 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: HDec.HSyn.sixContactMin_of_open91
+lean: HDec.HSyn.sixContactMin_of_open92
 ---
 
-# The minimal height hypothesis from twenty-seven statements
+# The minimal height hypothesis from twenty-two statements
 
-The [minimal height hypothesis](../main/six-contact-min.md) follows from the twenty-seven statements
+The [minimal height hypothesis](../main/six-contact-min.md) follows from the twenty-two statements
 of this chapter taken together: theorems from the literature, grouped by the theory they come from
 ([Shimura curves of discriminant 6](shimura-curves/README.md),
 [complex multiplication](cm-fibres/README.md), [abelian varieties](abelian-varieties/README.md),
 [Néron models, semistable reduction and monodromy](neron-models/README.md),
 [Faltings 1983 and Faltings heights](heights/README.md),
 [p-adic Hodge theory](p-adic-hodge/README.md),
-[Galois representations of modular forms](modular-galois/README.md)). Of the twenty-seven statements
-from the literature, thirteen are published statements, some of them specialized or weakened; and
-fourteen are consequences of published theorems, which take further theorems to reach from the
+[Galois representations of modular forms](modular-galois/README.md)). Of the twenty-two statements
+from the literature, nine are published statements, some of them specialized or weakened; and
+thirteen are consequences of published theorems, which take further theorems to reach from the
 print. The project's strict convention, which counts a published statement only once its reading
-against the print and its review are complete and find it in its printed form, counts seven of the
-twenty-seven as published. None of the twenty-seven is proved here.
+against the print and its review are complete and find it in its printed form, counts four of the
+twenty-two as published. None of the twenty-two is proved here.
 
 The proof follows the manuscript's proof of its Theorem 4.1 at the one instance the main theorem
 uses, which the project has split into named steps, each proved from these statements and the steps
@@ -39,10 +39,7 @@ height hypothesis.
 
 ## Proof depends on
 
-- [Faltings' semisimplicity theorem](heights/faltings-semisimplicity.md)
-- [Faltings' theorem on Tate's conjecture](heights/faltings-tate-conjecture.md)
 - [Pazuki's comparison of the theta height with the Faltings height](heights/pazuki-bound.md)
-- [Néron models over Dedekind domains](neron-models/neron-models-exist.md)
 - [Deligne's Galois representations of eigenforms](modular-galois/deligne-representations.md)
 - [The Deligne–Serre theorem](modular-galois/deligne-serre.md)
 - [Pan's Fontaine–Mazur theorem](p-adic-hodge/pan-fontaine-mazur.md)
@@ -58,8 +55,6 @@ height hypothesis.
 - [Carayol's theorem on the conductor](modular-galois/carayol-conductor.md)
 - [Shimura's abelian variety attached to a newform](modular-galois/shimura-abelian-varieties.md)
 - [The discriminant formula for the Faltings height of an elliptic curve](cm-fibres/elliptic-height-discriminant-formula.md)
-- [The quotient map from Y₃ to the projective line](shimura-curves/y3-quotient-map.md)
-- [Homomorphisms of semiabelian schemes over a discrete valuation ring extend uniquely](heights/faltings-extension-lemma.md)
 - [Fowler's bound for discriminants of bounded class number](cm-fibres/fowler-class-number-bound.md)
 - [Silverberg and Zarhin's inertia criterion for semistable reduction](neron-models/inertia-criterion.md)
 - [The degree of a singular modulus](cm-fibres/cm-field-degree.md)
