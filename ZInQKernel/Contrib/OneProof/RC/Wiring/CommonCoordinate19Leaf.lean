@@ -13,15 +13,23 @@ tex 2914–2936.
 
 **`CommonCoordinateInputsGenuineS D`**: per final family one nonprincipal ultrafilter and ONE
 moving character `G`, lane RC0's `GenuineFamilyMovingCharacter` (the genuine ring-class
-realization; lane E1's `exists_genuineFamilyMovingCharacter` produces one for the curve, and its
-`toFamily` is the `FamilyMovingCharacter` of lane RC0's inner-limit leaf, so one family character
-serves both leaves); at every address a presentation `StagedPresentation C D F x G.toFamily`
-whose support at the stage `s` is `S₀ s ⊇ Sr(s)` (`CommonCoordinate19Staged.lean`); at every
+realization; lane E2's `exists_leafCoef` produces the coefficient datum `quadTateCoef ℓ s₀`,
+`K = ℚ(s₀)`, `s₀² = k`, with one such character over `C.K` per final family, from lane E1's
+construction at the given root, in the branch `¬ D.OddEmptyUnit` and from `RCSteps`, the primes of
+`2N` in `D.S`, `SerreThm3`, `CMjInteger` and `FrobeniusTrace` (a producer for a discharge, not a
+source of this leaf's inputs: `RCSteps` contains this leaf's own target), and its `toFamily` is the
+`FamilyMovingCharacter` of lane RC0's
+inner-limit leaf, so one family character serves both leaves); at every address a presentation
+`StagedPresentation C D F x G.toFamily` whose support at the stage `s` is `S₀ s ⊇ Sr(s)`
+(`CommonCoordinate19Staged.lean`); at every
 retained stage `t + 1` the inputs of lane E2's Kummer classes of the actual Heegner points
 (`E2ChainInputsS`, `CommonCoordinate19E2.lean`, with `ThetaOfDelta` and the splitting of the
 step primes DERIVED); and the genuine stage chains with these classes (`GenuineStageSTUS`,
 `CommonCoordinate19Pin.lean`, with the provider PINNED to lane E2's `e2ProviderS`, and the step
-identities derived).
+identities derived). The retention of each step is a free GLUE field, so the paired functionals
+pinned to it are free; given `hprim`, the end field `htildeE` is exactly the target identity
+`ũ_x = ε_x u_{prim,x}`; the Frobenius data are a GLUE field, PROVED for the chains of
+`stagedSteps`.
 
 * `e2ProviderOnS`: the provider at the retained stages;
 * **`commonCoordinateInputsLimitE_of_S`**, **`commonCoordinateInputsNF_of_genuineS`**,
@@ -30,8 +38,8 @@ identities derived).
   (4.7).
 
 The injectivity of the genuine local cochain modules is PROVED (`genuineCochainsInjective_proved`),
-so the switch retractions rest on `MilneADT_I_2_8` (PRINT, paraphrased) and `IwasawaGenerators`
-(GLUE) only.
+so the switch retractions rest on `MilneADT_I_2_8` (PRINT + GLUE: Milne, ADT, Theorem I.2.8) and
+`IwasawaGenerators` (ELLIOT-uncited classical + GLUE) only.
 
 Kinds: definitions and PROVED.
 -/
@@ -74,19 +82,21 @@ theorem e2ProviderOnS_succ {G : GenuineFamilyMovingCharacter C.K ℓ Fam.Q}
 structure CommonCoordinateInputsGenuineS {ℓ : ℕ} (D : RCData ℓ) : Prop where
   /-- `E_ℓ` is elliptic (definition) -/
   elliptic : (Ecurve ℓ).IsElliptic
-  /-- PRINT (paraphrased): Milne, *Arithmetic Duality Theorems*, I.2.8; the comparison with the
-  cochain model is GLUE (tex 3470–3487) -/
+  /-- PRINT + GLUE: Milne, *Arithmetic Duality Theorems*, Theorem I.2.8 (quoted at its
+  definition); the reading of the printed bound and the comparison with the cochain model are
+  GLUE (tex 3470–3487) -/
   milne : MilneADT_I_2_8
-  /-- GLUE: Iwasawa 1955, the tame quotient, joined with the splitting over the wild inertia
-  (tex 3470–3480) -/
+  /-- ELLIOT-uncited classical + GLUE: Iwasawa 1955, the tame quotient, joined with the splitting
+  over the wild inertia (tex 3470–3480) -/
   iwasawa : IwasawaGenerators
   /-- per final family one nonprincipal ultrafilter (tex 4401–4404) and one moving character, the
   genuine ring-class realization (lane RC0's `GenuineFamilyMovingCharacter`; tex 2729–2737,
   3500–3702); at every address a presentation with the support `S₀ s ⊇ Sr(s)` at the stage `s`
   and the family's character, the inputs of lane E2's Kummer classes of the actual Heegner
-  points at every retained stage (PRINT, definitions: `E2ChainInputsS`), and the genuine stage
-  chains with these classes (data, ELLIOT, GLUE; tex 2720–2760, 3455–3498, 4142–4194,
-  4385–4451) -/
+  points at every retained stage (GLUE: Cai–Chen–Liu read through the modular parametrization and
+  joined with lane E2's full anchor; definitions: `E2ChainInputsS`), and the genuine stage chains
+  with these classes (data, ELLIOT, GLUE; the retention is free, so the paired functionals are
+  free; tex 2720–2760, 3455–3498, 4142–4194, 4385–4451) -/
   chains : ∃ C : TateCoef (Ecurve ℓ), ∀ Co Ce : ℤ, ∀ F : Family, D.FinalFamilyAt Co Ce F →
     ∃ (U : Ultrafilter ℕ) (hU : (U : Filter ℕ) ≤ cofinite)
       (G : GenuineFamilyMovingCharacter C.K ℓ F.Q),

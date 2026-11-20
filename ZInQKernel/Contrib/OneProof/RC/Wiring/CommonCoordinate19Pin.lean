@@ -236,7 +236,8 @@ variable [∀ s, DecidableEq (Places C.K (P.S₀ s))]
 presentation** (tex 4142–4194, 4157–4172, 4385–4451): at the retained stages `G` (all positive),
 the genuine data of the chain on the objects of the stage, with the classes pinned to the
 presentation's classes of the provider's global classes, the functionals pinned to lane RC30's
-paired functionals of a retention, and the leaf's Frobenius data (PROVED for the chains of
+paired functionals of a retention (the retention `R` is a free GLUE field, so these paired
+functionals are free), and the leaf's Frobenius data (a GLUE field, PROVED for the chains of
 `stagedSteps`, `stagedSteps_stageFrobAt`). There are no fields for the global classes, the
 boundaries, the coboundaries or the step identities. Kind: definition (data). -/
 structure StageChainsS (h28 : MilneADT_I_2_8) (hI : IwasawaGenerators)
@@ -261,7 +262,8 @@ structure StageChainsS (h28 : MilneADT_I_2_8) (hI : IwasawaGenerators)
   hzR : ∀ s (h : s ∈ G) i, (gs s h).zR i = presClass C.K (P.S₀ s) (P.S s) (famM P s)
     (famConds P s) (P.place s) (famX P s) (famEU P s) s (chainT P.pidx (i + 1))
       ((HC s h).gx (i + 1)) ((HC s h).ux (i + 1))
-  /-- lane RC30's retention at the switches (GLUE; tex 4160–4172) -/
+  /-- lane RC30's retention at the switches (GLUE; tex 4160–4172; free: not pinned to the text's
+  paired side, so the paired functionals of `hR`, `hP` are free) -/
   R : ∀ s (h : s ∈ G) i (hi : i < P.ps.length), StepRetention C.K (P.S₀ s) (P.S s) (famM P s)
     (famConds P s) (P.place s) (famX P s) (famEU P s) s (chainT P.pidx i) (P.pidx i)
       ((gs s h).hnew i hi)
@@ -356,7 +358,8 @@ structure GenuineStageSTUS (P : StagedPresentation C D Fam x Ψ)
   `u_{prim,x}` in the normalized basis; tex 4153, 4185–4193) -/
   hprim : IsTExpansion (pre.limV U hU hG 0) (D.uPrim Fam x)
   /-- the corrected coordinate at `U_x` is `ũ_x` up to the text's unit (definition of `ũ_x`;
-  tex 4147, 4150–4152, 4187–4194) -/
+  tex 4147, 4150–4152, 4187–4194; given `hprim`, exactly the target identity
+  `ũ_x = ε_x u_{prim,x}`) -/
   htildeE : ∃ ε : Lambdaˣ, (P.ps = [] → ε = 1) ∧
     IsTExpansion (lamToF (ε : Lambda) * (etaF ℓ Fam x * pre.limV U hU hG P.ps.length))
       (D.uTilde Fam x)

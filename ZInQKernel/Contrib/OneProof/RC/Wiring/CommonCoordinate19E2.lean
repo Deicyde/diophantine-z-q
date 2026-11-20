@@ -220,8 +220,8 @@ structure E2ChainInputsS (P : StagedPresentation C D Fam x G.toFamily) (t : ℕ)
   emb : Qbar →ₐ[ℚ] ℂ
   /-- the identification `ℚ̄ ≃ K̄` (definition; tex 2914–2936) -/
   κ : Qbar ≃ₐ[ℚ] AlgebraicClosure C.K
-  /-- PRINT: Cai–Chen–Liu, Trans. AMS 370 (2018), Theorem 2.15, through the parametrization,
-  with lane E2's full anchor (tex 2914–2936) -/
+  /-- GLUE: Cai–Chen–Liu, Trans. AMS 370 (2018), Theorem 2.15, read through the modular
+  parametrization and joined with lane E2's full anchor (tex 2914–2936) -/
   print : CCLThm2_15Applied (Ecurve ℓ) (FullAnchor (Ecurve ℓ) C.K cp emb κ)
   /-- `k < 0` (definition: the final companion; from the ELLIOT field `RCSteps.companion`,
   tex 2595–2603) -/

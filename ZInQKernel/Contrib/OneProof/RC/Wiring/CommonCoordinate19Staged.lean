@@ -22,7 +22,9 @@ family's moving character:
   moving character of the family `Ψ` (lane RC0's `FamilyMovingCharacter`, one per family): at the
   stage `s` the moving exponent is `ξ_s = Ψ.ψ s` inflated from `G_{K,S₀ s}` to `G_{K, Sr s}`
   (`hSr : Sr s ⊆ S₀ s`), and the moving character is `(1 + t)^{ξ_s}` (`expU`); the Kummer places
-  are the places above `2N` (`hPk`);
+  are the places above `2N` (`hPk`); the support `S₀ s` is otherwise free, and the conditions at
+  its places outside the places above `2N` are full (the text's exclusions of the θ-prime and of
+  the old support are not recorded);
 * `StagedPresentation.ξ`, `.alphaF s s'`: the character `χ_h (1 + t)^{ξ_s}` over `G_{K,S₀ s}` at
   the coefficient precision `s'`; only `s' = s` enters the chain at the stage `s`; the moving part
   is `(1 + t)^{(·)}` at `s' = s` (`hψf`) and trivial at `s' ≠ s` (`hψoff`), so the families of the
@@ -79,7 +81,8 @@ abbrev expU (s : ℕ) : Multiplicative (ZMod (2 ^ (2 * s))) →* (Acoef s)ˣ :=
 * `r`, `hr`, `hgen`, `hprime`, `split` (definition; tex 2678–2680, 2720–2722): `K = ℚ(√k)`, the
   graph primes odd, prime to `k` and split;
 * `S₀`, `hSr` (definition; tex 2729–2741, 3455–3463): the support of the coefficients at each
-  stage, containing the family's moving support `Sr s` at the stage `s`;
+  stage, containing the family's moving support `Sr s` at the stage `s`, otherwise free; the
+  conditions at its places outside `Pk` are full;
 * `full` (GLUE: Néron–Ogg–Shafarevich, Silverman AEC VII.7.1; tex 2836–2838): `E[2^∞]` rational
   over `K_{S₀ s}`;
 * `Cc`, `sh`, `hs`, `hs0` (definition; tex 2726, 2778): a complex conjugation of `K_{S₀ s}` and
@@ -97,8 +100,9 @@ abbrev expU (s : ℕ) : Multiplicative (ZMod (2 ^ (2 * s))) →* (Acoef s)ˣ :=
   `orient_one` when the first place of each index is the family's orientation): the family's
   exponent has value `1` at the Frobenius of the first place of each index;
 * `xiConj` (ELLIOT (data property of the text's construction, Proposition
-  `ex:arith-moving-character`, tex 2731–2736, 2781–2788)): the family's exponent is inverted by
-  the conjugation.
+  `ex:arith-moving-character`, tex 2731–2736, 2781–2788); for the genuine family with exact moving
+  supports it is PROVED, with no print, by lane E1's `xiConj_family'`): the family's exponent is
+  inverted by the conjugation.
 
 Kind: definition (data). -/
 structure StagedPresentation (C : TateCoef (Ecurve ℓ)) (D : RCData ℓ) (Fam : Family)
@@ -113,7 +117,8 @@ structure StagedPresentation (C : TateCoef (Ecurve ℓ)) (D : RCData ℓ) (Fam :
   hprime : ∀ q ∈ Fam.Q, q.Prime ∧ q ≠ 2
   /-- the graph primes are prime to `k` and split in `K` (definition; tex 2720–2722) -/
   split : ∀ q ∈ Fam.Q, ¬ (q : ℤ) ∣ D.kfin ∧ IsSquare ((D.kfin : ℤ) : ZMod q)
-  /-- the support of the coefficients at each stage (definition; tex 2729–2741, 3455–3463) -/
+  /-- the support of the coefficients at each stage (definition; tex 2729–2741, 3455–3463;
+  otherwise free, with the full conditions at its places outside `Pk`) -/
   S₀ : ℕ → Set (HeightOneSpectrum (𝓞 C.K))
   /-- it contains the family's moving support at the stage (definition; tex 2729–2731) -/
   hSr : ∀ s, Ψ.Sr s ⊆ S₀ s
@@ -168,7 +173,8 @@ structure StagedPresentation (C : TateCoef (Ecurve ℓ)) (D : RCData ℓ) (Fam :
     (urFrobElt C.K (⟨pl (p, false), Set.mem_union_right (S₀ s) (Set.mem_range_self (p, false)),
       hw s (p, false)⟩ : NewPlaces C.K (S₀ s) (S₀ s ∪ Set.range pl))) = Multiplicative.ofAdd 1
   /-- the family's exponent is inverted by the conjugation (ELLIOT (data property of the text's
-  construction, Proposition `ex:arith-moving-character`, tex 2731–2736, 2781–2788)) -/
+  construction, Proposition `ex:arith-moving-character`, tex 2731–2736, 2781–2788); PROVED for the
+  genuine family with exact moving supports by lane E1's `xiConj_family'`) -/
   xiConj : ∀ s σ, (Ψ.ψ s).comp (inflMap C.K (hSr s)).toMonoidHom ((Cc s).conj σ) =
     ((Ψ.ψ s).comp (inflMap C.K (hSr s)).toMonoidHom σ)⁻¹
 

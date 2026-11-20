@@ -41,6 +41,7 @@ import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35H
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35R
 import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.ModularNewformPrinted
 import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate9
+import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19Leaf
 import ZInQKernel.Contrib.OneProof.RC.Wiring.InnerLimitFamilyPinGenuine
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35ILG
 
@@ -74,8 +75,9 @@ with Selmer corank one:
    repository's density theorem, the odd source read on its own filter and the odd witness derived
    from `δ_o`), `calibration` (from the leaf `calibration`, its Kummer order tie from nine cited
    book statements through the RC53 group's integral central model, with RC19's regulator relation
-   and the free generators from `Prints`), `common_coordinate` (the ELLIOT leaf `common_coordinate`,
-   through existential support-triangle step models), `base_zero` (lane RC25's
+   and the free generators from `Prints`), `common_coordinate` (the leaf `common_coordinate`
+   on the genuine Selmer complexes of the text's objects at the coefficient stages, through lane
+   RC32's `commonCoordinateInputsNF_of_genuineS`), `base_zero` (lane RC25's
    `BaseZeroAssembly.baseZeroTarget_of_leaves`, through RC0's `baseZeroTarget_of_inputs` and RC15's
    `baseZero_node_genuine` over RC20's `Λ_(t)`, the height formula by RC19, with (4.7) and
    `ũ₀ ∈ Λ[1/2]` at the base from `common_coordinate` and `prim_regular`, from the ELLIOT leaf
@@ -132,15 +134,38 @@ witnesses:
   coordinate transfer, the free coefficients, the arithmetic orders and the disk-length
   identification remain inputs, and the Milne, period, moving-prime and local-block data are
   existential witnesses;
-* `PostLeaves.common_coordinate`: over the text's objects with the actual Frobenius
-  (`CommonCoordinateInputsNF`: the local objects, `η_x` and the matrix of `ρ_T(Fr_q)` in lane RC28's
-  basis are definitions, evaluated in `F = Frac Λ`; only the primitive coordinate and the product
-  `η_x u_{rel,x}` are regular; `tr ρ_T(Fr_q) = a_q` is PROVED with no input,
-  `frobeniusTrace_proved`); for `ℓ > 0` and a support containing `S₀` (PROVED,
-  `PreDataSpec.support_base`) it is equivalent to (4.7), `ε_x = 1` where no graph prime is unused,
-  and `u_{prim,x} ∈ F` (`commonCoordinateInputsLF_iff_NF` with
-  `commonCoordinateInputsLF_iff_of_support`; the pinned Frobenius adds nothing else), and its step
-  models are existential;
+* `PostLeaves.common_coordinate` (`CommonCoordinateInputsGenuineS`): the step complexes are lane
+  RC32's genuine Selmer complexes of the text's objects at the coefficient stages (`K = ℚ(√k)`,
+  `M_s = (T₂E ⊗ A_s)(χ_{h_x} Ψ_s)` over the support `S₀ s ⊇ Sr(s)` of the stage, with the family's
+  moving character `Ψ_s = (1 + t)^{ψ_s}`, lane RC29's Kummer conditions at the places above `2N` and
+  the full conditions at the other places of the otherwise free support `S₀ s`, the unramified
+  inflations; the presentation is chosen per address), the switch retractions are PROVED from
+  `MilneADT_I_2_8` (PRINT + GLUE: Milne, ADT, Theorem I.2.8) and `IwasawaGenerators` (ELLIOT-uncited
+  classical + GLUE) only (`GenuineCochainsInjective` is PROVED), the moving character is one per
+  family (lane RC0's `GenuineFamilyMovingCharacter`, the genuine ring-class realization; lane E2's
+  `exists_leafCoef` produces the coefficient datum `quadTateCoef ℓ s₀`, `K = ℚ(s₀)`, `s₀² = k`, with
+  one such character over it per final family, from lane E1's construction at the given root, in the
+  branch `¬ D.OddEmptyUnit` and from `RCSteps`, the primes of `2N` in `D.S`, `SerreThm3`,
+  `CMjInteger` and `FrobeniusTrace` (a producer for a discharge, not a source of this leaf's inputs:
+  `RCSteps` contains this leaf's own target)), the global classes are lane E2's Kummer classes of
+  the actual anchored Heegner points of the chain
+  conductors (stage-dependent base conductors) and the step identities are DERIVED from lane E2's
+  global identities of these classes (from Cai–Chen–Liu, GLUE: read through the modular
+  parametrization and joined with lane E2's full anchor; `ThetaOfDelta` and the splitting of the
+  step primes are PROVED), and (4.7) at each step is PROVED from the matrix identities of the
+  genuine complexes; the unit of `ũ_x = ε_x u_{prim,x}` is the text's (`ε_x ∈ Λ^×`, `1` where no
+  graph prime is unused). `xiFrob` and `xiConj` are ELLIOT fields of the presentation: `xiConj`
+  holds for the genuine family with exact moving supports (lane E1's `xiConj_family'`), and `xiFrob`
+  follows from the family's `orient_one` when the chain's first places are its orientations; the
+  text's exclusions of the θ-prime and of the old support are not recorded. Conclusion-shaped in
+  part: the retention `R` of each step is a free GLUE field (lane RC30's `StepRetention`, not pinned
+  to the text's paired side), so the paired functionals pinned to it are free; given `hprim`, the
+  end field `htildeE` is exactly the target identity `ũ_x = ε_x u_{prim,x}`; the Frobenius data
+  `hfrob` are a GLUE field, PROVED for the chains of `stagedSteps`. It implies the previous form
+  `CommonCoordinateInputsNF` (`commonCoordinateInputsNF_of_genuineS`), which for `ℓ > 0` and a
+  support containing `S₀` is equivalent to (4.7), `ε_x = 1` where no graph prime is unused, and
+  `u_{prim,x} ∈ F`, with existential step models (`commonCoordinateInputsLF_iff_NF`,
+  `supportTriangleAt_iff_h47`);
 * `PreLeaves.eq35` and `PostLeaves.prim_regular`: both regularity parts are one predicate over a
   moving character from genuine ring-class data (at the ring instances `(h, k')` in the eq35 leaf,
   `RegularityInputsILG` in `Eq35InputsGenuineABoundedRG`, and at the addresses `(h_x, k)` of a
@@ -477,45 +502,63 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   Branch 1, and asserts `D.kfin < 0` (through `hK`) of free data; the manuscript constructs these
   objects only in the remaining branch (see `RC/Skeleton/Steps.lean`). -/
   calibration : CalibrationInputsLit W.toRCData
-  /-- The inputs of (4.7) over the text's objects with the actual Frobenius
-  (`CommonCoordinateInputsNF`; Lemma `ex:arith-common-coordinate`, tex 4142–4328): `E_ℓ` elliptic,
-  a coefficient datum of `𝕋` (a number field `K`, a set `S` of its primes, `K̄ ≃ ℚ̄`,
-  `E[2^∞] ⊆ E(K_S)`; definition + GLUE Néron–Ogg–Shafarevich, AEC VII.7.1), and at every address
-  of a final
-  family: the graph primes good (definition), the class-functional coordinates in `F = Frac Λ`
-  relaxed at the subsets of the unused primes `U_x`, the primitive one regular at `t = 0` with
-  `t`-expansion `u_{prim,x}` (definition + ELLIOT), (4.7) at each relaxation step at an unused
-  prime, as an existential triangular model over `F` (`NaturalStep`; ELLIOT), with the actual
-  matrix `frobMat C p` of `ρ_T(Fr_p)` in lane RC28's basis of `T₂E` over `K_S` (`det = p` PROVED,
-  `tr = a_p` PROVED with no input: `frobeniusTrace_proved`, from the reduction comparison of Tate
-  modules (Silverman AEC VII.3.1(b), VII.4.1; PROVED in `RC53Assist/TateReduction`), the
-  determinant form `det(1 − nπ) = 1 − a n + p n²` (AEC V.2.3.1, III.8.6; PROVED in
-  `RC53Assist/DetDegree`), hence the trace dictionary (`RC53Assist/FrobeniusTraceDictionary`),
-  and the decomposition-group lift `decompositionFrobeniusQ_proof`), the actual
-  `z = x(ε(F̃r_q))(1 + t)`,
-  `a_q`
-  (Mathlib's coefficient of
-  `L(E, s)`) and `q` in its two-place block, and the product `ũ_x = η_x u_{rel,x}`
-  regular with `t`-expansion `ũ_x` (definition). No free ring and no free Frobenius matrix: `g_q`,
-  the Frobenius lift, `e_q`, `l_q`, `v_q`, `η_x` and `ρ_T(Fr_q)` are definitions; `e_q(x)⁻¹`,
-  `v_q(x)` and `η_x` are evaluated in `F` and may have a pole at `t = 0`
-  (`etaF_not_regular_single`); `ι(η_x) = x(η)` in `Frac 𝒪` for the universal `η ∈ 𝒪[G]`
-  (`eval_etaU`; no ring map `𝒪[G] → F` fixes `t`);
-  `ē_q = t²/(1+t)` (`resG_eU_mul`) (tex 4148–4149, 4196–4231, 4297–4327; owners RC32, RC28, RC17,
-  RC15, RC20, RC7, batch 3 CommonCoordinate). PROVED from it: the round-two leaf, to which it is
-  equivalent (`commonCoordinateInputsLF_iff_NF`), and the round-one leaf, hence (4.7) at each step,
-  the multi-prime (4.7), `ũ_x = ε_x u_{prim,x}` in `F`, and (4.7) for the interface's power series
-  (`commonCoordinateTarget_of_NF`). Conclusion-shaped: for `ℓ > 0` and a support containing `S₀`
-  (PROVED, `PreDataSpec.support_base`) the leaf is equivalent to (4.7), `ε_x = 1` where no graph
-  prime is unused, and `u_{prim,x} ∈ F` (the pinned Frobenius adds nothing else;
-  `commonCoordinateInputsLF_iff_NF` with `commonCoordinateInputsLF_iff_of_support` and
-  `commonCoordinateInputsL_iff_exact` of `CommonCoordinate6Exact.lean`); it is not implied by
-  (4.7) alone (`commonCoordinateInputsLF_not_of_target` with `commonCoordinateInputsLF_iff_NF`)
-  (only through `ε_x = 1` at the empty family); the step models are existential and not tied to
-  the actual Selmer complexes; the coefficient datum is existential (the text's is `K = ℚ(√k)`;
-  only `tr` and `det` of `ρ_T(Fr_q)` enter (4.7)). Scope departure: this field is also requested
-  in Branch 1 (see `RC/Skeleton/Steps.lean`). -/
-  common_coordinate : CommonCoordinateInputsNF W.toRCData
+  /-- The inputs of (4.7) on the genuine complexes of the text's objects
+  (`CommonCoordinateInputsGenuineS`; Lemma `ex:arith-common-coordinate`, tex 4142–4328, through the
+  inner limit of Lemma `ex:limits-inner-limit`, tex 4385–4451; owner RC32, with lanes E1, E2, RC0,
+  RC28, RC29, RC30, RC31): `E_ℓ` elliptic (definition); `MilneADT_I_2_8` (PRINT + GLUE: Milne, ADT,
+  Theorem I.2.8, quoted at its definition; the reading of the printed bound and the comparison with
+  the cochain model are GLUE) and `IwasawaGenerators` (ELLIOT-uncited classical + GLUE: Iwasawa
+  1955, the tame quotient, joined with the splitting over the wild inertia), from which, with
+  `GenuineCochainsInjective` PROVED (`genuineCochainsInjective_proved`: Nöbeling with Bass–Papp),
+  the retractions of the switch quotients onto the two singular blocks are PROVED (the dévissage of
+  the tame comparison over the stage rings, `quasiIso_inflation_ring_of_milne`); a coefficient datum
+  of `𝕋` (lane E2's `exists_leafCoef`: `quadTateCoef ℓ s₀`, `K = ℚ(s₀)`, `s₀² = k`); per final
+  family one nonprincipal ultrafilter (tex 4401–4404) and one moving character, lane RC0's
+  `GenuineFamilyMovingCharacter` over `C.K` (tex 2729–2737, 3500–3702: the moving exponents `ψ_s` of
+  the genuine ring class fields, ramified at the moving primes `r_s`; lane E2's `exists_leafCoef`
+  produces one per final family over `C.K`, from lane E1's construction at the given root, in the
+  branch `¬ D.OddEmptyUnit` and from `RCSteps`, the primes of `2N` in `D.S`, `SerreThm3`,
+  `CMjInteger` and `FrobeniusTrace` (a producer for a discharge, not a source of this leaf's inputs:
+  `RCSteps` contains this leaf's own target); its exact moving supports are those of
+  `exists_familyCoef` (not recorded by `exists_leafCoef`); its `toFamily` is the character of lane
+  RC0's inner-limit leaf); at every
+  address a presentation with staged supports (`StagedPresentation`, chosen per address: at the
+  stage `s` the support `S₀ s ⊇ Sr(s)`, otherwise free, `K = ℚ(√k)`, `E[2^∞]` rational over
+  `K_{S₀ s}` (GLUE), the twist, the family's exponent `ξ_s = ψ_s` inflated, with its value `1` at
+  the Frobenius of the chain's first places and its anticyclotomy (ELLIOT, data properties of the
+  text's construction; `xiConj` holds for the genuine family with exact moving supports by lane E1's
+  `xiConj_family'`, and `xiFrob` follows from the family's `orient_one` when the chain's first
+  places are its orientations), the Kummer places pinned to the places above `2N` (tex 2748–2760)
+  with the full conditions at the other places of `S₀ s`, the chain's places outside every `S₀ s` in
+  split pairs above the unused primes; then `M_s = (T₂E ⊗ A_s)(χ_{h_x} (1 + t)^{ξ_s})`, the Kummer
+  conditions, the unramified representations and the inflations are definitions); at every retained
+  stage the inputs of lane E2's Kummer classes of the actual anchored Heegner points of the chain
+  conductors (`E2ChainInputsS`: Cai–Chen–Liu, Trans. AMS 370 (2018), Thm 2.15, GLUE: read through
+  the modular parametrization and joined with lane E2's full anchor, tex 2914–2936; and definitions:
+  the stage's base conductor, divisible by the moving prime and the primes of the twist, and its
+  admissibility, the supports, the companion facts of `k`; lane E2's `e2ChainInputsS_of_actual`
+  builds them from the external inputs; `ThetaOfDelta`, tex 2847–2855, and the splitting of the step
+  primes are PROVED); and the genuine stage chains with these classes (`GenuineStageSTUS` with lane
+  E2's provider `e2ProviderS`): the models of `C_∅` with ranks fixed along the ultrafilter (ELLIOT,
+  tex 4401–4406), the classes pinned to the presentation's classes of lane E2's classes, the
+  retention of each step (lane RC30's `StepRetention`: a free GLUE field, not pinned to the text's
+  paired side) with the relaxed and primitive functionals pinned to its paired functionals, the
+  Frobenius data of the steps (a GLUE field, PROVED for the chains of `stagedSteps`), and the
+  identifications of `u_{prim,x}` and `ũ_x` (up to the text's unit `ε_x ∈ Λ^×`) with the end
+  coordinates of the limit chain (definitions, tex 4147, 4150–4153, 4185–4194). The step identities
+  are DERIVED from lane E2's global identities of the classes (`gx_step_heegner_at` through
+  `e2ProviderS` and `exists_stepHyps_providerS`). PROVED from it: the inner-limit form with one
+  ultrafilter per family (`commonCoordinateInputsLimitE_of_S`) and the previous leaf
+  `CommonCoordinateInputsNF` (`commonCoordinateInputsNF_of_genuineS`), hence (4.7) at each step and
+  `ũ_x = ε_x u_{prim,x}` (`commonCoordinateTarget_of_genuineS`). No field mentions (4.7), a `KmStep`
+  or the coordinate of an intermediate support. Conclusion-shaped in part: the retention `R` is
+  free, so the paired functionals pinned to it are free; given `hprim`, the end field `htildeE` is
+  exactly the target identity `ũ_x = ε_x u_{prim,x}`. The text's exclusions of the θ-prime and of
+  the old support are not recorded. Scope departure: this field is also requested in Branch 1 (see
+  `RC/Skeleton/Steps.lean`), where it asserts the genuine objects (the companion facts of `k`, a
+  genuine family character over `ℚ(√k)`) of data the other leaves do not constrain; the producers
+  `exists_leafCoef` and `e2ChainInputsS_of_actual` need `¬ D.OddEmptyUnit`. -/
+  common_coordinate : CommonCoordinateInputsGenuineS W.toRCData
   /-- The inputs of height-one regularity of the primitive coordinates on the text's inner-limit
   route, over one moving character per final family and the address's moving family fixed before
   the primes (`PrimRegularityInputsILG`; ELLIOT + GLUE; tex 4976–5200, 5027–5086, 5056–5062,
@@ -816,13 +859,15 @@ theorem rcSteps_of_leaves (P : Prints) (L : RCLeaves) {ℓ : ℕ} (hadm : Adm �
         ⟨hp.data_spec.support_prime, hp.data_spec.support_base, hp.data_spec.stages_hyper,
           hp.data_spec.stages_index, hp.data_spec.admissible_split, hp.data_spec.prepared_one⟩
         hp.prepared_spec hδ.1 hq.address)
-  have h47 : CommonCoordinateTarget W₂.toRCData := commonCoordinateTarget_of_NF hq.common_coordinate
+  have h47 : CommonCoordinateTarget W₂.toRCData :=
+    commonCoordinateTarget_of_genuineS hq.common_coordinate
   have hheight : HeightOneTarget W₂.toRCData :=
     heightOneTarget_of_ILG _ hq.prim_regular h47
   have hclear : ClearingTarget W₂.toRCData :=
     clearingTarget_of_G3Q2 _ hheight hq.clearing_model
   have hbz : BaseZeroTarget W₂.toRCData :=
-    baseZeroTarget_of_LF P (commonCoordinateInputsLF_of_NF hq.common_coordinate)
+    baseZeroTarget_of_LF P
+      (commonCoordinateInputsLF_of_NF (commonCoordinateInputsNF_of_genuineS hq.common_coordinate))
       (primRegularityInputs_of_ILG _ hq.prim_regular)
       (baseZeroLeafInputs_of_text (L.artin P) hq.base_zero)
   exact rcSteps_of_targets _ hL₂ hG₂ hvis₂ hstages hone
