@@ -35,6 +35,7 @@ import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineSwitchPK
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35Pad
 import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate6
 import ZInQKernel.Contrib.OneProof.RC.Wiring.CalibrationLeaf3
+import ZInQKernel.Contrib.OneProof.RC.Wiring.CalibrationLeafLit
 import ZInQKernel.Contrib.OneProof.RC.Wiring.StageData
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35H
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35R
@@ -69,7 +70,8 @@ with Selmer corank one:
    fixed support and the stage link), and the address input from lane RC24's construction (budgeted
    density models) over genuine `G_ℚ`, Frobenius elements and characters, Chebotarev from the
    repository's density theorem, the odd source read on its own filter and the odd witness derived
-   from `δ_o`), `calibration` (from the ELLIOT leaf `calibration`, with RC19's regulator relation
+   from `δ_o`), `calibration` (from the leaf `calibration`, its Kummer order tie from nine cited
+   book statements through the RC53 group's integral central model, with RC19's regulator relation
    and the free generators from `Prints`), `common_coordinate` (the ELLIOT leaf `common_coordinate`,
    through existential support-triangle step models), `base_zero` (lane RC25's
    `BaseZeroAssembly.baseZeroTarget_of_leaves`, through RC0's `baseZeroTarget_of_inputs` and RC15's
@@ -120,8 +122,11 @@ witnesses:
 * `PostLeaves.base_zero`: for a torsion specified point its core is equivalent to the conclusion of
   Lemma `ex:arith-base-zero`;
 * `PostLeaves.calibration`: the good models and Edixhoven's print are tied to the genuine twists;
-  the local-block Kummer model is equivalent to the pre-Milne valuation formula, and the Milne,
-  period, moving-prime and Kummer-model data are existential witnesses;
+  the Kummer valuation is derived from a Knudsen–Mumford identification and the order tie of the
+  genuine Kummer complexes, the tie from nine cited book statements; the identification, the
+  coordinate transfer, the free coefficients, the arithmetic orders and the disk-length
+  identification remain inputs, and the Milne, period, moving-prime and local-block data are
+  existential witnesses;
 * `PostLeaves.common_coordinate`: over the text's objects with the actual Frobenius
   (`CommonCoordinateInputsNF`: the local objects, `η_x` and the matrix of `ρ_T(Fr_q)` in lane RC28's
   basis are definitions, evaluated in `F = Frac Λ`; only the primitive coordinate and the product
@@ -406,24 +411,62 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   Everything else of the address package is PROVED over genuine `G_ℚ`, Frobenius elements and
   characters, Chebotarev by the repository's density theorem. -/
   address : ¬ W.OddEmptyUnit → ZInQ.Manuscript.RC.AddressGenuine.AddressDensityLeaf W
-  /-- The inputs of (4.6) at every address (`CalibrationInputsH`): the two-primary Ш and torsion
-  orders (ELLIOT + PRINT Kolyvagin), the component groups at `p ∣ k` through good models up to
-  isomorphism and Edixhoven's print in its model-free form (PRINT Edixhoven Thm 5.3, Rem. 5.4.1, as
-  GLUE), the pullback and comparison data, Cassels–Milne isogeny invariance at the genuine canonical
+  /-- The inputs of (4.6) at every address, with the Kummer order tie from the literature
+  (`CalibrationInputsLit`): the nine cited book statements of the integral central Kummer duality
+  (`CalibrationBookProps`, PRINT and GLUE as rated at each field: Milne, *Arithmetic Duality
+  Theorems*, 2nd ed., I.2.1, I.2.3 (finite local duality and its higher-degree part), I.3.4, I.4.15,
+  I.4.10(c), I.2.3 (dimension two); Nekovář, *Selmer complexes*, 5.4.1, 5.4.3(ii); each a Lean
+  proposition citing a printed statement: verbatim quotations at the two local duality statements,
+  each joined with an identification (PRINT + GLUE), at the two finiteness statements (Milne I.2.1,
+  last sentence, p. 27, and I.4.15, p. 62; PRINT) and at the global dimension statement (I.4.10(c),
+  p. 57, with its specialization to fields without real places; PRINT + GLUE), readings or joins at
+  the other four (GLUE); none is given an inhabitant) and, at every address, the fields of
+  the RC53 group's `CalibrationModelHK2`: the two-primary Ш and torsion orders (ELLIOT + PRINT
+  Kolyvagin), the component groups at `p ∣ k` through good models up to isomorphism and
+  Edixhoven's print in its model-free form (PRINT Edixhoven Thm 5.3, Rem. 5.4.1, as GLUE), the
+  pullback and comparison data, Cassels–Milne isogeny invariance at the genuine canonical
   regulators (PRINT Milne ADT I.7.3 + GLUE), the moving prime in the output form of RC17's moving
-  character, and the triangular Kummer model whose quotient block is the direct sum of the local
-  blocks at the moving and active places, up to changes of basis with central unit determinants
-  (ELLIOT; tex 3987–4141; owners RC15, RC9, RC19, RC4/RC17, batch 3 Calibration). PROVED from them:
-  the isogeny and regulator data (RC19's `regulator_inputs_sumDiff`, with `alpha = I`, `beta = J`
-  the cardinalities of the actual cokernels of `diffMap`, `sumMap` on the torsion-free quotients:
-  `CalibrationModelR.nonempty_model_index`), the free generators (from `Prints`), the component
-  fields, the moving-prime fields, the quotient length `2v₂N + 4ω` and `hvprim` (batch 3's
-  Calibration). Conclusion-shaped in part: the local-block Kummer model is equivalent to the
-  pre-Milne valuation formula, and the Milne, period, moving-prime and Kummer-model data are
-  existential parameters not tied to the genuine `𝒜`, Néron models or cochain complexes. Scope
-  departure: this field is also requested in Branch 1; the manuscript constructs these objects only
-  in the remaining branch (see `RC/Skeleton/Steps.lean`). -/
-  calibration : CalibrationInputsH W.toRCData
+  character, the triangular Kummer model whose quotient block is the direct sum of the local
+  blocks at the moving and active places up to changes of basis with central unit determinants
+  (ELLIOT), and in place of the Kummer valuation the Kummer block `KummerCoordinateBlockLit`: the
+  Knudsen–Mumford identification over `ℚ₂[[t]]` and the coordinate transfer (GLUE), the free
+  coefficients (ELLIOT), the address's genuine Kummer data over a totally complex `K` (for
+  `K = ℚ(√k)` equivalent to `k < 0`) with the places above `2` in the support (implied by the full
+  two-power torsion through the Weil pairing; not formalized), finite `2`-primary torsion of the
+  central twist and integral central first cohomology of rank one (`s₂(E^{(h_x)}/K) = 1`; ELLIOT,
+  the corank-one scope; it holds for either sign of `h_x` by Gross–Zagier–Kolyvagin and finite
+  `Ш`, tex 4006–4021, while the in-tree arithmetic discharge covers `h_x > 0` only and Lean's
+  admissible families allow `h_x < 0`, `qstar 3 = -3`, unless `D.prepared` excludes them), the
+  arithmetic orders (ELLIOT) and the identification of the lengths of the three disks with those of
+  the constructed integral disks (GLUE; given the nine statements and the named inputs it is
+  equivalent to the RC53 form's order tie `DiskTie`, by `DiskTie.of_valuation_eq` and
+  `DiskTie.determined`) (tex 3987–4141, 4005–4018, 3413–3498, 4385–4451; owners
+  RC15, RC9, RC19, RC4/RC17, the RC53 group, batch 3 Calibration). PROVED from them: the order tie
+  of the genuine finite-level Kummer Selmer cohomology (the RC53 group's integral central model
+  with the canonical reductions, `diskTie_of_finite_cohomology`, at the calibration shape from the
+  nine statements, `calibrationShape_of_literature`, through the integral central Kummer duality
+  `integralCentralKummerDuality_of_literature_with_finiteness`), the Kummer valuation
+  (`KummerCoordinateBlockG.hK`), the isogeny and regulator data (RC19's `regulator_inputs_sumDiff`,
+  with `alpha = I`, `beta = J` the cardinalities of the actual cokernels of `diffMap`, `sumMap` on
+  the torsion-free quotients: `CalibrationModelR.nonempty_model_index`), the free generators (from
+  `Prints`), the component fields, the moving-prime fields, the quotient length `2v₂N + 4ω` and
+  `hvprim` (batch 3's Calibration). `CalibrationInputsLit.toH` gives the earlier form
+  `CalibrationInputsH`; `calibrationInputsLit_iff` identifies the leaf with the RC53 group's form
+  plus the named inputs (of which `hfinite` and the length identifications are redundant given the
+  nine statements). Human-review boundary: H1, that the nine propositions state the cited
+  printed results; H2, that the supporting definitions (continuous cochains, the compact Kummer
+  complex of the central twist, the Kummer local conditions, the retained integral model and its
+  dual) formalize the objects of those statements and of the manuscript; H3, that the remaining
+  inputs are what the manuscript supplies. Conclusion-shaped in part: the Knudsen–Mumford
+  identification, the coordinate transfer, the free coefficients `aP`, `bP` with the bare valuation
+  equations `haP`, `hbP`, `hu₀` (which carry the `2(j_rc + v₂L + v₂m)` part of the Kummer
+  valuation) and the Milne, period, moving-prime and Kummer-model data are existential parameters
+  not tied to the genuine `𝒜`, Néron models or cochain complexes; only the disk part of the Kummer
+  valuation is tied to the genuine Kummer complex of the address (through the disk-length
+  identification and the arithmetic orders). Scope departure: this field is also requested in
+  Branch 1, and asserts `D.kfin < 0` (through `hK`) of free data; the manuscript constructs these
+  objects only in the remaining branch (see `RC/Skeleton/Steps.lean`). -/
+  calibration : CalibrationInputsLit W.toRCData
   /-- The inputs of (4.7) over the text's objects with the actual Frobenius
   (`CommonCoordinateInputsNF`; Lemma `ex:arith-common-coordinate`, tex 4142–4328): `E_ℓ` elliptic,
   a coefficient datum of `𝕋` (a number field `K`, a set `S` of its primes, `K̄ ≃ ℚ̄`,
@@ -742,7 +785,7 @@ theorem rcSteps_of_leaves (P : Prints) (L : RCLeaves) {ℓ : ℕ} (hadm : Adm �
       (baseZeroLeafInputs_of_text (L.artin P) hq.base_zero)
   exact rcSteps_of_targets _ hL₂ hG₂ hvis₂ hstages hone
     (companionTarget_of hL₂ hq.companion)
-    ⟨Cper, h34k⟩ hfam (calibrationTarget_of_H P hadm.1 hq.calibration) h47 hheight hclear hbz
+    ⟨Cper, h34k⟩ hfam (calibrationTarget_of_Lit P hadm.1 hq.calibration) h47 hheight hclear hbz
 
 /-! ## The node and Theorem 5.3 -/
 
