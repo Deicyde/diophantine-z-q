@@ -7,28 +7,27 @@ interface for that family's (K5) smoothers. An odd prime of the fixed level
 `N = N₀ ℓ` may divide the family support `F` and the full odd part `d` of a
 constituent's conductor. There is no correction to (E.1): such a prime is
 already in the lower omitted support and is never unused. The Lean interface
-gap is filled conditional on the draft. The page transcription is
-**UNVERIFIED** by this task and the draft is pending reading-desk review;
-it is not a LEAF.
+gap is filled conditional on the draft. The reading desk checked the
+published norm page; the draft still requires the object comparison and
+is not a LEAF.
 
 ## The draft Proposition 8.12 input
 
 Kato, *p-adic Hodge theory and values of zeta functions of modular forms*,
-Astérisque 295 (2004), Proposition 8.12, p. 186 (**UNVERIFIED** locator for
-this transcription). The repository audit
+Astérisque 295 (2004), Proposition 8.12, p. 186: **read (AI reading of the
+published PDF)**. The repository audit
 [kato-carayol.md](../theorem-application-audit/evidence/kato-carayol.md),
 §§2–3, records a reading of the original page, including the support
-difference and the exponents. The source page was not independently read
-for this task. The following table lists the draft's conditions and the
+difference and the exponents. The following table lists the draft's conditions and the
 intended specialization.
 
 | Input or conclusion | Lean statement and locator status |
 | --- | --- |
 | Fixed form and lattice | Elliptic `E/ℚ`, positive `N = CST.newformLevel E`, and `CST.HasCuspFormAtLevel E N`, giving a form of level `N` with the coefficients of `E`. We specialize to rational weight two, trivial nebentypus, coefficient prime 2, and `r = r' = 1`, as in tex 6835–6843 and 6904–6909. Identification with the form and lattice of the print, and the inherited restrictions on those parameters: **UNVERIFIED**, 8.1–8.2, 8.9, 8.11–8.12, pp. 179–186. |
-| Same retained classes | One fixed symbol (or fixed linear combination) and the same `c,d_s` at both levels. The parameter `zAt m S : es.H m` makes the omitted support `S` explicit; the fixed symbol and construction are implicit. The common `es.H` and `es.cor` model arithmetic degree-one cohomology and its corestriction. The identification with Kato's actual classes and the conditions on the symbols: **UNVERIFIED**, 8.1.3, 8.9, 8.11, pp. 180, 185–186. |
-| Smoothers | `c,d_s > 1`, `gcd(c d_s, 6) = 1`, and `prime(c d_s) ∩ S' = ∅`. The lower bounds and prime-to-6 condition are inherited draft conditions (**UNVERIFIED**, 8.1, (8.1.2), p. 180). The exclusion from `S'` is recorded by the audit (**UNVERIFIED** against 8.12 p. 186 here). |
-| Cyclotomic indices | `m,m' > 0` and `m ∣ m'`. There is no coprimality requirement between either index and `N` in the draft. The divisibility range is recorded by the audit (**UNVERIFIED** against 8.12 p. 186 here). |
-| Omitted supports | Finite sets of primes; Lean requires primality in `S'` and `S ⊆ S'`. Require `prime(2N) ∪ prime(m) ⊆ S` and `S ∪ prime(m') ⊆ S'`. Including 2 in both supports is the Appendix E specialization. Inclusion of the level primes and the support transition: **UNVERIFIED** against 8.1.2/8.12, pp. 180, 186, here. |
+| Same retained classes | One fixed ξ ∈ SL₂(ℤ) (or a fixed integral combination of such ξ) and the same `c,d_s` at both levels. The parameter `zAt m S : es.H m` makes the omitted support `S` explicit; the fixed symbol and construction are implicit. The known gap is identifying `es.H m` with H¹(ℤ[ζ_m,1/2], V(f)(1)), and matching the corestrictions and classes, §§8.1.3, 8.9, 8.11, pp. 180, 185–186. |
+| Smoothers | Kato's `d` is the manuscript's `d_s`. The bounds `1 < c` and `1 < d_s` are the draft's own conditions. It also requires `gcd(c d_s, 6) = 1` (check §8.1, p. 180) and `prime(c d_s) ∩ S' = ∅` (Prop. 8.12). |
+| Cyclotomic indices | `m,m' > 0` and `m ∣ m'`. There is no coprimality requirement between either index and `N` in the draft. |
+| Omitted supports | Finite sets of primes; Lean requires primality in `S'` and `S ⊆ S'`. Require `prime(2N) ∪ prime(m) ⊆ S` and `S ∪ prime(m') ⊆ S'`. Kato's (5.1.1), p. 152, puts `prime(mN)` and the coefficient prime in `S` for ξ ∈ SL₂(ℤ); for ξ = a(A), also include `prime(A)`. |
 | Norm and local factor | Corestrict `zAt m' S'` to `m`, obtaining `zAt m S` multiplied by the product over `q ∈ S' ∖ S`. The audit gives arithmetic Frobenius and the specialized factor `1 − (a_q/q) σ_q⁻¹ + q⁻¹ σ_q⁻²`, written `eulerFactor (katoP E q) (invNat _ q) (frobUnit m q)` in Lean. The conjugation and exponent convention and its specialization: **UNVERIFIED** against 8.12 p. 186 here. |
 
 The supports `S,S'` are separate from the Euler system's exclusions `Σ`.
@@ -51,13 +50,14 @@ range. The bad local factors used later in local control are separate.
 
 ### Page checklist for the reading desk
 
-1. Read 8.12 on the original p. 186 and cross-check 8.1.2–8.1.3, 8.2, 8.9 and
+1. Use the checked 8.12 on p. 186 and cross-check 8.1.2–8.1.3, 8.2, 8.9 and
    8.11. Confirm which restrictions on `m,m',S,S'` are direct and which are
    inherited. In particular verify that `m ∣ m'` may have
    `gcd(m',N) > 1`, including odd overlap, and check for restrictions at
-   coefficient prime 2. Check where `prime(mN) ⊆ S` is imposed and whether
-   2 can simply be included as in (K4).
-2. Check all conditions on the smoothers: bounds and signs, coprimality with
+   coefficient prime 2. Record (5.1.1), p. 152: ξ ∈ SL₂(ℤ) puts `prime(mN)`
+   and the coefficient prime in `S`; ξ = a(A) also requires `prime(A)` in `S`.
+2. Match Kato's `d` to the manuscript's `d_s` and distinguish the draft's own
+   conditions `1 < c`, `1 < d_s` from the print. Check coprimality with
    6 and `S'`, any conditions involving the symbol or auxiliary level, and
    whether the equal choice `c = d_s` is allowed. Check extension to a fixed
    integral combination of `SL₂(ℤ)` symbols by linearity. Check `r,r'`,
@@ -74,8 +74,8 @@ range. The bad local factors used later in local control are separate.
    same retained class and lattice after the project’s fixed lattice
    comparison. Check the distinction between the omitted supports in (K4)
    and the excluded sets of §13.1/Example 13.3 and (K8). The Lean draft uses
-   the existing abstract `EulerSystemData`; this identification does not
-   follow from the abstract norm.
+   the existing abstract `EulerSystemData`; the known gap is identifying its
+   modules with H¹(ℤ[ζ_m,1/2], V(f)(1)) and matching the maps and classes.
 
 ## Widened interface and finite product
 
@@ -147,6 +147,6 @@ or statement was changed.
 | 7025–7029: repeated-two descent | **gap filled** — `dyadicNorm_812` allows the common odd conductor primes and introduces no scalar `2^a`. |
 | 7034–7071: (K10), integral coefficient map | **OK** — the earlier finite algebra uses the integral weighted map; identifying its transfer with the map on actual retained classes is still a separate comparison. |
 | 7074–7084: transition maps | **unverified** — the empty support difference gives the finite norm; the completed-cochain limit is outside this task. |
-| 7086–7096: L7089 and (E.1) | **gap filled** — `finite_e1_812` gets exactly the manuscript product from the widened norm and the retained weighted transfer laws. The page transcription is pending. |
+| 7086–7096: L7089 and (E.1) | **gap filled** — `finite_e1_812` gets exactly the manuscript product from the widened norm and the retained weighted transfer laws. The comparison with the actual classes remains open. |
 | 7098–7106: (E.2), full quadratic weight | **OK** — the existing coefficient proof retains both the odd and dyadic parts. |
 | 7312–7315: every unused prime is good | **OK** — `Even.unused_disjoint_fixed` derives this from the squareclasses, including for a family ramified at an odd prime of `N`. |

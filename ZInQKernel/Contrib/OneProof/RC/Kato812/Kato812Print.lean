@@ -3,9 +3,9 @@ import ZInQKernel.Contrib.OneProof.RC.PrintsArith.Kato
 /-!
 # The support-sensitive Kato norm relation
 
-Draft transcription for Appendix E. The locator (Kato, Astérisque 295 (2004),
-Proposition 8.12, p. 186) and completeness of the inherited hypotheses are UNVERIFIED
-in this transcription. See the checklist in `docs/research/rc-kato812.md`.
+Draft transcription for Appendix E. Kato, Astérisque 295 (2004),
+Proposition 8.12, p. 186: read (AI reading of the published PDF).
+See the checklist in `docs/research/rc-kato812.md` for the remaining checks.
 -/
 
 noncomputable section
@@ -31,14 +31,18 @@ abbrev twistedSigma (E : WeierstrassCurve ℚ) (d c ds : ℕ) : Finset ℕ :=
 
 /-- Draft of Kato 8.12 in the specialization used by (K4): coefficient prime 2,
 rational weight-two form of level `newformLevel E`, trivial nebentypus, `r = r' = 1`,
-fixed symbol and fixed smoothers `c, ds`. The latter data for the retained classes
-are implicit in `zAt m S`, while `S` is explicit. `es` gives the common modules
-and corestrictions; this Prop alone does not identify them with étale cohomology.
+fixed symbol ξ in SL₂(ℤ) (or a fixed integral combination of such symbols), and
+fixed smoothers `c, ds`. Kato's smoother d is the manuscript's d_s.
+The symbol and smoothers are implicit in `zAt m S`, while `S` is explicit.
+The known gap is identifying the abstract modules and maps of `es` with
+H¹(ℤ[ζ_m,1/2], V(f)(1)) and its corestrictions.
 
-The inherited conditions (UNVERIFIED against the page here) are positivity of the
-levels, `m ∣ m'`, finite prime supports containing the level primes, the inclusion
-`S ∪ prime(m') ⊆ S'`, and valid smoothers (greater than one, prime to 6, and with
-support disjoint from `S'`). We work with 2 in both supports as in (K4).
+The support convention is Kato's (5.1.1), p. 152: for ξ in SL₂(ℤ) include
+prime(mN) and the coefficient prime; for ξ = a(A) also include prime(A).
+The draft requires positive levels, `m ∣ m'`, finite prime supports, the
+inclusion `S ∪ prime(m') ⊆ S'`, and smoothers prime to 6 with support disjoint
+from `S'`. The bounds `1 < c` and `1 < ds` are conditions of this draft.
+We work with 2 in both supports as in (K4).
 The existing primary-source audit records the product over `S' \ S`: a prime
 dividing the form level is never an index of this product, even if it divides
 `m'` or `m`. The good polynomial is evaluated at `q⁻¹ σ_q⁻¹`, with arithmetic
