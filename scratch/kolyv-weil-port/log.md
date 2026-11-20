@@ -1,0 +1,6 @@
+- VERIFIED (Git): merge commit `eab2f0277` has parents `96649019f` and `8555b8d78`. The merge had no existing-file edits or conflicts; the worktree was clean on resumption.
+- VERIFIED (source comparison): the three pole-completeness and Cassels–Tate modules named in the fold have identical sources on the old and current bases. The new base's headline uses `TailZ93` and `sixContactMin_of_open86`.
+- VERIFIED (source): the restricted-converse reduction is additive. The headline keeps `hRC` and `hCT` and the rank supplier's inputs are unchanged apart from the two replacement Props.
+- VERIFIED (board table): the baseline classifies 29 H hypotheses (5 LEAF, 24 GLUE), plus four other inputs (1 LEAF, 3 GLUE) in both columns. Both proposed rank rows retain the previous GLUE ratings.
+- VERIFIED (manuscript): the forward-rank application at L1092–1093 needs the conductor-level `X₀` realization at L1779–1786; the use of rank one at L1111–1113 needs the Kummer count at L1077.
+- VERIFIED (dry run): the rank-only Main splice and the board patch based on the source definitions both pass `git apply --check`. The board patch targets only `docs/one-proof/kinds.tsv` and `docs/one-proof/OPEN.md`; neither is changed in the worktree.

@@ -1,0 +1,97 @@
+diff --git a/docs/one-proof/kinds.tsv b/docs/one-proof/kinds.tsv
+--- a/docs/one-proof/kinds.tsv
++++ b/docs/one-proof/kinds.tsv
+@@ -32,3 +32,3 @@
+ frozenTarget	hCT	published	AI read (docs/research/cassels-tate-pairing.md, docs/research/lem54-ct-check.md); a direct instance of a secondary print (provenance (b)): Poonen-Stoll restating Cassels' theorem, existence form, specialized to the curves E_l; Milne ADT I.6.13(a) corroborates only	LEAF	LEAF	Poonen-Stoll, The Cassels-Tate pairing on polarized abelian varieties, Ann. of Math. (2) 150 (1999), 1109-1149, Introduction, first paragraph, p. 2 (the author's version the bibliography links, math.mit.edu/~poonen/papers/sha.pdf; the cited version is the print): for an elliptic curve over a number field a pairing Sha x Sha -> Q/Z that is alternating and nondegenerate after dividing by the maximal divisible subgroup (Poonen-Stoll restating Cassels' theorem); cited at diophantine_zq.tex L1079-1081	the reviewer, two skeptics (print fidelity, Lean semantics); integrator inbox 96				note	Deicyde/diophantine-z-q#83
+-frozenTarget	hB	consequence	BCDT's modular = weight-2 eigenform of level N(E) on Gamma1 (condition (2), p. 3); IsModular follows by trivial nebentypus; AI page read 11-17	GLUE	GLUE	Breuil-Conrad-Diamond-Taylor, J. Amer. Math. Soc. 14 (2001), Theorem A (every elliptic curve over Q is modular)	PR #90 (squashed); integrator inbox 90				note	Deicyde/diophantine-z-q#83
+-frozenTarget	hK	consequence	Kolyvagin (MPI/90-69) Thm 1 p. 4 assumes a weak Weil parametrization X0(N) -> E with N the conductor (p. 3); IsModular implies it via Shimura's construction plus Faltings' isogeny theorem (BCDT's (2) => (6)); AI page read 11-17	GLUE	GLUE	Kolyvagin, On the Mordell-Weil group and the Shafarevich-Tate group of modular elliptic curves, MPIM preprint MPI/90-69 (1990), Theorem 1, the case r = 1	PR #90 (squashed); integrator inbox 90				note	Deicyde/diophantine-z-q#83
++frozenTarget	hB6	consequence	AI read (fork issue #83 and A066/A070 audits): BCDT (6), p. 3, is X1(N(E)) → E. X0(N_E) needs trivial nebentypus, Shimura's J0 quotient and Faltings; tex L1779–1784 cites Milne MF Thm. 11.19 and Rmk. 11.18 for this step.	GLUE	GLUE	BCDT cited author manuscript, Theorem A p. 1 and Introduction (6) p. 3 (JAMS 14 (2001), 843–939); diophantine_zq.tex lem:forward-rank L1092 and sec:rc L1779–1784; Milne MF v1.31, Thm. 11.19 and Rmk. 11.18 (p. 117)	the reading desk				note	Deicyde/diophantine-z-q#83
++frozenTarget	hKPrint	cited preprint	pending review of eligibility: AI-read printed form (fork issue #83 comment 6962416523); cited unrefereed preprint, GLUE pending the lead's ruling.	GLUE	GLUE	Kolyvagin, MPIM preprint MPI/90-69 (1990), weak Weil hypothesis p. 3, Thm. 1 p. 4; diophantine_zq.tex lem:forward-rank L1093	the reading desk				pending-review	Deicyde/diophantine-z-q#83
+diff --git a/docs/one-proof/OPEN.md b/docs/one-proof/OPEN.md
+--- a/docs/one-proof/OPEN.md
++++ b/docs/one-proof/OPEN.md
+@@ -15,3 +15,3 @@
+ 
+-**29 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves67`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB`, `hK`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
++**29 hypotheses of the H part** (in the bundles `OpenAddedLeaves28`, `OpenResearchLeaves67`), plus four manuscript hypotheses outside the H part (`hRC`, `hCT`, `hB6`, `hKPrint`: pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
+ 
+@@ -163,4 +163,4 @@
+ | [`hCT`](#hct) | frozenTarget | published | LEAF | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
+-| [`hB`](#hb) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
+-| [`hK`](#hk) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
++| [`hB6`](#hb6) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
++| [`hKPrint`](#hkprint) | frozenTarget | cited preprint | GLUE | pending-review |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | open |
+ 
+@@ -619,6 +619,6 @@
+ 
+-### hB
+-
+-* Argument `hB` of `frozenTarget`; kind **consequence**, strict **GLUE**; flag: BCDT's modular = weight-2 eigenform of level N(E) on Gamma1 (condition (2), p. 3); IsModular follows by trivial nebentypus; AI page read 11-17.
+-* Source: Breuil-Conrad-Diamond-Taylor, J. Amer. Math. Soc. 14 (2001), Theorem A (every elliptic curve over Q is modular)
++### hB6
++
++* Argument `hB6` of `frozenTarget`; kind **consequence**, strict **GLUE**; flag: AI read (fork issue #83 and A066/A070 audits): BCDT (6), p. 3, is X1(N(E)) → E. X0(N_E) needs trivial nebentypus, Shimura's J0 quotient and Faltings; tex L1779–1784 cites Milne MF Thm. 11.19 and Rmk. 11.18 for this step.
++* Source: BCDT cited author manuscript, Theorem A p. 1 and Introduction (6) p. 3 (JAMS 14 (2001), 843–939); diophantine_zq.tex lem:forward-rank L1092 and sec:rc L1779–1784; Milne MF v1.31, Thm. 11.19 and Rmk. 11.18 (p. 117)
+ * discussion: [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83).
+@@ -628,19 +628,16 @@
+ ```lean
+-ZInQ.Manuscript.PoleS12.BCDTThmA
+-```
+-
+-> **Breuil–Conrad–Diamond–Taylor, Theorem A** (printed leaf; J. Amer. Math. Soc. 14 (2001)
+-> 843–939; the manuscript cites the author manuscript, `\cite[Theorem A]{bcdt}`, tex L1092):
+-> every elliptic curve over `ℚ` is modular (Theorem A, p. 1 of the author manuscript). The print's
+-> notion of "modular" is its Introduction's conditions (1)–(6) (p. 3); condition (2) says that
+-> `L(E, s) = L(f, s)` for an eigenform `f` of weight 2 and level `N(E)`, on `Γ₁(N(E))` (cusp forms
+-> p. 1, eigenforms p. 2). `IsModular` is a consequence of (2): trivial nebentypus takes `Γ₁(N(E))`
+-> to `Γ₀(N(E))`, and equality of the Dirichlet series gives equality of the coefficients for every
+-> `n ≥ 1`. Read (AI) on fork issue #83:
+-> https://github.com/Deicyde/diophantine-z-q/issues/83#issuecomment-6962416523
+-
+-### hK
+-
+-* Argument `hK` of `frozenTarget`; kind **consequence**, strict **GLUE**; flag: Kolyvagin (MPI/90-69) Thm 1 p. 4 assumes a weak Weil parametrization X0(N) -> E with N the conductor (p. 3); IsModular implies it via Shimura's construction plus Faltings' isogeny theorem (BCDT's (2) => (6)); AI page read 11-17.
+-* Source: Kolyvagin, On the Mordell-Weil group and the Shafarevich-Tate group of modular elliptic curves, MPIM preprint MPI/90-69 (1990), Theorem 1, the case r = 1
++ZInQ.Manuscript.KolyvWeil.BCDTThmA6
++```
++
++> **Consequence of BCDT Theorem A** (CITED at `lem:forward-rank`, tex L1092; GLUE).
++> Breuil–Conrad–Diamond–Taylor, *On the modularity of elliptic curves over ℚ: wild 3-adic exercises*,
++> cited author manuscript, Theorem A (p. 1) and Introduction condition (6) (p. 3); published in
++> JAMS 14 (2001), 843–939. Condition (6) gives a ℚ-morphism from `X₁(N_E)`. The weak Weil
++> parametrization here is from `X₀(N_E)`; it uses trivial nebentypus, Shimura's `J₀(N_E)` quotient
++> and Faltings' isogeny theorem, as in tex L1779–1784 (Milne MF v1.31, Theorem 11.19 and Remark 11.18).
++
++### hKPrint
++
++* Argument `hKPrint` of `frozenTarget`; kind **cited preprint**, strict **GLUE**; flag: pending review of eligibility: AI-read printed form (fork issue #83 comment 6962416523); cited unrefereed preprint, GLUE pending the lead's ruling.
++* Source: Kolyvagin, MPIM preprint MPI/90-69 (1990), weak Weil hypothesis p. 3, Thm. 1 p. 4; diophantine_zq.tex lem:forward-rank L1093
+ * discussion: [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83).
+@@ -650,18 +647,11 @@
+ ```lean
+-ZInQ.Manuscript.PoleS12.KolyvaginThm1
+-```
+-
+-> **Kolyvagin, Theorem 1, the case `r = 1`** (consequence of the print, not the printed statement; cited: "On the Mordell–Weil group
+-> and the Shafarevich–Tate group of modular elliptic curves", MPIM preprint MPI/90-69 (1990),
+-> Theorems 1–5, pp. 4–5; tex L1093, `\cite[Theorem 1, pp. 4–5]{kolyvagin}`; read (AI) on fork
+-> issue #83: https://github.com/Deicyde/diophantine-z-q/issues/83#issuecomment-6962416523):
+-> a modular elliptic curve `E/ℚ` with `ord_{s=1} L(E, s) = 1` has `rank E(ℚ) = 1` and finite
+-> `Ш(E/ℚ)`. Theorem 1 (p. 4) assumes a weak Weil parametrization `X₀(N) → E` with `N` the conductor
+-> (p. 3). `IsModular` is a weaker hypothesis, so this statement is a consequence of the print: it follows
+-> from Kolyvagin's weak Weil parametrization hypothesis only through Shimura's construction (an abelian
+-> variety quotient of `J₀(N)` attached to the newform) and Faltings' isogeny theorem (with trivial
+-> nebentypus), the step BCDT cite
+-> for (2) ⇒ (6) on p. 3 of their author manuscript. `Ш` is `SelmerTwoPower.sha` (Tau Ceti's Shafarevich–Tate group, local triviality at every
+-> place). The print is a preprint, not a refereed paper (Known issue, round 1); its `r = 0` case is
+-> not used.
++ZInQ.Manuscript.KolyvWeil.KolyvaginThm1Print
++```
++
++> **Kolyvagin, Theorem 1** (printed form, CITED at `lem:forward-rank`, tex L1093).
++> *On the Mordell–Weil group and the
++> Shafarevich–Tate group of modular elliptic curves*, MPIM preprint MPI/90-69 (1990), p. 4.
++> The hypothesis on p. 3 is a weak Weil parametrization at the conductor. If the analytic rank
++> is zero or one then the Mordell–Weil rank equals it and Ш(E/ℚ) is finite. The cited preprint
++> is unrefereed; the LEAF rating is pending the owner's ruling.
+ 
