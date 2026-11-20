@@ -3,6 +3,7 @@ import ZInQKernel.MainGreenTao
 import ZInQKernel.Contrib.OneProof.DeRhamRange
 import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
 import ZInQKernel.Contrib.OneProof.CasselsTatePairing
+import ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness
 
 /-!
 # The whole proof in one theorem
@@ -12,14 +13,14 @@ the development fork, and from nothing else: the open bundles of the H chain, th
 converse, `ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine`, `diophantine_zq.tex` lines 1005–1011, over the genuine
 `Sel_{2^∞}(E_ℓ/ℚ)`), the Cassels–Tate pairing on the curves `E_ℓ` of Theorem 5.3
 (`ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves`, the printed input the manuscript cites for its Lemma 5.4 at
-`diophantine_zq.tex` L1079–1081; Lemma 5.4 itself is proved from it), the printed leaf BCDT Theorem A
-(`ZInQ.Manuscript.PoleS12.BCDTThmA`) and a consequence of Kolyvagin's Theorem 1
-(`ZInQ.Manuscript.PoleS12.KolyvaginThm1`, through Shimura's construction and Faltings' isogeny theorem).
+`diophantine_zq.tex` L1079–1081; Lemma 5.4 itself is proved from it), the conductor-level weak Weil
+parametrization (`ZInQ.Manuscript.KolyvWeil.BCDTThmA6`, a consequence of BCDT Theorem A) and Kolyvagin's
+Theorem 1 in its printed form (`ZInQ.Manuscript.KolyvWeil.KolyvaginThm1Print`).
 Pole completeness PC (`ZInQ.PoleCompleteness`, Theorem 5.2, lines 1001–1004, for the manuscript's pole polynomial) is
 proved from these by the manuscript's descent (lines 1019–1121):
-`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`
-(`Contrib/OneProof/CasselsTatePairing.lean`, over `Contrib/OneProof/PoleCompletenessFromRCGenuineFinal.lean`; fork
-issue #83), with Lemma 5.4 (`Contrib/OneProof/SelmerCorankFam.lean`, `Contrib/OneProof/Lemma54FromCasselsTate.lean`),
+`ZInQ.Manuscript.KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print`
+(`Contrib/OneProof/KolyvWeil/PoleCompleteness.lean`, over `Contrib/OneProof/CasselsTatePairing.lean`; fork issue #83),
+with Lemma 5.4 (`Contrib/OneProof/SelmerCorankFam.lean`, `Contrib/OneProof/Lemma54FromCasselsTate.lean`),
 the matrix construction, the local images, the 2-descent, Mordell–Weil for `E_ℓ` and the Kummer identification
 `#Sel₂(E_ℓ/ℚ) = #SelM ℓ` proved.
 It composes the compiled H chain with the headline
@@ -207,19 +208,19 @@ hypothesis by its proof; the theorem's statement then loses that hypothesis.
 namespace ZInQ.OneProof
 
 /-- **Theorem 1.1, from every statement still open:** the open H bundles, the manuscript's Theorem 5.3 (the restricted
-converse, the manuscript's own theorem (not a printed leaf)), the Cassels–Tate pairing on the curves `E_ℓ`, the printed
-leaf BCDT Theorem A and a consequence of Kolyvagin's Theorem 1 (through Shimura's construction and Faltings' isogeny theorem). Pole
-completeness PC (the manuscript's Theorem 5.2) is proved from the last four, with Lemma 5.4 proved from the pairing
-(`ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing`). -/
+converse, the manuscript's own theorem (not a printed leaf)), the Cassels–Tate pairing on the curves `E_ℓ`, the weak Weil
+parametrization at the conductor (a consequence of BCDT Theorem A), and Kolyvagin's Theorem 1 in printed form.
+Pole completeness PC (the manuscript's Theorem 5.2) is proved from the last four, with Lemma 5.4 proved from the pairing
+(`ZInQ.Manuscript.KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print`). -/
 theorem _root_.ZInQ.OneProof.frozenTarget
     (r : HDec.HSyn.OpenResearchLeaves67) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
-    (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves) (hB : ZInQ.Manuscript.PoleS12.BCDTThmA)
-    (hK : ZInQ.Manuscript.PoleS12.KolyvaginThm1) :
+    (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves)
+    (hB6 : ZInQ.Manuscript.KolyvWeil.BCDTThmA6) (hKPrint : ZInQ.Manuscript.KolyvWeil.KolyvaginThm1Print) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
     (HDec.HSyn.sixContactMin_of_open86 r t l)
-    (ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_casselsTatePairing hRC hCT hB hK)
+    (ZInQ.Manuscript.KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print hRC hCT hB6 hKPrint)
 
 end ZInQ.OneProof
 
