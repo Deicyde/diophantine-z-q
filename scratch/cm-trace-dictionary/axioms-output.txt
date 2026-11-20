@@ -1,0 +1,11 @@
+'ZInQ.Manuscript.CMTraceDictionary.existsUnique_point_of_sum_conjugates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.CMTraceDictionary.hilbert_sum_eq_class_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.CMTraceDictionary.existsUnique_hilbert_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.CMTraceDictionary.existing_trace_of_hilbert_image' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.CMTraceDictionary.hkConsumed_dry_run' depends on axioms: [propext, Classical.choice, Quot.sound]

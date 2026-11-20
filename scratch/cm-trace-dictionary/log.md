@@ -31,3 +31,26 @@
   and the normalized modular parametrization comparison separate. At
   least two unproved comparisons survive the proposed reading. Do not
   collapse them into a hypothesis that gives the analytic CM image.
+- VERIFIED (build audit): the first HKGZ dependency invocation picked the
+  original Lean binary despite using `LAKE_OVERRIDE_LEAN`. The worker
+  lock was invoked for toolchain detection only. The aggregate worker
+  time (790.6 seconds in under five minutes) confirms overlap. The
+  invocation was stopped. This violated the single-worker constraint.
+  The correction selects a temporary toolchain directory whose
+  `bin/lean` is the locking wrapper, and confirms the selected binary
+  with `lake env printenv LEAN`. Both the entry script and the active
+  worker check the stated load and memory thresholds. The working
+  directory, sources, and dependency manifest are unchanged.
+- VERIFIED (Lean): the assembly dependency target built successfully
+  after reusing a local cache from the identical Lean sources, toolchain,
+  and package manifest. No network access was used. The final module
+  passed both its standalone `lake env lean` check and Lake module build.
+- VERIFIED (Lean): the first scratch run reached the exact
+  `IsHeegnerTrace` boundary but hit a definitional equality error in
+  the Hilbert specialization. Making the coordinate equality
+  instances parameters of the generic lemma lets the specialization
+  use the same instances as the existing point maps.
+- VERIFIED (Lean): the final `lake env lean` run on `Substitution.lean`
+  passed. `axioms-output.txt` lists the five checked theorems; all depend
+  only on `propext`, `Classical.choice`, and `Quot.sound`. The
+  forward-rank assembly beyond the trace is a source dry run.
