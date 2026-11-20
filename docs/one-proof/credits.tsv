@@ -10,3 +10,8 @@ hCM	statement-check	zachbaugher	partly	contrib desk	https://github.com/Deicyde/d
 abscissa-parity	statement-fix	CheyLoveday	unknown	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/88	faltings-fold	daed7487b0938208ebe04ebb2dc2a6a99d4f1f67
 fowlerProp27	statement-check	zachbaugher	drafting only	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973387139	faltings-fold	daed7487b0938208ebe04ebb2dc2a6a99d4f1f67
 cmjDegree	statement-check	zachbaugher	drafting only	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973419601	faltings-fold	daed7487b0938208ebe04ebb2dc2a6a99d4f1f67
+neronSchemeExtensionDedekind	proof	mccorvie	yes		https://github.com/Deicyde/diophantine-z-q/pull/152	height-discharges	c8a3d12decbe7a8b1d273f4b523bfc682830be69
+r9a	proof	mccorvie	yes		https://github.com/Deicyde/diophantine-z-q/pull/153	height-discharges	3536e72ca440ffef4f16a224590e61495848e7df
+r9b	proof	mccorvie	yes		https://github.com/Deicyde/diophantine-z-q/pull/155	height-discharges	49ddca3b0f943a29668dcb6c95203d4ba7c5fa97
+faltingsLemma1DVRPrint	proof	mccorvie	yes		https://github.com/Deicyde/diophantine-z-q/pull/156	height-discharges	6e9358fa382dfc582e21223d8b9ebc950137e09e
+y3ToP1j	proof	mccorvie	yes		https://github.com/Deicyde/diophantine-z-q/pull/157	height-discharges	2e8ba52e9b7680fbe91b70d1d5b6e0dd106b2b54
