@@ -66,16 +66,22 @@ structure GenCxResidualIso (Rk : ℕ → ℤ → ℕ) : Prop where
   /-- its residual ranks are the reference ranks -/
   rank_eq : ∀ s [NeZero s] n, genResRank K S₀ S M Δ place X EU s n = Rk s n
 
-/-- **The Euler characteristic of the residual Selmer cone is zero at `U`-many stages** (PRINT;
-used at tex 4520–4550 for the global term): J. S. Milne, *Arithmetic Duality Theorems*, 2nd ed.,
-2006 — I, Theorem 5.1 (the global Euler
-characteristic; for the residual module `W = E[2]` over the imaginary quadratic `K` the text reads
-it as `h⁰ − h¹ + h² = −2`, tex 4525–4529), I, Theorem 4.10 (vanishing of global cohomology in
-degrees `> 2` for a totally imaginary field; part (c), printed pp. 56–57), and I, Theorem 2.8
-(the local Euler characteristic, used at tex 4546–4549); the printed pages of 5.1 and 2.8 are not
-recorded here. With the Euler characteristics of the local conditions these give `χ(C_∅) = 0`
-for the residual Selmer cone. Kind: definition (the statement of the printed result, read on
-the reference ranks). -/
+/-- **The Euler characteristic of the residual Selmer cone is zero at `U`-many stages** (GLUE,
+derived from printed results; used at tex 4520–4550 for the global term). As a statement about a
+free rank function `Rk` it is not a reading of a print: it is the Euler characteristic of the
+residual Selmer cone, derived at the actual ranks from J. S. Milne, *Arithmetic Duality Theorems*,
+2nd ed., 2006, together with the Euler characteristics of the local conditions and the long exact
+sequence of the cone:
+* I, Theorem 5.1, p. 67 (setting p. 66): "THEOREM 5.1 With the above definition,
+  χ(G_S, M) = ∏_{v arch} [H⁰(G_v, M)] / |[M]|_v." For the residual module `W = E[2]` over the
+  imaginary quadratic `K` (one complex place, `|[W]|_v = 4² = 16`) it gives `χ = 1/4`, i.e.
+  `h⁰ − h¹ + h² = −2` (tex 4525–4529);
+* I, Theorem 4.10, pp. 56–57: "(c) For r ≥ 3, β^r is a bijection H^r(G_S, M) → ∏_{v real}
+  H^r(K_v, M)" (so the global cohomology vanishes in degrees `≥ 3` for totally imaginary `K`);
+* I, Theorem 2.8, p. 31: "Let M be a finite G-module of order m relatively prime to char(K).
+  Then χ(G, M) = (R: mR)^{-1}" (the local terms, tex 4546–4549).
+Kind: definition (the statement; GLUE derived from the printed results, at the actual ranks).
+Links: Milne, Arithmetic Duality Theorems https://www.jmilne.org/math/Books/ADTnot.pdf. -/
 def StageEulerZero (U : Ultrafilter ℕ) (Rk : ℕ → ℤ → ℕ) : Prop :=
   ∀ᶠ s in (U : Filter ℕ), Rk s 0 + Rk s 2 = Rk s 1 + Rk s 3
 

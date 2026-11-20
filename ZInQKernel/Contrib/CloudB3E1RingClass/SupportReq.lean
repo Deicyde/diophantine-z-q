@@ -57,11 +57,17 @@ open ZInQ.Contrib.CloudB3RC53.CST (newformLevel)
 open ZInQ.Manuscript.RC.Nonvanishing (GoodAt bad_curve_mem)
 
 /-- **A prime of the level of the newform of `E` is bad for every model of `E`** (named input;
-GLUE): Carayol 1986, Théorème (A) (bibitem `carayol`: level = conductor `N_E`), with the
-definition of the conductor (its exponent vanishes exactly at the primes of good reduction).
-Stated for the tree's `newformLevel` and `Nonvanishing.GoodAt` (the given model is good
+PRINT + GLUE): Carayol 1986 (bibitem `carayol`), §0.8, Corollaire, p. 411 (page-checked): "Soit
+f ∈ S₂(Γ₀(N)) une nouvelle forme rationnelle, valeur propre normalisée des opérateurs de Hecke, et
+soit E_f la courbe elliptique sur Q associée à f. Alors la fonction L de E_f est égale à L(f, s),
+et le conducteur géométrique de E_f est égal à N." (Théorème (A) itself is on pp. 410–411.)
+GLUE: modularity (BCDT) gives `E` isogenous to `E_f` with `f` of level `newformLevel E`; the
+conductor is an isogeny invariant, and its exponent vanishes exactly at the primes of good
+reduction. Stated for the tree's `newformLevel` and `Nonvanishing.GoodAt` (the given model is good
 at `p`, which implies good reduction). It includes modularity (BCDT): for a non-modular `E` the
-tree's `newformLevel E` would be `0`. Kind: definition (named input). -/
+tree's `newformLevel E` would be `0`. Kind: definition (named input).
+Links: Carayol 1986 https://www.numdam.org/item/ASENS_1986_4_19_3_409_0/;
+Breuil–Conrad–Diamond–Taylor https://virtualmath1.stanford.edu/~conrad/papers/tswfinal.pdf. -/
 def LevelPrimesBad : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → ∀ p : ℕ, p.Prime → p ∣ newformLevel E → ¬ GoodAt E p
 

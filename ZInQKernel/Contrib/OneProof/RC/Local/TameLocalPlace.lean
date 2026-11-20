@@ -58,17 +58,18 @@ theorem two_not_mem_of_odd_card {K : Type} [Field K] [NumberField K]
   rw [Nat.card_eq_fintype_card, hn, h2] at hodd
   exact (Nat.not_even_iff_odd.2 hodd) ((Nat.even_pow' n.ne_zero).2 even_two)
 
-/-- **ELLIOT-uncited classical + GLUE: Iwasawa generators at every finite place not above `2`**
-(tex 3470–3480; the manuscript does not cite a source for it): the
-family of `IwasawaGeneratorsAt`. Literature: K. Iwasawa, "On Galois groups of local fields",
-Trans. Amer. Math. Soc. 80 (1955), 448–469; verbatim, p. 448: "We shall first determine the
-structure of the groups G(V/k) = G(Ω/k)/G(Ω/V), and G(Ω/V) and show that the group extension
-G(Ω/k)/G(Ω/V) splits." (`V` the ramification field: "the composite of all finite tamely ramified
-extensions of k in Ω"; the proofs are in §3). The fuller quotation and the reading are at
-`IwasawaGeneratorsAt`.
-Kind: ELLIOT-uncited classical (Iwasawa 1955, p. 448 and §3: the tame quotient and the splitting
-over the wild inertia; not cited in the manuscript, so not a PRINT) + GLUE (the reading as an
-Iwasawa triple at each place). -/
+/-- **Textbook PRINT + GLUE: Iwasawa generators at every finite place not above `2`**
+(tex 3470–3480; the manuscript uses this without a citation): the family of
+`IwasawaGeneratorsAt`. Textbook locator (page-checked): Neukirch–Schmidt–Wingberg, *Cohomology of
+Number Fields*, 2nd ed., electronic edition v2.3, Ch. VII §5: (7.5.1) Proposition, p. 409, and
+(7.5.3) Theorem (Iwasawa), p. 410, with the splitting from (3.5.6) Theorem, p. 192, as printed in
+the proof of (7.5.13), p. 418. Original: K. Iwasawa, "On Galois groups of local fields", Trans.
+Amer. Math. Soc. 80 (1955), 448–469; verbatim, p. 448: "… and show that the group extension
+G(Ω/k)/G(Ω/V) splits." The quotations and the reading are at `IwasawaGeneratorsAt`.
+Kind: textbook PRINT (NSW 7.5.1, 7.5.3, 3.5.6; not cited by the manuscript) + GLUE (the reading as
+an Iwasawa triple at each place).
+Links: Iwasawa 1955 https://doi.org/10.1090/S0002-9947-1955-0075239-5; Neukirch–Schmidt–Wingberg
+https://www.mathi.uni-heidelberg.de/~schmidt/NSW2e/NSW2.3.pdf. -/
 def IwasawaGenerators : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (w : HeightOneSpectrum (𝓞 K)),
     (2 : 𝓞 K) ∉ w.asIdeal → IwasawaGeneratorsAt K w
