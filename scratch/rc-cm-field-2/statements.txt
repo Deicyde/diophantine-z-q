@@ -1,0 +1,440 @@
+ZInQ.Manuscript.RC.CMField2.isAddCyclic_quotient_of_primitive.{u_1} {M : Type u_1} [AddCommGroup M]
+  (b : Module.Basis (Fin 2) ℤ M) (S : Submodule ℤ M) (hS : Module.finrank ℤ ↥S = Module.finrank ℤ M)
+  (hp : ∀ (k : ℕ), 1 < k → ¬∀ x ∈ S, ∃ y, x = ↑k • y) : IsAddCyclic (M ⧸ S)
+ZInQ.Manuscript.RC.CMField2.isAddCyclic_sublatticeQuotient_of_primitive (L M : PeriodPair) (h : M.lattice ≤ L.lattice)
+  (hp : ∀ (k : ℕ), 1 < k → ¬∀ x ∈ M.lattice, ∃ y ∈ L.lattice, x = ↑k • y) : IsAddCyclic (L.sublatticeQuotient M)
+ZInQ.Manuscript.RC.CMField2.primitive_of_isAddCyclic_quotient.{u_1} {M : Type u_1} [AddCommGroup M]
+  (b : Module.Basis (Fin 2) ℤ M) (S : Submodule ℤ M) (hS : Module.finrank ℤ ↥S = Module.finrank ℤ M)
+  (hc : IsAddCyclic (M ⧸ S)) (k : ℕ) (hk : 1 < k) (hd : ∀ x ∈ S, ∃ y, x = ↑k • y) : False
+ZInQ.Manuscript.RC.CMField2.primitive_of_isAddCyclic_sublatticeQuotient (L M : PeriodPair) (h : M.lattice ≤ L.lattice)
+  (hc : IsAddCyclic (L.sublatticeQuotient M)) (k : ℕ) (hk : 1 < k) (hd : ∀ x ∈ M.lattice, ∃ y ∈ L.lattice, x = ↑k • y) :
+  False
+ZInQ.Manuscript.RC.CMField2.eval_diagonal.{u_1} {F : Type u_1} [CommRing F] (P : Polynomial (Polynomial ℤ)) (z : F) :
+  Polynomial.eval₂ (Int.castRingHom F) z (Polynomial.eval₂ (RingHom.id (Polynomial ℤ)) Polynomial.X P) =
+    Polynomial.eval z (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom F) z) P)
+ZInQ.Manuscript.RC.CMField2.isIntegral_jLattice_of_cyclicSelf (N : ℕ) [NeZero N] (hN : ¬IsSquare N) (L L' : PeriodPair)
+  (hsub : ↑L'.lattice ⊆ ↑L.lattice) (hidx : L.sublatticeIndex L' = N) (hcyc : IsAddCyclic (L.sublatticeQuotient L'))
+  (hj : L'.jLattice = L.jLattice) : IsIntegral ℤ L.jLattice
+ZInQ.Manuscript.RC.CMField2.exists_nonsquare_quadratic_value (t u : ℤ) (h : t ^ 2 < 4 * u) :
+  ∃ n m, 1 ≤ m ∧ m ^ 2 < n ^ 2 + t * n + u ∧ n ^ 2 + t * n + u < (m + 1) ^ 2
+ZInQ.Manuscript.RC.CMField2.rootMultiplicity_specialization_eq_of_embeddings.{u_1} {F : Type u_1} [Field F]
+  (P : Polynomial (Polynomial ℤ)) (e f : F →+* ℂ) (x : F) :
+  Polynomial.rootMultiplicity (e x) (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) (e x)) P) =
+    Polynomial.rootMultiplicity (f x) (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) (f x)) P)
+ZInQ.Manuscript.RC.CMField2.coe_cosetParameter {N a b d : ℕ} (hN : N ≠ 0)
+  (ht : (a, b, d) ∈ ModularCurve.primCosetReps N) (τ : UpperHalfPlane) :
+  ↑(cosetParameter (a, b, d) τ) = (↑a * ↑τ + ↑b) / ↑d
+ZInQ.Manuscript.RC.CMField2.injOn_coset_j_of_transcendental (N : ℕ) [NeZero N] {τ : UpperHalfPlane}
+  (hτ : Transcendental ℚ ↑τ) :
+  Set.InjOn (fun t => ZInQ.Manuscript.RC.X0Model.analyticJ (cosetParameter t τ)) ↑(ModularCurve.primCosetReps N)
+ZInQ.Manuscript.RC.CMField2.modularPolynomial_eq_coset_product (N : ℕ) [NeZero N]
+  (P : ModularCurve.ModularPolynomialData N) (τ : UpperHalfPlane) :
+  Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) (ZInQ.Manuscript.RC.X0Model.analyticJ τ)) P.Φ =
+    ∏ t ∈ ModularCurve.primCosetReps N,
+      (Polynomial.X - Polynomial.C (ZInQ.Manuscript.RC.X0Model.analyticJ (cosetParameter t τ)))
+ZInQ.Manuscript.RC.CMField2.exists_coset_of_modularPolynomial_root (N : ℕ) [NeZero N]
+  (P : ModularCurve.ModularPolynomialData N) (τ : UpperHalfPlane) (j : ℂ)
+  (hj :
+    (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) (ZInQ.Manuscript.RC.X0Model.analyticJ τ)) P.Φ).IsRoot
+      j) :
+  ∃ t ∈ ModularCurve.primCosetReps N, ZInQ.Manuscript.RC.X0Model.analyticJ (cosetParameter t τ) = j
+ZInQ.Manuscript.RC.CMField2.pow_eq_of_kronecker_diagonal.{u_1} {k : Type u_1} [Field k] (p : ℕ) (x : k)
+  (h : (x ^ p - x) * (x - x ^ p) = 0) : x ^ p = x
+ZInQ.Manuscript.RC.CMField2.mem_of_separating_reductions.{u_1, u_2} {K : Type u_1} {E : Type u_2} [Field K] [Field E]
+  [Algebra K E] [FiniteDimensional K E] [IsGalois K E] (H : IntermediateField K E) (x : E)
+  (h : ∀ σ ∈ H.fixingSubgroup, ∃ R x_1 f P a b, f a = σ x ∧ f b = x ∧ a - b ∈ P ∧ (f a ≠ f b → a - b ∉ P)) : x ∈ H
+ZInQ.Manuscript.RC.CMField2.coe_cmPoint_of_neg {A B d : ℤ} (hA : 0 < A) (hd : d < 0) :
+  ↑(ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) = (-↑B + Complex.I * ↑√(-↑d)) / (2 * ↑A)
+ZInQ.Manuscript.RC.CMField2.heegner_middle_coprime {N : ℕ} {d A B C : ℤ} (hcop : IsCoprime d ↑N)
+  (hform : ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm N d A B C) : IsCoprime B ↑N
+ZInQ.Manuscript.RC.CMField2.heegner_scaled_form {N : ℕ} [NeZero N] {d A B C : ℤ} (hcop : IsCoprime d ↑N)
+  (hform : ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm N d A B C) :
+  ∃ a, A = ↑N * a ∧ ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm 1 d a B (↑N * C)
+ZInQ.Manuscript.RC.CMField2.heegner_pairLattice_mul.{u_1} {K : Type u_1} [Field K] {N A B C a : ℤ} (ω : K)
+  (ha : A = N * a) (hcop : IsCoprime N B) (hω : ω ^ 2 + ↑B * ω + ↑A * ↑C = 0) :
+  pairLattice N ω * pairLattice a ω = pairLattice A ω
+ZInQ.Manuscript.RC.CMField2.dilate_cmPoint_eq {N : ℕ} [NeZero N] {A a B d : ℤ} (hA : 0 < A) (ha : A = ↑N * a)
+  (hd : d < 0) :
+  ZInQ.Manuscript.RC.X0Model.dilate N (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) =
+    ZInQ.Contrib.CloudB3RC53.CST.cmPoint a B d
+ZInQ.Manuscript.RC.CMField2.exists_ideal_basis {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (J : FractionalIdeal (nonZeroDivisors ↥O.toSubalgebra) K) (hJ : J ≠ 0) : Nonempty (Module.Basis (Fin 2) ℤ ↥↑J)
+ZInQ.Manuscript.RC.CMField2.idealPeriod_lattice {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (J : O.invertibleProperFractionalIdeals) :
+  ↑(idealPeriod O hk hc κ J).lattice = ⇑κ '' ↑↑J
+ZInQ.Manuscript.RC.CMField2.jLattice_eq_of_lattice_eq {L M : PeriodPair} (h : L.lattice = M.lattice) :
+  L.jLattice = M.jLattice
+ZInQ.Manuscript.RC.CMField2.jLattice_scale (L : PeriodPair) (a : ℂˣ) : (L.scale a).jLattice = L.jLattice
+ZInQ.Manuscript.RC.CMField2.lattice_scale (L : PeriodPair) (a : ℂˣ) :
+  ↑(L.scale a).lattice = (fun z => ↑a * z) '' ↑L.lattice
+ZInQ.Manuscript.RC.CMField2.singularModulus_eq_of_mkPic_eq {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) {I J : O.invertibleProperFractionalIdeals}
+  (h : O.mkPic I = O.mkPic J) : singularModulus O hk hc κ I = singularModulus O hk hc κ J
+ZInQ.Manuscript.RC.CMField2.quadraticNormParameters_eq_of_primitiveNormLevels {t₁ t₂ u₁ u₂ : ℤ} (ht₁ : t₁ = 0 ∨ t₁ = 1)
+  (ht₂ : t₂ = 0 ∨ t₂ = 1) (hu₁ : 1 ≤ u₁) (hu₂ : 1 ≤ u₂) (h : primitiveNormLevels t₁ u₁ = primitiveNormLevels t₂ u₂) :
+  t₁ = t₂ ∧ u₁ = u₂
+ZInQ.Manuscript.RC.CMField2.exists_cyclic_sublattice_of_modularPolynomial_root (N : ℕ) [NeZero N]
+  (P : ModularCurve.ModularPolynomialData N) (τ : UpperHalfPlane) (j : ℂ)
+  (hj :
+    (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) (ZInQ.Manuscript.RC.X0Model.analyticJ τ)) P.Φ).IsRoot
+      j) :
+  have L := PeriodPair.ofTau τ;
+  ∃ M, M.lattice ≤ L.lattice ∧ L.sublatticeIndex M = N ∧ IsAddCyclic (L.sublatticeQuotient M) ∧ M.jLattice = j
+ZInQ.Manuscript.RC.CMField2.exists_analyticJ_eq (j : ℂ) : ∃ τ, ZInQ.Manuscript.RC.X0Model.analyticJ τ = j
+ZInQ.Manuscript.RC.CMField2.conjugate_has_cyclic_self_of_root.{u_1} {F : Type u_1} [Field F] (x : F) (e f : F →+* ℂ)
+  (N : ℕ) [NeZero N] (P : ModularCurve.ModularPolynomialData N)
+  (hroot : (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) (e x)) P.Φ).IsRoot (e x)) :
+  ∃ τ,
+    ZInQ.Manuscript.RC.X0Model.analyticJ τ = f x ∧
+      have L := PeriodPair.ofTau τ;
+      ∃ M,
+        M.lattice ≤ L.lattice ∧ L.sublatticeIndex M = N ∧ IsAddCyclic (L.sublatticeQuotient M) ∧ M.jLattice = L.jLattice
+ZInQ.Manuscript.RC.CMField2.cast_sublatticeIndex_scale (L : PeriodPair) (u : ℂˣ) (h : (L.scale u).lattice ≤ L.lattice) :
+  ↑(L.sublatticeIndex (L.scale u)) = Complex.normSq ↑u
+ZInQ.Manuscript.RC.CMField2.exists_order_basis_one {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2) : ∃ b, b 0 = 1
+ZInQ.Manuscript.RC.CMField2.orderBasis_im_ne_zero {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ)
+  (b : Module.Basis (Fin 2) ℤ ↥O.toSubalgebra) (hb : b 0 = 1) : (κ ↑(b 1)).im ≠ 0
+ZInQ.Manuscript.RC.CMField2.singularModulus_isIntegral {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (J : O.invertibleProperFractionalIdeals) :
+  IsIntegral ℤ (singularModulus O hk hc κ J)
+ZInQ.Manuscript.RC.CMField2.cast_absNorm_span_singleton_complex {K : Type} [Field K] [NumberField K]
+  (hk : Module.finrank ℚ K = 2) (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (β : NumberField.RingOfIntegers K) :
+  ↑(Ideal.absNorm (Ideal.span {β})) = Complex.normSq (κ ↑β)
+ZInQ.Manuscript.RC.CMField2.prime_diagonal_eq_of_order_multiplier {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (J : O.invertibleProperFractionalIdeals) (p : ℕ)
+  [Fact (Nat.Prime p)] (P : ModularCurve.ModularPolynomialData p) (α : K) (hα : α ∈ O.toSubalgebra)
+  (hp : Complex.normSq (κ α) = ↑p) :
+  Polynomial.eval₂ (Int.castRingHom ℂ) (singularModulus O hk hc κ J)
+      (Polynomial.eval₂ (RingHom.id (Polynomial ℤ)) Polynomial.X P.Φ) =
+    0
+ZInQ.Manuscript.RC.CMField2.modularPolynomial_reduced_root (p : ℕ) [Fact (Nat.Prime p)]
+  (D : ModularCurve.ModularPolynomialData p) :
+  Polynomial.eval (Polynomial.X ^ p) ((ModularCurve.reduceModBivar p) D.Φ) = 0
+ZInQ.Manuscript.RC.CMField2.kroneckerCongruence_of_prime (p : ℕ) [Fact (Nat.Prime p)]
+  (D : ModularCurve.ModularPolynomialData p) : ModularCurve.KroneckerCongruence p D
+ZInQ.Manuscript.RC.CMField2.pow_eq_of_modularPolynomial_diagonal_root.{u_1} (p : ℕ) [Fact (Nat.Prime p)]
+  (D : ModularCurve.ModularPolynomialData p) {k : Type u_1} [Field k] [CharP k p] (x : k)
+  (hx : Polynomial.eval x (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom k) x) D.Φ) = 0) : x ^ p = x
+ZInQ.Manuscript.RC.CMField2.levelTwo_heegner :
+  ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm 2 (-7) 2 1 1 ∧
+    ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm 2 (-7) 2 (-1) 1 ∧ IsCoprime (-7) 2
+ZInQ.Manuscript.RC.CMField2.levelTwo_reflection :
+  -star ↑(ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 1 (-7)) = ↑(ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 (-1) (-7))
+ZInQ.Manuscript.RC.CMField2.levelTwo_coordinates :
+  ZInQ.Manuscript.RC.X0Model.analyticJ (ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 1 (-7)) =
+      ZInQ.Manuscript.RC.X0Model.analyticJ (ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 (-1) (-7)) ∧
+    ZInQ.Manuscript.RC.X0Model.analyticJN 2 (ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 1 (-7)) =
+      ZInQ.Manuscript.RC.X0Model.analyticJN 2 (ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 (-1) (-7))
+ZInQ.Manuscript.RC.CMField2.middleCoefficient_mod_four {A B C p q r s : ℤ} (hA : 2 ∣ A) (hr : 2 ∣ r)
+  (hdet : p * s - q * r = 1) : 4 ∣ 2 * A * p * q + B * (p * s + q * r) + 2 * C * r * s - B
+ZInQ.Manuscript.RC.CMField2.levelTwo_distinct :
+  (ZInQ.Manuscript.RC.X0Branch.model 2).complexPoint (ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 1 (-7)) ≠
+    (ZInQ.Manuscript.RC.X0Branch.model 2).complexPoint (ZInQ.Contrib.CloudB3RC53.CST.cmPoint 2 (-1) (-7))
+ZInQ.Manuscript.RC.CMField2.SingularModulusMemRingClass : Prop
+ZInQ.Manuscript.RC.CMField2.finrank_adjoin_le_of_conjugate_family {F ι : Type} [Field F] [CharZero F] [Algebra F ℂ]
+  [Finite ι] (j : ℂ) (hj : IsIntegral F j) (v : ι → ℂ)
+  (hv : ∀ (σ : ↥F⟮j⟯ →ₐ[F] ℂ), ∃ i, σ (IntermediateField.AdjoinSimple.gen F j) = v i) :
+  Module.finrank F ↥F⟮j⟯ ≤ Nat.card ι
+ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_le_of_conjugate {K : Type} [Field K] [NumberField K]
+  (hconj : ConjugateSingularModulus) (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (I : O.invertibleProperFractionalIdeals) :
+  Module.finrank ℚ ↥ℚ⟮singularModulus O hk hc κ I⟯ ≤ Nat.card (TauCeti.GlobalNumberFields.Pic O)
+ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_over_base_le_of_conjugate {K : Type} [Field K] [NumberField K]
+  (hconj : ConjugateSingularModulus) (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (I : O.invertibleProperFractionalIdeals) :
+  Module.finrank K ↥K⟮singularModulus O hk hc κ I⟯ ≤ Nat.card (TauCeti.GlobalNumberFields.Pic O)
+ZInQ.Manuscript.RC.CMField2.ConjugateSingularModulus : Prop
+ZInQ.Manuscript.RC.CMField2.affineEval_factor {X : AlgebraicGeometry.Scheme} (p : AlgebraicGeometry.Spec ↧ℂ ⟶ X)
+  {U : X.Opens} (hU : AlgebraicGeometry.IsAffineOpen U) (hp : p default ∈ U) :
+  CategoryTheory.CategoryStruct.comp
+      (AlgebraicGeometry.Spec.map (CommRingCat.ofHom (ZInQ.Manuscript.RC.X0Branch.affineEval p U hp))) hU.fromSpec =
+    p
+ZInQ.Manuscript.RC.CMField2.fieldPoint_of_affineEval_range {X : AlgebraicGeometry.Scheme}
+  (q : X ⟶ AlgebraicGeometry.Spec ↧ℚ) (p : ZInQ.Manuscript.RC.PreparedParam.FieldPoint q ℂ) {U : X.Opens}
+  (hU : AlgebraicGeometry.IsAffineOpen U) (hp : ↑p default ∈ U) {F : Type} [Field F] [Algebra ℚ F] (ι : F →ₐ[ℚ] ℂ)
+  (he :
+    ∀ (r : ↑(X.presheaf.obj (Opposite.op U))), (ZInQ.Manuscript.RC.X0Branch.affineEval (↑p) U hp) r ∈ Set.range ⇑ι) :
+  ∃ x, ZInQ.Manuscript.RC.PreparedParam.FieldPoint.map ι x = p
+ZInQ.Manuscript.RC.CMField2.chart_mem (N : ℕ) [NeZero N] (τ : UpperHalfPlane) :
+  (ZInQ.Manuscript.RC.X0Model.complexPoint N τ) default ∈ ZInQ.Manuscript.RC.X0Branch.finiteChart N
+ZInQ.Manuscript.RC.CMField2.fieldPoint_of_finitePointEval_range (N : ℕ) [NeZero N] (τ : UpperHalfPlane) {F : Type}
+  [Field F] [Algebra ℚ F] (ι : F →ₐ[ℚ] ℂ)
+  (he :
+    ∀
+      (r :
+        ↑((ZInQ.Manuscript.RC.X0Model.curve N).presheaf.obj (Opposite.op (ZInQ.Manuscript.RC.X0Branch.finiteChart N)))),
+      (ZInQ.Manuscript.RC.X0Branch.finitePointEval N τ) r ∈ Set.range ⇑ι) :
+  ∃ x, ZInQ.Manuscript.RC.PreparedParam.FieldPoint.map ι x = (ZInQ.Manuscript.RC.X0Branch.model N).complexPoint τ
+ZInQ.Manuscript.RC.CMField2.fieldPoint_iff_finitePointEval_range (N : ℕ) [NeZero N] (τ : UpperHalfPlane) {F : Type}
+  [Field F] [Algebra ℚ F] (ι : F →ₐ[ℚ] ℂ) :
+  (∃ x, ZInQ.Manuscript.RC.PreparedParam.FieldPoint.map ι x = (ZInQ.Manuscript.RC.X0Branch.model N).complexPoint τ) ↔
+    ∀
+      (r :
+        ↑((ZInQ.Manuscript.RC.X0Model.curve N).presheaf.obj (Opposite.op (ZInQ.Manuscript.RC.X0Branch.finiteChart N)))),
+      (ZInQ.Manuscript.RC.X0Branch.finitePointEval N τ) r ∈ Set.range ⇑ι
+ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_of (N : ℕ) [NeZero N] (hm : SingularModulusMemRingClass)
+  (hb : BranchDescends N) : ZInQ.Manuscript.RC.PreparedParam.CMFieldOfDefinition (ZInQ.Manuscript.RC.X0Branch.model N)
+ZInQ.Manuscript.RC.CMField2.fieldPoint_of_eval_mem_adjoin_coordinates (N : ℕ) [NeZero N] (τ : UpperHalfPlane) {F : Type}
+  [Field F] [Algebra ℚ F] (ι : F →ₐ[ℚ] ℂ) (hj : ZInQ.Manuscript.RC.X0Model.analyticJ τ ∈ Set.range ⇑ι)
+  (hjn : ZInQ.Manuscript.RC.X0Model.analyticJN N τ ∈ Set.range ⇑ι)
+  (ha :
+    ∀
+      (r :
+        ↑((ZInQ.Manuscript.RC.X0Model.curve N).presheaf.obj (Opposite.op (ZInQ.Manuscript.RC.X0Branch.finiteChart N)))),
+      (ZInQ.Manuscript.RC.X0Branch.finitePointEval N τ) r ∈
+        ℚ⟮ZInQ.Manuscript.RC.X0Model.analyticJ τ, ZInQ.Manuscript.RC.X0Model.analyticJN N τ⟯) :
+  ∃ x, ZInQ.Manuscript.RC.PreparedParam.FieldPoint.map ι x = (ZInQ.Manuscript.RC.X0Branch.model N).complexPoint τ
+ZInQ.Manuscript.RC.CMField2.fieldPoint_of_eval_rational_in_coordinates (N : ℕ) [NeZero N] (τ : UpperHalfPlane)
+  {F : Type} [Field F] [Algebra ℚ F] (ι : F →ₐ[ℚ] ℂ) (hj : ZInQ.Manuscript.RC.X0Model.analyticJ τ ∈ Set.range ⇑ι)
+  (hjn : ZInQ.Manuscript.RC.X0Model.analyticJN N τ ∈ Set.range ⇑ι)
+  (hr :
+    have e :=
+      Polynomial.eval₂RingHom (Polynomial.eval₂RingHom (Rat.castHom ℂ) (ZInQ.Manuscript.RC.X0Model.analyticJ τ))
+        (ZInQ.Manuscript.RC.X0Model.analyticJN N τ);
+    ∀
+      (r :
+        ↑((ZInQ.Manuscript.RC.X0Model.curve N).presheaf.obj (Opposite.op (ZInQ.Manuscript.RC.X0Branch.finiteChart N)))),
+      ∃ p q, e q ≠ 0 ∧ (ZInQ.Manuscript.RC.X0Branch.finitePointEval N τ) r * e q = e p) :
+  ∃ x, ZInQ.Manuscript.RC.PreparedParam.FieldPoint.map ι x = (ZInQ.Manuscript.RC.X0Branch.model N).complexPoint τ
+ZInQ.Manuscript.RC.CMField2.BranchDescends (N : ℕ) [NeZero N] : Prop
+ZInQ.Manuscript.RC.CMField2.proper_iff_isUnit {k : Type} [Field k] [NumberField k]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder k) (hk : Module.finrank ℚ k = 2)
+  (I : FractionalIdeal (nonZeroDivisors ↥O.toSubalgebra) k) : O.IsProperFractionalIdeal I ↔ IsUnit I
+ZInQ.Manuscript.RC.CMField2.exists_singularModulus_of_exact_multiplier {k : Type} [Field k] [NumberField k]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder k) (hk : Module.finrank ℚ k = 2)
+  (hc : NumberField.IsTotallyComplex k) (κ : k →+* ℂ) (L : PeriodPair)
+  (h : ∀ (z : ℂ), (∀ x ∈ L.lattice, z * x ∈ L.lattice) ↔ z ∈ ⇑κ '' ↑O.toSubalgebra) :
+  ∃ I, L.jLattice = singularModulus O hk hc κ I
+ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_over_base_le_of_mem (hm : SingularModulusMemRingClass) {K : Type}
+  [Field K] [NumberField K] (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (I : O.invertibleProperFractionalIdeals) :
+  let this := κ.toAlgebra;
+  Module.finrank K ↥K⟮singularModulus O hk hc κ I⟯ ≤ Nat.card (TauCeti.GlobalNumberFields.Pic O)
+ZInQ.Manuscript.RC.CMField2.discr_of_basis_one {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (b : Module.Basis (Fin 2) ℤ ↥O.toSubalgebra) (hb : b 0 = 1) :
+  ∃ t u, ↑(b 1) ^ 2 - ↑t * ↑(b 1) + ↑u = 0 ∧ O.discr = t ^ 2 - 4 * u
+ZInQ.Manuscript.RC.CMField2.exists_heegner_generator {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) {A B C d : ℤ} (hD : O.discr = d) (hd : d < 0) (hform : B ^ 2 - 4 * A * C = d) :
+  ∃ κ,
+    ∃ ω ∈ O.toSubalgebra,
+      (∀ (x : ↥O.toSubalgebra), ∃ u v, ↑x = ↑u + ↑v * ω) ∧
+        ω ^ 2 + ↑B * ω + ↑A * ↑C = 0 ∧ κ ω = (-↑B + Complex.I * ↑√(-↑d)) / 2
+ZInQ.Manuscript.RC.CMField2.exists_heegner_generator_in_embedding {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) {A B C d : ℤ} (hD : O.discr = d) (hd : d < 0)
+  (hform : B ^ 2 - 4 * A * C = d) :
+  ∃ ω ∈ O.toSubalgebra,
+    (∀ (x : ↥O.toSubalgebra), ∃ u v, ↑x = ↑u + ↑v * ω) ∧
+      ω ^ 2 + ↑B * ω + ↑A * ↑C = 0 ∧ κ ω = (-↑B + Complex.I * ↑√(-↑d)) / 2
+ZInQ.Manuscript.RC.CMField2.exists_homothetic_of_jLattice_eq (L M : PeriodPair) (h : L.jLattice = M.jLattice) :
+  ∃ u, (L.scale u).lattice = M.lattice
+ZInQ.Manuscript.RC.CMField2.exists_int_eq_of_real_multiplier (L : PeriodPair) (z : ℂ) (hz : z.im = 0)
+  (h : ∀ x ∈ L.lattice, z * x ∈ L.lattice) : ∃ n, z = ↑n
+ZInQ.Manuscript.RC.CMField2.conjugate_has_nonreal_multiplier_of_root.{u_1} {F : Type u_1} [Field F] (x : F)
+  (e f : F →+* ℂ) (N : ℕ) [NeZero N] (P : ModularCurve.ModularPolynomialData N) (hNsq : ¬IsSquare N)
+  (hroot : (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) (e x)) P.Φ).IsRoot (e x)) :
+  ∃ τ,
+    ZInQ.Manuscript.RC.X0Model.analyticJ τ = f x ∧
+      have L := PeriodPair.ofTau τ;
+      ∃ u,
+        (↑u).im ≠ 0 ∧
+          (L.scale u).lattice ≤ L.lattice ∧
+            L.sublatticeIndex (L.scale u) = N ∧ IsAddCyclic (L.sublatticeQuotient (L.scale u))
+ZInQ.Manuscript.RC.CMField2.singularModulus_reduction_pow_eq_of_split {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (I : O.invertibleProperFractionalIdeals) (p : ℕ)
+  [Fact (Nat.Prime p)] (J : ↥(TauCeti.GlobalNumberFields.integralIdealsPrimeTo O.conductorModulus)) [(↑J).IsMaximal]
+  (hdegree : Ideal.absNorm ↑J = p)
+  (hsplit :
+    ((↑J).primesOver (NumberField.RingOfIntegers ↥(TauCeti.ClassFieldTheory.ringClassField O))).ncard =
+      Module.finrank K ↥(TauCeti.ClassFieldTheory.ringClassField O))
+  {A k : Type} [CommRing A] [Field k] [CharP k p] (ι : A →+* ℂ) (hι : Function.Injective ⇑ι) (r : A →+* k) (x : A)
+  (hx : ι x = singularModulus O hk hc κ I) : r x ^ p = r x
+ZInQ.Manuscript.RC.CMField2.conjugateSingularModulus_of_exactMultiplier
+  (h : ExactMultiplierOrderOfDiagonalMultiplicities) : ConjugateSingularModulus
+ZInQ.Manuscript.RC.CMField2.ExactMultiplierOrderOfDiagonalMultiplicities : Prop
+ZInQ.Manuscript.RC.CMField2.finiteChart_finiteTest (N : ℕ) [NeZero N] :
+  ∃ s,
+    ∀ (τ : UpperHalfPlane) (F : Type) [inst : Field F] [inst_1 : Algebra ℚ F] (ι : F →ₐ[ℚ] ℂ),
+      ZInQ.Manuscript.RC.X0Model.analyticJ τ ∈ Set.range ⇑ι →
+        (∀ r ∈ s, (ZInQ.Manuscript.RC.X0Branch.finitePointEval N τ) r ∈ Set.range ⇑ι) →
+          ∀
+            (r :
+              ↑((ZInQ.Manuscript.RC.X0Model.curve N).presheaf.obj
+                  (Opposite.op (ZInQ.Manuscript.RC.X0Branch.finiteChart N)))),
+            (ZInQ.Manuscript.RC.X0Branch.finitePointEval N τ) r ∈ Set.range ⇑ι
+ZInQ.Manuscript.RC.CMField2.finitePointEval_one_mem_range (τ : UpperHalfPlane) {F : Type} [Field F] [Algebra ℚ F]
+  (ι : F →ₐ[ℚ] ℂ) (h : ZInQ.Manuscript.RC.X0Model.analyticJ τ ∈ Set.range ⇑ι)
+  (r : ↑((ZInQ.Manuscript.RC.X0Model.curve 1).presheaf.obj (Opposite.op (ZInQ.Manuscript.RC.X0Branch.finiteChart 1)))) :
+  (ZInQ.Manuscript.RC.X0Branch.finitePointEval 1 τ) r ∈ Set.range ⇑ι
+ZInQ.Manuscript.RC.CMField2.modelOne_fieldPoint_of_analyticJ (τ : UpperHalfPlane) {F : Type} [Field F] [Algebra ℚ F]
+  (ι : F →ₐ[ℚ] ℂ) (h : ZInQ.Manuscript.RC.X0Model.analyticJ τ ∈ Set.range ⇑ι) :
+  ∃ x, ZInQ.Manuscript.RC.PreparedParam.FieldPoint.map ι x = ZInQ.Manuscript.RC.X0Model2.modelOne.complexPoint τ
+ZInQ.Manuscript.RC.CMField2.exists_multiplier_basis_one (L : PeriodPair) (z : ↥(periodMultipliers L))
+  (hz : (↑z).im ≠ 0) : ∃ η, (↑η).im ≠ 0 ∧ ∀ (w : ↥(periodMultipliers L)), ∃ a b, ↑w = ↑a + ↑b * ↑η
+ZInQ.Manuscript.RC.CMField2.exists_normalized_multiplier (L : PeriodPair) (z : ↥(periodMultipliers L))
+  (hz : (↑z).im ≠ 0) :
+  ∃ η t u,
+    (↑η).im ≠ 0 ∧
+      (t = 0 ∨ t = 1) ∧
+        1 ≤ u ∧ ↑t = 2 * (↑η).re ∧ ↑u = Complex.normSq ↑η ∧ ∀ (w : ↥(periodMultipliers L)), ∃ a b, ↑w = ↑a + ↑b * ↑η
+ZInQ.Manuscript.RC.CMField2.periodMultipliers_scale (L : PeriodPair) (v : ℂˣ) :
+  periodMultipliers (L.scale v) = periodMultipliers L
+ZInQ.Manuscript.RC.CMField2.periodMultipliers_eq_of_jLattice_eq (L M : PeriodPair) (h : L.jLattice = M.jLattice) :
+  periodMultipliers L = periodMultipliers M
+ZInQ.Manuscript.RC.CMField2.formIdeal_coe {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (a : ℤ) (ω : K) :
+  ↑(formIdeal O a ω) = Submodule.span ↥O.toSubalgebra {↑a, ω}
+ZInQ.Manuscript.RC.CMField2.formIdeal_restrictScalars {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (a B c : ℤ) (ω : K)
+  (hgen : ∀ (x : ↥O.toSubalgebra), ∃ u v, ↑x = ↑u + ↑v * ω) (hω : ω ^ 2 + ↑B * ω + ↑a * ↑c = 0) :
+  Submodule.restrictScalars ℤ ↑(formIdeal O a ω) = pairLattice a ω
+ZInQ.Manuscript.RC.CMField2.formIdeal_mul_conjugate {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (a B c : ℤ) (ω : K) (hmem : ω ∈ O.toSubalgebra)
+  (hω : ω ^ 2 + ↑B * ω + ↑a * ↑c = 0) {u v w : ℤ} (hbez : u * a + v * B + w * c = 1) :
+  formIdeal O a ω * formIdeal O a (-↑B - ω) = (FractionalIdeal.spanSingleton (nonZeroDivisors ↥O.toSubalgebra)) ↑a
+ZInQ.Manuscript.RC.CMField2.formIdeal_isUnit {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (a B c : ℤ) (ω : K) (hmem : ω ∈ O.toSubalgebra) (ha : a ≠ 0)
+  (hprim : (↑(a.gcd B)).gcd c = 1) (hω : ω ^ 2 + ↑B * ω + ↑a * ↑c = 0) : IsUnit (formIdeal O a ω)
+ZInQ.Manuscript.RC.CMField2.analyticJ_eq_singularModulus_of_generator {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) {a B c d : ℤ} (ha : 0 < a) (hd : d < 0) (ω : K)
+  (hmem : ω ∈ O.toSubalgebra) (hgen : ∀ (x : ↥O.toSubalgebra), ∃ u v, ↑x = ↑u + ↑v * ω)
+  (hω : ω ^ 2 + ↑B * ω + ↑a * ↑c = 0) (he : κ ω = (-↑B + Complex.I * ↑√(-↑d)) / 2) (hprim : (↑(a.gcd B)).gcd c = 1) :
+  ∃ J, ZInQ.Manuscript.RC.X0Model.analyticJ (ZInQ.Contrib.CloudB3RC53.CST.cmPoint a B d) = singularModulus O hk hc κ J
+ZInQ.Manuscript.RC.CMField2.formIdeal_mul_scaled {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) {N A B C a : ℤ} (ω : K) (ha : A = N * a) (hcop : IsCoprime N B)
+  (hgen : ∀ (x : ↥O.toSubalgebra), ∃ u v, ↑x = ↑u + ↑v * ω) (hω : ω ^ 2 + ↑B * ω + ↑A * ↑C = 0) :
+  formIdeal O N ω * formIdeal O a ω = formIdeal O A ω
+ZInQ.Manuscript.RC.CMField2.formIdeal_scaled_eq_levelInverse_mul {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) {N A B C a : ℤ} (ω : K) (ha : A = N * a) (hN : N ≠ 0)
+  (hcop : IsCoprime N B) (hmem : ω ∈ O.toSubalgebra) (hgen : ∀ (x : ↥O.toSubalgebra), ∃ u v, ↑x = ↑u + ↑v * ω)
+  (hω : ω ^ 2 + ↑B * ω + ↑A * ↑C = 0) : ∃ J, ↑J = formIdeal O N ω ∧ formIdeal O a ω = ↑J⁻¹ * formIdeal O A ω
+ZInQ.Manuscript.RC.CMField2.exists_heegner_singularModuli_in_embedding {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) {N : ℕ} [NeZero N] {d A B C : ℤ} (hD : O.discr = d) (hd : d < 0)
+  (hcop : IsCoprime d ↑N) (hf : ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm N d A B C) :
+  ∃ I J,
+    ZInQ.Manuscript.RC.X0Model.analyticJ (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) = singularModulus O hk hc κ I ∧
+      ZInQ.Manuscript.RC.X0Model.analyticJN N (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) = singularModulus O hk hc κ J
+ZInQ.Manuscript.RC.CMField2.exists_heegner_singularModuli {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) {N : ℕ} [NeZero N] {d A B C : ℤ} (hD : O.discr = d) (hd : d < 0)
+  (hcop : IsCoprime d ↑N) (hf : ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm N d A B C) :
+  ∃ κ I J,
+    ZInQ.Manuscript.RC.X0Model.analyticJ (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) = singularModulus O hk hc κ I ∧
+      ZInQ.Manuscript.RC.X0Model.analyticJN N (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) = singularModulus O hk hc κ J
+ZInQ.Manuscript.RC.CMField2.splitPrime_of_frob_fixes_ringClass {K E : Type} [Field K] [NumberField K] [Field E]
+  [NumberField E] (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) [Algebra K E]
+  [Algebra (↥(TauCeti.ClassFieldTheory.ringClassField O)) E]
+  [IsScalarTower K (↥(TauCeti.ClassFieldTheory.ringClassField O)) E] (p : ℕ) [Fact (Nat.Prime p)]
+  (Q : Ideal (NumberField.RingOfIntegers E)) [Q.IsMaximal] [Q.LiesOver (Ideal.span {↑p})]
+  (hp : Ideal.absNorm O.conductor < p) {σ : Gal(E/ℚ)} (hσ : IsArithFrobAt ℤ σ Q)
+  (hfix :
+    ∀ (x : ↥(TauCeti.ClassFieldTheory.ringClassField O)),
+      σ ((algebraMap (↥(TauCeti.ClassFieldTheory.ringClassField O)) E) x) =
+        (algebraMap (↥(TauCeti.ClassFieldTheory.ringClassField O)) E) x) :
+  ∃ J,
+    ∃ (_ : (↑J).IsMaximal),
+      Ideal.absNorm ↑J = p ∧
+        ((↑J).primesOver (NumberField.RingOfIntegers ↥(TauCeti.ClassFieldTheory.ringClassField O))).ncard =
+          Module.finrank K ↥(TauCeti.ClassFieldTheory.ringClassField O)
+ZInQ.Manuscript.RC.CMField2.singularModulusMemRingClass : SingularModulusMemRingClass
+ZInQ.Manuscript.RC.CMField2.branchDescends_one : BranchDescends 1
+ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_modelOne_of (hm : SingularModulusMemRingClass) :
+  ZInQ.Manuscript.RC.PreparedParam.CMFieldOfDefinition ZInQ.Manuscript.RC.X0Model2.modelOne
+ZInQ.Manuscript.RC.CMField2.heegner_coordinates_mem_ringClass_of (hm : SingularModulusMemRingClass) {K : Type} [Field K]
+  [NumberField K] (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) {N : ℕ} [NeZero N] {d A B C : ℤ} (hD : O.discr = d) (hd : d < 0)
+  (hcop : IsCoprime d ↑N) (hf : ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm N d A B C) :
+  ∃ ι,
+    ZInQ.Manuscript.RC.X0Model.analyticJ (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) ∈ Set.range ⇑ι ∧
+      ZInQ.Manuscript.RC.X0Model.analyticJN N (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) ∈ Set.range ⇑ι
+ZInQ.Manuscript.RC.CMField2.diagonal_root_iff_primitive_norm (L : PeriodPair) (m : ℕ) [NeZero m] (hm : 1 < m)
+  (P : ModularCurve.ModularPolynomialData m) (z : ↥(periodMultipliers L)) (hz : (↑z).im ≠ 0) (t u : ℤ)
+  (ht : ↑t = 2 * (↑z).re) (hu : ↑u = Complex.normSq ↑z)
+  (hbas : ∀ (w : ↥(periodMultipliers L)), ∃ a b, ↑w = ↑a + ↑b * ↑z) :
+  (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) L.jLattice) P.Φ).IsRoot L.jLattice ↔
+    ↑m ∈ primitiveNormLevels t u
+ZInQ.Manuscript.RC.CMField2.periodMultipliers_idealPeriod {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (I : O.invertibleProperFractionalIdeals) (z : ℂ) :
+  z ∈ periodMultipliers (idealPeriod O hk hc κ I) ↔ z ∈ ⇑κ '' ↑O.toSubalgebra
+ZInQ.Manuscript.RC.CMField2.exactMultiplierOrderOfDiagonalMultiplicities : ExactMultiplierOrderOfDiagonalMultiplicities
+ZInQ.Manuscript.RC.CMField2.conjugateSingularModulus : ConjugateSingularModulus
+ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_le {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (I : O.invertibleProperFractionalIdeals) :
+  Module.finrank ℚ ↥ℚ⟮singularModulus O hk hc κ I⟯ ≤ Nat.card (TauCeti.GlobalNumberFields.Pic O)
+ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_over_base_le {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ) (I : O.invertibleProperFractionalIdeals) :
+  Module.finrank K ↥K⟮singularModulus O hk hc κ I⟯ ≤ Nat.card (TauCeti.GlobalNumberFields.Pic O)
+ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition (N : ℕ) [NeZero N] (hb : BranchDescends N) :
+  ZInQ.Manuscript.RC.PreparedParam.CMFieldOfDefinition (ZInQ.Manuscript.RC.X0Branch.model N)
+ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_modelOne :
+  ZInQ.Manuscript.RC.PreparedParam.CMFieldOfDefinition ZInQ.Manuscript.RC.X0Model2.modelOne
+ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_one :
+  ZInQ.Manuscript.RC.PreparedParam.CMFieldOfDefinition (ZInQ.Manuscript.RC.X0Branch.model 1)
+ZInQ.Manuscript.RC.CMField2.heegner_coordinates_mem_ringClass {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) {N : ℕ} [NeZero N] {d A B C : ℤ} (hD : O.discr = d) (hd : d < 0)
+  (hcop : IsCoprime d ↑N) (hf : ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm N d A B C) :
+  ∃ ι,
+    ZInQ.Manuscript.RC.X0Model.analyticJ (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) ∈ Set.range ⇑ι ∧
+      ZInQ.Manuscript.RC.X0Model.analyticJN N (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d) ∈ Set.range ⇑ι
+ZInQ.Manuscript.RC.CMField2.eq_cmPoint_of_quadratic {τ : UpperHalfPlane} {A B C d : ℤ} (hA : 0 < A)
+  (hΔ : B ^ 2 - 4 * A * C = d) (hroot : ↑A * ↑τ ^ 2 + ↑B * ↑τ + ↑C = 0) :
+  d < 0 ∧ τ = ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d
+ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_le_of_primitive_equation {K : Type} [Field K] [NumberField K]
+  (O : TauCeti.GlobalNumberFields.NumberFieldOrder K) (hk : Module.finrank ℚ K = 2)
+  (hc : NumberField.IsTotallyComplex K) {τ : UpperHalfPlane} {A B C d : ℤ} (hD : O.discr = d) (hA : 0 < A)
+  (hΔ : B ^ 2 - 4 * A * C = d) (hprim : (↑(A.gcd B)).gcd C = 1) (hroot : ↑A * ↑τ ^ 2 + ↑B * ↑τ + ↑C = 0) :
+  Module.finrank ℚ ↥ℚ⟮ZInQ.Manuscript.RC.X0Model.analyticJ τ⟯ ≤ Nat.card (TauCeti.GlobalNumberFields.Pic O)
+def ZInQ.Manuscript.RC.CMField2.ConjugateSingularModulus : Prop :=
+∀ (K : Type) [inst : Field K] [inst_1 : NumberField K] (O : TauCeti.GlobalNumberFields.NumberFieldOrder K)
+  (hk : Module.finrank ℚ K = 2) (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ)
+  (I : O.invertibleProperFractionalIdeals) (σ : ↥ℚ⟮singularModulus O hk hc κ I⟯ →ₐ[ℚ] ℂ),
+  ∃ J, σ (IntermediateField.AdjoinSimple.gen ℚ (singularModulus O hk hc κ I)) = singularModulus O hk hc κ J
+def ZInQ.Manuscript.RC.CMField2.ExactMultiplierOrderOfDiagonalMultiplicities : Prop :=
+∀ (K : Type) [inst : Field K] [inst_1 : NumberField K] (O : TauCeti.GlobalNumberFields.NumberFieldOrder K)
+  (hk : Module.finrank ℚ K = 2) (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ)
+  (I : O.invertibleProperFractionalIdeals) (L : PeriodPair),
+  (∀ (m : ℕ) [inst_2 : NeZero m] (P : ModularCurve.ModularPolynomialData m),
+      have j := singularModulus O hk hc κ I;
+      Polynomial.rootMultiplicity j (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) j) P.Φ) =
+        Polynomial.rootMultiplicity L.jLattice
+          (Polynomial.map (Polynomial.eval₂RingHom (Int.castRingHom ℂ) L.jLattice) P.Φ)) →
+    ∀ (z : ℂ), (∀ w ∈ L.lattice, z * w ∈ L.lattice) ↔ z ∈ ⇑κ '' ↑O.toSubalgebra
+def ZInQ.Manuscript.RC.CMField2.SingularModulusMemRingClass : Prop :=
+∀ (K : Type) [inst : Field K] [inst_1 : NumberField K] (O : TauCeti.GlobalNumberFields.NumberFieldOrder K)
+  (hk : Module.finrank ℚ K = 2) (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ),
+  ∃ ι,
+    ι.comp (algebraMap K ↥(TauCeti.ClassFieldTheory.ringClassField O)) = κ ∧
+      ∀ (I : O.invertibleProperFractionalIdeals), singularModulus O hk hc κ I ∈ Set.range ⇑ι
+def ZInQ.Manuscript.RC.CMField2.BranchDescends : (N : ℕ) → [NeZero N] → Prop :=
+fun N [NeZero N] =>
+  ∀ (K : Type) [inst_1 : Field K] [inst_2 : NumberField K] (O : TauCeti.GlobalNumberFields.NumberFieldOrder K)
+    (hk : Module.finrank ℚ K = 2) (hc : NumberField.IsTotallyComplex K) (κ : K →+* ℂ)
+    (ι : ↥(TauCeti.ClassFieldTheory.ringClassField O) →+* ℂ),
+    ι.comp (algebraMap K ↥(TauCeti.ClassFieldTheory.ringClassField O)) = κ →
+      (∀ (I : O.invertibleProperFractionalIdeals), singularModulus O hk hc κ I ∈ Set.range ⇑ι) →
+        ∀ (d A B C : ℤ),
+          O.discr = d →
+            d < 0 →
+              IsCoprime d ↑N →
+                ZInQ.Contrib.CloudB3RC53.CST.IsHeegnerForm N d A B C →
+                  ∀
+                    (r :
+                      ↑((ZInQ.Manuscript.RC.X0Model.curve N).presheaf.obj
+                          (Opposite.op (ZInQ.Manuscript.RC.X0Branch.finiteChart N)))),
+                    (ZInQ.Manuscript.RC.X0Branch.finitePointEval N (ZInQ.Contrib.CloudB3RC53.CST.cmPoint A B d)) r ∈
+                      Set.range ⇑ι

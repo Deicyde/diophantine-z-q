@@ -1,0 +1,7 @@
+**Verdict:** Lean constructs the actual finite cuspidal column lists for one tested set and places them over one finite extension of the fixed completion. The moving and unary factors vanish at every cusp; their weight-two products are therefore cuspidal, so the Eisenstein list can be empty. The lists keep each source's level and character and the old degree, and the compatible complex embedding recovers each positive coefficient.
+
+Inherited manuscript error: tex 8162–8167 omits the base coefficient in the multiplier shorthand. The exact formulas at tex 8168–8182 are used. Tex 9654 is correct about holomorphy alone; cuspidality here uses the stronger cusp limits. No new manuscript error was identified.
+
+All ten new modules compile. The audit of 47 theorems, including private helpers, has only `propext`, `Classical.choice` and `Quot.sound`. See [report](../docs/research/rc-even-inventory.md) and [audit](../scratch/rc-even-inventory/axioms.txt).
+
+The first remaining step is a single independent `BlocksPerU.Inventory` that retains the intrinsic level and character spans of the actual lists (tex 9650–9652, 9754–9764). Then attach the cuspidal Galois data and build the lattice from Hecke and diamond translates. The new span and descent lemmas give the scoped coordinate comparison from the constructor's column and seed identities; no actual scoped carrier was instantiated. Keep `BudgetRealizationScoped`. No work was done on deletion, and no registered count or existing Lean file changed.

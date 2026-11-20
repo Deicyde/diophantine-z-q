@@ -1,0 +1,11 @@
+- Merged the specified pool character dependency on the pinned theta stage base.
+- `etaSource`: elliptic conductor root product times detecting quadratic factor, with the inherited exceptional zero extension.
+- `etaSource_eq`: extraction Legendre product equals the genus sign on odd extraction units; the genus sign squares to one. Off the exceptional units both phases are zero.
+- `poolPhase_eval`: reduce the canonical representative to the same local residue factors and apply the full (O.5) phase formula.
+- `actualEta_reduce`: map the characteristic-zero equality to the stage quotient. `actualLift_order`: two-power order on stage good primes.
+- `actual_hchar`: apply the existing pool identification with one coefficient embedding. `actualOldStageLaw`: grid and finite action remain original named inputs.
+- Serial imported-module build completed.
+- `Local.lean`: `lake env lean -j1` passed; ten theorem audits passed.
+- `Pool.lean`: `lake env lean -j1` passed; four theorem audits passed.
+- `Actual.lean`: `lake env lean -j1` passed; five theorem audits passed.
+- Theorem axioms: subsets of `propext`, `Classical.choice`, `Quot.sound`; no additional axioms or prints.

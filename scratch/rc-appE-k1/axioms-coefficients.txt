@@ -1,0 +1,10 @@
+ 23:54:50 up  5:44,  6 users,  load average: 7.10, 8.16, 6.26
+               total        used        free      shared  buff/cache   available
+Mem:             235          98          15           0         125         137
+Swap:            255           2         253
+'ZInQ.Manuscript.RC.AppEK1.weightedMap_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.weightedMap_invDeck' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.weightedMap_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.specialize_familyMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.weightedMap_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.weightedMap_fullWeight_single' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,12 @@
+- Base: `4a4b58be84b4739ec9d4e6275fef0047e8a4bcca`.
+- `AppE.evenPhaseData_of_prints` produces (E.10)–(E.12) data, not the Kato/Selmer scalar. `AuxInputs.sourceFamily_of_prints` also needs (E.9); `Even.evenLowerBound_of_evenScalar32` goes from (3.2) to (E.9).
+- Existing construction frontier: `Even.AppEFromKato` at `Ecurve ℓ`, `N₀ ℓ`, `C`; first missing arithmetic stage is the retained class (K1) and its comparisons (K2) and (K3).
+- Known manuscript issue ER1 (tex 2360–2361, 10131–10132): a type with root number −1 cannot have a nonzero reference or a unit seed; see `docs/research/rc-aux-inputs.md`.
+- `det_rows_eq_zero_iff`: `det ![a,w] = 0 ↔ ∃ c, w = c • a` for `a ≠ 0`.
+- `central_zero_iff_of_wedge`: `ker exp = span {a}`, specialized wedge with nonzero determinant basis, and a nonzero reciprocity factor yield `u = 0 ↔ L = 0`.
+- `appEOutputs_of_kato_fixed`: `KatoZetaLeaf`, `CMjInteger`, positive `ℓ` and `AppEFromKato` at `N₀ ℓ` give `AppEOutputs` there.
+- `evenScalar32_of_kato_fixed`: the same inputs, `BCDTThmA` and `C.Lstar = W.Lstar` give `EvenScalar32 (Ecurve ℓ) (N₀ ℓ) C ∧ Scalar32 W`.
+- `Central.lean` and `Fixed.lean`: passed individually with one Lean job in the Lake environment. Each of the four `#print axioms` outputs is `[propext, Classical.choice, Quot.sound]`.
+- `outerWitness_of_completed_coefficients`: characterwise `InLamHalf` and genuine completed-ring membership of the cleared group coefficients give the integral coefficient witness at the same exponent.
+- `Clearing.lean`: passed with `lake env lean -j1`; `#print axioms outerWitness_of_completed_coefficients` returned `[propext, Classical.choice, Quot.sound]`.
+- Verification: one Lean job at a time; host load and available memory checked for each. No new prints.

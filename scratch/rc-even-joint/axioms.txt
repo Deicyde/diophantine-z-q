@@ -1,0 +1,27 @@
+'ZInQ.Manuscript.RC.EvenJoin.jointCut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.fixingSubgroup_jointCut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.joint_restriction_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.JointQuotient.0.ZInQ.Manuscript.RC.EvenJoin.inertia_fixes_cut' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.joint_frobenius' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.JointPlace.0.ZInQ.Manuscript.RC.EvenJoin.valuationAbsoluteValue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.JointPlace.0.ZInQ.Manuscript.RC.EvenJoin.spectralNorm_eq_valuation_of_algHom' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.finite_valued_compositum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.fixed_place_joint_extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.evenOmissionSign' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.evenOmissionSign_flip' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.omission_reading_scoped' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.JointConsumer.0.ZInQ.Manuscript.RC.EvenJoin.exists_character_cut' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.reduced_trace_of_class' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.JointConsumer.0.ZInQ.Manuscript.RC.EvenJoin.reading_eq_orbit_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.o12_of_joined_scoped' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.rules_and_seed_of_joined_joint' depends on axioms: [propext, Classical.choice, Quot.sound]

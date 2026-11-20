@@ -1,0 +1,46 @@
+'_private.ZInQKernel.Contrib.OneProof.RC.KappaRational2.Periods.0.ZInQ.Manuscript.RC.KappaRational2.primitive_tendsto_translate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KappaRational2.Periods.0.ZInQ.Manuscript.RC.KappaRational2.lattice_submodule_alternatives' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.no_integral_period_scaling' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.periodSubmodule' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.scaled_periods_clear_lattice' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.rational_of_reference_scale' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.rational_of_matching_coeffs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.reference_scale_of_jacobian_values' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.rational_of_jacobian_values' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.prepared_values_of_reference_scale' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.missing_values_of_reference_scale' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.ring_values_of_reference_scale' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.genus_values_of_reference_scale' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.hElkikMD_of_reference_scale' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.newformPeriodsRational_of_modularToWeakWeil' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KappaRational2.rational_of_modularToWeakWeil' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

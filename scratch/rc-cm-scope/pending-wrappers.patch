@@ -1,0 +1,640 @@
+diff --git a/ZInQKernel/Contrib/OneProof/RC/CMScope/Evaluation.lean b/ZInQKernel/Contrib/OneProof/RC/CMScope/Evaluation.lean
+new file mode 100644
+index 000000000..6f69b9573
+--- /dev/null
++++ b/ZInQKernel/Contrib/OneProof/RC/CMScope/Evaluation.lean
+@@ -0,0 +1,33 @@
++import ZInQKernel.Contrib.OneProof.RC.CMScope.Field
++import ZInQKernel.Contrib.OneProof.RC.PreparedParam.Parametrization
++
++open AlgebraicGeometry CategoryTheory WeierstrassCurve
++  ZInQ.Contrib.CloudB3RC53.CST ZInQ.Manuscript.RC.PreparedParam
++
++namespace ZInQ.Manuscript.RC.CMScope
++
++open Classical in
++/-- The rational evaluation in tex 2917 only needs descent of the single
++point being evaluated. This is the pointwise step in
++`PreparedParam.value_of_cmFieldOfDefinition` (c). -/
++theorem value_of_cmPoint {E : WeierstrassCurve ℚ} [E.IsElliptic]
++    [NeZero (newformLevel E)] {X : X0Model (newformLevel E)}
++    {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}
++    {Lat : PeriodPair} {κ : ℂ}
++    (hπ : AlgebraicParametrizationAtScale E X f Lat κ)
++    {H : Type} [Field H] [Algebra ℚ H] (ι : H →ₐ[ℚ] ℂ)
++    (x : FieldPoint X.overQ H) {τ : UpperHalfPlane} (hx : x.map ι = X.complexPoint τ) :
++    ∃ y : (E.baseChange H).toAffine.Point,
++      Affine.Point.map (W' := E.toAffine) ι y = phiAn E f Lat κ τ := by
++  obtain ⟨π, hπQ, -, hcompat⟩ := hπ
++  let u := (x.comp π hπQ).val
++  refine ⟨projectiveValue u, ?_⟩
++  calc
++    _ = projectiveValue (Spec.map (CommRingCat.ofHom ι.toRingHom) ≫ u) :=
++      projectiveValue_map ι u
++    _ = projectiveValue ((x.map ι).comp π hπQ).val := by
++      simp only [u, FieldPoint.comp, FieldPoint.map, Category.assoc]
++    _ = _ := (congrArg (fun z : FieldPoint X.overQ ℂ =>
++      projectiveValue (z.comp π hπQ).val) hx).trans (hcompat _)
++
++end ZInQ.Manuscript.RC.CMScope
+diff --git a/ZInQKernel/Contrib/OneProof/RC/CMScope/Prepared.lean b/ZInQKernel/Contrib/OneProof/RC/CMScope/Prepared.lean
+new file mode 100644
+index 000000000..59cf18bbe
+--- /dev/null
++++ b/ZInQKernel/Contrib/OneProof/RC/CMScope/Prepared.lean
+@@ -0,0 +1,55 @@
++import ZInQKernel.Contrib.OneProof.RC.CMScope.Evaluation
++import ZInQKernel.Contrib.OneProof.RC.CMScope.Orientation
++import ZInQKernel.Contrib.OneProof.RC.HeegnerAnchor.Conductors
++import ZInQKernel.Contrib.OneProof.RC.StageSelector.Selector
++import ZInQKernel.Contrib.CloudB3RC53.Splitting.Criterion
++
++/-! The conductor-one point of tex 2411–2412 and 8209–8217 (c). -/
++
++open NumberField WeierstrassCurve ZInQ.Progressions TauCeti.GlobalNumberFields
++  ZInQ.Contrib.CloudB3RC53 ZInQ.Contrib.CloudB3RC53.CST ZInQ.Contrib.CloudB3RC53.GenusOdd
++  ZInQ.Manuscript.RC.PreparedParam
++
++namespace ZInQ.Manuscript.RC.CMScope
++
++/-- Discriminant coprimality in the form supplied by the local unit classes. -/
++theorem coprime_level {N : ℕ} {d : ℤ}
++    (hloc : ∀ p : ℕ, p.Prime → p ∣ 2 * N → SquareAt p d) : IsCoprime d (N : ℤ) := by
++  apply Int.isCoprime_iff_gcd_eq_one.mpr
++  change d.natAbs.Coprime N
++  exact Nat.coprime_of_dvd fun p hp hpd hpN =>
++    (hloc p hp (dvd_mul_of_dvd_right hpN 2)).1 (Int.natCast_dvd.mpr hpd)
++
++/-- The same prepared values as `PreparedParam.preparedParamValues`,
++specializing scoped descent to the selector's form. -/
++theorem preparedParamValues {E : WeierstrassCurve ℚ} [E.IsElliptic]
++    [NeZero (newformLevel E)] {X : X0Model (newformLevel E)}
++    {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2}
++    {Lat : PeriodPair} {κ : ℂ} (hCM : CMFieldOfDefinitionScoped X)
++    (hπ : AlgebraicParametrizationAtScale E X f Lat κ)
++    (hN : 0 < newformLevel E) {hstar : ℤ} (hgp : GenusPartner E hstar) :
++    ∀ D (hp : Prepared E hstar D), StageSelector.PreparedParamValue E f Lat κ hN hgp hp := by
++  intro D hp
++  obtain ⟨hd, hsq, hloc⟩ := StageSelector.prepared_discriminant hp hgp
++  have h2 := hloc 2 Nat.prime_two (dvd_mul_right 2 _)
++  let _ : Fact (¬ IsSquare ((D * hstar : ℤ) : ℚ)) :=
++    ⟨Qsqrt.not_isSquare_of_squarefree hsq (ne_of_lt (hd.trans zero_lt_one))⟩
++  let K := Qsqrt (D * hstar)
++  have hD : discr K = D * hstar := StageSelector.qsqrt_discr hd hsq h2.mod_four
++  have hs : ∀ p : ℕ, p.Prime → p ∣ 2 * newformLevel E → SplitsIn K p := by
++    intro p hp hpn
++    exact Splitting.splittingCriterion_proof K Qsqrt.finrank p hp (hD.symm ▸ hloc p hp hpn)
++  have h8 : discr K % 8 = 1 := by
++    rw [hD]
++    exact h2.2.1 rfl
++  have hO := HeegnerAnchor.conductorOrder_discr (K := K) Qsqrt.finrank 1
++  have he : discr K * (↑(1 : ℕ) : ℤ) ^ 2 = D * hstar := by simpa using hD
++  have hf' := (StageSelector.formAtLevel hN hgp hp).property
++  obtain ⟨ι, x, hx⟩ := hCM.atForm Qsqrt.finrank (Qsqrt.isTotallyComplex hd) hs
++    (by omega) (by omega) (c := 1) (by simp) hO
++    (by rw [he]; exact hd) (by rw [he]; exact coprime_level hloc)
++    (by rw [he]; exact hf')
++  obtain ⟨y, hy⟩ := value_of_cmPoint hπ ι x hx
++  exact ⟨ι, y, by simpa only [he] using hy⟩
++
++end ZInQ.Manuscript.RC.CMScope
+diff --git a/ZInQKernel/Contrib/OneProof/RC/CMScope/Values.lean b/ZInQKernel/Contrib/OneProof/RC/CMScope/Values.lean
+new file mode 100644
+index 000000000..444ec5272
+--- /dev/null
++++ b/ZInQKernel/Contrib/OneProof/RC/CMScope/Values.lean
+@@ -0,0 +1,111 @@
++import ZInQKernel.Contrib.OneProof.RC.CMScope.Prepared
++import ZInQKernel.Contrib.OneProof.RC.ParamJoin.Assembly
++
++/-! The two value slots at the fixed scale, tex 2411–2416 and 8213–8217.
++The reuse of the existing form and evaluation interfaces is on the spot (c). -/
++
++noncomputable section
++
++open NumberField WeierstrassCurve ZInQ.Progressions TauCeti.GlobalNumberFields
++  ZInQ.Manuscript ZInQ.Manuscript.RC.Wiring ZInQ.Manuscript.SelmerTwoPower
++  ZInQ.Manuscript.RC.PreparedParam
++  ZInQ.Contrib.CloudB3RC53 ZInQ.Contrib.CloudB3RC53.CST ZInQ.Contrib.CloudB3RC53.GenusOdd
++
++namespace ZInQ.Manuscript.RC.CMScope
++
++/-- The conductor-one values in the exact slot used by the (3.4) assembly. -/
++theorem genus_values {ℓ : ℕ} {W : WData ℓ} (P : Prints) (hℓ : 0 < ℓ)
++    {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel (Ecurve ℓ)) :
++      Subgroup (GL (Fin 2) ℝ)) 2}
++    (hf : ∀ n : ℕ, 0 < n → (UpperHalfPlane.qExpansion 1 f).coeff n = ((Ecurve ℓ).LFunction n : ℂ))
++    {Lat : PeriodPair} (hLat : IsLatticeOf (Ecurve ℓ) Lat)
++    {κ : ℂ} (hκ : IsParamScale (newformLevel (Ecurve ℓ)) f Lat κ) (hr : ∃ c : ℚ, (c : ℂ) = κ)
++    (hCM : letI : NeZero (newformLevel (Ecurve ℓ)) := ⟨(Gz34Instance.curve_form P hℓ).1.ne'⟩
++           CMFieldOfDefinitionScoped (X0Branch.model (newformLevel (Ecurve ℓ))))
++    (hpartner : IsGenusPartner ℓ W.hstar)
++    (hlevel0 : ∀ p : ℕ, p.Prime → p ∣ 2 * newformLevel (Ecurve ℓ) → p ∈ S0 ℓ) :
++    ∀ h (hp : Prepared (Ecurve ℓ) W.hstar h),
++      StageSelector.PreparedParamValue (Ecurve ℓ) f Lat κ (Gz34Instance.curve_form P hℓ).1
++        (Gz34Instance.genusPartner_of_support hpartner hlevel0) hp := by
++  let _ := Gz34Instance.curve_elliptic hℓ
++  let _ : NeZero (newformLevel (Ecurve ℓ)) := ⟨(Gz34Instance.curve_form P hℓ).1.ne'⟩
++  exact preparedParamValues hCM (ParamJoin.algebraicParametrizationAtScale f hf hLat hκ hr)
++    (Gz34Instance.curve_form P hℓ).1 (Gz34Instance.genusPartner_of_support hpartner hlevel0)
++
++/-- The companion's selected point lies over the ring class field of the
++order of conductor `|h|`, by the same fixed modular morphism. -/
++theorem ring_values {ℓ : ℕ} (P : Prints) (hℓ : 0 < ℓ)
++    {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel (Ecurve ℓ)) :
++      Subgroup (GL (Fin 2) ℝ)) 2} {Lat : PeriodPair} {κ : ℂ}
++    (hf : ∀ n : ℕ, 0 < n → (UpperHalfPlane.qExpansion 1 f).coeff n = ((Ecurve ℓ).LFunction n : ℂ))
++    (hLat : IsLatticeOf (Ecurve ℓ) Lat)
++    (hκ : IsParamScale (newformLevel (Ecurve ℓ)) f Lat κ) (hr : ∃ c : ℚ, (c : ℂ) = κ)
++    (hCM : letI : NeZero (newformLevel (Ecurve ℓ)) := ⟨(Gz34Instance.curve_form P hℓ).1.ne'⟩
++           CMFieldOfDefinitionScoped (X0Branch.model (newformLevel (Ecurve ℓ)))) {s : ℤ} :
++    ∀ h k (hp : Prepared (Ecurve ℓ) s h) (hk : Companion (Ecurve ℓ) Lat s h k),
++      Gz34Instance.RingParamValue (Ecurve ℓ) f Lat κ (Gz34Instance.curve_form P hℓ).1 hp hk := by
++  let _ := Gz34Instance.curve_elliptic hℓ
++  have hN := (Gz34Instance.curve_form P hℓ).1
++  let _ : NeZero (newformLevel (Ecurve ℓ)) := ⟨hN.ne'⟩
++  intro h k hp hk
++  let _ : Fact (¬ IsSquare (k : ℚ)) :=
++    ⟨Qsqrt.not_isSquare_of_squarefree hk.2.2.1 (ne_of_lt (hk.1.trans zero_lt_one))⟩
++  let _ : NeZero h.natAbs := ⟨Int.natAbs_ne_zero.mpr hp.1.ne'⟩
++  let K := Qsqrt k
++  have hD : discr K = k := StageSelector.qsqrt_discr hk.1 hk.2.2.1 hk.2.1
++  have h8 : discr K % 8 = 1 := by
++    rw [hD]
++    exact (hk.2.2.2.1 2 Nat.prime_two (dvd_mul_of_dvd_left (dvd_mul_right 2 _) _)).2.1 rfl
++  have hNloc := (Gz34Instance.companion_formConditions hp hk).2
++  have hs : ∀ p : ℕ, p.Prime → p ∣ 2 * newformLevel (Ecurve ℓ) → SplitsIn K p := by
++    intro p hp hpn
++    exact Splitting.splittingCriterion_proof K Qsqrt.finrank p hp (hD.symm ▸ hNloc p hp hpn)
++  have hc : h.natAbs.Coprime (2 * newformLevel (Ecurve ℓ) * (discr K).natAbs) := by
++    rw [hD]
++    apply Nat.coprime_of_dvd
++    intro p hprime hph hp'
++    rcases hprime.dvd_mul.mp hp' with hpN | hpk
++    · exact (hp.2.2.1 p hprime hpN).1 (Int.natCast_dvd.mpr hph)
++    · exact (hk.2.2.2.1 p hprime (dvd_mul_of_dvd_right (Int.natCast_dvd.mpr hph) _)).1
++        (Int.natCast_dvd.mpr hpk)
++  have hcN : IsCoprime (h.natAbs : ℤ) (newformLevel (Ecurve ℓ) : ℤ) :=
++    Int.isCoprime_iff_gcd_eq_one.mpr (by
++      simpa using (Gz34Instance.companion_formConditions hp hk).1.symm.gcd_eq_one)
++  have hn : IsCoprime (discr K * (h.natAbs : ℤ) ^ 2) (newformLevel (Ecurve ℓ) : ℤ) := by
++    rw [hD]
++    exact (coprime_level hNloc).mul_left hcN.pow_left
++  have hneg : discr K * (h.natAbs : ℤ) ^ 2 < 0 := by
++    rw [hD]
++    exact mul_neg_of_neg_of_pos hk.1 (pow_pos (by exact_mod_cast NeZero.pos h.natAbs) 2)
++  have hO := HeegnerAnchor.conductorOrder_discr (K := K) Qsqrt.finrank h.natAbs
++  have hf' := (Gz34Instance.companionForm hN hp hk).property
++  obtain ⟨ι, x, hx⟩ := hCM.atForm Qsqrt.finrank (Qsqrt.isTotallyComplex hk.1) hs
++    (by omega) (by omega) hc hO hneg hn (by rw [hD]; exact hf')
++  obtain ⟨y, hy⟩ := value_of_cmPoint (ParamJoin.algebraicParametrizationAtScale f hf hLat hκ hr) ι x hx
++  exact ⟨ι, y, by simpa only [hD] using hy⟩
++
++/-- The existing stage setup provides positive level and the prepared selector's inputs. -/
++theorem prepared_values {ℓ : ℕ} {W : WData ℓ} {I : GenusOddInstance W}
++    {L : ℕ} (s : StageKummer.Setup I L) (hr : ∃ c : ℚ, (c : ℂ) = I.κ)
++    (hCM : letI : NeZero (newformLevel (Ecurve ℓ)) := ⟨(StageKummer.positiveLevel s).ne'⟩
++           CMFieldOfDefinitionScoped (X0Branch.model (newformLevel (Ecurve ℓ)))) :
++    ∀ h (hp : Prepared (Ecurve ℓ) W.hstar h),
++      StageSelector.PreparedParamValue (Ecurve ℓ) I.f I.Lat I.κ
++        (StageKummer.positiveLevel s) I.hgp hp := by
++  let _ : NeZero (newformLevel (Ecurve ℓ)) := ⟨(StageKummer.positiveLevel s).ne'⟩
++  let _ := s.eE
++  exact preparedParamValues hCM (ModFnClassify.curve_algebraicParametrizationAtScale I _ hr)
++    (StageKummer.positiveLevel s) I.hgp
++
++/-- The selector can fill admissible holes using the same chart and fixed scale. -/
++theorem missing_values {ℓ : ℕ} {W : WData ℓ} {I : GenusOddInstance W}
++    {L : ℕ} (s : StageKummer.Setup I L) (hr : ∃ c : ℚ, (c : ℂ) = I.κ)
++    (hCM : letI : NeZero (newformLevel (Ecurve ℓ)) := ⟨(StageKummer.positiveLevel s).ne'⟩
++           CMFieldOfDefinitionScoped (X0Branch.model (newformLevel (Ecurve ℓ)))) :
++    StageKummer.MissingParamValues s := by
++  let _ : NeZero (newformLevel (Ecurve ℓ)) := ⟨(StageKummer.positiveLevel s).ne'⟩
++  intro D h _ _
++  exact prepared_values s hr hCM D
++    (I.hprep D (StageKummer.preparedGlue s h.choose D h.choose_spec))
++
++end ZInQ.Manuscript.RC.CMScope
+diff --git a/ZInQKernel/Contrib/OneProof/RC/CMScope/Anchor.lean b/ZInQKernel/Contrib/OneProof/RC/CMScope/Anchor.lean
+new file mode 100644
+index 000000000..441bcd6c7
+--- /dev/null
++++ b/ZInQKernel/Contrib/OneProof/RC/CMScope/Anchor.lean
+@@ -0,0 +1,241 @@
++import ZInQKernel.Contrib.OneProof.RC.CMScope.Orientation
++import ZInQKernel.Contrib.OneProof.RC.HeegnerAnchor.AtScale
++
++/-! The fixed-scale anchor at tex 2839–2844 and 2915–2917.
++The input chase and base change are on the spot (c). -/
++
++noncomputable section
++
++open AlgebraicGeometry CategoryTheory NumberField WeierstrassCurve
++  TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
++  ZInQ.Contrib.CloudB3E2.NormCochain
++  ZInQ.Contrib.CloudB3RC53 ZInQ.Contrib.CloudB3RC53.CST ZInQ.Contrib.CloudB3RC53.GenusOdd
++  ZInQ.Manuscript.RC.PreparedParam ZInQ.Manuscript.RC.PrintsArith ZInQ.Manuscript.RC.Wiring
++
++namespace ZInQ.Manuscript.RC.CMScope
++
++open HeegnerAnchor (conductorForm conductorOrder_discr)
++
++/-- An embedding of an algebraic field into `ℂ` factors through the given
++embedding of `ℚ̄`: every minimal polynomial splits in the latter's image. -/
++theorem factor_embedding {H : Type} [Field H] [Algebra ℚ H] [Algebra.IsAlgebraic ℚ H]
++    (ι : Qbar →ₐ[ℚ] ℂ) (j : H →ₐ[ℚ] ℂ) :
++    ∃ e : H →ₐ[ℚ] Qbar, ι.comp e = j := by
++  have hs (a : H) : ((minpoly ℚ a).map (algebraMap ℚ ι.fieldRange)).Splits :=
++    Polynomial.Splits.of_algHom (IsAlgClosed.splits _) ι.rangeRestrict
++  let F := IntermediateField.algHomEquivAlgHomOfSplits ℂ ι.fieldRange hs
++  let b := F.symm j
++  refine ⟨ι.equivFieldRange.symm.toAlgHom.comp b, ?_⟩
++  apply AlgHom.ext
++  intro a
++  change ((ι.equivFieldRange (ι.equivFieldRange.symm (b a)) : ι.fieldRange) : ℂ) = j a
++  rw [AlgEquiv.apply_symm_apply]
++  exact DFunLike.congr_fun (F.apply_symm_apply j) a
++
++theorem fieldPoint_map_map {X : Scheme.{0}} {p : X ⟶ Spec (.of ℚ)}
++    {F G L : Type} [Field F] [Field G] [Field L] [Algebra ℚ F] [Algebra ℚ G] [Algebra ℚ L]
++    (e : F →ₐ[ℚ] G) (j : G →ₐ[ℚ] L) (x : FieldPoint p F) :
++    (x.map e).map j = x.map (j.comp e) := by
++  apply Subtype.ext
++  simp only [FieldPoint.map, ← Category.assoc, ← Spec.map_comp]
++  rfl
++
++open Classical in
++open Classical in
++/-- Transport the single descended point through the specified algebraic
++closure and evaluate the fixed map (the pointwise step of the old proof). -/
++theorem anchorValue {E : WeierstrassCurve ℚ} [E.IsElliptic] [NeZero (newformLevel E)]
++    {X : X0Model (newformLevel E)} (p : CSTParam E)
++    (π : X.X ⟶ Proj E.toProjective.grading) (hπQ : π ≫ projectiveOverQ E = X.overQ)
++    (hπ : ∀ τ : UpperHalfPlane,
++      projectiveValue ((X.complexPoint τ).comp π hπQ).val = phiAn E p.f p.Lat p.κ τ)
++    (ι : Qbar →ₐ[ℚ] ℂ) {L : Type} [Field L] [Algebra ℚ L] [Algebra.IsAlgebraic ℚ L]
++    (j : L →ₐ[ℚ] ℂ) (x : FieldPoint X.overQ L)
++    {τ : UpperHalfPlane} (hx : x.map j = X.complexPoint τ) :
++    ∃ (e : L →ₐ[ℚ] Qbar) (x : FieldPoint X.overQ e.fieldRange),
++      x.map (ι.comp e.fieldRange.val) = X.complexPoint τ ∧
++      Affine.Point.map (W' := E) ι
++        (Affine.Point.map (W' := E) e.fieldRange.val (projectiveValue (x.comp π hπQ).val)) =
++          phiAn E p.f p.Lat p.κ τ := by
++  obtain ⟨e, he⟩ := factor_embedding ι j
++  let j' := ι.comp e.fieldRange.val
++  let e' := e.equivFieldRange.toAlgHom
++  let x' := x.map e'
++  have hx' : x'.map j' = X.complexPoint (τ) := by
++    change (x.map e').map j' = _
++    rw [fieldPoint_map_map]
++    have he' : j'.comp e' = j := he
++    rwa [he']
++  refine ⟨e, x', hx', ?_⟩
++  rw [Affine.Point.map_map]
++  calc
++    _ = projectiveValue (Spec.map (CommRingCat.ofHom j'.toRingHom) ≫ (x'.comp π hπQ).val) :=
++      projectiveValue_map j' _
++    _ = projectiveValue ((x'.map j').comp π hπQ).val := by
++      simp only [FieldPoint.comp, FieldPoint.map, Category.assoc]
++    _ = _ := by rw [hx']; exact hπ _
++
++/-- Splitting at two rules out both exceptional discriminants. The level
++two, conductor one form gives a square root modulo eight (c). -/
++theorem discr_ne_of_split_two {K : Type} [Field K] [NumberField K]
++    (hK : Module.finrank ℚ K = 2) (hs : SplitsIn K 2) :
++    discr K ≠ -4 ∧ discr K ≠ -3 := by
++  have hs' (q : ℕ) (hq : q.Prime) (hd : q ∣ 2 * 2) : SplitsIn K q := by
++    have hq2 : q ∣ 2 := (hq.dvd_mul.mp hd).elim id id
++    rwa [(Nat.prime_dvd_prime_iff_eq hq Nat.prime_two).mp hq2]
++  obtain ⟨-, B, C, hf⟩ := HeegnerAnchor.conductorForm (d := 1) hK (N := 2)
++    (by decide) hs' (by simp)
++  have he : B ^ 2 - 8 * C = discr K := by simpa using hf.2.2.1
++  have hmod : Int.ModEq 8 (B ^ 2) (discr K) :=
++    Int.modEq_of_dvd ⟨-C, by linarith⟩
++  have hsmall : B % 8 < 8 := Int.emod_lt_of_pos B (by decide)
++  have hnonneg : 0 ≤ B % 8 := Int.emod_nonneg B (by decide)
++  have hsq : (B % 8) ^ 2 % 8 = discr K % 8 :=
++    (((Int.mod_modEq B 8).pow 2).trans hmod).eq
++  constructor <;> intro h <;> rw [h] at hsq <;>
++    interval_cases hB : B % 8 <;> norm_num [hB] at hsq
++
++/-- Scale a specified conductor-one form, keeping its orientation as
++the conductor varies (c). -/
++theorem scale_form {N c : ℕ} {D B C : ℤ}
++    (hNc : N.Coprime c) (hf : IsHeegnerForm N D N B C) :
++    IsHeegnerForm N (D * (c : ℤ) ^ 2) N ((c : ℤ) * B) ((c : ℤ) ^ 2 * C) := by
++  obtain ⟨hA, hdiv, hdisc, hprim⟩ := hf
++  refine ⟨hA, hdiv, ?_, ?_⟩
++  · rw [← hdisc]
++    ring
++  by_contra hne
++  obtain ⟨p, hp, hpg⟩ := Nat.exists_prime_and_dvd hne
++  have hg : (p : ℤ) ∣ (Int.gcd (Int.gcd (N : ℤ) ((c : ℤ) * B)) ((c : ℤ) ^ 2 * C) : ℤ) :=
++    Int.natCast_dvd_natCast.mpr hpg
++  have hgab := hg.trans (Int.gcd_dvd_left _ _)
++  have hpN : (p : ℤ) ∣ (N : ℤ) := hgab.trans (Int.gcd_dvd_left _ _)
++  have hpc : ¬ (p : ℤ) ∣ (c : ℤ) := by
++    intro h
++    have h1 := Nat.dvd_gcd (Int.natCast_dvd_natCast.mp hpN) (Int.natCast_dvd_natCast.mp h)
++    rw [hNc.gcd_eq_one] at h1
++    exact hp.not_dvd_one h1
++  have hpp := Nat.prime_iff_prime_int.mp hp
++  have hpB : (p : ℤ) ∣ B :=
++    (hpp.dvd_mul.mp (hgab.trans (Int.gcd_dvd_right _ _))).resolve_left hpc
++  have hpC : (p : ℤ) ∣ C := by
++    rcases hpp.dvd_mul.mp (hg.trans (Int.gcd_dvd_right _ _)) with h | h
++    · exact (hpc (hpp.dvd_of_dvd_pow h)).elim
++    · exact h
++  have h1 := Int.dvd_gcd (Int.natCast_dvd_natCast.mpr (Int.dvd_gcd hpN hpB)) hpC
++  rw [hprim] at h1
++  exact hp.not_dvd_one h1
++
++open Classical in
++/-- The source chart and elliptic image for one order of discriminant `Δ`.
++Keeping the chart abstract here avoids unfolding its construction when
++elaborating the comparison on the actual modular curve. -/
++private def ConductorComparison {E : WeierstrassCurve ℚ} [E.IsElliptic]
++    [NeZero (newformLevel E)] {K : Type} [Field K] [NumberField K]
++    (p : CSTParam E) (ι : Qbar →ₐ[ℚ] ℂ) (X : X0Model (newformLevel E))
++    (π : X.X ⟶ Proj E.toProjective.grading) (hπQ : π ≫ projectiveOverQ E = X.overQ)
++    (O : NumberFieldOrder K) (Δ : ℤ) : Prop :=
++  ∃ (B C : ℤ) (e : ringClassField O →ₐ[ℚ] Qbar) (x : FieldPoint X.overQ e.fieldRange),
++    IsHeegnerForm (newformLevel E) Δ (newformLevel E : ℤ) B C ∧
++    x.map (ι.comp e.fieldRange.val) = X.complexPoint (cmPoint (newformLevel E : ℤ) B Δ) ∧
++    Affine.Point.map (W' := E) ι
++      (Affine.Point.map (W' := E) e.fieldRange.val (projectiveValue (x.comp π hπQ).val)) =
++        phiAn E p.f p.Lat p.κ (cmPoint (newformLevel E : ℤ) B Δ)
++
++set_option maxHeartbeats 800000 in
++open Classical in
++/-- One rational morphism works for every admissible conductor on the
++constructed modular curve. The original conductor domain lies in the
++manuscript's domain when the level is even. -/
++theorem cmPointsAtScale {ℓ : ℕ} [(Ecurve ℓ).IsElliptic] [NeZero (newformLevel (Ecurve ℓ))]
++    {K : Type} [Field K] [NumberField K] [IsTotallyComplex K]
++    (p : CSTParam (Ecurve ℓ)) (ι : Qbar →ₐ[ℚ] ℂ)
++    (hK : Module.finrank ℚ K = 2)
++    (hsplit : ∀ q : ℕ, q.Prime → q ∣ 2 * newformLevel (Ecurve ℓ) → SplitsIn K q)
++    (h2N : 2 ∣ newformLevel (Ecurve ℓ))
++    (hr : ∃ c : ℚ, (c : ℂ) = p.κ)
++    (hCM : CMFieldOfDefinitionScoped (X0Branch.model (newformLevel (Ecurve ℓ)))) :
++    let X := X0Branch.model (newformLevel (Ecurve ℓ))
++    ∃ (π : X.X ⟶ Proj (Ecurve ℓ).toProjective.grading)
++      (hπQ : π ≫ projectiveOverQ (Ecurve ℓ) = X.overQ),
++      IsDominant π ∧ ∀ (d : ℕ) (hd : 0 < d),
++        Nat.Coprime d (newformLevel (Ecurve ℓ) * (discr K).natAbs) →
++        ConductorComparison p ι X π hπQ
++          (@conductorOrder K _ _ d ⟨hd.ne'⟩) (discr K * (d : ℤ) ^ 2) := by
++  obtain ⟨h4, h3⟩ := discr_ne_of_split_two hK (hsplit 2 Nat.prime_two (dvd_mul_right 2 _))
++  obtain ⟨π, hπQ, hdom, hπ⟩ :=
++    ParamJoin.algebraicParametrizationAtScale (ℓ := ℓ) p.f p.hf p.hLat p.hκ hr
++  obtain ⟨-, β, C₁, hf₁⟩ := conductorForm (N := newformLevel (Ecurve ℓ)) (d := 1)
++    hK (NeZero.pos _) hsplit (by simp)
++  have hf₀ : IsHeegnerForm (newformLevel (Ecurve ℓ)) (discr K)
++      (newformLevel (Ecurve ℓ) : ℤ) β C₁ := by simpa using hf₁
++  have hβ : Int.ModEq (4 * (newformLevel (Ecurve ℓ) : ℤ)) (β ^ 2) (discr K) :=
++    Int.modEq_of_dvd ⟨-C₁, by rw [← hf₀.2.2.1]; ring⟩
++  refine ⟨π, hπQ, hdom, fun d hd hcop => ?_⟩
++  let _ : NeZero d := ⟨hd.ne'⟩
++  obtain ⟨hcop', -⟩ :=
++    conductorForm (N := newformLevel (Ecurve ℓ)) hK (NeZero.pos _) hsplit hcop
++  have hΔ : discr K * (d : ℤ) ^ 2 < 0 :=
++    mul_neg_of_neg_of_pos (discr_neg_of_totallyComplex hK) (pow_pos (by exact_mod_cast hd) 2)
++  have hcop2 : Nat.Coprime d (2 * newformLevel (Ecurve ℓ) * (discr K).natAbs) := by
++    rw [mul_assoc]
++    exact (hcop.coprime_dvd_right (dvd_mul_of_dvd_left h2N _)).mul_right hcop
++  have hdN := hcop.coprime_dvd_right (dvd_mul_right (newformLevel (Ecurve ℓ)) (discr K).natAbs)
++  have hform := scale_form hdN.symm hf₀
++  obtain ⟨j, z, hz⟩ := hCM K hK inferInstance hsplit h4 h3 β hβ d hcop2 _ _ _ _
++    (conductorOrder_discr hK d) hΔ hcop' hform Int.ModEq.rfl
++  obtain ⟨e, x, hx, hy⟩ := anchorValue p π hπQ hπ ι j z hz
++  exact ⟨_, _, e, x, hform, hx, hy⟩
++
++set_option maxHeartbeats 800000 in
++open Classical in
++/-- The CM evaluation supplies the fields and points of the anchor.
++The caller can fill the two Galois slots of `HeegnerPointData` without
++changing this assertion about the points. -/
++theorem genuineHeegnerAnchor {ℓ : ℕ} [(Ecurve ℓ).IsElliptic] [NeZero (newformLevel (Ecurve ℓ))]
++    {K : Type} [Field K] [NumberField K] [IsTotallyComplex K]
++    (p : CSTParam (Ecurve ℓ)) (ι : Qbar →ₐ[ℚ] ℂ)
++    (hK : Module.finrank ℚ K = 2)
++    (hsplit : ∀ q : ℕ, q.Prime → q ∣ 2 * newformLevel (Ecurve ℓ) → SplitsIn K q)
++    (h2N : 2 ∣ newformLevel (Ecurve ℓ))
++    (hr : ∃ c : ℚ, (c : ℂ) = p.κ)
++    (hCM : CMFieldOfDefinitionScoped (X0Branch.model (newformLevel (Ecurve ℓ)))) :
++    ∃ (H : ℕ → IntermediateField ℚ Qbar) (y : ℕ → ((Ecurve ℓ).baseChange Qbar).toAffine.Point),
++      ∀ (relGal : ℕ → ℕ → Finset GalQ) (frob : ℕ → ℕ → GalQ),
++        GenuineHeegnerAnchor (Ecurve ℓ) K p ι
++          ⟨discr K, newformLevel (Ecurve ℓ), H, y, relGal, frob⟩ := by
++  obtain ⟨π, hπQ, -, hpts⟩ := cmPointsAtScale p ι hK hsplit h2N hr hCM
++  have hy (d : ℕ) (hd : 0 < d)
++      (hcop : Nat.Coprime d (newformLevel (Ecurve ℓ) * (discr K).natAbs)) :
++      ∃ (Hd : IntermediateField ℚ Qbar) (Y : ((Ecurve ℓ).baseChange Hd).toAffine.Point),
++        ∃ A B C : ℤ, IsHeegnerForm (newformLevel (Ecurve ℓ)) (discr K * (d : ℤ) ^ 2) A B C ∧
++          Affine.Point.map (W' := Ecurve ℓ) ι (Affine.Point.map (W' := Ecurve ℓ) Hd.val Y) =
++            phiAn (Ecurve ℓ) p.f p.Lat p.κ (cmPoint A B (discr K * (d : ℤ) ^ 2)) := by
++    have h := hpts d hd hcop
++    unfold ConductorComparison at h
++    obtain ⟨B, C, e, x, hform, -, hvalue⟩ := h
++    exact ⟨e.fieldRange, projectiveValue (x.comp π hπQ).val, _, B, C, hform, hvalue⟩
++  let H (d : ℕ) : IntermediateField ℚ Qbar :=
++    if h : 0 < d ∧ Nat.Coprime d (newformLevel (Ecurve ℓ) * (discr K).natAbs)
++      then (hy d h.1 h.2).choose else ⊥
++  let y (d : ℕ) : ((Ecurve ℓ).baseChange Qbar).toAffine.Point :=
++    if h : 0 < d ∧ Nat.Coprime d (newformLevel (Ecurve ℓ) * (discr K).natAbs)
++      then Affine.Point.map (W' := Ecurve ℓ) (hy d h.1 h.2).choose.val
++        (hy d h.1 h.2).choose_spec.choose else 0
++  refine ⟨H, y, ?_⟩
++  intro relGal frob
++  refine ⟨rfl, rfl, fun d hd hcop => ?_⟩
++  dsimp only
++  have hH : H d = (hy d hd hcop).choose := dite_eq_left (And.intro hd hcop)
++  have hy' : y d = Affine.Point.map (W' := Ecurve ℓ) (hy d hd hcop).choose.val
++      (hy d hd hcop).choose_spec.choose := dite_eq_left (And.intro hd hcop)
++  constructor
++  · let HasPoint (F : IntermediateField ℚ Qbar) : Prop :=
++      ∃ Y' : ((Ecurve ℓ).baseChange F).toAffine.Point,
++        Affine.Point.map (W' := Ecurve ℓ) F.val Y' = y d
++    change HasPoint (H d)
++    exact (congrArg HasPoint hH).mpr ⟨(hy d hd hcop).choose_spec.choose, hy'.symm⟩
++  · rw [hy']
++    exact (hy d hd hcop).choose_spec.choose_spec
++
++end ZInQ.Manuscript.RC.CMScope
+diff --git a/ZInQKernel/Contrib/OneProof/RC/CMScope/Selector.lean b/ZInQKernel/Contrib/OneProof/RC/CMScope/Selector.lean
+new file mode 100644
+index 000000000..92204f6ba
+--- /dev/null
++++ b/ZInQKernel/Contrib/OneProof/RC/CMScope/Selector.lean
+@@ -0,0 +1,170 @@
++import ZInQKernel.Contrib.OneProof.RC.CMScope.Values
++import ZInQKernel.Contrib.OneProof.RC.SelectorTotal.Assembly
++
++/-! The conductor-one selector covers the full odd filter (tex 8209–8217,
++9439–9443). Install the two parametrization selectors before constructing
++the stage setup. The interface assembly is on-the-spot, provenance (c). -/
++
++noncomputable section
++
++open scoped NumberField WeierstrassCurve Classical
++open NumberField IsDedekindDomain IsDedekindDomain.FiniteAdeleRing
++open TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
++open ZInQ.Manuscript ZInQ.Manuscript.SelmerTwoPower
++open ZInQ.Contrib.CloudB3RC53 ZInQ.Contrib.CloudB3RC53.CST ZInQ.Contrib.CloudB3RC53.GenusOdd
++open ZInQ.Manuscript.RC.Wiring ZInQ.Manuscript.RC.Stages ZInQ.Manuscript.RC.Visibility
++
++namespace ZInQ.Manuscript.RC.CMScope
++
++open Gz34Instance PreparedParam
++
++/-- The existing inputs of the genus assembly that do not depend on either
++index function, together with the inputs of the fixed-scale parametrization.
++The CM field proof is shared with the Heegner anchor. -/
++structure ParamInputs {ℓ : ℕ} (W₀ : WData ℓ) where
++  P : Prints
++  hℓ : 0 < ℓ
++  f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel (Ecurve ℓ)) :
++    Subgroup (GL (Fin 2) ℝ)) 2
++  hf : ∀ n : ℕ, 0 < n → (UpperHalfPlane.qExpansion 1 f).coeff n = ((Ecurve ℓ).LFunction n : ℂ)
++  Lat : PeriodPair
++  hLat : IsLatticeOf (Ecurve ℓ) Lat
++  hNC : IsNonCMLattice Lat
++  κ : ℂ
++  hκ : IsParamScale (newformLevel (Ecurve ℓ)) f Lat κ
++  hr : ∃ c : ℚ, (c : ℂ) = κ
++  hCMField : letI : NeZero (newformLevel (Ecurve ℓ)) := ⟨(curve_form P hℓ).1.ne'⟩
++    CMFieldOfDefinitionScoped (X0Branch.model (newformLevel (Ecurve ℓ)))
++  N : Even.CentralNormalization (Ecurve ℓ)
++  hN : N.Lstar = W₀.Lstar
++  hElkikMD : ∃ q : ℚ, q ≠ 0 ∧ (q : ℂ) = Lstar (Ecurve ℓ) Lat W₀.hstar
++  hpartner : IsGenusPartner ℓ W₀.hstar
++  hlevel0 : ∀ p : ℕ, p.Prime → p ∣ 2 * newformLevel (Ecurve ℓ) → p ∈ S0 ℓ
++  hS : SupportSpec W₀
++  hprepared : PreparedSpec W₀
++  hstarS : ∀ p ∈ W₀.hstar.natAbs.primeFactors, p ∈ W₀.S
++  hpreparedLoc : ∀ h, W₀.prepared h →
++    ∀ p : ℕ, p.Prime → p ∣ 2 * newformLevel (Ecurve ℓ) → SquareAt p h
++  hk0 : W₀.kfin < 0
++  hksq : Squarefree W₀.kfin
++  hk4 : W₀.kfin % 4 = 1
++  hk2N : ∀ p : ℕ, p.Prime → p ∣ 2 * newformLevel (Ecurve ℓ) → UnitSquareAt p W₀.kfin
++  hkcop : IsCoprime W₀.kfin W₀.hstar
++
++abbrev genusValues {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀) :=
++  genus_values (W := W₀) a.P a.hℓ a.hf a.hLat a.hκ a.hr a.hCMField a.hpartner a.hlevel0
++
++abbrev ringValues {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀) :=
++  ring_values (s := W₀.hstar) a.P a.hℓ a.hf a.hLat a.hκ a.hr a.hCMField
++
++/-- Keep the interface data and define its two index functions from the
++separate conductor-one and companion selectors. -/
++def withParamIndices {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀) : WData ℓ :=
++  { W₀ with
++    jgen := jgenOf (Ecurve ℓ) a.f a.Lat a.κ W₀.hstar
++      (selectGenus (curve_form a.P a.hℓ).1 (genusPartner_of_support a.hpartner a.hlevel0)
++        (genusValues a))
++    jrc := jrcOf (Ecurve ℓ) a.f a.Lat a.κ (selectRing (curve_form a.P a.hℓ).1 (ringValues a)) }
++
++/-- Build the genus instance with its two algebraic value families supplied
++by ParamJoin and both index equations by reflexivity. -/
++def genusInstance {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀) :
++    GenusOddInstance (withParamIndices a) :=
++  instanceOfParamValues a.P a.hℓ a.hf a.hLat a.hNC a.hκ a.N a.hN a.hElkikMD
++    a.hpartner a.hlevel0 a.hS a.hprepared a.hstarS a.hpreparedLoc
++    (genusValues a) (ringValues a) rfl rfl a.hk0 a.hksq a.hk4 a.hk2N a.hkcop
++
++/-- The selector has a value on every admissible row, irrespective of rank. -/
++theorem selG_isSome_of_admissible {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀)
++    (hglue : PreparedGlue (withParamIndices a)) (i : ℕ) (D : ℤ)
++    (hD : (withParamIndices a).admissible i D) :
++    ((genusInstance a).selG D).isSome :=
++  selectGenus_isSome _ _ (genusValues a) ((genusInstance a).hprep D (hglue i D hD))
++
++/-- The exact selection equation consumed by the actual point interface. -/
++theorem exists_selected_of_admissible {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀)
++    (hglue : PreparedGlue (withParamIndices a)) (i : ℕ) (D : ℤ)
++    (hD : (withParamIndices a).admissible i D) :
++    ∃ t, (genusInstance a).selG D = some t :=
++  Option.isSome_iff_exists.mp (selG_isSome_of_admissible a hglue i D hD)
++
++
++/-- Read the selected datum and equation at the natural index used by the
++actual comparison. Positivity of admissible indices makes this the same row. -/
++def selectedDatum {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀)
++    {L : ℕ} (s : StageKummer.Setup (genusInstance a) L)
++    (i : ℕ) (D : ℤ) (hD : (withParamIndices a).admissible i D) :
++    {t : HeegnerDatum (Ecurve ℓ) a.f a.Lat a.κ ((D.toNat : ℤ) * W₀.hstar) 1 W₀.hstar //
++      (genusInstance a).selG (D.toNat : ℤ) = some t} := by
++  have hglue := StageSelector.preparedGlue_of_withStages s.hstages.withStages_eq
++  have hp := (genusInstance a).hprep D (hglue i D hD)
++  have hD' : (withParamIndices a).admissible i (D.toNat : ℤ) := by
++    rwa [Int.toNat_of_nonneg hp.1.le]
++  have ht := exists_selected_of_admissible a hglue i (D.toNat : ℤ) hD'
++  exact ⟨ht.choose, ht.choose_spec⟩
++
++open O7Residual O7Assemble O7Actual O7Orbits PicardFibers Eichler Adelic ThetaJoin ThetaClose PMGeometry
++
++section Leaf
++
++attribute [local irreducible] StageKummer.datumOnModel ringClassArtinEquiv
++
++variable {ℓ : ℕ} {W₀ : WData ℓ} (a : ParamInputs W₀) {L : ℕ}
++  (s : StageKummer.Setup (genusInstance a) L)
++
++variable {m : ℕ} (hN : 0 < StageKummer.level ℓ)
++  (hcop : ∀ i, (StageKummer.level ℓ).Coprime (s.q.stage i).p)
++  (H : ∀ i, DiscriminantData m (StageKummer.level ℓ) (s.q.stage i).p) (w : ℕ → ℤˣ)
++  (hm : (m : ℤ) = -(withParamIndices a).hstar) {ap : ℕ → ℤ} {X : ℕ → PMAdelic.CoarseFibre}
++  (J : ∀ i, PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
++    (StageKummer.level ℓ) hN (hcop i) (X i))
++  (G : ∀ i, PMAdelic.SpecialFibre (s.q.stage i).p (StageKummer.level ℓ)
++    (ResidueAt (StageKummer.place s i)) (ReducedEquation (EcurveZ ℓ) (s.q.stage i).p) ap (X i))
++
++variable (comparisons : ∀ i D (hD : (withParamIndices a).admissible i D),
++  SelectorTotal.PointComparisons s i hN (hcop i) (H i) w hm (J i) (G i)
++    (admissibleNatAt s hN hcop H w hm J G i D hD) (selectedDatum a s i D hD).val)
++
++/-- Supply `PointInputs.ht` for the selected datum and keep the given
++reference data and pointwise equalities. -/
++def pointInputs (i : ℕ) (D : ℤ) (hD : (withParamIndices a).admissible i D) :
++    PointInputs s i hN (hcop i) (H i) w hm (J i) (G i)
++      (admissibleNatAt s hN hcop H w hm J G i D hD) :=
++  let p := comparisons i D hD
++  { t := (selectedDatum a s i D hD).val
++    embedding := p.embedding
++    ref := p.ref
++    r := p.r
++    ht := (selectedDatum a s i D hD).property
++    hCM := p.hCM
++    hπ := p.hπ }
++
++variable
++  (hSign : ∀ i (j : Fin (StageKummer.level ℓ).primeFactors.card),
++    (w (levelPrime (StageKummer.level ℓ) j).val : ℤ) =
++      (G i).atkinSign (levelPrime (StageKummer.level ℓ) j).val)
++  (hCusp : ∀ i (j : Fin (StageKummer.level ℓ).primeFactors.card),
++    L • (PMAdelic.geometry (J i) (G i)).cusp (levelPrime (StageKummer.level ℓ) j).val = 0)
++
++set_option maxHeartbeats 1400000 in
++set_option maxRecDepth 1600 in
++/-- The total selector consumes one scoped source CM proof in both value
++slots. Its pointwise geometry and coefficient comparison are unchanged. -/
++theorem oddStagedOfParamValues
++    (ha : ∀ i D (hD : (withParamIndices a).admissible i D),
++      let row := actualRows s hN hcop H w hm J G
++        (actualRowFamily s hN hcop H w hm J G hSign hCusp
++          (pointInputs a s hN hcop H w hm J G comparisons)) i D hD
++      (2 : Coefficients hN (H 0) w) ^ (withParamIndices a).Mθ i ∣
++        row.weights.phase row.reference * ((withParamIndices a).aθ i D : Coefficients hN (H 0) w) -
++          Visibility.thetaCoeff (actualFamily s hN hcop H w hm J G i).visibility
++            ((m : ℤ) * D : ℤ))
++    (hL : MultiplierKillsNativeTorsion (Ecurve ℓ) a.f a.Lat a.κ (withParamIndices a).hstar L)
++    (hsign : AdmissibleOddSign (withParamIndices a).toRCData) :
++    Nonempty (OddStagedInstance (withParamIndices a)) :=
++  oddStagedActual s hN hcop H w hm J G hSign hCusp
++    (pointInputs a s hN hcop H w hm J G comparisons) ha hL hsign
++
++end Leaf
++
++end ZInQ.Manuscript.RC.CMScope

@@ -1,0 +1,97 @@
+'ZInQ.Manuscript.RC.EvenJoin.CuspOldColumn.coeff_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspOldColumn.numberField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspOldColumn.coeff_mem_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspOldColumn.char_mem_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cusp_mem_span_intrinsic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.finite_cuspidal_columns' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.exists_eisenstein_coefficient_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.exists_constituent_place' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.constituent_completion_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.constituentValuation_extends' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.constituentValuation_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.constituentValuation_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.constituentValuation_maximal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.constituentComplexEmbedding_constituent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.constituentComplexEmbedding_fixed' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.ConstituentCompletion.0.ZInQ.Manuscript.RC.EvenJoin.constituentLocalDegree_pos' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.ConstituentCompletion.0.ZInQ.Manuscript.RC.EvenJoin.constituentValuation_equiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.ConstituentCompletion.0.ZInQ.Manuscript.RC.EvenJoin.numberField_mk_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.ConstituentCompletion.0.ZInQ.Manuscript.RC.EvenJoin.mk_constituentCompletion_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.coordinates_of_block_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.joined_coordinates_of_block_spans' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.joined_vector_coeff_fixedRing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.coordinate_match_of_joined_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.MovingCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.affine_det' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.affinePoint_zeroAtCusps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.MovingCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.up_zeroAtCusps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.MovingCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.sub_smul_zeroAtCusps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.movingOp_zeroAtCusps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.exists_cuspidal_moving_series' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.linearTheta_norm_le_decay' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.linearTheta_tendsto_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.coe_action' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.im_neg_inv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.neg_inv_neg_inv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.norm_poisson_factor' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.cusp_positive_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.UnaryCuspidal.0.ZInQ.Manuscript.RC.EvenJoin.cusp_denominator_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.weightedTheta_zeroAtCusps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.theta_product_cuspidal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.ActualBlocks.0.ZInQ.Manuscript.RC.EvenJoin.weightTwoBlock_cuspidal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.ActualBlocks.0.ZInQ.Manuscript.RC.EvenJoin.unaryFun_zeroAtCusps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.actual_cuspidal_blocks' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspBlockExpansion.col_numberField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspBlockExpansion.col_coeff_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.exists_actual_cuspidal_inventory' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.actual_inventory_at_fixed_place' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.block_span_of_inventory_labels' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,25 @@
+- Base: `77255b723c39631f737224bb96e3393b79b6bc7c`.
+- Consumer: `ParamJoin.algebraicParametrizationAtScale` → `X0Branch.model`.
+- Matrix check: reduced determinant Qad - (N/Q)bc = 1. Pullbacks j(Qτ), j((N/Q)τ).
+- New declarations: `levelInvariant_of_dvd`, `jqN_mem_of_dvd`. Source commit `e41a81671`.
+- Build: initial artifact-lookup attempt issued outside the requested scope; failed before elaboration. Subsequent Lean invocation with cache artifacts in place was under `systemd-run --user --scope -p MemoryMax=60G`.
+- Scoped build: retained declarations elaborated. Axiom output for both: `propext, Classical.choice, Quot.sound`. Full attempt failed on matrix elaboration; no module artifact.
+- Isolated `lake build`: automatic review rejected a rerun due to another active Lean job; subsequent guarded command exited before launching Lean. No successful standalone build.
+- Open: `RationalAtkin (X0Branch.model N) hQ`; represent the point difference on the actual projective target; prove `BasedAtkinOnPoints` and formal cusp normalization; expose the unconditional producer at the pinned sign.
+- No newly identified manuscript error. Inherited citation issues recorded in the report.
+
+- Continuation base: `68b2ef6bb6c403a926f7d5cda7ed63fb04853c61`.
+- `Coordinates`, `Matrix`: successful focused Lake build; both transformed generators, axiom audits clean.
+- `FunctionField`: successful focused Lake build; precomposition of meromorphic germs and rational field pullback; axiom audits clean.
+- `Model`: successful focused Lake build; `rationalAtkin` on `X0Branch.model N`, analytic arc comparison and square; axiom audits clean.
+- `Infinity`: successful focused Lake build; normalized formal cusp at the same scale; axiom audits clean.
+- `Density`: successful focused Lake build; constant separated-target morphism through any rational point; axiom audits clean.
+- `PointReading`: successful focused Lake build; affine-chart reading and bijection over any field containing ℚ given a rational origin; axiom audits clean.
+- `Based`: successful focused Lake build; original based identity and normalized translation given `RepresentsDifference`; axiom audits clean.
+- Guarded builds: one task-local Lean process, user scope `MemoryMax=60G`, host load and available memory checked before each invocation.
+- `Reduction`: successful focused Lake build; specialization of the fixed projective model agrees with the additive point reduction at valuation rings containing ℚ; axiom audits clean.
+- `Difference`: successful focused Lake build; extension of the generic difference and field-point readback; `basedAtkinAtScale`, `genericFibreAtScale` have no Atkin–Lehner or represented-difference hypothesis; axiom audits clean.
+- `κ`: rationality remains the explicit `hr` input.
+- `Consumer`: successful focused Lake build; the equality in `Over` at the pinned sign and its base change to the generic field. Integral model identifications and the special-fibre comparisons remain separate.
+- Final focused Lake target: `+ZInQKernel.Contrib.OneProof.RC.AtkinRational.Consumer`; all ten AtkinRational modules checked, 65 clean axiom audits (`propext, Classical.choice, Quot.sound`).
+- No new printed leaf or manuscript error identified.

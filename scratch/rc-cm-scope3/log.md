@@ -1,0 +1,12 @@
+- Base: `cf5b03fbdbf253a8f63faaba3c70f841301f5906`; patch applied: `scratch/rc-cm-scope2/pending-wrappers.patch`.
+- Preserved: `CMFieldOfDefinitionScoped`, restriction from the broad input, both level-one cases, orientation specialization.
+- Scope: explicit `2 ∣ newformLevel (Ecurve ℓ)` only in `cmPointsAtScale` and `genuineHeegnerAnchor`, preserving their range of positive conductors prime to `N · |D_K|`.
+- Prepared and companion values: use `D_K ≡ 1 (mod 8)` to exclude `-4` and `-3`. Pin the field and each coefficient of the existing selected form before applying scoped descent.
+- Core imports built: `CMField2.Results`, `PreparedParam.Parametrization`, `HeegnerAnchor.Conductors`, `StageSelector.Selector`, `Splitting.Criterion`.
+- `Field`, `Orientation`, `Evaluation`, `Prepared`: serial `lake env lean -j1` checks passed.
+- `Prepared`: use congruence of `phiAn` at the selected `cmPoint` to transport the order discriminant equality. No change to the coefficients or the elliptic value.
+- `ParamJoin.Assembly` built, then `Values` passed serial `lake env lean -j1`. The ring-class proof uses the same transport with the companion discriminant.
+- `HeegnerAnchor.AtScale` and its imports built, then `Anchor` passed serial `lake env lean -j1` unchanged from the patch.
+- `SelectorTotal.Assembly` and its imports built, then `Selector` passed serial `lake env lean -j1` unchanged from the patch.
+- `ScopeCheck.lean` passed after constructing the private declaration's name in the scratch check (5 audits). `CoreCheck.lean` passed with the new discriminant helper (4 audits). The unchanged `scratch/rc-cm-scope2/ConsumersCheck.lean` passed (20 audits and the selector-to-anchor type check).
+- Axiom results: all 29 declarations have exactly `propext`, `Classical.choice`, and `Quot.sound`.

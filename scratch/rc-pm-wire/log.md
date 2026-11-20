@@ -1,0 +1,16 @@
+- Base: `1f06b57007c11f5dae165844e0e9e7bf5bbe0cf1`; merged `9e6887a48ce4f94d1502a69a155898282fb9200e`, then `7a7b6aaa5e0a89d1660bbfd6fbd885800fc2e303`.
+- Generic comparison: existing `isomorphism_of_functionField_equiv` extends the specified ℚ(j,j_N) comparison on the compactification. The actual generic map is its composite with the dense open immersion.
+- Integral Atkin–Lehner operator: chosen from extensions of the fixed rational operator; equality on the dense generic fibre and separatedness prove uniqueness.
+- `Generic`, `Model`: successful focused serial Lake build under a 60 GB user scope; audited outputs contain only `propext`, `Classical.choice`, `Quot.sound`.
+- Prerequisites: merged `AtkinRational` and `PMQuotient` artifacts reused; the needed `J0Cusps` chain through `WeightedComparison` compiled serially.
+- `MovingCusp`: focused Lake build passed; the matrix factors through a positive dilation, and the cusp limit and faithfulness identify its geometric point. Four audits clean.
+- `Operators`: focused Lake build passed; `overRelationAtScale` gives the rational affine relation and `overRelation_baseChange` gives its specialization. Six audits clean.
+- `Cusps`: focused Lake build passed; the represented Abel–Jacobi factor and the geometric cusp class give torsion of the rational translation, and its fixed multiplier annihilates its reduction. Seven audits clean.
+- `Fibre`: focused Lake build passed; the divisor interface uses the same Néron readings on actual coarse points and formal labels for the rational target translations. Thirteen audits clean.
+- `CM`: focused Lake build passed; the generic CM lift into the open gives the same value as the detector's residue map at the contracted place. Eleven audits clean.
+- `Generic` chart pin: the two moduli invariants are explicit and the induced pullback sends the ordered generators to them; rebuild and twelve audits passed.
+- `Assembly`: focused Lake build passed; `stageZero` uses the supplied `a.hr`, then compares the two maps on the same dominant chart point; `oddStagedOfGoodRows` fills the existing odd staged instance. Eight audits clean.
+- Final build: all eight modules and `Discharges` passed under the serial compiler lock and the 60 GB user scope. All 77 printed axiom checks returned only `propext`, `Classical.choice`, and `Quot.sound`.
+- `#discharges`: conclusion definitionally equals `Wiring.PreLeaves.odd_staged` at `SelectorTotal.withParamIndices a`; 30 binders, as in `PMQuotient.oddStagedOfGoodRows`.
+- Binders, in order (brackets denote instances): `ℓ`, `W₀`, `a`, `L`, `s`, `[NeZero (newformLevel (Ecurve ℓ))]`, `F`, `[NeZero (StageKummer.level ℓ)]`, `[((EcurveZ ℓ)⁄ℚ).IsElliptic]`, `π`, `hQ`, `han`, `R`, `[∀ i, CommRing (R i)]`, `[∀ i, Algebra (R i) ℚ]`, `m`, `hN`, `hcop`, `H`, `hm`, `ap`, `X`, `J`, `G`, `relations`, `cusps`, `refs`, `ha`, `hL`, `hsign`.
+- Binder changes inside inputs: `G` has no `jX` field or special-fibre cusp and its operator is pinned; `relations` holds only the Hecke chart and equation; `cusps` holds the represented Elkik proposition and the actual multiplier condition. `refs` still needs the selected CM comparison and lift diagram.

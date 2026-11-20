@@ -1,0 +1,7 @@
+**Verdict: scoped stop.** Both half-integral laws are discharged in `EvenJoin.evenExpansion_joined`. The actual joined weight-two form has the exact Fourier expansion, and `budgetRealization_of_joined` supplies the even coefficient row once its model coordinates agree. Inherited manuscript error: tex 8162–8167 omits the base coefficient in the integer-multiplier shorthand; this proof uses the exact series and does not depend on that shorthand.
+
+`evenCoordinates` descends the moving block and each unary correction at their individual levels and characters through a supplied complex constituent span. `coordinate_match_of_seed` proves the comparison once the inventory's Fourier columns are identified with the model's and the model uses the computed seed. `no_common_level` proves that a budget of at least two already rules out one positive level divisible by all the tested moving levels.
+
+What remains: construct those inventories and compare them with one model and one compatible coefficient place for every tested set (tex 9649–9654, 9754–9764). The manuscript's finite choice for a fixed set does not supply this simultaneous construction. The existing formwise Hecke and local-sector premises are also retained.
+
+Both modules and the scratch audit compile. All 21 checked declarations use only the standard axioms. No existing statement or module was edited. See [the report](../docs/research/rc-even-join.md) for the exact outstanding premise.

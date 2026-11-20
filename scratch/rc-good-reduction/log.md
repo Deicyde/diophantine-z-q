@@ -1,0 +1,10 @@
+- Base merge: specified X0 model and Atkin sign commits.
+- Good modular model print: Deligne–Rapoport VI.6, proposed VI 6.9, UNVERIFIED. No compactified integral modular moduli object found. No new leaves.
+- Néron mapping: existing `CToPrinted.IsNeronModelOver`; good model case proved by `NeronExt.isNeronModelOver_of_grpObj`.
+- Missing comparisons: canonical integral source and its coarse points, cusp and level operators; good target group scheme and coordinate reduction; based PM reading of the extended fixed map.
+- Inherited issues: Jetchev–Kane citation omits level one; Milne locators do not supply the stated Hecke/newform properties. Cornut–Jetchev manuscript citation is a preprint.
+- `Integral`: `existsUnique_integralMap`, `exists_integralPoint`, `integralAffine_baseChange`. Serial `lake build` PASS.
+- `Atkin`: `atkinQuotient_of_affine`, `atkinQuotient_of_integralRelation`. Serial `lake build` PASS.
+- `Row`: `hpi_of_integralDiagram`. Serial `lake build` PASS.
+- `Consumers`: pointwise `hπ` conclusion with the actual Artin labels and detector place has the type in `O7Residual.At`. Serial `lake build` PASS.
+- All six new theorems: `#print axioms` lists `propext`, `Classical.choice`, `Quot.sound` only.

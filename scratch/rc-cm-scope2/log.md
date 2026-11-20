@@ -1,0 +1,10 @@
+- Base: `1fd7eb20efcbcc7767458db67aec323aa759ddf2`.
+- Inherited checked: `CMScope/Field.lean`, `CMScope/Orientation.lean`. Inherited results: broad implies scoped; scoped at level one on both models; orientation specialization at an eligible form.
+- Draft patch: `scratch/rc-cm-scope2/pending-wrappers.patch`. Modules: `Evaluation`, `Prepared`, `Values`, `Anchor`, `Selector` under `ZInQKernel/Contrib/OneProof/RC/CMScope/`. Apply once with `git apply scratch/rc-cm-scope2/pending-wrappers.patch`.
+- Draft `discr_ne_of_split_two`: exclude `−4` via discriminant coprimality at level two; exclude `−3` via the square condition modulo eight. Removed a duplicated `open Classical in` in `Anchor.lean`.
+- Scope at tex 2841–2844: `c > 0`, `Nat.Coprime c (2 * N * |D_K|)`. Extra `2 ∣ newformLevel (Ecurve ℓ)` only for `cmPointsAtScale` and `genuineHeegnerAnchor`, preserving the old `Nat.Coprime c (N * |D_K|)` conclusions. Genus, missing rows and total selector require no level parity; ring-class uses the full coprimality from its row premises.
+- Abstract parity: `SplitsIn K 2` makes `D_K` odd, not `N` even. Counterexample to implication between conductor guards: `(N, D_K, c) = (1, −7, 2)`.
+- Actual-curve parity (c), tex 1761–1765 and 1780–1782: `v₂(Δ) = 8`; invariance modulo 12 under Weierstrass changes gives bad reduction at 2, hence even conductor and newform level. Existing Lean route: bad reduction at 2 plus `goodReductionOffLevel_of_modularNewform`; explicit parity premise remains in the draft anchor signatures.
+- Verification gate: one-minute load 185.38 at entry and 222.08 at the final gate (limit 120); 103 GiB available at the final gate. Other Lean jobs active. No build or check started.
+- Compile pending: `Evaluation`, `Prepared`, `Values`, `Anchor`, `Selector` (after their imports, serial `lake env lean` under `MemoryMax=60G`).
+- Axiom audits pending: `ScopeCheck.lean`, `CoreCheck.lean`, `ConsumersCheck.lean`. Allowed axioms: `propext`, `Classical.choice`, `Quot.sound`.

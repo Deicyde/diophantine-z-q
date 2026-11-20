@@ -1,0 +1,44 @@
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Joined.0.ZInQ.Manuscript.RC.EvenJoin.unary_on_subscripts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Joined.0.ZInQ.Manuscript.RC.EvenJoin.exists_joinedForm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.joinedForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.joinedForm_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.evenExpansion_joined' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.budgetRealization_of_joined' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.map_moving' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.map_unary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.map_theta' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.moving_zero' depends on axioms: [propext,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.unary_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.unitCharacter_lift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.movingCharacter_lift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.unaryCharacter_lift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.blockCoordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.evenCoordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.Coordinates.0.ZInQ.Manuscript.RC.EvenJoin.exists_evenSeed' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.evenSeed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.evenSeed_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.coordinate_match_of_seed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.no_common_level' depends on axioms: [propext, Classical.choice, Quot.sound]

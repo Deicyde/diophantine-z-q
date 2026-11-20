@@ -1,0 +1,7 @@
+`TwoFresh.h2fresh` proves the reduced two-trace vanishing of tex 9741–9745 in the exact type of the `buildConstituentModel` argument. At each positive index, choose distinct good primes away from the index and the fixed support. The two Hecke formulas give the coefficient at the multiplied index. Both new primes occur in its squarefree kernel outside the added primes; `Odd.O9_odd_stage` and `OddStageSource.precision` then give a factor four before the off-unary division and a factor two afterward. Continuity and density of pairs of all Frobenius lifts extend the result to arbitrary Galois elements.
+
+`Stage.lean` and `Main.lean` compile with `lake env lean -j1`. All nine theorem axiom checks report only `propext`, `Classical.choice`, and `Quot.sound`. Dependency builds overlapped during a restart, violating the run's one-process rule. They were stopped; the final verification ran sequentially.
+
+The remaining join supplies the common odd-stage source, the nonzero part of the theta family's window, `theta_mod_two`, and the O.12 off-unary coefficient comparison, together with the constructor's good Fourier and Galois operators. No reading or diamond congruence is needed here. The interface and manuscript check are in `docs/research/rc-two-fresh.md`.
+
+Final proof and report commit: `7aaa122c1619a41edda621cb0631292a87afe34f`. The final branch commit is the separate commit containing this note; resolve its SHA with `git log -1 --format=%H -- .fleet/rc-two-fresh.md`.

@@ -1,0 +1,18 @@
+- Base: `cf5b03fbdbf253a8f63faaba3c70f841301f5906`.
+- Scope: `CMScope.CMFieldOfDefinitionScoped (X0Branch.model N)`, any nonzero level.
+- `HeegnerValuesInRingClassField N`: one embedding per scoped CM parameter, all finite evaluations in `ℚ(j,j_N)`; GLUE, locators UNVERIFIED.
+- Mathlib: `Scheme.residue_surjective`, `Scheme.descResidueField_stalkClosedPointTo_fromSpecResidueField`, local ring embeds in function field by `IsFractionRing`.
+- Model: `X0Model.sectionGerm` compares section evaluation and residue of its finite meromorphic germ.
+- Inherited check: `CMField2.levelTwo_coordinates` and `levelTwo_distinct` rule out determining the normalized point from the two plane coordinates.
+- Import builds passed: `CMScope.Field`, `PreparedParam.Prints`, `Mathlib.AlgebraicGeometry.ResidueField`.
+- Cache: restored outputs for 1,883 modules from an earlier compatible build after checking identical repository source closures and dependency manifests; Lake rebuilt missing outputs and the scoped target offline.
+- `Prints.lean` and `Residue.lean`: serial `lake env lean -j1` passed under `MemoryMax=60G`.
+- `residueField_range_eq_stalkValue_range`: embedded residue field equals range of stalk evaluation.
+- `fieldPoint_of_stalk_values`: containment in an embedded field lifts the point over that field, with the specified embedding.
+- `sectionMap_eq_germ_evaluation`: section evaluation is evaluation of its germ in the local ring.
+- `stalkValue_is_modularValue`: the modular germ of each local function is finite with the same value.
+- `cmFieldOfDefinitionScoped_of_values`: `HeegnerValuesInRingClassField N → CMFieldOfDefinitionScoped (X0Branch.model N)`.
+- `cmFieldOfDefinitionScoped_one_of_values`: the same implication at level one; conclusion agrees with `CMScope.cmFieldOfDefinitionScoped_one`.
+- `Field.lean`: serial `lake env lean -j1` and Lake import build passed under `MemoryMax=60G`.
+- `Check.lean`: passed. The print definition and all six new theorems report exactly `[propext, Classical.choice, Quot.sound]`.
+- Remaining: reading desk check of the value-form print, especially the finite-value domain, coefficient field, and coverage of conductors prime to the level.

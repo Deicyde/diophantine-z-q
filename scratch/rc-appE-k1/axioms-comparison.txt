@@ -1,0 +1,7 @@
+ 00:55:01 up  6:44,  6 users,  load average: 2.84, 4.28, 5.54
+               total        used        free      shared  buff/cache   available
+Mem:             235          97          15           0         125         138
+Swap:            255           4         251
+'ZInQ.Manuscript.RC.AppEK1.exists_nonzero_image_of_anchored_weightedSum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

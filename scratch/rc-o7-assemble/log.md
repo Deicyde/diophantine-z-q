@@ -1,0 +1,22 @@
+- Merge order: 4fb8bc1, 0408f6b, 3cba268, 42f91fa. Merge head: 05139ad.
+- Stage: `StageKummer.referenceStage`, with `ThetaClose.actualPmLocal` and `PMAdelic.geometricInput`.
+- Frame transport: shared right order unit; inverse local factors cancel.
+- Reduced norm interface: local (p)-adic valuation equals the (p)-factorization exponent of the integral ideal norm.
+- `Filter.lean` initial version: PASS (`oddFilter`, `requestedIndices`, `levelFilter`), commit 2688a7259.
+- `ideleToIdeal_eq`: valuation proof elaborated; class quotient compatibility checked separately.
+- `Schwartz.lean` first check: local factor orders and chosen-representative reading elaborated; covariance requires simplification of the intermediate integer cast.
+- PASS: Schwartz product, local order and right-unit covariance (5c3017088).
+- PASS: fractional ideal map equality and class quotient compatibility (46f55f6cc).
+- PASS: `Prepared × GenusPartner × detecting test → AdmissibleD` (e30146a37).
+- Scope check: `LocalTorusChart` lacks a scalar reduced norm law; integral block membership is not the norm valuation law. No new print.
+- Inherited source audit: Jetchev–Kane on the cited lines 8468–8474 does not cover level one.
+- PASS: prime-ideal character calculation, multiplicative extension, and equality to the descended norm sign (7e7af11f3).
+- PASS: rational finite idele product, unramified factors, right-unit reading, and actual stage norm reading (04957c1ab).
+- PASS: conductor-one Picard labels, normalized class ideles and conditional ideal reading (b40ad8340).
+- PASS: actual stage, admissibility, selected quadratic basis, integral support and norm descent (d8e28eaf8).
+- PASS: actual comparison and odd-instance family consumers of the rows (5bc4b387e).
+- PASS: axiom audit through the actual family wrappers; each printed dependency set was `[propext, Classical.choice, Quot.sound]`.
+- PASS: chosen rational frame on a given adelic orbit (7e4829a35); torus parametrization conditional on `OrbitRead`, including its block-one proof (0ad4f7a85).
+- PASS: actual `DatumAt` with the common support, Picard orbit map, theta weights, normalizers, and StageKummer reference reduction (df79aeca0, cf73b8b3d).
+- OPEN: quotient calculation `OrbitRead`; scalar reduced norm valuation for the normalized class ideles; concrete `ArtinMatch` projection. The Artin sign theorem on the ideal label passed; direct proofs transporting it through the dependent stage records exceeded the elaborator's reduction limit.
+- PASS: final axiom audit, 70 declarations. `relabel_sign`: `[Quot.sound]`; all other entries: `[propext, Classical.choice, Quot.sound]`.

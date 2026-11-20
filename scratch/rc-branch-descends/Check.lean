@@ -1,0 +1,11 @@
+import ZInQKernel.Contrib.OneProof.RC.BranchDescends.Field
+
+open ZInQ.Manuscript.RC.BranchDescends
+
+#print axioms HeegnerValuesInRingClassField
+#print axioms residueField_range_eq_stalkValue_range
+#print axioms fieldPoint_of_stalk_values
+#print axioms sectionMap_eq_germ_evaluation
+#print axioms stalkValue_is_modularValue
+#print axioms cmFieldOfDefinitionScoped_of_values
+#print axioms cmFieldOfDefinitionScoped_one_of_values

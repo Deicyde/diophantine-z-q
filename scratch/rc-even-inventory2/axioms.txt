@@ -1,0 +1,129 @@
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.char' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.field' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.coeff_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.coeff_mem_field' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.char_mem_field' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.CuspDilation.source_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspDilation.char' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspDilation.coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspDilation.old' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspDilation.form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspDilation.coeff_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.OldNewIndependenceWeightTwo' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.cuspDilation_coeff_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspBlockExpansion.liftColumn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspBlockExpansion.liftColumn_level' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.CuspBlockExpansion.liftColumn_char' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.CuspBlockExpansion.liftColumn_coeff' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.CuspBlockExpansion.liftColumn_field' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.distinctCuspColumns' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.mem_distinctCuspColumns' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.distinctCuspIndex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.charAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.charAt_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.eigen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.eigen_a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.eigen_char' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspSources' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspSource_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspSource_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspSourceCoeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspSourceChar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspInventory' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspInventory_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.cuspInventory_char' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.liftedBlockChar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.exists_placedCuspLists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.κ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.in_image' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.inventory' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.blockChar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.blockChar_complex' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.block_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.NormalizedCuspSource.attachment_field' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.evenBlockLevel_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.movingLevel_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.movingLevel_test_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.blockSeriesAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.timesTheta_map_ringHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.unaryCoeff_map_ringHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.TL_map_scaled' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.blockSeriesAt_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.exists_actual_placed_lists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.fieldMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.ringMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.fieldMap_complex' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.fieldMap_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.evenBasis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.exists_placed_block_vectors' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.placedEvenVector' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.placed_evenVector_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.phaseAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.rawSource' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.phase_complex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.rawSource_complex' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.vectors' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.vectors_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.seed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.seed_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.seed_complex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.ringMap_agrees' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.seed_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.fixedH_two_fresh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.repr' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.blockChar_on_representative' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.quadValue' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.even_blockChar_sign' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.phase_ring' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.block_scalars' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.scaled_shell' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.unary_integral' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDiamond.0.ZInQ.Manuscript.RC.EvenJoin.diamond_seed_vector' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.placed_diamond_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeed_same' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeed_other' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneLattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneLatSeed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneLatSeed_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeed_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneOps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneCoeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneCoeff_hecke' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneLattice_stable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeed_trace_inertia' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.OneSeedTwoFresh.0.ZInQ.Manuscript.RC.EvenJoin.dense_pair_avoid' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.oneSeed_twoTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeedModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeedModel_column' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeedModel_seed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.oneSeedModel_hecke' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.sourceAttachments' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.evenAttachment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.integral_diamonds' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.unary_inertia' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.lattice_seed_coeff' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.fresh_coeff_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDeterminant.0.ZInQ.Manuscript.RC.EvenJoin.scalar_residue' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedDeterminant.0.ZInQ.Manuscript.RC.EvenJoin.odd_residue' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.determinantData' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedModel.0.ZInQ.Manuscript.RC.EvenJoin.fixedRing_continuousSMul' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedModel.0.ZInQ.Manuscript.RC.EvenJoin.two_mem_extended' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.PlacedModel.0.ZInQ.Manuscript.RC.EvenJoin.maximal_closed' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.model' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.model_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.model_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.model_maximal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.model_hecke' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedCuspLists.model_coordinates' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.CuspidalLocal.0.ZInQ.Manuscript.RC.EvenJoin.emptySector' depends on axioms: [propext,
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenJoin.CuspidalLocal.0.ZInQ.Manuscript.RC.EvenJoin.emptySector_shift' depends on axioms: [propext,
+'ZInQ.Manuscript.RC.EvenJoin.cuspidalStage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.CuspidalLocalAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.localAt_of_cuspidal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.PlacedGaloisInput' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.budgetRealization_of_placed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenJoin.rules_and_seed_of_placed_joint' depends on axioms: [propext, Classical.choice, Quot.sound]

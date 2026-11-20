@@ -1,0 +1,7 @@
+ 00:52:16 up  6:41,  6 users,  load average: 5.89, 5.40, 6.08
+               total        used        free      shared  buff/cache   available
+Mem:             235          98          14           0         125         136
+Swap:            255           4         251
+'ZInQ.Manuscript.RC.AppEK1.tensorCoeffMap_tmul' depends on axioms: [propext, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.tensorCoeffMap_smul' depends on axioms: [propext, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.mapAction_weightedMap_invDeck' depends on axioms: [propext, Classical.choice, Quot.sound]

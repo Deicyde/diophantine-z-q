@@ -1,0 +1,9 @@
+- Merged the requested stage valuation base, including PM.
+- Tex 8609–8614: right changes cancel pointwise; left changes reindex the rational norm sphere.
+- All 15 ThetaJoin modules: compiled individually with `lake env lean --threads=1`.
+- `levelNormCovariance`: actual norm character is trivial on rational diagonals and gives the local conjugation factors on integral order units.
+- `levelNormCharacter_single`: one good place of norm valuation one gives `jacobiSym (-m) p`.
+- `levelPmLocal`, `levelStage`, `levelValLift`: actual product, norm, phase and coordinates; require indexed local neighbour transport.
+- `weight_support_iff_halfIntegral`: global equivalence from the exceptional-place tests.
+- Unfiltered support comparison: arithmetic counterexample ell₀=3, h_*=-7, D=N=193, x=i+15j+15ij. The manuscript's odd filter excludes it.
+- Axiom audit: 105 theorems (15 private), 16 definitions; all 121 reported only `propext`, `Classical.choice`, `Quot.sound`.
