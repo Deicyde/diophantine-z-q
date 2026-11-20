@@ -115,6 +115,17 @@ def KatoSupportComparison.onKernel {full small : IwasawaData KatoLambda2}
     simp only [LinearMap.comp_apply] at h
     rw [h, LinearMap.mem_ker.mp x.property, map_zero]
 
+/-- A length bound on the entire full-open H² implies the kernel version
+of the draft, if this is the convention of the printed theorem. -/
+theorem kodai08AwayTwo_of_global (full : IwasawaData KatoLambda2)
+    (ht : Module.IsTorsion KatoLambda2 full.H2)
+    (h : ∀ (𝔭 : Ideal KatoLambda2) [𝔭.IsPrime], 𝔭.height = 1 → (2 : KatoLambda2) ∉ 𝔭 →
+      Module.length (Localization.AtPrime 𝔭) (LocalizedModule 𝔭.primeCompl full.H2) ≤
+        classIndex full 𝔭) : Kodai08AwayTwo full := by
+  refine ⟨ht, fun 𝔭 _ hh hn => ?_⟩
+  exact (Module.length_le_of_injective (LocalizedModule.map 𝔭.primeCompl full.H2zero.subtype)
+    (LocalizedModule.map_injective 𝔭.primeCompl _ full.H2zero.subtype_injective)).trans (h 𝔭 hh hn)
+
 /-- (K15), in the original support on its original retained class. -/
 def RetainedK15 (small : IwasawaData KatoLambda2) : Prop :=
   Module.IsTorsion KatoLambda2 small.H2 ∧
