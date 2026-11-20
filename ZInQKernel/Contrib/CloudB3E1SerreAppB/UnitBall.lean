@@ -99,10 +99,12 @@ def unitBall (K : IntermediateField ℚ_[p] (PadicAlgCl p)) (r : ℝ) (hr0 : 0 <
     rw [heq, norm_mul, norm_neg, norm_inv, h1, inv_one, mul_one]
     exact ha
 
+/-- Membership in `unitBall` is the defining strict inequality. Kind: proved. -/
 theorem mem_unitBall (K : IntermediateField ℚ_[p] (PadicAlgCl p)) {r : ℝ} (hr0 : 0 < r)
     (hr : r ≤ 1) (u : Kˣ) :
     u ∈ unitBall p K r hr0 hr ↔ ‖(((u : Kˣ) : K) : PadicAlgCl p) - 1‖ < r := Iff.rfl
 
+/-- `unitBall` is open in `Kˣ` (inherited topology). Kind: proved. -/
 theorem isOpen_unitBall (K : IntermediateField ℚ_[p] (PadicAlgCl p)) {r : ℝ} (hr0 : 0 < r)
     (hr : r ≤ 1) : IsOpen ((unitBall p K r hr0 hr : Subgroup Kˣ) : Set Kˣ) := by
   have hf : Continuous (fun u : Kˣ => (((u : Kˣ) : K) : PadicAlgCl p)) :=
