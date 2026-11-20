@@ -21,9 +21,7 @@ choice of continuation.
 
 ## Trust
 
-* `GrossZagier` is a textbook theorem: Gross–Zagier (Invent. Math. 84 (1986)) with an auxiliary
-  imaginary quadratic twist (Bump–Friedberg–Hoffstein 1990, Friedberg–Hoffstein 1995) and
-  modularity (Breuil–Conrad–Diamond–Taylor 2001).
+* `GrossZagier`: Gross–Zagier, Invent. Math. 84 (1986), Thm (7.3)(1), p. 231, plus BCDT for modularity.
 * `FunctionalEquation5` is a textbook theorem: the functional equation of the Hecke L-function
   of the CM curve `C_d` (Deuring, Hecke), conductor `32 d²`, root number `−1` for
   `d ≡ 5 (mod 8)` (Birch–Stephens, Topology 5 (1966)). It is stated on the strip `0 < Re s < 2`
@@ -61,12 +59,7 @@ theorem IsLContinuation.eq {E : WeierstrassCurve ℚ} {F G : ℂ → ℂ} (hF : 
 /-- **Gross–Zagier** (positive-rank half, for every elliptic curve over `ℚ`). If `L(E, s)` has a
 simple zero at `s = 1`, then `E(ℚ)` has a point of infinite order.
 
-Literature: B. Gross, D. Zagier, Invent. Math. 84 (1986), 225–320 (Heegner point of infinite
-order when `L'(E/K, 1) ≠ 0`); an auxiliary imaginary quadratic `K` with the Heegner hypothesis
-and `L(E^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein, Invent. Math. 102 (1990), through Waldspurger's
-formula; or Friedberg–Hoffstein, Ann. of Math. 142 (1995); `docs/research/cr3-trust.md`, step
-D2); modularity of `E` (Breuil–Conrad–Diamond–Taylor, J. AMS 14 (2001); for CM curves Shimura
-1971). Kolyvagin (Math. USSR Izv. 32 (1989)) adds `rank = 1`, not used. -/
+Literature: Gross–Zagier, Invent. Math. 84 (1986), Thm (7.3)(1), p. 231, plus BCDT for modularity. -/
 def GrossZagier : Prop :=
   ∀ (E : WeierstrassCurve ℚ), E.IsElliptic → ∀ F : ℂ → ℂ, IsLContinuation E F →
     analyticOrderAt F 1 = 1 → ∃ P : E.toAffine.Point, ¬IsOfFinAddOrder P
