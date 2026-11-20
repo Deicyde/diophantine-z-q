@@ -16,13 +16,15 @@ and `E[2^∞] ⊂ E(K_S)`: (i) locally trivial cocycles of `G_{K,S}` inflate int
 * `decomp_subsingleton`, `locK_real_eq_zero` (PROVED): for `k < 0` the decomposition group at a
   real embedding of `ℚˢ` is trivial, so the real places impose nothing;
 * `KcSelOfLocFinite` (definition; the named finite-place input of (i), PRINT + GLUE: Milne,
-  *Arithmetic Duality Theorems*, I.3.8, at the places outside `S`; the comparison of the two local
-  models at the places of `S`), and `kcSelOfLoc_of_finite` (PROVED): (i) from it;
+  *Arithmetic Duality Theorems*, I, Proposition 6.5 (p. 75, proof p. 76, using I.3.8) at the places
+  outside `S`; the comparison of the two local models at the places of `S`), and
+  `kcSelOfLoc_of_finite` (PROVED): (i) from it;
 * `kcArithSelmerLevel_of` (PROVED): `KcArithSelmerLevel` from `KcSelOfLocFinite` and (ii).
 
 Kinds: definitions and PROVED; the named inputs `KcSelOfLocFinite` (PRINT + GLUE) and `KcLocOfSel`
-(GLUE: Silverman X.4.4, locator unverified; the Néron–Ogg–Shafarevich criterion;
-inflation–restriction).
+(PRINT + GLUE: Milne, *Arithmetic Duality Theorems*, I, Proposition 6.5 and Corollary 6.6,
+pp. 75–76; the Néron–Ogg–Shafarevich criterion, Silverman AEC VII.7.1, page unverified; the
+finite-level reading and the local models).
 -/
 
 noncomputable section
@@ -116,8 +118,17 @@ def KcSelOfLoc : Prop :=
         kerToH1 (k := ℤ) ⟨((kcInfl k S E m).f 1).hom f, kcInfl_mem_ker k S E hf⟩ ∈
           selmerLevelK (sqrtK k) E m
 
-/-- **Field (ii) of `KcArithSelmerLevel`**: every class of `Sel_{2^m}(E/K)` is such an
-inflation. Kind: definition (the statement; the named input). -/
+/-- **Field (ii) of `KcArithSelmerLevel`**: every class of `Sel_{2^m}(E/K)` is such an inflation.
+Literature (PRINT): Milne, *Arithmetic Duality Theorems*, 2nd ed., Ch. I, Proposition 6.5, p. 75,
+verbatim: "There are exact sequences 0 → H¹(G_S, A(m)) → H¹(K, A(m)) → ⊕_{v∉S} H¹(K_v, A) …", with
+its proof on p. 76 ("Conversely, let a lie in this kernel. … it suffices to show that b (hence a) is
+split by a finite extension of K unramified outside S") and Corollary 6.6, p. 76 ("S_S(K, A, m) =
+S(K, A, m)"); the standing hypotheses of §6 (pp. 72–73): `S` contains the archimedean primes and the
+primes of bad reduction, and `m` is a unit in `R_{K,S}`. GLUE: the level-`2^m` reading of the proof
+(which works with `A_m`, using Lemma 6.1, p. 73), good reduction outside `S` from `E[2^∞] ⊂ E(K_S)`
+(Néron–Ogg–Shafarevich, Silverman AEC VII.7.1, page unverified), and the local models (`KcLocTriv`
+at the places of `S`).
+Kind: definition (the statement; the named input). -/
 def KcLocOfSel : Prop :=
   E.IsElliptic → k < 0 → S.Finite →
     (∀ v : HeightOneSpectrum (𝓞 (QuadraticField k)), (2 : 𝓞 (QuadraticField k)) ∈ v.asIdeal →
@@ -145,9 +156,12 @@ embedding `τ : ℚˢ → ℚ_pˢ` (a place `v` of `K` above `p`), the localizat
   Duality Theorems*, 2nd ed., Ch. I, Proposition 3.8 (pp. 46–47), verbatim: "Let A be an abelian
   variety over K, and let 𝒜 be its Néron model over R. Then H^1(G/I, A(K^un)) = H^1(G/I,
   π_0(𝒜_0)) where 𝒜_0 is the closed fibre of 𝒜/R. In particular, if A has good reduction, then
-  H^1(G/I, A(K^un)) = 0." (PRINT; its proof uses Lang's lemma and Hensel's lemma.) GLUE: the
-  inflation–restriction from `G/I` to `G_{K_v}` and the good reduction outside `S` (from
-  `E[2^∞] ⊂ E(K_S)` and the Néron–Ogg–Shafarevich criterion).
+  H^1(G/I, A(K^un)) = 0." (PRINT; its proof uses Lang's lemma and Hensel's lemma.) The global
+  form is Milne, I, Proposition 6.5 (p. 75), whose proof (p. 76) reads: "According to (3.8),
+  H¹(g_v, A(K_v^un)) = 0, and so the diagram shows that the image of H¹(G_S, A(m)) in H¹(K, A(m))
+  is contained in the kernel of H¹(K, A(m)) → ⊕_{v∉S} H¹(K_v, A)." GLUE: the good reduction
+  outside `S` (from `E[2^∞] ⊂ E(K_S)` and the Néron–Ogg–Shafarevich criterion, Silverman AEC
+  VII.7.1, page unverified).
 * At `v ∈ S`: GLUE, the comparison of `KcLocTriv` (stated with `G_{K_v}` and the points over the
   completion `K_v`) with the localization `locK` at `τ` (stated with embeddings of separable
   closures); the tree has no map from `τ` to the place `v`, which a split of this input by place
