@@ -36,3 +36,24 @@
 The exact types and location of each reference are in the companion
 consumer list. Documentary references to the old names do not count as
 additional proof consumers.
+
+## Extended system and transport
+
+- **VERIFIED** (Lean): `KodaiPrint.lean`, `ExtendedNorm.lean`,
+  `Comparison.lean`, `Abelian.lean` and `Irreducibility.lean` pass
+  `lake env lean` individually. Missing dependencies were built serially
+  by Lake command, with `--no-cache build +<Module>:deps` (or
+  `+<Module>:olean` for the initially missing `PrintsArith.Kato`).
+- **VERIFIED** (Lean): for extended indices the new-prime polynomial is
+  evaluated at inverse arithmetic Frobenius divided by the prime;
+  repeated primes have multiplier one. The base-to-dyadic trace on the
+  untwisted elements has empty Euler support. The §0.7 class is the image
+  of the retained class, conditional on the named projection comparison.
+- **VERIFIED** (Lean): `SerreThm3` gives the abelian-kernel fixed-space
+  condition for the actual rational twist. The same Serre input with
+  the existing determinant–cyclotomic theorem gives absolute
+  irreducibility after arbitrary extension of the rational coefficients.
+- **SPECULATIVE / UNVERIFIED** (source): the 1999 hypothesis list and
+  output conventions in the application-shaped draft require the cited
+  page check. The in-tree page audit supports the use of the retained
+  class and the away-two bound, and records the different supports.
