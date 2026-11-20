@@ -26,3 +26,31 @@ coefficients. Even granting both reciprocity citations would still require
 new arithmetic comparison GLUE beyond `FixedKatoFiniteComparison`. The
 real sign can be proved within the cut. No new arithmetic assumptions are
 introduced for it.
+
+- **VERIFIED** (base): `SelmerComplex.res_cor_eq_zero_of_forall_conj'`
+  in `ZInQKernel/Contrib/OneProof/RC/SelmerComplex/MackeyGeneral.lean`
+  already handles inertia vanishing under finite transfer on Galois
+  cohomology. The finite étale identification remains separate; the
+  prior audit in `docs/theorem-application-audit/evidence/parallel-forward-modularity-a080-report.md`
+  gives the Leray argument and the degree-one inverse-limit justification.
+- **VERIFIED** (base): `KodaiTower.proj` and `corestrict` are additive
+  maps. Their types do not identify the action of `Λ` on the limit with
+  finite deck actions. This scalar compatibility is necessary before
+  finite nonvanishing can test a minimal-prime localization.
+- **VERIFIED** (Lean 4.35.0): `RealSign.lean` and
+  `RealSignBridge.lean` both elaborate with `lake env lean` and
+  emit their object files. The sign proof uses the existing
+  Weil pairing consequence from `DetTateCyclotomic.Basic` and the
+  genuine conjugation from `OpenImage.Basic`. The constructor fills the
+  real sign field of the existing checked constituent.
+- **VERIFIED** (build): used one Lean invocation at a time with
+  `LEAN_NUM_THREADS=4` and checked load and available memory.
+  The broader build for the initial conjugation import was stopped
+  after the proof was narrowed to existing Weil pairing and open-image
+  imports. Reused the compiled reroute artifacts from the same base
+  with matching manifest and toolchain; no missing import was left
+  unchecked.
+- **VERIFIED** (axioms): `lake env lean scratch/rc-kato-p2-ident/Check.lean`
+  passes. All four new theorems and the constructor use only
+  `propext`, `Classical.choice` and `Quot.sound`. The bridge does not
+  import the frozen main module. See [axioms.txt](axioms.txt).

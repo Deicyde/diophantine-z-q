@@ -1,0 +1,14 @@
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.RealSign.0.ZInQ.Manuscript.RC.KatoP2.realConj_sq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.RealSign.0.ZInQ.Manuscript.RC.KatoP2.realConj_tate_det' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.RealSign.0.ZInQ.Manuscript.RC.KatoP2.finrank_ker_add_one_of_involution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.rationalTwist_realSigns' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.KodaiConstituent.ofArithmetic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+The real sign bridge does not import the frozen main module.
