@@ -57,3 +57,22 @@ additional proof consumers.
   output conventions in the application-shaped draft require the cited
   page check. The in-tree page audit supports the use of the retained
   class and the away-two bound, and records the different supports.
+
+## Consumer checks
+
+- **VERIFIED** (Lean): `EvenBridge.lean` passes `lake env lean` after
+  building its imports. It uses the actual rational twist, the two Serre
+  results, the old curve-level data, and the conditional post-(K15) work.
+- **VERIFIED** (import graph): no new module imports `ZInQKernel.OneProof.Main`,
+  directly or transitively. The declaration closure check is in `Check.lean`.
+- **VERIFIED** (Lean): `FiniteAppE.lean` and `FiniteAnchor.lean` pass
+  standalone checks after their dependencies have built; the additional
+  whole-full-H²-to-kernel lemma in `Comparison.lean` also passes. No new
+  check was started during the interval of host load above 150.
+- **VERIFIED** (Lean): `lake env lean scratch/rc-kato-p2-reroute/Check.lean`
+  exits successfully after building the three top modules' `.olean`s.
+  [`axioms.txt`](axioms.txt) records all 36 outputs. Only `propext`,
+  `Classical.choice` and `Quot.sound` occur. The checker typechecks the
+  definitional equality of the retained (K15) predicate and the old
+  conclusion, and walks the new proofs and types to confirm that none of
+  the replacement entry points uses the old conclusion or interface.

@@ -1,0 +1,43 @@
+'ZInQ.Manuscript.RC.KatoP2.retained_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.dyadicNorm_of_retained' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.smoother_coprime_of_katoXi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.new_prime_not_dvd_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.norm_above_kodaiBase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.map_frobUnit' depends on axioms: [propext, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.weightedEuler' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.kodaiNorm_of_prop812' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.kodaiNorm_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.commutator_fixesAbelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.scaleFirst_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.scaleFirst_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.serre_abelian_unipotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.serre_abelian_rankOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.kodaiUnipotent_of_serre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.coord_transvection_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.kodaiAbsIrred_of_serre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.retained_norm_to_dyadic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.kodai07_eq_retained' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.eval_mem_J' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.map_J_le_of_extend' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.kodai08AwayTwo_of_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.retainedK15_of_kodai08' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.finiteNorm_of_retained' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.finite_e1_p2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.RetainedReciprocity.z_ne_zero_of_L_ne_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.anchored_weightedSum_nsmul_ne_zero_p2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.exists_nonzero_image_of_anchored_weightedSum_p2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.KodaiConstituent.retainedK15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.family_smoothers_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.appEOutputs_of_katoP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.evenScalar32_of_katoP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.appEOutputs_of_katoP2_fixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.evenScalar32_of_katoP2_fixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.evenScalar32_of_katoP2_ecurve' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.evenLowerBound_of_katoP2_ecurve' depends on axioms: [propext, Classical.choice, Quot.sound]
+No legacy dyadic dependency in the replacement entry points.
