@@ -16,11 +16,16 @@ This is a consequence of the following established results, not a new axiom:
   modular elliptic curves*, ICM Kyoto 1990, Vol. I (1991), Theorem 1, p. 430.
   Its bound is `ar(E) ≤ 1`, including both ranks zero and one.
 
-The named printed statements were read in their cited editions. This is
-AI-READ source evidence, not a human reading or a kernel proof of those results.
-`ForwardRankAtMostOne` remains an explicit input to each reduction below. It is
-labelled a consequence of the three sources, not a literal transcription of
-Kolyvagin's theorem with its modularity hypothesis removed.
+The combined result is proved over ℚ in Robert L. Miller, *Proving the Birch
+and Swinnerton-Dyer conjecture for specific elliptic curves of analytic rank
+zero and one*, LMS J. Comput. Math. 14 (2011), 327–350,
+[Theorem 4.4, pp. 336–337](https://doi.org/10.1112/S1461157011000180).
+Miller's §1 fixes a global minimal Weierstrass equation as a presentation of
+the curve and defines analytic rank using the central order of its Hasse–Weil
+`L`-function. The rank and finiteness conclusions in Theorem 4.4 are about
+the rational point group and the full `Sha`; extra hypotheses on a prime in
+the theorem govern only the subsequent valuation bound. This is an AI-READ
+comparison with the journal version.
 
 The reductions use the existing rational point group, `E.LSeries`, and the
 all-place `SelmerTwoPower.sha`. They neither change those definitions nor assert
@@ -44,12 +49,13 @@ theorem analyticRankAt_one_iff (E : WeierstrassCurve ℚ) :
     AnalyticRankAt E 1 ↔ AnalyticRankOne E := by
   simp only [AnalyticRankAt, AnalyticRankOne, Nat.cast_one]
 
-/-- The classical forward rank theorem, obtained from BCDT Theorem A,
-Silverman C.13.6 and Kolyvagin ICM Theorem 1 in the cited editions above.
-This is an explicit literature consequence and is not proved by this definition.
-Finiteness is for the genuine all-place `Sha(E/ℚ)`, not just its finite-level
-2-torsion. No good-ordinary, non-CM, odd-prime or caller-supplied Heegner-point
-hypothesis occurs in this consequence. -/
+/-- The rank and finiteness part of Miller, LMS J. Comput. Math. 14 (2011),
+Theorem 4.4, p. 336. The printed conclusion is
+`rank E(ℚ) = r_an(E)` and finiteness of `Sha(E/ℚ)` when `r_an(E) ≤ 1`.
+It includes both analytic ranks zero and one. The Lean statement names the
+central order `r` using an entire continuation of the Hasse–Weil L-series and
+keeps the full all-place `Sha`. It uses neither the auxiliary Heegner point
+nor the valuation bound in the print. -/
 def ForwardRankAtMostOne : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → ∀ r : ℕ, r ≤ 1 →
     AnalyticRankAt E r →

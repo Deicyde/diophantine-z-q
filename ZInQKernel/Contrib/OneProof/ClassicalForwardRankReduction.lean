@@ -5,9 +5,9 @@ import ZInQKernel.Contrib.OneProof.AnalyticRankWellDefined
 
 The standard forward theorem for elliptic curves over `ℚ` says that a nonzero
 central value gives rank zero and finite `Sha`, while a simple central zero
-gives rank one and finite `Sha`. It is the consequence of BCDT Theorem A,
-Silverman, second edition, C.13.6 p. 442, and Kolyvagin, ICM Kyoto 1990,
-Theorem 1 p. 430, already cited in `ForwardRankLiterature`.
+gives rank one and finite `Sha`. See the rank and finiteness conclusions of
+Miller, LMS J. Comput. Math. 14 (2011), Theorem 4.4, p. 336, in
+`ForwardRankLiterature`.
 
 `ClassicalCentralValueRank` states this consequence on the same actual entire
 continuations, rational point groups and all-place `Sha` as the existing
