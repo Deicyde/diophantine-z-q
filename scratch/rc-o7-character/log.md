@@ -1,0 +1,10 @@
+- Base merged: `2437a52cd1d47f986909c07019f695c883fae987`.
+- Route (a): basis from the discriminant square root and index one; norm sign on principal ideals from the integral quadratic norm formula.
+- `quadraticBasis`: quadratic field of discriminant `D * -m < 0` congruent to one modulo four gives `QuadraticBasis F (D * -m)`.
+- `Basis.lean`: passed `lake env lean`.
+- `normCharacterDescent`: degree two, `discr F = D * hstar < 0` and `(D * hstar) % 8 = 1` give the required integer-unit character on `Pic (conductorOrder F 1)`.
+- Character check: principal norm identity, Jacobi sign one on the principal kernel, coprime representatives for every Picard class and independence on Picard fibers.
+- `stageIntegralArithmetic`: actual stage basis and discriminant fields by `s.m_eq`; no `half` premise.
+- `Character.lean`, `Stage.lean`: passed `lake env lean`.
+- `Axioms.lean`: passed; all ten audited declarations depend only on `propext`, `Classical.choice` and `Quot.sound`.
+- No new print or source error. Remaining character wiring: pointwise `hχF` at the chosen reduction.

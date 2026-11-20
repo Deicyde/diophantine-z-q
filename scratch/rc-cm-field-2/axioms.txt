@@ -1,0 +1,214 @@
+# Lean axiom audit (lake env lean; all modules exit 0)
+
+Cyclic.lean
+  ZInQ.Manuscript.RC.CMField2.isAddCyclic_quotient_of_primitive: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.isAddCyclic_sublatticeQuotient_of_primitive: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.primitive_of_isAddCyclic_quotient: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.primitive_of_isAddCyclic_sublatticeQuotient: propext, Classical.choice, Quot.sound
+
+Diagonal.lean
+  ZInQ.Manuscript.RC.CMField2.eval_diagonal: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.rootMultiplicity_specialization_eq_of_embeddings: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.isIntegral_jLattice_of_cyclicSelf: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_nonsquare_quadratic_value: propext, Classical.choice, Quot.sound
+
+Factorization.lean
+  ZInQ.Manuscript.RC.CMField2.coe_cosetParameter: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Factorization.0.ZInQ.Manuscript.RC.CMField2.coe_slDenom_ne_zero: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.injOn_coset_j_of_transcendental: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.modularPolynomial_eq_coset_product: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_coset_of_modularPolynomial_root: propext, Classical.choice, Quot.sound
+
+Frobenius.lean
+  ZInQ.Manuscript.RC.CMField2.pow_eq_of_kronecker_diagonal: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.mem_of_separating_reductions: propext, Classical.choice, Quot.sound
+
+HeegnerLattice.lean
+  ZInQ.Manuscript.RC.CMField2.coe_cmPoint_of_neg: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.heegner_middle_coprime: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.heegner_scaled_form: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.HeegnerLattice.0.ZInQ.Manuscript.RC.CMField2.int_mem_pairLattice: propext, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.HeegnerLattice.0.ZInQ.Manuscript.RC.CMField2.omega_mem_pairLattice: propext, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.heegner_pairLattice_mul: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.dilate_cmPoint_eq: propext, Classical.choice, Quot.sound
+
+Lattices.lean
+  ZInQ.Manuscript.RC.CMField2.exists_ideal_basis: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Lattices.0.ZInQ.Manuscript.RC.CMField2.embedding_indep: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.idealPeriod: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.idealPeriod_lattice: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.jLattice_eq_of_lattice_eq: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.jLattice_scale: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.lattice_scale: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus_eq_of_mkPic_eq: propext, Classical.choice, Quot.sound
+
+PrimitiveNorms.lean
+  ZInQ.Manuscript.RC.CMField2.primitiveNormLevels: propext
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimitiveNorms.0.ZInQ.Manuscript.RC.CMField2.min_generic: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimitiveNorms.0.ZInQ.Manuscript.RC.CMField2.generic_trace_one_gap: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimitiveNorms.0.ZInQ.Manuscript.RC.CMField2.not_primitive_of_even: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimitiveNorms.0.ZInQ.Manuscript.RC.CMField2.gaussian_no_three: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimitiveNorms.0.ZInQ.Manuscript.RC.CMField2.gaussian_no_four: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimitiveNorms.0.ZInQ.Manuscript.RC.CMField2.eisenstein_no_four: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimitiveNorms.0.ZInQ.Manuscript.RC.CMField2.eisenstein_no_mod_three: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.quadraticNormParameters_eq_of_primitiveNormLevels: propext, Classical.choice, Quot.sound
+
+CosetLattice.lean
+  ZInQ.Manuscript.RC.CMField2.exists_cyclic_sublattice_of_modularPolynomial_root: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_analyticJ_eq: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.conjugate_has_cyclic_self_of_root: propext, Classical.choice, Quot.sound
+
+Integrality.lean
+  ZInQ.Manuscript.RC.CMField2.cast_sublatticeIndex_scale: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_order_basis_one: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.orderBasis_im_ne_zero: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Integrality.0.ZInQ.Manuscript.RC.CMField2.primitive_scale_of_order_basis: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus_isIntegral: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.cast_absNorm_span_singleton_complex: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.prime_diagonal_eq_of_order_multiplier: propext, Classical.choice, Quot.sound
+
+Kronecker.lean
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Kronecker.0.ZInQ.Manuscript.RC.CMField2.swap: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Kronecker.0.ZInQ.Manuscript.RC.CMField2.swap_reduce: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Kronecker.0.ZInQ.Manuscript.RC.CMField2.jqMod_eq_jqModC: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.modularPolynomial_reduced_root: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.kroneckerCongruence_of_prime: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.pow_eq_of_modularPolynomial_diagonal_root: propext, Classical.choice, Quot.sound
+
+LevelTwo.lean
+  ZInQ.Manuscript.RC.CMField2.levelTwo_heegner: propext, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.hs: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.hplus: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.hminus: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.hshift: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.hquad: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.hprod: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.levelTwo_reflection: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.S_plus: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.S_minus: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelTwo.0.ZInQ.Manuscript.RC.CMField2.T_dilate: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.levelTwo_coordinates: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.middleCoefficient_mod_four: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.levelTwo_distinct: propext, Classical.choice, Quot.sound
+
+Membership.lean
+  ZInQ.Manuscript.RC.CMField2.SingularModulusMemRingClass: propext, Classical.choice, Quot.sound
+
+Degree.lean
+  ZInQ.Manuscript.RC.CMField2.ConjugateSingularModulus: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.finrank_adjoin_le_of_conjugate_family: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Degree.0.ZInQ.Manuscript.RC.CMField2.mkPic_picRepresentative: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_le_of_conjugate: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_over_base_le_of_conjugate: propext, Classical.choice, Quot.sound
+
+Descent.lean
+  ZInQ.Manuscript.RC.CMField2.BranchDescends: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.affineEval_factor: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.chart_mem: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.fieldPoint_of_affineEval_range: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.fieldPoint_of_finitePointEval_range: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.fieldPoint_iff_finitePointEval_range: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_of: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.fieldPoint_of_eval_mem_adjoin_coordinates: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.fieldPoint_of_eval_rational_in_coordinates: propext, Classical.choice, Quot.sound
+
+IdealDictionary.lean
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.IdealDictionary.0.ZInQ.Manuscript.RC.CMField2.primitive_quadratic_equation: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.IdealDictionary.0.ZInQ.Manuscript.RC.CMField2.exists_noninteger: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.IdealDictionary.0.ZInQ.Manuscript.RC.CMField2.mul_mem_of_mem_pair: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.proper_iff_isUnit: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_singularModulus_of_exact_multiplier: propext, Classical.choice, Quot.sound
+
+MembershipDegree.lean
+  ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_over_base_le_of_mem: propext, Classical.choice, Quot.sound
+
+OrderGenerator.lean
+  ZInQ.Manuscript.RC.CMField2.discr_of_basis_one: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_heegner_generator: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_heegner_generator_in_embedding: propext, Classical.choice, Quot.sound
+
+ScalarWitness.lean
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.ScalarWitness.0.ZInQ.Manuscript.RC.CMField2.exists_invariant_scaling: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_homothetic_of_jLattice_eq: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_int_eq_of_real_multiplier: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.conjugate_has_nonreal_multiplier_of_root: propext, Classical.choice, Quot.sound
+
+SplitPrime.lean
+  ZInQ.Manuscript.RC.CMField2.singularModulus_reduction_pow_eq_of_split: propext, Classical.choice, Quot.sound
+
+ExactOrder.lean
+  ZInQ.Manuscript.RC.CMField2.ExactMultiplierOrderOfDiagonalMultiplicities: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.conjugateSingularModulus_of_exactMultiplier: propext, Classical.choice, Quot.sound
+
+LevelOne.lean
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelOne.0.ZInQ.Manuscript.RC.CMField2.jPull_one_surjective: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelOne.0.ZInQ.Manuscript.RC.CMField2.finiteEval_jPull: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.LevelOne.0.ZInQ.Manuscript.RC.CMField2.finiteEval_jPull_mem_range: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.finiteChart_finiteTest: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.finitePointEval_one_mem_range: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.modelOne_fieldPoint_of_analyticJ: propext, Classical.choice, Quot.sound
+
+Multipliers.lean
+  ZInQ.Manuscript.RC.CMField2.periodMultipliers: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Multipliers.0.ZInQ.Manuscript.RC.CMField2.omega_one_mem: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Multipliers.0.ZInQ.Manuscript.RC.CMField2.secondCoord: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Multipliers.0.ZInQ.Manuscript.RC.CMField2.exists_int_of_secondCoord_eq_zero: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_multiplier_basis_one: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.Multipliers.0.ZInQ.Manuscript.RC.CMField2.integral_trace_norm_of_multiplier: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_normalized_multiplier: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.periodMultipliers_scale: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.periodMultipliers_eq_of_jLattice_eq: propext, Classical.choice, Quot.sound
+
+OrientedIdeals.lean
+  ZInQ.Manuscript.RC.CMField2.formIdeal: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.formIdeal_coe: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.formIdeal_restrictScalars: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.formIdeal_mul_conjugate: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.formIdeal_isUnit: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.analyticJ_eq_singularModulus_of_generator: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.formIdeal_mul_scaled: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.formIdeal_scaled_eq_levelInverse_mul: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_heegner_singularModuli_in_embedding: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exists_heegner_singularModuli: propext, Classical.choice, Quot.sound
+
+PrimeComparison.lean
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimeComparison.0.ZInQ.Manuscript.RC.CMField2.rational_prime_span_ne_bot: propext, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimeComparison.0.ZInQ.Manuscript.RC.CMField2.absNorm_under_eq_of_pow_fixed: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimeComparison.0.ZInQ.Manuscript.RC.CMField2.absNorm_under_eq_of_frob_fixes: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.PrimeComparison.0.ZInQ.Manuscript.RC.CMField2.not_mem_of_norm_lt: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.splitPrime_of_frob_fixes_ringClass: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulusMemRingClass: propext, Classical.choice, Quot.sound
+
+CoordinateDescent.lean
+  ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_modelOne_of: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.heegner_coordinates_mem_ringClass_of: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.branchDescends_one: propext, Classical.choice, Quot.sound
+
+NormCriterion.lean
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.NormCriterion.0.ZInQ.Manuscript.RC.CMField2.int_coords_eq: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.NormCriterion.0.ZInQ.Manuscript.RC.CMField2.normSq_of_coords: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.NormCriterion.0.ZInQ.Manuscript.RC.CMField2.scale_le_of_multiplier: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.NormCriterion.0.ZInQ.Manuscript.RC.CMField2.scale_primitive_iff_gcd: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.NormCriterion.0.ZInQ.Manuscript.RC.CMField2.diagonal_root_iff_ofTau: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.diagonal_root_iff_primitive_norm: propext, Classical.choice, Quot.sound
+
+ExactOrderProof.lean
+  ZInQ.Manuscript.RC.CMField2.periodMultipliers_idealPeriod: propext, Classical.choice, Quot.sound
+  _private.ZInQKernel.Contrib.OneProof.RC.CMField2.ExactOrderProof.0.ZInQ.Manuscript.RC.CMField2.same_normalized_order: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.exactMultiplierOrderOfDiagonalMultiplicities: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.conjugateSingularModulus: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_le: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_over_base_le: propext, Classical.choice, Quot.sound
+
+Results.lean
+  ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_modelOne: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.cmFieldOfDefinition_one: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.heegner_coordinates_mem_ringClass: propext, Classical.choice, Quot.sound
+
+AnalyticDegree.lean
+  ZInQ.Manuscript.RC.CMField2.eq_cmPoint_of_quadratic: propext, Classical.choice, Quot.sound
+  ZInQ.Manuscript.RC.CMField2.singularModulus_finrank_le_of_primitive_equation: propext, Classical.choice, Quot.sound
+
+29 modules; 153 declaration checks.

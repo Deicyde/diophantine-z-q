@@ -1,0 +1,20 @@
+'ZInQ.Manuscript.RC.Kato812.KatoProp812Print' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.not_mem_normSupport_of_dvd_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.KatoZetaInterface812.norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.KatoZetaInterface812.norm_mul_prime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.KatoZetaInterface812.two_mem_bad' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.KatoZetaInterface812.smooth_disjoint_of_katoXi' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.KatoZetaInterface812.isEulerSystem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.KatoZetaInterface812.toOld' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.norm_at_twisted_indices' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.normSupport_eq_unused' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.dyadicNorm_812' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.finiteNorm_of_kato812' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.smoothing_avoids_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Kato812.finite_e1_812' depends on axioms: [propext, Classical.choice, Quot.sound]

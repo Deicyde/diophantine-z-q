@@ -1,0 +1,12 @@
+- Base: `54d1d912212e1a5cc61a7c188cf6188ce1dd68d6`.
+- Model: `H¹ ≃ coker F × ker D`, `H² ≃ coker D`; first projection bijective on Kummer implies quotient `≃ ker D`.
+- Moving: `F = χFr − 1`, `D = χFr − r`. Inertia acts trivially.
+- Active: `g = −1`, `N_q(g) = 1`, `Φ − 1 = 2T`; `(v,w) ↦ (−w,v+Tw)` gives `F = D = 2·1₂`.
+- Precision zero: coefficient ring zero; both presentation groups zero.
+- Remaining positive-precision assertions: `QuasiIsoAt c 1`, `QuasiIsoAt c 2`, `Function.Bijective (kummerFirstCoordinate hFull c)`.
+- No new print; no change to any inherited module.
+- Manuscript error: (4.4), tex 3471–3477, short tame norm needs `g² = 1`; general sum uses all powers. Counterexample `q = 5`, rank-two rotation over `ℤ/8`. Central cases satisfy the condition.
+- `SplitModel.lean`: compiled cleanly with `lake env lean --threads=1`; 11 declarations audited.
+- `Presentations.lean`: compiled cleanly with `lake env lean --threads=1`; 8 declarations audited.
+- `Actions.lean`: compiled cleanly with `lake env lean --threads=1`; 10 declarations audited.
+- Serial resource checks passed before every run. All 29 final axiom readings are subsets of `propext`, `Classical.choice` and `Quot.sound`.

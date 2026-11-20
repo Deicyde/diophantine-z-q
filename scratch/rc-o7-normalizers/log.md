@@ -1,0 +1,17 @@
+- Merged the requested bases in order.
+- Use the actual filtered support and the adelic representative of each chosen ideal.
+- Inherited citation scope and support parsing issues recorded in the report.
+- Transport statement: supported orbits are adelic pairs (representative, affine generator) modulo simultaneous rational conjugation and right order units.
+- Split statement: the normalizer exchanges the diagonal entries; the affine root and its complement exchange; its unit character is multiplied by α_p(−1).
+- Division statement: the uniformizer acts by residue Frobenius and negates the trace-zero root.
+- Norm statement: at an unramified prime a one-place reduced norm of valuation e contributes χ_(h_*)(p)^e; the dyadic calculation uses the supplementary law and h_* ≡ 1 mod 8.
+- Product statement: use the same right unit in norm and Schwartz covariance, and then multiply the two normalizer factors.
+- Local.lean: passed lake env lean --threads=1.
+- Transport.lean: passed lake env lean --threads=1.
+- Norm.lean: passed lake env lean --threads=1.
+- Orientation interface: unchanged places use the identity local component; at the selected place the moved residue label is the complementary root.
+- Orientation.lean initial checks: explicit chart coercions and dependent flip simplification required. Division chart compatibility now proved by restriction along the equality of completed orders.
+- Orientation.lean: passed lake env lean --threads=1. Both normalizer permutations flip exactly one bit of the existing orientation.
+- Weights.lean: passed lake env lean --threads=1. The aligned affine split factor changes by α_p(−1); the division factor changes by −1. The representative change cancels in the combined weight.
+- Assembly.lean: passed lake env lean --threads=1. `normalizers` fills each field of `Normalizers` on the actual stage; `ofPicardFibers` fills the same record from the existing Picard fiber interface.
+- Axioms.lean: passed; audited 81 theorems and 41 other declarations. Only propext, Classical.choice and Quot.sound.

@@ -1,0 +1,13 @@
+- Base: 7b5e84d80db4189e5a11e47279ef0ed789399344.
+- Moving action: arithmetic local Frobenius, unramified torsion and sign, trace `a_r`, determinant `r`, sign `χ_h(r)`.
+- Active action: an element in the kernel of unramified restriction fixes untwisted torsion and negates the quadratic root.
+- Degree zero: moving invariants are the kernel of the reduction of `χFr − 1`; active invariants are precisely the subgroup annihilated by two.
+- Good reduction suppliers: `fullTorsion_of_goodReduction`, `torsion_fixed_outside_coefficient_support`, `exists_actual_primitive_inertia`.
+- Local/global Tate comparison: `tateMcoefBasis_smul`; `moving_isFrobAt_of_residueDegreeOne` proves the arithmetic Frobenius comparison by transferring `decompMap_isArithFrobAt`.
+- Moving prime: two distinct primes above it in the quadratic field give norm `r`; `MovingPrimeData.localAction` supplies the moving action from the existing global `FrobeniusTrace`.
+- Active primes: two distinct places certify complete splitting and ramification index one. `activeLocalAction_of_split_squarefree` derives valuation one from squarefreeness and divisibility, then supplies the action at an odd good place.
+- Dependency cache: imported calibration artifacts located; missing `LocalContractions` artifact compiled serially. Host checks used devserver thresholds.
+- `LocalOrders.lean`: compiled with `lake env lean --threads=1`, no warnings.
+- `Calibration.lean`: compiled with `lake env lean --threads=1`, no warnings.
+- `Suppliers.lean`: compiled with `lake env lean --threads=1`, no warnings.
+- `Check.lean`: all 34 declarations report only `propext`, `Classical.choice`, `Quot.sound`.
