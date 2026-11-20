@@ -1,251 +1,185 @@
-# Builds +ZInQKernel.OneProof.Main and +ZInQKernel.OneProof.Discharges after a push to main that changes Lean or
-# the Lake configuration, and saves the build to the Actions cache. The discharge check of a pull request
-# (contrib-discharges.yml) restores it, so it builds only the files the pull request adds instead of the whole
-# project. Pull request runs can read this cache but never write to it: GitHub scopes the caches a pull request
-# run saves to that pull request's own ref. This workflow builds only commits on main.
-#
-# It is also the only hosted check of the headline theorem. When the build finishes, the job asks Lean for the
-# axioms of ZInQ.OneProof.frozenTarget and fails unless they are among propext, Classical.choice and Quot.sound
-# (scripts/one_proof/check_axioms.py). A run that passes is the evidence that this commit's proof compiles on a
-# hosted runner; blueprint-pages.yml deploys the site only for such a commit.
-#
-# For that reason it also runs after a push that changes what the site is built from besides Lean and the
-# blueprint: the formal companion, the theme and mkdocs.yml. Such a change would otherwise wait, unpublished, for
-# the next Lean change. Its run restores the cache, has nothing new to compile, and checks the axioms again.
+# Dispatch only on the isolated height proof verification branch.
+name: Verify five height discharges
 
-name: main build cache
-
-on:
-  push:
-    branches: [main]
-    paths:
-      - '**.lean'
-      - 'lakefile.toml'
-      - 'lake-manifest.json'
-      - 'lean-toolchain'
-      - 'lean/lakefile.toml'
-      - '.github/workflows/main-build-cache.yml'
-      # Site inputs that are not Lean (see the note above). blueprint/ is not listed: it changes with nearly
-      # every pull request, almost always beside the Lean it describes.
-      - 'docs/companion/**'
-      - 'theme/**'
-      - 'mkdocs.yml'
-      # scratch/ is outside every build target.
-      - '!scratch/**'
-  workflow_dispatch:
+on: workflow_dispatch
 
 permissions:
   contents: read
-  # Only to confirm that the save step kept this run's build.
-  actions: read
 
-# One build at a time; a newer push waits and then builds on the cache the earlier run saved.
 concurrency:
-  group: main-build-cache
+  group: height-discharge-verification
   cancel-in-progress: false
 
 jobs:
-  build:
-    name: build and save
+  verify:
+    if: github.repository == 'Deicyde/diophantine-z-q' && github.ref == 'refs/heads/codex/verify-height-discharges-26'
     runs-on: ubuntu-latest
-    # Inside the 360-minute hosted limit. The build step stops itself at 310 minutes (its 320-minute limit is a
-    # backstop) so the save step still runs, and a cold first build that does not finish saves its progress for
-    # the next run (or a re-run).
-    timeout-minutes: 355
+    timeout-minutes: 175
+    env:
+      BASE: eb9b755fb8093eb2e859b13a59cf7938a4b45a9a
+      LEAN_NUM_THREADS: 2
     steps:
-      - name: Check out main
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          fetch-depth: 12
 
-      - name: Free disk space and add swap
+      - name: Check the candidate and cache inputs
         run: |
           set -euo pipefail
-          df -h / /mnt || true
-          free -h
-          # Preinstalled software this job does not use. A full build of the OneProof targets is about 41 GB
-          # (34 GB for this repository, 7 GB for Mathlib), and the cache archive needs room as well.
+          test "$(git rev-parse HEAD^^)" = "$BASE"
+          git diff --exit-code HEAD^ HEAD -- . ':(exclude).github/workflows/main-build-cache.yml'
+          git diff --exit-code ffdbe5c09d431bd8d444c8620cf400a29b1e66c1 "$BASE" -- \
+            lakefile.toml lean/lakefile.toml lake-manifest.json lean/lake-manifest.json lean-toolchain
+          git diff --exit-code "$BASE" HEAD -- ZInQKernel lean \
+            ':(exclude)ZInQKernel/OneProof/Main.lean' ':(exclude)ZInQKernel/OneProof/H/TailZ99.lean'
+          git diff --check "$BASE" HEAD
+          git rev-parse HEAD^
+          python3 -IB scripts/check_target.py
+          python3 -IB scripts/one_proof/render_open.py --check
+
+      - name: Leave room for the cached objects and the incremental build
+        run: |
+          set -euo pipefail
           sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache \
             /usr/local/share/boost /usr/share/swift /usr/lib/jvm /usr/local/julia* /usr/local/share/chromium \
             /usr/local/share/powershell /usr/local/lib/node_modules /opt/microsoft /opt/google /opt/az \
-            /usr/share/miniconda /usr/local/aws-cli /usr/local/aws-sam-cli /opt/pipx
+            /usr/local/share/miniconda /usr/local/aws-cli /usr/local/aws-sam-cli /opt/pipx
           sudo swapoff -a
           sudo rm -f /swapfile /mnt/swapfile
-          # Swap goes on the separate temporary disk when the runner has one. Otherwise it is a swap file on /,
-          # sized to leave about 75 GB of / for the toolchain and Mathlib (12 GB), the build (34 GB), a cache
-          # archive of up to 10 GB, and a margin. The run of 2026-11-17 used an 82 GB swap file, filled / and
-          # stopped without saving.
-          if mountpoint -q /mnt; then
-            dir=/mnt
-            avail="$(df --output=avail -BG /mnt | tail -n 1 | tr -dc '0-9')"
-            size=$((avail - 2))
+          if mountpoint -q /mnt && [[ $(df --output=avail -BG /mnt | tail -n 1 | tr -dc '0-9') -ge 18 ]]; then
+            swapfile=/mnt/height-swapfile
+            swap_size=16
           else
-            dir=
-            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
-            size=$((avail - 75))
-            if [ "$size" -lt 8 ]; then size=8; fi
+            swapfile=/height-swapfile
+            swap_size=8
           fi
-          if [ "$size" -gt 48 ]; then size=48; fi
-          if [ "$size" -ge 1 ]; then
-            sudo fallocate -l "${size}G" "$dir/swapfile"
-            sudo chmod 600 "$dir/swapfile"
-            sudo mkswap "$dir/swapfile"
-            sudo swapon "$dir/swapfile"
-          fi
+          sudo fallocate -l "$((swap_size * 1024 * 1024 * 1024))" "$swapfile"
+          sudo chmod 600 "$swapfile"
+          sudo mkswap "$swapfile"
+          sudo swapon "$swapfile"
+          df -h / /mnt
           free -h
-          df -h / /mnt || true
 
-      - name: Install elan
+      - name: Install the pinned Lean toolchain via elan
         run: |
           set -euo pipefail
-          curl -sSfL \
+          curl --fail --silent --show-error --location --retry 3 \
             https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
-            -o elan.tar.gz
-          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            --output "$RUNNER_TEMP/elan.tar.gz"
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  $RUNNER_TEMP/elan.tar.gz" \
             | sha256sum --check --strict
-          tar xzf elan.tar.gz
-          ./elan-init -y --default-toolchain none
+          tar -xf "$RUNNER_TEMP/elan.tar.gz" -C "$RUNNER_TEMP"
+          "$RUNNER_TEMP/elan-init" -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
-      # One stalled download held this step for almost six hours (run 44115543349). Each attempt gets ten minutes;
-      # a retry downloads every file again, since a stopped download can leave a truncated archive.
-      - name: Fetch the Mathlib build cache
-        timeout-minutes: 35
+      - name: Fetch the Mathlib cache
+        timeout-minutes: 33
         run: |
+          set -euo pipefail
           timeout -k 30 600 lake exe cache get && exit 0
           for attempt in 2 3; do
-            echo "::warning::lake exe cache get did not finish; attempt $attempt downloads every file again."
             timeout -k 30 600 lake exe cache get! && exit 0
           done
           exit 1
 
-      # The newest earlier build of main for the same toolchain and Lake configuration, if any.
-      - name: Restore the previous build of main
-        id: restore
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - name: Restore the known main checkpoint
+        id: checkpoint
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
             .lake/build
             lean/.lake/build
-          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}
-          restore-keys: |
-            zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-
+          key: zinq-build-v1-Linux-22ffff8e3aa185cb45e0de0fa21b600792e92102555dd3dda8b190d9eb9c3c53-ffdbe5c09d431bd8d444c8620cf400a29b1e66c1-44688174348-1
+          fail-on-cache-miss: true
 
-      # The build stops itself at 310 minutes, before the step's time limit, so that the save step keeps an
-      # unfinished build and the next run continues from it. It also stops if / falls below 15 GB, to keep room
-      # for the save step's archive. It runs in its own process group so that stopping it also stops the Lean
-      # processes it started.
-      - name: Build the OneProof targets
-        id: build
-        timeout-minutes: 320
-        continue-on-error: true
+      - name: Record the old headline and its declaration hashes
+        timeout-minutes: 32
+        env:
+          CACHE_HIT: ${{ steps.checkpoint.outputs.cache-hit }}
         run: |
-          # GitHub runs steps with bash -e. Errexit is off here so that a failed or stopped build still reaches
-          # the measurements and the exit status below.
-          set +e -uo pipefail
-          deadline=$(($(date +%s) + 310 * 60))
-          setsid lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges &
-          pid=$!
-          stopped=
-          peak_mem=0
-          peak_swap=0
-          while kill -0 "$pid" 2> /dev/null; do
-            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
-            read -r mem swap <<< "$(free -m | awk '/^Mem:/ {m = $3} /^Swap:/ {s = $3} END {print m + 0, s + 0}')"
-            if [ "$mem" -gt "$peak_mem" ]; then peak_mem=$mem; fi
-            if [ "$swap" -gt "$peak_swap" ]; then peak_swap=$swap; fi
-            if [ "$avail" -lt 15 ]; then
-              stopped="only ${avail} GB free on /"
-            elif [ "$(date +%s)" -ge "$deadline" ]; then
-              stopped="310 minutes reached"
-            fi
-            if [ -n "$stopped" ]; then
-              echo "::warning::Stopping the build ($stopped) so that its progress can be saved."
-              kill -TERM -- "-$pid" 2> /dev/null
-              for _ in $(seq 60); do kill -0 "$pid" 2> /dev/null || break; sleep 1; done
-              kill -KILL -- "-$pid" 2> /dev/null
-              break
-            fi
-            sleep 30
+          set -euo pipefail
+          test "$CACHE_HIT" = true
+          out="$RUNNER_TEMP/height-evidence"
+          mkdir -p "$out"
+          cp ZInQKernel/OneProof/Main.lean "$out/Main.candidate.lean"
+          git show "$BASE:ZInQKernel/OneProof/Main.lean" > ZInQKernel/OneProof/Main.lean
+          for d in .lake/build/ir lean/.lake/build/ir; do
+            if [[ -d $d ]]; then find "$d" -name '*.setup.json' -type f -delete; fi
           done
-          wait "$pid"
-          status=$?
-          echo "::notice::Peak use, sampled every 30 s: ${peak_mem} MB of memory and ${peak_swap} MB of swap."
-          if sudo dmesg | grep -i -E 'oom-kill|out of memory'; then
-            echo "::warning::The kernel killed a process for lack of memory during the build."
+          df -h /
+          if ! timeout -k 30 1700 lake --fail-fast build +ZInQKernel.OneProof.Main > "$out/baseline-build.log" 2>&1; then
+            tail -n 75 "$out/baseline-build.log"
+            exit 1
           fi
-          df -h / /mnt
-          du -sh .lake/build lean/.lake/build .lake/packages/mathlib/.lake/build 2> /dev/null
-          # A build that finished just as the stop fired counts as finished.
-          if [ -n "$stopped" ] && [ "$status" -ne 0 ]; then exit 1; fi
-          exit "$status"
+          tail -n 10 "$out/baseline-build.log"
+          lake env lean scratch/one-proof/DumpCompact.lean | tee "$out/baseline.txt"
+          mv scratch/one-proof/compact_hashes.txt "$out/baseline.hashes"
+          cp "$out/Main.candidate.lean" ZInQKernel/OneProof/Main.lean
+          git diff --exit-code -- ZInQKernel
 
-      # One entry per run, so a re-run of an unfinished build also saves its progress. The discharge check's
-      # restore matches by prefix and takes the newest.
-      - name: Save the build of this commit
-        if: ${{ !cancelled() }}
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - name: Build the headline with the five proofs
+        timeout-minutes: 125
+        run: |
+          set -euo pipefail
+          out="$RUNNER_TEMP/height-evidence"
+          if ! timeout -k 30 7200 lake --fail-fast build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges > "$out/fold-build.log" 2>&1; then
+            tail -n 90 "$out/fold-build.log"
+            df -h /
+            exit 1
+          fi
+          tail -n 15 "$out/fold-build.log"
+          lake env lean scratch/one-proof/DumpCompact.lean | tee "$out/final.txt"
+          mv scratch/one-proof/compact_hashes.txt "$out/final.hashes"
+          python3 -I scripts/one_proof/check_axioms.py "$out/final.txt" | tee -a "$GITHUB_STEP_SUMMARY"
+          python3 -IB - "$out" <<'PY'
+          from pathlib import Path
+          import sys
+
+          out = Path(sys.argv[1])
+          def hashes(label):
+              return dict(line.split(maxsplit=1) for line in (out / f"{label}.hashes").read_text().splitlines())
+          old, new = hashes("baseline"), hashes("final")
+          missing = set(old) - set(new)
+          changed = {name for name in set(old) & set(new) if old[name] != new[name]}
+          print(f"{len(old)} old declarations, {len(new)} after the fold")
+          print("Missing:", sorted(missing), "Changed:", sorted(changed))
+          assert not missing
+          assert changed == {"ZInQ.OneProof.frozenTarget"}
+          PY
+
+      - name: Regenerate the open statements from the checked theorem
+        timeout-minutes: 12
+        run: |
+          set -euo pipefail
+          out="$RUNNER_TEMP/height-evidence"
+          cp docs/one-proof/open-statements.json "$out/open-statements.preview.json"
+          lake env lean scripts/one_proof/OpenStatements.lean
+          cp docs/one-proof/open-statements.json "$out/open-statements.json"
+          python3 -IB - "$out" <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          out = Path(sys.argv[1])
+          expected, actual = (json.loads((out / name).read_text())
+                              for name in ("open-statements.preview.json", "open-statements.json"))
+          assert actual == expected, "Lean's hypothesis catalog differs from the preview"
+          assert actual["count"] == len(actual["hypotheses"]) == 26
+          print("Lean regenerated 26 open assumptions matching the preview")
+          PY
+          lake env lean scratch/contrib-kit/DischargesTest.lean > "$out/DischargesTest-output.txt"
+          cp "$out/DischargesTest-output.txt" scratch/contrib-kit/DischargesTest-output.txt
+          python3 -IB scripts/one_proof/render_open.py
+          python3 -IB scripts/one_proof/render_open.py --check
+
+      - name: Keep the verification evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
+          name: height-fold-evidence
           path: |
-            .lake/build
-            lean/.lake/build
-          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
-
-      # Main.lean prints these axioms only while it compiles, which a cached build skips, so ask again here.
-      # The summary records the commit and the list; the step fails on any other axiom, `sorryAx` included.
-      - name: Check the axioms of frozenTarget
-        if: ${{ steps.build.outcome == 'success' }}
-        run: |
-          set -euo pipefail
-          probe="$RUNNER_TEMP/FrozenTargetAxioms.lean"
-          printf '%s\n' 'import ZInQKernel.OneProof.Main' '#print axioms ZInQ.OneProof.frozenTarget' > "$probe"
-          lake env lean "$probe" | tee "$RUNNER_TEMP/frozen-target-axioms.txt"
-          python3 -I scripts/one_proof/check_axioms.py "$RUNNER_TEMP/frozen-target-axioms.txt" \
-            | tee -a "$GITHUB_STEP_SUMMARY"
-
-      # The blueprint site links each Lean name to its declaration through these files.
-      - name: Keep the build's name references for the site
-        if: ${{ steps.build.outcome == 'success' && github.event_name == 'push' }}
-        continue-on-error: true
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: autoform-ileans
-          path: .lake/build/lib/lean/**/*.ilean
-          include-hidden-files: true
-
-      # actions/cache/save only warns when it keeps nothing (an archive over 10 GB, for one), so ask the cache API
-      # whether this run's entry exists. A missing entry is a warning, not a failure: the site still deploys a
-      # commit whose build and axiom check passed.
-      - name: Confirm that the build was saved
-        id: saved
-        if: ${{ !cancelled() }}
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-          KEY: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
-        run: |
-          set -euo pipefail
-          for attempt in 1 2 3; do
-            n="$(gh api -X GET "repos/$GITHUB_REPOSITORY/actions/caches" -f key="$KEY" --jq .total_count)"
-            if [ "$n" != 0 ]; then break; fi
-            sleep 10
-          done
-          if [ "$n" = 0 ]; then
-            echo "saved=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::The build was not saved to the Actions cache; the save step's warning says why."
-          else
-            echo "saved=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      # The job fails when the build did not finish, and says whether the next run can continue from it.
-      - name: Report an unfinished build
-        if: ${{ steps.build.outcome != 'success' }}
-        env:
-          SAVED: ${{ steps.saved.outputs.saved }}
-        run: |
-          if [ "$SAVED" = true ]; then
-            echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}); its progress was saved for the next run."
-          else
-            echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}), and its save could not be confirmed."
-          fi
-          exit 1
+            ${{ runner.temp }}/height-evidence/*.log
+            ${{ runner.temp }}/height-evidence/*.hashes
+            ${{ runner.temp }}/height-evidence/*.json
+            ${{ runner.temp }}/height-evidence/*.txt
+          if-no-files-found: warn
