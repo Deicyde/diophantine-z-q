@@ -1,0 +1,3 @@
+'ZInQ.Manuscript.HKGZ.frozenTarget_of_heightAssembly_and_grossZagier' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -1,0 +1,11 @@
+'ZInQ.Manuscript.HKGZ.squareAt_of_kronecker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ.newformLevel_eq_of_isNewformOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ.exists_auxiliary_of_bfh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ.trivial_twistedLFunction_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ.chiAt_conductor_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ.quadratic_LSeries_factorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ.exists_baseChange_simple_derivative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ.exists_rational_of_conjugate_sub_torsion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.HKGZ.hkConsumed_of_grossZagier' depends on axioms: [propext, Classical.choice, Quot.sound]
