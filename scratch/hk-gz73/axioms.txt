@@ -1,0 +1,6 @@
+'ZInQ.Manuscript.HKGZ73.level_eq_newformLevel_of_isNewformOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ73.analyticRankOne_iff_exists_value_deriv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.HKGZ73.analyticRankOne_iff_value_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.HKGZ73.hkConsumed_of_gz73' depends on axioms: [propext, Classical.choice, Quot.sound]

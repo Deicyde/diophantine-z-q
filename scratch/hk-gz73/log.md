@@ -43,3 +43,26 @@
   assumption includes a matching weight-two newform at the conductor.
   No primary scan was independently checked here; the source status is
   draft pending the two-lens skeptic pass.
+- **VERIFIED (source).** The existing
+  `G0Prints.associatedGeometricConductorExponent` uses the true cohomological
+  Tate representation, the local decomposition map, and `LadicCond.condExp`.
+  Carayol's rational-newform corollary has separate analytic L and geometric
+  conductor clauses. The narrower `RCLeaves.carayolEulerFactors` and
+  `faltingsRigidity` only compare local Euler polynomials and do not carry
+  conductor equality. The open application comparison is
+  `PoleNewformLevelIsConductor`; no new source theorem is assumed for it.
+- **VERIFIED (board and dependency source).** At the base the count is 31
+  (9 LEAF / 22 GLUE). Before the restricted-converse fold this proposal
+  replaces one row with six. Once the four newform suppliers are shared by
+  the existing Theorem 5.3 assembly it replaces one row with two. The
+  separate `Prints.kolyvagin` field remains in that assembly and has its
+  own rank-zero uses. Neither scenario lowers the row or GLUE count.
+- **VERIFIED (Lean).** Single-target import builds completed for
+  `HKRefereedSubstitute`, `ModularNewformPrinted`, `WeakWeil`, `G0Prints.Carayol`,
+  and `BCDTPrint.Descent`. Sequential `lake env lean` checks of
+  `ZInQKernel/Contrib/OneProof/HKGZ73/Reduction.lean` and
+  `scratch/hk-gz73/Check.lean` then passed without warnings on the final
+  files. The scratch check composes the replacement with pole completeness
+  and checks that the existing Theorem 5.3 forward input implies `hK`.
+  `scratch/hk-gz73/axioms.txt` records the four new theorems, each with only
+  `propext`, `Classical.choice`, and `Quot.sound`.
