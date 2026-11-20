@@ -15,7 +15,10 @@ tex 2914–2936.
 moving character `G`, lane RC0's `GenuineFamilyMovingCharacter` (the genuine ring-class
 realization; lane E2's `exists_leafCoef` produces the coefficient datum `quadTateCoef ℓ s₀`,
 `K = ℚ(s₀)`, `s₀² = k`, with one such character over `C.K` per final family, from lane E1's
-construction at the given root, and its `toFamily` is the `FamilyMovingCharacter` of lane RC0's
+construction at the given root, in the branch `¬ D.OddEmptyUnit` and from `RCSteps`, the primes of
+`2N` in `D.S`, `SerreThm3`, `CMjInteger` and `FrobeniusTrace` (a producer for a discharge, not a
+source of this leaf's inputs: `RCSteps` contains this leaf's own target), and its `toFamily` is the
+`FamilyMovingCharacter` of lane RC0's
 inner-limit leaf, so one family character serves both leaves); at every address a presentation
 `StagedPresentation C D F x G.toFamily` whose support at the stage `s` is `S₀ s ⊇ Sr(s)`
 (`CommonCoordinate19Staged.lean`); at every

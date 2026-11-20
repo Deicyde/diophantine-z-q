@@ -144,8 +144,11 @@ witnesses:
   classical + GLUE) only (`GenuineCochainsInjective` is PROVED), the moving character is one per
   family (lane RC0's `GenuineFamilyMovingCharacter`, the genuine ring-class realization; lane E2's
   `exists_leafCoef` produces the coefficient datum `quadTateCoef ℓ s₀`, `K = ℚ(s₀)`, `s₀² = k`, with
-  one such character over it per final family, from lane E1's construction at the given root), the
-  global classes are lane E2's Kummer classes of the actual anchored Heegner points of the chain
+  one such character over it per final family, from lane E1's construction at the given root, in the
+  branch `¬ D.OddEmptyUnit` and from `RCSteps`, the primes of `2N` in `D.S`, `SerreThm3`,
+  `CMjInteger` and `FrobeniusTrace` (a producer for a discharge, not a source of this leaf's inputs:
+  `RCSteps` contains this leaf's own target)), the global classes are lane E2's Kummer classes of
+  the actual anchored Heegner points of the chain
   conductors (stage-dependent base conductors) and the step identities are DERIVED from lane E2's
   global identities of these classes (from Cai–Chen–Liu, GLUE: read through the modular
   parametrization and joined with lane E2's full anchor; `ThetaOfDelta` and the splitting of the
@@ -513,8 +516,12 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   family one nonprincipal ultrafilter (tex 4401–4404) and one moving character, lane RC0's
   `GenuineFamilyMovingCharacter` over `C.K` (tex 2729–2737, 3500–3702: the moving exponents `ψ_s` of
   the genuine ring class fields, ramified at the moving primes `r_s`; lane E2's `exists_leafCoef`
-  produces one per final family over `C.K`, from lane E1's construction at the given root, with
-  exact moving supports; its `toFamily` is the character of lane RC0's inner-limit leaf); at every
+  produces one per final family over `C.K`, from lane E1's construction at the given root, in the
+  branch `¬ D.OddEmptyUnit` and from `RCSteps`, the primes of `2N` in `D.S`, `SerreThm3`,
+  `CMjInteger` and `FrobeniusTrace` (a producer for a discharge, not a source of this leaf's inputs:
+  `RCSteps` contains this leaf's own target); its exact moving supports are those of
+  `exists_familyCoef` (not recorded by `exists_leafCoef`); its `toFamily` is the character of lane
+  RC0's inner-limit leaf); at every
   address a presentation with staged supports (`StagedPresentation`, chosen per address: at the
   stage `s` the support `S₀ s ⊇ Sr(s)`, otherwise free, `K = ℚ(√k)`, `E[2^∞]` rational over
   `K_{S₀ s}` (GLUE), the twist, the family's exponent `ξ_s = ψ_s` inflated, with its value `1` at
@@ -548,7 +555,9 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   free, so the paired functionals pinned to it are free; given `hprim`, the end field `htildeE` is
   exactly the target identity `ũ_x = ε_x u_{prim,x}`. The text's exclusions of the θ-prime and of
   the old support are not recorded. Scope departure: this field is also requested in Branch 1 (see
-  `RC/Skeleton/Steps.lean`). -/
+  `RC/Skeleton/Steps.lean`), where it asserts the genuine objects (the companion facts of `k`, a
+  genuine family character over `ℚ(√k)`) of data the other leaves do not constrain; the producers
+  `exists_leafCoef` and `e2ChainInputsS_of_actual` need `¬ D.OddEmptyUnit`. -/
   common_coordinate : CommonCoordinateInputsGenuineS W.toRCData
   /-- The inputs of height-one regularity of the primitive coordinates on the text's inner-limit
   route, over one moving character per final family and the address's moving family fixed before
