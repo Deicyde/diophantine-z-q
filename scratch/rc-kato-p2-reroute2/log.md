@@ -42,3 +42,13 @@
   global torsion statement and transports the all-prime localized
   kernel bound to the retained dyadic one. The geometric support
   triangle and the comparison of the actual towers remain inputs.
+- **VERIFIED** (Lean): `EvenBridgeChecked.lean` and
+  `FixedComparisonChecked.lean` elaborate. The new Appendix E and
+  curve adapters give the previous output types; finite detection uses
+  `FixedKatoFiniteComparison` under the common comparison naming.
+- **VERIFIED** (Lean): `lake env lean scratch/rc-kato-p2-reroute2/Check.lean`
+  passes. [Axioms](axioms.txt) covers 28 declarations (27 theorems and
+  the support equivalence construction). It reports no axioms beyond
+  `propext`, `Classical.choice` and `Quot.sound`. It checks definitional
+  equality for the fixed finite comparison and the retained (K15) type,
+  and checks the declaration and import closures of the new entry points.

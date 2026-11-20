@@ -34,3 +34,25 @@ Consumers already taking the output type alone keep their signatures:
 `Even.evenScalar32_of_appE`, the App E entry points in
 `EvenUpperCubes/Application.lean`, and the App E entry points in
 `GlueSweep/EvenLowerBound.lean` and `GlueSweep/EvenPhaseBridge.lean`.
+
+## Follow-up to the conditional route at the base
+
+The base's `KatoP2/KodaiPrint.lean` used global torsion of `full.H2`
+and the abstract dyadic localization kernel in `Kodai08AwayTwo`.
+`KatoP2/Comparison.lean` used that conclusion in
+`retainedK15_of_kodai08`. It also contained an optional lemma taking a
+length bound on the whole `full.H2`; no base adapter calls that lemma.
+
+`KatoP2/EvenBridge.lean` has one direct caller of
+`KatoKodai99Thm08Print` (`KodaiConstituent.retainedK15`), then one caller
+of that result (`appEOutputs_of_katoP2`). Its other adapters specialize
+that output, or call `evenScalar32_of_katoP2`. All are replaced by the
+same names under `KatoP2.Checked` with the corrected input; all output
+types are the same. The active exactness hypothesis is
+`KatoOddSupportCone`, which supplies the corrected `onKernel`.
+
+`KatoP2/FiniteAnchor.lean` and `AppEK1/Comparison.lean` ask for the
+same reduction, trace, deck and finite detection conditions. The corrected
+fixed-family cut uses `FixedKatoFiniteComparison` by passing the finite
+system itself. `FiniteAppE`, the extended norms, the Serre inputs and
+the tower-class descent are reused as they stand.

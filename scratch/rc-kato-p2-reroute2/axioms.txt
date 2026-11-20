@@ -1,0 +1,71 @@
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.casesG' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.g_ne' depends on axioms: [propext,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.gg' depends on axioms: [propext,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.sign_surj' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.signB_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.sign_joint_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.sign_sep' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.two_ne_zero_A' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.two_not_mem_signPrime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.sep_not_mem_signPrime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.signPrime_height' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.sign_regular' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.KodaiLambdaTorsion.0.ZInQ.Manuscript.RC.KatoP2.Checked.annihilate_at_sign' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.KatoP2.Kodai08Support.0.ZInQ.Manuscript.RC.KatoP2.Checked.localMap_comp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.isTorsion_of_kodaiLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.exists_regular_annihilator_of_kodaiLocal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.kodaiPurity_of_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.kodai08_globalTorsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.retainedK15_of_kodai08' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.KodaiConstituent.retainedK15' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.appEOutputs_of_katoP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.evenScalar32_of_katoP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.appEOutputs_of_katoP2_fixed' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.evenScalar32_of_katoP2_fixed' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.evenScalar32_of_katoP2_ecurve' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.evenLowerBound_of_katoP2_ecurve' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.exists_nonzero_image_of_anchored_weightedSum_p2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.KatoP2.Checked.KatoOddSupportCone.toComparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+No legacy dyadic dependency in the replacement entry points.
