@@ -18,3 +18,7 @@
   `lake build --help`; Lake 5.0.0/Lean 4.35.0 exposes no jobs option.
   Use local serial commands and check `uptime` and `free -g` before
   each. Do not change `LEAN_NUM_THREADS`.
+- **VERIFIED** (Lean): `KodaiLambdaTorsion.lean` elaborates with Lean
+  4.35.0. At the two sign primes cut out by `X`, each localized torsion
+  assumption supplies one sign annihilator. The combined annihilator
+  is regular; finite generation gives one for the whole module.
