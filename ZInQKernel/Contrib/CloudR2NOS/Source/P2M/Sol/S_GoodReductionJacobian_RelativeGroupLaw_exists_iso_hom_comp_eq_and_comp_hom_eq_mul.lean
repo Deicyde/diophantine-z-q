@@ -1,0 +1,137 @@
+/-
+NOS-CORE PROBE STAGING COPY (lane C4, 2026-11-17). NOT an H5 edition:
+probe world only; it enters H5 only by the lead binding plus C6 review. No recorded port
+SHA exists for this module (lead 2026-11-17T06:06Z). Generated deterministically from the pinned
+upstream file by the documented lane4 port transform, as reproduced by the located C5 conformance
+pair (Thm/S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_of_iso), numeric options
+omitted. SOURCE ONLY, UNCOMPILED. Native HELD.
+
+Vendored, unmodified in substance, from the Fermat's Last Theorem Lean development.
+
+  Source project : https://github.com/anthropics/fermats-last-theorem
+  Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
+  Source file    : P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_iso_hom_comp_eq_and_comp_hom_eq_mul.lean
+  Source sha256  : a4e3cb210fc07e5f33338e8988f431760ff21d5da9b68283eb41ba7dce828e39
+  Retrieved      : pinned read-only clone of the upstream FLT sources (6e837e75), byte-for-byte
+  Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
+  Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
+
+NOTICE OF MODIFICATION (Apache-2.0 §4(b)). This file has been changed from the original
+(H5 lane4 port to Lean 4.35.0 / Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679).
+Mechanical changes; no statement, hypothesis, definition or proof term was weakened or omitted:
+  * 2 `r2nos_namespace_dual` shim line(s) after source `namespace` commands (Mathlib names of the same source namespace stay visible, as in the unprefixed original).
+  * 2 `r2nos_open_dual`/`r2nos_open_scoped_dual` shim line(s) after source `open` commands (completes each opened namespace by its other half where the port splits one source root namespace between Mathlib root and the prefix).
+  * 1 import of the lane4 Mathlib-db584 compatibility module `ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal` added (as in every located lane4 port copy).
+  * 2 internal `import`(s) retargeted to `ZInQKernel.Contrib.CloudR2NOS.Source.*` / `ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.*` (published W03 duals bound, see ledger) / port utilities.
+  * 2 scope(s) the source leaves open at EOF closed explicitly so the port namespace can be closed (no-op in the original).
+  * file-level `set_option`s inserted after the port namespace: autoImplicit false; backward.isDefEq.respectTransparency.types false; backward.isDefEq.respectTransparency.instanceSearchTypes false (non-numeric, as in the located C5 conformance copies). NO maxHeartbeats/synthInstance option (numeric options omitted).
+  * `import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt` added (port commands) and `open ZInQ.Contrib.CloudW03NeronSurj.FLT` inserted so the source's generalized field notation resolves the isolated declarations exactly as in the unprefixed original.
+  * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
+-/
+
+import Mathlib
+import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal
+import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt
+
+namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+open ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency.types false
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+namespace P2MW.S_GoodReductionJacobian_RelativeGroupLaw_exists_iso_hom_comp_eq_and_comp_hom_eq_mul
+r2nos_namespace_dual
+
+set_option autoImplicit false
+
+universe u
+
+open CategoryTheory AlgebraicGeometry NeronModelInfra GoodReductionJacobian
+r2nos_open_dual "CategoryTheory AlgebraicGeometry NeronModelInfra GoodReductionJacobian"
+
+namespace TranslAux
+r2nos_namespace_dual
+
+variable {R : Type u} [CommRing R] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)}
+
+theorem inv_natural (L : RelativeGroupLaw R f) {T T' : Scheme.{u}}
+    (t : T ⟶ Spec (CommRingCat.of R)) (t' : T' ⟶ Spec (CommRingCat.of R)) (ψ : T' ⟶ T) (hψ : ψ ≫ t = t')
+    (x : SchemeHomOver t f) :
+    schemeHomOverComp ψ hψ (L.inv t x) = L.inv t' (schemeHomOverComp ψ hψ x) := by
+  have h : L.mul t' (schemeHomOverComp ψ hψ (L.inv t x)) (schemeHomOverComp ψ hψ x) = L.one t' := by
+    rw [← L.mul_natural t t' ψ hψ, L.inv_mul_cancel, L.one_natural t t' ψ hψ]
+
+  set a := schemeHomOverComp ψ hψ (L.inv t x)
+  set b := schemeHomOverComp ψ hψ x
+  calc a = L.mul t' a (L.one t') := (L.mul_one t' a).symm
+    _ = L.mul t' a (L.mul t' b (L.inv t' b)) := by rw [L.mul_inv_cancel]
+    _ = L.mul t' (L.mul t' a b) (L.inv t' b) := by rw [L.mul_assoc]
+    _ = L.inv t' b := by rw [h, L.one_mul]
+
+end TranslAux
+
+open TranslAux in
+r2nos_open_dual "TranslAux" in
+theorem solution
+    (R : Type u) [CommRing R] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)}
+    (L : GoodReductionJacobian.RelativeGroupLaw R f)
+    (d : NeronModelInfra.SchemeHomOver (𝟙 (Spec (CommRingCat.of R))) f) :
+    ∃ τ : A ≅ A, τ.hom ≫ f = f ∧ τ.inv ≫ f = f ∧
+      (∀ {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) (x : NeronModelInfra.SchemeHomOver t f),
+        x.1 ≫ τ.hom = (L.mul t x (GoodReductionJacobian.schemeHomOverComp t (Category.comp_id t) d)).1) ∧
+      (∀ {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) (x : NeronModelInfra.SchemeHomOver t f),
+        x.1 ≫ τ.inv = (L.mul t x (L.inv t (GoodReductionJacobian.schemeHomOverComp t (Category.comp_id t) d))).1) := by
+
+  let e : SchemeHomOver f f := ⟨𝟙 A, Category.id_comp f⟩
+  let dA : SchemeHomOver f f := schemeHomOverComp f (Category.comp_id f) d
+  let th : A ⟶ A := (L.mul f e dA).1
+  let ti : A ⟶ A := (L.mul f e (L.inv f dA)).1
+  have hth : th ≫ f = f := (L.mul f e dA).2
+  have hti : ti ≫ f = f := (L.mul f e (L.inv f dA)).2
+
+  have key : ∀ {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) (x : SchemeHomOver t f) (y : SchemeHomOver f f),
+      x.1 ≫ (L.mul f e y).1 = (L.mul t x (schemeHomOverComp x.1 x.2 y)).1 := by
+    intro T t x y
+    have h := congrArg Subtype.val (L.mul_natural f t x.1 x.2 e y)
+    rw [schemeHomOverComp_coe] at h
+    rw [h]
+    have hx : schemeHomOverComp x.1 x.2 e = x := Subtype.ext (Category.comp_id _)
+    rw [hx]
+  have hdA : ∀ {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) (x : SchemeHomOver t f),
+      schemeHomOverComp x.1 x.2 dA = schemeHomOverComp t (Category.comp_id t) d := by
+    intro T t x
+    apply Subtype.ext
+    simp only [schemeHomOverComp_coe, dA]
+    rw [← Category.assoc, x.2]
+  have hpt : ∀ {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) (x : SchemeHomOver t f),
+      x.1 ≫ th = (L.mul t x (schemeHomOverComp t (Category.comp_id t) d)).1 := by
+    intro T t x
+    rw [key t x dA, hdA t x]
+  have hpt' : ∀ {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) (x : SchemeHomOver t f),
+      x.1 ≫ ti = (L.mul t x (L.inv t (schemeHomOverComp t (Category.comp_id t) d))).1 := by
+    intro T t x
+    rw [key t x (L.inv f dA), inv_natural L f t x.1 x.2 dA, hdA t x]
+
+  have h1 : th ≫ ti = 𝟙 A := by
+    have h := hpt' f ⟨th, hth⟩
+    rw [h]
+    have hth' : (⟨th, hth⟩ : SchemeHomOver f f) = L.mul f e dA := rfl
+    rw [hth']
+    change (L.mul f (L.mul f e dA) (L.inv f dA)).1 = 𝟙 A
+    rw [L.mul_assoc, L.mul_inv_cancel, L.mul_one]
+  have h2 : ti ≫ th = 𝟙 A := by
+    have h := hpt f ⟨ti, hti⟩
+    rw [h]
+    have hti' : (⟨ti, hti⟩ : SchemeHomOver f f) = L.mul f e (L.inv f dA) := rfl
+    rw [hti']
+    change (L.mul f (L.mul f e (L.inv f dA)) dA).1 = 𝟙 A
+    rw [L.mul_assoc, L.inv_mul_cancel, L.mul_one]
+  exact ⟨⟨th, ti, h1, h2⟩, hth, hti, fun t x => hpt t x, fun t x => hpt' t x⟩
+end S_GoodReductionJacobian_RelativeGroupLaw_exists_iso_hom_comp_eq_and_comp_hom_eq_mul
+end P2MW
+
+end ZInQ.Contrib.CloudW03NeronSurj.FLT
