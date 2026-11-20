@@ -1,0 +1,8 @@
+ 00:45:13 up  6:34,  6 users,  load average: 5.15, 5.52, 6.59
+               total        used        free      shared  buff/cache   available
+Mem:             235          99          11           0         127         135
+Swap:            255           4         251
+'ZInQ.Manuscript.RC.AppEK1.inducedCoefficientMap_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.shapiroInv_coefficient_natural' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.weightedTransfer_cochains' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.AppEK1.weightedTransfer_H1' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,13 @@
+- Base: `f201b5843407dab7e330287a8a60978f956c1172`. Merged `28f26f99854c9320111484a103f2887cb33962af` cleanly as `252b220a2590c72a4a61f9d822aaa3e0351bc319`.
+- Tex 2943–2946: exact target is `π(Wx) = [w]π(x) + π(W∞)`. Tex 8476–8489: specialize both generic points in the based difference. Tex 8505–8507 and 9331–9341: same sign in the character parity and point transformation.
+- `signUnit_cast`, `wNew_cast`: integer units cast to the Tau Ceti eigenvalues. `wNew` uses `p ^ N.factorization p`.
+- `slash_eq_signUnit_smul`: the weight-two normalized slash is the ordinary positive determinant slash. `hasDerivAt_eichlerPotential`: derivative `2πif`. `scaled_eichler_transform`: signed translate in `ℂ`; `periodClass_transform`: same in `ℂ / Lat`.
+- Lake builds passed for `Sign` and `Analytic`; all six theorem audits reported exactly `propext`, `Classical.choice`, `Quot.sound`.
+- Existing bridges: `ElkikMD.curveNewform_eq_assemblyForm` from `ModularNewform`; `PeriodPair.isUniformization_toPoint` for the short Weierstrass curve; `X0Model.cusp` from the rational formal arc; `ParamJoin.algebraicParametrizationAtScale` for the chosen scale.
+- Existing source issues retained: Milne citation scope at tex 1784/1788; Jetchev–Kane level-one scope at tex 8468–8474.
+- `Assembly` passed serial Lake build; `consumerNewform`, `stageLevel_eq`, and `oddStagedOfPinnedParamValues` each audit to the three standard axioms. Rebuilt five existing `ElkikMD` dependencies serially.
+- `Uniformization` passed serial Lake build; both theorem audits report the three standard axioms. The variable change maps `Lat.toPoint` to the exact coordinates used by `CST.weierPt`.
+- `Generic`: `atkinInterior` is an involution on the range of the genuine complex chart. `phiAn_transform` is the signed translation in the elliptic point group. `actualParametrization_transform_chart` transfers it to the dominant rational morphism at scale.
+- Rational-model gap: `RationalAtkin` on `X0Branch.model`; extend the chart equality to `BasedAtkinOnPoints` with the actual rational `infinityPoint`. Given those inputs, `translatedAtkinOnPoints` supplies the rational translation and its field extensions. At the normalized cusp it is `π(W∞)`.
+- `Specialization`: `BasedSpecialization` names the unsigned comparisons at the lift and its Atkin image. `pinned_atkin_quotient_of_specialization` supplies the pointwise Atkin field by additivity, before the multiplier or detector.
+- All six targets passed one final serial `lake build` with the 60 GB scope; all 22 audits: `propext`, `Classical.choice`, `Quot.sound` only. Transitive imports exclude `ZInQKernel.OneProof.Main`.

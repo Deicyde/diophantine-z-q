@@ -1,0 +1,15 @@
+- Base: `47aa1251116905a35abe9772daecd7134e438f79`.
+- Fixed constructor: `BlocksPerU.realize_of_stage` → `BlocksPerU.realize` → `diamondCharacters Dₗ.common_four η η_eval η_order`.
+- `m = S.m`; `N = Dₗ.old * ∏ p ∈ P.pool, p`; `d = (u : ZMod N).val`.
+- Empty moving set: embedded pool character is the embedded value of `E.η d` times `Jacobi(-1,d)`.
+- Tex 8499–8576, 8593–8596, 8903–8936, 8982–8985: phase uses every local scaling character and `Jacobi(-m,d)`.
+- Remaining comparison: `κ(algebraMap O K (E.η d)) = (∏ α_p(u mod c_p)) * Jacobi(-m,d)`. Existing `Lift.phase` and `ThetaStage.η_good` do not give this characteristic-zero comparison.
+- Verification: first serial invocation stopped before elaboration because a cached import had a missing companion artifact. Companion artifacts restored from matching dependency builds.
+- Verification: second serial invocation stopped before elaboration because the vendored `ZInQ` cache was absent. Restored artifacts from the matching vendored source.
+- `Identification.lean`: serial `lake env lean -j1` passed; all four theorem audits use `propext`, `Classical.choice`, `Quot.sound`.
+- Actual extraction factors: `LocalWeights.negativeDiscriminant_unit_character` identifies their product with `Jacobi(-m,d)` for squarefree `m ≡ 3 mod 4`; multiplying by the genus twist cancels it.
+- `Extraction.lean`: `phase_without_extraction` and `oldCharacter_comp_eq_bCharacter_iff_of_extraction` state the cancellation and the resulting exact comparison on the same common units.
+- Local weights dependencies `Models.lean` and `Product.lean`: serial compilation passed. First `Extraction.lean` pass needed an explicit rewrite from integer gcd to natural gcd; corrected.
+- `Extraction.lean`: serial `lake env lean -j1` passed; both theorem audits use `propext`, `Classical.choice`, `Quot.sound`.
+- Scoped stop: identify the embedded `Lift.η` of this stage with the phase prescribed in (O.5). With the actual local factors the comparison uses only the product over the elliptic conductor primes and the detecting prime.
+- No manuscript error found in scope; no prints added.

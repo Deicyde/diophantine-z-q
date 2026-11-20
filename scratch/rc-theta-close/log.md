@@ -1,0 +1,14 @@
+- Base: 399d56047ff7a8e5ef12e8ae14dcc602215dddc1.
+- Frame chart: local generator of LineIndex and component of classRepresentative may differ by an integral unit.
+- RequestedSupport: false; inherited counterexample.
+- MatrixTest.lean: compiled with `lake env lean --threads=1`.
+- Matrix tests: an integral basis for each slope; the integer test and p-adic test impose entrywise divisibility by p² after multiplying by the basis adjugate.
+- Host load above 120 blocked retries; no Lean started on those attempts.
+- Roots.lean: compiled with `lake env lean --threads=1`. Parity at each level prime; finite supremum of exponents; generated coefficient field; place over two; value-preserving lift.
+- Inherited Lean FilteredSupport parses the sphere hypotheses on the left of the iff. Use a parenthesized sphere-restricted iff in ThetaClose.
+- Neighbour.lean: final source compiled with `lake env lean --threads=1`; all three indexed transport fields.
+- Neighbour wrapper: the existing level convenience constructors fix a frame before the unit correction. The new wrapper supplies the transported frame to the shared constructors.
+- Filtered support statement: retain RequestedIndices and LevelFilter; quantify over trace-zero norm mD vectors before the equivalence.
+- Support.lean: compiled; positive-level unit discriminant, even dyadic affine determinant, valuation-one norm at m, nonzero division residue from a unit norm.
+- Assembly.lean: compiled; actualPmLocal, actualFilteredSupport, actualLevelStage, actualLevelValLift.
+- Axioms.lean: passed; 39 theorems and 24 other declarations. Only propext, Classical.choice, Quot.sound; integerBasis and ternaryMatrix omit Classical.choice.

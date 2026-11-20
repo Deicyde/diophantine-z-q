@@ -1,0 +1,9 @@
+- Base: `5bc5e3b802cfb9fcadd39a899888f59b598d2f72`. Merge: `0cefe03fa4889dc5036025f1687ab20c178edb3d`.
+- `CuspOrbits.lean`: (a,m) coprime, (m,N) coprime → (a/m sim_{Gamma_0(N)} 0); nonzero Jacobi weight supplies (a,m) coprime.
+- `PointedCurve.lean`: integral proper source with relative dimension one and a rational section → `IsCurve`, `Curve K`, application adapter for the existing `JacobianExists`.
+- `Factor.lean`: based morphism → unique Albanese factor, evaluation on field-valued Abel–Jacobi classes; on weighted support only the class at zero is evaluated. A supplied group map composed with Abel–Jacobi is based.
+- `ChartComparison.lean`: naturality of complex point lift; continuous rational-map evaluation transfers a source limit to the target; cusp comparison on the weighted support from the single (S)-chart limit.
+- Formal rational cusp at infinity: `X0Model.cusp` and `cusp_overQ`. Relative dimension one: proof in `X0Branch/Overlap.lean` (private). Source field for all cusp classes: `AlgebraicClosure ℚ`. Weighted orbit: zero.
+- Missing: concrete Jacobian adapter application; cusp assignment and source limit at zero; basedness at infinity; projective target with compatible group-law uniformization; identified independent quotient and width-one tail.
+- Serial `lake env lean -j1`: PASS for `CuspOrbits.lean`, `PointedCurve.lean`, `Factor.lean`, `ChartComparison.lean`. 16 audits, each `[propext, Classical.choice, Quot.sound]`. No `ZInQKernel.OneProof.Main` in the import closure.
+- Existing model dependency rebuild started and stopped before compiling the concrete source. Uncached modules after checking the adapters: 1,142 (`X0Model.Specialization` plus `JacobianExists`); 2,280 (`X0Branch.Model` plus `JacobianExists`).

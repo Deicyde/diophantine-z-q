@@ -1,0 +1,150 @@
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Assembly.0.ZInQ.Manuscript.RC.EvenUnary.changeLevel_unit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Assembly.0.ZInQ.Manuscript.RC.EvenUnary.cusp_mul_half' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.evenUnaryStageLaw_of_ordinaryDilation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.evenExpansion_of_ordinaryDilation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Characters.0.ZInQ.Manuscript.RC.EvenUnary.changeLevel_int' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Characters.0.ZInQ.Manuscript.RC.EvenUnary.character_pow_unit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.sievedCharacter_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.sievedCharacter_at_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.good_factors_iff_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.coprime_supportModulus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.four_mul_sq_dvd_cube' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Characters.0.ZInQ.Manuscript.RC.EvenUnary.odd_unit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Characters.0.ZInQ.Manuscript.RC.EvenUnary.jacobiUnitHom_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.jacobiCharacter_at_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Complete.0.ZInQ.Manuscript.RC.EvenUnary.theta_dilation_period' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Complete.0.ZInQ.Manuscript.RC.EvenUnary.theta_dilation_ne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Complete.0.ZInQ.Manuscript.RC.EvenUnary.right_T_entries' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Complete.0.ZInQ.Manuscript.RC.EvenUnary.ordinaryDilation_nontriangular' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.ordinaryDilationComparison_proved' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.evenUnaryStageLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.evenExpansion_of_unary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_holo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Cusps.0.ZInQ.Manuscript.RC.EvenUnary.coe_action' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Cusps.0.ZInQ.Manuscript.RC.EvenUnary.im_neg_inv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Cusps.0.ZInQ.Manuscript.RC.EvenUnary.neg_inv_neg_inv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Cusps.0.ZInQ.Manuscript.RC.EvenUnary.norm_poisson_factor' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Cusps.0.ZInQ.Manuscript.RC.EvenUnary.cusp_positive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Cusps.0.ZInQ.Manuscript.RC.EvenUnary.cusp_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_cusps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Finite.0.ZInQ.Manuscript.RC.EvenUnary.phase_reduction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.quadratic_zero_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedQuadraticFourier_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedQuadraticFourier_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Lines.0.ZInQ.Manuscript.RC.EvenUnary.jacobiDerivative_ne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.linearTheta_hasSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Lines.0.ZInQ.Manuscript.RC.EvenUnary.jacobiDerivative_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.linearLine_hasSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Lines.0.ZInQ.Manuscript.RC.EvenUnary.linearLine_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.linearLine_poisson' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.linearTheta_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.ordinaryTheta_odd_denominator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.OrdinaryPhase.0.ZInQ.Manuscript.RC.EvenUnary.coe_action' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.OrdinaryPhase.0.ZInQ.Manuscript.RC.EvenUnary.theta_inversion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.OrdinaryPhase.0.ZInQ.Manuscript.RC.EvenUnary.sqrt_mul_positive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.OrdinaryPhase.0.ZInQ.Manuscript.RC.EvenUnary.ratio_odd_denom' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.ordinaryPhase_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.PrimeGauss.0.ZInQ.Manuscript.RC.EvenUnary.primeQuadraticFourier' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.primeGauss_scale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.primeGauss_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.PrimeGauss.0.ZInQ.Manuscript.RC.EvenUnary.primeCharacter_at_int' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.primeGauss_scale_jacobi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.primeGauss_sq_jacobi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Relative.0.ZInQ.Manuscript.RC.EvenUnary.coe_action' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Relative.0.ZInQ.Manuscript.RC.EvenUnary.im_positive_mul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Relative.0.ZInQ.Manuscript.RC.EvenUnary.relative_pos' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Relative.0.ZInQ.Manuscript.RC.EvenUnary.relative_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_relative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_hasSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Resum.0.ZInQ.Manuscript.RC.EvenUnary.jacobiTerm_addChar' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_fourier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Resum.0.ZInQ.Manuscript.RC.EvenUnary.rationalArgument_im' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_rational_resum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.norm_linearTheta_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_differentiableAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Shell.0.ZInQ.Manuscript.RC.EvenUnary.shell_term' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Shell.0.ZInQ.Manuscript.RC.EvenUnary.shell_reindex' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Shell.0.ZInQ.Manuscript.RC.EvenUnary.jacobiTerm_shell' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.unaryFun_eq_weightedTheta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_rational_modes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenUnary.Transform.0.ZInQ.Manuscript.RC.EvenUnary.tsum_even_odd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.EvenUnary.weightedTheta_at_cusp' depends on axioms: [propext, Classical.choice, Quot.sound]

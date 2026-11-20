@@ -1,0 +1,116 @@
+'ZInQ.Manuscript.RC.EvenMoving.affinePoint_coe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.affinePoint_holo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.affinePoint_cusps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.movingStep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.evenMovingSieve' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.evenWeightTwo_from_unary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.evenExpansion_from_unary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.kronecker_of_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.primeCharacter_nat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.primeCharacter_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.primeCharacter_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.Vp_eq_scale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.unitCharacter_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.Vp_threeHalves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.det_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.sl_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.mem_level_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.scalePoint_coe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.scaleLower_entries' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.scale_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.rightT_entries' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.leftT_entries' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.quadraticFourier_prime_scale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.theta_right_cusp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.thetaMultiplier_rightT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.thetaMultiplier_leftT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.thetaMultiplier_triangular' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.thetaMultiplier_scale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.unscalePoint_coe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.Up_eq_affine' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.upSquare_terms' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.Up_cusps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.Up_holo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.EvenMoving.upSquare_threeHalves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Affine.0.ZInQ.Manuscript.RC.EvenMoving.affine_det' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Affine.0.ZInQ.Manuscript.RC.EvenMoving.affine_map_pos' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Assembly.0.ZInQ.Manuscript.RC.EvenMoving.exists_evenForm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Assembly.0.ZInQ.Manuscript.RC.EvenMoving.sub_smul_threeHalves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Character.0.ZInQ.Manuscript.RC.EvenMoving.primeCharacter_int' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.PrimeGauss.0.ZInQ.Manuscript.RC.EvenMoving.quadraticFourier_zero_eq_gauss' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.cpow_nat_mul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_double_im' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_nonzero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_periodic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_prime_formula' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_scale_prime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.scalePoint_inj' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Affine.0.ZInQ.Manuscript.RC.EvenMoving.affine._proof_1' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Affine.0.ZInQ.Manuscript.RC.EvenMoving.affine.congr_simp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Assembly.0.ZInQ.Manuscript.RC.EvenMoving.sub_smul_threeHalves._simp_1_1' does not depend on any axioms
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Assembly.0.ZInQ.Manuscript.RC.EvenMoving.sub_smul_threeHalves._simp_1_2' does not depend on any axioms
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.rightTau._proof_1' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.rightTau._proof_2' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.rightTau.eq_1' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_prime_formula._simp_1_2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_prime_formula._simp_1_3' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_prime_formula._simp_1_4' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_prime_formula._simp_1_5' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_prime_formula._simp_1_6' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Theta.0.ZInQ.Manuscript.RC.EvenMoving.theta_prime_formula._simp_1_7' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale._simp_1_1' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale._simp_1_2' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale._simp_1_3' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale._simp_1_4' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale._simp_1_5' depends on axioms: [propext]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale._simp_1_6' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.RC.EvenMoving.Translate.0.ZInQ.Manuscript.RC.EvenMoving.two_scale_unscale._simp_1_7' depends on axioms: [propext]

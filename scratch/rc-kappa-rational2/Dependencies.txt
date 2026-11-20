@@ -1,0 +1,14 @@
+ZInQKernel.OneProof.Main absent from transitive imports.
+Checked root: ZInQ.Manuscript.RC.KappaRational2.scaled_periods_clear_lattice
+Checked root: ZInQ.Manuscript.RC.KappaRational2.rational_of_reference_scale
+Checked root: ZInQ.Manuscript.RC.KappaRational2.rational_of_matching_coeffs
+Checked root: ZInQ.Manuscript.RC.KappaRational2.reference_scale_of_jacobian_values
+Checked root: ZInQ.Manuscript.RC.KappaRational2.rational_of_jacobian_values
+Checked root: ZInQ.Manuscript.RC.KappaRational2.newformPeriodsRational_of_modularToWeakWeil
+Checked root: ZInQ.Manuscript.RC.KappaRational2.rational_of_modularToWeakWeil
+11092 project declarations in the union of the closures; no ParamJoin or AtScale dependencies.
+ZInQ.Manuscript.RC.KappaRational2.prepared_values_of_reference_scale: reaches ZInQ.Manuscript.RC.ParamJoin.prepared_values and the independently audited scale proof.
+ZInQ.Manuscript.RC.KappaRational2.missing_values_of_reference_scale: reaches ZInQ.Manuscript.RC.ParamJoin.missing_values and the independently audited scale proof.
+ZInQ.Manuscript.RC.KappaRational2.ring_values_of_reference_scale: reaches ZInQ.Manuscript.RC.ParamJoin.ring_values and the independently audited scale proof.
+ZInQ.Manuscript.RC.KappaRational2.genus_values_of_reference_scale: reaches ZInQ.Manuscript.RC.ParamJoin.genus_values and the independently audited scale proof.
+ZInQ.Manuscript.RC.KappaRational2.hElkikMD_of_reference_scale: reaches ZInQ.Manuscript.RC.J0Cusps.hElkikMD_atScale and the independently audited scale proof.

@@ -1,0 +1,7 @@
+**Done.** `EvenMoving.movingStep` proves the existing `MovingStepLaw` for the actual operator `U_(p²)(V_p g) − phase • V_p g` at level `M * p`, with the prescribed character on every unit. `evenMovingSieve` supplies the law for a fixed good set `U`. `evenWeightTwo_from_unary` and `evenExpansion_from_unary` remove the moving premise from the assembly and lattice transfer.
+
+The dilation comparison uses the quotient of actual Jacobi theta values. Right translations put both matrices at a common prime denominator, where Poisson resummation computes the Legendre sign. In the finite average the existing conjugation and permutation reduce the theta comparison to two dilations and integral translations. The two quadratic factors cancel. A separate rational affine cusp argument supplies the required bounds.
+
+All eight new files build and pass direct Lean checks. The scratch audit prints every named theorem, including the private helpers; only `propext`, `Classical.choice`, and `Quot.sound` occur. All Lean files are additions. No statement or count file changed.
+
+The unary Poisson law and the comparison with constituent coordinates over a compatible common place remain separate (tex 9548–9555, 9618–9625, 9649–9655, 9754–9764). No new manuscript error was found in the operator calculation. The inherited normalization error at tex 8162–8167 does not enter it. See [the report](../docs/research/rc-even-moving.md) and [the axiom audit](../scratch/rc-even-moving/axioms.txt).

@@ -1,0 +1,24 @@
+- Base: merged auxiliary inputs at `55a6a0045072501471c55a7b3ca1a02d1b18e15f`.
+- Data: `W' = withPartitionCertificate W hS (symbolFamily P hS)`; the two partition predicates agree.
+- Arithmetic: `h x = d * Q x`, with `Q x ≡ 1` modulo `T.m * (8 * N₀ * ∏ p ∈ W.S, p)`; primes of `d` remain; total type is constant; nonzero addresses are source units.
+- Level: `N₀` equals the level of the genuine newform; support follows from `levelSupport_of_modularNewform` and `bad_curve_mem`.
+- Prepared-source adapter: `hG`, zero extension, prepared coefficient rules, (3.2) and existing analytic inputs produce the RC11 leaf.
+- Merged-family adapter: active types have `HasReference`; `PreparedType` further imposes signed residue 1 modulo 8. Uses the actual source per reference type, with no prepared-only zero extension. `AppEOutputs` gives the remaining scalar input.
+- The legacy consumer yields `EvenUpper33b W'`; the full consumer gives `Upper33b W'` including nonvanishing.
+- Compile: `Level.lean`, `Realize.lean`, `Application.lean` and `Axioms.lean` passed individually with `lake env lean -j1`.
+- Axiom audit: exactly `propext`, `Classical.choice`, `Quot.sound` for each of:
+  - `fixedLevel_eq_newformLevel`
+  - `curveLevel_and_support`
+  - `realized_cubes_with_total`
+  - `partitionCertificate_iff`
+  - `evenTypes_typ_one`
+  - `sourceCubesAt_of_reading`
+  - `sourceCubeInputs_of_genuineSources`
+  - `rc11Inputs_of_genuineSources`
+  - `sourceRules_of_realizations`
+  - `sourceCubeInputs_of_sourceFamily`
+  - `units33a_of_sourceFamily`
+  - `sourceConsequences_of_sourceFamily`
+  - `rc11Inputs_of_sourceFamily`
+  - `evenUpper33b_of_sourceFamily`
+  - `fullUpper33b_of_sourceFamily`

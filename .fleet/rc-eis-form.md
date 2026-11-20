@@ -1,0 +1,7 @@
+Scoped stop: the explicit holomorphic weight-two character-pair series has the ordered divisor sums as its width-one Taylor coefficients at every positive index. For the actual primitive pair, both Fourier orders agree with the normalized lattice rows built from Mathlib's weight-two Lipschitz identity. `baseForm_of_modularity` gives the predecessor's exact `BaseForm` once a single constant term satisfies the product-character slash law and the bounds at all other cusps.
+
+The split Galois pair is unramified at good primes and its Frobenius trace and determinant give the same polynomial as the primitive Hecke eigensystem. The normalized choice supplies `RepInput` for a common finite set of exclusions. A labeled nonzero old line in a realized theta block supplies `ColumnRealization` and, with the level and attachment inputs, `RealizedCoordinate`. The scale is recovered at the degeneracy degree. The actual block realization, the labeled constituent decomposition and the model's assignment remain inputs.
+
+All five new Lean files compile individually with `lake env lean -j1`. All 36 theorem audits list only `propext`, `Classical.choice` and `Quot.sound`. No printed leaf was added and no new manuscript error was found; the inherited diamond-span issue at tex 9660–9668 is recorded in `docs/research/rc-eis-form.md`. Results: `scratch/rc-eis-form/log.md`.
+
+Final verified proof and report SHA (parent of this handoff): `2de3bbfb23574a8e27a187fe240c621034563714`. Resolve the handoff commit SHA with `git log -1 --format=%H -- .fleet/rc-eis-form.md`.

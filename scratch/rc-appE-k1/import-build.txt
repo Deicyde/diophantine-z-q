@@ -1,0 +1,8 @@
+ℹ [10370/10370] Built ZInQKernel.Contrib.OneProof.RC.PrintsArith.Kato (4.8s)
+Build completed successfully (10370 jobs).
+ℹ [9054/9054] Built ZInQKernel.Contrib.OneProof.RC.SelmerComplex.Shapiro (8.8s)
+Build completed successfully (9054 jobs).
+ℹ [9713/9716] Built ZInQKernel.Contrib.OneProof.RC.CoefModules.CoefModule (6.1s)
+⚠ [9714/9716] Built ZInQKernel.Contrib.OneProof.RC.CoefModules.Cyclotomic (5.4s)
+⚠ [9716/9716] Built ZInQKernel.Contrib.OneProof.RC.LambdaCoef.Tate (10s)
+Build completed successfully (9716 jobs).

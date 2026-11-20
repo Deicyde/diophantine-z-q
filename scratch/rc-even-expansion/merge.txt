@@ -1,0 +1,22 @@
+Merge made by the 'ort' strategy.
+ .fleet/rc-old-stage-law.md                         |   9 +
+ .../Contrib/OneProof/RC/OldStageLaw/Coset.lean     | 115 ++++++++++
+ .../Contrib/OneProof/RC/OldStageLaw/Grid.lean      | 204 +++++++++++++++++
+ .../Contrib/OneProof/RC/OldStageLaw/Local.lean     | 105 +++++++++
+ .../Contrib/OneProof/RC/OldStageLaw/Series.lean    |  78 +++++++
+ .../Contrib/OneProof/RC/OldStageLaw/Stage.lean     | 244 +++++++++++++++++++++
+ .../Contrib/OneProof/RC/OldStageLaw/Transform.lean |  80 +++++++
+ .../Contrib/OneProof/RC/OldStageLaw/Words.lean     | 181 +++++++++++++++
+ docs/research/rc-old-stage-law.md                  |  69 ++++++
+ scratch/rc-old-stage-law/log.md                    |  13 ++
+ 10 files changed, 1098 insertions(+)
+ create mode 100644 .fleet/rc-old-stage-law.md
+ create mode 100644 ZInQKernel/Contrib/OneProof/RC/OldStageLaw/Coset.lean
+ create mode 100644 ZInQKernel/Contrib/OneProof/RC/OldStageLaw/Grid.lean
+ create mode 100644 ZInQKernel/Contrib/OneProof/RC/OldStageLaw/Local.lean
+ create mode 100644 ZInQKernel/Contrib/OneProof/RC/OldStageLaw/Series.lean
+ create mode 100644 ZInQKernel/Contrib/OneProof/RC/OldStageLaw/Stage.lean
+ create mode 100644 ZInQKernel/Contrib/OneProof/RC/OldStageLaw/Transform.lean
+ create mode 100644 ZInQKernel/Contrib/OneProof/RC/OldStageLaw/Words.lean
+ create mode 100644 docs/research/rc-old-stage-law.md
+ create mode 100644 scratch/rc-old-stage-law/log.md
