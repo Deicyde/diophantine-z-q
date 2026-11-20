@@ -1,0 +1,65 @@
+/-
+Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
+Original module: P2M.Sol.S_GoodReductionJacobian_AbelianSchemePropertyBundle_exists_isInvertible_coeff_pos_forall_eulerChar_tensorPow_eq. Apache-2.0.
+Modification notice (CloudB3 Worker13, 2026-11-15/16): ported to Lean 4.35.0 / Mathlib v4.35.0
+(namespace-wrapped port on origin/cloud-b3/w13-recovery).
+Modified for the Z-in-Q kernel (charpoly-port, 2026-11-17): the Worker13 port unwrapped into the
+CloudB3W16Torsion conventions (original declaration namespaces; imports relocated to the
+CloudB3W16Torsion vendor; the FLT-suffixed renames of CloudB3W16Torsion/NOTICE.md applied; port
+shim commands removed). Mathematical statements and proofs retained, subject to Lean 4.35 adaptations
+listed in scratch/charpoly-port/log.md.
+Full original notices/credits: LICENSE, NOTICE.upstream, ATTRIBUTION.upstream.md in this vendor root.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_JacJ1Iface
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_NeronModelEndomorphismExtension
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativeGroupLawEndDegree
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_SheafOfModules_Monoidal
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ModulesTensorPow
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativePicardFunctor
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OModulePresheafEulerChar
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OModulePresheafOfModules
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ModulesProjPresentation
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_AbelianSchemePropertyBundle_exists_isInvertible_finiteBySections
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_Modules_FiniteBySections_exists_polynomial_coeff_pos_forall_eulerChar_tensorPow_eq
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_le
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_le_topologicalKrullDim
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_AbelianSchemePropertyBundle_isIntegral_of_field
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+
+set_option autoImplicit false
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency false
+
+namespace P2MW.S_GoodReductionJacobian_AbelianSchemePropertyBundle_exists_isInvertible_coeff_pos_forall_eulerChar_tensorPow_eq
+
+set_option autoImplicit false
+
+p2m_open "CategoryTheory CategoryTheory.Limits CategoryTheory.MonoidalCategory AlgebraicGeometry NeronModelInfra GoodReductionJacobian"
+
+universe u
+
+theorem solution
+    (K : Type u) [Field K] [IsAlgClosed K] {A : Scheme.{u}} (f : A ⟶ Spec (CommRingCat.of K))
+    (hA : AbelianSchemePropertyBundle K f) (g : ℕ) [SmoothOfRelativeDimension g f]
+    (𝒦 : A.OrderedAffineCover) :
+    ∃ 𝓛 : A.Modules, Scheme.Modules.IsInvertible 𝓛 ∧ ∃ q : Polynomial ℚ, 0 < q.coeff g ∧
+      ∀ m : ℕ, ((OModulePresheaf.ofModules f (𝓛.tensorPowFLT m)).eulerChar 𝒦 : ℚ) = q.eval (m : ℚ) := by
+
+  haveI : IsIntegral A := hA.isIntegral_of_field
+
+  have hdim : topologicalKrullDim A = g :=
+    le_antisymm (SmoothOfRelativeDimension.topologicalKrullDim_le f g)
+      (SmoothOfRelativeDimension.le_topologicalKrullDim f g)
+
+  obtain ⟨𝓛, h𝓛, hfs⟩ := AbelianSchemePropertyBundle.exists_isInvertible_finiteBySections K f hA
+
+  obtain ⟨q, hq, h⟩ :=
+    Scheme.Modules.FiniteBySections.exists_polynomial_coeff_pos_forall_eulerChar_tensorPow_eq f g hdim 𝓛 h𝓛 hfs 𝒦
+  exact ⟨𝓛, h𝓛, q, hq, h⟩
+
+end S_GoodReductionJacobian_AbelianSchemePropertyBundle_exists_isInvertible_coeff_pos_forall_eulerChar_tensorPow_eq
+end P2MW
+
