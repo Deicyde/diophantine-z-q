@@ -1,0 +1,80 @@
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppE32Fixed/Fixed.lean:16:theorem appEOutputs_of_kato_fixed (hK : KatoZetaLeaf) (hcm : CMjInteger)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppE32Fixed/Fixed.lean:18:    (hE : @Even.AppEFromKato (Ecurve ℓ)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppE32Fixed/Fixed.lean:28:theorem evenScalar32_of_kato_fixed (hK : KatoZetaLeaf) (hcm : CMjInteger)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppE32Fixed/Fixed.lean:31:    (hE : @Even.AppEFromKato (Ecurve ℓ)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppE32Fixed/Fixed.lean:39:#print axioms evenScalar32_of_kato_fixed
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppEK1/Comparison.lean:157:abbrev FixedKatoFiniteComparison (ℓ : ℕ) {Sig : Finset ℕ}
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppEK1/Comparison.lean:175:    (m : FamilyIndex fam) (hm : KatoXi 2 Sig m)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppEK1/FiniteIdentity.lean:68:    KatoXi 2 Sig (supportProduct fam * 2 ^ n) ↔ Disjoint fam.support Sig := by
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppEK1/FiniteIdentity.lean:112:from `KatoXi`. This is a relation on the same classes at the two indices. -/
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppEK1/FiniteIdentity.lean:128:  have hm : KatoXi 2 Sig (oddConductor fam x * 2 ^ n) := by
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppEK1/FiniteIdentity.lean:142:    (hl : KatoXi 2 Sig (d * 2 ^ n)) (hu : KatoXi 2 Sig (d * 2 ^ n')) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/AppEK1/FiniteIdentity.lean:201:    (K : KatoZetaInterface E Sig Sbad) {m : ℕ} [NeZero m] (hm : KatoXi 2 Sig m)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/EvenSource.lean:500:(4.2.4) (p. 143) and (12.2.1)–(12.2.3) (p. 220), stated by lane RC9 (`KatoZetaLeaf`,
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:11:* `KatoZetaLeaf` — Kato's zeta elements furnish a `KatoZetaInterface E Σ`: Prop. 8.12 (p. 186) with
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:22:and `ex:app-central-calibration` — is the ELLIOT step `AppEFromKato`. This file only makes the
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:23:dependency explicit: `evenScalar32_of_kato` (PROVED) derives (3.2) from the PRINT leaf and the
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:35:good, a `KatoZetaInterface E Σ S_bad` with `Σ ⊇ S_bad`, as lane RC9's `KatoZetaLeaf` provides),
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:39:def AppEFromKato (E : WeierstrassCurve ℚ) [E.IsElliptic] (N : ℕ) (L : CentralNormalization E) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:49:PRINT leaf `KatoZetaLeaf`, the non-CM property of `E` (for `E_ℓ`: `j = 35152/9 ∉ ℤ`, lane RC9's
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:50:`curve_hasNoCM`), and the ELLIOT step `AppEFromKato` give Proposition `ex:sec7-even-scalar`. -/
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:51:theorem evenScalar32_of_kato (hK : KatoZetaLeaf) {E : WeierstrassCurve ℚ} [E.IsElliptic]
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Even/KatoBridge.lean:53:    (hE : AppEFromKato E N L) : EvenScalar32 E N L :=
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:9:Lane RC11's `evenScalar32_of_kato` (`KatoBridge.lean`; tex 1884–1893, App E ¶7 tex 7206–7255)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:10:derives (3.2) from lane RC9's PRINT `KatoZetaLeaf`, the ELLIOT step `AppEFromKato` and the
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:27:`KatoZetaLeaf`, lane RC9's GLUE `CMjInteger` and lane RC11's ELLIOT step `AppEFromKato`).
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:28:Consumer: lane RC11's `evenScalar32_of_kato` at `E = Ecurve ℓ` (hypothesis `hCM` removed; the
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:31:theorem evenScalar32_of_kato_ecurve (hK : KatoZetaLeaf) (hcm : CMjInteger) {ℓ : ℕ} (hℓ : 0 < ℓ)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:33:    (hE : @ZInQ.Manuscript.RC.Even.AppEFromKato (Ecurve ℓ) (ecurve_isElliptic hℓ) N L) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:35:  @ZInQ.Manuscript.RC.Even.evenScalar32_of_kato hK (Ecurve ℓ) (ecurve_isElliptic hℓ)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:39:then 7777–7786; PROVED from lane RC9's PRINT `KatoZetaLeaf`, lane RC9's GLUE `CMjInteger`, lane
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:40:RC11's ELLIOT step `AppEFromKato`, the shared printed leaves `Prints` and lane RC8's GLUE
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:41:`HasseConvergence`): `evenScalar32_of_kato_ecurve` followed by
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:42:`evenLowerBound_of_evenScalar32_of_prints`. Consumers: lane RC11's `evenScalar32_of_kato` and
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:44:theorem evenLowerBound_of_kato_ecurve (hK : KatoZetaLeaf) (hcm : CMjInteger) (hP : Prints)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:47:    (hE : @ZInQ.Manuscript.RC.Even.AppEFromKato (Ecurve ℓ) (ecurve_isElliptic hℓ) N L) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/GlueSweep/EvenKato.lean:50:    (evenScalar32_of_kato_ecurve hK hcm hℓ hN hE)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Kato812/Kato812Interface.lean:35:  iw_thm13_4 : iw.Thm13_4Conclusion 2
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Kato812/Kato812Interface.lean:45:  recip : ∀ (m : ℕ) [NeZero m], KatoXi 2 (oldSigma Sbad c ds) m →
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Kato812/Kato812Interface.lean:114:    (hSig : oldSigma Sbad c ds ⊆ Sig) (hm : KatoXi 2 Sig m) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Kato812/Kato812Interface.lean:156:  iw_thm13_4 := K.iw_thm13_4
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Kato812/Kato812Interface.lean:177:    (hm : KatoXi 2 (twistedSigma E d c ds) m)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/Kato812/Kato812Interface.lean:178:    (hm' : KatoXi 2 (twistedSigma E d c ds) m') (h : m ∣ m') :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:106:def AppEFromKatoP2 (E : WeierstrassCurve ℚ) (N : ℕ) (L : CentralNormalization E)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:117:    (h08 : ∀ fam x, ((K fam).part x).Print08) (hE : AppEFromKatoP2 E N L e Nodd K) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:128:theorem evenScalar32_of_katoP2 {E : WeierstrassCurve ℚ} {N : ℕ} (hN : N ≠ 0)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:131:    (h08 : ∀ fam x, ((K fam).part x).Print08) (hE : AppEFromKatoP2 E N L e Nodd K) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:140:    (hE : AppEFromKatoP2 (Ecurve ℓ) (EvenUpperText.N₀ ℓ) L e Nodd K) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:146:theorem evenScalar32_of_katoP2_fixed (hB : PoleS12.BCDTThmA)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:151:    (hE : AppEFromKatoP2 (Ecurve ℓ) (N₀ ℓ) C e Nodd K) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:153:  have h := evenScalar32_of_katoP2 (level_pos_of_bcdt hB hℓ).ne' h08 hE
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:157:theorem evenScalar32_of_katoP2_ecurve {ℓ N : ℕ} (hN : N ≠ 0)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:161:    (hE : AppEFromKatoP2 (Ecurve ℓ) N L e Nodd K) : EvenScalar32 (Ecurve ℓ) N L :=
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:162:  evenScalar32_of_katoP2 hN h08 hE
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:170:    (hE : AppEFromKatoP2 (Ecurve ℓ) N L e Nodd K) : EvenLowerBound (Ecurve ℓ) L := by
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/EvenBridge.lean:173:    (evenScalar32_of_katoP2_ecurve hN h08 hE)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/ExtendedNorm.lean:72:    (hm : KatoXi 2 (twistedSigma E d c ds) m) :
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/FiniteAnchor.lean:26:  recip : ∀ (m : ℕ) [NeZero m], KatoXi 2 Sig m → ∀ χ : DirichletCharacter ℂ m,
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/FiniteAnchor.lean:33:    (K : RetainedReciprocity E Sig Sbad es) {m : ℕ} [NeZero m] (hm : KatoXi 2 Sig m)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/FiniteAnchor.lean:43:    (K : RetainedReciprocity E Sig Sbad es) {m : ℕ} [NeZero m] (hm : KatoXi 2 Sig m)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/FiniteAnchor.lean:89:abbrev FixedRetainedFiniteComparison (ℓ : ℕ) (es : EulerSystemData ℤ_[2])
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/KatoP2/FiniteAnchor.lean:104:    (m : FamilyIndex fam) (hm : KatoXi 2 Sig m)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Bundle.lean:14:statements (`KatoZetaLeaf`, `CCLThm2_15Applied`, `CJReductionData.Thm3_1KappaOne`) are not bundled:
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:139:def KatoXi (p : ℕ) (Sig : Finset ℕ) (m : ℕ) : Prop :=
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:178:  ∀ m m' : ℕ, KatoXi p Sig m → KatoXi p Sig m' → ∀ h : m ∣ m',
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:236:def IwasawaData.Thm13_4Conclusion {Λ : Type} [CommRing Λ] (D : IwasawaData Λ) (p : Λ) : Prop :=
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:262:* `iw`, `proj`, `iw_z` and `iw_thm13_4`: the Iwasawa data of the same system (its class `zIw`
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:295:  iw_thm13_4 : iw.Thm13_4Conclusion 2
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:312:  recip : ∀ (m : ℕ) [NeZero m], KatoXi 2 Sig m → ∀ χ : DirichletCharacter ℂ m,
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:320:    (K : KatoZetaInterface E Sig Sbad) {m : ℕ} [NeZero m] (hm : KatoXi 2 Sig m)
+c61db80d264ab48f2e425b69751297d3d377f381:ZInQKernel/Contrib/OneProof/RC/PrintsArith/Kato.lean:339:def KatoZetaLeaf : Prop :=
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:9:example (D : IwasawaData KatoLambda2) : RetainedK15 D ↔ D.Thm13_4Conclusion 2 := Iff.rfl
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:42:#print axioms evenScalar32_of_katoP2
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:44:#print axioms evenScalar32_of_katoP2_fixed
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:45:#print axioms evenScalar32_of_katoP2_ecurve
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:53:    #[`ZInQ.Manuscript.RC.PrintsArith.IwasawaData.Thm13_4Conclusion,
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:54:      `ZInQ.Manuscript.RC.PrintsArith.KatoZetaLeaf,
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:57:      `ZInQ.Manuscript.RC.Even.AppEFromKato]
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:59:    #[`ZInQ.Manuscript.RC.KatoP2.AppEFromKatoP2,
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:61:      `ZInQ.Manuscript.RC.KatoP2.evenScalar32_of_katoP2,
+c61db80d264ab48f2e425b69751297d3d377f381:scratch/rc-kato-p2-reroute/Check.lean:63:      `ZInQ.Manuscript.RC.KatoP2.evenScalar32_of_katoP2_fixed,

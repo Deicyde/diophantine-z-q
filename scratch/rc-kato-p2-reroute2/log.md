@@ -22,3 +22,16 @@
   4.35.0. At the two sign primes cut out by `X`, each localized torsion
   assumption supplies one sign annihilator. The combined annihilator
   is regular; finite generation gives one for the whole module.
+- **VERIFIED** (Lean): `Kodai08Checked.lean` and `Kodai08Support.lean`
+  elaborate. The full local sum is indexed by the complete set of
+  prime factors of the base. The exact degree-two fragment and
+  commutation at two induce the localized kernel isomorphism.
+- **VERIFIED** (build): the copied build lacked the base's Kato modules
+  and the helper package's objects. Source-matched local artifacts were
+  reused only with the same toolchain and manifest. Lake attempted a
+  wider dependency rebuild; the missing modules were then elaborated
+  serially with `lake env lean -o` in dependency order. No dependency
+  was left unchecked on account of a missing object. The host checks
+  used the stated Linux thresholds.
+- **VERIFIED** (git grep): [raw base references](base-references.txt)
+  include both spellings of the fixed finite comparison.
