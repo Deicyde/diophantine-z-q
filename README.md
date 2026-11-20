@@ -1,0 +1,1 @@
+Task queue for the dioph_zq13 runner: queue/NN-TASK.md is the prompt, queue/NN-TASK.base the start commit (used only when origin has no wip/TASK). The runner starts each task once, at most five at a time.
