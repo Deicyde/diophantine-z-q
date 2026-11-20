@@ -1,0 +1,24 @@
+'ZInQ.Manuscript.T10Proetale.injectivePresentation_shortExact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.extensionClass_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.extensionClass_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.extensionClass_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.local_sectionLifts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.exact_and_injective_on_sections' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.sectionLifts_existsUnique_translate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.translate_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.classOfSection_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.classOfSection_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.residueStep_surjective_sections' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proTransition_surjective_H0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.difference_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proH0_difference_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.continuous_toResidue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proReduction_transition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proReduction_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.galIso_inv_inv_eq_galAut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.graphPoint_galAut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.compose_transport_squares' depends on axioms: [propext, Classical.choice, Quot.sound]
