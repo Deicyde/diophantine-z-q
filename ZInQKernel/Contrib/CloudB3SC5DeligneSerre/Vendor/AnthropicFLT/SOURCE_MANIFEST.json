@@ -452,7 +452,7 @@
   },
   "Definitions/Def_AutomorphicForm_TwistedOrbital.lean": {
    "git_blob_sha": "6f10a9c0f1f9db32d49f0782b89f37f7bf32db1b",
-   "local_sha256": "7e1e89a9e228cfdded9675b47c47741116fa3ead9126d591e67a525aa8a42ffd",
+   "local_sha256": "39f24d3ba4c877dad8d025da25b05feae317da7edbd2bb45e3bd27dcf7eba6ca",
    "sha256": "30899b3d4b8dbd77e341ba2192a1bb5964cefbc00cbfa81cb954a595d845e41a",
    "upstream_module": "Definitions.Def_AutomorphicForm_TwistedOrbital"
   },
@@ -461,12 +461,6 @@
    "local_sha256": "d4cc0b70ea02d5c85108f78b8439d7ea5c08a4f1e4416f3c3cc2a40eb2a292bd",
    "sha256": "5cf2ceee6dd7faae61a073f4fbe22f60b5978679242724342081abc3d4d805a4",
    "upstream_module": "Definitions.Def_AutomorphicForm_UnipotentQuotient"
-  },
-  "Definitions/Def_AutomorphicForm_UnitFactorizableOfType.lean": {
-   "git_blob_sha": "b96da978846a787e506bbb66356a2a6969ba3984",
-   "local_sha256": "d019befaa95fc605797f63014386e55a5cfd7d681b45d5b5e6049099b55bf7f5",
-   "sha256": "96a9eac3697168bacd0df27cf4825ea75bac6ea7509db9690d990fc8c900c533",
-   "upstream_module": "Definitions.Def_AutomorphicForm_UnitFactorizableOfType"
   },
   "Definitions/Def_AutomorphicForm_ViaCompactCuspNotion.lean": {
    "git_blob_sha": "08dedb8c8b7d4556cd118187324dafaf6e327291",
@@ -912,12 +906,6 @@
    "sha256": "979c682180c94297b0d4a8c4348dedab79facd11281ae1b2089c1a9cf995652a",
    "upstream_module": "Definitions.Def_LaurentSeries_XAdic"
   },
-  "Definitions/Def_LocalLanglands_CartanDecomposition.lean": {
-   "git_blob_sha": "449078a6bd889efdbdf1c0e3455969df6b40c6c8",
-   "local_sha256": "0752b6def54f618d776d0a5eb57df930e6c95c903fa5d5b586c55ee8d1d16eb1",
-   "sha256": "fd38ac7a927a5d626173d7b0c0325418e8ec9cdeade4e8a415689b3257361817",
-   "upstream_module": "Definitions.Def_LocalLanglands_CartanDecomposition"
-  },
   "Definitions/Def_LocalLanglands_HeckeCosetLocal.lean": {
    "git_blob_sha": "cc8d2d7e082cb20542fe281f578a532fd334c6e9",
    "local_sha256": "0389218a309fdd9f366274b5bd2c37c01d21c2a5f1ac8bd18312de2942fc871d",
@@ -950,7 +938,7 @@
   },
   "Definitions/Def_LocalLanglands_LocalHeckeInstance.lean": {
    "git_blob_sha": "83a03f8ceff559953eb44e299391b10c69089890",
-   "local_sha256": "c7ed7bcfdb29450abca081a9318928ddac456897d066a97fb06a47a414e293a4",
+   "local_sha256": "369cd8de7dc23a4158177d39518c3d0133059510f7a4afdfa48d627aaa32428f",
    "sha256": "0b5cb8e204487aba2f16172d91f5ce5f6698ccd654f3c169d690d22a5b0213e6",
    "upstream_module": "Definitions.Def_LocalLanglands_LocalHeckeInstance"
   },
@@ -5054,7 +5042,7 @@
   },
   "P2M/Sol/S_AutomorphicForm_RankinSelberg_exists_testData_sPartIntegral_self_analyticOnNhd_re_pos.lean": {
    "git_blob_sha": "5124ed9baf7872ce8825d4f6973c554e9a0171a2",
-   "local_sha256": "7ffe00aa4650e99733ab2dc9059d7f8992070dbf0e86d429c0bddfeaca97ad4a",
+   "local_sha256": "f413554beec60939d9b45e26db5f30bf870e3aa7ef562525dc6d3df2a9bc86e9",
    "sha256": "053123ba78446796e513c19cb9b5f8c50a3c5427b60709f130033072538d3e94",
    "upstream_module": "P2M.Sol.S_AutomorphicForm_RankinSelberg_exists_testData_sPartIntegral_self_analyticOnNhd_re_pos"
   },
@@ -5928,12 +5916,6 @@
    "sha256": "f925bf27a59db8d172aca53e69fb250884ec271c3d118a79e2dec8f706437422",
    "upstream_module": "P2M.Sol.S_AutomorphicForm_exists_measurableSet_isFundamentalDomain_subset_iUnion_centreCutSiegelSet_of_coversModCentre"
   },
-  "P2M/Sol/S_AutomorphicForm_exists_measurableSet_isFundamentalDomain_subset_iUnion_integralWindowedSiegelSet_of_coversModCentre.lean": {
-   "git_blob_sha": "990140ce389a568f46b40452e4b1e9c63e673b26",
-   "local_sha256": "23de3086c12aa4eec4643c9bfdffa54a158e2267a3cd658f1476400680716fc0",
-   "sha256": "713c5a9927bc1fabefb83aa3431b652d215d395a909ef850676a5bab1bf2513b",
-   "upstream_module": "P2M.Sol.S_AutomorphicForm_exists_measurableSet_isFundamentalDomain_subset_iUnion_integralWindowedSiegelSet_of_coversModCentre"
-  },
   "P2M/Sol/S_AutomorphicForm_exists_mem_adelicBorel_mul_eq.lean": {
    "git_blob_sha": "e48530f4dc70523ffeb9bc0ee2e5ad00d6bb14ff",
    "local_sha256": "b874e2cdfeec3af9fa7166c650199d65d0ba7a5bfd939a477e4bf7a93a6bb25f",
@@ -6125,12 +6107,6 @@
    "local_sha256": "dfe670f1efbee9c7e7bc6f8d756ec62741ccd33c1d883fb7cceba40a84023233",
    "sha256": "94be378e32324138b2fea0b578f28c8a30d0f2aa6caea8dddf58b02bcfbc800e",
    "upstream_module": "P2M.Sol.S_AutomorphicForm_exists_tsum_norm_a_sq_mul_rpow_absNorm_le_log_of_isArithGenuineCuspRealizable"
-  },
-  "P2M/Sol/S_AutomorphicForm_exists_unipotent_surgery_whittakerCoefficient_diagOne_mul_eq_sum_mul.lean": {
-   "git_blob_sha": "6a1d02df546d81e781c0b383ba32aaa28ba1a028",
-   "local_sha256": "d1c5a08b83809e319d6fac894289d83daf87afd3ad002306f70b5bdf52f274c0",
-   "sha256": "f64f999f0a7d989fae2c485f1eb23027b9eaf9a57b398a3eaf654eac67ec699a",
-   "upstream_module": "P2M.Sol.S_AutomorphicForm_exists_unipotent_surgery_whittakerCoefficient_diagOne_mul_eq_sum_mul"
   },
   "P2M/Sol/S_AutomorphicForm_exists_unipotent_surgery_whittakerCoefficient_diagOne_mul_eq_sum_mul_shell.lean": {
    "git_blob_sha": "adf3fcb199c1f21d9a7ef083bc75c09d3dd301a7",
@@ -17856,12 +17832,6 @@
    "sha256": "30e68268c2753d3a1a4653e98d78b55867f54c4305af0ba45223e59b8e49fd1e",
    "upstream_module": "Theorems.Thm_AutomorphicForm_exists_measurableSet_isFundamentalDomain_subset_iUnion_centreCutSiegelSet_of_coversModCentre"
   },
-  "Theorems/Thm_AutomorphicForm_exists_measurableSet_isFundamentalDomain_subset_iUnion_integralWindowedSiegelSet_of_coversModCentre.lean": {
-   "git_blob_sha": "98711a291efb0f5c8b5a851de28cda74745abdb1",
-   "local_sha256": "13436527b1d71abe581a8006bf9a44b8ee52b46495617c50cc952939af96254f",
-   "sha256": "3120c10fe66a561c702d42f5d081d284f3274bc6d2b335c522ea3d09cd10b61c",
-   "upstream_module": "Theorems.Thm_AutomorphicForm_exists_measurableSet_isFundamentalDomain_subset_iUnion_integralWindowedSiegelSet_of_coversModCentre"
-  },
   "Theorems/Thm_AutomorphicForm_exists_mem_adelicBorel_mul_eq.lean": {
    "git_blob_sha": "6f97d7c45f435f96169abb0bc57317b1a3a93d52",
    "local_sha256": "11ef9f1705ff211ef4827a7590e80f574aa959d8faedfe9093982a1f6b5f0fb6",
@@ -18053,12 +18023,6 @@
    "local_sha256": "dda5756ea08c44f79abd8a644e86b491c5c2c250948d6fdebc2f39084da31a32",
    "sha256": "1274a982dfd6924b0afa57b716361d3d811dfc8ebf6f054c5d356b7c47bde853",
    "upstream_module": "Theorems.Thm_AutomorphicForm_exists_tsum_norm_a_sq_mul_rpow_absNorm_le_log_of_isArithGenuineCuspRealizable"
-  },
-  "Theorems/Thm_AutomorphicForm_exists_unipotent_surgery_whittakerCoefficient_diagOne_mul_eq_sum_mul.lean": {
-   "git_blob_sha": "d65ab934311e6718f30b11d2edd96b5798264bdc",
-   "local_sha256": "f005a149441791796e83821f070a3b712aa230cc374a69313a455613e3a76ca2",
-   "sha256": "f8de1e7a3ff2333d5447e96ddb5d52fa15a04e8b8e432280e9196899b63537ca",
-   "upstream_module": "Theorems.Thm_AutomorphicForm_exists_unipotent_surgery_whittakerCoefficient_diagOne_mul_eq_sum_mul"
   },
   "Theorems/Thm_AutomorphicForm_exists_unipotent_surgery_whittakerCoefficient_diagOne_mul_eq_sum_mul_shell.lean": {
    "git_blob_sha": "4c86ff4b66a9aaedd3fff4ce605903f9059e9859",

@@ -7,7 +7,6 @@ Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENS
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Definitions.Def_LocalLanglands_HeckePair
-import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Definitions.Def_LocalLanglands_CartanDecomposition
 
 set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
