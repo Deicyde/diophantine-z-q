@@ -58,41 +58,19 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Free disk space and add swap
+      - name: Free disk space
         run: |
           set -euo pipefail
           df -h / /mnt || true
           free -h
-          # Preinstalled software this job does not use. A full build of the OneProof targets is about 41 GB
-          # (34 GB for this repository, 7 GB for Mathlib), and the cache archive needs room as well.
+          # Preinstalled software this job does not use. The build of the OneProof targets is about 53 GB for this
+          # repository and 7 GB for Mathlib (run 44681096024), and the save step needs room for its archive.
           sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache \
             /usr/local/share/boost /usr/share/swift /usr/lib/jvm /usr/local/julia* /usr/local/share/chromium \
             /usr/local/share/powershell /usr/local/lib/node_modules /opt/microsoft /opt/google /opt/az \
             /usr/share/miniconda /usr/local/aws-cli /usr/local/aws-sam-cli /opt/pipx
           sudo swapoff -a
           sudo rm -f /swapfile /mnt/swapfile
-          # Swap goes on the separate temporary disk when the runner has one. Otherwise it is a swap file on /,
-          # sized to leave about 75 GB of / for the toolchain and Mathlib (12 GB), the build (34 GB), a cache
-          # archive of up to 10 GB, and a margin. The run of 2026-11-17 used an 82 GB swap file, filled / and
-          # stopped without saving.
-          if mountpoint -q /mnt; then
-            dir=/mnt
-            avail="$(df --output=avail -BG /mnt | tail -n 1 | tr -dc '0-9')"
-            size=$((avail - 2))
-          else
-            dir=
-            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
-            size=$((avail - 75))
-            if [ "$size" -lt 8 ]; then size=8; fi
-          fi
-          if [ "$size" -gt 48 ]; then size=48; fi
-          if [ "$size" -ge 1 ]; then
-            sudo fallocate -l "${size}G" "$dir/swapfile"
-            sudo chmod 600 "$dir/swapfile"
-            sudo mkswap "$dir/swapfile"
-            sudo swapon "$dir/swapfile"
-          fi
-          free -h
           df -h / /mnt || true
 
       - name: Install elan
@@ -127,9 +105,37 @@ jobs:
           path: |
             .lake/build
             lean/.lake/build
-          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}
+          key: zinq-build-v2-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}
           restore-keys: |
-            zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-
+            zinq-build-v2-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-
+
+      # Swap is sized from the space left once the toolchain, Mathlib and the restored build are in place: on the
+      # separate temporary disk when the runner has one, otherwise a swap file on / that leaves 40 GB free (the
+      # build's 15 GB stop, the save step's archive of up to 10 GB, and room for the files the build adds). Run
+      # 44681096024 reserved swap before the restore and stopped at once with 14 GB free.
+      - name: Add swap
+        run: |
+          set -euo pipefail
+          if mountpoint -q /mnt; then
+            dir=/mnt
+            avail="$(df --output=avail -BG /mnt | tail -n 1 | tr -dc '0-9')"
+            size=$((avail - 2))
+          else
+            dir=
+            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
+            size=$((avail - 40))
+          fi
+          if [ "$size" -gt 48 ]; then size=48; fi
+          if [ "$size" -ge 4 ]; then
+            sudo fallocate -l "${size}G" "$dir/swapfile"
+            sudo chmod 600 "$dir/swapfile"
+            sudo mkswap "$dir/swapfile"
+            sudo swapon "$dir/swapfile"
+          else
+            echo "::warning::No room for swap: ${avail} GB free after the restore."
+          fi
+          free -h
+          df -h / /mnt || true
 
       # The build stops itself at 310 minutes, before the step's time limit, so that the save step keeps an
       # unfinished build and the next run continues from it. It also stops if / falls below 15 GB, to keep room
@@ -189,7 +195,7 @@ jobs:
           path: |
             .lake/build
             lean/.lake/build
-          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: zinq-build-v2-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       # Main.lean prints these axioms only while it compiles, which a cached build skips, so ask again here.
       # The summary records the commit and the list; the step fails on any other axiom, `sorryAx` included.
@@ -222,7 +228,7 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-          KEY: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          KEY: zinq-build-v2-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
         run: |
           set -euo pipefail
           for attempt in 1 2 3; do
