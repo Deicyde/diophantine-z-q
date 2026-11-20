@@ -17,6 +17,7 @@ jobs:
     timeout-minutes: 230
     env:
       BASE: 2792b59cf602398df77fb012a408cc7f0c0689e2
+      TESTED_HEAD: dd231702b5e549c3fdafae68a53c5ae18cf65ba1
       LEAN_NUM_THREADS: 2
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -27,14 +28,15 @@ jobs:
       - name: Check the candidate and cache inputs
         run: |
           set -euo pipefail
-          git merge-base --is-ancestor "$BASE" HEAD^
-          git diff --exit-code HEAD^ HEAD -- . ':(exclude).github/workflows/main-build-cache.yml'
+          git merge-base --is-ancestor "$BASE" "$TESTED_HEAD"
+          git merge-base --is-ancestor "$TESTED_HEAD" HEAD
+          git diff --exit-code "$TESTED_HEAD" HEAD -- . ':(exclude).github/workflows/main-build-cache.yml'
           git diff --exit-code ffdbe5c09d431bd8d444c8620cf400a29b1e66c1 "$BASE" -- \
             lakefile.toml lean/lakefile.toml lake-manifest.json lean/lake-manifest.json lean-toolchain
           git diff --exit-code "$BASE" HEAD -- ZInQKernel lean \
             ':(exclude)ZInQKernel/OneProof/Main.lean' ':(exclude)ZInQKernel/OneProof/H/TailZ99.lean'
           git diff --check "$BASE" HEAD
-          git rev-parse HEAD^
+          git rev-parse "$TESTED_HEAD"
           python3 -IB scripts/check_target.py
           python3 -IB scripts/one_proof/render_open.py --check
 
@@ -90,7 +92,7 @@ jobs:
           path: |
             .lake/build
             lean/.lake/build
-          key: zinq-build-v1-Linux-22ffff8e3aa185cb45e0de0fa21b600792e92102555dd3dda8b190d9eb9c3c53-ffdbe5c09d431bd8d444c8620cf400a29b1e66c1-44688174348-1
+          key: zinq-build-v1-Linux-22ffff8e3aa185cb45e0de0fa21b600792e92102555dd3dda8b190d9eb9c3c53-dfc6804f30bb08ec33abefeca76cba33405b8984-44690898399-1
           fail-on-cache-miss: true
 
       - name: Build the headline with the five proofs
