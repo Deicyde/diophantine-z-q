@@ -1,0 +1,181 @@
+'ZInQ.Manuscript.T10Proetale.proOpen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proOpenInclusion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proOpenCover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.constantToContinuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.constantToContinuous_locallyInjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.constantToContinuous_locallySurjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.discreteCoefficientsIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.sectionAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftPresheaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftPresheaf_isSheaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftTrivialization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftTrivialization_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheaf_locallyNonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitProjection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitProjection_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitProjection_spec_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitProjection_spec_etale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitSheet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitLift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitLift_projection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitLift_sheet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitLift_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitSections' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitSections_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.localLiftSections' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.localLiftSections_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.compatibleResidues' depends on axioms: [propext, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.residueEval' depends on axioms: [propext, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.residueEval_compat' depends on axioms: [propext, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.padicOfResidues' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.toResidue_padicOfResidues' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.continuous_of_continuous_residues' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.existsUnique_continuous_residueLift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.residueSheaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.productSheaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.productProjection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.productFanIsLimit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.differenceHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.differenceHom_surjective_sections' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.differenceHom_epi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.integralToProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.coefficientSequence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.coefficientSequence_shortExact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.extProductMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.extProductMap_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.extProductMap_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.cohomologySource' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.productH1Coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.productH1Coordinates_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.productH1Coordinates_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proReduction_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proReduction_existsUnique_of_compatible' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.geometricHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.galAut_geometricHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.geometricMultiplication' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.galAut_geometricMultiplication' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.LiftTorsor.0.ZInQ.Manuscript.T10Proetale.sectionAt_restrict' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.SplitCover.0.ZInQ.Manuscript.T10Proetale.diagonalAlgebraMap' depends on axioms: [propext,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.SplitCover.0.ZInQ.Manuscript.T10Proetale.splitProjection_spec' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.SplitCover.0.ZInQ.Manuscript.T10Proetale.splitSheet_ι' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.SplitCover.0.ZInQ.Manuscript.T10Proetale.fibreOpen' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.SplitCover.0.ZInQ.Manuscript.T10Proetale.fibreCover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.SplitCover.0.ZInQ.Manuscript.T10Proetale.fibreLift_compatible' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.SplitCover.0.ZInQ.Manuscript.T10Proetale.splitLift_restrict' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.LocalRepresentatives.0.ZInQ.Manuscript.T10Proetale.coefficientPresentation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.LocalRepresentatives.0.ZInQ.Manuscript.T10Proetale.quotientSections' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.LocalRepresentatives.0.ZInQ.Manuscript.T10Proetale.geometricLiftSheaf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CoefficientSequence.0.ZInQ.Manuscript.T10Proetale.productLift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CoefficientSequence.0.ZInQ.Manuscript.T10Proetale.difference' depends on axioms: [propext,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CoefficientSequence.0.ZInQ.Manuscript.T10Proetale.integralToProduct_injective_sections' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CoefficientSequence.0.ZInQ.Manuscript.T10Proetale.integralToProduct_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CoefficientSequence.0.ZInQ.Manuscript.T10Proetale.integralToProduct_lift_sections' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.injectives' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.quotients' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.productPresentation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.productPresentation_exact_mono' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.productPresentation_shortExact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.productPresentationProjection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.boundary_projection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.quotientPresentation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.quotientPresentation_shortExact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.quotientMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.quotientPresentationToProduct' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.ExtProducts.0.ZInQ.Manuscript.T10Proetale.quotient_boundary_projection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyProducts.0.ZInQ.Manuscript.T10Proetale.extFanMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyProducts.0.ZInQ.Manuscript.T10Proetale.extFanMap_comp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyProducts.0.ZInQ.Manuscript.T10Proetale.extFanMap_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyProducts.0.ZInQ.Manuscript.T10Proetale.extFanMap_bijective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyLimit.0.ZInQ.Manuscript.T10Proetale.mapH_sub_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyLimit.0.ZInQ.Manuscript.T10Proetale.extH1_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyLimit.0.ZInQ.Manuscript.T10Proetale.differenceHom_project' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyLimit.0.ZInQ.Manuscript.T10Proetale.productH1Coordinates_difference' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyLimit.0.ZInQ.Manuscript.T10Proetale.productH1Coordinates_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CohomologyLimit.0.ZInQ.Manuscript.T10Proetale.differenceH0_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
