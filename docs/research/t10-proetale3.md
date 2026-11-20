@@ -10,8 +10,9 @@ comparison, before passing from the small pro-étale site to the big étale site
 **VERIFIED — the finite lift sheaves are representable.** The lift sheaf of
 each finite pro-étale degree-one class on the geometric scheme is represented
 by a finite étale surjection. Its pullback to itself is split, and the class is
-zero exactly when the cover has a section. The identification with
-`T10Milne86.FiniteH1` remains open. The T10 row stays GLUE; delta **0**
+zero exactly when the cover has a section. The discrete coefficient sheaves
+on the two sites agree under restriction, compatibly with coefficient maps.
+The identification with `T10Milne86.FiniteH1` remains open. The T10 row stays GLUE; delta **0**
 (strict H count: **4 LEAF, 18 GLUE**).
 
 **Known issue, UNVERIFIED against the cited sources.**
@@ -35,6 +36,7 @@ Names below are in `ZInQ.Manuscript.T10Proetale`.
 | `IntegralTower.lean` | `residueQuotientProduct_epi` specializes that result to the actual injective-presentation quotients. `proFiniteH1Limit` is the additive group of compatible finite classes. `proReduction_existsUnique` removes the previous comparison’s last assumption using the quotient-product epi and the existing surjectivity of the degree-zero difference operator. `proReductionEquiv` is the additive identification, and `proReductionEquiv_apply` proves that it is given by the original reductions. |
 | `MapDescentDatum.lean` | `mapDescentDatum` extends an overlap datum through a pullback-preserving functor using the image of its universal overlap map. `mapDescentDatum_transport_image` verifies agreement on the original site’s points. |
 | `FiniteTorsorDescent.lean` | `splitProjection_finite` and `splitProjection_etale` check the split model. `liftSheafRepresentableOnSlice` packages the pointwise splitting as a representation, `liftSheaf_affineCover` obtains a single affine cover with a lift, and `liftSheafDescentDatum` constructs the canonical overlap datum. `liftSheaf_finiteEtaleDescent` descends this datum in schemes. `liftSheaf_finiteEtaleRepresentable` verifies representation on the slice by subcanonicity and the sheaf condition. `liftSheaf_globalRepresentable` gives the whole-site result. `proFiniteH1_representable` identifies the actual classes furnished by quotient sections and detects the zero class. `liftSheaf_selfPullbackSplits` splits the cover on the slice over itself. |
+| `EtaleDiscreteCoefficients.lean` | `etaleContinuousCoefficients` and `mapEtaleContinuousCoefficients` give the continuous-function sheaf and its coefficient maps on the big étale site. `etaleDiscreteCoefficientsIso` identifies the sheafified constant presheaf with that sheaf, using the open level sets of each locally constant function. `etaleDiscreteCoefficientsRestrictionIso` identifies this with the small pro-étale coefficient presheaf under restriction. `etaleDiscreteCoefficientsIso_naturality` and `etaleDiscreteCoefficientsRestrictionIso_naturality` check the squares for all additive coefficient homomorphisms, in particular the original residue reductions and scalar maps. |
 
 The site-level product argument does not rely on the finite H¹ groups
 being finite or on replacing the row’s sheaf by an abstract group tower.
@@ -47,6 +49,11 @@ and `IsSeparated g` for the map to an affine base. In the row the geometric
 abelian variety is proper over the spectrum of the algebraic closure.
 `RepresentableBy` in the splitting theorem refers to the actual lift
 presheaf and is provided by the preceding representability result.
+
+All seven new modules were checked with `lake env lean`.
+`scratch/t10-proetale3/Check.lean` checks the geometric scheme’s hypotheses
+and audits 85 declarations, including private helpers. The output uses only
+`propext`, `Classical.choice`, and `Quot.sound`.
 
 ## Remaining comparison
 
@@ -64,17 +71,18 @@ presheaf and is provided by the preceding representability result.
   finite étale trivializing cover and its coefficient-valued one-cocycle to
   the class in `T10Milne86.FiniteH1`, identify equality of classes with changes
   of trivialization on common refinements, and prove that every big étale class
-  is obtained. The sheafified constant coefficient on the big site and the
-  continuous finite coefficient on the small site must give the same sections
-  on the covers and overlaps. The comparison must preserve addition and
-  residue maps and identify the scalar actions.
+  is obtained. The section identifications on covers and overlaps and their
+  naturality in coefficients are checked. The remaining comparison on classes
+  must preserve addition and carry those maps through the two Ext descriptions.
 - **SPECULATIVE, implementation size:** the remaining finite comparison is
-  library work on the two Ext and torsor interfaces. A common Čech
-  construction needs the degree-one Ext–Čech comparison, its compatibility
-  with refinements and coefficients, and identifications of the two free
-  sections sources. Mathlib’s `Sites/NonabelianCohomology/H1.lean` defines
-  the cocycle quotient for a chosen family; it does not identify these two
-  derived groups with it.
+  several library lemmas across the two Ext and torsor interfaces, likely
+  a few hundred lines rather than another descent library. A common Čech
+  construction needs the degree-one Ext–Čech comparison and its compatibility
+  with refinements and coefficients. A precise next step is to prove that
+  classes restricting to zero on a fixed étale cover are exactly its
+  one-cocycles modulo coboundaries, for the two actual free sections sources.
+  Mathlib’s `Sites/NonabelianCohomology/H1.lean` defines the cocycle quotient
+  for a chosen family; it does not identify these derived groups with it.
 - The scheme square in `Transport.lean` is unchanged. After the finite
   comparison, check transport along `1 × Spec(σ⁻¹)` against pullback along
   `1 × Spec(σ)` and check the semilinear square for the same Milne family.

@@ -31,6 +31,18 @@
 'ZInQ.Manuscript.T10Proetale.liftSheaf_globalRepresentable' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.proFiniteH1_representable' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.liftSheaf_selfPullbackSplits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.etaleContinuousCoefficients' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.etaleDiscreteCoefficientsIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.etaleDiscreteCoefficientsRestrictionIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.mapEtaleContinuousCoefficients' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.etaleDiscreteCoefficientsIso_naturality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.etaleDiscreteCoefficientsRestrictionIso_naturality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
 '_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineWeaklyEtaleLimits.0.ZInQ.Manuscript.T10Proetale.lift_finite_family' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
@@ -161,5 +173,22 @@
  Classical.choice,
  Quot.sound]
 '_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.pullbackSliceHomEquivOfTerminal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients.0.ZInQ.Manuscript.T10Proetale.J' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients.0.ZInQ.Manuscript.T10Proetale.constValue' depends on axioms: [propext,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients.0.ZInQ.Manuscript.T10Proetale.constantSection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients.0.ZInQ.Manuscript.T10Proetale.etale_openCover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients.0.ZInQ.Manuscript.T10Proetale.constantSection_locallyInjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients.0.ZInQ.Manuscript.T10Proetale.constantSection_locallySurjective' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]

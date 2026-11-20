@@ -4,6 +4,7 @@ import ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts
 import ZInQKernel.Contrib.OneProof.T10Proetale.IntegralTower
 import ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum
 import ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent
+import ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients
 
 open ZInQ.Manuscript.T10Proetale
 
@@ -36,6 +37,12 @@ open ZInQ.Manuscript.T10Proetale
 #print axioms liftSheaf_globalRepresentable
 #print axioms proFiniteH1_representable
 #print axioms liftSheaf_selfPullbackSplits
+#print axioms etaleContinuousCoefficients
+#print axioms etaleDiscreteCoefficientsIso
+#print axioms etaleDiscreteCoefficientsRestrictionIso
+#print axioms mapEtaleContinuousCoefficients
+#print axioms etaleDiscreteCoefficientsIso_naturality
+#print axioms etaleDiscreteCoefficientsRestrictionIso_naturality
 
 open Lean Elab Command in
 run_cmd do
@@ -83,12 +90,17 @@ run_cmd do
     (`ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent, `ZInQ.Manuscript.T10Proetale.isEffective_of_affineMap),
     (`ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent, `ZInQ.Manuscript.T10Proetale.proPullbackCover),
     (`ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent, `ZInQ.Manuscript.T10Proetale.liftCover_epi),
-    (`ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent, `ZInQ.Manuscript.T10Proetale.pullbackSliceHomEquivOfTerminal)
+    (`ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent, `ZInQ.Manuscript.T10Proetale.pullbackSliceHomEquivOfTerminal),
+    (`ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients, `ZInQ.Manuscript.T10Proetale.J),
+    (`ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients, `ZInQ.Manuscript.T10Proetale.constValue),
+    (`ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients, `ZInQ.Manuscript.T10Proetale.constantSection),
+    (`ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients, `ZInQ.Manuscript.T10Proetale.etale_openCover),
+    (`ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients, `ZInQ.Manuscript.T10Proetale.constantSection_locallyInjective),
+    (`ZInQKernel.Contrib.OneProof.T10Proetale.EtaleDiscreteCoefficients, `ZInQ.Manuscript.T10Proetale.constantSection_locallySurjective)
   ]
   for (moduleName, declName) in declarations do
     let name := mkPrivateNameCore moduleName declName
     elabCommand (← `(command| #print axioms $(mkIdent name)))
-
 open CategoryTheory AlgebraicGeometry in
 example {K : Type} [Field K] (A : PkgI3.AbVar K) :
     CompactSpace (T10Etale.AKbar A) := by
