@@ -1,0 +1,76 @@
+'ZInQ.Manuscript.T10Proetale.flat_of_filteredCocones' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.flat_of_affineLimits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.weaklyEtale_of_affineLimit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.surjective_of_affineLimit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.affineDiagramLimit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.affineSequenceLimitCover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proUnderlying' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proSingletonCover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.affineCover_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.countable_affineCover_lifts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proProduct_epi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.residueQuotientProduct_epi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proFiniteH1Limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proReduction_existsUnique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proReductionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proReductionEquiv_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineWeaklyEtaleLimits.0.ZInQ.Manuscript.T10Proetale.lift_finite_family' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineWeaklyEtaleLimits.0.ZInQ.Manuscript.T10Proetale.pullbackDiagram' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineWeaklyEtaleLimits.0.ZInQ.Manuscript.T10Proetale.pullbackDiagramCone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineWeaklyEtaleLimits.0.ZInQ.Manuscript.T10Proetale.pullbackDiagramConeIsLimit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineLocalLifts.0.ZInQ.Manuscript.T10Proetale.J' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineLocalLifts.0.ZInQ.Manuscript.T10Proetale.over_w' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineLocalLifts.0.ZInQ.Manuscript.T10Proetale.pro_open_family_cover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineLocalLifts.0.ZInQ.Manuscript.T10Proetale.proDisjointUnion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineLocalLifts.0.ZInQ.Manuscript.T10Proetale.proDisjointUnionMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineLocalLifts.0.ZInQ.Manuscript.T10Proetale.gluing_local_lifts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.J' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.ASh' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.LiftStep' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.chooseLiftStep' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.liftTower' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.liftTowerStep' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.sectionType' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.sectionType_preservesLimits' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.CountableLocalLifts.0.ZInQ.Manuscript.T10Proetale.product_section_lifts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.IntegralTower.0.ZInQ.Manuscript.T10Proetale.reductionToLimit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
