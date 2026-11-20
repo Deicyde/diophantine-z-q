@@ -40,3 +40,30 @@ The PR #163 head and merge are not ancestors of the base, and no corresponding
 `diophantine_zq.tex:1086–1108`: modularity, the preprint's two analytic
 ranks, the auxiliary field and Sha restriction, and the Kummer consequence.
 The separate Kato rank-zero alternative is at L1104–1108.
+
+## Stop check
+
+- **VERIFIED (base source).** `RCLeaves.modularNewform` uses
+  `modularNewform_of_printed` with two GLUE readings already shared by the
+  Theorem 5.3 lane. This route does not construct the algebraic parametrization
+  or the CM image of the specific point in the trace.
+- **VERIFIED (base source).** `PoleCMTraceDictionary` is restricted to the
+  positive squarefree pole family at 11 mod 12. `IsHeegnerTrace` requires a
+  non-CM lattice. Neither restriction is a premise of the unrestricted
+  rank-zero consumer or the field. The existing draft cannot be used as a
+  universal dictionary by changing quantifiers.
+- **VERIFIED (base source).** `QuadraticDescent.lean` provides local
+  triviality for restriction and twist, and the index-two cohomology
+  identities. The available Selmer maps concern the 2-primary Selmer group.
+  The proposed output requires full Sha and a finite restriction kernel;
+  the mathematical fact that the kernel is killed by two alone does not
+  give finiteness. The specialization and comparison at the selected field
+  are not furnished by the stage-two route.
+- **SPECULATIVE (page readings).** At most four candidate print dependencies
+  in the proposed auxiliary-field route, including BFH already stated on
+  the base. The count fails on GLUE: two additional open obligations at
+  minimum even counting newform extraction as shared. No candidate was
+  rated LEAF, no new Prop was added, and no consumer was rewired.
+- **Verification.** Source audit and `git diff --check` only. The scoped stop
+  adds no Lean file or declaration. No Lake command or build ran, so no jobs
+  option was used and no import build or Lean process was started.

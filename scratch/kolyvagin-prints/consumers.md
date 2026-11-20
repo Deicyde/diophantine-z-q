@@ -12,7 +12,7 @@ information at two.
 
 | Direct theorem or adapter | Curve and analytic input | Weakest projection used |
 | --- | --- | --- |
-| `CloudB3RC53/GenusOdd/Artin34.lean:202,206,216`, `core34'` | `E^h` at r1 from `hz`; `E^hstar` at r0 from `GenusPartner`; `E^(h*k')` at r0 from `Companion`. `E` is an arbitrary elliptic curve with the stated normal-model and non-CM lattice data. | Rank 1 for `E^h` (positive rank suffices for the infinite-order point); rank 0 for the other two (all rational points torsion). No Sha. |
+| `CloudB3RC53/GenusOdd/Artin34.lean:202,206,216`, `core34'` | `E^h` at r1 from `hz`; `E^hstar` at r0 from `GenusPartner`; `E^(h*k')` at r0 from `Companion`. `E` is an arbitrary elliptic curve with the stated normal-model and non-CM lattice data. | Rank at most 1 for `E^h`, to make two points dependent in `rank_one_ratio`; rank 0 for the other two (all rational points torsion). No Sha. |
 | `CloudB3RC53/GenusOdd/GenusLower.lean:367,371,381`, `core34` | Same three twists and analytic inputs as `core34'`. | Same projections. |
 | `CloudB3RC53/GenusOdd/Witness.lean:68`, `fixedWitness_proof` | `E^hstar`, r0 from `GenusPartner`; arbitrary elliptic base curve with the normal-model and non-CM lattice data. | Rank 0, used to get all rational points torsion. No Sha. |
 | `OneProof/RC/GlueSweep/AnaForward.lean:37`, `forwardRank_zero_of_prints` | Any elliptic `E/ℚ` with r0. | Rank 0 and finite Sha, via the Kummer corank-zero theorem. Its downstream uses include the rough companion and the even locus. |
