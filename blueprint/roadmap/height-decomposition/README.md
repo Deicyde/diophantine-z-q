@@ -12,12 +12,12 @@ them, and replaced others by published statements from which it derives them. Wh
 here, grouped by the theory each statement comes from; the groups follow the project's own
 classification, and their boundaries are a matter of convenience.
 
-Of the twenty-seven statements from the literature, eleven are published statements: the printed
-theorem, or a direct instance of it that needs no argument. Sixteen are consequences of published
+Of the twenty-seven statements from the literature, thirteen are published statements: the printed
+theorem, or a direct instance of it that needs no argument. Fourteen are consequences of published
 theorems, which take further theorems to reach from the print. The project's strict convention,
 which counts a published statement only once its reading against the print and its review are
-complete, counts six of the twenty-seven as published. None of the twenty-seven is proved here, and
-every step from them to the minimal height hypothesis is.
+complete and find it in its printed form, counts seven of the twenty-seven as published. None of the
+twenty-seven is proved here, and every step from them to the minimal height hypothesis is.
 
 ## The theorem
 

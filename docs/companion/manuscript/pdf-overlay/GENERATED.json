@@ -4,7 +4,7 @@
   "generator": {
     "name": "formal-companion",
     "version": "0.2.0",
-    "commit": "768b0f935c228561c4d6730347e87ececb2143ab"
+    "commit": "c04f6c59fab4b742f0666618ec7dcd603a0f9070"
   },
   "format": {
     "package": "literature-links",
@@ -34,7 +34,7 @@
     },
     {
       "path": "tools/check_generated.py",
-      "sha256": "ca9ad71e5d3e770db5c4998184cbc106c0d6c92d923f2642b5685662e5e5e4e1"
+      "sha256": "09324508a8230a1a848c511f29b897b91061684a59c684772ba0c1e5bc035ce4"
     },
     {
       "path": "tools/literature_links/__init__.py",
@@ -70,7 +70,7 @@
     },
     {
       "path": "tools/overlay_annotations.py",
-      "sha256": "869fc31950d64fdbd52504b5819d96828ec6763fcb08f0cda6561be40f22eb6a"
+      "sha256": "af94fd7188dd8be8cb95eee31ba6290efda05d0092bad8972cd20969dd3599d2"
     },
     {
       "path": "tools/serve.py",

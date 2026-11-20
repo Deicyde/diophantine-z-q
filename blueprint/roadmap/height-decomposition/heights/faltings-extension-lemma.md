@@ -3,7 +3,7 @@ article_id: af_6712e6e911643bcd49514cbb
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves70.faltingsLemma1DVRPrint
+lean: HDec.HSyn.OpenResearchLeaves72.faltingsLemma1DVRPrint
 ---
 
 # Homomorphisms of semiabelian schemes over a discrete valuation ring extend uniquely

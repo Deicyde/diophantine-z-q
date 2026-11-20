@@ -185,18 +185,34 @@ Equation (6.2) of Barquero-Sanchez, Cadwallader, Cannon, Genao and Masri is the 
 A. Barquero-Sanchez, L. Cadwallader, O. Cannon, T. Genao and R. Masri, *Faltings heights of CM elliptic curves and special Gamma values*, Res. Number Theory 3 (2017), art. 13, §6, Eq. (6.2), pp. 13–14, with the metric on p. 1, read in the published article by the upstream review of the manuscript's CM argument (project note `docs/reviews/height-replacement/height/AUDIT.md`, item 2); the manuscript's citation (`diophantine_zq.tex`, lines 595–605). The paper attributes the formula to Silverman, Proposition 1.1 (not read).
 """,
     ),
-    'cmjDegree': dict(
+    'cmjDegreePrint': dict(
         group='cm-fibres', slug='cm-field-degree',
-        title='The degree of a field of definition of a CM elliptic curve',
+        title='The degree of a singular modulus',
         anchor='Degree of singular moduli',
         statement=r"""
-The *degree statement* is the following assertion. Let $L$ be a number field and $E$ an elliptic curve over $L$ whose ring of endomorphisms over an algebraic closure of $L$ is isomorphic to an order $R$ of an imaginary quadratic field. Then $\#\operatorname{Pic}(R)\le[L:\mathbb Q]$.
+The *degree statement* is the following assertion. Let $\tau$ be a point of the upper half-plane
+satisfying $a\tau^2+b\tau+c=0$ with $a,b,c\in\mathbb Z$, $a>0$ and $\gcd(a,b,c)=1$, put
+$\Delta=b^2-4ac$, and let $x=j(\tau)$ be the corresponding singular modulus. Then for every order $R$
+of an imaginary quadratic field with discriminant $\Delta$, $[\mathbb Q(x):\mathbb Q]=\#\operatorname{Pic}(R)$,
+the class number of $R$.
 """,
         caveat=r"""
-The manuscript uses the classical fact without a citation: "The degree of $j(E)$ is its order class number, so $h(\Delta)\le d\le D$." The classical theorem is that the $j$-invariant of an elliptic curve with complex multiplication by an order $R$ generates a field of degree $h(R)$ over $\mathbb Q$ (for orders, Cox's Theorem 11.1, through the ring class field of $R$); since $j(E)$ lies in $L$, the statement follows. Reaching it from the print also takes the identification of the class number of $R$ with $\#\operatorname{Pic}(R)$, which is standard and not proved here. The upstream audit of the manuscript's citations attributes the degree to §2.1 of Fowler's paper, which has not been read for this statement. Cox's theorem number is unverified, and a review of the statement is pending.
+This is the equality over $\mathbb Q$ in a sentence of Fowler's §2.1, which he derives from Cox (Theorem
+11.1 and Proposition 13.2): for a singular modulus of discriminant $\Delta$, $[\mathbb Q(x):\mathbb Q]=h(\Delta)$,
+the class number of the imaginary quadratic order of discriminant $\Delta$. The discriminant is the
+one of his form definition. The order of discriminant $\Delta$ is a parameter here; Lean proves that it
+is unique up to isomorphism and that its class number does not depend on the choice. The manuscript
+uses the fact without a citation ("The degree of $j(E)$ is its order class number, so $h(\Delta)\le d\le D$"),
+and Lean derives from this statement the bound it needs: an elliptic curve over a number field $L$
+with complex multiplication by $R$ has $\#\operatorname{Pic}(R)\le[L:\mathbb Q]$. A person's reading
+of the publisher's PDF, recorded as a human reading, compared the sentence with the print. A two-lens
+review rated the statement published in its printed form.
 """,
         src=r"""
-The 11/5 manuscript (`diophantine_zq.tex`, lines 585–587), without a citation. D. A. Cox, *Primes of the form $x^2+ny^2$*, Theorem 11.1 (number unverified). The upstream audit of the manuscript's citations (project note `docs/theorem-application-audit/FINDINGS.md`) attributes the degree and the integrality of the class polynomial of an order to G. Fowler, Math. Proc. Cambridge Philos. Soc. 180 (2026), 607–641, §2.1 (not read).
+G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
+Proc. Cambridge Philos. Soc. 180 (2026), 607–641, §2.1, p. 613, with the discriminant of a singular
+modulus defined on p. 612; D. A. Cox, *Primes of the form $x^2+ny^2$*, Theorem 11.1 and Proposition
+13.2, as Fowler cites them. The manuscript's use: `diophantine_zq.tex`, lines 584–587.
 """,
     ),
     'fowlerProp27PrintCanonical': dict(
@@ -228,38 +244,43 @@ Milne prints the isomorphism for an abelian variety over a separably closed fiel
 J. S. Milne, *Abelian varieties*, course notes, version 2.0 (March 16, 2008), Part I, Theorem 12.1(a), p. 55, and Remark 12.5, p. 56, read in the author's PDF; this is the version the manuscript cites (`diophantine_zq.tex`, lines 10966–10970). The 1986 chapter *Abelian varieties* in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Theorem 15.1(a), is not read. Pro-étale cohomology and its comparison with étale cohomology: B. Bhatt and P. Scholze, *The pro-étale topology for schemes*, Astérisque 369 (2015), Definition 6.8.1 and §5.6; these two numbers are unverified.
 """,
     ),
-    'elliotWildInertiaTrivial': dict(
-        group='neron-models', slug='wild-inertia-trivial',
-        title='Wild inertia acts trivially under semistable reduction',
-        anchor='Wild inertia on Tate modules',
+    'silverbergZarhinThm33': dict(
+        group='neron-models', slug='inertia-criterion',
+        title="Silverberg and Zarhin's inertia criterion for semistable reduction",
+        anchor='Inertia criterion',
         statement=r"""
-The *wild inertia statement* is the following assertion. Let $K$ be a number field, $\mathcal O$ a
-discrete valuation ring with fraction field $K$, $\Omega$ an algebraic closure of $K$, $w$ a
-valuation ring of $\Omega$ over $\mathcal O$, and $\ell$ a prime invertible in $\mathcal O$. Let $A$
-be an abelian variety over $K$ with semistable reduction at $\mathcal O$ in the sense of Silverberg
-and Zarhin: some Néron model of $A$ over $\mathcal O$ has a special fibre over the residue field
-whose identity component is an extension of an abelian variety by a torus, not necessarily split.
-Then every element $\sigma$ of $\operatorname{Gal}(\Omega/K)$ in the inertia group of $w$ that is
-wild, in the sense that $v_w(\sigma x-x)>v_w(x)$ for every nonzero $x\in\Omega$, where $v_w$ is the
-valuation of $w$, acts trivially on $T_\ell A=\varprojlim_n A(\Omega)[\ell^n]$.
+The *inertia criterion statement* is the following assertion. Let $K$ be a field, $\mathcal O$ a
+valuation ring of $K$ that is a discrete valuation ring, $\Omega$ an algebraic closure of $K$, $w$ a
+valuation ring of $\Omega$ over $\mathcal O$, $\ell$ a prime invertible in $\mathcal O$, and $A$ an
+abelian variety over $K$, with $V_\ell A=\mathbb Q_\ell\otimes_{\mathbb Z_\ell}T_\ell A$. Say that an
+abelian variety has semistable reduction at a discrete valuation ring when some Néron model of it
+there has a special fibre over the residue field whose identity component is an extension of an
+abelian variety by a torus, not necessarily split. Suppose that $A$ has semistable reduction at
+$\mathcal O$, or that for some finite separable extension $E$ of $K$ inside $\Omega$ such that
+$w\cap E$ is a discrete valuation ring, $A_E$ has semistable reduction at $w\cap E$. Then $A$ has
+semistable reduction at $\mathcal O$ if and only if the inertia group $I$ of $w$ acts trivially on
+$V_\ell A/(V_\ell A)^I$: that is, $\tau(\sigma x-x)=\sigma x-x$ for all $\sigma,\tau\in I$ and all
+$x\in V_\ell A$.
 """,
         caveat=r"""
-This is a sentence of the manuscript, which cites nothing for it. At a prime $p$, once Raynaud's
-criterion gives semistable reduction over the local field $F$ obtained from the completion by
-adjoining the $3$-torsion of $A$ (the $5$-torsion if $p=3$), the manuscript says: "Its wild inertia
-acts trivially on each $V_\ell(A)$ with $\ell\ne p$." The statement reads this at a finite place of
-a number field, through two standard identifications (the decomposition group of $w$ is the Galois
-group of the completion, and Néron models commute with completion), and on $T_\ell A$, which embeds
-in $V_\ell(A)$. It is true and standard: under semistable reduction inertia acts unipotently on
-$T_\ell A$ (SGA 7 I, Exposé IX, Proposition 3.5), and wild inertia is pro-$p$, so it acts on each
-$A(\Omega)[\ell^n]$ with period prime to $\ell$. An argument given here derives the statement from
-these two facts, neither of which is proved here.
+It is Theorem 3.3 of Silverberg and Zarhin, which they attribute to Grothendieck, for the print's
+Galois extension taken to be the separable closure, as their proofs of Lemma 5.5 and Proposition 6.1
+take it; the algebraic closure $\Omega$ stands in for the separable closure. The print defines
+semistability at a place only for a discrete valuation, so for the infinite extension "semistable at
+$w$" is read as semistable at some finite separable subextension, the base allowed: that is the
+hypothesis above. A two-lens review rated the statement glue rather than the printed form, for these
+readings and because $K$ is any field; a page reading alone would not change that. The manuscript
+cites Theorem 3.5 of the same paper (Raynaud's criterion) and then states, without citation, that wild
+inertia acts trivially on each $V_\ell(A)$ with $\ell\ne p$. Lean derives that sentence from this
+statement.
 """,
         src=r"""
-The 11/5 manuscript (`diophantine_zq.tex`, lines 817–818), without citation, right after its
-citation of Silverberg and Zarhin's Theorem 3.5 (line 816). For the standard argument: SGA 7 I,
-Exposé IX (A. Grothendieck), LNM 288 (1972), Proposition 3.5, p. 350, read in the MSRI/SLMath scan;
-that wild inertia is pro-$p$, J.-P. Serre, *Corps locaux*, Chapter IV, §2 (numbers unverified).
+A. Silverberg and Yu. G. Zarhin, *Semistable reduction and torsion subgroups of abelian varieties*,
+Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.3, p. 405, with semistable reduction as defined in
+§3, p. 405; the proofs of Lemma 5.5 (p. 411) and Proposition 6.1 (pp. 412–413) apply it at the
+separable closure. Read by an AI model (2026-11-17). The manuscript cites the paper at
+`diophantine_zq.tex` line 816 and in its bibliography (lines 11077–11080); the uncited sentence is
+at lines 817–818.
 """,
     ),
     'neronSchemeExtensionDedekind': dict(

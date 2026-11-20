@@ -60,6 +60,8 @@ for f in fields:
         assert kinds[f]['strict'] != 'LEAF', (f, kinds[f]['strict'])
 strict = sum(1 for f in fields if kinds[f]['strict'] == 'LEAF')
 pending = [f for f in fields if kind[f] == 'published' and kinds[f]['strict'] != 'LEAF']
+# published rows that a completed review rated glue (kinds.tsv flag 'glue (rated): ...'), not rows awaiting a step
+rated_glue = [f for f in pending if kinds[f]['flag'].startswith('glue (rated)')]
 assert len({LEAVES[f]['slug'] for f in fields}) == len(fields)
 assert len({LEAVES[f]['anchor'] for f in fields}) == len(fields)
 
@@ -213,7 +215,10 @@ for f in fields:
     body = [front(p, declaration='def', origin=origin, statement='formalized', lean=lean[f]), f"# {L['title']}", '',
             para(L['statement']), '']
     tail = KIND_SENTENCE[kind[f]]
-    if f in pending:
+    if f in rated_glue:
+        tail = ("It is a published theorem, but a review rated the form stated here glue rather than the printed "
+                "form, so the project's strict count does not count it as published.")
+    elif f in pending:
         tail += (" Its reading against the print or its review is not complete, and until both are the project's "
                  "strict count does not count it as published.")
     if L['caveat'].strip():
@@ -251,7 +256,7 @@ for g in groups:
 glue = [f for f in fields if LEAVES[f]['group'] is None]
 assert len(glue) <= 1, glue
 strict_sentence = (f"The project's strict convention, which counts a published statement only once its reading "
-                   f"against the print and its review are complete, counts {w(strict)} of the {w(len(fields))} as "
+                   f"against the print and its review are complete and find it in its printed form, counts {w(strict)} of the {w(len(fields))} as "
                    f"published." if pending else '')
 
 

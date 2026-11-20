@@ -75,13 +75,6 @@ arXiv:2202.05818v2: Fact 4.20 in §4.19, p. 28, with the conventions on pp. 2–
 *Galois representations*, Ann. Fac. Sci. Toulouse Math. (6) 13 (2004). Kato's §11.3, Taylor and the
 journal numbering of Gee are unverified.
 
-## Wild inertia on Tate modules
-
-The 11/5 manuscript (`diophantine_zq.tex`, lines 817–818), without citation, right after its
-citation of Silverberg and Zarhin's Theorem 3.5 (line 816). For the standard argument: SGA 7 I,
-Exposé IX (A. Grothendieck), LNM 288 (1972), Proposition 3.5, p. 350, read in the MSRI/SLMath scan;
-that wild inertia is pro-$p$, J.-P. Serre, *Corps locaux*, Chapter IV, §2 (numbers unverified).
-
 ## Berger monodromy theorem
 
 O. Brinon and B. Conrad, *CMI summer school notes on $p$-adic Hodge theory* (preliminary version,
@@ -156,14 +149,6 @@ use has a harmless misprint, "$f_\sigma\mid T_n=a_n^\sigma f$" for
 "$f_\sigma\mid T_n=a_n^\sigma f_\sigma$". F. Diamond and J. Shurman, *A First Course in Modular
 Forms*, GTM 228 (2005), Definition 6.6.3, p. 241 (AI-read).
 
-## Degree of singular moduli
-
-The 11/5 manuscript (`diophantine_zq.tex`, lines 585–587), without a citation. D. A. Cox, *Primes of
-the form $x^2+ny^2$*, Theorem 11.1 (number unverified). The upstream audit of the manuscript's
-citations (project note `docs/theorem-application-audit/FINDINGS.md`) attributes the degree and the
-integrality of the class polynomial of an order to G. Fowler, Math. Proc. Cambridge Philos. Soc. 180
-(2026), 607–641, §2.1 (not read).
-
 ## Barquero-Sanchez et al. Eq. (6.2)
 
 A. Barquero-Sanchez, L. Cadwallader, O. Cannon, T. Genao and R. Masri, *Faltings heights of CM
@@ -199,6 +184,22 @@ and 733 for other results.
 G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
 Proc. Cambridge Philos. Soc. 180 (2026), 607–641, Proposition 2.7, p. 615, with the class number
 defined on p. 613; the manuscript's citation (`diophantine_zq.tex`, lines 588–593).
+
+## Inertia criterion
+
+A. Silverberg and Yu. G. Zarhin, *Semistable reduction and torsion subgroups of abelian varieties*,
+Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.3, p. 405, with semistable reduction as defined in
+§3, p. 405; the proofs of Lemma 5.5 (p. 411) and Proposition 6.1 (pp. 412–413) apply it at the
+separable closure. Read by an AI model (2026-11-17). The manuscript cites the paper at
+`diophantine_zq.tex` line 816 and in its bibliography (lines 11077–11080); the uncited sentence is
+at lines 817–818.
+
+## Degree of singular moduli
+
+G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
+Proc. Cambridge Philos. Soc. 180 (2026), 607–641, §2.1, p. 613, with the discriminant of a singular
+modulus defined on p. 612; D. A. Cox, *Primes of the form $x^2+ny^2$*, Theorem 11.1 and Proposition
+13.2, as Fowler cites them. The manuscript's use: `diophantine_zq.tex`, lines 584–587.
 
 ## Conrad Appendix B
 
