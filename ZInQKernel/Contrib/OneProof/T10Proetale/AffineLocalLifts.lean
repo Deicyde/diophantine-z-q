@@ -5,7 +5,7 @@ import Mathlib.AlgebraicGeometry.Limits
 /-!
 # Single affine refinements for local lifts
 
-Over an affine object of the small pro-étale site, a section that lifts locally
+Over a quasi-compact object of the small pro-étale site, a section that lifts locally
 along an abelian sheaf map lifts along a single affine weakly étale surjection.
 A finite affine refinement suffices: take the disjoint union and glue the lifts.
 -/
@@ -121,9 +121,9 @@ private theorem gluing_local_lifts {U : X.ProEt} {I : Type} (V : I → Scheme.{0
 
 set_option maxHeartbeats 600000 in
 set_option backward.isDefEq.respectTransparency false in
-/-- A locally liftable section on an affine object lifts on a single affine
+/-- A locally liftable section on a quasi-compact object lifts on a single affine
 weakly étale surjection. -/
-theorem affineCover_lift {U : X.ProEt} [IsAffine U.left]
+theorem affineCover_lift_of_compactSpace {U : X.ProEt} [CompactSpace U.left]
     {F G : Sheaf (J (X := X)) Ab.{1}} (f : F ⟶ G) (s : G.obj.obj (op U))
     (h : Presheaf.imageSieve f.hom s ∈ J (X := X) U) :
     ∃ (V : X.ProEt) (p : V ⟶ U), IsAffine V.left ∧ WeaklyEtale ((proUnderlying X).map p) ∧
@@ -175,6 +175,14 @@ theorem affineCover_lift {U : X.ProEt} [IsAffine U.left]
   exact gluing_local_lifts W g f s b (fun _ => rfl)
     (fun i => (Presheaf.imageSieve f.hom s).downward_closed
       (hle _ _ (Presieve.ofArrows.mk (j i))) (v i))
+
+/-- The affine special case of the single-cover lifting result. -/
+theorem affineCover_lift {U : X.ProEt} [IsAffine U.left]
+    {F G : Sheaf (J (X := X)) Ab.{1}} (f : F ⟶ G) (s : G.obj.obj (op U))
+    (h : Presheaf.imageSieve f.hom s ∈ J (X := X) U) :
+    ∃ (V : X.ProEt) (p : V ⟶ U), IsAffine V.left ∧ WeaklyEtale ((proUnderlying X).map p) ∧
+      Surjective ((proUnderlying X).map p) ∧ (Presheaf.imageSieve f.hom s) p :=
+  affineCover_lift_of_compactSpace f s h
 
 end
 end ZInQ.Manuscript.T10Proetale

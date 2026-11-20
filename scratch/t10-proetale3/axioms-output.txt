@@ -6,6 +6,9 @@
 'ZInQ.Manuscript.T10Proetale.affineSequenceLimitCover' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.proUnderlying' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.proSingletonCover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.affineCover_lift_of_compactSpace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
 'ZInQ.Manuscript.T10Proetale.affineCover_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.countable_affineCover_lifts' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.proProduct_epi' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -14,6 +17,20 @@
 'ZInQ.Manuscript.T10Proetale.proReduction_existsUnique' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.proReductionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Manuscript.T10Proetale.proReductionEquiv_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.mapDescentDatum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.mapDescentDatum_transport_image' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitProjection_etale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.splitProjection_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheafRepresentableOnSlice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheaf_affineCover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheafDescentDatum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheaf_finiteEtaleDescent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheaf_finiteEtaleRepresentable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheaf_globalRepresentable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.proFiniteH1_representable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.T10Proetale.liftSheaf_selfPullbackSplits' depends on axioms: [propext, Classical.choice, Quot.sound]
 '_private.ZInQKernel.Contrib.OneProof.T10Proetale.AffineWeaklyEtaleLimits.0.ZInQ.Manuscript.T10Proetale.lift_finite_family' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
@@ -72,5 +89,77 @@
  Classical.choice,
  Quot.sound]
 '_private.ZInQKernel.Contrib.OneProof.T10Proetale.IntegralTower.0.ZInQ.Manuscript.T10Proetale.reductionToLimit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.mappedSquare' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transportCondition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_congr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_over' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_over_condition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_comp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_image' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_self' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_image_trans' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.MapDescentDatum.0.ZInQ.Manuscript.T10Proetale.transition_trans' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.coeffPresentation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.quotientSections' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.liftPsh' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.splitSite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.splitSiteMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.splitSliceHomEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.localLiftSections_congr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.affineOverSeparated' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.isInvariant_preimage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.isEffective_of_affineMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.proPullbackCover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.liftCover_epi' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.T10Proetale.FiniteTorsorDescent.0.ZInQ.Manuscript.T10Proetale.pullbackSliceHomEquivOfTerminal' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
