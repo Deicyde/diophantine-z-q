@@ -35,3 +35,10 @@
   used the stated Linux thresholds.
 - **VERIFIED** (git grep): [raw base references](base-references.txt)
   include both spellings of the fixed finite comparison.
+- **VERIFIED** (Lean): `Kodai08Purity.lean` proves purity of the
+  rational reciprocal model of the twisted Euler polynomial from the
+  proved Hasse bound. This does not add a printed hypothesis.
+- **VERIFIED** (Lean): `Kodai08Transport.lean` proves the separate
+  global torsion statement and transports the all-prime localized
+  kernel bound to the retained dyadic one. The geometric support
+  triangle and the comparison of the actual towers remain inputs.
