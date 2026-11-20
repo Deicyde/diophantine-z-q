@@ -1,0 +1,103 @@
+/-
+Ported from AxiomMath/Stacks, revision c496df0d9beea9deaeabcea8492605f9a0a2313b.
+Source: StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentationPoint.lean
+Upstream license: Apache-2.0; see CloudW01Spread/LICENSE.
+Modification notice (2026-11-14): import paths remapped into CloudW01Spread.
+The mathematical declarations and proofs are unchanged.
+-/
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.FinitePresentation
+public import ZInQKernel.Contrib.CloudW01Spread.StacksCore.Tactic.StacksAttribute
+
+/-!
+# Morphisms of finite presentation
+
+A morphism of schemes is of finite presentation at a point if, on suitable affine
+neighbourhoods of that point and its image, the induced ring map is of finite
+presentation. It is locally of finite presentation when this holds at every point, and it
+is of finite presentation when it is additionally quasi-compact and quasi-separated.
+
+Part (1) of Stacks 01TP is `AlgebraicGeometry.FinitePresentationAt`; affine neighbourhoods
+are bundled as `Scheme.affineOpens`, and their coordinate ring map is `Scheme.Hom.appLE`.
+Part (2) is Mathlib's `AlgebraicGeometry.LocallyOfFinitePresentation`, whose
+`HasRingHomProperty.iff_exists_appLE` characterization identifies it with the pointwise
+condition defined here. Part (3) is the conjunction of Mathlib's three constituent
+morphism properties; its projection lemmas make the corresponding typeclass assumptions
+available to clients.
+
+## Main definitions
+
+* `AlgebraicGeometry.FinitePresentationAt` expresses finite presentation at a point.
+* `AlgebraicGeometry.LocallyOfFinitePresentation` (Mathlib) expresses local finite
+  presentation.
+* `AlgebraicGeometry.FinitePresentation` expresses finite presentation.
+
+## Main results
+
+* `AlgebraicGeometry.finitePresentation_isStableUnderBaseChange`: finite presentation is stable
+  under base change.
+
+## References
+
+* [Stacks Project, Tag 01TP](https://stacks.math.columbia.edu/tag/01TP)
+* [Stacks Project, Tag 01TS](https://stacks.math.columbia.edu/tag/01TS)
+-/
+
+@[expose] public section
+
+open CategoryTheory
+
+universe u
+
+namespace AlgebraicGeometry
+
+/-- A morphism of schemes is of finite presentation at `x` if it induces a
+ring map of finite presentation on some affine neighbourhood of `x` mapping
+into an affine open of the target. -/
+@[stacks 01TP "part (1)", ega "IV 1.4.2" "fin. presentation at x"]
+public abbrev FinitePresentationAt {X S : Scheme.{u}} (f : X ⟶ S) (x : X) : Prop :=
+  ∃ (V : S.affineOpens) (U : X.affineOpens) (_ : x ∈ U.1) (e : U.1 ≤ f ⁻¹ᵁ V.1),
+    (f.appLE V U e).hom.FinitePresentation
+
+add_to_stacks 01TP "part (2)" AlgebraicGeometry.LocallyOfFinitePresentation
+add_to_sga "3 VIB 1.3" AlgebraicGeometry.LocallyOfFinitePresentation
+add_to_ega "IV 1.4.2" AlgebraicGeometry.LocallyOfFinitePresentation
+
+/-- A morphism of schemes is of finite presentation if it is locally of finite
+presentation, quasi-compact, and quasi-separated. -/
+@[stacks 01TP "part (3)"]
+public abbrev FinitePresentation {X S : Scheme.{u}} (f : X ⟶ S) : Prop :=
+  LocallyOfFinitePresentation f ∧ QuasiCompact f ∧ QuasiSeparated f
+
+/-- The three constituent properties define a morphism of finite presentation. -/
+public lemma FinitePresentation.mk {X S : Scheme.{u}} {f : X ⟶ S}
+    (hlfp : LocallyOfFinitePresentation f) (hqc : QuasiCompact f)
+    (hqs : QuasiSeparated f) : FinitePresentation f :=
+  ⟨hlfp, hqc, hqs⟩
+
+/-- A morphism of finite presentation is locally of finite presentation. -/
+public lemma FinitePresentation.locallyOfFinitePresentation {X S : Scheme.{u}} {f : X ⟶ S}
+    (hf : FinitePresentation f) : LocallyOfFinitePresentation f := hf.1
+
+/-- A morphism of finite presentation is quasi-compact. -/
+public lemma FinitePresentation.quasiCompact {X S : Scheme.{u}} {f : X ⟶ S}
+    (hf : FinitePresentation f) : QuasiCompact f := hf.2.1
+
+/-- A morphism of finite presentation is quasi-separated. -/
+public lemma FinitePresentation.quasiSeparated {X S : Scheme.{u}} {f : X ⟶ S}
+    (hf : FinitePresentation f) : QuasiSeparated f := hf.2.2
+
+/-- **Finite presentation is stable under base change.** Each of the three constituents of
+`AlgebraicGeometry.FinitePresentation` is: local finite presentation by Mathlib's
+`AlgebraicGeometry.locallyOfFinitePresentation_isStableUnderBaseChange`, and quasi-compactness
+and quasi-separatedness by Mathlib's `MorphismProperty.IsStableUnderBaseChange` instances. -/
+@[stacks 01TS "finite presentation"]
+public theorem finitePresentation_isStableUnderBaseChange :
+    MorphismProperty.IsStableUnderBaseChange
+      (fun _ _ f => FinitePresentation f : MorphismProperty Scheme.{u}) where
+  of_isPullback sq hg :=
+    ⟨MorphismProperty.of_isPullback sq hg.1, MorphismProperty.of_isPullback sq hg.2.1,
+      MorphismProperty.of_isPullback sq hg.2.2⟩
+
+end AlgebraicGeometry
