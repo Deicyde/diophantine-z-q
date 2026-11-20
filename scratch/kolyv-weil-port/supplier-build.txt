@@ -1,0 +1,1285 @@
+⚠ [2614/2681] Replayed ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_ModularCurve_X0
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean: imports `Mathlib.RingTheory.LaurentSeries` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean: imports `Mathlib.RingTheory.PowerSeries.PiTopology` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean: imports `Mathlib.RingTheory.PowerSeries.Inverse` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean: imports `Mathlib.FieldTheory.IntermediateField.Adjoin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean: imports `Mathlib.RingTheory.Algebraic.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean: imports `Mathlib.NumberTheory.Divisors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean: imports `Mathlib.Data.Nat.Squarefree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean:49:9: `HahnSeries.embDomain_notin_range` has been deprecated: Use `HahnSeries.embDomain_of_notMem_range` instead
+
+Hint: Replace the deprecated name:
+  H̵a̵h̵n̵S̵e̵r̵i̵e̵s̵.̵e̵m̵b̵D̵o̵m̵a̵i̵n̵_̵n̵o̵t̵i̵n̵_̵r̵a̵n̵g̵e̵e̲m̲b̲D̲o̲m̲a̲i̲n̲_̲o̲f̲_̲n̲o̲t̲M̲e̲m̲_̲r̲a̲n̲g̲e̲
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean:172:9: `HahnSeries.embDomain_notin_range` has been deprecated: Use `HahnSeries.embDomain_of_notMem_range` instead
+
+Hint: Replace the deprecated name:
+  H̵a̵h̵n̵S̵e̵r̵i̵e̵s̵.̵e̵m̵b̵D̵o̵m̵a̵i̵n̵_̵n̵o̵t̵i̵n̵_̵r̵a̵n̵g̵e̵e̲m̲b̲D̲o̲m̲a̲i̲n̲_̲o̲f̲_̲n̲o̲t̲M̲e̲m̲_̲r̲a̲n̲g̲e̲
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean:214:62: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean:248:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean:334:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean:343:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_X0.lean:344:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [3669/3776] Built ZInQKernel.Contrib.TauCeti.Algebra.Ring.GeomSum (1.0s)
+✔ [4902/4995] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Ring.Ideal (2.1s)
+✔ [6065/6162] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Congruence (2.2s)
+✔ [6880/7015] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.AlgHom (2.9s)
+✔ [7851/7962] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.ForcedDiscrete (3.8s)
+✔ [9262/9287] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.RingHoms (12s)
+⚠ [9263/9287] Replayed ZInQKernel.HDecomp.Conductor.LadicCond
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:421:29: `dite_cond_eq_true` has been deprecated: Use `dite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:640:21: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+⚠ [9264/9287] Replayed ZInQKernel.Hypotheses.Pole
+warning: ZInQKernel/Hypotheses/Pole.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9265/9288] Built ZInQKernel.Contrib.TauCeti.FieldTheory.KrullTopology (11s)
+⚠ [9266/9288] Replayed ZInQKernel.Hypotheses.PoleManuscript
+warning: ZInQKernel/Hypotheses/PoleManuscript.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9267/9289] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.NontrivialComap (11s)
+✔ [9268/9290] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Dual.Lemmas (12s)
+✔ [9269/9295] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Formula.Chord (13s)
+✔ [9270/9295] Built ZInQKernel.Contrib.TauCeti.RingTheory.Length (14s)
+✔ [9271/9296] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Map (16s)
+✔ [9272/9296] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Normal.FixedField (17s)
+✔ [9273/9299] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.Torsion.TateModule (12s)
+✔ [9274/9299] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Dimension.BaseChange (12s)
+✔ [9275/9299] Built ZInQKernel.Contrib.TauCeti.RingTheory.MvPolynomial.Expand (12s)
+✔ [9276/9299] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.Adjoin.Roots (12s)
+✔ [9278/9302] Built ZInQKernel.Contrib.TauCeti.FieldTheory.PurelyInseparable.Embedding (13s)
+✔ [9279/9302] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.DegreeOneReduction (14s)
+✔ [9280/9303] Built ZInQKernel.Contrib.TauCeti.RingTheory.IntegralClosure.Transfer (13s)
+✔ [9281/9304] Built ZInQKernel.Contrib.TauCeti.RingTheory.IntegralClosure.NormalizationFinite (14s)
+✔ [9282/9304] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Basic (15s)
+✔ [9283/9304] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.ScalarTower (15s)
+✔ [9284/9309] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.TateModule.Basic (15s)
+✔ [9285/9309] Built ZInQKernel.Contrib.TauCeti.RingTheory.MvPolynomial.Basic (15s)
+✔ [9286/9309] Built ZInQKernel.Contrib.TauCeti.RingTheory.FractionalIdeal.Operations (15s)
+✔ [9287/9309] Built ZInQKernel.Contrib.TauCeti.RingTheory.FractionalIdeal.Divisibility (13s)
+✔ [9288/9309] Built ZInQKernel.Contrib.TauCeti.RingTheory.PicardGroup.Quotient (14s)
+✔ [9289/9309] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.IntegralClosure (13s)
+✔ [9290/9312] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.Extended (9.4s)
+✔ [9291/9312] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Fibre (10s)
+✔ [9292/9314] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Existence (10s)
+✔ [9293/9317] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Degree (11s)
+✔ [9294/9320] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.TateModule.Galois (12s)
+✔ [9295/9320] Built ZInQKernel.Contrib.TauCeti.Order.CompactlyGenerated (11s)
+✔ [9296/9320] Built ZInQKernel.Contrib.TauCeti.RingTheory.IntegralClosure.PurelyInseparable (12s)
+✔ [9297/9320] Built ZInQKernel.Contrib.TauCeti.RingTheory.ClassGroup.Basic (12s)
+✔ [9298/9320] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.IntermediateRing.Basic (13s)
+✔ [9299/9322] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.AffineModel.Extension (13s)
+✔ [9300/9323] Built ZInQKernel.Contrib.TauCeti.NumberTheory.RamificationInertia.Tower (13s)
+✔ [9301/9326] Built ZInQKernel.Contrib.TauCeti.RingTheory.ClassGroup.RelNorm (13s)
+✔ [9302/9330] Built ZInQKernel.Contrib.OneProof.KolyvWeil.Parametrization (16s)
+✔ [9303/9335] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Overring (17s)
+✔ [9304/9338] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.Submodule.Finite (16s)
+✔ [9305/9347] Built ZInQKernel.Contrib.TauCeti.RingTheory.IntegralClosure.MvPolynomial (20s)
+✔ [9306/9347] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.IntermediateRing.Dedekind (20s)
+✔ [9307/9347] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Repartition.Basic (20s)
+✔ [9308/9347] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.IntermediateRing.Rank (22s)
+✔ [9309/9347] Built ZInQKernel.Contrib.TauCeti.RingTheory.ClassGroup.ExtendedRelNorm (21s)
+✔ [9310/9347] Built ZInQKernel.Contrib.TauCeti.RingTheory.Polynomial.HeightOneSpectrum (17s)
+✔ [9311/9347] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Factorization (16s)
+✔ [9312/9349] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.Quotient.Finite (17s)
+✔ [9313/9349] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.IntermediateRing.Finite (14s)
+✔ [9314/9349] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.AffineModel.IntegralClosure (18s)
+✔ [9315/9349] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.RiemannRoch.DegreeZero (16s)
+✔ [9316/9349] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Repartition.Quotient (16s)
+✔ [9317/9349] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Repartition.Cokernel (17s)
+✔ [9318/9352] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Differential.Weil (20s)
+✔ [9319/9352] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.IntermediateRing.PointIdeal (21s)
+✔ [9320/9352] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.RatFunc.Basic (22s)
+✔ [9321/9355] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.Dedekind.Basic (20s)
+✔ [9322/9355] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.Quotient.Invertible (17s)
+✔ [9323/9355] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.PushClass (19s)
+✔ [9324/9355] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Fundamental (22s)
+✔ [9325/9355] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Repartition.IndexOfSpecialty (21s)
+✔ [9326/9355] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Differential.LocalComponent (19s)
+✔ [9327/9358] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different.Basic (20s)
+✔ [9328/9361] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.BoundedDegree (19s)
+✔ [9329/9361] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.RatFunc.Order (19s)
+✔ [9330/9363] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.FractionalIdealDivisor.Basic (19s)
+✔ [9331/9363] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.IntegralBasis.Basic (17s)
+✔ [9332/9363] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.ToClass (15s)
+✔ [9333/9363] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Galois (16s)
+✔ [9334/9363] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Differential.Dimension (16s)
+✔ [9335/9363] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Different.Basic (17s)
+✔ [9336/9363] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.LinearDisjoint (18s)
+✔ [9337/9363] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.RiemannRoch.ClassNumber (18s)
+✔ [9338/9363] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Tower (21s)
+✔ [9339/9370] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Divisor.RatFunc (21s)
+✔ [9340/9372] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.Dedekind.ClassGroup (19s)
+✔ [9341/9372] Built ZInQKernel.Contrib.TauCeti.RingTheory.Trace.Dual (18s)
+✔ [9342/9376] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.IntegralBasis.AlmostEverywhere (18s)
+✔ [9343/9376] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.PointHom.Basic (16s)
+✔ [9344/9378] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.GenericPoint.Reduction (17s)
+✔ [9345/9380] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Different.Complementary (19s)
+✔ [9346/9382] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Minpoly.IsIntegrallyClosedIn (17s)
+✔ [9347/9382] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Trace.Prod (16s)
+✔ [9348/9382] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Ideal.QuotientPow (16s)
+✔ [9349/9382] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Divisor.AffineModel (17s)
+✔ [9350/9383] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Extension.Splitting.Basic (17s)
+✔ [9351/9383] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Different.Divisor (17s)
+✔ [9352/9385] Built ZInQKernel.Contrib.TauCeti.NumberTheory.DedekindDomain.RelNorm (16s)
+✔ [9353/9385] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.Algebraic (13s)
+✔ [9354/9388] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.Lift (12s)
+✔ [9355/9390] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.GeometricDegree (13s)
+✔ [9356/9392] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.ClosedSubgroup (13s)
+✔ [9357/9392] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Trace.Exact (12s)
+✔ [9358/9393] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.RiemannRoch.AffineClassNumber (11s)
+✔ [9359/9393] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.QuotientAddGroup (10s)
+✔ [9360/9393] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Units (10s)
+✔ [9361/9393] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.FixedPoints (11s)
+✔ [9362/9394] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.MulDvd (10s)
+✔ [9363/9396] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Divisor.Conorm (11s)
+✔ [9364/9396] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Cocycle (11s)
+✔ [9365/9396] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Basic (13s)
+✔ [9366/9396] Built ZInQKernel.Contrib.TauCeti.Topology.Discrete (13s)
+✔ [9367/9396] Built ZInQKernel.Contrib.TauCeti.RingTheory.Trace.QuotientPow (14s)
+✔ [9368/9398] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.RiemannRoch.RatFunc (15s)
+✔ [9369/9398] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.SmoothDiscrete.Basic (17s)
+✔ [9370/9400] Built ZInQKernel.Contrib.TauCeti.GroupTheory.OrderOfElement.Basic (17s)
+✔ [9371/9403] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Map (15s)
+✔ [9372/9404] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Repartition.Trace (17s)
+✔ [9373/9406] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.OpenNormalSubgroup (15s)
+✔ [9374/9406] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Cocycle.Topology (15s)
+✔ [9375/9406] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different (16s)
+✔ [9376/9406] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.RiemannRoch.Uniqueness (16s)
+✔ [9377/9406] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Hom.Lift (12s)
+✔ [9378/9407] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.ContinuousMonoidHom.Basic (13s)
+✔ [9379/9407] Built ZInQKernel.Contrib.TauCeti.Algebra.Exact.Hom (13s)
+✔ [9380/9407] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.Discrete (11s)
+✔ [9381/9407] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.QuotientAddGroup (11s)
+✔ [9382/9409] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Quotient.Basic (11s)
+✔ [9383/9411] Built ZInQKernel.Contrib.TauCeti.Algebra.Algebra.NatCast (9.3s)
+✔ [9384/9414] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Different.Tame (10s)
+✔ [9385/9414] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Differential.CanonicalDivisor (12s)
+✔ [9386/9414] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Hom.Instances (11s)
+✔ [9387/9416] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.LowDegree (14s)
+✔ [9388/9416] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.Equiv (14s)
+✔ [9389/9416] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.ZMod.Extend (14s)
+✔ [9390/9420] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Intertwining (14s)
+✔ [9391/9420] Built ZInQKernel.Contrib.TauCeti.RingTheory.LocalRing.Basic (14s)
+✔ [9392/9420] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.End.Centralizer (12s)
+✔ [9393/9421] Built ZInQKernel.Contrib.TauCeti.RingTheory.SimpleModule.Basic (11s)
+✔ [9394/9421] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Differential.LocalOrder (12s)
+✔ [9395/9421] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Consequences.HighDegree (9.6s)
+✔ [9396/9424] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.Equiv.Basic (10s)
+✔ [9397/9424] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.InternalHom.Basic (11s)
+✔ [9398/9426] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Subrepresentation (11s)
+✔ [9399/9426] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Basic (11s)
+✔ [9400/9432] Built ZInQKernel.Contrib.TauCeti.RingTheory.KrullSchmidt.Indecomposable (12s)
+✔ [9401/9432] Built ZInQKernel.Contrib.TauCeti.RingTheory.Semisimple.DoubleCentralizer (12s)
+✔ [9402/9432] Built ZInQKernel.Contrib.TauCeti.Algebra.MonoidAlgebra.MapDomain (12s)
+✔ [9403/9435] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Differential.Cotrace (15s)
+✔ [9404/9439] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Consequences.WeierstrassGaps (16s)
+✔ [9405/9439] Built ZInQKernel.Contrib.TauCeti.RingTheory.Semisimple.Schur (15s)
+✔ [9406/9442] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ShortExact (18s)
+✔ [9407/9442] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.FDRep.Basic (19s)
+✔ [9408/9442] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Trace.Pi (19s)
+✔ [9409/9442] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Basis (19s)
+✔ [9410/9445] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Rep.ChangeOfGroup (20s)
+✔ [9411/9448] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Different.Hurwitz (17s)
+✔ [9412/9448] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Restriction (17s)
+✔ [9413/9448] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Consequences.PointSeparation (16s)
+⚠ [9414/9451] Built ZInQKernel.Contrib.OneProof.CofinitePrimary (26s)
+warning: ZInQKernel/Contrib/OneProof/CofinitePrimary.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/CofinitePrimary.lean:103:0: automatically included section variable(s) unused in theorem `ZInQ.Cofinite.exists_nsmul_ne_zero_p_nsmul_eq_zero`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/OneProof/CofinitePrimary.lean:135:0: automatically included section variable(s) unused in theorem `ZInQ.Cofinite.mem_divPart`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9415/9452] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.FDRep (25s)
+✔ [9416/9452] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.OfModule (25s)
+✔ [9417/9453] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Separation (25s)
+✔ [9418/9454] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.IntegrallyClosed (24s)
+✔ [9419/9454] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Divisor.Class (24s)
+✔ [9420/9454] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.DivisorPullback (26s)
+✔ [9421/9454] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Map (28s)
+✔ [9422/9457] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Elliptic.Basic (16s)
+✔ [9423/9458] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Descent (16s)
+✔ [9424/9460] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.AsModule (16s)
+✔ [9425/9460] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Irreducible (17s)
+✔ [9426/9460] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.Galois (17s)
+✔ [9427/9470] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Kummer.Character (17s)
+✔ [9433/9471] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Translation.Place (15s)
+✔ [9434/9472] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Divisor.Sum (13s)
+✔ [9435/9472] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Genus (14s)
+✔ [9436/9472] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.Action (13s)
+✔ [9437/9473] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Map.Place (14s)
+✔ [9438/9473] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Translation.Map (14s)
+✔ [9439/9476] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Invariants (16s)
+✔ [9440/9476] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Galois.Basic (16s)
+✔ [9441/9476] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Place.Equiv (16s)
+✔ [9442/9476] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.ZMod (15s)
+✔ [9443/9479] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.TorsionDivisor (14s)
+✔ [9444/9479] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.KummerCharacter (15s)
+✔ [9445/9479] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.Unramified (15s)
+✔ [9446/9480] Built ZInQKernel.Contrib.TauCeti.FieldTheory.FunctionField.Divisor.Automorphism (15s)
+✔ [9447/9482] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Multilinear.Span (13s)
+✔ [9448/9482] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.LowDegree (13s)
+✔ [9449/9482] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.BilinearForm.Multilinear (12s)
+✔ [9450/9485] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Galois.Place (14s)
+✔ [9451/9485] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.PowMonoidHom (14s)
+✔ [9452/9485] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Units.Basic (13s)
+✔ [9453/9485] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.PointPlace (14s)
+✔ [9454/9486] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.PointHom.Affine (15s)
+✔ [9455/9486] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Extension (19s)
+✔ [9456/9488] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Quotient (20s)
+✔ [9457/9488] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ExplicitFunctoriality (24s)
+✔ [9458/9488] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Determinant.Basic (23s)
+✔ [9459/9488] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Galois.Divisor (24s)
+✔ [9460/9489] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.Transitive (24s)
+✔ [9461/9489] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.PowerClassGroup.Basic (22s)
+✔ [9462/9489] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.DivisorPullback (20s)
+✔ [9463/9489] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.PointHom.Place (19s)
+✔ [9464/9492] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.TypeTags (18s)
+✔ [9465/9492] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.FiniteExtension (21s)
+✔ [9466/9492] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Action (20s)
+✔ [9467/9492] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.SelmerStructure (20s)
+✔ [9468/9495] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.LongExact (23s)
+✔ [9469/9497] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Normal.Embeddings (23s)
+✔ [9470/9497] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.Grp.FilteredColimits (22s)
+✔ [9471/9500] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.WeilPairing.Basic (22s)
+✔ [9472/9500] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.PointHom.Fiber (24s)
+✔ [9473/9502] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.Hom.PointMap (17s)
+✔ [9474/9502] Built ZInQKernel.Contrib.TauCeti.Topology.LocallyConstant.Compact (17s)
+✔ [9475/9502] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Coefficients (21s)
+✔ [9476/9502] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Subrepresentation (19s)
+✔ [9477/9502] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Basic (20s)
+✔ [9478/9502] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Norm (21s)
+✔ [9479/9506] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.FixedPoints (19s)
+✔ [9480/9506] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.WeilPairing.Galois (18s)
+✔ [9481/9508] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.WeilPairing.Bilinear (17s)
+✔ [9482/9510] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.WeilPairing.BaseChange (19s)
+✔ [9483/9510] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Basic (14s)
+✔ [9484/9510] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.Surjective (13s)
+✔ [9485/9510] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.LocallyConstant (12s)
+✔ [9486/9512] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Invariants (13s)
+✔ [9487/9512] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Conjugation.Basic (15s)
+✔ [9488/9515] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.ConstMulAction (14s)
+✔ [9489/9515] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.WeilPairing.RootsOfUnity (15s)
+✔ [9490/9517] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Quotient.Section (13s)
+✔ [9491/9517] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Exact (14s)
+✔ [9492/9519] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.Coefficients (21s)
+✔ [9493/9519] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Descent (21s)
+✔ [9494/9520] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Invariants (19s)
+✔ [9495/9520] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Module.Quotient (18s)
+✔ [9496/9520] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Conjugation.Restriction (19s)
+✔ [9497/9525] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Homogeneous (19s)
+✔ [9498/9525] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Section (19s)
+✔ [9499/9525] Built ZInQKernel.Contrib.TauCeti.Topology.CompactOpen (19s)
+✔ [9500/9525] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.Descent (14s)
+✔ [9501/9525] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.TopRep.EqToHom (14s)
+✔ [9502/9527] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Explicit (16s)
+✔ [9503/9528] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Inflation.Basic (20s)
+✔ [9504/9529] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.ShortComplex.PreservesHomology (18s)
+✔ [9505/9529] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.Homology (19s)
+✔ [9506/9529] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CochainComparison (23s)
+✔ [9507/9529] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.RestrictScalars (25s)
+✔ [9508/9536] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.Restriction (28s)
+✔ [9509/9539] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Functoriality (54s)
+✔ [9510/9539] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Map (52s)
+✔ [9511/9539] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiveTerm (52s)
+✔ [9512/9539] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.DegreeTwoDescent (53s)
+✔ [9513/9539] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.IntUnitsPower (52s)
+✔ [9514/9539] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Indicator (47s)
+✔ [9515/9539] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CompactDiscrete (46s)
+✔ [9516/9542] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CocycleComparison (43s)
+✔ [9517/9542] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.TopRep.RestrictScalars (20s)
+✔ [9518/9542] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.Selmer (24s)
+✔ [9519/9543] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Finite (20s)
+✔ [9520/9543] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Units (20s)
+✔ [9521/9543] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Basic (20s)
+✔ [9522/9545] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Transgression (24s)
+✔ [9523/9547] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Colimit (27s)
+✔ [9524/9549] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.ElementaryTwoQuotient.Basic (25s)
+✔ [9525/9551] Built ZInQKernel.Contrib.TauCeti.FieldTheory.SquareClassGroup.Basic (24s)
+✔ [9526/9551] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.RestrictScalars (59s)
+✔ [9527/9551] Built ZInQKernel.Contrib.OneProof.SelmerTwoPower (120s)
+✔ [9528/9551] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Basic (120s)
+✔ [9529/9553] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Restriction (120s)
+✔ [9530/9553] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Resolution.Basic (118s)
+✔ [9531/9553] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Coprime (114s)
+✔ [9532/9556] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Coset.Basic (113s)
+✔ [9533/9556] Built ZInQKernel.Contrib.TauCeti.FieldTheory.SquareClassGroup.Multiplicative (114s)
+✔ [9534/9560] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.TopRep.Res (72s)
+✔ [9535/9560] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CohomologyComparison (16s)
+✔ [9536/9562] Built ZInQKernel.Contrib.OneProof.SelmerFam (24s)
+✔ [9537/9562] Built ZInQKernel.Contrib.OneProof.KolyvWeil.Leaves (27s)
+✔ [9538/9562] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Two (24s)
+✔ [9539/9562] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.Iso (25s)
+✔ [9540/9562] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.Zero (24s)
+✔ [9541/9562] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.InnerConjugation (29s)
+✔ [9542/9565] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Torsion (30s)
+⚠ [9543/9565] Replayed ZInQKernel.Model.Field.ShortWeierstrass
+warning: ZInQKernel/Model/Field/ShortWeierstrass.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9544/9565] Replayed ZInQKernel.Model.Descent.Kummer
+warning: ZInQKernel/Model/Descent/Kummer.lean:221:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.tZero_def`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:227:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.eq_zero_of_x_eq_zero`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:386:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_equation`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:407:8: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_zero`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:409:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_some_of_eq_zero`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:413:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_some`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9545/9567] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Coinduced (26s)
+✔ [9546/9568] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Additive (31s)
+✔ [9547/9573] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.ContinuousAut.Basic (29s)
+✔ [9548/9578] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Hilbert90 (32s)
+⚠ [9550/9579] Built ZInQKernel.Contrib.OneProof.SelmerCorankFam (43s)
+warning: ZInQKernel/Contrib/OneProof/SelmerCorankFam.lean:224:0: automatically included section variable(s) unused in theorem `ZInQ.Manuscript.SelmerTwoPower.Fam.isPPrimary_shaTwo`:
+  [E.IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [E.IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9551/9591] Built ZInQKernel.Contrib.PoleRC.Defs (46s)
+warning: ZInQKernel/Contrib/PoleRC/Defs.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9552/9592] Built ZInQKernel.Contrib.TauCeti.GroupTheory.TransversalWord (40s)
+✔ [9553/9592] Built ZInQKernel.RouteK.Rank.KummerAt (43s)
+⚠ [9554/9593] Built ZInQKernel.RouteK.System.Config (45s)
+warning: ZInQKernel/RouteK/System/Config.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9555/9593] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ExactCochains.Basic (33s)
+⚠ [9556/9593] Built ZInQKernel.RouteK.Slots.Basic (36s)
+warning: ZInQKernel/RouteK/Slots/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9557/9593] Built ZInQ.PoleValuation (33s)
+warning: ZInQ/PoleValuation.lean:234:30: Variable name `hp2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9558/9593] Built ZInQKernel.RouteK.Slots.Symbols (24s)
+warning: ZInQKernel/RouteK/Slots/Symbols.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9559/9593] Built ZInQKernel.Contrib.PoleRC.Bookkeeping (32s)
+✔ [9560/9593] Built ZInQKernel.Contrib.PoleRC.Rescale (35s)
+✔ [9561/9597] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.TransversalWord (31s)
+✔ [9562/9597] Built ZInQKernel.Contrib.PoleRC.CRM (31s)
+✔ [9563/9597] Built ZInQKernel.RouteK.System.Selmer (35s)
+✔ [9564/9598] Built ZInQKernel.Contrib.PoleRC.Matrix (35s)
+✔ [9565/9598] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.HomologySequence (44s)
+✔ [9566/9598] Built ZInQKernel.RouteK.Slots.Multiplier (44s)
+⚠ [9567/9603] Built ZInQKernel.Multiplication.Certificate.Parity (37s)
+warning: ZInQKernel/Multiplication/Certificate/Parity.lean: imports `ZInQ.PoleValuation` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9568/9603] Built ZInQKernel.RouteK.Slots.Dirichlet (37s)
+✔ [9569/9603] Built ZInQKernel.Contrib.PoleRC.Reduction (39s)
+✔ [9570/9608] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Basic (40s)
+⚠ [9571/9608] Built ZInQKernel.Contrib.PoleRC.LinAlg (39s)
+warning: ZInQKernel/Contrib/PoleRC/LinAlg.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/PoleRC/LinAlg.lean:67:0: automatically included section variable(s) unused in theorem `ZInQ.Manuscript.PoleRC.card_ker_transpose`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9573/9629] Built ZInQKernel.RouteK.System.Base (39s)
+⚠ [9574/9629] Replayed ZInQKernel.RouteK.Selmer.CharSum
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.NumberTheory.JacobiSum.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.NumberTheory.LegendreSymbol.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9575/9629] Built ZInQKernel.RouteK.System.Partner (33s)
+✔ [9576/9629] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Torsion (31s)
+⚠ [9577/9629] Built ZInQKernel.RouteK.Rank.Counting (30s)
+warning: ZInQKernel/RouteK/Rank/Counting.lean: imports `Mathlib.GroupTheory.FiniteAbelian.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Rank/Counting.lean: imports `Mathlib.GroupTheory.Coset.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9578/9629] Built ZInQKernel.RouteK.Slots.Theta (31s)
+⚠ [9579/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.SharpAlg (32s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:160:85: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:182:53: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:217:50: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:218:50: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:247:20: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:266:30: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:269:37: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:315:62: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:325:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:325:36: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:393:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:393:17: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:394:11: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/SharpAlg.lean:393:17: This simp argument is unused:
+  if_neg (show bs ∉ B.erase bs from notMem_erase _ _)
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [add_mul, ite_mul, one_mul, zero_mul, sum_add_distrib, sum_ite_eq, if_pos hb] at hrow
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9580/9629] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.DeltaNaturality (29s)
+⚠ [9581/9629] Built ZInQKernel.Contrib.PoleRC.Recip (31s)
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:39:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:39:27: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:40:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:40:41: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:46:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:46:39: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:47:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:47:27: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:50:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:53:19: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:58:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:60:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:71:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:75:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:79:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:79:22: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:99:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:99:30: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:110:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:110:19: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Kmat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:203:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:205:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:207:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:212:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:214:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Recip.lean:216:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+✔ [9582/9629] Built ZInQKernel.RouteK.System.Glue (27s)
+✔ [9583/9629] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.TrivialF2 (31s)
+✔ [9584/9629] Built ZInQKernel.RouteK.Slots.Construction (29s)
+✔ [9585/9629] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Kummer (45s)
+⚠ [9586/9629] Built ZInQKernel.Contrib.PoleRC.QClass (43s)
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:61:14: `Prime.not_unit` has been deprecated: Use `Prime.not_isUnit` instead
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:63:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:63:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:63:30: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:70:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:70:19: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:70:30: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:76:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:76:19: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:76:30: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:83:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:90:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:98:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:146:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/QClass.lean:152:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9587/9629] Built ZInQKernel.RouteK.System (42s)
+✔ [9588/9629] Built ZInQKernel.RouteK.Slots (35s)
+✔ [9589/9629] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.MuTwo.Basic (32s)
+✔ [9590/9629] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.WeilPairing (42s)
+⚠ [9591/9629] Built ZInQKernel.Contrib.PoleRC.Count (44s)
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:53:26: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:66:57: This simp argument is unused:
+  Prod.snd_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Prod.snd_add, Prod.snd_sum, sgn, add_zero, zero_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:54:23: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:54:23: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:163:23: This simp argument is unused:
+  natAbs_primeFactors_ell
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ind, i.2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:181:57: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:182:4: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:194:63: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:195:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:249:18: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:250:18: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:302:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:306:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:463:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:463:18: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:464:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:464:18: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:490:23: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:517:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:517:21: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:518:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:518:21: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:542:18: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:549:18: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:592:22: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:638:35: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:644:15: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:661:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:661:55: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:662:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:662:63: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:711:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:711:23: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:713:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:713:23: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/Count.lean:730:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+⚠ [9592/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.Convert (48s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Convert.lean:82:28: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Convert.lean:160:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Convert.lean:163:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Convert.lean:188:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Convert.lean:191:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Convert.lean:197:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Convert.lean:200:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+✔ [9593/9629] Built ZInQKernel.RouteK.Assembly.Realize (44s)
+✔ [9594/9629] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.TwoDescent (20s)
+⚠ [9595/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.Primes (14s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Primes.lean:127:67: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Primes.lean:164:63: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Primes.lean:174:64: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Primes.lean:176:12: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9596/9629] Built ZInQKernel.Hypotheses.CertifiedRank (14s)
+✔ [9597/9629] Built ZInQKernel.Contrib.PoleRC.SelMTauCetiLocal (22s)
+⚠ [9598/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.Choice (22s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:21:42: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:21:61: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:27:17: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:70:45: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:70:77: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:99:17: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:133:55: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:145:64: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:145:77: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:149:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:149:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:149:32: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:150:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:160:12: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Choice.lean:38:52: Variable name `hg` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hg
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9599/9629] Built ZInQKernel.RouteK.Selmer.Covering (23s)
+⚠ [9600/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.Realization (9.2s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:79:36: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:82:47: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:82:66: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:94:85: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:100:22: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:114:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:114:22: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:119:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:119:22: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Realization.lean:136:20: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+✔ [9601/9629] Built ZInQKernel.RouteK.Rank.Delta (9.6s)
+✔ [9602/9629] Built ZInQKernel.RouteK.Selmer.PadicSquare (14s)
+✔ [9603/9629] Built ZInQKernel.RouteK.Rank.Image (9.0s)
+✔ [9604/9629] Built ZInQKernel.RouteK.Rank.Torsion2 (13s)
+✔ [9605/9629] Built ZInQKernel.RouteK.Selmer.BadOdd (13s)
+✔ [9606/9629] Built ZInQKernel.RouteK.Selmer.Good (18s)
+⚠ [9607/9629] Built ZInQKernel.Contrib.PoleRC.KummerM (18s)
+warning: ZInQKernel/Contrib/PoleRC/KummerM.lean:133:43: This simp argument is unused:
+  curve_negY
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9608/9629] Built ZInQKernel.Contrib.PoleRC.SelMTauCeti (25s)
+✔ [9609/9629] Built ZInQKernel.RouteK.Rank.RK9 (24s)
+✔ [9610/9629] Built ZInQKernel.RouteK.Selmer.Two (27s)
+⚠ [9611/9629] Built ZInQKernel.Contrib.PoleRC.LocalP (28s)
+warning: ZInQKernel/Contrib/PoleRC/LocalP.lean:283:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/LocalP.lean:283:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/LocalP.lean:316:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/LocalP.lean:316:19: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/LocalP.lean:324:70: Variable name `hL` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hL
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9612/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.GoodF.KummerF (28s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/KummerF.lean:147:43: This simp argument is unused:
+  curve_negY
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9613/9629] Built ZInQKernel.Contrib.OneProof.KummerSelmerMProof (25s)
+⚠ [9614/9629] Built ZInQKernel.Contrib.PoleRC.DescentM (27s)
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:159:30: This simp argument is unused:
+  sub_neg_eq_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [hx3, ↓reduceIte] at hf
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:210:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:211:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:220:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:221:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:230:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:231:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/PoleRC/DescentM.lean:200:23: This simp argument is unused:
+  kum_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [deltaM] at h1 h2
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9615/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.TwoAdic (19s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/TwoAdic.lean:61:64: Variable name `hx` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hx
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/TwoAdic.lean:81:44: This simp argument is unused:
+  PadicInt.coe_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [WZ, U, LZ, PadicInt.coe_mul, PadicInt.coe_natCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/TwoAdic.lean:81:62: This simp argument is unused:
+  PadicInt.coe_natCast
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [WZ, U, LZ, PadicInt.coe_mul, PadicInt.coe_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/TwoAdic.lean:82:4: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9616/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.GoodF.DescentF (20s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:146:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:148:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:157:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:164:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:165:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:212:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:213:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:222:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:223:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:232:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:233:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:197:23: This simp argument is unused:
+  kum_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [deltaM] at h1 h2
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:345:23: Variable name `hc` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hc
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:368:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:389:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/GoodF/DescentF.lean:399:6: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9617/9629] Built ZInQKernel.Contrib.OneProof.PoleCompletenessFromRC (14s)
+✔ [9618/9629] Built ZInQKernel.Contrib.PoleRC.MordellWeilM (18s)
+⚠ [9619/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.Leaves (22s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Leaves.lean:123:79: Variable name `hm` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hm
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9620/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.NecS12 (20s)
+⚠ [9621/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.Suff (4.5s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:60:35: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:65:15: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:128:21: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:148:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:168:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:230:6: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:231:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:268:21: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/Suff.lean:276:19: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+✔ [9622/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.GoodUnram (5.8s)
+⚠ [9623/9629] Built ZInQKernel.Contrib.OneProof.PoleS12.CountS12 (11s)
+warning: ZInQKernel/Contrib/OneProof/PoleS12/CountS12.lean:40:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/CountS12.lean:40:23: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/CountS12.lean:42:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/CountS12.lean:42:23: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/OneProof/PoleS12/CountS12.lean:80:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+✔ [9624/9629] Built ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuine (3.9s)
+✔ [9625/9629] Built ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineMW (3.8s)
+✔ [9626/9629] Built ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal (3.9s)
+⚠ [9627/9629] Built ZInQKernel.Contrib.OneProof.Lemma54FromCasselsTate (4.1s)
+warning: ZInQKernel/Contrib/OneProof/Lemma54FromCasselsTate.lean:75:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/OneProof/Lemma54FromCasselsTate.lean:87:2: Try this:
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9628/9629] Built ZInQKernel.Contrib.OneProof.CasselsTatePairing (11s)
+✔ [9629/9629] Built ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness (3.0s)
+Build completed successfully (9629 jobs).

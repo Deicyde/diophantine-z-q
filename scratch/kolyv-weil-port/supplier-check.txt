@@ -1,0 +1,7 @@
+KolyvWeil.kolyvaginThm1_of_prints : KolyvWeil.BCDTThmA6 → KolyvWeil.KolyvaginThm1Print → PoleS12.KolyvaginThm1
+KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print : SelmerTwoPower.RestrictedConverseGenuine →
+  PoleS12.CasselsTatePairingCurves → KolyvWeil.BCDTThmA6 → KolyvWeil.KolyvaginThm1Print → PoleCompleteness
+'ZInQ.Manuscript.KolyvWeil.kolyvaginThm1_of_prints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.KolyvWeil.poleCompleteness_of_restrictedConverseGenuine_print' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

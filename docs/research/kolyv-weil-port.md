@@ -1,9 +1,10 @@
 # Port of the pole-completeness rank supplier
 
-The headline change is prepared on `96649019f`: replace `hB` and `hK` by
+The headline change is committed on `96649019f`: replace `hB` and `hK` by
 `hB6 : KolyvWeil.BCDTThmA6` and `hKPrint : KolyvWeil.KolyvaginThm1Print`.
-The baseline build is in progress. Both replacement hypotheses are rated GLUE
-in both columns under the current rule.
+The pole supplier builds on this base without adaptation; the full headline
+verification is in progress. Both replacement hypotheses are rated GLUE in
+both columns under the current rule.
 
 **VERIFIED (source and Git).** Merge `eab2f0277` brings in `8555b8d78`
 without conflicts or edits to existing files. The predecessor splice was
@@ -22,6 +23,16 @@ follows from these two premises without using its cusp form argument; the
 pole proof needs only the rank projection. The old `hB` leaves the
 headline because it only supplied that argument. The pairing still gives
 Lemma 5.4, and the same descent proves pole completeness.
+
+## Verification
+
+**VERIFIED (Lean 4.35.0).** The standalone
+`lake --offline build +ZInQKernel.Contrib.OneProof.KolyvWeil.PoleCompleteness`
+[succeeded](../../scratch/kolyv-weil-port/supplier-build.txt) in 9,629 jobs.
+[The supplier check](../../scratch/kolyv-weil-port/supplier-check.txt) confirms
+that the adapter has exactly the old `hK` as its result and that the pole
+supplier retains its statement. Both depend only on `propext`,
+`Classical.choice`, and `Quot.sound`.
 
 ## Known issues
 
