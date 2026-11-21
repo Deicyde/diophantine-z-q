@@ -53,5 +53,7 @@ jobs:
           #print axioms BPAnalytic.ThetaLine.thetaSection_eq_zero_iff
           #print axioms BPAnalytic.ThetaLine.fibreAtChart_change
           #print axioms BPAnalytic.ThetaLine.bundleCore_isContMDiff
+          #print axioms BPAnalytic.ThetaLine.bundleThetaSection_eq_quotient
+          #print axioms BPAnalytic.ThetaLine.contMDiff_bundleThetaSection
           LEAN
           lake env lean "$RUNNER_TEMP/ThetaLineAudit.lean"
