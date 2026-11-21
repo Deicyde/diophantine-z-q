@@ -1,7 +1,6 @@
 import ZInQKernel.Contrib.OneProof.HKRefereed.HKRefereedConsumed
 import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.ModularNewformPrinted
 import ZInQKernel.Contrib.RC53Assist.BCDTPrint.Descent
-import ZInQKernel.Contrib.RC53Assist.G0Prints.Carayol
 
 /-! # The rational point in Gross–Zagier (7.3)(1) and the pole argument -/
 
@@ -10,7 +9,6 @@ namespace ZInQ.Manuscript.HKGZ73
 open ZInQ.Contrib.CloudB3RC53 (IsLContinuation)
 open ZInQ.Contrib.CloudB3RC53.CST (HasCuspFormAtLevel newformLevel)
 open ZInQ.Contrib.RC53Assist.BCDTPrint (BCDTThmAPrinted bcdtThmA_of_printed)
-open ZInQ.Contrib.RC53Assist.G0Prints (associatedGeometricConductorExponent)
 open ZInQ.Contrib.RC53Assist.NewformGlueG0 (Li1975StrongMultiplicityOneWeightTwo)
 open ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent
   (Shimura1973ConjugateEigenforms Carayol1986RationalNewformEulerFactors
@@ -20,31 +18,18 @@ open RC.PrintsAnalytic
 open HeckeRing.GL2 (Newform)
 open UpperHalfPlane
 
-/-- A positive integer is the geometric conductor of `E` if its prime exponents
-are the Artin conductor exponents of the cohomological Tate representations.
-At a place `p` the auxiliary Tate prime `q` is distinct from `p`. -/
-def IsGeometricConductorLevel (E : WeierstrassCurve ℚ) [E.IsElliptic] (N : ℕ) : Prop :=
-  0 < N ∧
-    ∀ (q p : ℕ) [Fact q.Prime] [Fact p.Prime], p ≠ q →
-      associatedGeometricConductorExponent E q p = (N.factorization p : ℚ)
+/-- Gross–Zagier, Invent. Math. 84 (1986), Thm (7.3)(1), p. 231, as restated p. 310.
+For any weight-two newform `f` with `L(f, s) = L(E, s)`, if `L(E, 1) = 0` and
+`L'(E, 1) ≠ 0`, then `E(ℚ)` has a point of infinite order. The value and derivative
+are of the uncompleted continuation.
 
-/-- **Print draft**: Gross–Zagier, Invent. Math. 84 (1986), Thm (7.3)(1), p. 231 (AI-READ).
-Under the standing assumption of a weight-two newform of `E/ℚ` at its conductor,
-if `L(E,1) = 0` and `L'(E,1) ≠ 0`, then `E(ℚ)` has a point of infinite order.
-The value and derivative are of the uncompleted continuation. -/
+The citation for the pole application is faithful as (7.3)(1) in its p. 310 form
+(any newform `f` with `L(f, s) = L(E, s)`) together with BCDT Thm A (some such `f`
+exists). The p. 231 form alone would also need level = conductor. -/
 def GZ73Print : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (N : ℕ) [NeZero N] (f : Newform N 2),
-    IsGeometricConductorLevel E N → IsNewformOf E f →
-    ∀ F : ℂ → ℂ, IsLContinuation E F → F 1 = 0 → deriv F 1 ≠ 0 →
+    IsNewformOf E f → ∀ F : ℂ → ℂ, IsLContinuation E F → F 1 = 0 → deriv F 1 ≠ 0 →
       ∃ P : E.toAffine.Point, ¬ IsOfFinAddOrder P
-
-/-- The modular level used for a pole curve (tex L1779–1784) is its geometric
-conductor. This comparison is GLUE: `newformLevel` is defined by cusp forms,
-while `IsGeometricConductorLevel` uses the cohomological Tate representations. -/
-def PoleNewformLevelIsConductor : Prop :=
-  ∀ ℓ : ℕ, 0 < ℓ → Squarefree ℓ → ℓ % 12 = 11 →
-    ∀ [(curve (ℓ : ℚ)).IsElliptic], PoleS12.IsModular (curve (ℓ : ℚ)) →
-      IsGeometricConductorLevel (curve (ℓ : ℚ)) (newformLevel (curve (ℓ : ℚ)))
 
 /-- The tree's newform has the least matching cusp-form level. Extract a newform
 from the cusp form at that least level; divisibility and minimality give equality.
@@ -105,26 +90,19 @@ theorem analyticRankOne_iff_value_deriv {E : WeierstrassCurve ℚ} {F : ℂ → 
   · exact fun h => ⟨F, hF, h⟩
 
 /-- The infinite-order point needed in the pole argument from Gross–Zagier's
-printed central-derivative implication, the existing modularity route, and
-the geometric conductor comparison. -/
+central-derivative implication as restated on p. 310 and the existing modularity route. -/
 theorem hkConsumed_of_gz73 (hGZ : GZ73Print) (hB : BCDTThmAPrinted)
     (hS : Shimura1973ConjugateEigenforms) (hL : Li1975StrongMultiplicityOneWeightTwo)
-    (hC : Carayol1986RationalNewformEulerFactors) (hF : Faltings1983EulerFactorRigidityQ)
-    (hCond : PoleNewformLevelIsConductor) :
+    (hC : Carayol1986RationalNewformEulerFactors) (hF : Faltings1983EulerFactorRigidityQ) :
     HKRefereed.HKConsumed := by
-  intro ℓ hℓ hsf hmod _ hModular hA
+  intro ℓ hℓ _ _ _ _ hA
   let E := curve (ℓ : ℚ)
   have hℓ0 : (ℓ : ℚ) ≠ 0 := by exact_mod_cast hℓ.ne'
   let : E.IsElliptic := PoleRC.curve_isElliptic hℓ0
   obtain ⟨N, hN, f, hf⟩ :=
     modularNewform_of_printed (bcdtThmA_of_printed hB) hS hL hC hF E inferInstance
   let : NeZero N := hN
-  have hlevel := level_eq_newformLevel_of_isNewformOf hS hL hC hF
-    (inferInstance : E.IsElliptic) hf
-  have hNcond : IsGeometricConductorLevel E N := by
-    rw [hlevel]
-    exact hCond ℓ hℓ hsf hmod hModular
   obtain ⟨F, hcont, hval, hderiv⟩ := (analyticRankOne_iff_exists_value_deriv E).mp hA
-  exact hGZ E N f hNcond hf F hcont hval hderiv
+  exact hGZ E N f hf F hcont hval hderiv
 
 end ZInQ.Manuscript.HKGZ73

@@ -46,3 +46,17 @@
   formulation explicitly uses a newform at the conductor. The page
   attribution follows the lead's source ruling. Independent scan check
   unverified here.
+- **VERIFIED (Lean).** The single-target builds of `HKRefereedConsumed`,
+  `ModularNewformPrinted`, `BCDTPrint.Descent`, `HKRefereedSubstitute`,
+  `CloudB3RC53.Prints` and `HKGZ73.Reduction` succeeded. Sequential
+  `lake env lean` checks of `Reduction.lean` and this directory's `Check.lean`
+  passed. The check identifies the continued `L(E, s)` with the matching
+  newform's `ModularForm.L`, substitutes the revised `hkConsumed_of_gz73`
+  into pole completeness and checks that the existing Theorem 5.3 forward
+  input implies `hK`. `axioms.txt` records `GZ73Print` and the four
+  theorems, all using only `propext`, `Classical.choice` and `Quot.sound`.
+- **VERIFIED (count and dependencies).** The current registry has 27 height
+  rows and four pole rows. The trial replaces `hK` with five rows before
+  sharing Theorem 5.3's suppliers and with one row after sharing them.
+  Relative to the previous trial, the new consumer drops the geometric
+  conductor premise and keeps the same four existing newform suppliers.
