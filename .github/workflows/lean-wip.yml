@@ -1,7 +1,4 @@
-# Builds a work-in-progress branch on request, so that agents without a local
-# Lean toolchain can compile their changes. It checks nothing beyond `lake build`.
-# It runs only by workflow_dispatch: the agent fleet pushes wip/** branches every
-# few minutes, and a build per push was far more Actions time than they need.
+# Scratch verification of the theta line module at this ref.
 
 name: lean wip
 
@@ -19,10 +16,12 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 35
     steps:
       - name: Check out project
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Install elan
         run: |
@@ -37,18 +36,20 @@ jobs:
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
       - name: Fetch the Mathlib build cache
-        run: lake exe cache get
+        timeout-minutes: 20
+        run: lake exe cache get Mathlib
 
-      - name: Build
-        run: |
-          set -o pipefail
-          lake build 2>&1 | tee build.log
+      - name: Build the theta line module
+        run: lake build +ZInQKernel.Contrib.OneProof.ThetaLineBundle
 
-      - name: Report sorries and axioms of the main theorem
-        if: success()
+      - name: Report axioms of the theta line results
         run: |
-          cat > Report.lean <<'LEAN'
-          import ZInQKernel
-          #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of
+          cat > "$RUNNER_TEMP/ThetaLineAudit.lean" <<'LEAN'
+          import ZInQKernel.Contrib.OneProof.ThetaLineBundle
+
+          #print axioms BPAnalytic.ThetaLine.factor_cocycle
+          #print axioms BPAnalytic.ThetaLine.fibreAtLift
+          #print axioms BPAnalytic.ThetaLine.fibreAtLift_change
+          #print axioms BPAnalytic.ThetaLine.thetaSection_eq_zero_iff
           LEAN
-          lake env lean Report.lean
+          lake env lean "$RUNNER_TEMP/ThetaLineAudit.lean"
