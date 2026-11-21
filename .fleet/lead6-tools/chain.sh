@@ -100,7 +100,7 @@ PY=$(
   py claims_tests python3 -I -m unittest discover -s scripts/claims -p 'test_*.py'
   py check_lean python3 scripts/check_lean.py
   py inventory python3 docs/theorem-application-audit/validate.py
-  py guard_rows python3 scripts/guard/check_pr.py rows --base origin/main
+  PR_BODY="$(git log --format=%B "origin/main..$SHA")" py guard_rows python3 scripts/guard/check_pr.py rows --base origin/main
 )
 pv() { echo "$PY" | sed -n "s/^$1=//p"; }
 
