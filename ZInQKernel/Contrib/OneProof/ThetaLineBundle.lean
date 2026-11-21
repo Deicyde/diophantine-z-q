@@ -13,6 +13,8 @@ The quotient provides the total space for constructing the analytic
 bundle and algebraizing its theta section.
 -/
 
+open scoped ContDiff
+
 noncomputable section
 
 namespace BPAnalytic.ThetaLine
@@ -24,6 +26,10 @@ variable {g : ℕ}
 /-- Integer coordinates of a period `Ωm + n`. -/
 abbrev PeriodCoordinates (g : ℕ) := (Fin g → ℤ) × (Fin g → ℤ)
 
+@[simp] private theorem intVec_zero : intVec (0 : Fin g → ℤ) = 0 := by
+  funext i
+  simp [intVec]
+
 private theorem intVec_add (m n : Fin g → ℤ) :
     intVec (m + n) = intVec m + intVec n := by
   funext i
@@ -33,7 +39,8 @@ private theorem intVec_add (m n : Fin g → ℤ) :
 def periodShift (Ω : Matrix (Fin g) (Fin g) ℂ) : PeriodCoordinates g →+ (Fin g → ℂ) where
   toFun x := Ω *ᵥ intVec x.1 + intVec x.2
   map_zero' := by
-    simp [intVec]
+    change Ω *ᵥ intVec 0 + intVec 0 = 0
+    simp
   map_add' x y := by
     change Ω *ᵥ intVec (x.1 + y.1) + intVec (x.2 + y.2) =
       (Ω *ᵥ intVec x.1 + intVec x.2) + (Ω *ᵥ intVec y.1 + intVec y.2)
@@ -86,11 +93,12 @@ theorem factor_ne_zero (Ω : Matrix (Fin g) (Fin g) ℂ)
 
 @[simp] theorem factor_zero_period (Ω : Matrix (Fin g) (Fin g) ℂ) (z : Fin g → ℂ) :
     factor Ω 0 z = 1 := by
-  simp [factor, phase, intVec]
+  change exp (phase Ω 0 z) = 1
+  simp [phase]
 
 /-- A fixed period multiplier is holomorphic on the covering space. -/
-theorem differentiable_factor (Ω : Matrix (Fin g) (Fin g) ℂ) (x : PeriodCoordinates g) :
-    Differentiable ℂ (factor Ω x) := by
+theorem contDiff_factor (Ω : Matrix (Fin g) (Fin g) ℂ) (x : PeriodCoordinates g) :
+    ContDiff ℂ ω (factor Ω x) := by
   unfold factor phase dotProduct
   fun_prop
 
@@ -193,7 +201,7 @@ def fibreAtLift (z : Fin g → ℂ) :
       apply Quotient.sound
       refine ⟨(m, n), Prod.ext ?_ rfl⟩
       change z = p.1 + (Ω *ᵥ intVec m + intVec n)
-      rw [← hmn]
+      rw [show Ω *ᵥ intVec m + intVec n = z - p.1 from hmn.symm]
       abel)
 
 /-- A change of lift multiplies the fibre coordinate by the theta factor. -/
@@ -202,7 +210,9 @@ theorem fibreAtLift_change (z : Fin g → ℂ) (x : PeriodCoordinates g) (c : �
       (fibreAtLift Ω h z c).val := by
   change Quotient.mk (periodRel Ω h.1) (z + periodShift Ω x, factor Ω x z * c) =
     Quotient.mk (periodRel Ω h.1) (z, c)
-  exact (Quotient.sound ⟨x, rfl⟩).symm
+  symm
+  apply Quotient.sound
+  exact ⟨x, rfl⟩
 
 /-- The theta function defines a section of the quotient over the torus. -/
 def thetaSection : Torus (lattice Ω h) → TotalSpace Ω h.1 :=
@@ -213,7 +223,7 @@ def thetaSection : Torus (lattice Ω h) → TotalSpace Ω h.1 :=
     obtain ⟨m, n, hmn⟩ := (mem_periodLattice_iff Ω _ _).mp hmem
     have hshift : z + periodShift Ω (m, n) = z' := by
       change z + (Ω *ᵥ intVec m + intVec n) = z'
-      rw [← hmn]
+      rw [show Ω *ᵥ intVec m + intVec n = z' - z from hmn.symm]
       abel
     apply Quotient.sound
     refine ⟨(m, n), Prod.ext hshift.symm ?_⟩
