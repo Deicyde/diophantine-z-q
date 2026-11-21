@@ -39,6 +39,7 @@ import ZInQKernel.Contrib.OneProof.RC.Wiring.StageData
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35H
 import ZInQKernel.Contrib.OneProof.RC.Wiring.GenuineEq35R
 import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.ModularNewformPrinted
+import ZInQKernel.Contrib.RC53Assist.NewformGlueG0.VerifiedInputs
 import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate9
 
 /-!
@@ -577,25 +578,11 @@ structure RCLeaves where
   /-- Hoffstein–Luo over newforms (PRINT, Math. Res. Lett. 4 (1997), §1, Theorem, pp. 435–436, as
   stated by lane RC8; tex 1984–1991, App G 9995–9999, 10016–10027, 10049–10053). -/
   hlPrint : PrintsAnalytic.HoffsteinLuoTheorem
-  /-- Shimura 1973, Theorem 1, pp. 525–526 (PRINT, manuscript bibitem `shimura-factors`; the
-  full printed theorem and the definitions it uses are quoted verbatim in the docstring of
-  `Shimura1973ConjugateEigenforms`). The printed theorem gives "(iii) dim(A) = [K: Q]" and "for
-  every σ ∈ I, there exists an element f_σ of S₂(Γ) such that f_σ | T_n = a_n^σ f for all n, and
-  f_σ(z) = ∑_{n=1}^∞ a_n^σ e^{2πinz}"; the printed `f` after `a_n^σ` is read as `f_σ`, as in the
-  proof on p. 527. The statement used here: the coefficient field of a
-  weight-two newform of trivial character on `Γ₀(M)` is a number field, and each of its complex
-  embeddings gives a normalized eigenform of the same level with the embedded coefficients. With
-  the next three fields and `Prints.bcdt` it gives modularity in newform form
-  (`RCLeaves.modularNewform`, tex 1779–1784). -/
-  shimuraConjugates : ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent.Shimura1973ConjugateEigenforms
-  /-- Li 1975, Theorem 5, p. 298 (PRINT, manuscript bibitem `li-newforms`), verbatim: "Theorem 5.
-  Let F(τ) = ∑_{n≥1} a(n) z₁ⁿ, G(τ) = ∑_{n≥1} b(n) z₁ⁿ be normalized newforms in C_ε(M, 1),
-  C_ε(N, 1) respectively such that a(p) = b(p) for almost all primes p. Then F = G and M = N."
-  In Li's notation (Introduction, pp. 285–286) `C_ε(M, N)` is the space of cusp forms of the fixed
-  weight `k` and character `ε` for `Γ(M, N)`, and `Γ₀(M, 1) = Γ₀(M)`, so `C_ε(M, 1)` with `k = 2`
-  and `ε` trivial is `S₂(Γ₀(M))`. Used at weight two and trivial character: two newforms whose
-  coefficients agree at almost every prime have the same level and are equal. -/
-  liMultiplicityOne : ZInQ.Contrib.RC53Assist.NewformGlueG0.Li1975StrongMultiplicityOneWeightTwo
+  /-- Shimura 1973, Theorem 1, pp. 525–526: each embedding of the coefficient field of the
+  normalized weight-two newform gives a normalized full eigenform of the same level with the
+  embedded coefficients. Finiteness of the same field is proved in `NewformArithmetic`;
+  only the embedded eigenforms remain an input. -/
+  shimuraEmbeddings : ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent.Shimura1973EmbeddedEigenforms
   /-- The elliptic curve of a newform with rational coefficients and its Euler factors (GLUE: a
   joint reading of two sources, Shimura 1973, Theorem 1, at rational coefficient field, and
   Carayol 1986, §0.8 Corollaire, p. 411, with the normalization of §§0.4–0.5 and Théorème (A) of
@@ -637,16 +624,15 @@ bound itself is cited at tex 1590–1591 and 6323–6324, for point counts). -/
 theorem RCLeaves.hasse (_L : RCLeaves) : PrintsAnalytic.HasseConvergence :=
   ZInQ.Contrib.CloudB3RC53.Hasse.hasseConvergence_proved
 
-/-- **Modularity in newform form** (PROVED: every elliptic curve over `ℚ` has a weight-two newform
-of trivial nebentypus with the coefficients of `L(E, s)`, from Theorem A of
-Breuil–Conrad–Diamond–Taylor, `Prints.bcdt`, and the four fields above (two prints, Shimura 1973
-Theorem 1 and Li 1975 Theorem 5, and two GLUE readings, of Carayol 1986 and of Faltings 1983),
-through the newform of a modular curve: the divisor-level extraction of the newform, the descent of
-its coefficient field to `ℚ` and the comparison of every coefficient are proved;
-`PrintsAnalytic.modularNewform_of_printed`; tex 1779–1784). Formerly the composite field
-`modularNewform` (PRINT BCDT with the GLUE "the eigenform of level `N(E)` is the newform"). -/
+/-- Modularity in newform form from Theorem A of Breuil–Conrad–Diamond–Taylor, the
+Shimura embedding clause and the two Euler-factor readings. The coefficient field is finite
+by the vendored number-field theorem, and Li's multiplicity-one step is proved using the
+vendored across-level theorem. -/
 theorem RCLeaves.modularNewform (L : RCLeaves) (P : Prints) : PrintsAnalytic.ModularNewform :=
-  PrintsAnalytic.modularNewform_of_printed P.bcdt L.shimuraConjugates L.liMultiplicityOne
+  PrintsAnalytic.modularNewform_of_printed P.bcdt
+    (ZInQ.Contrib.RC53Assist.NewformGlueG0.Descent.Shimura1973ConjugateEigenforms.of_embedded
+      L.shimuraEmbeddings)
+    ZInQ.Contrib.RC53Assist.NewformGlueG0.li1975StrongMultiplicityOneWeightTwo_proved
     L.carayolEulerFactors L.faltingsRigidity
 
 /-- Hoffstein–Luo for elliptic curves (PROVED from the print; lane RC18's `twistDictionary`). -/
@@ -671,9 +657,9 @@ theorem RCLeaves.twistSign (L : RCLeaves) (P : Prints) : Nonvanishing.BFHTwistSi
 alone, `RCLeaves.modularNewform`; batch 3's `artinFactorization_unconditional`: Hasse's bound is
 proved, and the factorization's
 own hypothesis splits every level prime in `K`, so the inert primes are good and the proved good
-case of the inert clause applies; tex 2411–2440). (3.4) thus rests on Theorem A and the four
-fields behind `RCLeaves.modularNewform` (the prints of Shimura 1973 and Li 1975 and the GLUE
-readings of Carayol 1986 and Faltings 1983), with no further local GLUE. -/
+case of the inert clause applies; tex 2411–2440). (3.4) thus rests on Theorem A, Shimura's
+embedding clause and the Euler-factor readings of Carayol and Faltings, with no further
+local GLUE. -/
 theorem RCLeaves.artin (L : RCLeaves) (P : Prints) :
     ZInQ.Contrib.CloudB3RC53.GenusOdd.ArtinFactorization :=
   ZInQ.Contrib.CloudB3RC53.Hasse.artinFactorization_unconditional (L.modularNewform P)
