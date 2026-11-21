@@ -138,16 +138,16 @@ No assembly or registry was edited.
   merely having that newform suffices in the printed setup, and whether
   any restriction on the curve was omitted. The locator is AI-READ, not
   independent confirmation.
-- **Lean lens:** `IsNewformOf` uses the genuine normalized weight-two
-  newform space, trivial nebentypus and all positive-index coefficients,
-  not just matching good Euler factors. Those coefficients are rational
-  since they are the curve's integer coefficients. The central derivative
-  is for the arithmetic L-series of the minimal model after entire
-  continuation. The print requires a geometric conductor level explicitly.
-  An independent review should check the interpretation of the printed
-  conductor against this Tate-module definition, including the bad primes.
-  A least modular level or an arbitrary witness of `ModularNewform` alone
-  does not discharge that interpretation or its application.
+- **Lean lens (p. 310 update):** `IsNewformOf` uses the genuine normalized
+  weight-two newform space, trivial nebentypus and equality of all
+  positive-index coefficients. Those coefficients are rational since they
+  are the curve's integer coefficients. The central derivative is for the
+  arithmetic L-series of the minimal model after entire continuation.
+  Gross–Zagier (7.3)(1) as restated on p. 310 applies to any such matching
+  newform, so the existential level from the BCDT newform route suffices.
+  The explicit conductor-level premise belongs to the p. 231 formulation
+  discussed above. The updated application and counts are in
+  [the follow-up report](hk-gz73b.md).
 - The manuscript bibliography already lists Gross–Zagier at L11161–11162.
   Its pole proof cites the stronger forward theorem at L1093. This
   replacement is confined to the point needed at L1111–1115; it supplies
