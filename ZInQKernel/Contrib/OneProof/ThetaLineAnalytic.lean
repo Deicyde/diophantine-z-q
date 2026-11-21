@@ -27,9 +27,9 @@ private theorem periodShift_coordinates {v : Fin g → ℂ} (hv : v ∈ lattice 
     periodShift Ω (coordinatesOfPeriod Ω v) = v := by
   obtain ⟨m, n, hmn⟩ := (mem_periodLattice_iff Ω _ v).mp hv
   have hx : ∃ x, periodShift Ω x = v := ⟨(m, n), hmn.symm⟩
-  simpa only [coordinatesOfPeriod, dif_pos hx] using Classical.choose_spec hx
+  simpa only [coordinatesOfPeriod, dite_eq_left hx] using Classical.choose_spec hx
 
-private theorem coordinates_zero : coordinatesOfPeriod Ω 0 = 0 :=
+private theorem coordinates_zero (h : Ω ∈ SiegelSpace g) : coordinatesOfPeriod Ω 0 = 0 :=
   periodShift_injective Ω (det_im_ne_zero_of_mem_siegelSpace h)
     ((periodShift_coordinates Ω h (lattice Ω h).zero_mem).trans (map_zero (periodShift Ω)).symm)
 
@@ -55,7 +55,8 @@ theorem fibreAtChart_change {i j p : Torus (lattice Ω h)}
   have ha : periodShift Ω a = v - u := periodShift_coordinates Ω h (chartDifference_mem Ω h hi hj)
   have hv : u + periodShift Ω a = v := by rw [ha]; abel
   change (fibreAtLift Ω h v (factor Ω a u * z)).val = (fibreAtLift Ω h u z).val
-  simpa only [hv] using fibreAtLift_change Ω h u a z
+  rw [← hv]
+  exact fibreAtLift_change Ω h u a z
 
 private theorem chartFactor_comp {i j k p : Torus (lattice Ω h)}
     (hi : p ∈ (liftChart Ω h i).source) (hj : p ∈ (liftChart Ω h j).source)
@@ -115,9 +116,9 @@ private def chartLinearMap (i j p : Torus (lattice Ω h)) : ℂ →L[ℂ] ℂ :=
 private theorem contMDiffOn_chartLinearMap (i j : Torus (lattice Ω h)) :
     ContMDiffOn 𝓘(ℂ, Fin g → ℂ) 𝓘(ℂ, ℂ →L[ℂ] ℂ) ω (chartLinearMap Ω h i j)
       ((liftChart Ω h i).source ∩ (liftChart Ω h j).source) := by
-  have hmul : ContMDiff 𝓘(ℂ, ℂ) 𝓘(ℂ, ℂ →L[ℂ] ℂ) ω
-      (ContinuousLinearMap.lsmul ℂ ℂ) :=
-    contMDiff_iff_contDiff.mpr (ContinuousLinearMap.lsmul ℂ ℂ).contDiff
+  let mulMap : ℂ →L[ℂ] (ℂ →L[ℂ] ℂ) := ContinuousLinearMap.lsmul ℂ ℂ
+  have hmul : ContMDiff 𝓘(ℂ, ℂ) 𝓘(ℂ, ℂ →L[ℂ] ℂ) ω mulMap :=
+    contMDiff_iff_contDiff.mpr mulMap.contDiff
   exact hmul.comp_contMDiffOn (contMDiffOn_chartFactor Ω h i j)
 
 /-- The complex line bundle atlas on the Siegel torus. -/
@@ -138,5 +139,50 @@ def bundleCore : VectorBundleCore ℂ (Torus (lattice Ω h)) ℂ (Torus (lattice
 instance bundleCore_isContMDiff :
     (bundleCore Ω h).IsContMDiff 𝓘(ℂ, Fin g → ℂ) ω :=
   ⟨contMDiffOn_chartLinearMap Ω h⟩
+
+/-- The theta section in the fibre coordinates of the bundle core. -/
+def bundleThetaSection (p : Torus (lattice Ω h)) : (bundleCore Ω h).Fiber p :=
+  riemannTheta Ω (liftChart Ω h p p)
+
+/-- The section agrees with the one defined by the quotient. -/
+theorem bundleThetaSection_eq_quotient (p : Torus (lattice Ω h)) :
+    (fibreAtLift Ω h (liftChart Ω h p p) (bundleThetaSection Ω h p)).val =
+      thetaSection Ω h p := by
+  change thetaSection Ω h (proj (lattice Ω h) (liftChart Ω h p p)) = thetaSection Ω h p
+  rw [proj_chartOf (lattice Ω h) (x := p.out) (mem_chart_source (Fin g → ℂ) p)]
+
+/-- In every chart, the local expression of the section is the theta series at the chosen lift. -/
+theorem localTriv_bundleThetaSection {i p : Torus (lattice Ω h)}
+    (hi : p ∈ (bundleCore Ω h).baseSet i) :
+    ((bundleCore Ω h).localTriv i ⟨p, bundleThetaSection Ω h p⟩).2 =
+      riemannTheta Ω (liftChart Ω h i p) := by
+  rw [VectorBundleCore.localTriv_apply]
+  let u := liftChart Ω h p p
+  let v := liftChart Ω h i p
+  let a := coordinatesOfPeriod Ω (v - u)
+  have hp : p ∈ (liftChart Ω h p).source := mem_chart_source (Fin g → ℂ) p
+  have ha : periodShift Ω a = v - u := periodShift_coordinates Ω h (chartDifference_mem Ω h hp hi)
+  have hv : u + periodShift Ω a = v := by rw [ha]; abel
+  change factor Ω a u * riemannTheta Ω u = riemannTheta Ω v
+  rw [← hv]
+  exact (riemannTheta_add_period Ω h.1 u a.1 a.2).symm
+
+/-- Holomorphicity of the theta series on the cover gives holomorphicity of the section. -/
+theorem contMDiff_bundleThetaSection (hθ : ContDiff ℂ ω (riemannTheta Ω)) :
+    ContMDiff 𝓘(ℂ, Fin g → ℂ) (𝓘(ℂ, Fin g → ℂ).prod 𝓘(ℂ, ℂ)) ω
+      (fun p => Bundle.TotalSpace.mk' ℂ p (bundleThetaSection Ω h p)) := by
+  intro p
+  let e := (bundleCore Ω h).localTriv p
+  have hp : p ∈ e.baseSet := mem_chart_source (Fin g → ℂ) p
+  refine (e.contMDiffAt_section_iff hp).mpr ?_
+  have hc : ContMDiffAt 𝓘(ℂ, Fin g → ℂ) 𝓘(ℂ, Fin g → ℂ) ω (liftChart Ω h p) p :=
+    contMDiffOn_chart.contMDiffAt (e.open_baseSet.mem_nhds hp)
+  have heq : (fun q => (e ⟨q, bundleThetaSection Ω h q⟩).2) =ᶠ[𝓝 p]
+      fun q => riemannTheta Ω (liftChart Ω h p q) := by
+    filter_upwards [e.open_baseSet.mem_nhds hp] with q hq
+    exact localTriv_bundleThetaSection Ω h hq
+  have ht : ContMDiff 𝓘(ℂ, Fin g → ℂ) 𝓘(ℂ, ℂ) ω (riemannTheta Ω) :=
+    contMDiff_iff_contDiff.mpr hθ
+  exact ((ht (liftChart Ω h p p)).comp p hc).congr_of_eventuallyEq heq
 
 end BPAnalytic.ThetaLine
