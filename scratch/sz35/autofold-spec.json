@@ -1,0 +1,22 @@
+{
+ "name": "sz35-swap-1121",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SZThm35.Thm35"
+ ],
+ "discharges": [
+  {
+   "field": "silverbergZarhinThm35",
+   "proof": "_root_.SZRaynaud.silverbergZarhinThm35_of_sz34 {n}.silverbergZarhinThm34",
+   "leaves": [
+    {
+     "name": "silverbergZarhinThm34",
+     "type": "_root_.SZRaynaud.SilverbergZarhinThm34",
+     "doc": "Grothendieck's semistable reduction theorem as stated in Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351): for an abelian variety A over a field K with a discrete valuation ring O, one finite Galois extension E of K inside an algebraic closure such that A_E has semistable reduction (HasSemistableReductionSZ, which also asserts a Neron model) at every prolongation of O to E. Replaces silverbergZarhinThm35 (Raynaud's criterion), which SZRaynaud.silverbergZarhinThm35_of_sz34 proves from it with the proved Theorem 3.3.",
+     "kind": "published",
+     "flag": "reading 11-21 (two-lens skeptic pass, docs desk: statement vs print FAITHFUL, soundness SOUND): SZ Thm 3.4, pp. 405-406, proved there by SGA 7 IX Th. 3.6, p. 351 (Def. 3.4 p. 349; the Neron model localizes, 3.2.1 p. 348); glue: the prolongations of O to E are the localizations of its normalization in E and are discrete valuation rings (standard, not printed; proved here as FiniteSeparableDVR)",
+     "source": "Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351); Grothendieck's semistable reduction theorem; replaces silverbergZarhinThm35 (Raynaud's criterion) through SZRaynaud.silverbergZarhinThm35_of_sz34"
+    }
+   ]
+  }
+ ]
+}

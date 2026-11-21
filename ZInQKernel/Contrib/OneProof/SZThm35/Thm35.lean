@@ -13,8 +13,12 @@ namespace SZRaynaud
 
 /-- Grothendieck's semistable reduction theorem, as stated in Silverberg–Zarhin,
 *Semistable reduction and torsion subgroups of abelian varieties*, Thm. 3.4,
-pp. 405–406 (SGA 7 I, Exp. IX, Th. 3.6). One finite Galois extension works
-at every prolongation of the original discrete valuation. -/
+pp. 405–406 (SGA 7 I, Exp. IX, Th. 3.6, p. 351). One finite Galois extension works
+at every prolongation of the original discrete valuation. Because
+`HasSemistableReductionSZ` is existential, the statement also asserts that a Néron
+model exists over each prolongation (Bosch–Lütkebohmert–Raynaud, *Néron Models*,
+§1.4, Thm. 3; locator unverified); Silverberg–Zarhin's notion of semistable
+reduction (Def. 3.1, p. 405) presupposes that model. -/
 def SilverbergZarhinThm34 : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
     (A : PkgI3.AbVar K),
@@ -53,6 +57,3 @@ theorem silverbergZarhinThm35_of_sz34 (h : SilverbergZarhinThm34) : SilverbergZa
   rw [ValuationSubring.comap_comap, ← IsScalarTower.algebraMap_eq, hw]
 
 end SZRaynaud
-
-#print axioms SZRaynaud.silverbergZarhinThm35_of_sz33_of_potential_semistability
-#print axioms SZRaynaud.silverbergZarhinThm35_of_sz34

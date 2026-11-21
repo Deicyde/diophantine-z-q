@@ -3,7 +3,7 @@ article_id: af_6b1091f7d1be24b3f05e830f
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves74.bergerSurveyF
+lean: HDec.HSyn.OpenResearchLeaves75.bergerSurveyF
 ---
 
 # Berger's theorem: de Rham representations are potentially semistable

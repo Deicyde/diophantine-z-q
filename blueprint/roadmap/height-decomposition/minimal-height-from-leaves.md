@@ -4,7 +4,7 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: HDec.HSyn.sixContactMin_of_open93
+lean: HDec.HSyn.sixContactMin_of_open94
 ---
 
 # The minimal height hypothesis from twenty-one statements
@@ -50,13 +50,13 @@ height hypothesis.
 - [The lower bound for the Faltings height](heights/bost-lower-bound.md)
 - [The isogeny theorem of Gaudron and Rémond](heights/gaudron-remond-isogeny-bound.md)
 - [Javanpeykar's bound for curves with a Belyi map](heights/javanpeykar-bound.md)
-- [Raynaud's criterion for semistable reduction](neron-models/raynaud-criterion.md)
 - [The integral model of Y₃ over ℤ[1/30]](shimura-curves/y3-integral-model.md)
 - [Carayol's theorem on the conductor](modular-galois/carayol-conductor.md)
 - [Shimura's abelian variety attached to a newform](modular-galois/shimura-abelian-varieties.md)
 - [The discriminant formula for the Faltings height of an elliptic curve](cm-fibres/elliptic-height-discriminant-formula.md)
 - [Fowler's bound for discriminants of bounded class number](cm-fibres/fowler-class-number-bound.md)
 - [The degree of a singular modulus](cm-fibres/cm-field-degree.md)
+- [Grothendieck's semistable reduction theorem](neron-models/semistable-reduction-theorem.md)
 - [Local algebraicity of Hodge–Tate characters](p-adic-hodge/conrad-local-algebraicity.md)
 - [Scholze's comparison theorem for H¹ of an abelian variety](p-adic-hodge/scholze-de-rham-comparison.md)
 - [The first ℓ-adic cohomology of an abelian variety is dual to its Tate module](abelian-varieties/tate-module-duality.md)

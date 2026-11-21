@@ -100,12 +100,6 @@ manuscript's citation. AI-read: arXiv:1403.6404v1, pp. 1 and 9, and p. 90; p. 98
 Independence of the height: G. Faltings, Invent. Math. 73 (1983), 349–366; P. Deligne, Sém. Bourbaki
 616 (1983/84); locators unverified.
 
-## Raynaud criterion
-
-A. Silverberg and Yu. G. Zarhin, *Semistable reduction and torsion subgroups of abelian varieties*,
-Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.5, p. 406 (proof: SGA 7 I, IX, Proposition 4.7),
-with semistable reduction as defined in §3, p. 405.
-
 ## Y3 over Z[1/30]
 
 The 11/5 manuscript (`diophantine_zq.tex`, lines 443–477), the construction of the integral model of
@@ -155,6 +149,12 @@ G. Fowler, *Some uniform effective results on André–Oort for sums of powers i
 Proc. Cambridge Philos. Soc. 180 (2026), 607–641, §2.1, p. 613, with the discriminant of a singular
 modulus defined on p. 612; D. A. Cox, *Primes of the form $x^2+ny^2$*, Theorem 11.1 and Proposition
 13.2, as Fowler cites them. The manuscript's use: `diophantine_zq.tex`, lines 584–587.
+
+## Semistable reduction theorem
+
+A. Silverberg and Yu. G. Zarhin, *Semistable reduction and torsion subgroups of abelian varieties*,
+Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.4, pp. 405–406 (proof: SGA 7 I, Exposé IX, Théorème
+3.6, p. 351), with semistable reduction as defined in §3, p. 405.
 
 ## Conrad Appendix B
 

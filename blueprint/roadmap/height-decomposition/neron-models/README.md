@@ -20,4 +20,4 @@ $T_\ell A=\varprojlim_nA(\Omega)[\ell^n]$.
 
 It is not proved here.
 
-- [Raynaud's criterion for semistable reduction](raynaud-criterion.md)
+- [Grothendieck's semistable reduction theorem](semistable-reduction-theorem.md)

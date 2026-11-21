@@ -3,7 +3,7 @@ article_id: af_31d43031b0df878483ebd899
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves74.panPrintedF
+lean: HDec.HSyn.OpenResearchLeaves75.panPrintedF
 ---
 
 # Pan's Fontaine–Mazur theorem
