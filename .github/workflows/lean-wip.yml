@@ -39,17 +39,19 @@ jobs:
         timeout-minutes: 20
         run: lake exe cache get Mathlib
 
-      - name: Build the theta line module
-        run: lake build +ZInQKernel.Contrib.OneProof.ThetaLineBundle
+      - name: Build the theta line modules
+        run: lake build +ZInQKernel.Contrib.OneProof.ThetaLineAnalytic
 
       - name: Report axioms of the theta line results
         run: |
           cat > "$RUNNER_TEMP/ThetaLineAudit.lean" <<'LEAN'
-          import ZInQKernel.Contrib.OneProof.ThetaLineBundle
+          import ZInQKernel.Contrib.OneProof.ThetaLineAnalytic
 
           #print axioms BPAnalytic.ThetaLine.factor_cocycle
           #print axioms BPAnalytic.ThetaLine.fibreAtLift
           #print axioms BPAnalytic.ThetaLine.fibreAtLift_change
           #print axioms BPAnalytic.ThetaLine.thetaSection_eq_zero_iff
+          #print axioms BPAnalytic.ThetaLine.fibreAtChart_change
+          #print axioms BPAnalytic.ThetaLine.bundleCore_isContMDiff
           LEAN
           lake env lean "$RUNNER_TEMP/ThetaLineAudit.lean"
