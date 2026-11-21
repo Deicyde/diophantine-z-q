@@ -1,6 +1,6 @@
-# Locators for the Route K chapter
+# Locators for the congruent-number route chapter
 
-Route K is not in the manuscript. It changes the pole polynomial of Section 5 to the
+The congruent-number route is not in the manuscript. It changes the pole polynomial of Section 5 to the
 congruent number curves $y^2=x(x-\ell)(x+\ell)$ and replaces the restricted converse
 (Theorem 5.3) and the simultaneous descent of Section 5.1 by an explicit descent lemma and one
 narrow hypothesis on congruent number curves. The mathematics is written in project-authored

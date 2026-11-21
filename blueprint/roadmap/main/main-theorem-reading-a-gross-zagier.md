@@ -4,9 +4,9 @@ declaration: theorem
 origin: bridged
 ---
 
-# The main theorem from the minimal height hypothesis, reading A and Gross–Zagier
+# The main theorem by the congruent-number route: reading A and Gross–Zagier
 
-> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
+> **The headline of the congruent-number route.** This is the main theorem by the congruent-number route to pole completeness: the target from the minimal height hypothesis, Tian–Yuan–Zhang's Theorem 3.5(2) in reading A and Gross–Zagier. The other headline is [the main theorem by Elliot's route](main-theorem.md); both prove the same target statement. This page's Lean declarations are not on this fork's main (fork issue #77). The theorem is `ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier` at the tag `route-k-final`. The route is pinned upstream in elliotglazer/diophantine-z-q, whose main has the main theorem in the form that also assumes Hecke's continuation and the functional equation.
 
 Assume Tian–Yuan–Zhang's Theorem 3.5(2) in reading A and the Gross–Zagier statement. Then the
 positive-rank class-number hypothesis CR₃^TYZ_Cl,Rk holds. If the minimal height hypothesis holds
@@ -15,7 +15,7 @@ variables, of degree below $2\uparrow\uparrow7$ and with coefficients below $2\u
 has rational zero projection to its first variable exactly $\mathbb Z$.
 
 Here $C_d$ is the curve $y^2=x^3-d^2x$ over $\mathbb Q$, for a natural number $d$, and $L(E,s)$ is
-the L-series of a Weierstrass curve $E$ over $\mathbb Q$, as in the former main theorem (tag `route-k-final`).
+the L-series of a Weierstrass curve $E$ over $\mathbb Q$, as in the main theorem at the tag `route-k-final`.
 An *entire continuation* of $L(E,s)$ is a function $F:\mathbb C\to\mathbb C$, complex
 differentiable everywhere, with $F(s)=L(E,s)$ whenever $\operatorname{Re}s>3/2$
 ([entire continuations](../rank/literature/l-series-continuation.md)). The order of vanishing of an
@@ -38,7 +38,7 @@ intermediate conclusion are:
   $d\equiv5\pmod8$, $d$ squarefree and $T^{\rm Cl}_{5b}(d)=1$, the curve $C_d$ has a rational point
   of infinite order.
 
-These are three of the five hypotheses of the former main theorem (tag `route-k-final`); its other two, the
+These are three of the five hypotheses of the main theorem at the tag `route-k-final`; its other two, the
 functional equation of $L(C_d,s)$ on the strip $0<\operatorname{Re}s<2$ and Hecke's continuation,
 are proved ([the functional equation holds](../rank/literature/hecke/functional-equation-holds.md),
 [Hecke's continuation holds](../rank/literature/hecke/hecke-continuation-holds.md)). None of the

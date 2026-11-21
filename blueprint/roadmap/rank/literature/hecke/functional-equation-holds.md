@@ -27,7 +27,7 @@ sums. The level $32d^2$ in the completed function (the classical conductor of $C
 computed here) and the sign $-1$ come out of that computation, the sign from
 $\left(\frac2d\right)=-1$ for $d\equiv5\pmod8$.
 
-So the functional equation, one of the five hypotheses of the former main theorem (tag `route-k-final`),
+So the functional equation, one of the five hypotheses of the main theorem at the tag `route-k-final`,
 is proved, with no hypothesis.
 
 ## Depends on

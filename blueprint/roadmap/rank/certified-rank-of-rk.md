@@ -9,7 +9,7 @@ lean: ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk
 
 # CR₃ from CR₃^Rk
 
-> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk'`. The page belongs to Route K, which the [main theorem](../main/main-theorem.md) no longer uses.
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed from this fork's main with the congruent-number route (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk'`. The page belongs to the congruent-number route; [Elliot's route](../main/main-theorem.md) is the other route to the same theorem.
 
 The hypothesis CR₃^Rk implies the certified rank hypothesis CR₃.
 

@@ -7,25 +7,44 @@ article_id: af_bd6481b675c042d993b6365d
 Throughout, $K_0=\mathbb Q(s)$ with $s^2=2$, $d=75-53s$, and $E:y^2=x^3-d^2x$ over $K_0$.
 For a reduced fraction $a/b$ with $b>0$, $h(a/b)=\log\max(|a|,b)$.
 
+## The target
+
 The target is the manuscript's Theorem 1.1, in the exact form frozen by the upstream
 project.
 
 - [The target statement](frozen-target.md)
 
-The main theorem proves the target from two hypotheses, both inputs of the manuscript. The first is
-the minimal height hypothesis below. It is not proved here: it is the one instance of the manuscript's
+## The two headlines
+
+The target has two headline theorems, one for each route to the pole input. They are means to the same
+end, and both prove the target statement from the minimal height hypothesis below and a pole input:
+
+- Elliot's route follows the manuscript. Its pole input is pole completeness, the manuscript's Theorem 5.2
+  for its own pole polynomial, which the manuscript derives from its restricted converse theorem
+  (Theorem 5.3).
+- The congruent-number route changes the pole polynomial to one for the congruent number curves, whose
+  pole completeness follows from a certified rank hypothesis, derived from Tian–Yuan–Zhang's
+  Theorem 3.5(2) in reading A and Gross–Zagier. Its Lean is kept at the tag `route-k-final` and pinned
+  upstream in elliotglazer/diophantine-z-q.
+
+- [The main theorem by Elliot's route](main-theorem.md)
+- [The main theorem by the congruent-number route](main-theorem-reading-a-gross-zagier.md)
+
+The minimal height hypothesis is not proved here: it is the one instance of the manuscript's
 Theorem 4.1 that the proof uses, and it is not a published theorem, since its proof combines refereed
 theorems and exact computations with new arguments, the manuscript's and this project's, reviewed only
-by AI models. The second is pole completeness, the manuscript's Theorem 5.2 for its own pole polynomial.
-The manuscript derives it from its restricted converse theorem (Theorem 5.3); that derivation is not yet
-formalized here. The manuscript's other inputs are proved, two of them by routes that differ from the
-manuscript's: route AP replaces the twenty-two-prime pattern, and the catalogue bound is proved with a
-larger cutoff. The rest of this chapter follows the manuscript's inputs, gives the form of the theorem closest to
-them, which also assumes the twenty-two-prime pattern, and ends with the retired forms of Route K.
+by AI models. For Elliot's route, the derivation of pole completeness from Theorem 5.3 is formalized here,
+from Theorem 5.3 and two cited inputs
+([pole completeness from the restricted converse](../pole-completeness-from-5-3/README.md)), and the
+proof of Theorem 5.3 has [its own chapter](../restricted-converse/README.md). The manuscript's other
+inputs are proved, two of them by routes that differ from the manuscript's: route AP replaces the
+twenty-two-prime pattern, and the catalogue bound is proved with a larger cutoff. The rest of this
+chapter follows the manuscript's inputs, gives the form of the theorem closest to them, which also
+assumes the twenty-two-prime pattern, and ends with the pages of the congruent-number route.
 
-- [The main theorem](main-theorem.md)
+## The manuscript's inputs
 
-The manuscript proves it from six inputs. Three of them depend on deep arithmetic whose
+The manuscript proves the target from six inputs. Three of them depend on deep arithmetic whose
 conclusions are nonetheless elementary statements. The six-contact height estimate bounds
 the height of a rational number by its odd contact support.
 
@@ -52,7 +71,7 @@ Pole completeness asserts the rational solubility of one explicit polynomial for
 suitably prepared inputs. A rational zero puts two points on curves $y^2=x(x-\ell)(x+3\ell)$. It is the
 manuscript's Theorem 5.2 and a hypothesis of the main theorem; the manuscript derives it from its
 restricted converse theorem by a simultaneous 2-descent (Section 5.1). That descent is formalized here,
-from Theorem 5.3 and three cited inputs.
+from Theorem 5.3 and two cited inputs ([its chapter](../pole-completeness-from-5-3/README.md)).
 
 - [Pole completeness](pole-completeness.md)
 
@@ -89,24 +108,33 @@ pattern the target holds; this is the form of the theorem closest to the manuscr
 
 - [The main theorem from three hypotheses](main-theorem-three-hypotheses.md)
 
-Until fork issue #77 the project did not assume pole completeness. It used Route K instead: a
+## The congruent-number route's forms of the theorem
+
+The congruent-number route does not assume pole completeness for the manuscript's polynomial. It uses a
 different pole polynomial, whose curves are the congruent number curves $y^2=x(x-\ell)(x+\ell)$, with
-its pole completeness proved from a certified rank hypothesis CR₃. CR₃ in turn came from four
-statements about L-series: Tian–Yuan–Zhang's Theorem 3.5(2) in reading A, the positive-rank half of
-Gross–Zagier, Hecke's continuation and the functional equation. Route K is retired. Its Lean is kept at
-the tag `route-k-final`, and the project note `docs/research/rs-pole.md` records why it was adopted.
-The pages that described it are kept and marked as retired:
+its pole completeness proved from a certified rank hypothesis CR₃. CR₃ in turn comes from statements
+about L-series: Tian–Yuan–Zhang's Theorem 3.5(2) in reading A and the positive-rank half of Gross–Zagier,
+with Hecke's continuation and the functional equation, which are proved. The project used this route
+until fork issue #77. Its Lean is kept at the tag `route-k-final` and pinned upstream in
+elliotglazer/diophantine-z-q, and nasqret/z-in-q-lean builds on it; the project note
+`docs/research/rs-pole.md` records why it was adopted. Its pages are:
 - [the certified rank hypothesis](certified-rank.md);
-- the [Route K chapter](../route-k/README.md), and the chapters on
+- the [chapter on pole completeness from certified rank](../route-k/README.md), and the chapters on
   [Proposition 0](../selmer/README.md), [the row-5b determinant](../rank-5b/README.md),
   [Rédei's formula](../redei/README.md) and [positive rank](../rank/README.md);
-- the earlier forms of the main theorem below.
+- its headline, listed above, and the forms of the main theorem below.
+
+The headline's proof passes through intermediate forms of the main theorem. In proof order:
 
 - [The main theorem from two hypotheses](main-theorem-two-hypotheses.md)
-- [The main theorem from the Selmer form of the rank hypothesis](main-theorem-selmer.md)
+- [The main theorem from the Selmer form of the rank hypothesis](main-theorem-selmer.md), from the
+  previous form and the form closest to the manuscript
 - [The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis](main-theorem-tyz.md)
-- [The main theorem from the positive-rank forms of the rank hypothesis](main-theorem-positive-rank.md)
+- [The main theorem from the positive-rank forms of the rank hypothesis](main-theorem-positive-rank.md),
+  from the Selmer and Tian–Yuan–Zhang forms; the headline is proved from it
+
+Three further forms branch off this chain; the headline does not use them:
+
 - [The main theorem from positive rank on the two curves of a slot choice](main-theorem-two-curves.md)
 - [The main theorem from the infinitely-many-points forms of the rank hypothesis](main-theorem-infinitely-many-points.md)
 - [The main theorem from the $j$-form and the L-series statements](main-theorem-literature.md)
-- [The main theorem from the minimal height hypothesis, reading A and Gross–Zagier](main-theorem-reading-a-gross-zagier.md)

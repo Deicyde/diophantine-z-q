@@ -6,7 +6,7 @@ origin: background
 
 # Bounds for the coefficients $c_d(n)$
 
-> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](../../../main/main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
+> **The congruent-number route.** This page belongs to the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](../../../main/main-theorem.md) is the other route to the same theorem. This page's Lean declarations are not on this fork's main (fork issue #77); the route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q.
 
 Let $c_d(n)$ be the numbers of [the standard Euler product](l-series.md), and $\sigma_0(n)$ the
 number of divisors of $n$, with $\sigma_0(0)=0$.

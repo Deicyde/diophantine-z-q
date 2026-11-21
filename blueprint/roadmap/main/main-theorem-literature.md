@@ -6,7 +6,7 @@ origin: bridged
 
 # The main theorem from the $j$-form and the L-series statements
 
-> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
+> **The congruent-number route.** This page belongs to the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](main-theorem.md) is the other route to the same theorem. This page's Lean declarations are not on this fork's main (fork issue #77); the route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q.
 
 The target statement holds under each of the following three sets of hypotheses:
 
@@ -51,7 +51,7 @@ both are due to Hecke and Deuring, with the sign from Birch–Stephens. Gross–
 $d\equiv5\pmod8$ in reading A, in contrapositive form and for the row $(7,3)$ only, with Hecke's
 continuation for the existence of the continuation
 ([row 5b from reading A and Hecke's continuation](../rank/literature/tyz-row-5b-of-reading-a.md)).
-The former main theorem (tag `route-k-final`) replaced row 5b by reading A and Hecke's continuation,
+The main theorem at the tag `route-k-final` replaced row 5b by reading A and Hecke's continuation,
 from which row 5b follows, and its proof went through the first form here. No refereed text found by
 the project's literature search, which AI agents carried out, states reading A explicitly; the one
 statement found is in an unrefereed preprint. Tian, Yuan and Zhang's introductory theorem with the same parity

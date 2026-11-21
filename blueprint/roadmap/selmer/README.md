@@ -4,11 +4,11 @@ article_id: af_e32388e618d70d75466eb859
 
 # Proposition 0: the explicit system is the 2-Selmer group
 
-> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+> **The congruent-number route.** This chapter belongs to the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](../main/main-theorem.md) is the other route to the same theorem. The route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q. Pages whose Lean is not on this fork's main (fork issue #77) say so; the Lean of the other pages is still in the tree.
 
-The certified rank hypothesis CR₃, which the main theorem derives from four statements about
+The certified rank hypothesis CR₃, which the main theorem at the tag `route-k-final` derives from four statements about
 L-series, is stated on the explicit linear system
-$\Sigma(\mathcal C_d)$ of the [Route K chapter](../route-k/README.md), built from classes modulo
+$\Sigma(\mathcal C_d)$ of the [congruent-number route chapter](../route-k/README.md), built from classes modulo
 $8$ and Legendre symbols. Proposition 0 says that for squarefree $d\equiv5\pmod8$ the solutions of
 this system are, in coordinates, the 2-Selmer group of the congruent number curve
 $C_d:y^2=x^3-d^2x$, defined by the local solubility of its 2-coverings. This chapter proves it, and

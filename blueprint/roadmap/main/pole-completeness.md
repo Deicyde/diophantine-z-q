@@ -30,21 +30,23 @@ input $B$ as above, the descent works in four steps:
   in the coordinates $(x+3\ell,x-\ell)$.
 - Lemma 5.4 turns dimension $3$ into Selmer corank $1$, so the restricted converse gives analytic rank $1$.
   Lemma 5.5 (modularity with Kolyvagin's theorem, which rests on Gross–Zagier) then gives rank $1$ and a
-  finite Tate–Shafarevich group for both curves.
+  finite Tate–Shafarevich group for both curves; the Lean proof uses only the rank, from Silverman's
+  rank-one implication.
 - So the 2-part of the Tate–Shafarevich group vanishes, and the class $(\beta,1)$ comes from a rational
   point on each curve. Rescaled to abscissas $A$ and $Az^2$, those points give the witnesses.
 
 That derivation is formalized here (fork issue #83), with Lemma 5.4 proved from the Cassels–Tate
-pairing on the curves $E_\ell$. It leaves four inputs: Theorem 5.3; that pairing, as Poonen and Stoll restate
-Cassels' theorem; the modularity theorem of Breuil, Conrad, Diamond and Taylor; and a consequence of
-Kolyvagin's theorem. Theorem 5.3 is the manuscript's own theorem, proved in its Sections 7–9 and
-Appendices E–G. The [pole obstruction](../multiplication/pole-obstruction.md),
+pairing on the curves $E_\ell$ ([pole completeness from the restricted converse](../pole-completeness-from-5-3/README.md)). It leaves three inputs: Theorem 5.3; that pairing, as Poonen and Stoll restate
+Cassels' theorem; and Silverman's rank-one implication (AEC, Appendix C, Evidence 16.5.5). Theorem 5.3 is the manuscript's own theorem, proved in its Sections 7–9 and
+Appendices E–G ([the restricted converse](../restricted-converse/README.md)). The [pole obstruction](../multiplication/pole-obstruction.md),
 the manuscript's Lemma 5.1, is proved for this polynomial.
 
-Until fork issues #76 and #77 the project used another polynomial here, with the factors $A+e$ and $Az^2+eH$
-and the congruent number curves $y^2=x(x-\ell)(x+\ell)$. Its pole completeness was proved from the
-certified rank hypothesis CR₃ (Route K). That route is retired; its Lean is kept at the tag
-`route-k-final`.
+These steps make up Elliot's route to the pole input. The congruent-number route, the other route to the
+same theorem, uses another polynomial, with the factors $A+e$ and $Az^2+eH$ and the congruent number curves
+$y^2=x(x-\ell)(x+\ell)$. Its pole completeness is proved from the certified rank hypothesis CR₃
+([pole completeness from certified rank](../route-k/README.md)). The project used that polynomial here until
+fork issues #76 and #77; the route's Lean is kept at the tag `route-k-final` and pinned upstream in
+elliotglazer/diophantine-z-q.
 
 ## Depends on
 

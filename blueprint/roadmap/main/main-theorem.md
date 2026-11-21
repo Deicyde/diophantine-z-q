@@ -7,7 +7,7 @@ proof: formalized
 lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
 ---
 
-# The main theorem
+# The main theorem by Elliot's route
 
 Assume the minimal height hypothesis and pole completeness. Then the target statement holds: some
 integer polynomial in $292{,}890{,}231{,}905$ variables, of degree below $2\uparrow\uparrow7$ and with
@@ -44,24 +44,35 @@ Two of these proofs depart from the manuscript:
 theorem (Theorem 5.3) by a simultaneous 2-descent (Section 5.1). Theorem 5.3 says: for every positive
 squarefree $\ell\equiv11\pmod{12}$, if the $2^\infty$-Selmer group of $y^2=x(x-\ell)(x+3\ell)$ has
 $\mathbb Z_2$-corank $1$, then its L-function vanishes to order exactly $1$ at $s=1$. That derivation is
-not yet formalized here (fork issue #83), so pole completeness is a hypothesis of this theorem. The
-proof of Theorem 5.3 itself (Sections 7–9 and Appendices E–G) is not formalized here. It uses Kato's
-Euler system, Waldspurger's formula, Bump–Friedberg–Hoffstein, Nekovář's Selmer complexes and
-Gross–Zagier–Kolyvagin.
+formalized (fork issue #83), from Theorem 5.3, the Cassels–Tate pairing on the curves $E_\ell$ and
+Silverman's rank-one implication
+([pole completeness from the restricted converse](../pole-completeness-from-5-3/README.md)). This theorem
+keeps pole completeness as its hypothesis, and `ZInQ.OneProof.frozenTarget` combines the two. The proof
+of Theorem 5.3 itself (Sections 7–9 and Appendices E–G) uses Kato's Euler system, Waldspurger's formula,
+Bump–Friedberg–Hoffstein, Nekovář's Selmer complexes and Gross–Zagier–Kolyvagin. In Lean it is reduced
+to the results it cites (some in consequence form) and one structure of remaining hypotheses, which are
+not proved ([the restricted converse](../restricted-converse/README.md)), so the single proof still takes
+Theorem 5.3 as a hypothesis.
 
 **The open statements.** `ZInQ.OneProof.frozenTarget` is this theorem with the minimal height hypothesis
 replaced by the statements from the literature that imply it
 ([the height-decomposition chapter](../height-decomposition/README.md); the current list is
-`docs/one-proof/OPEN.md`).
+`docs/one-proof/OPEN.md`), and pole completeness replaced by its three inputs: Theorem 5.3, the
+Cassels–Tate pairing on the curves $E_\ell$ and Silverman's rank-one implication (the hypotheses `hRC`,
+`hCT` and `hRank`).
 
-**Route K, retired.** Until fork issue #77 the project used Route K in place of pole completeness:
+**The other headline.** The congruent-number route proves the same target statement with a different
+pole input:
 - a different pole polynomial, whose curves are the congruent number curves $y^2=x(x-\ell)(x+\ell)$;
 - a proof of its pole completeness from the certified rank hypothesis CR₃;
-- a derivation of CR₃ from four statements about L-series: Tian–Yuan–Zhang's Theorem 3.5(2) in reading A,
-  the positive-rank half of Gross–Zagier, Hecke's continuation and the functional equation.
+- a derivation of CR₃ from statements about L-series: Tian–Yuan–Zhang's Theorem 3.5(2) in reading A and
+  the positive-rank half of Gross–Zagier, with Hecke's continuation and the functional equation, which
+  are proved.
 
-The theorem no longer uses any of them. Route K's Lean is kept at the tag `route-k-final`, and the
-project note `docs/research/rs-pole.md` records why it was adopted.
+Its headline is [the main theorem by the congruent-number route](main-theorem-reading-a-gross-zagier.md).
+The project used that route here until fork issue #77. Its Lean is kept at the tag `route-k-final` and
+pinned upstream in elliotglazer/diophantine-z-q, and nasqret/z-in-q-lean builds on it; the project note
+`docs/research/rs-pole.md` records why it was adopted.
 
 **Proof sketch.** Route AP needs the progression hypothesis 22P_AP, which follows from Szemerédi's
 theorem in the primes and Proposition D, both proved. Route AP then gives the slope representation

@@ -9,7 +9,7 @@ lean: ZInQ.RouteK.Rank.certifiedRankTYZ_of_certifiedRankTYZRk
 
 # CR₃^TYZ from CR₃^TYZ,Rk
 
-> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank.certifiedRankTYZ_of_certifiedRankTYZRk'`. The page belongs to Route K, which the [main theorem](../main/main-theorem.md) no longer uses.
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed from this fork's main with the congruent-number route (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank.certifiedRankTYZ_of_certifiedRankTYZRk'`. The page belongs to the congruent-number route; [Elliot's route](../main/main-theorem.md) is the other route to the same theorem.
 
 The hypothesis CR₃^TYZ,Rk implies the Tian–Yuan–Zhang form CR₃^TYZ of the certified rank
 hypothesis.

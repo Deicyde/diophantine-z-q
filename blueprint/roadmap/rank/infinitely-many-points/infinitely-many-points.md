@@ -6,7 +6,7 @@ origin: bridged
 
 # Infinitely many rational solutions of $y^2=x^3-d^2x$
 
-> **Retired with Route K.** This page described part of Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier. The [main theorem](../../main/main-theorem.md) no longer uses it. Its Lean declarations were removed (fork issue #77) and are kept at the tag `route-k-final`.
+> **The congruent-number route.** This page belongs to the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](../../main/main-theorem.md) is the other route to the same theorem. This page's Lean declarations are not on this fork's main (fork issue #77); the route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q.
 
 For a natural number $d$, the curve $y^2=x^3-d^2x$ has infinitely many rational points when the set
 $$\{(x,y)\in\mathbb Q^2 : y^2=x^3-d^2x\}$$

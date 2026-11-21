@@ -4,7 +4,7 @@ article_id: af_0d7c19d565038298ef17cf69
 
 # Rédei's formula for the 4-rank of class groups
 
-> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+> **The congruent-number route.** This chapter belongs to the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](../main/main-theorem.md) is the other route to the same theorem. The route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q. Pages whose Lean is not on this fork's main (fork issue #77) say so; the Lean of the other pages is still in the tree.
 
 For a set $B$ of primes of an odd number $d$, the genus sum $T_{5b}(d)$ of the
 [row-5b chapter](../rank-5b/README.md) uses Rédei's $g_d(B)$, a determinant in the residue bits of

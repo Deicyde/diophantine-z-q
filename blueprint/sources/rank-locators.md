@@ -359,7 +359,7 @@ D. Kriz, *Supersingular main conjectures, Sylvester's conjecture and Goldfeld's 
 arXiv:2002.04767, Theorem 10.13: the rank-one 2-converse theorem for curves with CM by
 $\mathbb Z[i]$, a preprint whose publication status was not checked
 (`docs/research/pc-audit.md` RK1; `docs/research/cr3-map-literature.md` §4, C4;
-`docs/research/rv-lit.md` N2). With the corank lemma (see the Route K locators,
+`docs/research/rv-lit.md` N2). With the corank lemma (see the locators of the congruent-number route chapter,
 Cassels-Tate) it gives $\operatorname{rank}C_d(\mathbb Q)=1$ when $\dim\mathrm{Sel}_2(C_d)=3$. Its
 construction assumes $f_0\ge4$, where $f_0$ is the odd part of $|d|$; for odd squarefree
 $d\equiv5\pmod8$ this holds, since $f_0=d\ge5$ (RK1). It is an alternative route that the
