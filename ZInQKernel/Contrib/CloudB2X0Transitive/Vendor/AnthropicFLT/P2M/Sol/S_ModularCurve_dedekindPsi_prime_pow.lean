@@ -1,0 +1,47 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: P2M.Sol.S_ModularCurve_dedekindPsi_prime_pow
+Modification notice (2026-11-15, Cloud Worker 14): local import paths are relocated
+(`P2M.Util` is the copy published by Cloud Worker 2); mathematical definitions,
+theorem statements, and proof bodies are unchanged.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_ModularCurve_X0
+import Mathlib.Data.Nat.Squarefree
+import Mathlib.NumberTheory.Divisors
+import Mathlib.Tactic.IntervalCases
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+namespace P2MW.S_ModularCurve_dedekindPsi_prime_pow
+
+p2m_open "ModularCurve Finset Nat Finset.Nat"
+
+theorem solution (p k : ℕ) (hp : p.Prime) (hk : k ≠ 0) :
+    dedekindPsi (p ^ k) = p ^ k + p ^ (k - 1) := by
+  have hsqfree : ∀ j, Squarefree (p ^ j) ↔ j ≤ 1 := fun j => by
+    constructor
+    · intro hsq
+      by_contra hj
+      exact hp.one_lt.ne'
+        (Nat.isUnit_iff.mp (hsq p (by rw [← pow_two]; exact pow_dvd_pow p (by omega))))
+    · intro hj
+      interval_cases j
+      · simp
+      · simpa using hp.prime.squarefree
+  have hfilter : {d ∈ (p ^ k).divisors | Squarefree d} = {1, p} := by
+    ext d
+    simp only [Finset.mem_filter, Nat.mem_divisors, Finset.mem_insert, Finset.mem_singleton]
+    constructor
+    · rintro ⟨⟨hdvd, -⟩, hsq⟩
+      obtain ⟨j, hj, rfl⟩ := (Nat.dvd_prime_pow hp).mp hdvd
+      have : j ≤ 1 := (hsqfree j).mp hsq
+      interval_cases j
+      · exact Or.inl (pow_zero p)
+      · exact Or.inr (pow_one p)
+    · rintro (rfl | rfl)
+      · exact ⟨⟨one_dvd _, pow_ne_zero _ hp.pos.ne'⟩, squarefree_one⟩
+      · exact ⟨⟨dvd_pow_self _ hk, pow_ne_zero _ hp.pos.ne'⟩, hp.prime.squarefree⟩
+  have hdiv : p ^ k / p = p ^ (k - 1) := by
+    conv_lhs => rw [show k = (k - 1) + 1 by omega, pow_succ]
+    exact Nat.mul_div_cancel _ hp.pos
+  rw [dedekindPsi, hfilter, Finset.sum_pair hp.one_lt.ne, Nat.div_one, hdiv]
