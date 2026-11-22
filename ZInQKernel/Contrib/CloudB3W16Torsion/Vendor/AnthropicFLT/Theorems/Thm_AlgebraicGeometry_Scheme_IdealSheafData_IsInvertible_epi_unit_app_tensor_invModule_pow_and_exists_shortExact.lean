@@ -1,0 +1,33 @@
+/-
+Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
+Original module: Theorems.Thm_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_epi_unit_app_tensor_invModule_pow_and_exists_shortExact. Apache-2.0.
+Modification notice (CloudB3 Worker16, 2026-11-16): relocated imports; removed
+nonessential negative-attribute and reactivation scaffolding; expanded namespace/open/export
+helpers to ordinary commands and resolved metadata aliases directly. Mathematical proof
+bodies retained, subject to documented Lean 4.35 API adaptations.
+Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_SheafOfModules_Monoidal
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativePicardFunctor
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_IdealSheafModule
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_RelCartier
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_epi_unit_app_tensor_invModule_pow_and_exists_shortExact
+
+set_option backward.isDefEq.respectTransparency false
+
+set_option autoImplicit false
+
+universe u
+
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry MonoidalCategory
+
+theorem AlgebraicGeometry.Scheme.IdealSheafData.IsCartierFLT.epi_unit_app_tensor_invModule_pow_and_exists_shortExact
+    {X : Scheme.{u}} (𝓘 : X.IdealSheafData) (h𝓘 : 𝓘.IsCartierFLT)
+    (L : X.Modules) (hL : Scheme.Modules.IsInvertible L) (r n d : ℕ) (hd : d + n = r) :
+    Epi ((Scheme.Modules.pullbackPushforwardAdjunction ((𝓘 ^ n).subschemeι)).unit.app (L ⊗ (𝓘 ^ r).invModule)) ∧
+      ∃ (ι : L ⊗ (𝓘 ^ d).invModule ⟶ L ⊗ (𝓘 ^ r).invModule)
+        (w : ι ≫ (Scheme.Modules.pullbackPushforwardAdjunction ((𝓘 ^ n).subschemeι)).unit.app
+          (L ⊗ (𝓘 ^ r).invModule) = 0),
+        (ShortComplex.mk ι _ w).ShortExact := by p2m_exact_reverting @_root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_epi_unit_app_tensor_invModule_pow_and_exists_shortExact.solution

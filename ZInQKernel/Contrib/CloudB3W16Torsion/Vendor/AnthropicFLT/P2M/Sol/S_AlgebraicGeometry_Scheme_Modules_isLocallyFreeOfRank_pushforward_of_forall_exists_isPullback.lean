@@ -1,0 +1,188 @@
+/-
+Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
+Original module: P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_pushforward_of_forall_exists_isPullback. Apache-2.0.
+Modification notice (CloudB3 Worker16, 2026-11-16): relocated imports; removed
+nonessential negative-attribute and reactivation scaffolding; expanded namespace/open/export
+helpers to ordinary commands and resolved metadata aliases directly. Mathematical proof
+bodies retained, subject to documented Lean 4.35 API adaptations.
+Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ModulesLocallyFreeOfRank
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_TwoAffineOpenCover
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ModulesPushforwardRestrict
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_of_forall_exists_opens
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_of_iso
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_pullback
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+
+set_option backward.isDefEq.respectTransparency false
+
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_pushforward_of_forall_exists_isPullback
+
+set_option autoImplicit false
+
+universe u
+open CategoryTheory
+open CategoryTheory.Limits
+open AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
+open Opposite
+open TopologicalSpace
+
+namespace AlgebraicGeometry
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Modules.pushforward Scheme.Modules.pullback IsAffineOpen.fromSpec_top isPullback_morphismRestrict IsAffineOpen.SpecMap_appLE_fromSpec LocallyOfFiniteType Spec Spec.map Scheme Scheme.isoSpec_Spec_inv isAffineOpen_top IsAffineOpen Scheme.Modules Scheme.ΓSpecIso Scheme.Modules.IsLocallyFreeOfRank Scheme.TwoAffineOpenCover)
+namespace Scheme
+export _root_.AlgebraicGeometry.Scheme (Modules.pushforward Modules.pullback mk Γ isoSpec_Spec_inv isoSpec Modules Opens ΓSpecIso Modules.IsLocallyFreeOfRank TwoAffineOpenCover)
+namespace Modules
+export _root_.AlgebraicGeometry.Scheme.Modules (pushforwardCongr pushforward pushforwardComp pullback pushforwardId restrictFunctorIsoPullback pullbackCongr pullbackPushforwardAdjunction pullbackComp IsLocallyFreeOfRank pushforwardRestrictIsoFLT IsLocallyFreeOfRank.of_forall_exists_opens IsLocallyFreeOfRank.of_iso)
+open AlgebraicGeometry.Scheme.Modules
+open AlgebraicGeometry.Scheme
+open AlgebraicGeometry
+
+section iso
+variable {Y Y' : Scheme.{u}} (e : Y ≅ Y')
+
+noncomputable def pushforwardIsoEquivalence : Y.Modules ≌ Y'.Modules :=
+  CategoryTheory.Equivalence.mk (pushforward e.hom) (pushforward e.inv)
+    ((pushforwardId Y).symm ≪≫ pushforwardCongr e.hom_inv_id.symm ≪≫ (pushforwardComp e.hom e.inv).symm)
+    (pushforwardComp e.inv e.hom ≪≫ pushforwardCongr e.inv_hom_id ≪≫ pushforwardId Y')
+
+noncomputable def pullbackIsoPushforwardInv : pullback e.hom ≅ pushforward e.inv :=
+  (pullbackPushforwardAdjunction e.hom).leftAdjointUniq (pushforwardIsoEquivalence e).symm.toAdjunction
+
+end iso
+
+theorem isLocallyFreeOfRank_pushforward_of_forall_exists_isPullback_aux
+    {X T : Scheme.{u}} (π : X ⟶ T) (F : X.Modules) (n : ℕ)
+    (h : ∀ y : T, ∃ (W : T.Opens), y ∈ W ∧ ∃ (W' X' : Scheme.{u}) (e : W' ≅ W.toScheme) (π' : X' ⟶ W')
+      (g' : X' ⟶ X), IsPullback g' π' π (e.hom ≫ W.ι) ∧
+        IsLocallyFreeOfRank n ((pushforward π').obj ((pullback g').obj F))) :
+    IsLocallyFreeOfRank n ((pushforward π).obj F) := by
+  apply IsLocallyFreeOfRank.of_forall_exists_opens
+  intro y
+  obtain ⟨W, hy, W', X', e, π', g', hcart₀, hLF⟩ := h y
+  have hcart : IsPullback g' (π' ≫ e.hom) π W.ι :=
+    hcart₀.of_iso (Iso.refl _) (Iso.refl _) e (Iso.refl _) (by simp) (by simp) (by simp) (by simp)
+  refine ⟨W, hy, ?_⟩
+
+  have hres := isPullback_morphismRestrict π W
+  let θ : X' ≅ (π ⁻¹ᵁ W).toScheme := IsPullback.isoIsPullback _ _ hcart hres.flip
+  have hθ₁ : θ.hom ≫ (π ⁻¹ᵁ W).ι = g' := IsPullback.isoIsPullback_hom_fst _ _ hcart hres.flip
+  have hθ₂ : θ.hom ≫ (π ∣_ W) = π' ≫ e.hom := IsPullback.isoIsPullback_hom_snd _ _ hcart hres.flip
+
+  have h1 : IsLocallyFreeOfRank n ((pushforward (π' ≫ e.hom)).obj ((pullback g').obj F)) := by
+    have := hLF.pullback e.inv
+    refine IsLocallyFreeOfRank.of_iso ?_ this
+    exact ((pullbackIsoPushforwardInv e.symm).app _) ≪≫ ((pushforwardComp π' e.hom).app _)
+
+  have h2 : IsLocallyFreeOfRank n ((pushforward (π ∣_ W)).obj ((pullback (π ⁻¹ᵁ W).ι).obj F)) := by
+
+    have h1' : IsLocallyFreeOfRank n
+        ((pushforward (θ.hom ≫ (π ∣_ W))).obj ((pullback (θ.hom ≫ (π ⁻¹ᵁ W).ι)).obj F)) := by
+      refine IsLocallyFreeOfRank.of_iso ?_ h1
+      exact (pushforwardCongr hθ₂.symm).app _ ≪≫ (pushforward _).mapIso ((pullbackCongr hθ₁.symm).app _)
+    refine IsLocallyFreeOfRank.of_iso ?_ h1'
+    refine ((pushforwardComp θ.hom (π ∣_ W)).symm.app _) ≪≫ (pushforward (π ∣_ W)).mapIso ?_
+
+    refine (pushforward θ.hom).mapIso ((pullbackComp θ.hom (π ⁻¹ᵁ W).ι).symm.app F) ≪≫ ?_
+
+    haveI : (pullback θ.hom).IsEquivalence := by
+      haveI : (pushforward θ.inv).IsEquivalence := (pushforwardIsoEquivalence θ.symm).isEquivalence_functor
+      exact Functor.isEquivalence_of_iso (pullbackIsoPushforwardInv θ).symm
+    exact (asIso ((pullbackPushforwardAdjunction θ.hom).unit.app ((pullback (π ⁻¹ᵁ W).ι).obj F))).symm
+
+  refine IsLocallyFreeOfRank.of_iso ?_ h2
+  exact (pushforward (π ∣_ W)).mapIso ((restrictFunctorIsoPullback (π ⁻¹ᵁ W).ι).symm.app F) ≪≫
+    (pushforwardRestrictIsoFLT π W).app F ≪≫ (restrictFunctorIsoPullback W.ι).app _
+
+theorem exists_iso_pullback_of_isPullback_aux
+    {X T X' W' Z : Scheme.{u}} (π : X ⟶ T) (π' : X' ⟶ W') (g' : X' ⟶ X) (j : W' ⟶ T)
+    (hcart : IsPullback g' π' π j) (s : Z ⟶ W') :
+    ∃ φ : Limits.pullback π (s ≫ j) ≅ Limits.pullback π' s,
+      φ.hom ≫ Limits.pullback.snd π' s = Limits.pullback.snd π (s ≫ j) ∧
+      φ.hom ≫ Limits.pullback.fst π' s ≫ g' = Limits.pullback.fst π (s ≫ j) ∧
+      ∀ G : X.Modules, Nonempty ((pullback (Limits.pullback.fst π (s ≫ j))).obj G ≅
+        (pullback φ.hom).obj ((pullback (Limits.pullback.fst π' s)).obj ((pullback g').obj G))) := by
+
+  have hbig : IsPullback (Limits.pullback.fst π' s ≫ g') (Limits.pullback.snd π' s) π (s ≫ j) :=
+    (IsPullback.of_hasPullback π' s).paste_horiz hcart
+  let φ : Limits.pullback π (s ≫ j) ≅ Limits.pullback π' s :=
+    (IsPullback.of_hasPullback π (s ≫ j)).isoIsPullback _ _ hbig
+  have hφ₁ : φ.hom ≫ Limits.pullback.fst π' s ≫ g' = Limits.pullback.fst π (s ≫ j) :=
+    IsPullback.isoIsPullback_hom_fst _ _ _ _
+  have hφ₂ : φ.hom ≫ Limits.pullback.snd π' s = Limits.pullback.snd π (s ≫ j) :=
+    IsPullback.isoIsPullback_hom_snd _ _ _ _
+  refine ⟨φ, hφ₂, hφ₁, fun G => ⟨?_⟩⟩
+  exact (pullbackCongr hφ₁.symm).app G ≪≫ (pullbackComp _ _).symm.app G ≪≫
+    (pullback φ.hom).mapIso ((pullbackComp _ _).symm.app G)
+
+end AlgebraicGeometry.Scheme.Modules
+
+namespace AlgebraicGeometry
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Modules.pushforward Scheme.Modules.pullback IsAffineOpen.fromSpec_top isPullback_morphismRestrict IsAffineOpen.SpecMap_appLE_fromSpec LocallyOfFiniteType Spec Spec.map Scheme Scheme.isoSpec_Spec_inv isAffineOpen_top IsAffineOpen Scheme.Modules Scheme.ΓSpecIso Scheme.Modules.IsLocallyFreeOfRank Scheme.TwoAffineOpenCover)
+namespace Scheme
+export _root_.AlgebraicGeometry.Scheme (Modules.pushforward Modules.pullback mk Γ isoSpec_Spec_inv isoSpec Modules Opens ΓSpecIso Modules.IsLocallyFreeOfRank TwoAffineOpenCover)
+namespace TwoAffineOpenCover
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom pullback mk)
+open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open AlgebraicGeometry.Scheme
+open AlgebraicGeometry
+
+theorem exists_isPullback_snd_specMap_algebraOfHom_aux
+    {R : Type u} [CommRing R] {C T : Scheme.{u}} (c : C ⟶ Spec (.of R)) (t : T ⟶ Spec (.of R))
+    (W : T.Opens) (hW : IsAffineOpen W) :
+    letI := algebraOfHom t W
+    ∃ g' : Limits.pullback c (specMap R Γ(T, W)) ⟶ Limits.pullback c t,
+      IsPullback g' (Limits.pullback.snd c (specMap R Γ(T, W))) (Limits.pullback.snd c t) hW.fromSpec ∧
+        g' ≫ Limits.pullback.fst c t = Limits.pullback.fst c (specMap R Γ(T, W)) := by
+  letI := algebraOfHom t W
+
+  have key : hW.fromSpec ≫ t = specMap R Γ(T, W) := by
+    have h := IsAffineOpen.SpecMap_appLE_fromSpec t (isAffineOpen_top _) hW (le_top (a := W))
+    rw [IsAffineOpen.fromSpec_top, Scheme.isoSpec_Spec_inv, ← Spec.map_comp] at h
+
+    change _ = Spec.map (CommRingCat.ofHom ((Scheme.ΓSpecIso (.of R)).inv ≫ t.appLE ⊤ W le_top).hom)
+    rw [CommRingCat.ofHom_hom]
+    exact h.symm
+  let e₁ : Limits.pullback (Limits.pullback.snd c t) hW.fromSpec ≅ Limits.pullback c (specMap R Γ(T, W)) :=
+    pullbackLeftPullbackSndIso c t hW.fromSpec ≪≫ Limits.pullback.congrHom rfl key
+  have h1 : IsPullback (Limits.pullback.fst (Limits.pullback.snd c t) hW.fromSpec)
+      (Limits.pullback.snd (Limits.pullback.snd c t) hW.fromSpec) (Limits.pullback.snd c t) hW.fromSpec :=
+    IsPullback.of_hasPullback _ _
+  refine ⟨e₁.inv ≫ Limits.pullback.fst (Limits.pullback.snd c t) hW.fromSpec, ?_, ?_⟩
+  swap
+  · rw [Category.assoc, Iso.inv_comp_eq]
+    simp only [e₁, Iso.trans_hom, Category.assoc, Limits.pullback.congrHom_hom]
+    delta CategoryTheory.Limits.pullback.map
+    rw [Limits.pullback.lift_fst, Category.comp_id, pullbackLeftPullbackSndIso_hom_fst]
+  refine h1.of_iso e₁ (Iso.refl _) (Iso.refl _) (Iso.refl _) (by simp) ?_ (by simp) (by simp)
+  simp only [e₁, Iso.trans_hom, Iso.refl_hom, Category.comp_id, Category.assoc, Limits.pullback.congrHom_hom]
+  delta CategoryTheory.Limits.pullback.map
+  rw [Limits.pullback.lift_snd, Category.comp_id, pullbackLeftPullbackSndIso_hom_snd]
+
+theorem finiteType_algebraOfHom_aux {R : Type u} [CommRing R] {T : Scheme.{u}} (t : T ⟶ Spec (.of R))
+    [LocallyOfFiniteType t] (W : T.Opens) (hW : IsAffineOpen W) :
+    letI := algebraOfHom t W
+    Algebra.FiniteType R Γ(T, W) := by
+  letI := algebraOfHom t W
+  have h : (t.appLE ⊤ W le_top).hom.FiniteType :=
+    t.finiteType_appLE (isAffineOpen_top _) hW le_top
+  have h' : (Scheme.ΓSpecIso (.of R)).inv.hom.FiniteType :=
+    RingHom.FiniteType.of_surjective _ (Scheme.ΓSpecIso (.of R)).symm.commRingCatIsoToRingEquiv.surjective
+  rw [← RingHom.finiteType_algebraMap]
+  exact h.comp h'
+
+end AlgebraicGeometry.Scheme.TwoAffineOpenCover
+
+open _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_pushforward_of_forall_exists_isPullback.AlgebraicGeometry.Scheme.Modules in
+theorem solution
+    {X T : Scheme.{u}} (π : X ⟶ T) (F : X.Modules) (n : ℕ)
+    (h : ∀ y : T, ∃ (W : T.Opens), y ∈ W ∧ ∃ (W' X' : Scheme.{u}) (e : W' ≅ W.toScheme) (π' : X' ⟶ W')
+      (g' : X' ⟶ X), IsPullback g' π' π (e.hom ≫ W.ι) ∧
+        Scheme.Modules.IsLocallyFreeOfRank n
+          ((Scheme.Modules.pushforward π').obj ((Scheme.Modules.pullback g').obj F))) :
+    Scheme.Modules.IsLocallyFreeOfRank n ((Scheme.Modules.pushforward π).obj F) :=
+  isLocallyFreeOfRank_pushforward_of_forall_exists_isPullback_aux π F n h
+
+#print axioms solution
