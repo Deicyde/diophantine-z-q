@@ -1,0 +1,172 @@
+{
+  "lean": "4.35.0",
+  "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "count": 22,
+  "axiom_check_exit": 0,
+  "axiom_lists": 22,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "axiom_check_seconds": 4.79,
+  "axiom_check_rss_kib": 7205712,
+  "scratch_sha256": "ddf302099a3ff20ba5d5469f6fe501561e6f76e72794fc43902f3468d72afcf7",
+  "log_sha256": "c9b0c495c6b7d0e56770fa019d3af3edc9a3f8a813409d21e4c6a30db3a077de",
+  "modules": [
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_SymmetricPower",
+      "source_sha256": "52a39462794d7558bb193914aa3171a128a9b06185cc2c173c49d1b61fb56eee",
+      "olean_sha256": "ad76f142b0560ab58a5108fb4611dc54e07b6c1718b0212df4c2cdc0b75f118b",
+      "olean_bytes": 506808,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_LocalRepresentabilityULift",
+      "source_sha256": "f6ec05a21b705555052e8372cc84730ab6e9b7705f91b4a44860eb457991c991",
+      "olean_sha256": "c623e319606037b194ab02ae9e0f5c18c819ff3662916258b068b08722c98214",
+      "olean_bytes": 551944,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ProjTwistDatum",
+      "source_sha256": "f665120645fda3f7d4d3965dc27b511851bd46f96c985c927bdeee4c53f5d39b",
+      "olean_sha256": "4751c67c65feae98fcd9b03500b24e7560d11bcdd755f0592824f00a3b6596c6",
+      "olean_bytes": 1792656,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_CurveModelSmooth",
+      "source_sha256": "deafa4b2694cb2e0d85797023b2520a294412f94965af10ce4e91270a66abde2",
+      "olean_sha256": "011fc745c46d3b2a9c69433891ca83854895844afe6c306a03f1805c093b930c",
+      "olean_bytes": 610280,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_PresheafOfModules_ExteriorPower",
+      "source_sha256": "8c7a9cbb386b600a3f75816f4d6f55425f5e7c6d663a6e8f61c6f7e7fe4b585e",
+      "olean_sha256": "7a03e421c71fdc876045fddb4e0a0f7f1698772fb2f43979b970b0246390cb50",
+      "olean_bytes": 1094168,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_PresheafOfModules_PullbackMonoidal",
+      "source_sha256": "751568c5b777a41f5cbdf5fb3ef1890ab5e4b6817905cd2dc07582634ea597c8",
+      "olean_sha256": "297f80c64164e33fe55b65e36d0b6ce0495e8439b23967da47fa27d811db8e27",
+      "olean_bytes": 1679960,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_PresheafOfModules_InternalHom",
+      "source_sha256": "ce1af2f0eb386bad5a74bbdf9eaf754102f96ff5e6fdc78f41aee8600a48e112",
+      "olean_sha256": "182a2c68b0df35995e167765c668a55c9230487aba4c693526905ac529eb89e9",
+      "olean_bytes": 3712136,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicCurve_Place_finite_residueField_of_finiteDimensional",
+      "source_sha256": "ab882eee289fa3253bc5bb42cebb7c2b51468b234da456fe94326f8fae4dbf64",
+      "olean_sha256": "438b1bf2f4d75d0234e03e36b2f8c2ceb26480ef8324229406c6dd793686df02",
+      "olean_bytes": 290656,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_IdealSheafData_comap_injective_of_flat_of_surjective",
+      "source_sha256": "5f011dcfb99150ca1ae08f73c3ce3ade9307e3a57ecf6889e4cdab1b0ca703e6",
+      "olean_sha256": "d6e2142b21fe7ca64473c95730dcedcb41c3b8609a73236238a477c196570aea",
+      "olean_bytes": 629920,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_IdealSheafData_comap_mul",
+      "source_sha256": "7b3446d1ecc1a6b6292938355adc62f91654c467b319b722d4ece1b4902a9aaf",
+      "olean_sha256": "71586b64d53b9b385e6263fe72aa27fa54e4552ee2289dcc060ae6b1b573992e",
+      "olean_bytes": 588776,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_isInvertible_ker_of_comp_eq_id",
+      "source_sha256": "d3bc66b6b5c282a50a591ff8a004d704e1b6e36d9c4b1a21b9b59bb231eab299",
+      "olean_sha256": "b9ef62ae4f53bc574749b0b322061c9df9927a01ec8f971b1c9967cab7a01884",
+      "olean_bytes": 1184872,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_IdealSheafData_ideal_comap_of_le",
+      "source_sha256": "2080ce7352ea049ab456bf7b53accf98ae3c8ab855d7a9476525c33fa53a35c7",
+      "olean_sha256": "86eaf2056b801466fe37798ab24678f850137a76b37d8a9741ddaef2d8d2bec5",
+      "olean_bytes": 484256,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_IdealSheafData_isInvertible_of_isInvertible_comap",
+      "source_sha256": "6ee1213657546c5bfd1bbebb19e9f4011990eb579514303b8a728d98f44de197",
+      "olean_sha256": "397b733c76b37d843f0ddde7fa28450302fc673771fe287107cf345dbfc684c0",
+      "olean_bytes": 2036672,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_valuationRing_stalk_of_smoothOfRelativeDimension_one",
+      "source_sha256": "7259b775a47d5797a25d4cbff3efc5b3bc7ad6ea623cf30d00233414f91ece45",
+      "olean_sha256": "6631b04de445272f5d077e575e6993819e0f5ac30c6ed7e8985f960aec5a745e",
+      "olean_bytes": 248400,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_Ideal_natCast_le_ringKrullDim_quotient_of_mem_minimalPrimes_map_of_algebraicIndependent",
+      "source_sha256": "c710524bd60b84d6b930334725196f8b04d16ed3d21139dd0ea641677ec90a57",
+      "olean_sha256": "7a4f0709a22abf8ad74ca2e7f3a8002d9442fcef14e968c4e8ddf0d02ff66953",
+      "olean_bytes": 939024,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes",
+      "source_sha256": "5250c7cece46bd3a160d1fc2691b28944032622cbca325382a2c1de6aa59f72c",
+      "olean_sha256": "292f39a5ee2462212f78da3b0e434dcef56009bc7173ac9cc348c3732a166e2c",
+      "olean_bytes": 409784,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_IntermediateField_mem_adjoin_sum_mul_of_isSeparable_of_algebraicIndependent",
+      "source_sha256": "b52d28d12f50735c477e878b7e92c14c19b298982588ce43c6de95aee1a08a1b",
+      "olean_sha256": "8b5f0d79b0d6ae923df69d35c4a0c711c5c39f2beac4c451e9401f2e6db6da09",
+      "olean_bytes": 3228064,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_Module_depth_quotSMulTop_succ_eq",
+      "source_sha256": "6ba59b3f1fbfc146b0014f933c2cca8206c55c08311abf1f7d652fa6e4b9d3f8",
+      "olean_sha256": "7b6ed862495ff67a03e75d350e4761f0fc6635379dd08ec77b7adef8f4e040b7",
+      "olean_bytes": 2882568,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_Module_flat_of_comap_maximalIdeal_rTensor_injective",
+      "source_sha256": "b47e5ac17dd955c1e266ccdf39e2e2158a1d9b37f5d687a21723e6d9177180d7",
+      "olean_sha256": "f3b438f02263ebf963f9b5bf5e50a64ca454b15b1b6043fbe9f387b17883534f",
+      "olean_bytes": 2882384,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_Module_free_of_depth_eq_ringKrullDim_of_isRegularLocalRing",
+      "source_sha256": "f3abf5a7886fecf0417b51bf4d7f8f4af3e5c5f56b0718dc86b1f65da3b3d77d",
+      "olean_sha256": "d3e10ea0a5ca14d05e98c527c03b89f1514ae9eeb1ae8b446492a13f73a6cfa5",
+      "olean_bytes": 3850344,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_MvPolynomial_exists_ne_zero_and_forall_irreducible_map_of_irreducible_map_algebraicClosure",
+      "source_sha256": "4904423a77aac655a7188d383ec0da49ebba144f3057c207fcd468d2c83d1262",
+      "olean_sha256": "ef4c4a899e8eb3d455f00d85634a5a06f463e2751946f9e178aaa8744dc613cb",
+      "olean_bytes": 942880,
+      "native_exit": 0
+    },
+    {
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_IsLocalRing_flat_of_isScalarTower_of_flat_of_flat_quotient_maximalIdeal_map",
+      "source_sha256": "750bd42232bcee3ca6bef61075286701e4436abd84e21a0fa1c1e1195b29a8f0",
+      "olean_sha256": "bb33d25108728f8e3eaa14e033e27b35f8b02ebba642a24d4420939f49ab12f3",
+      "olean_bytes": 1619504,
+      "native_exit": 0
+    }
+  ]
+}
