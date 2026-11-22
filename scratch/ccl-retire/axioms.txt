@@ -34,3 +34,4 @@
 'ZInQ.Manuscript.RC.Wiring.commonCoordinateTarget_of_genuineS' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]

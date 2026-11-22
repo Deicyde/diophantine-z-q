@@ -48,5 +48,7 @@ PASS ZInQKernel.Contrib.OneProof.RC.O7Actual.Reduction
 PASS ZInQKernel.Contrib.OneProof.RC.PrintsArith.Bundle
 PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19Leaf
 PASS ZInQKernel.Contrib.CloudB3E1RingClass.SupportReq
-
 PASS staged axiom checks, 20 declarations
+PASS ZInQKernel.OneProof.Main
+PASS ZInQKernel.OneProof.Discharges
+PASS lake env lean scratch/ccl-retire/Check.lean, 21 declarations
