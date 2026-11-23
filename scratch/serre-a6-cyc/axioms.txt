@@ -1,0 +1,3 @@
+'HDec.G0Galois.C8Conrad.SerreAppB.LocalArtin.serreA6_integerUnits_cyclotomic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
