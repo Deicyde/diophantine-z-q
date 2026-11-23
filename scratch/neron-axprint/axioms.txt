@@ -1,0 +1,16 @@
+'NeronDVR.neronSchemeExtensionDedekind_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NeronExt.dvrLocal_of_extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronExt.extension_of_dvrLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.NeronC.neronSchemeExtensionExists_of_neronModelExists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NeronDVR.neronSchemeExtensionDedekind_of_relativeSquare' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronDVR.neronSchemeExtensionDedekind_of_strictHenselizationDescent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NeronExtDedekind.neronSchemeExtensionDedekind_of_dvr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.GroupLawNeron.dvr_of_dedekind' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.scratch.«neron-axprint».Check.0.closedDVRLocal' depends on axioms: [propext, Classical.choice, Quot.sound]

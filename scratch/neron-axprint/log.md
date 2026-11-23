@@ -1,6 +1,6 @@
 # Néron declaration inventory
 
-Pinned `origin/main` tree: `29bfbc3f6793d98b7c1ac637f9728fe51e701e5b`.
+The pinned `origin/main` tree is `29bfbc3f6793d98b7c1ac637f9728fe51e701e5b`.
 
 ```sh
 base=29bfbc3f6793d98b7c1ac637f9728fe51e701e5b
@@ -25,6 +25,12 @@ The reverse bridge in the last row is `ZInQ.Contrib.GroupLawNeron.dvr_of_dedekin
 
 The three proposition definitions have type `Prop` and have no parameters. Their sites are `ZInQKernel/Contrib/OneProof/NeronSchemeExtensionExists.lean:390`, `ZInQKernel/Contrib/NeronC/NeronGroup.lean:82`, and `ZInQKernel/Contrib/OneProof/MumfordGroupLawNeron.lean:56`, respectively.
 
+The lower-case `neronSchemeExtensionExists` and `neronSchemeExtensionDedekind` field declarations supply assumptions in older bundles. Applying their generated projections requires a proof of the enclosing bundle. The field sites can be reproduced with `git grep -nE '^[[:space:]]+(neronDVRLocal|neronSchemeExtensionExists|neronSchemeExtensionDedekind) : ' "$base" -- '*.lean'`. The case-insensitive search for uses of `neronDVRLocal` found no corresponding field in a Lean file at this revision.
+
 The tracked draft `scratch/neron-ext/Near.lean` defines the same fully qualified names in a separate environment (`NeronDVRLocal` at line 371, `extension_of_dvrLocal` at line 380 with the local statement and EGA premise, and `dvrLocal_of_extension` at line 402 with the global existence premise). `Check.lean` uses the library declarations. The draft has its own axiom queries at lines 426–427.
 
 `ZInQKernel/OneProof/H/TailZ99.lean:63` supplies the Dedekind theorem to the previous research bundle. The surrounding theorem at line 59 takes an `OpenResearchLeaves73` and returns `OpenResearchLeaves72`. `ZInQKernel/OneProof/Main.lean:223` documents the discharge.
+
+## Kernel check
+
+Both `lake build` commands succeeded, for `+ZInQKernel.Contrib.OneProof.NeronDVR.RelativeSquare` and `+ZInQKernel.Contrib.OneProof.NeronSchemeExtensionExists`, followed by `lake env lean scratch/neron-axprint/Check.lean`. The commands ran sequentially with a 60 GB memory limit. The build reused artifacts from a cache with identical Lean configuration and tracked sources throughout the imports. [Axiom output](axioms.txt)
