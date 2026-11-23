@@ -44,6 +44,6 @@ Serre's III-A5 and III-A6 formulation. [Manuscript](../../diophantine_zq.tex#L75
 
 ## Known issues
 
-GitHub access through the proxy returned HTTP 403 on the fetch and push
-preflight. The cached `origin/fold/conrad-serre-1123` matched the requested base
+GitHub access through the proxy returned HTTP 403 on the fetch and branch push.
+The cached `origin/fold/conrad-serre-1123` matched the requested base
 `8ed0590c0cd95dbb16643c338aca466ddb5fb1eb`, which was used for the check.

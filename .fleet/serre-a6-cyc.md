@@ -6,5 +6,5 @@
 `χ_cyc(art_K(u)) = N(u)⁻¹`, and the conjugate product gives `N(u)`.
 
 The file passed Lean. The audit lists `propext`, `Classical.choice`, and
-`Quot.sound`. The GitHub proxy returned HTTP 403 on fetch and push preflight.
+`Quot.sound`. The GitHub proxy returned HTTP 403 on fetch and branch push.
 [Research report](../docs/research/serre-a6-cyc.md)
