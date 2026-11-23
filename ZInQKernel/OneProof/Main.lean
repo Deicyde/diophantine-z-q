@@ -236,6 +236,9 @@ sz35-swap-1121 folds that swap after a two-lens reading of SZ Thm. 3.4 / SGA 7 I
 `silverbergZarhinThm35` (Raynaud's criterion), which `SZRaynaud.silverbergZarhinThm35_of_sz34` proves from it with the
 proved Theorem 3.3. `OpenResearchLeaves76` (`TailZ102`, autofold) is the new generation and
 `HDec.HSyn.sixContactMin_of_open95` the new top (24 → 24 assumptions).
+The root now uses `OpenResearchLeaves75` and `sixContactMin_of_open94` directly, taking Raynaud's criterion
+as cited in the manuscript (`diophantine_zq.tex`, lines 814–821). Both tails are retained; the other 23 inputs
+and the pole-completeness proof are unchanged.
 
 bcdt-print replaced the frozen `ZInQ.Manuscript.PoleS12.BCDTThmA` by BCDT Theorem A as printed
 (`ZInQ.Contrib.RC53Assist.BCDTPrint.BCDTThmAPrinted`: condition (2) of Breuil–Conrad–Diamond–Taylor,
@@ -265,13 +268,13 @@ namespace ZInQ.OneProof
 its genuine Selmer condition, the Cassels–Tate pairing on the curves `E_ℓ`, and Silverman's rank-one forward
 implication (Appendix C, Evidence 16.5.5). Pole completeness (Theorem 5.2) uses only these last three inputs. -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves76) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
+    (r : HDec.HSyn.OpenResearchLeaves75) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
     (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves)
     (hRank : ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
-    (HDec.HSyn.sixContactMin_of_open95 r t l)
+    (HDec.HSyn.sixContactMin_of_open94 r t l)
     (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne hRC hCT
       (ZInQ.Manuscript.PoleS12.SilvermanRank.rankOne_of_aec hRank))
 
