@@ -1,0 +1,11 @@
+{"name": "conrad-serre-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.ConradSerre.ConcreteLocal"],
+ "discharges": [
+  {"field": "conradAppB",
+   "proof": "_root_.HDec.G0Galois.C8Conrad.SerreAppB.conradAppB_of_serreIntegerUnits {n}.serreA6OnIntegerUnits",
+   "leaves": [{"name": "serreA6OnIntegerUnits",
+     "type": "_root_.HDec.G0Galois.C8Conrad.SerreAppB.LocalArtin.serreA6OnIntegerUnits",
+     "doc": "Serre, Abelian l-adic representations and elliptic curves (1989), III-A5 Thm. 2(ii), p. III-44, and III-A6 Prop. 6(iv), pp. III-49-50 (admissibility III-A2, p. III-34), specialized to one finite Galois K/Q_p, with the open subgroup inside U_K and the local Artin map of K (#183, ConradSerre/LocalArtin.lean)",
+     "kind": "published",
+     "flag": "pending review (new merged leaf, GLUE until a reviewer rates it): page read and two-lens rating by the docs desk pending; second locator Asterisque 65 being checked",
+     "source": "Serre, Abelian l-adic representations and elliptic curves, Addison-Wesley 1989, Ch. III Appendix: A5 Thm. 2(ii) p. III-44; A6 Prop. 6(iv) pp. III-49-50; replaces Conrad, Lifting global representations, App. B (diophantine_zq.tex L760-762)"}]}]}

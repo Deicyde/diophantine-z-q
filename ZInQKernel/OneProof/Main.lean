@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailZ102
+import ZInQKernel.OneProof.H.TailZ103
 import ZInQKernel.MainGreenTao
 import ZInQKernel.Contrib.OneProof.DeRhamRange
 import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
@@ -236,6 +236,12 @@ sz35-swap-1121 folds that swap after a two-lens reading of SZ Thm. 3.4 / SGA 7 I
 `silverbergZarhinThm35` (Raynaud's criterion), which `SZRaynaud.silverbergZarhinThm35_of_sz34` proves from it with the
 proved Theorem 3.3. `OpenResearchLeaves76` (`TailZ102`, autofold) is the new generation and
 `HDec.HSyn.sixContactMin_of_open95` the new top (24 → 24 assumptions).
+conrad-serre-fold folds fork PR #183: the leaf `serreA6OnIntegerUnits` (Serre, *Abelian ℓ-adic
+representations and elliptic curves* (1989), III-A5 Thm. 2(ii), p. III-44, and III-A6 Prop. 6(iv),
+pp. III-49–50, at one finite Galois `K/ℚ_p` with the local Artin map of `K`) replaces `conradAppB`
+(Conrad's App. B), which `HDec.G0Galois.C8Conrad.SerreAppB.conradAppB_of_serreIntegerUnits` proves from it.
+`OpenAddedLeaves29` (`TailZ103`, autofold) is the new generation and `HDec.HSyn.sixContactMin_of_open96` the new
+top (24 → 24 assumptions).
 
 bcdt-print replaced the frozen `ZInQ.Manuscript.PoleS12.BCDTThmA` by BCDT Theorem A as printed
 (`ZInQ.Contrib.RC53Assist.BCDTPrint.BCDTThmAPrinted`: condition (2) of Breuil–Conrad–Diamond–Taylor,
@@ -265,13 +271,13 @@ namespace ZInQ.OneProof
 its genuine Selmer condition, the Cassels–Tate pairing on the curves `E_ℓ`, and Silverman's rank-one forward
 implication (Appendix C, Evidence 16.5.5). Pole completeness (Theorem 5.2) uses only these last three inputs. -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves76) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
+    (r : HDec.HSyn.OpenResearchLeaves76) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves29)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
     (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves)
     (hRank : ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
-    (HDec.HSyn.sixContactMin_of_open95 r t l)
+    (HDec.HSyn.sixContactMin_of_open96 r t l)
     (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne hRC hCT
       (ZInQ.Manuscript.PoleS12.SilvermanRank.rankOne_of_aec hRank))
 
