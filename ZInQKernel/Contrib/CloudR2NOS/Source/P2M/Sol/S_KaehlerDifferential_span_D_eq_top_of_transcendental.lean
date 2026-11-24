@@ -1,0 +1,113 @@
+/-
+NOS-CORE PROBE STAGING COPY (lane C4, 2026-11-17). NOT an H5 edition:
+probe world only; it enters H5 only by the lead binding plus C6 review. No recorded port
+SHA exists for this module (lead 2026-11-17T06:06Z). Generated deterministically from the pinned
+upstream file by the documented lane4 port transform, as reproduced by the located C5 conformance
+pair (Thm/S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_of_iso), numeric options
+omitted. SOURCE ONLY, UNCOMPILED. Native HELD.
+
+Vendored, unmodified in substance, from the Fermat's Last Theorem Lean development.
+
+  Source project : https://github.com/anthropics/fermats-last-theorem
+  Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
+  Source file    : P2M/Sol/S_KaehlerDifferential_span_D_eq_top_of_transcendental.lean
+  Source sha256  : 3e44a8a68776aad26c9115648bc82e74e28e21fab63604072a24732b2e207a95
+  Retrieved      : pinned read-only clone of the upstream FLT sources (6e837e75), byte-for-byte
+  Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
+  Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
+
+NOTICE OF MODIFICATION (Apache-2.0 §4(b)). This file has been changed from the original
+(H5 lane4 port to Lean 4.35.0 / Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679).
+Mechanical changes; no statement, hypothesis, definition or proof term was weakened or omitted:
+  * 3 `p2m_*` command/tactic occurrence(s) renamed to the H76 `w03_*` / lane4 `r2nos_*` port commands.
+  * 3 `r2nos_namespace_dual` shim line(s) after source `namespace` commands (Mathlib names of the same source namespace stay visible, as in the unprefixed original).
+  * 1 import of the lane4 Mathlib-db584 compatibility module `ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal` added (as in every located lane4 port copy).
+  * 1 internal `import`(s) retargeted to `ZInQKernel.Contrib.CloudR2NOS.Source.*` / `ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.*` (published W03 duals bound, see ledger) / port utilities.
+  * 2 scope(s) the source leaves open at EOF closed explicitly so the port namespace can be closed (no-op in the original).
+  * file-level `set_option`s inserted after the port namespace: autoImplicit false; backward.isDefEq.respectTransparency.types false; backward.isDefEq.respectTransparency.instanceSearchTypes false (non-numeric, as in the located C5 conformance copies). NO maxHeartbeats/synthInstance option (numeric options omitted).
+  * `import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt` added (port commands) and `open ZInQ.Contrib.CloudW03NeronSurj.FLT` inserted so the source's generalized field notation resolves the isolated declarations exactly as in the unprefixed original.
+  * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
+-/
+
+import Mathlib.RingTheory.Etale.Kaehler
+import Mathlib.RingTheory.Etale.Field
+import Mathlib.RingTheory.Kaehler.Polynomial
+import Mathlib.FieldTheory.RatFunc.AsPolynomial
+import Mathlib.LinearAlgebra.TensorProduct.Basis
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
+import ZInQKernel.Contrib.CloudR2NOS.Source.Compat.PresheafOfModulesMonoidal
+import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt
+
+namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+open ZInQ.Contrib.CloudW03NeronSurj.FLT
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency.types false
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+namespace P2MW.S_KaehlerDifferential_span_D_eq_top_of_transcendental
+r2nos_namespace_dual
+
+noncomputable section
+w03_open "Polynomial KaehlerDifferential P2MW.S_KaehlerDifferential_span_D_eq_top_of_transcendental.KaehlerDifferential"
+
+namespace KaehlerDifferential
+r2nos_namespace_dual
+w03_export "KaehlerDifferential" "tensorKaehlerEquivOfFormallyEtale polynomialEquiv tensorKaehlerEquivOfFormallyEtale_apply mapBaseChange_tmul D map_D map"
+namespace FF2
+r2nos_namespace_dual
+w03_open "KaehlerDifferential"
+
+variable {K F : Type*} [Field K] [Field F] [Algebra K F] {x : F} (hx : Transcendental K x)
+  [Algebra.IsSeparable (IntermediateField.adjoin K ({x} : Set F)) F]
+
+include hx in
+
+private theorem exists_basis : ∃ b : Module.Basis Unit F Ω[F⁄K], b () = D K F x := by
+
+  let e : RatFunc K ≃ₐ[K] IntermediateField.adjoin K ({x} : Set F) := RatFunc.algEquivOfTranscendental x hx
+  letI algKx : Algebra K[X] (IntermediateField.adjoin K ({x} : Set F)) := (e.toAlgHom.toRingHom.comp (algebraMap K[X] (RatFunc K))).toAlgebra
+  letI algF : Algebra K[X] F := ((algebraMap (IntermediateField.adjoin K ({x} : Set F)) F).comp (algebraMap K[X] (IntermediateField.adjoin K ({x} : Set F)))).toAlgebra
+  haveI : IsScalarTower K[X] (IntermediateField.adjoin K ({x} : Set F)) F := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+  haveI : IsScalarTower K K[X] (IntermediateField.adjoin K ({x} : Set F)) := IsScalarTower.of_algebraMap_eq (fun c => by
+    change _ = (e.toAlgHom.toRingHom.comp (algebraMap K[X] (RatFunc K))) (C c)
+    simp only [RingHom.comp_apply, AlgHom.toRingHom_eq_coe, RingHom.coe_coe, AlgEquiv.coe_algHom]
+    rw [← Polynomial.algebraMap_eq, ← IsScalarTower.algebraMap_apply K K[X] (RatFunc K), AlgEquiv.commutes])
+  haveI : IsScalarTower K K[X] F := IsScalarTower.of_algebraMap_eq (fun c => by
+    rw [IsScalarTower.algebraMap_apply K (IntermediateField.adjoin K ({x} : Set F)) F, IsScalarTower.algebraMap_apply K[X] (IntermediateField.adjoin K ({x} : Set F)) F,
+      ← IsScalarTower.algebraMap_apply K K[X] (IntermediateField.adjoin K ({x} : Set F))])
+
+  haveI : Algebra.FormallyEtale K[X] (RatFunc K) :=
+    Algebra.FormallyEtale.of_isLocalization (nonZeroDivisors K[X])
+  haveI : Algebra.FormallyEtale K[X] (IntermediateField.adjoin K ({x} : Set F)) :=
+    Algebra.FormallyEtale.of_equiv (R := K[X]) (A := RatFunc K) { e with commutes' := fun _ => rfl }
+  haveI : Algebra.FormallyEtale (IntermediateField.adjoin K ({x} : Set F)) F := Algebra.FormallyEtale.of_isSeparable (IntermediateField.adjoin K ({x} : Set F)) F
+  haveI : Algebra.FormallyEtale K[X] F := Algebra.FormallyEtale.comp K[X] (IntermediateField.adjoin K ({x} : Set F)) F
+
+  let b₀ : Module.Basis Unit K[X] Ω[K[X]⁄K] :=
+    (Module.Basis.singleton Unit K[X]).map (polynomialEquiv K).symm
+  have hb₀ : b₀ () = D K K[X] X := by simp [b₀]
+  let ψ := tensorKaehlerEquivOfFormallyEtale K K[X] F
+  refine ⟨(b₀.baseChange F).map ψ, ?_⟩
+  have hX : algebraMap K[X] F X = x := by
+    change algebraMap (IntermediateField.adjoin K ({x} : Set F)) F (e (algebraMap K[X] (RatFunc K) X)) = x
+    rw [RatFunc.algebraMap_X]
+    exact RatFunc.algEquivOfTranscendental_X x hx
+  simp only [Module.Basis.map_apply, Module.Basis.baseChange_apply, hb₀, ψ,
+    tensorKaehlerEquivOfFormallyEtale_apply, mapBaseChange_tmul, one_smul, map_D, hX]
+
+end KaehlerDifferential.FF2
+
+theorem solution (K : Type*) [Field K] {F : Type*} [Field F] [Algebra K F] (x : F) (hx : Transcendental K x)
+    [Algebra.IsSeparable (IntermediateField.adjoin K ({x} : Set F)) F] :
+    Submodule.span F ({KaehlerDifferential.D K F x} : Set (KaehlerDifferential K F)) = ⊤ := by
+  obtain ⟨b, hb⟩ := KaehlerDifferential.FF2.exists_basis hx
+  have h := b.span_eq
+  rwa [show Set.range b = {KaehlerDifferential.D K F x} by ext ω; simp [Set.range_unique, hb]] at h
+
+end
+end S_KaehlerDifferential_span_D_eq_top_of_transcendental
+end P2MW
+
+end ZInQ.Contrib.CloudW03NeronSurj.FLT
