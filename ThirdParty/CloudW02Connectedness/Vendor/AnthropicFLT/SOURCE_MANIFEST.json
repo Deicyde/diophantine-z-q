@@ -1,0 +1,1088 @@
+{
+  "repository": "anthropics/fermats-last-theorem",
+  "revision": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+  "source_lean_toolchain": "leanprover/lean4:v4.33.1",
+  "source_mathlib_revision": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "files": [
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_CoherentBaseChange",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_CoherentBaseChange",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_CoherentBaseChange.lean",
+      "upstream_blob_sha": "dd4bf25c2c29764465611e22ae485a8ec8ce40b1",
+      "upstream_bytes": 2449,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_CoherentBaseChange.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_DoubleComplex",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_DoubleComplex",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_DoubleComplex.lean",
+      "upstream_blob_sha": "4c4ddbdc52687c1d986c4f50cf24b3ae070fa7fc",
+      "upstream_bytes": 8219,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_DoubleComplex.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_OModulePresheafConstructions",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OModulePresheafConstructions",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_OModulePresheafConstructions.lean",
+      "upstream_blob_sha": "b456867006924dba4912988b4633291f9b4b3313",
+      "upstream_bytes": 17459,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_OModulePresheafConstructions.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_OModulePresheafHom",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OModulePresheafHom",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_OModulePresheafHom.lean",
+      "upstream_blob_sha": "9f4ce01c888df06b10271eb2c40b664177e5eaac",
+      "upstream_bytes": 8281,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_OModulePresheafHom.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_OModulePresheafIdealFiltration",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OModulePresheafIdealFiltration",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_OModulePresheafIdealFiltration.lean",
+      "upstream_blob_sha": "e88b39292068436af72b10558f36238492e97efc",
+      "upstream_bytes": 13370,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_OModulePresheafIdealFiltration.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_OModulePresheafLerayBicomplex",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OModulePresheafLerayBicomplex",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_OModulePresheafLerayBicomplex.lean",
+      "upstream_blob_sha": "b2d553630d66e94666ece5ec8e0e64086bea3f78",
+      "upstream_bytes": 24831,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_OModulePresheafLerayBicomplex.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_OModulePresheafLerayDoubleComplex",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OModulePresheafLerayDoubleComplex",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_OModulePresheafLerayDoubleComplex.lean",
+      "upstream_blob_sha": "e2a43d5e76e897763c9b52f9c84817b01f51e656",
+      "upstream_bytes": 12224,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_OModulePresheafLerayDoubleComplex.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_OrderedAffineCoverCech",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OrderedAffineCoverCech",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_OrderedAffineCoverCech.lean",
+      "upstream_blob_sha": "501e7295345c1073611e607326fd5e4b555bcda6",
+      "upstream_bytes": 10292,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_OrderedAffineCoverCech.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_OrderedAffineCoverOf",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_OrderedAffineCoverOf",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_OrderedAffineCoverOf.lean",
+      "upstream_blob_sha": "3b49083cff710cabc65c2daf4af2af1ac8876100",
+      "upstream_bytes": 4551,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_OrderedAffineCoverOf.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_ProjSpace",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ProjSpace",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_ProjSpace.lean",
+      "upstream_blob_sha": "61587d9d7e498e5ca026f0531ca368b4d3c5cc6b",
+      "upstream_bytes": 16242,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_ProjSpace.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_ProjSpaceCechGradedModule",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ProjSpaceCechGradedModule",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_ProjSpaceCechGradedModule.lean",
+      "upstream_blob_sha": "1b17ef18bb63d9e8a2c4c442e4dd54d6272ebeef",
+      "upstream_bytes": 31616,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_ProjSpaceCechGradedModule.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_ProjSpaceCechTwist",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ProjSpaceCechTwist",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_ProjSpaceCechTwist.lean",
+      "upstream_blob_sha": "18a463605b9a3cf4c4b5d4ee9ee8cb9a443f9bc5",
+      "upstream_bytes": 5606,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_ProjSpaceCechTwist.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_ProjSpaceCover",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ProjSpaceCover",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_ProjSpaceCover.lean",
+      "upstream_blob_sha": "fdd7889a9d62f43f21b0aa7854618828480bf728",
+      "upstream_bytes": 2416,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_ProjSpaceCover.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_TwoAffineOpenCover",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_TwoAffineOpenCover",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_TwoAffineOpenCover.lean",
+      "upstream_blob_sha": "eed3e0fcdf559d018636b42ff5edd1ed0da1ebe7",
+      "upstream_bytes": 5666,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_TwoAffineOpenCover.lean"
+    },
+    {
+      "upstream_module": "Definitions.Def_AlgebraicGeometry_TwoChartCech",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_TwoChartCech",
+      "upstream_path": "Definitions/Def_AlgebraicGeometry_TwoChartCech.lean",
+      "upstream_blob_sha": "519f4254f434b9387ff8941b5d2c8e28534938c8",
+      "upstream_bytes": 10200,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Definitions/Def_AlgebraicGeometry_TwoChartCech.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_ChowDatumProj_nonempty_of",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_ChowDatumProj_nonempty_of",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_ChowDatumProj_nonempty_of.lean",
+      "upstream_blob_sha": "8bb2b3de1d27ef3d4fe2f8a005dd857038922a41",
+      "upstream_bytes": 47336,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_ChowDatumProj_nonempty_of.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_ChowDatum_nonempty",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_ChowDatum_nonempty",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_ChowDatum_nonempty.lean",
+      "upstream_blob_sha": "d0b834de4434963d611df7384d7b077934d32b44",
+      "upstream_bytes": 38798,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_ChowDatum_nonempty.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom.lean",
+      "upstream_blob_sha": "b62a57508664474b9d1259d0fcd0a02dd1a0b68d",
+      "upstream_bytes": 11776,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug.lean",
+      "upstream_blob_sha": "e8b335fd30573cd6cf30cfded5679936abf506a0",
+      "upstream_bytes": 4150,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES.lean",
+      "upstream_blob_sha": "460dd7cb93f54eb03ef1a1f2edf352b5d0920f71",
+      "upstream_bytes": 13372,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean",
+      "upstream_blob_sha": "e2b6a60991066484bbeff2539c200374baa3b031",
+      "upstream_bytes": 13347,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean",
+      "upstream_blob_sha": "5337a4afac04cd3c98a72adc8fafbf2d26391c32",
+      "upstream_bytes": 15805,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean",
+      "upstream_blob_sha": "9dbbfbf196dea12e643119c186d46dc2ee9fdb1e",
+      "upstream_bytes": 12941,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv.lean",
+      "upstream_blob_sha": "8fe048a63b4c090f6ea976e88ebba4e417010f01",
+      "upstream_bytes": 10483,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv.lean",
+      "upstream_blob_sha": "4f11bbbc37b3a17547bd7538e0471c4c9953881b",
+      "upstream_bytes": 18220,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean",
+      "upstream_blob_sha": "ad1836790308c234474b00f7a83a20afb0b4bf89",
+      "upstream_bytes": 8857,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact.lean",
+      "upstream_blob_sha": "d9ca6902ee5d429d04f12e854f87044c86509b76",
+      "upstream_bytes": 10797,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean",
+      "upstream_blob_sha": "b11f6eeb75bbfeffcf1fae4d0c349a6bbbee5972",
+      "upstream_bytes": 6645,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean",
+      "upstream_blob_sha": "a4049f902a74da58a0628971ee722a6e38ebbabd",
+      "upstream_bytes": 4102,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left.lean",
+      "upstream_blob_sha": "42d4fe3dc3f9f30a368ba426e3b5c519ebbe025a",
+      "upstream_bytes": 4295,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid.lean",
+      "upstream_blob_sha": "90fab22ff553b636fff532b2665799b70b4b1c61",
+      "upstream_bytes": 5945,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right.lean",
+      "upstream_blob_sha": "38332ecfad093f42c4d976001447977c8a6892a4",
+      "upstream_bytes": 1170,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean",
+      "upstream_blob_sha": "b9ca07321029f60069458a78a60eb9a13df7d8f1",
+      "upstream_bytes": 7051,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral.lean",
+      "upstream_blob_sha": "e72f12f00b85d25a8264f86206cc8da4abfbed1e",
+      "upstream_bytes": 6608,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper.lean",
+      "upstream_blob_sha": "ddf5313cd6d1541f33210da5f1c884cea0bf3439",
+      "upstream_bytes": 5214,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih.lean",
+      "upstream_blob_sha": "e2ba29fe288acd93121ed55e77ce45431ce77d21",
+      "upstream_bytes": 6671,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff.lean",
+      "upstream_blob_sha": "bb44074fe831f7b2101d15a4222b36c3fd1f33f2",
+      "upstream_bytes": 4880,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean",
+      "upstream_blob_sha": "7bf59a4fbd0f35e01735cfe5545d94bb3582c0cb",
+      "upstream_bytes": 34830,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean",
+      "upstream_blob_sha": "1d3c3116820232926ddd603d21012458041f6c1a",
+      "upstream_bytes": 68573,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean",
+      "upstream_blob_sha": "12ed4f2345c29117f118b7de26b88240b709e2bf",
+      "upstream_bytes": 8232,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper.lean",
+      "upstream_blob_sha": "3102ea0682f6ac53e798a35301d49867d508b1ac",
+      "upstream_bytes": 6836,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_d_comp_d",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_d_comp_d",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_d_comp_d.lean",
+      "upstream_blob_sha": "edf372bcebc04316b3429f4296e7d6baa3e0665a",
+      "upstream_bytes": 4996,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_d_comp_d.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean",
+      "upstream_blob_sha": "5fb2373171012d7fb6080ad909973b31353ec1cf",
+      "upstream_bytes": 35467,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper.lean",
+      "upstream_blob_sha": "7bd706128d39ff9e1e9b2ff425804f3cd0e87737",
+      "upstream_bytes": 42499,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot.lean",
+      "upstream_blob_sha": "0d0f5b2264e6d6dab44c0684d90d7dbc2d91de05",
+      "upstream_bytes": 5434,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_hasDevissageStep",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_hasDevissageStep",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_hasDevissageStep.lean",
+      "upstream_blob_sha": "d64f018f66ff19a8ef11e89931dbac45fc2770f0",
+      "upstream_bytes": 43877,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_hasDevissageStep.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isCoherent_coker",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isCoherent_coker",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isCoherent_coker.lean",
+      "upstream_blob_sha": "766f59b692d1283fba898e1ba6c1fbd4d17d2b75",
+      "upstream_bytes": 2004,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isCoherent_coker.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot.lean",
+      "upstream_blob_sha": "5dd5fa129162a3c530cb9d32c47fbc24990faf13",
+      "upstream_bytes": 3028,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker.lean",
+      "upstream_blob_sha": "e8b84e00980de1fd9cc5f0f41370870b6caa1bcb",
+      "upstream_bytes": 2836,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot.lean",
+      "upstream_blob_sha": "2957d5a2afc51d476992c51c053b4dbaf807bfda",
+      "upstream_bytes": 8637,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot.lean",
+      "upstream_blob_sha": "ed2edd4659abff7f1450569f5cf22f42f6ab0c81",
+      "upstream_bytes": 2308,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_ProjSpace_isPullback_map",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_ProjSpace_isPullback_map",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_ProjSpace_isPullback_map.lean",
+      "upstream_blob_sha": "2a5873e10f0572572754f30e347157001ad85524",
+      "upstream_bytes": 25736,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_ProjSpace_isPullback_map.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X.lean",
+      "upstream_blob_sha": "ace108ec00b46413b0a5772f579c4cdac85687e5",
+      "upstream_bytes": 787,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective.lean",
+      "upstream_blob_sha": "94c366ddee5a29545e677b5a0eb93914f37536e7",
+      "upstream_bytes": 3471,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean",
+      "upstream_blob_sha": "7f51259dd215943ecae4c2b6db797f6d3b1ffe5a",
+      "upstream_bytes": 35017,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean",
+      "upstream_blob_sha": "407b2760b83aceebb2563d3e01fcc5105127d81f",
+      "upstream_bytes": 12308,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal.lean",
+      "upstream_blob_sha": "e5e010b53afa631610820e20c6a43043634b7c1a",
+      "upstream_bytes": 3194,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper.lean",
+      "upstream_blob_sha": "90ea4f015b9ad2715851461c1f9bb8055e9fb385",
+      "upstream_bytes": 30190,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing.lean",
+      "upstream_blob_sha": "ac03f9c78e5ba93f99a72daaa1c8d247a3e29d6f",
+      "upstream_bytes": 12142,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_geometricallyConnected_of_isProper_of_bijective_appTop",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_geometricallyConnected_of_isProper_of_bijective_appTop",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_geometricallyConnected_of_isProper_of_bijective_appTop.lean",
+      "upstream_blob_sha": "e74a6fe9562bf244f72dab2c45a2b373b1ae4640",
+      "upstream_bytes": 45672,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_geometricallyConnected_of_isProper_of_bijective_appTop.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop.lean",
+      "upstream_blob_sha": "8f7823b985d22c7a22131c4113cdb6f2f9c9068a",
+      "upstream_bytes": 15326,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat",
+      "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat.lean",
+      "upstream_blob_sha": "60280a2441d46929564cc3a16a46d068c8d7f8c3",
+      "upstream_bytes": 25329,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_DoubleComplex_Convergence_finite_E2_q0",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_DoubleComplex_Convergence_finite_E2_q0",
+      "upstream_path": "P2M/Sol/S_DoubleComplex_Convergence_finite_E2_q0.lean",
+      "upstream_blob_sha": "3485f752e1f298a7d06af3edc3710ce42d9161ea",
+      "upstream_bytes": 4366,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_DoubleComplex_Convergence_finite_E2_q0.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_DoubleComplex_boundedSpectralSequence",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_DoubleComplex_boundedSpectralSequence",
+      "upstream_path": "P2M/Sol/S_DoubleComplex_boundedSpectralSequence.lean",
+      "upstream_blob_sha": "ae48b6a4c080fa66341b0fe9afcea87ae0317ced",
+      "upstream_bytes": 38672,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_DoubleComplex_boundedSpectralSequence.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_Module_Finite_of_ker_le_range_of_isNoetherianRing",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_Module_Finite_of_ker_le_range_of_isNoetherianRing",
+      "upstream_path": "P2M/Sol/S_Module_Finite_of_ker_le_range_of_isNoetherianRing.lean",
+      "upstream_blob_sha": "c2fb2ab93a80817d9c4dac4749a9791f9aa58532",
+      "upstream_bytes": 1204,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_Module_Finite_of_ker_le_range_of_isNoetherianRing.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean",
+      "upstream_blob_sha": "e529a83af51840c4888514eeb89c0df2aed0ff4b",
+      "upstream_bytes": 13024,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_Presentation_ker_isFG",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_Presentation_ker_isFG",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean",
+      "upstream_blob_sha": "aec0c3bc35be0231daa6a1ebb3f7457ded558a21",
+      "upstream_bytes": 16059,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_d_sq",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_d_sq",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_d_sq.lean",
+      "upstream_blob_sha": "ec5e8d2b1360cfcbbb9b450ba2cc010afe9cabe2",
+      "upstream_bytes": 5119,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_d_sq.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_finite_cohomology_FD",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_finite_cohomology_FD",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_finite_cohomology_FD.lean",
+      "upstream_blob_sha": "40b74e70738a66e84e075be2a30eb1aaed607604",
+      "upstream_bytes": 1002,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_finite_cohomology_FD.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean",
+      "upstream_blob_sha": "f1efbba83b537f6dd2b50dbe687d91604b09a18f",
+      "upstream_bytes": 2467,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD.lean",
+      "upstream_blob_sha": "9a92eaf029d274e5679ab48b4a900c6d85059d17",
+      "upstream_bytes": 1272,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean",
+      "upstream_blob_sha": "69abb65e6ab1a889328b148111703b3b536d7a3d",
+      "upstream_bytes": 20430,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean",
+      "upstream_blob_sha": "46be5190bbe532e6dbd9cf3430b2a70a6cb95eb7",
+      "upstream_bytes": 18038,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_Twist_d_sq",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_Twist_d_sq",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_Twist_d_sq.lean",
+      "upstream_blob_sha": "d23a13a26f1bca69743b6314580fb43457294773",
+      "upstream_bytes": 4671,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_Twist_d_sq.lean"
+    },
+    {
+      "upstream_module": "P2M.Sol.S_ProjSpaceCech_Twist_finite_cohomology",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Sol.S_ProjSpaceCech_Twist_finite_cohomology",
+      "upstream_path": "P2M/Sol/S_ProjSpaceCech_Twist_finite_cohomology.lean",
+      "upstream_blob_sha": "b613c7f93f49a22c6692353bc96bf8c41c977db9",
+      "upstream_bytes": 44005,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Sol/S_ProjSpaceCech_Twist_finite_cohomology.lean"
+    },
+    {
+      "upstream_module": "P2M.Util",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util",
+      "upstream_path": "P2M/Util.lean",
+      "upstream_blob_sha": "0a73367f78bc165bb5d35e42ca14f5055252e7f6",
+      "upstream_bytes": 5737,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/P2M/Util.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_ChowDatumProj_nonempty_of",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_ChowDatumProj_nonempty_of",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_ChowDatumProj_nonempty_of.lean",
+      "upstream_blob_sha": "8bbe90f341906428ff5bd9f9de4dcf9a3d4b9bad",
+      "upstream_bytes": 511,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_ChowDatumProj_nonempty_of.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_ChowDatum_nonempty",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_ChowDatum_nonempty",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_ChowDatum_nonempty.lean",
+      "upstream_blob_sha": "ec031348b3d369069f2f40cac332f59681bfd960",
+      "upstream_bytes": 508,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_ChowDatum_nonempty.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom.lean",
+      "upstream_blob_sha": "f077f7371b1e3b86b0b124fbeac3592e35014bb7",
+      "upstream_bytes": 1061,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug.lean",
+      "upstream_blob_sha": "243b9d32732b3f1b8ef7fc8b795c9607a6c6d4b6",
+      "upstream_bytes": 807,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES.lean",
+      "upstream_blob_sha": "ca4afefbbaf8c7eaa6a53d7d2bd08e5a21510eb2",
+      "upstream_bytes": 3176,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean",
+      "upstream_blob_sha": "7d626b0575c3d8ee60c8891d850bd5e13631c7ee",
+      "upstream_bytes": 938,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean",
+      "upstream_blob_sha": "5173bed842c70e274eb8d1d09def6656936ff9bf",
+      "upstream_bytes": 2343,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean",
+      "upstream_blob_sha": "a58a1647dd009e202b00f9b1d6587603abacca44",
+      "upstream_bytes": 776,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv.lean",
+      "upstream_blob_sha": "8ebc93da1b78f19b56bb0bde1cc087a9814eccdb",
+      "upstream_bytes": 951,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv.lean",
+      "upstream_blob_sha": "ab06b2360bc01569eb8de932dbda3e6913bdb603",
+      "upstream_bytes": 963,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean",
+      "upstream_blob_sha": "863a70142b104b1b6b5d6d489bf9dfc386ec8084",
+      "upstream_bytes": 1007,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact.lean",
+      "upstream_blob_sha": "7641123c7b3eb7ddcf70bad40af269b6e56c7f45",
+      "upstream_bytes": 1052,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean",
+      "upstream_blob_sha": "62d5454196660d16fed7cb7128500b8a97b3a503",
+      "upstream_bytes": 1272,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean",
+      "upstream_blob_sha": "dc0272ca0278ef110c67310cb80d6b79faa24db3",
+      "upstream_bytes": 817,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left.lean",
+      "upstream_blob_sha": "b21b8080552c1dd50c543b356236c5f308529429",
+      "upstream_bytes": 753,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid.lean",
+      "upstream_blob_sha": "bc27ed6744c24480b388456b979b2cc3edd983ed",
+      "upstream_bytes": 750,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right.lean",
+      "upstream_blob_sha": "37442d32c181c9cabcf21a72ca17fcc637298ca1",
+      "upstream_bytes": 756,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_right.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean",
+      "upstream_blob_sha": "4f4257b72218bd45c5349d3a32c56d8a973fd53e",
+      "upstream_bytes": 996,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral.lean",
+      "upstream_blob_sha": "f8cb94104e4b22152e2aecce3fd0855f6f0acab7",
+      "upstream_bytes": 1245,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper.lean",
+      "upstream_blob_sha": "18324b6b69b143f0f71df2fc06e233c99e6dc125",
+      "upstream_bytes": 5384,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih.lean",
+      "upstream_blob_sha": "9af60c7245fe4cedc65ff142813059b4ab6ca85c",
+      "upstream_bytes": 1184,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff.lean",
+      "upstream_blob_sha": "f55e3aa0b25dacb3b77bcffd6437a4173fab3bcd",
+      "upstream_bytes": 761,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean",
+      "upstream_blob_sha": "a877068833fbaf8f32a29b89a715969a2039c491",
+      "upstream_bytes": 1465,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean",
+      "upstream_blob_sha": "10319b45de02589e185ce32326aee282beca9d38",
+      "upstream_bytes": 2024,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean",
+      "upstream_blob_sha": "2b5c1844dba1a7e82bed5610e5aa3d30507cbc7c",
+      "upstream_bytes": 5561,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper.lean",
+      "upstream_blob_sha": "c428c9cb03ad16e1fc2273124940b1a4380483b4",
+      "upstream_bytes": 5349,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isProper.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_d_comp_d",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_d_comp_d",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_d_comp_d.lean",
+      "upstream_blob_sha": "6a0ee6b9ff965d4b9548982d25df07288eec93d3",
+      "upstream_bytes": 532,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_d_comp_d.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean",
+      "upstream_blob_sha": "26a65e67be6b9de45001194d392e5c60deca1391",
+      "upstream_bytes": 1879,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper.lean",
+      "upstream_blob_sha": "cfd0397e1a742411a5cdf0c609a5aa3b8fdd5102",
+      "upstream_bytes": 5903,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_exists_d_eq_d_of_forall_d_mem_pow_of_isProper.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot.lean",
+      "upstream_blob_sha": "c8602d2523d9d58d07088fed113a0aa4dcb5f83a",
+      "upstream_bytes": 869,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_hasDevissageStep",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_hasDevissageStep",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_hasDevissageStep.lean",
+      "upstream_blob_sha": "153992781b7ed5454aaa3756be96e3825292cd6d",
+      "upstream_bytes": 536,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_hasDevissageStep.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_coker",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_coker",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_coker.lean",
+      "upstream_blob_sha": "d79b80b9140e1caf94f03877076b7a2b1f955485",
+      "upstream_bytes": 684,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_coker.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot.lean",
+      "upstream_blob_sha": "e48aa2714fad1cbb55bca4f6cd00987d727e6674",
+      "upstream_bytes": 745,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isCoherent_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker.lean",
+      "upstream_blob_sha": "daec37617255a774f80da2861fd78b84fad286c5",
+      "upstream_bytes": 734,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot.lean",
+      "upstream_blob_sha": "16ffc74b194b21c0542f3ca4edb2e4a9c8461030",
+      "upstream_bytes": 746,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot.lean",
+      "upstream_blob_sha": "2b31890590bae4ffce027fad43f4fb12e4891e03",
+      "upstream_bytes": 763,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_OModulePresheaf_supportedIn_idealPowQuot.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_ProjSpace_isPullback_map",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_ProjSpace_isPullback_map",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_ProjSpace_isPullback_map.lean",
+      "upstream_blob_sha": "07dfca36c6435dc0c7d61f88e01687b41d07ff3e",
+      "upstream_bytes": 573,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_ProjSpace_isPullback_map.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X.lean",
+      "upstream_blob_sha": "6f51109019a60e3cd630418dedc3ad6069280c89",
+      "upstream_bytes": 709,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_ProjSpace_map_preimage_basicOpen_X.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective.lean",
+      "upstream_blob_sha": "c3720c74332a3ea5cf401727e80a7e9d4f6d7691",
+      "upstream_bytes": 623,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean",
+      "upstream_blob_sha": "cbabfbdb0d481438312014a3ede5d397888c7f0d",
+      "upstream_bytes": 878,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean",
+      "upstream_blob_sha": "4f4b855a2a5ec199e875a509a7c23556d2314ef0",
+      "upstream_bytes": 779,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal.lean",
+      "upstream_blob_sha": "de242fa47e2db15511cf914d34e51f2864636d87",
+      "upstream_bytes": 555,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper.lean",
+      "upstream_blob_sha": "65af692ff7a6ca0f54425de26c7bb9b22b6ba969",
+      "upstream_bytes": 8205,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_exists_appTop_pullback_map_eq_appTop_pullback_fst_of_isProper.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing.lean",
+      "upstream_blob_sha": "6d7e01881a86f8273f6dc2bdd1f4c7217f3a4eb1",
+      "upstream_bytes": 7410,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_finite_appTop_of_isProper_of_isNoetherianRing.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop.lean",
+      "upstream_blob_sha": "ef9db6ecad930455376b059279dce94b1520e31c",
+      "upstream_bytes": 7565,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_isPreconnected_preimage_closedPoint_of_isProper_of_bijective_appTop.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat",
+      "upstream_path": "Theorems/Thm_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat.lean",
+      "upstream_blob_sha": "9b3ab48de94da0e21a10eb47141327a7d7f0f326",
+      "upstream_bytes": 1060,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicGeometry_isPushout_appTop_pullback_fst_appTop_pullback_snd_of_flat.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_DoubleComplex_Convergence_finite_E2_q0",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_DoubleComplex_Convergence_finite_E2_q0",
+      "upstream_path": "Theorems/Thm_DoubleComplex_Convergence_finite_E2_q0.lean",
+      "upstream_blob_sha": "c6bab3ae614847b33039f5bbf6b426349d4d3249",
+      "upstream_bytes": 764,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_DoubleComplex_Convergence_finite_E2_q0.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_DoubleComplex_boundedSpectralSequence",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_DoubleComplex_boundedSpectralSequence",
+      "upstream_path": "Theorems/Thm_DoubleComplex_boundedSpectralSequence.lean",
+      "upstream_blob_sha": "398bfef9284ba98e087795f516691bcba792de86",
+      "upstream_bytes": 363,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_DoubleComplex_boundedSpectralSequence.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_Module_Finite_of_ker_le_range_of_isNoetherianRing",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_Module_Finite_of_ker_le_range_of_isNoetherianRing",
+      "upstream_path": "Theorems/Thm_Module_Finite_of_ker_le_range_of_isNoetherianRing.lean",
+      "upstream_blob_sha": "8e30526d63ea6f4f5c97e6a744b07ceef89fa8f4",
+      "upstream_bytes": 615,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_Module_Finite_of_ker_le_range_of_isNoetherianRing.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean",
+      "upstream_blob_sha": "07020afc12fc661b6dbff5507020e17496d6ce58",
+      "upstream_bytes": 793,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_Presentation_ker_isFG",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_Presentation_ker_isFG",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean",
+      "upstream_blob_sha": "1f7a5458dc81219869f3d1eac28ad7d1b90867dc",
+      "upstream_bytes": 612,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_d_sq",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_d_sq",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_d_sq.lean",
+      "upstream_blob_sha": "f349de80c434eda0233054c5be731d0faf0cf373",
+      "upstream_bytes": 545,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_d_sq.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_finite_cohomology_FD",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_finite_cohomology_FD",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_finite_cohomology_FD.lean",
+      "upstream_blob_sha": "22e5d296cb3bd8ef9a787697c55f662a6a4380ce",
+      "upstream_bytes": 576,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_finite_cohomology_FD.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean",
+      "upstream_blob_sha": "a388e8b5a0de0f8a50711020a74f5575bb1a26c4",
+      "upstream_bytes": 638,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD.lean",
+      "upstream_blob_sha": "4fcbc613b9ccde3a115c81d15eb027b98260cc21",
+      "upstream_bytes": 662,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_finite_cohomology_pi_FD.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean",
+      "upstream_blob_sha": "a33d2feaedb05d3d39609db87446d3786155fbc7",
+      "upstream_bytes": 606,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean",
+      "upstream_blob_sha": "15672549fc556dbb7c7b559aae4458cd491f7276",
+      "upstream_bytes": 668,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_Twist_d_sq",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_Twist_d_sq",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_Twist_d_sq.lean",
+      "upstream_blob_sha": "9aebddf1f8797d45a33869ee6044c8032cce6742",
+      "upstream_bytes": 424,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_Twist_d_sq.lean"
+    },
+    {
+      "upstream_module": "Theorems.Thm_ProjSpaceCech_Twist_finite_cohomology",
+      "local_module": "ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Theorems.Thm_ProjSpaceCech_Twist_finite_cohomology",
+      "upstream_path": "Theorems/Thm_ProjSpaceCech_Twist_finite_cohomology.lean",
+      "upstream_blob_sha": "195e0cafe39f4c9330b43672e030fb7ff6b8f647",
+      "upstream_bytes": 434,
+      "url": "https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_ProjSpaceCech_Twist_finite_cohomology.lean"
+    }
+  ]
+}

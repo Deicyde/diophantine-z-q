@@ -1,0 +1,583 @@
+{
+  "repository": "https://github.com/AxiomMath/Stacks",
+  "revision": "c496df0d9beea9deaeabcea8492605f9a0a2313b",
+  "license": "Apache-2.0",
+  "mathlib_revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "lean_toolchain": "leanprover/lean4:v4.35.0",
+  "tops": [
+    "StacksFrontier.AlgebraicGeometry.ProperLimitStage.Basic",
+    "StacksFrontier.AlgebraicGeometry.Limits.ChowLemmaNoetherian0200",
+    "StacksFrontier.AlgebraicGeometry.SegreProdIso.Main",
+    "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Diagonal"
+  ],
+  "files": [
+    {
+      "module": "StacksCore.RingTheory.Spectrum.Prime.Topology",
+      "source_path": "StacksCore/RingTheory/Spectrum/Prime/Topology.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksCore/RingTheory/Spectrum/Prime/Topology.lean",
+      "source_sha256": "502bbade9bbc181fccdc46fa2d2def2ff8370114c94d67d3fee42635b41b3c07",
+      "source_bytes": 7645,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksCore/RingTheory/Spectrum/Prime/Topology.lean"
+    },
+    {
+      "module": "StacksFrontier.Algebra.Category.ModuleCat.Presheaf.Tensor",
+      "source_path": "StacksFrontier/Algebra/Category/ModuleCat/Presheaf/Tensor.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/Algebra/Category/ModuleCat/Presheaf/Tensor.lean",
+      "source_sha256": "30b81f90a656c51c8bae024d2630f806b53f7de711ea4edfc87fc82797f5e4d6",
+      "source_bytes": 19061,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/Algebra/Category/ModuleCat/Presheaf/Tensor.lean"
+    },
+    {
+      "module": "StacksFrontier.Algebra.Category.ModuleCat.Sheaf.Algebras",
+      "source_path": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/Algebras.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/Algebras.lean",
+      "source_sha256": "b91ac2859eb01e113b6986150293509b348767a0f44a26a6bf85877d10568b6e",
+      "source_bytes": 26436,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/Algebras.lean"
+    },
+    {
+      "module": "StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor",
+      "source_path": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/SheafificationTensor.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/SheafificationTensor.lean",
+      "source_sha256": "9ca003f8bf04bf2fb10cb0048151c306d0bdbbbcd3eb98532449f92b76f9b53e",
+      "source_bytes": 58628,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/SheafificationTensor.lean"
+    },
+    {
+      "module": "StacksFrontier.Algebra.Category.ModuleCat.Sheaf.TensorSheafificationComparison",
+      "source_path": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/TensorSheafificationComparison.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/TensorSheafificationComparison.lean",
+      "source_sha256": "d971d469b67c75a7a538336f49ad8ab86063f91fe154fc19977ad10591e84d27",
+      "source_bytes": 36283,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/TensorSheafificationComparison.lean"
+    },
+    {
+      "module": "StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget",
+      "source_path": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean",
+      "source_sha256": "f29d8b35d77bbb22f9add9b88fa190471911f75c941496f49d6c8f7ceec9c47c",
+      "source_bytes": 8509,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ChowNoetherian.DenseAffineCover",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ChowNoetherian/DenseAffineCover.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ChowNoetherian/DenseAffineCover.lean",
+      "source_sha256": "174b59e7b77271a763a83a997d75216ae12077cd13e84cc77b755fd2088e622c",
+      "source_bytes": 7132,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ChowNoetherian/DenseAffineCover.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ChowNoetherian.Dominance",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ChowNoetherian/Dominance.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ChowNoetherian/Dominance.lean",
+      "source_sha256": "70b38a11201dc88d786a4d788677a9bd11de8c0dc05ab1156c027cbf01c0cf57",
+      "source_bytes": 7559,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ChowNoetherian/Dominance.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ChowNoetherian.Gluing",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ChowNoetherian/Gluing.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ChowNoetherian/Gluing.lean",
+      "source_sha256": "bb694cc27d65a043ed7d4b12aa38bae111a176c423e03ed0497b354c05be49c5",
+      "source_bytes": 11350,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ChowNoetherian/Gluing.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ChowNoetherian.RelativeProduct",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ChowNoetherian/RelativeProduct.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ChowNoetherian/RelativeProduct.lean",
+      "source_sha256": "c7816c0b6097d9677133b92ea10c61d8a24bd23c5f3fa7169fe0cba83c3ca0a2",
+      "source_bytes": 8910,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ChowNoetherian/RelativeProduct.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Constructions.ProjBasicOpen",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Constructions/ProjBasicOpen.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Constructions/ProjBasicOpen.lean",
+      "source_sha256": "2a7a6672142a5de42a4ba89d5944e7a6c5b7f6b4b5021881014fb1d73c0a4ee2",
+      "source_bytes": 22085,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Constructions/ProjBasicOpen.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Constructions.ProjLocalizedRingMap",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Constructions/ProjLocalizedRingMap.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Constructions/ProjLocalizedRingMap.lean",
+      "source_sha256": "a3b3c100632e5f2928a887fb9031240bdc3a6eb6c50847aa5a1d49b51dcb74a9",
+      "source_bytes": 23561,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Constructions/ProjLocalizedRingMap.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Constructions.ProjModuleRestriction",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Constructions/ProjModuleRestriction.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Constructions/ProjModuleRestriction.lean",
+      "source_sha256": "8adbe59f8b51d4d30b2cfa99fd9270d2850af808712e18d7586fa52055594440",
+      "source_bytes": 30069,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Constructions/ProjModuleRestriction.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Constructions.ProjStructureSheaf",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Constructions/ProjStructureSheaf.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Constructions/ProjStructureSheaf.lean",
+      "source_sha256": "5a7d4d8122819afb3d6194558990aaf2e9e313383e179c91cc6588d504acd2cd",
+      "source_bytes": 52308,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Constructions/ProjStructureSheaf.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Constructions.ProjTwist",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Constructions/ProjTwist.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Constructions/ProjTwist.lean",
+      "source_sha256": "dc92da1dda5606e989a2de36a72545fa7a18f663f6705705d2bf566da272561d",
+      "source_bytes": 9249,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Constructions/ProjTwist.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Constructions.ProjectiveSpace",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Constructions/ProjectiveSpace.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Constructions/ProjectiveSpace.lean",
+      "source_sha256": "9262096bbba2a85d4585ebd2604132caead28fa325a1bba97b9657cc2e5d903f",
+      "source_bytes": 8891,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Constructions/ProjectiveSpace.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitMorphismAt.Dominant",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitMorphismAt/Dominant.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitMorphismAt/Dominant.lean",
+      "source_sha256": "e273d1e92428816b2291cbee0e08152f62e78387cfe224675d77379eee61db06",
+      "source_bytes": 7924,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/LimitMorphismAt/Dominant.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.AffineIntoProjective",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/AffineIntoProjective.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/AffineIntoProjective.lean",
+      "source_sha256": "1ae5ffdc9d1ba4e7bef2e27d7955174d7b7016847b1457dfcbeb8f4e329f0d82",
+      "source_bytes": 17060,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Limits/AffineIntoProjective.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.ChowLemma",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/ChowLemma.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/ChowLemma.lean",
+      "source_sha256": "f63acfd580feb0e98683447577f6e8ce072e198b32b4eb90326816cf3fa9dcaf",
+      "source_bytes": 10718,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Limits/ChowLemma.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.ChowLemmaNoetherian0200",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/ChowLemmaNoetherian0200.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/ChowLemmaNoetherian0200.lean",
+      "source_sha256": "12482a0f5c7f34eeac0d85a15523768b65419e7bad30deda771a5f6a2613f6fb",
+      "source_bytes": 34312,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Limits/ChowLemmaNoetherian0200.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Diagonal",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Diagonal.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Diagonal.lean",
+      "source_sha256": "6e8da19d0f0200a8570b4a857c6e95c0a71a2dcb13e6ee050d8878aa8cfff5c9",
+      "source_bytes": 7454,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Diagonal.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.ProjectiveSpace",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/ProjectiveSpace.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/ProjectiveSpace.lean",
+      "source_sha256": "75b68899d9ef8c885b046e7a9025cc1ff20b292e9b2d120523e5b9512b72f7cf",
+      "source_bytes": 8286,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Limits/ProjectiveSpace.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Morphisms.Closure.ImmersionImage",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Morphisms/Closure/ImmersionImage.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Morphisms/Closure/ImmersionImage.lean",
+      "source_sha256": "b58036e0d7ecfb47f18d9dffd36abeb2bc5ae0c2790ff07f9f8b0f38d82610f8",
+      "source_bytes": 6995,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Morphisms/Closure/ImmersionImage.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Morphisms.Closure.SchemeTheoreticallyDense",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Morphisms/Closure/SchemeTheoreticallyDense.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Morphisms/Closure/SchemeTheoreticallyDense.lean",
+      "source_sha256": "d4ce60df0c703836bad2974b3ee4528c019bc7eb2b72c803bf7276f108aa3827",
+      "source_bytes": 8478,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Morphisms/Closure/SchemeTheoreticallyDense.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Morphisms.PseudoCoherentFrom",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Morphisms/PseudoCoherentFrom.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Morphisms/PseudoCoherentFrom.lean",
+      "source_sha256": "c4fb6736691592927b9a3c1f99d3cdf0dc6a3e3fb2f1b2e13ace917cb73b72a5",
+      "source_bytes": 6452,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Morphisms/PseudoCoherentFrom.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjMapData.Basic",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjMapData/Basic.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjMapData/Basic.lean",
+      "source_sha256": "3ed7f037226eaa33fd8c572785308d038070ef0801ac0e8fc26e554921d9779a",
+      "source_bytes": 13295,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjMapData/Basic.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjShared.MapDomain",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjShared/MapDomain.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjShared/MapDomain.lean",
+      "source_sha256": "210ec0024fa8b9ff1c076c527d1e6670e9992823e81c67ff68b9e9e94cf47d4f",
+      "source_bytes": 12622,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjShared/MapDomain.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjShared.RelevantCover",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjShared/RelevantCover.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjShared/RelevantCover.lean",
+      "source_sha256": "ab304593b3721832bd318d7d22b7b6aadd0481872268c3320ff6d0de6638f55b",
+      "source_bytes": 7560,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjShared/RelevantCover.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjTwistChain.MY",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjTwistChain/MY.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjTwistChain/MY.lean",
+      "source_sha256": "9a72e797093b04f864cf41743e3f11fdb7f93b162f73c7e9ccf627936acadbfd",
+      "source_bytes": 20550,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjTwistChain/MY.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjTwistCompare.BaseMap",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjTwistCompare/BaseMap.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjTwistCompare/BaseMap.lean",
+      "source_sha256": "3caf93b9cb07203e57661885df31a81556d4fca321ed3114f9d4263a8130379d",
+      "source_bytes": 14808,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjTwistCompare/BaseMap.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjTwistCompare.SectionValue",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjTwistCompare/SectionValue.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjTwistCompare/SectionValue.lean",
+      "source_sha256": "f647c42357cc24d35f46bf2f8f3d6980338d07a8c5e72105c693132b3d2a088e",
+      "source_bytes": 11520,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjTwistCompare/SectionValue.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjTwistCompare.Twist",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjTwistCompare/Twist.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjTwistCompare/Twist.lean",
+      "source_sha256": "e92450e3d391c6e3128520386e2cd2e662319696b0b8412e8abd290f0ddb6a4a",
+      "source_bytes": 21558,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjTwistCompare/Twist.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProjectiveSpectrum.Topology",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProjectiveSpectrum/Topology.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProjectiveSpectrum/Topology.lean",
+      "source_sha256": "1da1692c3f75de537ae738ef1a3251a0111c513d8ae590e9ee58fd564583deb7",
+      "source_bytes": 15569,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProjectiveSpectrum/Topology.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.ProperLimitStage.Basic",
+      "source_path": "StacksFrontier/AlgebraicGeometry/ProperLimitStage/Basic.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/ProperLimitStage/Basic.lean",
+      "source_sha256": "bfb5397180a89cc0d6fb064f5cb3bbcf577bda69c0a2c6f1a89116919c5cabe3",
+      "source_bytes": 11909,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/ProperLimitStage/Basic.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Properties.GenericPoints",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Properties/GenericPoints.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Properties/GenericPoints.lean",
+      "source_sha256": "867c7578c812b31cc3dcb3071b74e7832341194a1c7616748c6d5f2fe2321474",
+      "source_bytes": 10393,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Properties/GenericPoints.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.RelativeProj.Basic",
+      "source_path": "StacksFrontier/AlgebraicGeometry/RelativeProj/Basic.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/RelativeProj/Basic.lean",
+      "source_sha256": "06b2f3996ec41727d64737cdfa2b9381a483da7f06c3136cad074a590a9708d4",
+      "source_bytes": 13108,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/RelativeProj/Basic.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.RelativeProj.Local",
+      "source_path": "StacksFrontier/AlgebraicGeometry/RelativeProj/Local.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/RelativeProj/Local.lean",
+      "source_sha256": "ee75b00ed0869327d41d3b3968c045f9f7c9211dd2d782644de35f6966caad70",
+      "source_bytes": 18948,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/RelativeProj/Local.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.RelativeProjChain.EventualSurjective",
+      "source_path": "StacksFrontier/AlgebraicGeometry/RelativeProjChain/EventualSurjective.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/RelativeProjChain/EventualSurjective.lean",
+      "source_sha256": "0df2a970fe887e046d86e8337ec2e2cb0f6055031045689b1877f690bc90579a",
+      "source_bytes": 13563,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/RelativeProjChain/EventualSurjective.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SchemeTheoreticImage.Reduced",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SchemeTheoreticImage/Reduced.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SchemeTheoreticImage/Reduced.lean",
+      "source_sha256": "9913ec37264a0ca146515e3214c4c0d4b47613bb8029e5ca390a2735ffb30963",
+      "source_bytes": 2847,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SchemeTheoreticImage/Reduced.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Segre.Basic",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Segre/Basic.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Segre/Basic.lean",
+      "source_sha256": "b7842d216ac24d428374292fe4c1cc3795de852d8e8f0b2a5323a864dd8028e6",
+      "source_bytes": 20622,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/Segre/Basic.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreChartProduct.Covers",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreChartProduct/Covers.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreChartProduct/Covers.lean",
+      "source_sha256": "3bd7a7e0c4ba80dbddc2ee4c78d91bd1441a5608bf42683cd9e1cbd075accbb1",
+      "source_bytes": 11795,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreChartProduct/Covers.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreChartProduct.Prod",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreChartProduct/Prod.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreChartProduct/Prod.lean",
+      "source_sha256": "af8db165ece494f864bbd30f3f6953cd77d20ee934250a0e47da7707469109ff",
+      "source_bytes": 9982,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreChartProduct/Prod.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreChartProduct.Ring",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreChartProduct/Ring.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreChartProduct/Ring.lean",
+      "source_sha256": "429cbe09d27d9de0aaed98b8c67feb7dfd16733fc0c4e326bb33b948e0f83d3b",
+      "source_bytes": 18346,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreChartProduct/Ring.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreChartProduct.TargetCover",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreChartProduct/TargetCover.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreChartProduct/TargetCover.lean",
+      "source_sha256": "5564c8c1bdff65299296620f539f6c03dfd425af1bf6b2f4568dbc68b01221fd",
+      "source_bytes": 5874,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreChartProduct/TargetCover.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.PolyChart",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/PolyChart.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/PolyChart.lean",
+      "source_sha256": "b6c9bf9faa7e230394246d16af4b9abb78dc042f7d304e6c0629384fd93a9b7e",
+      "source_bytes": 18014,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/PolyChart.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.ProjPoly",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/ProjPoly.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/ProjPoly.lean",
+      "source_sha256": "586693fc461659ba0e2e1ce559d5011f0302b4cbc1d8423d97a618f2fa0ecac4",
+      "source_bytes": 16349,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/ProjPoly.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.Reduction",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/Reduction.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/Reduction.lean",
+      "source_sha256": "0820e3e0e0e215e46b8827c796b82f64e783bfccad49965b323c4bc1cd15af27",
+      "source_bytes": 12634,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/Reduction.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.SegreChartRing",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreChartRing.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreChartRing.lean",
+      "source_sha256": "d9fcf9437ccd1a4b3c06d0b10c639b3c9e6533acf02534f5a5ea4f1f2ed73401",
+      "source_bytes": 27684,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreChartRing.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.SegreCharts",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreCharts.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreCharts.lean",
+      "source_sha256": "72d9608b919256d7ba13eb5ca1b51cc7947d2e485c4a1537b58219b53ec3a89d",
+      "source_bytes": 12168,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreCharts.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.SegreClosedImmersion",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreClosedImmersion.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreClosedImmersion.lean",
+      "source_sha256": "facec689dcba551d930a7101a3443103570a6dadf7dab584a8254dab10c20c99",
+      "source_bytes": 10752,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreClosedImmersion.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.SegrePresentation",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegrePresentation.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegrePresentation.lean",
+      "source_sha256": "aa9e51a1ba479672798e10385ab55038419a1d23609175da2714ca06ab0fa2e8",
+      "source_bytes": 13090,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegrePresentation.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.SegreRing",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreRing.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreRing.lean",
+      "source_sha256": "168e4f93ac1cf86f7fe5ccd997fbe28b05d4510dedbf60916eaa4a2b3f11e652",
+      "source_bytes": 9841,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/SegreRing.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreEmbedding.TerminalPullback",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreEmbedding/TerminalPullback.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreEmbedding/TerminalPullback.lean",
+      "source_sha256": "3651f179981c8ba218647753cbc31e69f575621280e898ed779fa56dda4ce6cc",
+      "source_bytes": 17955,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreEmbedding/TerminalPullback.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreGlue.Glue",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreGlue/Glue.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreGlue/Glue.lean",
+      "source_sha256": "5a3f47546e48764c7fcba470df1071fafe221ceb8eaf4bfdb6e5f079d102cc5a",
+      "source_bytes": 21988,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreGlue/Glue.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreGlue.Minor",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreGlue/Minor.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreGlue/Minor.lean",
+      "source_sha256": "7bf78168f8f5d7583a8ffa30fb7bec35e0dde79a451e1fff0458492ebc4b24c7",
+      "source_bytes": 10249,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreGlue/Minor.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreGlue.Overlap",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreGlue/Overlap.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreGlue/Overlap.lean",
+      "source_sha256": "8101e7e3f1495f15fe832d611a950f706808f0f73ebcb61274bb65a87661bc32",
+      "source_bytes": 6418,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreGlue/Overlap.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreGlue.Product",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreGlue/Product.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreGlue/Product.lean",
+      "source_sha256": "fead2a450f4490099a92431e4ef8d38ebf1c38e18856f4eeaa2279b7c0a7f806",
+      "source_bytes": 5193,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreGlue/Product.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreProdIso.AwayGeom",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreProdIso/AwayGeom.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreProdIso/AwayGeom.lean",
+      "source_sha256": "970360936b1d11b0c2d6dd00779241c62a595ef63142d787083cc6a9968a1439",
+      "source_bytes": 4623,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreProdIso/AwayGeom.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreProdIso.ChartPullback",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreProdIso/ChartPullback.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreProdIso/ChartPullback.lean",
+      "source_sha256": "88640d5071427f3616d872a2009e56d68c54a595d139d60bd6b5c747bb8cac71",
+      "source_bytes": 15193,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreProdIso/ChartPullback.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreProdIso.Main",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreProdIso/Main.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreProdIso/Main.lean",
+      "source_sha256": "825c1803f272c050748f52405f90bc9cb04ac5c7d6941cd6e0ea2b4059fd1e92",
+      "source_bytes": 18807,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreProdIso/Main.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreProjection.Handover",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreProjection/Handover.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreProjection/Handover.lean",
+      "source_sha256": "8d06c93d677ce5e00f7b9d2f7461bcdba7e64ca8e76c101ebd21480d3e35b1ef",
+      "source_bytes": 5674,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreProjection/Handover.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreProjection.Projections",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreProjection/Projections.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreProjection/Projections.lean",
+      "source_sha256": "4e110af48e5b219ac0a446f786b9de4b6ff0ba73c79de247ad3cee87c1f56d55",
+      "source_bytes": 5098,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreProjection/Projections.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.SegreProjection.Substitution",
+      "source_path": "StacksFrontier/AlgebraicGeometry/SegreProjection/Substitution.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/SegreProjection/Substitution.lean",
+      "source_sha256": "077497f51369030e73baedde7def68dc25375f2bca07f2c384cbd05996778a5a",
+      "source_bytes": 16770,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/AlgebraicGeometry/SegreProjection/Substitution.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.GradedAlgebra.Proj.Defs",
+      "source_path": "StacksFrontier/RingTheory/GradedAlgebra/Proj/Defs.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/GradedAlgebra/Proj/Defs.lean",
+      "source_sha256": "5974418e53a86b34ac47bbd13df81cd59e4984d7b54a78ffae3c182976d39e45",
+      "source_bytes": 32014,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/RingTheory/GradedAlgebra/Proj/Defs.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.HomogeneousLocalization.BaseAlgebra",
+      "source_path": "StacksFrontier/RingTheory/HomogeneousLocalization/BaseAlgebra.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/HomogeneousLocalization/BaseAlgebra.lean",
+      "source_sha256": "fcb4ef0f2e7d159cabbff7fe622a5ddd12c07627ed4a36be0a3b5a1e3586778d",
+      "source_bytes": 6486,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/RingTheory/HomogeneousLocalization/BaseAlgebra.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.HomogeneousLocalization.DegreeZero",
+      "source_path": "StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero.lean",
+      "source_sha256": "a5f445806cffc6182f2247794e80a5246cc51e9b47dd04ea58e15add4f44ae07",
+      "source_bytes": 265,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.HomogeneousLocalization.DegreeZero.AtPrime",
+      "source_path": "StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/AtPrime.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/AtPrime.lean",
+      "source_sha256": "51c39dcce8a612acc9d477d2e64176197bc4ab8b3daea0791b2b1d0df9fe2d6b",
+      "source_bytes": 31437,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/AtPrime.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.HomogeneousLocalization.DegreeZero.Construction",
+      "source_path": "StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/Construction.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/Construction.lean",
+      "source_sha256": "f13d850300fae45ff96a935acd25e05f467872986533eb75a48c007877b6adad",
+      "source_bytes": 14991,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/Construction.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.HomogeneousLocalization.DegreeZero.Finiteness",
+      "source_path": "StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/Finiteness.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/Finiteness.lean",
+      "source_sha256": "4976753434d77c0bfa1a33793bc863e9822732de4bd8865b9edf581013edbeb0",
+      "source_bytes": 38037,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/RingTheory/HomogeneousLocalization/DegreeZero/Finiteness.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.Module.Localization.Exactness",
+      "source_path": "StacksFrontier/RingTheory/Module/Localization/Exactness.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/Module/Localization/Exactness.lean",
+      "source_sha256": "3ca598acc5f5790e143acdbcd8528069ef1521e019b07030a5401dcfb1bbac1c",
+      "source_bytes": 19006,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/RingTheory/Module/Localization/Exactness.lean"
+    },
+    {
+      "module": "StacksFrontier.Topology.Dimension.CounterexampleCodimension",
+      "source_path": "StacksFrontier/Topology/Dimension/CounterexampleCodimension.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/Topology/Dimension/CounterexampleCodimension.lean",
+      "source_sha256": "88e258f76bb93bd34d9011d22ff32e10127eaf62e6937adffb881dbd75747fe7",
+      "source_bytes": 17870,
+      "destination": "ZInQKernel/Contrib/OneProof/EGAProperLimit/StacksFrontier/Topology/Dimension/CounterexampleCodimension.lean"
+    }
+  ]
+}
