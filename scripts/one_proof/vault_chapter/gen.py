@@ -89,7 +89,6 @@ KIND_SENTENCE = {
 
 # Statement dependencies inside the chapter (an article whose statement uses another's objects).
 DEPS = {
-    'afCharpolyDS965': ['shimuraThm1Af'],
     'gaudronRemondThm14AnSS': ['gaudronRemondSec9LowerAnSS'],
     'javanpeykarThm111An': ['gaudronRemondSec9LowerAnSS'],
 }
