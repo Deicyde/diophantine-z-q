@@ -1,0 +1,307 @@
+#!/usr/bin/env python3
+"""Generator of the conradAppB-free copy of the live route (c8tf).
+
+Reads the live route's source files (git objects saved as plain files in SRC), finds every
+declaration reachable from TOP that carries `conradAppB` (through `OpenAddedLeaves28`,
+`C8Inputs`, the added-leaves bundles with a `c8` field, or `GaloisPiecesC8`), and copies it with
+the suffix `C8TF` (structures) / `_c8tf` (theorems), deleting the `c8` / `conradAppB` fields and
+replacing the C8 reader by `ZInQ.Contrib.C8TwistFinite.g12DetPZ_proof`.
+
+Re-run after another fold by editing FILES (the live route's files in import order) and TOP.
+Usage: python3 gen_c8tf.py SRC OUTDIR
+"""
+import re, sys, os
+
+SRC, OUT = sys.argv[1], sys.argv[2]
+FILES = ([('C8Chain', 'ZInQKernel/OneProof/H/C8Chain.lean'),
+          ('TailZ87', 'ZInQKernel/OneProof/H/TailZ87.lean'),
+          ('TailZ88', 'ZInQKernel/OneProof/H/TailZ88.lean')]
+         + [('Y3Copy%d' % i, 'ZInQKernel/OneProof/H/Y3Copy%d.lean' % i) for i in range(1, 7)]
+         + [('Y3Open', 'ZInQKernel/OneProof/H/Y3Open.lean'),
+            ('TailZ89', 'ZInQKernel/OneProof/H/TailZ89.lean'),
+            ('TailZ90', 'ZInQKernel/OneProof/H/TailZ90.lean'),
+            ('NOSNarrowChain', 'ZInQKernel/Contrib/OneProof/NOSNarrowChain.lean')]
+         + [('TailZ%d' % i, 'ZInQKernel/OneProof/H/TailZ%d.lean' % i) for i in range(91, 103)])
+TOP = 'sixContactMin_of_open95'
+SUF_T, SUF_S = '_c8tf', 'C8TF'
+DROP = {'c8Leaves_of_OpenAddedLeaves28'}
+WIDTH = 100
+
+DECL = re.compile(r"^(?:@\[[^\]]*\]\s*)?(?:private\s+|protected\s+|noncomputable\s+)*"
+                  r"(theorem|lemma|def|structure|abbrev|instance|class)\s+([^\s(:{\[]+)")
+TOK = re.compile(r"[\w'.]+")
+
+
+def strip_comments(s):
+    out, i, depth, n = [], 0, 0, len(s)
+    while i < n:
+        if s.startswith('/-', i):
+            depth += 1; i += 2; continue
+        if depth and s.startswith('-/', i):
+            depth -= 1; i += 2; continue
+        if depth:
+            i += 1; continue
+        if s.startswith('--', i):
+            j = s.find('\n', i); i = n if j < 0 else j; continue
+        out.append(s[i]); i += 1
+    return ''.join(out)
+
+
+def parse_marked(name, path, lines):
+    starts = [i for i, l in enumerate(lines)
+              if l.startswith('-- copied from') or l.startswith('-- edited copy of')]
+    blocks, k = [], 0
+    starts.append(len(lines))
+    pend = None
+    for a, b in zip(starts, starts[1:]):
+        if pend is None:
+            pend = a
+        body = lines[a:b]
+        if not any(DECL.match(l) for l in body):
+            continue
+        txt = lines[pend:b]
+        blocks.append(dict(file=name, path=path, line=pend + 1, lines=txt, wrap=None))
+        pend = None
+    return blocks
+
+
+def parse_unmarked(name, path, lines):
+    blocks, stack, i, n = [], [], 0, len(lines)
+    cur = None
+
+    def close():
+        nonlocal cur
+        if cur is not None:
+            blocks.append(cur); cur = None
+    while i < n:
+        l = lines[i]
+        m_ns = re.match(r'^namespace (\S+)', l)
+        m_sec = re.match(r'^(noncomputable section|section)(?: (\S+))?\s*$', l)
+        m_end = re.match(r'^end(?: (\S+))?\s*$', l)
+        if m_ns:
+            close(); stack.append(('namespace', m_ns.group(1))); i += 1; continue
+        if m_sec:
+            close(); stack.append((m_sec.group(1), m_sec.group(2))); i += 1; continue
+        if m_end:
+            close(); stack.pop(); i += 1; continue
+        if l.startswith('/--') or DECL.match(l):
+            if cur is not None and (l.startswith('/--') or
+                                    not any(DECL.match(x) for x in [cur['lines'][-1]]) and
+                                    not cur['lines'][-1].rstrip().endswith('-/')):
+                pass
+            # a docstring or a declaration starts a new chunk unless it follows a docstring
+            if not (cur is not None and DECL.match(l) and cur['doconly']):
+                close()
+                cur = dict(file=name, path=path, line=i + 1, lines=[], wrap=list(stack),
+                           doconly=True)
+            # consume the docstring
+            if l.startswith('/--'):
+                while True:
+                    cur['lines'].append(lines[i])
+                    if lines[i].rstrip().endswith('-/'):
+                        break
+                    i += 1
+                i += 1
+                continue
+            cur['doconly'] = False
+            cur['lines'].append(l); i += 1; continue
+        if l.startswith('#') or l.startswith('import') or l.startswith('set_option') \
+                or l.startswith('open ') or l.startswith('/-!'):
+            close()
+            if l.startswith('/-!'):
+                while not lines[i].rstrip().endswith('-/'):
+                    i += 1
+            i += 1; continue
+        if cur is not None:
+            cur['lines'].append(l)
+        i += 1
+    close()
+    return [b for b in blocks if any(DECL.match(x) for x in b['lines'])]
+
+
+decls = []
+for name, path in FILES:
+    lines = open(os.path.join(SRC, name + '.lean')).read().split('\n')
+    marked = any(l.startswith('-- copied from') for l in lines)
+    bl = parse_marked(name, path, lines) if marked else parse_unmarked(name, path, lines)
+    for b in bl:
+        b['text'] = '\n'.join(b['lines'])
+        b['code'] = strip_comments(b['text'])
+        b['names'] = []
+        b['kinds'] = {}
+        for l in b['lines']:
+            m = DECL.match(l)
+            if m:
+                nm = m.group(2).split('.')[-1]
+                b['names'].append(nm); b['kinds'][nm] = m.group(1)
+        b['toks'] = set(t.split('.')[-1] for t in TOK.findall(b['code']))
+        decls.append(b)
+
+index = {}
+for i, b in enumerate(decls):
+    for nm in b['names']:
+        index.setdefault(nm, []).append(i)
+
+# reachability from TOP
+reach, todo = set(), list(index[TOP])
+while todo:
+    i = todo.pop()
+    if i in reach:
+        continue
+    reach.add(i)
+    for t in decls[i]['toks']:
+        for j in index.get(t, []):
+            if j not in reach and t not in decls[i]['names']:
+                todo.append(j)
+
+SEED = re.compile(r"C8Inputs|\bGaloisPiecesC8\b|\bOpenAddedLeaves28\b|\bconradAppB\b|"
+                  r"(?<![\w-])c8(?![\w-])")
+taint = set(i for i in reach if SEED.search(decls[i]['code']))
+changed = True
+while changed:
+    changed = False
+    tn = set(nm for i in taint for nm in decls[i]['names'])
+    for i in reach - taint:
+        if decls[i]['toks'] & tn:
+            taint.add(i); changed = True
+copy = sorted(i for i in taint if not (set(decls[i]['names']) & DROP))
+rename = {}
+for i in copy:
+    for nm in decls[i]['names']:
+        rename[nm] = nm + (SUF_S if decls[i]['kinds'][nm] in ('structure', 'class') else SUF_T)
+
+
+def edit(b):
+    L = [l for l in b['lines'] if not re.match(r'^\s*set_option maxHeartbeats', l)
+         and not l.startswith('#print')]
+    out = []
+    for l in L:
+        if re.match(r'^\s+(c8|conradAppB)\s*:\s', l):
+            # drop the field and its docstring
+            if out and out[-1].rstrip().endswith('-/'):
+                while out and '/--' not in out[-1]:
+                    out.pop()
+                if out:
+                    out.pop()
+            continue
+        if re.match(r'^\s+(c8|conradAppB)\s*:=', l):
+            continue
+        if re.match(r'^\s*\w+\.c8,\s*$', l):
+            continue
+        out.append(l)
+    s = '\n'.join(out)
+    s = re.sub(r'\(c8 : _root_\.HDec\.G0Galois\.C8Conrad\.C8Inputs\)\s?', '', s)
+    s = re.sub(r'\n?[ \t]*\(_root_\.HDec\.G0Galois\.C8Conrad\.c8Inputs_of_leaves '
+               r'\(c8Leaves_of_OpenAddedLeaves28 \w+\)\)', '', s)
+    s = re.sub(r'_root_\.HDec\.G0Galois\.C8Conrad\.g12DetPZ_of_inputs (\S+) (\S+) \S+\.c8 ',
+               r'_root_.ZInQ.Contrib.C8TwistFinite.g12DetPZ_proof \1 \2 ', s)
+    s = re.sub(r'(?<=[ (])c8(?=[\s)])', '', s)
+    s = re.sub(r' \)', ')', s)
+
+    def ren(m):
+        pre, nm = m.group(1), m.group(2)
+        return pre + rename.get(nm, nm)
+    s = re.sub(r"(?<![\w'.])((?:[\w']+\.)*)([\w']+)(?![\w'])", ren, s)
+    return s
+
+
+def wrap_line(l):
+    if len(l) <= WIDTH:
+        return [l]
+    ind = len(l) - len(l.lstrip(' '))
+    res, cur, first = [], l, True
+    while len(cur) > WIDTH:
+        cut = cur.rfind(' ', ind + 8 if first else ind + 12, WIDTH)
+        if cut < 0:
+            break
+        res.append(cur[:cut].rstrip())
+        cur = ' ' * (ind + 4) + cur[cut:].lstrip()
+        first = False
+    res.append(cur)
+    return res
+
+
+def wrap_text(s):
+    out, depth = [], 0
+    for l in s.split('\n'):
+        in_comment = depth > 0 or l.lstrip().startswith('/-')
+        # update comment depth
+        depth += l.count('/-') - l.count('-/')
+        if len(l) <= WIDTH:
+            out.append(l); continue
+        if l.lstrip().startswith('--'):
+            ind = l[:len(l) - len(l.lstrip())]
+            words, cur = l.strip()[2:].split(), ind + '--'
+            for w in words:
+                if len(cur) + 1 + len(w) > WIDTH:
+                    out.append(cur); cur = ind + '--'
+                cur += ' ' + w
+            out.append(cur); continue
+        if in_comment:
+            words = l.split(' ')
+            ind = l[:len(l) - len(l.lstrip())]
+            cur = ''
+            for w in l.strip().split(' '):
+                if cur and len(ind) + len(cur) + 1 + len(w) > WIDTH:
+                    out.append(ind + cur); cur = w
+                else:
+                    cur = (cur + ' ' + w) if cur else w
+            out.append(ind + cur); continue
+        code, cm = l, None
+        k = l.find(' -- ')
+        if k >= 0:
+            code, cm = l[:k], l[k + 1:]
+        if cm:
+            ind = code[:len(code) - len(code.lstrip())]
+            out.append(ind + cm)
+        out.extend(wrap_line(code))
+    return '\n'.join(out)
+
+
+def render(b):
+    s = edit(b)
+    lines = s.split('\n')
+    lines = [l for l in lines if not (l.startswith('-- copied from') or
+                                      l.startswith('-- edited copy of'))]
+    marker = b['lines'][0] if (b['lines'][0].startswith('-- copied from') or
+                               b['lines'][0].startswith('-- edited copy of')) else None
+    head = '-- copied from %s:%d' % (b['path'], b['line'])
+    if marker:
+        head += ' (there: %s)' % marker[3:]
+    body = '\n'.join(lines)
+    if b['wrap'] is not None:
+        opens = []
+        for kind, nm in b['wrap']:
+            opens.append(kind + (' ' + nm if nm else ''))
+        closes = ['end' + (' ' + nm if nm else '') for kind, nm in reversed(b['wrap'])]
+        body = '\n'.join(opens) + '\n' + body.rstrip('\n') + '\n' + '\n'.join(closes)
+    return wrap_text(head + '\n' + body.strip('\n')) + '\n'
+
+
+rendered = [(i, render(decls[i])) for i in copy]
+BAD = re.compile(r"C8Inputs|\bGaloisPiecesC8\b|\bOpenAddedLeaves28\b|\bconradAppB\b|"
+                 r"(?<![\w-])c8(?![\w-])|maxHeartbeats")
+problems = 0
+for i, r in rendered:
+    c = strip_comments(r)
+    for m in BAD.finditer(c):
+        problems += 1
+        print('LEFT', decls[i]['file'], decls[i]['names'], repr(c[max(0, m.start() - 60):m.end() + 30]))
+    for ln in r.split('\n'):
+        if len(ln) > WIDTH:
+            problems += 1
+            print('LONG', decls[i]['file'], decls[i]['names'], len(ln), ln[:80])
+print('decls %d reachable %d tainted %d copied %d problems %d' %
+      (len(decls), len(reach), len(taint), len(copy), problems))
+for i in copy:
+    print('COPY', decls[i]['file'], decls[i]['line'], decls[i]['names'])
+for i in sorted(taint - set(copy)):
+    print('DROP', decls[i]['file'], decls[i]['line'], decls[i]['names'])
+
+os.makedirs(OUT, exist_ok=True)
+with open(os.path.join(OUT, 'body.lean'), 'w') as f:
+    for i, r in rendered:
+        f.write('\n' + r)
+with open(os.path.join(OUT, 'rename.tsv'), 'w') as f:
+    for k, v in sorted(rename.items()):
+        f.write(k + '\t' + v + '\n')
