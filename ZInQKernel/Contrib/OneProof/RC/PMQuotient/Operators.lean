@@ -198,8 +198,9 @@ def specialFibre {ap : ℕ → ℤ} {w : ℕ → ℤˣ} (H : G.Relations ap w) :
 the cusp subtraction vanishes by the generic normalization. -/
 theorem specialize_eq_value {ap : ℕ → ℤ} {w : ℕ → ℤˣ} (H : G.Relations ap w)
     {hell : ell % 4 = 3} {hN : 0 < N} {hcop : N.Coprime ell}
-    (J : PMAdelic.JetchevKane ell hell N hN hcop X) (x : X.Point) :
-    (PMAdelic.geometricInput J (G.specialFibre H).toSpecialFibre).specialize x = G.value x := by
+    (J : PMAdelic.JetchevKane ell hell N hN hcop X)
+    (O : PMAdelic.OperatorComparison ell hell N hN hcop X J) (x : X.Point) :
+    (PMAdelic.geometricInput J O (G.specialFibre H).toSpecialFibre).specialize x = G.value x := by
   change G.quotient (center G.infinity (of x)) = _
   rw [G.quotient_center, G.value_infinity H.based, sub_zero]
 

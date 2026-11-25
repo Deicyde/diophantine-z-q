@@ -118,18 +118,20 @@ variable {m : ℕ} (hN : 0 < StageKummer.level ℓ)
   (hm : (m : ℤ) = -(withParamIndices a).hstar) {ap : ℕ → ℤ} {X : ℕ → PMAdelic.CoarseFibre}
   (J : ∀ i, PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
     (StageKummer.level ℓ) hN (hcop i) (X i))
+  (O : ∀ i, PMAdelic.OperatorComparison (s.q.stage i).p (StageKummer.stage_mod_four s i)
+    (StageKummer.level ℓ) hN (hcop i) (X i) (J i))
   (G : ∀ i, PMAdelic.SpecialFibre (s.q.stage i).p (StageKummer.level ℓ)
     (ResidueAt (StageKummer.place s i)) (ReducedEquation (EcurveZ ℓ) (s.q.stage i).p) ap (X i))
 
 variable (comparisons : ∀ i D (hD : (withParamIndices a).admissible i D),
-  SelectorTotal.PointComparisons s i hN (hcop i) (H i) w hm (J i) (G i)
-    (admissibleNatAt s hN hcop H w hm J G i D hD) (selectedDatum a s i D hD).val)
+  SelectorTotal.PointComparisons s i hN (hcop i) (H i) w hm (J i) (O i) (G i)
+    (admissibleNatAt s hN hcop H w hm J O G i D hD) (selectedDatum a s i D hD).val)
 
 /-- Supply `PointInputs.ht` for the selected datum and keep the given
 reference data and pointwise equalities. -/
 def pointInputs (i : ℕ) (D : ℤ) (hD : (withParamIndices a).admissible i D) :
-    PointInputs s i hN (hcop i) (H i) w hm (J i) (G i)
-      (admissibleNatAt s hN hcop H w hm J G i D hD) :=
+    PointInputs s i hN (hcop i) (H i) w hm (J i) (O i) (G i)
+      (admissibleNatAt s hN hcop H w hm J O G i D hD) :=
   let p := comparisons i D hD
   { t := (selectedDatum a s i D hD).val
     embedding := p.embedding
@@ -144,7 +146,7 @@ variable
     (w (levelPrime (StageKummer.level ℓ) j).val : ℤ) =
       (G i).atkinSign (levelPrime (StageKummer.level ℓ) j).val)
   (hCusp : ∀ i (j : Fin (StageKummer.level ℓ).primeFactors.card),
-    L • (PMAdelic.geometry (J i) (G i)).cusp (levelPrime (StageKummer.level ℓ) j).val = 0)
+    L • (PMAdelic.geometry (J i) (O i) (G i)).cusp (levelPrime (StageKummer.level ℓ) j).val = 0)
 
 set_option maxHeartbeats 1400000 in
 set_option maxRecDepth 1600 in
@@ -152,18 +154,18 @@ set_option maxRecDepth 1600 in
 slots. Its pointwise geometry and coefficient comparison are unchanged. -/
 theorem oddStagedOfParamValues
     (ha : ∀ i D (hD : (withParamIndices a).admissible i D),
-      let row := actualRows s hN hcop H w hm J G
-        (actualRowFamily s hN hcop H w hm J G hSign hCusp
-          (pointInputs a s hN hcop H w hm J G comparisons)) i D hD
+      let row := actualRows s hN hcop H w hm J O G
+        (actualRowFamily s hN hcop H w hm J O G hSign hCusp
+          (pointInputs a s hN hcop H w hm J O G comparisons)) i D hD
       (2 : Coefficients hN (H 0) w) ^ (withParamIndices a).Mθ i ∣
         row.weights.phase row.reference * ((withParamIndices a).aθ i D : Coefficients hN (H 0) w) -
-          Visibility.thetaCoeff (actualFamily s hN hcop H w hm J G i).visibility
+          Visibility.thetaCoeff (actualFamily s hN hcop H w hm J O G i).visibility
             ((m : ℤ) * D : ℤ))
     (hL : MultiplierKillsNativeTorsion (Ecurve ℓ) a.f a.Lat a.κ (withParamIndices a).hstar L)
     (hsign : AdmissibleOddSign (withParamIndices a).toRCData) :
     Nonempty (OddStagedInstance (withParamIndices a)) :=
-  oddStagedActual s hN hcop H w hm J G hSign hCusp
-    (pointInputs a s hN hcop H w hm J G comparisons) ha hL hsign
+  oddStagedActual s hN hcop H w hm J O G hSign hCusp
+    (pointInputs a s hN hcop H w hm J O G comparisons) ha hL hsign
 
 end Leaf
 

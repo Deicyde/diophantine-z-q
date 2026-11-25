@@ -1,0 +1,62 @@
+# rc-hcm-v21g part (1) builds
+# Each build: LEAN_NUM_THREADS=4 systemd-run --user --scope -q -p CPUQuota=1600% -p MemoryMax=60G nice lake build <target>, one at a time.
+
+## Reverse import closure of ZInQKernel.Contrib.OneProof.RC.PMAdelic.Comparison at 498e4e57
+32 modules; sinks:
+  ZInQKernel.Contrib.OneProof.RC.AtkinPin.Specialization
+  ZInQKernel.Contrib.OneProof.RC.CMScope.Selector
+  ZInQKernel.Contrib.OneProof.RC.PMQuotient.Assembly
+  ZInQKernel.Contrib.OneProof.RC.PMWire.Assembly
+
+## Scratch files naming JetchevKane (left unchanged; earlier runs' records, not build targets)
+  scratch/pm-adelic-join/log.md
+  scratch/rc-cm-scope/pending-wrappers.patch
+  scratch/rc-cm-scope2/pending-wrappers.patch
+  scratch/rc-good-reduction/Consumers.lean            (Lean)
+  scratch/rc-hcm-v21f/log.md
+  scratch/rc-lane-batch-1120/AxCheck.lean             (Lean; lines 1307-1311 print axioms of
+     JetchevKane.idealClasses, hecke_compare, atkin_compare, frobenius_compare, frobenius_ss;
+     the last four are now OperatorComparison.*)
+
+## Scratch modules importing the reverse closure (left unchanged)
+  scratch/rc-cm-scope/ConsumersCheck.lean
+  scratch/rc-cm-scope2/ConsumersCheck.lean
+  scratch/rc-good-reduction/Consumers.lean
+  scratch/rc-lane-batch-1120/AxCheck.lean
+  scratch/rc-lane-batch-1120b/AxCheck.lean
+  scratch/rc-lane-batch-1120e/AxCheck.lean
+  scratch/rc-o7-assemble/Axioms.lean
+  scratch/rc-o7-normalizers/Axioms.lean
+  scratch/rc-o7-residual/Axioms.lean
+  scratch/rc-pm-quotient/Discharges.lean
+  scratch/rc-pm-wire/Discharges.lean
+  scratch/rc-selector-total/Axioms.lean
+
+## model.classes readers (read GeometricInput.classes / PM.Geometry.classes; shape unchanged, not edited)
+  ZInQKernel/Contrib/OneProof/RC/HCMV21/Consumer.lean:27, :49
+  ZInQKernel/Contrib/OneProof/RC/HCMV21/ParametrizationSquare.lean:69
+  ZInQKernel/Contrib/OneProof/RC/PMGeometry/Heegner.lean:41, :57
+  ZInQKernel/Contrib/OneProof/RC/StageKummer/Reference.lean:106, :172 (J, J' there are GeometricInput)
+  ZInQKernel/Contrib/OneProof/RC/PMGeometry/Geometry.lean:148-195 (internal readers)
+
+## Build results
+ZInQKernel.Contrib.OneProof.RC.AtkinPin.Specialization: OK (Build completed successfully, 11563 jobs)
+ZInQKernel.Contrib.OneProof.RC.CMScope.Selector: OK (Build completed successfully (11707 jobs).)
+ZInQKernel.Contrib.OneProof.RC.PMQuotient.Assembly: FAILED on first attempt (AtkinSign/Family.lean:49 and AtkinPin/Assembly.lean:81,93 lacked the O argument; fixed)
+ZInQKernel.Contrib.OneProof.RC.PMQuotient.Assembly: OK (Build completed successfully (13528 jobs).)
+ZInQKernel.Contrib.OneProof.RC.PMWire.Assembly: OK (Build completed successfully (13587 jobs).)
+
+## Docstring-edited modules
+ZInQKernel.Contrib.OneProof.RC.PMAdelic.Comparison: OK (Build completed successfully (9419 jobs).)
+ZInQKernel.Contrib.OneProof.RC.PMAdelic.Geometry: OK (Build completed successfully (9420 jobs).)
+ZInQKernel.Contrib.OneProof.RC.PMGeometry.Geometry: OK (Build completed successfully (9391 jobs).)
+ZInQKernel.Contrib.OneProof.RC.PM.Stage: OK (Build completed successfully (9390 jobs).)
+ZInQKernel.Contrib.OneProof.RC.PMWire.Fibre: OK (Build completed successfully (13458 jobs).)
+ZInQKernel.Contrib.OneProof.RC.Odd.Statements: OK (Build completed successfully (9058 jobs).)
+ZInQKernel.Contrib.OneProof.RC.Odd.ThetaLocal: OK (Build completed successfully (9049 jobs).)
+ZInQKernel.Contrib.OneProof.RC.HCMV21.GeometricOrders: OK (Build completed successfully (9064 jobs).)
+ZInQKernel.Contrib.OneProof.RC.HCMV21.ReferenceOrder: OK (Build completed successfully (9219 jobs).)
+
+## Frozen targets
+ZInQKernel.OneProof.Main: OK (Build completed successfully (19896 jobs).)
+ZInQKernel.OneProof.Discharges: OK (Build completed successfully (2 jobs).)

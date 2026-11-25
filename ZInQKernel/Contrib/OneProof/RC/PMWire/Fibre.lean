@@ -50,18 +50,25 @@ def ssEquiv (X : CoarseFibre) : X.ss ≃ (adapter X).ss where
     · rfl
     · exact False.elim hp
 
-/-- Transport the existing adelic comparison along the inclusion of
-actual points. All operators on the supersingular locus keep their values. -/
+/-- Transport the existing class-set comparison along the inclusion of
+actual points. -/
 def adaptComparison {ell N : ℕ} [Fact ell.Prime] {h : ell % 4 = 3} {hN : 0 < N}
     {hcop : N.Coprime ell} {X : CoarseFibre} (J : JetchevKane ell h N hN hcop X) :
     JetchevKane ell h N hN hcop (adapter X) where
   classes := J.classes.trans (ssEquiv X)
+
+/-- Transport the existing operator comparison along the inclusion of
+actual points. All operators on the supersingular locus keep their values. -/
+theorem adaptOperators {ell N : ℕ} [Fact ell.Prime] {h : ell % 4 = 3} {hN : 0 < N}
+    {hcop : N.Coprime ell} {X : CoarseFibre} {J : JetchevKane ell h N hN hcop X}
+    (O : OperatorComparison ell h N hN hcop X J) :
+    OperatorComparison ell h N hN hcop (adapter X) (adaptComparison J) where
   hecke p hp hg z := by
     change embedDivisor X (X.T p (J.classes z).val) = _
-    rw [J.hecke p hp hg z, map_multiset_sum, Multiset.map_map]
+    rw [O.hecke p hp hg z, map_multiset_sum, Multiset.map_map]
     congr 1
-  atkin p hp he z := congrArg Sum.inl (J.atkin p hp he z)
-  frobenius z := congrArg Sum.inl (J.frobenius z)
+  atkin p hp he z := congrArg Sum.inl (O.atkin p hp he z)
+  frobenius z := congrArg Sum.inl (O.frobenius z)
 
 namespace GoodRow
 
@@ -161,20 +168,21 @@ def specialFibre {f : HeckeRing.GL2.Newform N 2} {χ : f.χ = 1}
 
 variable {hell : ell % 4 = 3} {hN : 0 < N} {hcop : N.Coprime ell}
   (J : JetchevKane ell hell N hN hcop X)
+  (O : OperatorComparison ell hell N hN hcop X J)
   {f : HeckeRing.GL2.Newform N 2} {χ : f.χ = 1}
   {Lat : PeriodPair} {κ : ℂ}
   (P : FixedAtScale π f χ Lat κ) {w : ℕ → ℤˣ} (hw : AtkinPin.wNew f χ = w)
     {ap : ℕ → ℤ} (H : G.Relations ap)
 
 theorem specialize_eq_value (x : X.Point) :
-    (geometricInput (adaptComparison J) (G.specialFibre P hw H).toSpecialFibre).specialize (.inl x)
+    (geometricInput (adaptComparison J) (adaptOperators O) (G.specialFibre P hw H).toSpecialFibre).specialize (.inl x)
       = G.value x := by
   change G.quotient (center (.inr none) (of (.inl x))) = G.value x
   rw [G.quotient_center_apply, FreeAbelianGroup.lift_apply_of]
   rfl
 
 theorem cusp_eq_translation (q : ℕ) :
-    (geometry (adaptComparison J) (G.specialFibre P hw H).toSpecialFibre).cusp q = G.translation q := by
+    (geometry (adaptComparison J) (adaptOperators O) (G.specialFibre P hw H).toSpecialFibre).cusp q = G.translation q := by
   change G.quotient (center (.inr none) (of (.inr (.some q)))) = G.translation q
   rw [G.quotient_center_apply, FreeAbelianGroup.lift_apply_of]
   rfl

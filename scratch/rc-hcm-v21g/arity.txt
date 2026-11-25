@@ -1,0 +1,19 @@
+PMAdelic.JetchevKane : (ell : ℕ) →
+  [Fact (Nat.Prime ell)] → ell % 4 = 3 → (N : ℕ) → 0 < N → N.Coprime ell → PMAdelic.CoarseFibre → Type
+PMAdelic.OperatorComparison : (ell : ℕ) →
+  [inst : Fact (Nat.Prime ell)] →
+    (h : ell % 4 = 3) →
+      (N : ℕ) →
+        (hN : 0 < N) →
+          (hcop : N.Coprime ell) → (X : PMAdelic.CoarseFibre) → PMAdelic.JetchevKane ell h N hN hcop X → Prop
+@PMAdelic.JetchevKane.idealClasses : {ell : ℕ} →
+  [inst : Fact (Nat.Prime ell)] →
+    {h : ell % 4 = 3} →
+      {N : ℕ} →
+        {hN : 0 < N} →
+          {hcop : N.Coprime ell} →
+            {X : PMAdelic.CoarseFibre} →
+              PMAdelic.JetchevKane ell h N hN hcop X → Eichler.ClassSet (Adelic.levelOrder ell h N hN) ≃ ↑X.ss
+@PMAdelic.OperatorComparison.frobenius_ss : ∀ {ell : ℕ} [inst : Fact (Nat.Prime ell)] {h : ell % 4 = 3} {N : ℕ}
+  {hN : 0 < N} {hcop : N.Coprime ell} {X : PMAdelic.CoarseFibre} {J : PMAdelic.JetchevKane ell h N hN hcop X},
+  PMAdelic.OperatorComparison ell h N hN hcop X J → ∀ x ∈ X.ss, X.frobenius x ∈ X.ss

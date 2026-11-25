@@ -5,8 +5,9 @@ import ZInQKernel.Contrib.OneProof.RC.Stages.ReducedCurve
 # The supersingular function at one stage (tex 8462–8494)
 
 The arithmetic identities for the specialized parametrization are geometric inputs. The
-identification with supersingular pairs is the one cited by the manuscript from Jetchev–Kane,
-§§1.1–1.2 and 2.5 (locators UNVERIFIED). The class set, ideal neighbours and Kummer map are
+identification with supersingular pairs is GLUE: the manuscript cites it to Jetchev–Kane,
+§§1.1–1.2 and 2.5 (arXiv v1; journal version unread); Ribet 1990 Prop. 3.3 reports it without
+proof, and a Lean proof is in progress. The operator compatibilities are ELLIOT. The class set, ideal neighbours and Kummer map are
 the existing constructions. No printed-form leaf is introduced.
 -/
 
@@ -36,9 +37,12 @@ structure Geometry (K : Type*) [Field K] [Algebra (ZMod ell) K] [DecidableEq K]
   ram : AppF.RamifiedExactlyAtEll0Infty ell a b
   /-- ELLIOT (tex 8464, 8469, 8477): the Eichler order, with level prime to the detecting prime. -/
   eichler : IsEichler ell N R
-  /-- Jetchev–Kane as cited (locators UNVERIFIED; tex 8465–8474): coarse supersingular pairs. -/
+  /-- GLUE (tex 8465–8474): coarse supersingular pairs, as in the class-set comparison cited to
+  Jetchev–Kane (arXiv v1; journal version unread); a Lean proof is in progress. -/
   SS : Type
-  /-- Jetchev–Kane as cited (locators UNVERIFIED; tex 8465–8474): the class description. -/
+  /-- GLUE (tex 8465–8474): the class description, cited to Jetchev–Kane §§1.1–1.2 and 2.5
+  (arXiv v1; journal version unread); Ribet 1990 Prop. 3.3 reports it without proof; a Lean
+  proof is in progress. -/
   classes : ClassSet R ≃ SS
   /-- ELLIOT (tex 8476–8479): the specialization of the parametrization based at infinity. -/
   specialize : SS → ReducedPoints (K := K) Ebar
@@ -60,7 +64,7 @@ structure Geometry (K : Type*) [Field K] [Algebra (ZMod ell) K] [DecidableEq K]
   /-- ELLIOT (tex 8487–8489): the affine Atkin–Lehner identity before scaling by `L`. -/
   atkin_affine : ∀ p hp he z, specialize (classes (atkin p hp he z)) =
     atkinSign p • specialize (classes z) + cusp p
-  /-- Jetchev–Kane as cited for the supersingular model (locators UNVERIFIED; tex 8469–8474):
+  /-- ELLIOT (tex 8469–8473):
   the arithmetic Frobenius on supersingular pairs over the quadratic field. -/
   frobSS : SS → SS
   /-- ELLIOT (tex 8489–8490, 9343–9358): the right operation of a division uniformizer. -/

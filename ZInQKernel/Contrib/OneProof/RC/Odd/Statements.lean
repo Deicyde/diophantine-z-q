@@ -9,8 +9,10 @@ import ZInQKernel.Contrib.CloudB3RC53.AppGEndpoints.OddMinimum
 Manuscript (11/5), Appendix F. The constructions below are Elliot's own and are not formalized
 (kind ELLIOT): the weighted ternary theta form and its transformation law (tex 8409–9100, with
 Weil, Acta Math. 111 (1964), I.13–I.14, II.25–II.30, III Thm 6 — PRINT, locators UNVERIFIED; Voight,
-*Quaternion algebras*, Main Thm 14.6.1, Prop. 14.6.7 — PRINT, UNVERIFIED; Jetchev–Kane
-arXiv:0908.3905 §§1.1–1.2, 2.5 — PRINT, UNVERIFIED). Half-integral-weight forms, quaternion orders
+*Quaternion algebras*, Main Thm 14.6.1, Prop. 14.6.7 — PRINT, UNVERIFIED; the class-set comparison
+cited to Jetchev–Kane arXiv:0908.3905 §§1.1–1.2, 2.5 (arXiv v1; journal version unread) — GLUE, since
+Ribet 1990 Prop. 3.3 reports it without proof and a Lean proof is in progress; the Hecke,
+Atkin–Lehner and Frobenius compatibilities — ELLIOT, asserted in the manuscript). Half-integral-weight forms, quaternion orders
 and the Weil representation do not exist in Mathlib, so each construction is stated by the property
 its consumers use: the coefficient function of one actual stage with its recurrence (O.6) and
 support (`OddStageCore`), and the comparison (O.7) (`ThetaComparison`).

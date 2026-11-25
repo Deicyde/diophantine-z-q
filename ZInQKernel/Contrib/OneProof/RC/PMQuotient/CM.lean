@@ -217,21 +217,22 @@ the integral-diagram lemma follows by reading the source section. -/
 theorem hpi_of_cmDiagram {ap : ℕ → ℤ} {signs : ℕ → ℤˣ} (H : G.Relations ap signs)
     {hp4 : p % 4 = 3} {hN : 0 < newformLevel (C⁄ℚ)} {hc : (newformLevel (C⁄ℚ)).Coprime p}
     (J : PMAdelic.JetchevKane p hp4 (newformLevel (C⁄ℚ)) hN hc X)
+    (O : PMAdelic.OperatorComparison p hp4 (newformLevel (C⁄ℚ)) hN hc X J)
     (han : ∀ τ : UpperHalfPlane, projectiveValue
       (((X0Model3.model (newformLevel (C⁄ℚ))).complexPoint τ).comp π hQ).val =
         phiAn (C⁄ℚ) f Lat κ τ)
     (B : CMDiagram dat v w hg π hQ G r artin) :
-    ∀ c, (PMAdelic.geometricInput J (G.specialFibre H).toSpecialFibre).specialize (r c) =
+    ∀ c, (PMAdelic.geometricInput J O (G.specialFibre H).toSpecialFibre).specialize (r c) =
       datumReduction dat v w hg (conjugate dat (artin c)) := by
   letI := G.neron.2.1
   letI := cmGeneric_dominant dat v w
   exact GoodReduction.hpi_of_integralDiagram dat v w hg π hQ han
-    (PMAdelic.geometricInput J (G.specialFibre H).toSpecialFibre) r artin B.x B.analytic
+    (PMAdelic.geometricInput J O (G.specialFibre H).toSpecialFibre) r artin B.x B.analytic
     G.E.hom (cmGeneric dat v w) (cmResidue dat v w)
     (genericInclusion G.jX) (genericInclusion G.jE) G.πInt.left
     (genericInclusion_comp G.jX G.jE G.πInt (fixedMap π hQ) G.hInt)
     B.xInt B.yInt B.base B.source B.target G.readRaw
-    (fun c => by rw [G.specialize_eq_value H J, ← B.sourceResidue c, G.readRaw_value])
+    (fun c => by rw [G.specialize_eq_value H J O, ← B.sourceResidue c, G.readRaw_value])
     (fun c => G.readRaw_eq (B.targetOver c) _ (B.targetResidue c))
 
 end Datum

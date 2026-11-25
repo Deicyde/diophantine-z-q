@@ -29,8 +29,9 @@ PROVED here:
   `nilpotent_neighbor`; the integral + nonintegral bookkeeping (tex 9059–9064) — `neighbor_sum`.
 
 The Weil-representation calculus (tex 8623–9037), the Schwartz–Bruhat and holomorphy arguments, and
-the supersingular/Hecke compatibility of `P_M` (tex 8462–8494) are ELLIOT (with the cited Weil,
-Voight, Jetchev–Kane locators UNVERIFIED); they enter as hypotheses.
+the supersingular/Hecke compatibility of `P_M` (tex 8462–8494) are ELLIOT (with the cited Weil and
+Voight locators UNVERIFIED; the class-set comparison cited to Jetchev–Kane, arXiv v1; journal version
+unread, is GLUE); they enter as hypotheses.
 -/
 
 namespace ZInQ.Manuscript.RC.Odd

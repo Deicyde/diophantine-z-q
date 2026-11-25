@@ -44,7 +44,8 @@ variable (H : DiscriminantData m N ell) (w : ℕ → ℤˣ)
 variable {K : Type} [Field K] [Algebra (ZMod ell) K] [DecidableEq K] [IsSepClosed K]
 variable {Ebar : WeierstrassCurve (ZMod ell)} [Ebar.IsElliptic] {ap : ℕ → ℤ}
 variable {X : PMAdelic.CoarseFibre}
-variable (J : PMAdelic.JetchevKane ell h N hN hcop X) (G₀ : PMAdelic.SpecialFibre ell N K Ebar ap X)
+variable (J : PMAdelic.JetchevKane ell h N hN hcop X)
+  (O : PMAdelic.OperatorComparison ell h N hN hcop X J) (G₀ : PMAdelic.SpecialFibre ell N K Ebar ap X)
 variable (d : PM.Evaluation K Ebar M) (L : ℕ)
 
 /-- The geometry's signs as integer units, for choosing the very same
@@ -62,26 +63,26 @@ theorem geometrySigns_spec (i : Fin N.primeFactors.card) :
 /-- The fixed multiple of the cusp annihilator kills the actual translation
 supplied by PMAdelic. -/
 theorem cusp_of_multiple {Cπ : ℕ} (hmul : Cπ ∣ L)
-    (hc : ∀ i : Fin N.primeFactors.card, Cπ • (PMAdelic.geometry J G₀).cusp (levelPrime N i).val = 0)
+    (hc : ∀ i : Fin N.primeFactors.card, Cπ • (PMAdelic.geometry J O G₀).cusp (levelPrime N i).val = 0)
     (i : Fin N.primeFactors.card) :
-    L • (PMAdelic.geometry J G₀).cusp (levelPrime N i).val = 0 := by
+    L • (PMAdelic.geometry J O G₀).cusp (levelPrime N i).val = 0 := by
   obtain ⟨k, rfl⟩ := hmul
   calc
-    _ = k • (Cπ • (PMAdelic.geometry J G₀).cusp (levelPrime N i).val) := by
+    _ = k • (Cπ • (PMAdelic.geometry J O G₀).cusp (levelPrime N i).val) := by
       rw [← mul_nsmul]
     _ = 0 := by rw [hc i, nsmul_zero]
 
 /-- The actual normalizer stage takes its class operations from PMAdelic
 and its weights from the aligned theta constructor. -/
 def stageAt (u : ClassSet (levelRing h hN) → ℤ)
-    (hu : PM.IsLift (PMAdelic.geometry J G₀) d L u) :
+    (hu : PM.IsLift (PMAdelic.geometry J O G₀) d L u) :
     StageAt (Coefficients hN H w) N M hN (m : ℤ) where
   ell := ell
   mod_four := h
   K := K
   Ebar := Ebar
   ap := ap
-  G := PMAdelic.geometry J G₀
+  G := PMAdelic.geometry J O G₀
   d := d
   L := L
   weights := actualPmLocal h hN hcop H w
@@ -90,14 +91,14 @@ def stageAt (u : ClassSet (levelRing h hN) → ℤ)
   hu := hu
 
 variable {u : ClassSet (levelRing h hN) → ℤ}
-variable (hu : PM.IsLift (PMAdelic.geometry J G₀) d L u)
+variable (hu : PM.IsLift (PMAdelic.geometry J O G₀) d L u)
 variable {D : ℕ} {k : ℤ}
 
-abbrev actualStageAt := stageAt h hN hcop H w J G₀ d L u hu
+abbrev actualStageAt := stageAt h hN hcop H w J O G₀ d L u hu
 
 theorem actualBridge (hD : RequestedIndices (ell := ell) (m := m) D k)
     (hF : LevelFilter (N := N) (m := m) D) :
-    SupportBridge (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ) := by
+    SupportBridge (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ) := by
   intro z x hx hn
   exact actualFilteredSupport h hN H w z D k hD hF x hx (by exact_mod_cast hn)
 
@@ -105,7 +106,7 @@ abbrev levelDivisor (i : Fin N.primeFactors.card) : (levelPrime N i).val ∣ N :
   Nat.dvd_of_mem_primeFactors ((N.primeFactors.orderIsoOfFin rfl) i).prop
 
 theorem actual_disc_neg (hD : RequestedIndices (ell := ell) (m := m) D k) :
-    disc (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ) < 0 := by
+    disc (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ) < 0 := by
   change (D : ℤ) * -(m : ℤ) < 0
   exact mul_neg_of_pos_of_neg (by exact_mod_cast hD.1) (neg_lt_zero.mpr (by
     have := H.odd
@@ -113,7 +114,7 @@ theorem actual_disc_neg (hD : RequestedIndices (ell := ell) (m := m) D k) :
 
 theorem actual_disc_split (hD : RequestedIndices (ell := ell) (m := m) D k)
     (hF : LevelFilter (N := N) (m := m) D) (i : Fin N.primeFactors.card) :
-    Nonvanishing.SplitsIn (disc (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ))
+    Nonvanishing.SplitsIn (disc (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ))
       (levelPrime N i).val := by
   let q := levelPrime N i
   change Nonvanishing.SplitsIn ((D : ℤ) * -(m : ℤ)) q.val
@@ -128,7 +129,7 @@ theorem actual_disc_split (hD : RequestedIndices (ell := ell) (m := m) D k)
     (legendreSym.eq_one_iff q.val hn).mp hs⟩
 
 theorem actual_disc_detecting (hD : RequestedIndices (ell := ell) (m := m) D k) :
-    ((disc (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ) : ℤ) : ZMod ell) ≠ 0 := by
+    ((disc (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ) : ℤ) : ZMod ell) ≠ 0 := by
   change (((D : ℤ) * -(m : ℤ) : ℤ) : ZMod ell) ≠ 0
   have hs : jacobiSym ((D : ℤ) * -(m : ℤ)) ell = -1 := by
     rw [jacobiSym.mul_left, hD.2.2.2.1, H.inert, one_mul]
@@ -140,7 +141,7 @@ theorem actual_disc_detecting (hD : RequestedIndices (ell := ell) (m := m) D k) 
 
 variable (hD : RequestedIndices (ell := ell) (m := m) D k) (hF : LevelFilter (N := N) (m := m) D)
 
-abbrev actualOrientationBridge := actualBridge h hN hcop H w J G₀ d L hu hD hF
+abbrev actualOrientationBridge := actualBridge h hN hcop H w J O G₀ d L hu hD hF
 
 end Actual
 
@@ -176,10 +177,11 @@ variable (H : DiscriminantData m N ell) (w : ℕ → ℤˣ)
 variable {K : Type} [Field K] [Algebra (ZMod ell) K] [DecidableEq K] [IsSepClosed K]
 variable {Ebar : WeierstrassCurve (ZMod ell)} [Ebar.IsElliptic] {ap : ℕ → ℤ}
 variable {X : PMAdelic.CoarseFibre}
-variable (J : PMAdelic.JetchevKane ell h N hN hcop X) (G₀ : PMAdelic.SpecialFibre ell N K Ebar ap X)
+variable (J : PMAdelic.JetchevKane ell h N hN hcop X)
+  (O : PMAdelic.OperatorComparison ell h N hN hcop X J) (G₀ : PMAdelic.SpecialFibre ell N K Ebar ap X)
 variable (d : PM.Evaluation K Ebar M) (L : ℕ)
 variable {u : ClassSet (levelRing h hN) → ℤ}
-variable (hu : PM.IsLift (PMAdelic.geometry J G₀) d L u)
+variable (hu : PM.IsLift (PMAdelic.geometry J O G₀) d L u)
 variable {D : ℕ} {k : ℤ}
 variable (hD : RequestedIndices (ell := ell) (m := m) D k) (hF : LevelFilter (N := N) (m := m) D)
 
@@ -198,18 +200,18 @@ abbrev uniformizerMove : Equiv.Perm (actualOrbits hN H w s D) :=
 
 end Moves
 
-theorem atkinMove_class (B : SupportBridge (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ))
-    (i : Fin N.primeFactors.card) (P : actualOrbits hN H w (actualStageAt h hN hcop H w J G₀ d L hu) D) :
+theorem atkinMove_class (B : SupportBridge (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ))
+    (i : Fin N.primeFactors.card) (P : actualOrbits hN H w (actualStageAt h hN hcop H w J O G₀ d L hu) D) :
     (atkinMove hN H w _ B i P).1 =
-      (PMAdelic.geometry J G₀).atkin (levelPrime N i).val (levelPrime N i).prop (levelPrime_exp hN i) P.1 := by
-  let s := actualStageAt h hN hcop H w J G₀ d L hu
+      (PMAdelic.geometry J O G₀).atkin (levelPrime N i).val (levelPrime N i).prop (levelPrime_exp hN i) P.1 := by
+  let s := actualStageAt h hN hcop H w J O G₀ d L hu
   have he := orbitMove_class s B (splitAdele s i) (splitAdele_order s i) P
   exact he.trans (congrArg (fun e : Equiv.Perm (ClassSet (levelRing h hN)) => e P.1)
     (split_class h hN hcop _ (levelPrime_ne_detecting s i) (levelPrime_exp hN i)))
 
-theorem uniformizerMove_class (B : SupportBridge (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ))
-    (P : actualOrbits hN H w (actualStageAt h hN hcop H w J G₀ d L hu) D) :
-    (uniformizerMove hN H w _ B P).1 = (PMAdelic.geometry J G₀).uniformizer P.1 := by
+theorem uniformizerMove_class (B : SupportBridge (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ))
+    (P : actualOrbits hN H w (actualStageAt h hN hcop H w J O G₀ d L hu) D) :
+    (uniformizerMove hN H w _ B P).1 = (PMAdelic.geometry J O G₀).uniformizer P.1 := by
   change (orbitMove _ _ _ _ P).1 = _
   rw [orbitMove_class, division_class]
   rfl
@@ -218,13 +220,13 @@ abbrev actualPhase := phaseFor (levelRoots hN H w) (exceptionalProduct_ne_zero h
 abbrev actualNorm := levelNormCharacter h hN (levelRoots hN H w) (exceptionalProduct_ne_zero hN H)
 abbrev actualFactors := localFactor h (levelRoots hN H w) m
 
-theorem actual_weight_mk (B : SupportBridge (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ))
+theorem actual_weight_mk (B : SupportBridge (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ))
     (z : ClassSet (levelRing h hN))
-    (x : ActualSupport (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ) z) :
-    supportOrbitWeight (actualStageAt h hN hcop H w J G₀ d L hu) ⟨z, Quotient.mk _ x⟩ =
+    (x : ActualSupport (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ) z) :
+    supportOrbitWeight (actualStageAt h hN hcop H w J O G₀ d L hu) ⟨z, Quotient.mk _ x⟩ =
       pointWeight (actualPhase hN H w) (actualFactors h hN H w) (actualNorm h hN H w)
-        (pointOfSupport (actualStageAt h hN hcop H w J G₀ d L hu) B z x) := by
-  let s := actualStageAt h hN hcop H w J G₀ d L hu
+        (pointOfSupport (actualStageAt h hN hcop H w J O G₀ d L hu) B z x) := by
+  let s := actualStageAt h hN hcop H w J O G₀ d L hu
   refine (supportOrbitWeight_mk s z x).trans ?_
   exact congrArg
     (fun r => (actualNorm h hN H w (classRepresentative z) : Coefficients hN H w) *
@@ -245,13 +247,13 @@ theorem level_symbol (i : Fin N.primeFactors.card) :
 
 theorem actual_atkin_weight
     (hSign : ∀ i : Fin N.primeFactors.card, (w (levelPrime N i).val : ℤ) = G₀.atkinSign (levelPrime N i).val)
-    (i : Fin N.primeFactors.card) (P : actualOrbits hN H w (actualStageAt h hN hcop H w J G₀ d L hu) D) :
-    supportOrbitWeight (actualStageAt h hN hcop H w J G₀ d L hu)
-        (atkinMove hN H w _ (actualOrientationBridge h hN hcop H w J G₀ d L hu hD hF) i P) =
+    (i : Fin N.primeFactors.card) (P : actualOrbits hN H w (actualStageAt h hN hcop H w J O G₀ d L hu) D) :
+    supportOrbitWeight (actualStageAt h hN hcop H w J O G₀ d L hu)
+        (atkinMove hN H w _ (actualOrientationBridge h hN hcop H w J O G₀ d L hu hD hF) i P) =
       (G₀.atkinSign (levelPrime N i).val : Coefficients hN H w) *
-        supportOrbitWeight (actualStageAt h hN hcop H w J G₀ d L hu) P := by
-  let s := actualStageAt h hN hcop H w J G₀ d L hu
-  let B := actualOrientationBridge h hN hcop H w J G₀ d L hu hD hF
+        supportOrbitWeight (actualStageAt h hN hcop H w J O G₀ d L hu) P := by
+  let s := actualStageAt h hN hcop H w J O G₀ d L hu
+  let B := actualOrientationBridge h hN hcop H w J O G₀ d L hu hD hF
   let q := levelPrime N i
   let hn := exceptionalProduct_ne_zero hN H
   let C := levelRoots hN H w
@@ -267,14 +269,14 @@ theorem actual_atkin_weight
     obtain ⟨z',x'⟩ := Q
     induction x' using Quotient.inductionOn with
     | _ x' =>
-      rw [actual_weight_mk h hN hcop H w J G₀ d L hu B z' x',
-        actual_weight_mk h hN hcop H w J G₀ d L hu B z x]
+      rw [actual_weight_mk h hN hcop H w J O G₀ d L hu B z' x',
+        actual_weight_mk h hN hcop H w J O G₀ d L hu B z x]
       rw [pointWeight_rel A f χ cov (orbitMove_rel s B _ _ z x z' x' he)]
       have hmem : q ∈ A.places := (mem_exceptionalPlaces m N ell hn q).mpr
         (dvd_mul_of_dvd_left (dvd_mul_of_dvd_right (levelDivisor i) _) _)
       have htr := (split_generator_trace_det s B (c := -k)
         (by change (D : ℤ) * -(m : ℤ) = 1 - 4 * -k; have := hD.2.2.2.2.1; omega)
-        (actual_disc_neg h hN hcop H w J G₀ d L hu hD).ne q
+        (actual_disc_neg h hN hcop H w J O G₀ d L hu hD).ne q
         (levelPrime_ne_detecting s i) z x).1
       let P := pointOfSupport s B z x
       let sign : Coefficients hN H w := C.alpha q (levelDivisor i) (-1)
@@ -298,11 +300,11 @@ theorem actual_atkin_weight
       simp [hsign]
 
 theorem actual_uniformizer_weight
-    (B : SupportBridge (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ))
-    (P : actualOrbits hN H w (actualStageAt h hN hcop H w J G₀ d L hu) D) :
-    supportOrbitWeight (actualStageAt h hN hcop H w J G₀ d L hu) (uniformizerMove hN H w _ B P) =
-      supportOrbitWeight (actualStageAt h hN hcop H w J G₀ d L hu) P := by
-  let s := actualStageAt h hN hcop H w J G₀ d L hu
+    (B : SupportBridge (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ))
+    (P : actualOrbits hN H w (actualStageAt h hN hcop H w J O G₀ d L hu) D) :
+    supportOrbitWeight (actualStageAt h hN hcop H w J O G₀ d L hu) (uniformizerMove hN H w _ B P) =
+      supportOrbitWeight (actualStageAt h hN hcop H w J O G₀ d L hu) P := by
+  let s := actualStageAt h hN hcop H w J O G₀ d L hu
   let q := detectingPrime ell
   let hn := exceptionalProduct_ne_zero hN H
   let C := levelRoots hN H w
@@ -318,8 +320,8 @@ theorem actual_uniformizer_weight
     obtain ⟨z',x'⟩ := Q
     induction x' using Quotient.inductionOn with
     | _ x' =>
-      rw [actual_weight_mk h hN hcop H w J G₀ d L hu B z' x',
-        actual_weight_mk h hN hcop H w J G₀ d L hu B z x]
+      rw [actual_weight_mk h hN hcop H w J O G₀ d L hu B z' x',
+        actual_weight_mk h hN hcop H w J O G₀ d L hu B z x]
       rw [pointWeight_rel A f χ cov (orbitMove_rel s B _ _ z x z' x' he)]
       have hmem : q ∈ A.places := (mem_exceptionalPlaces m N ell hn q).mpr (dvd_mul_left _ _)
       let P := pointOfSupport s B z x
@@ -335,20 +337,20 @@ theorem actual_uniformizer_weight
       simp
 
 variable {Cl : Type}
-variable (A : OrbitFibers (actualStageAt h hN hcop H w J G₀ d L hu).visibility
-  (index (actualStageAt h hN hcop H w J G₀ d L hu) (D : ℤ)) N.primeFactors.card Cl)
+variable (A : OrbitFibers (actualStageAt h hN hcop H w J O G₀ d L hu).visibility
+  (index (actualStageAt h hN hcop H w J O G₀ d L hu) (D : ℤ)) N.primeFactors.card Cl)
 variable (hA : A.orientation =
-  orientation (actualStageAt h hN hcop H w J G₀ d L hu)
-    (actualOrientationBridge h hN hcop H w J G₀ d L hu hD hF))
+  orientation (actualStageAt h hN hcop H w J O G₀ d L hu)
+    (actualOrientationBridge h hN hcop H w J O G₀ d L hu hD hF))
 
 /-- The per-orbit input of DatumAt on the actual stage. -/
 def normalizers
     (hSign : ∀ i : Fin N.primeFactors.card, (w (levelPrime N i).val : ℤ) = G₀.atkinSign (levelPrime N i).val)
-    (hL : ∀ i : Fin N.primeFactors.card, L • (PMAdelic.geometry J G₀).cusp (levelPrime N i).val = 0) :
-    Normalizers (actualStageAt h hN hcop H w J G₀ d L hu).G d L
-      (actualStageAt h hN hcop H w J G₀ d L hu).weights u hu A := by
-  let s := actualStageAt h hN hcop H w J G₀ d L hu
-  let B := actualOrientationBridge h hN hcop H w J G₀ d L hu hD hF
+    (hL : ∀ i : Fin N.primeFactors.card, L • (PMAdelic.geometry J O G₀).cusp (levelPrime N i).val = 0) :
+    Normalizers (actualStageAt h hN hcop H w J O G₀ d L hu).G d L
+      (actualStageAt h hN hcop H w J O G₀ d L hu).weights u hu A := by
+  let s := actualStageAt h hN hcop H w J O G₀ d L hu
+  let B := actualOrientationBridge h hN hcop H w J O G₀ d L hu hD hF
   let ω := N.primeFactors.card
   let moves : Fin (ω + 1) → Equiv.Perm (actualOrbits hN H w s D) :=
     Fin.lastCases (uniformizerMove hN H w s B) (atkinMove hN H w s B)
@@ -357,10 +359,10 @@ def normalizers
     rw [hA]
     refine Fin.lastCases ?_ (fun j => ?_) i
     · simpa only [moves, Fin.lastCases_last] using
-        division_orientation s B (actual_disc_detecting h hN hcop H w J G₀ d L hu hD) P
+        division_orientation s B (actual_disc_detecting h hN hcop H w J O G₀ d L hu hD) P
     · simpa only [moves, Fin.lastCases_castSucc] using
-        split_orientation s B j (actual_disc_neg h hN hcop H w J G₀ d L hu hD).ne hD.2.2.2.2.2
-          (actual_disc_split h hN hcop H w J G₀ d L hu hD hF j) P
+        split_orientation s B j (actual_disc_neg h hN hcop H w J O G₀ d L hu hD).ne hD.2.2.2.2.2
+          (actual_disc_split h hN hcop H w J O G₀ d L hu hD hF j) P
   let perm (i : Fin (ω + 1)) := fiberPerm A.fiber i (moves i) (hflip i)
   have hperm (i : Fin (ω + 1)) (t : Orientations ω) (c : Cl) :
       A.param (O7Actual.flip i t, perm i t c) = moves i (A.param (t,c)) :=
@@ -369,45 +371,45 @@ def normalizers
     levelPrime_exp hN, hL, ?_, ?_, ?_, ?_⟩
   · intro i t c
     change (A.param (O7Actual.flip i.castSucc t, perm i.castSucc t c)).1 =
-      (PMAdelic.geometry J G₀).atkin (levelPrime N i).val (levelPrime N i).prop
+      (PMAdelic.geometry J O G₀).atkin (levelPrime N i).val (levelPrime N i).prop
         (levelPrime_exp hN i) (A.param (t,c)).1
     have hm : moves i.castSucc = atkinMove hN H w s B i := by
       simp only [moves, Fin.lastCases_castSucc]
     rw [hperm, hm]
-    exact atkinMove_class h hN hcop H w J G₀ d L hu B i (A.param (t,c))
+    exact atkinMove_class h hN hcop H w J O G₀ d L hu B i (A.param (t,c))
   · intro i t c
     change supportOrbitWeight s (A.param (O7Actual.flip i.castSucc t, perm i.castSucc t c)) =
       (G₀.atkinSign (levelPrime N i).val : Coefficients hN H w) * supportOrbitWeight s (A.param (t,c))
     have hm : moves i.castSucc = atkinMove hN H w s B i := by
       simp only [moves, Fin.lastCases_castSucc]
     rw [hperm, hm]
-    exact actual_atkin_weight h hN hcop H w J G₀ d L hu hD hF hSign i (A.param (t,c))
+    exact actual_atkin_weight h hN hcop H w J O G₀ d L hu hD hF hSign i (A.param (t,c))
   · intro t c
     change (A.param (O7Actual.flip (Fin.last ω) t, perm (Fin.last ω) t c)).1 =
-      (PMAdelic.geometry J G₀).uniformizer (A.param (t,c)).1
+      (PMAdelic.geometry J O G₀).uniformizer (A.param (t,c)).1
     have hm : moves (Fin.last ω) = uniformizerMove hN H w s B := by
       simp only [moves, Fin.lastCases_last]
     rw [hperm, hm]
-    exact uniformizerMove_class h hN hcop H w J G₀ d L hu B (A.param (t,c))
+    exact uniformizerMove_class h hN hcop H w J O G₀ d L hu B (A.param (t,c))
   · intro t c
     change supportOrbitWeight s (A.param (O7Actual.flip (Fin.last ω) t, perm (Fin.last ω) t c)) =
       supportOrbitWeight s (A.param (t,c))
     have hm : moves (Fin.last ω) = uniformizerMove hN H w s B := by
       simp only [moves, Fin.lastCases_last]
     rw [hperm, hm]
-    exact actual_uniformizer_weight h hN hcop H w J G₀ d L hu B (A.param (t,c))
+    exact actual_uniformizer_weight h hN hcop H w J O G₀ d L hu B (A.param (t,c))
 
 /-- Direct entry point for any independently constructed Picard fibers. -/
 def ofPicardFibers
-    (F : PicardFibers (actualStageAt h hN hcop H w J G₀ d L hu)
-      (actualOrientationBridge h hN hcop H w J G₀ d L hu hD hF) Cl)
+    (F : PicardFibers (actualStageAt h hN hcop H w J O G₀ d L hu)
+      (actualOrientationBridge h hN hcop H w J O G₀ d L hu hD hF) Cl)
     (hSign : ∀ i : Fin N.primeFactors.card, (w (levelPrime N i).val : ℤ) = G₀.atkinSign (levelPrime N i).val)
-    (hL : ∀ i : Fin N.primeFactors.card, L • (PMAdelic.geometry J G₀).cusp (levelPrime N i).val = 0) :
-    Normalizers (actualStageAt h hN hcop H w J G₀ d L hu).G d L
-      (actualStageAt h hN hcop H w J G₀ d L hu).weights u hu
-      (⟨orientation (actualStageAt h hN hcop H w J G₀ d L hu)
-        (actualOrientationBridge h hN hcop H w J G₀ d L hu hD hF), F⟩) :=
-  normalizers h hN hcop H w J G₀ d L hu hD hF _ rfl hSign hL
+    (hL : ∀ i : Fin N.primeFactors.card, L • (PMAdelic.geometry J O G₀).cusp (levelPrime N i).val = 0) :
+    Normalizers (actualStageAt h hN hcop H w J O G₀ d L hu).G d L
+      (actualStageAt h hN hcop H w J O G₀ d L hu).weights u hu
+      (⟨orientation (actualStageAt h hN hcop H w J O G₀ d L hu)
+        (actualOrientationBridge h hN hcop H w J O G₀ d L hu hD hF), F⟩) :=
+  normalizers h hN hcop H w J O G₀ d L hu hD hF _ rfl hSign hL
 
 end ActualMoves
 
