@@ -1,9 +1,10 @@
 import ZInQKernel.HDecomp.Objects
 import ZInQKernel.Contrib.OneProof.RC.Eichler.Order
 
-/-! The geometric objects used before any class-set comparison. The only
-candidate print here is the level-one maximal endomorphism order theorem;
-it is a proposition, with no asserted provider. -/
+/-! The geometric objects used before any class-set comparison. The
+torsion-form level-one maximal endomorphism order statement here is a
+proposition with no asserted provider; it is derived from the printed
+Theorem 42.1.9 candidate and a GLUE bridge in `HCMV21/DeuringRankFour.lean`. -/
 
 noncomputable section
 
@@ -140,12 +141,17 @@ theorem levelEnd_map_of_intertwines {A B : PkgI3.AbVar k} (u : Hom A B)
   change (P ≫ f.hom) ≫ u.hom = (P ≫ u.hom) ≫ g.hom
   simp only [Category.assoc, h]
 
-/-- **Printed candidate, locator UNVERIFIED.** Deuring's maximal-order
-theorem for a supersingular elliptic curve over an algebraically closed
-field. Voight GTM 288 Ch. 42, theorem number to be confirmed by the reading desk.
-The hypothesis of supersingularity is the absence of nonidentity geometric `q`-torsion
-on the one-dimensional abelian variety. This candidate states only
-the level-one endomorphism theorem. -/
+/-- **Torsion-form Deuring statement; no longer the printed candidate.**
+The endomorphism ring of a one-dimensional abelian variety over an
+algebraically closed field of characteristic `q` with no nonidentity
+geometric `q`-torsion is a maximal order in a quaternion algebra ramified
+exactly at `q` and `∞`. Its hypothesis is Voight's Prop. 42.1.7(ii),
+`E[p](F^al) = {0}`, not the rank hypothesis of Theorem 42.1.9. The printed
+candidate is `VoightThm4219` (Voight, *Quaternion Algebras*, GTM 288,
+Theorem 42.1.9, p. 784), and `deuringSupersingularEndOrder_of_rankFour`
+derives this statement from it and the GLUE bridge
+`SupersingularTorsionRankFour` (both in
+`ZInQKernel/Contrib/OneProof/RC/HCMV21/DeuringRankFour.lean`). -/
 def DeuringSupersingularEndOrder : Prop :=
   ∀ (q : ℕ) [Fact q.Prime] (k : Type) [Field k] [IsAlgClosed k] [CharP k q]
     (A : PkgI3.AbVar k), A.dim = 1 → (∀ P : A.Pt k, P ^ q = 1 → P = 1) →

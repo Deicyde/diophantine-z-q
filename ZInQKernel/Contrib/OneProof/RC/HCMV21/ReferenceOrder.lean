@@ -14,9 +14,12 @@ namespace ZInQ.Manuscript.RC.HCMV21
 open Eichler Adelic QuaternionAlgebra PkgI3.AbVar
 open scoped CategoryTheory.MonObj TensorProduct
 
-/-- The uniqueness clause of Voight, *Quaternion Algebras*, Main Theorem 14.6.1
-(locator UNVERIFIED), restricted to the two places in tex 8462–8463. This
-records the part missing from the existing existence-only proposition. -/
+/-- **Printed candidate, UNVERIFIED until the reading desk's two-lens pass.**
+Voight, *Quaternion Algebras*, GTM 288 (Springer numbering), Main Theorem 14.1.3,
+p. 218: the classification of quaternion algebras over `ℚ`, proved in Ch. 14.
+Uniqueness is the injectivity of `B ↦ Ram B`. This is that injectivity
+restricted to `Ram B = {q, ∞}`, the two places of tex 8462–8463. The existence
+clause, as the manuscript cites it, is `AppF.VoightMainThm1461`. -/
 def QuaternionRamificationUniqueness : Prop :=
   ∀ (q : ℕ) (a b c d : ℚ),
     AppF.RamifiedExactlyAtEll0Infty q a b → AppF.RamifiedExactlyAtEll0Infty q c d →
