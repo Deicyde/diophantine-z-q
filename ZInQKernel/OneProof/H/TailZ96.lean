@@ -46,8 +46,6 @@ structure OpenResearchLeaves70 : Prop where
   y3FullThreeRepZ30 : _root_.Y3RouteA.Y3FullThreeRepZ30
   /-- carirr-refold, consequence of Darmon-Diamond-Taylor 1997 Thm 3.1 (proved: CarayolRefold.frob_of_DDT31 from carirr-odd's transcription CarayolDDT.CarayolDDT31), with the Frobenius clause in the normalization the manuscript reads off Carayol 1986 Theoreme (A) (diophantine_zq.tex L9784-9796): for a printed newform f (Tau Ceti Newform N 2, psi = f.chi) with number field K_f and a place lambda | l, a continuous rho : G_Q -> GL_2(K_{f,lambda}) that is irreducible (Ribet 1977), unramified at p not dividing N l with arithmetic Frobenius of trace a_p and determinant p psi(p) (polynomial X^2 - a_p X + p psi(p)), and with codim V^{I_p} + integral_0^infty codim V^{G_p^u} du = v_p(N) at every p != l (Carayol Thm A + conductor of local Langlands + Casselman 1973 Thm 1; packaged in DDT 3.1). Oddness is proved from the Frobenius determinant (CarayolRefold.odd_of_frobDet, one Chebotarev element). Carayol's own form (sigma_lambda(pi)|G_{Q_p} <-> pi_p under local Langlands) has no Lean form (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>: K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2 (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p. 526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C = I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, ELLIOT-literature, pending review): the degree of a singular modulus, #Pic(R) <= [L:Q] (L586-587). -/
   cmjDegree : _root_.HDec.CMBranch.CMjDegree
   /-- cm-branch (leaf, consequence form, pending review): Barquero-Sanchez et al., Res. Number Theory 3 (2017), Eq. (6.2) (L600-605). -/
@@ -79,7 +77,6 @@ theorem openResearchLeaves69_of_OpenResearchLeaves70 (n : OpenResearchLeaves70) 
   silverbergZarhinThm35 := n.silverbergZarhinThm35
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmjDegree := n.cmjDegree
   cmPotentialGood := _root_.HDec.CMSerreTate.cmPotentialGood_of_neronSchemeExtensionDedekind n.neronSchemeExtensionDedekind
   cmHeight62 := n.cmHeight62

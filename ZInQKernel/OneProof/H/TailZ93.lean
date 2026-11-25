@@ -48,8 +48,6 @@ structure OpenResearchLeaves67 : Prop where
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
   /-- r16-thm1 (round 2), kept in r16-thm1b: the bridge B-Sh. Shimura's standard model of X_1(N) over Q with its Q-rational Hecke correspondences xi_p and diamond operators <d> is the kernel's model: for every X with IsX1Gen, a rational point and Jacobian J, there are endomorphisms T_p, <d> of J over Q acting on classes of the points x_tau by the double-coset formulas IsHeckeT, IsDiamond (pinned by AfTateLam.HeckePin). Same statement as AfTateLam.HeckeJ1DS (heckeJ1DS_of_bSh). Split (r16-thm1b section 3): (B2) rationality of the Hecke ring over Q on Shimura's model is printed in Shimura 1973 p. 526 (AI page read, no citation on the page); (B3) a Q-rational correspondence induces an endomorphism of J over Q (standard); left ON THE SPOT: (B1) the kernel's IsX1Gen model is Shimura's standard model (defined in Shimura 1971, which the 1973 print cites) and (B4) Shimura's xi_p, <d> act on the classes of the x_tau by DS's double-coset formulas (convention dictionary). -/
   bShStandardModel : _root_.R16Thm1.BShStandardModel
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>: K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2 (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p. 526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C = I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, printed form, pending review): Fowler, Math. Proc. Cambridge Philos. Soc. 180 (2026), Prop. 2.7 (L588-590). -/
   fowlerProp27 : _root_.HDec.CMBranch.FowlerProp27
   /-- cm-branch (leaf, ELLIOT-literature, pending review): the degree of a singular modulus, #Pic(R) <= [L:Q] (L586-587). -/
@@ -85,7 +83,6 @@ theorem openResearchLeaves66_of_OpenResearchLeaves67 (n : OpenResearchLeaves67) 
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := n.bShStandardModel
-  shimuraThm1Af := n.shimuraThm1Af
   fowlerProp27 := n.fowlerProp27
   cmjDegree := n.cmjDegree
   cmPotentialGood := n.cmPotentialGood

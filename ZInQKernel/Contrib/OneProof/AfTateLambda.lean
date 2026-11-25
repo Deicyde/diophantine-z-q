@@ -16,6 +16,7 @@ of DS 9.5.4; (3) the leaf was stated over `ℚ_ℓ ⊗ K_f`, the print over `K_{
 * `AfShimura` (Shimura 1973 Thm 1): `K_f` is a number field and `A_f = J₁(N)/I_f J₁(N)` exists over `ℚ`
   with its `K_f`-action (`IsAfQuotient`: surjective, kills `I_f J`, universal; `IsAfAction`:
   `θ(a_p) = T_p|A_f`, `θ(χ(d)) = ⟨d⟩|A_f`; `I_f` = kernel of `T_p ↦ a_p`, `⟨d⟩ ↦ χ(d)` on the free algebra).
+  Now proved: `AfTateLam.afShimura_proof` (`AfShimuraProof.lean`); it carries only quotient existence, the coefficient recurrence and finiteness of `K_f`, so it is weaker than Shimura 1973 Thm 1, and its proof is not a Lean proof of that theorem.
 * `AfTateDSLambda` (DS Thm 9.5.4): **for every** `(A, π, θ)` as in `AfShimura`, every `ℓ` and every place
   `λ ∣ ℓ` of `K_f`, Frobenius at `p ∤ Nℓ` on `V_λ = K_{f,λ} ⊗_{ℚ_ℓ ⊗ K_f} V_ℓ(A)` has characteristic
   polynomial `X² − a_p X + χ(p) p` over `K_{f,λ} = λ.adicCompletion K_f`.
@@ -629,7 +630,9 @@ def HeckeJ1DS : Prop :=
         (∀ p : Nat.Primes, IsHeckeT N jX tX aj (p : ℕ) (tp p)) ∧
         (∀ d : (ZMod N)ˣ, IsDiamond N jX tX aj d (δ d))
 
-/-- **LEAF L2 (Shimura's `A_f` over `ℚ`).** For a newform `f ∈ S₂(Γ₁(N))` with nebentypus `χ`, `K_f` is
+/-- **L2 (Shimura's `A_f` over `ℚ`), proved: `AfTateLam.afShimura_proof` (`AfShimuraProof.lean`).**
+The statement below has no dimension or uniqueness clause: it carries only quotient existence, the coefficient recurrence and finiteness of `K_f`, so it is weaker than Shimura 1973 Thm 1, and its proof is not a Lean proof of that theorem. It was a leaf before the m1-afshimura fold.
+For a newform `f ∈ S₂(Γ₁(N))` with nebentypus `χ`, `K_f` is
 a number field, and the quotient `A_f = J₁(N)/I_f J₁(N)` exists as an abelian variety over `ℚ` with the
 action `θ : K_f → End⁰(A_f)` induced by the Hecke algebra (`θ(a_p) = T_p|A_f`, `θ(χ(d)) = ⟨d⟩|A_f`).
 Shimura, *On the factors of the jacobian variety of a modular function field*, J. Math. Soc. Japan 25
