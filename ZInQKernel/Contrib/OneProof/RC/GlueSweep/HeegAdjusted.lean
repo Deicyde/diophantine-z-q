@@ -69,7 +69,8 @@ from the remaining hypotheses: the inputs of `exists_adjusted_rep` (a short exac
 `G_{H_{f n_I ℓ}}`, a class `v ∈ H¹(G, A)` for `b_{I∪ℓ,a}` whose restriction to `N` is the Kummer
 class of the `N`-invariant point `x' = L D_ℓ Y`), and the fields of RC10's `DerivativePrimeInput`
 other than `cocycle`, `tors`, `kummer_upper`, with `Hup = N`: `hZ`, `hQ` (division points), `hY`,
-`hTr` ((4.1), `PRINT` Cai–Chen–Liu 2.15), `hXfix`, `hYfix`, `hH2` ((H2) upstairs), `hu'`, `hv'`
+`hTr` ((4.1), `PRINT` Cai–Chen–Liu 2.15, unweighted: the print once the unit index
+`u_1 = [𝒪_K^× : ℤ^×]` is one, `D_K < -4`), `hXfix`, `hYfix`, `hH2` ((H2) upstairs), `hu'`, `hv'`
 ((H12)), `hinert`, `hYX` ((H4), `ELLIOT`), `hXF`, `hchar`, `hJ` (`GLUE`).  Conclusion: some cocycle
 `b₀` represents `v`, and with `b = S.incl ∘ b₀`, at precision `2^m` (`a - m ≥ e`) the singular
 coordinate of `b` at the derivative place is `J` applied to the finite coordinate

@@ -71,7 +71,11 @@ structure OpenAddedLeaves28 : Prop where
   conradAppB : _root_.HDec.G0Galois.C8Conrad.ConradAppB
   /-- Scholze, p-adic Hodge theory for rigid-analytic varieties, Forum Math. Pi 1 (2013), Cor. 1.8 with Thms 9.1, 9.3 (diophantine_zq.tex lem:de-rham-descent L10954-10965, step C3) with the Hodge numbers of `H¹_dR(A/F)` (L10996): `H¹_et(A_F̄, ℚ_p)` of an abelian variety of dimension g over a finite `F/ℚ_p` is de Rham with Hodge jumps in [0, 1] and `dim Fil¹ D_dR = [F:ℚ_p] g`, over Mathlib's pro-étale `Scheme.EllAdicCohomology`. General g is a generalization (the manuscript's lemma is g = 2, `ScholzeH1AbSurf`, implied). -/
   scholzeH1AbVar : _root_.DeRhamScholze.HTMerge.ScholzeH1AbVar
-  /-- Milne, Abelian varieties v2.00, Part I, Thm 12.1(a), as the manuscript cites it (lem:de-rham-descent L10966-10970); Milne 1986 (Cornell-Silverman) Thm 15.1(a): `H¹(A_K̄, ℤ_ℓ) = Hom(T_ℓ A, ℤ_ℓ)`, Galois-equivariantly, over Mathlib's pro-étale `EllAdicCohomology`. -/
+  /-- `H¹(A_K̄, ℤ_ℓ) = Hom(T_ℓ A, ℤ_ℓ)`, Galois-equivariantly, over Mathlib's pro-étale
+  `EllAdicCohomology`: a consequence of Milne, Abelian Varieties v2.0 (March 16, 2008), Part I,
+  Thm 12.1(a), p. 55, with Rem. 12.5, p. 56 (Galois compatibility), as the manuscript cites it
+  (lem:de-rham-descent L10966-10970). The 1986 Cornell-Silverman chapter (Thm 15.1(a)) was not
+  read. -/
   t10TateDuality : _root_.T10Etale.T10_TateDuality
 
 /-- `OpenResearchLeaves60` from `OpenResearchLeaves61`: `hodgeTateDecompOr` from the Scholze leaf and Milne's identification

@@ -288,8 +288,8 @@ before `h` and before the exclusion set. The inputs:
   resulting total type, the already chosen dummy supply makes `hk'` partitionable": every
   `k' = a u` of the companion's shape (negative, `≡ 1 (mod 8)`, a square at every
   `p ∈ S ∪ primes(h)`, squarefree) with `L(E^{(hk')},1) ≠ 0` makes `hk'` partitionable.
-* `hforward` (PRINT; `lem:forward-rank`, Kolyvagin Thm 1 / Kato Cor 14.3; tex 2386): nonvanishing
-  gives Selmer corank zero.
+* `hforward` (PRINT Kato Cor 14.3, or GLUE Kolyvagin Thm 1, cited statement; `lem:forward-rank`;
+  tex 2386): nonvanishing gives Selmer corank zero.
 * `h33b` (ELLIOT; (3.3b), tex 2295–2341, App G (F.2) 10107–10129; lane RC2-symbols/RC11-even): a
   partitionable parameter of Selmer corank zero has `v₂L_*(d) − 2ω(d) − s(d) ≤ C₁`.
 

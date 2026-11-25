@@ -149,7 +149,7 @@ Stated in `Prints` (read; locators in each docstring):
 | leaf | locator as cited | used at |
 |---|---|---|
 | `PoleS12.BCDTThmA` | BCDT, Thm A and Introduction conds (1)–(6) | 1779 |
-| `KolyvaginThm1Printed` | Kolyvagin, MPI/90-69, Thm 1, pp. 4–5 | lem:forward-rank; 2386–2387, 2616–2617, 4020, 4052, 5264–5266, 7625–7627, 7780–7781, 8267, 10140, 10279 |
+| `KolyvaginThm1Printed` | Kolyvagin, MPI/90-69, Thm 1, pp. 4–5 (a preprint: cited statement, GLUE) | lem:forward-rank; 2386–2387, 2616–2617, 4020, 4052, 5264–5266, 7625–7627, 7780–7781, 8267, 10140, 10279 |
 | `DokchitserThm18` | Dokchitser–Dokchitser, Crelle 658, Thm 1.8 | 1792–1796, 8248–8250 |
 | `CST.CSTThm11Split` | Cai–Shu–Tian, ANT 8 (2014), Thm 1.1 | 2428, 8268–8272, 9437–9444, 4337–4339 |
 

@@ -547,7 +547,7 @@ theorem psi_heckeD [NeZero N] (hN : 2 ≤ N) (hH : EichlerHecke) {χ : Dirichlet
 /-- **LEAF candidate (the points `x_τ` exist).** For every model `X` of DS's `X₁(N)_alg` with generators
 `(j_X, t_X)` (`IsX1Gen`), every `τ ∈ ℍ` has a complex point `x_τ ∈ X(ℂ)` in the sense of `AtTau` (every
 rational function whose meromorphic function `P(j, f₁)/Q(j, f₁)` on `ℍ` has a limit `c` at `τ` is regular at
-`x_τ` with value `c`). Consequence of Diamond–Shurman §7.7 (2005 printing pp. 290–291): `X₁(N) =
+`x_τ` with value `c`). Consequence of Diamond–Shurman §7.7: `X₁(N) =
 X₁(N)_alg,ℂ` up to isomorphism over `ℂ`, with function field `ℂ(j, f₁)` (via Thm 7.7.1 and Thm 7.2.5),
 `x_τ` the image of `Γ₁(N)τ` under that isomorphism. Not printed form: the passage from points of the Riemann
 surface to `ℂ`-points of the `ℚ`-scheme and the limit form of regularity are dictionary steps. -/
@@ -559,7 +559,7 @@ def X1TauPoints : Prop :=
 a rational point `P₀`, a Jacobian `(J, aj)` (Albanese property), a weight-2 cusp form `f` on `Γ₁(N)` and a
 primitive `F` of `f` on `ℍ`, there is a countable set `Λ ⊂ ℂ` (the periods `∫_γ f(τ)dτ`, `γ ∈ H₁(X₁(N), ℤ)`)
 such that every degree-0 divisor `Σ n_τ [x_τ]` whose class `Σ n_τ aj(x_τ)` in `J(ℂ)` is trivial has
-`Σ n_τ F(τ) ∈ Λ`. Consequence of Abel's theorem, Diamond–Shurman Thm 6.1.2 (2005 printing p. 214): principal
+`Σ n_τ F(τ) ∈ Λ`. Consequence of Abel's theorem, Diamond–Shurman Thm 6.1.2: principal
 divisors map to `0` in `Jac(X) = Ω¹_hol(X)^∧/H₁(X, ℤ)` under `Σ n_x ∫_{x₀}^{x}`, applied to the holomorphic
 differential `f(τ)dτ` (DS §3.3, weight-2 cusp forms are holomorphic differentials on `X₁(N)`), with
 `∫_{x_{τ'}}^{x_τ} f(τ)dτ ≡ F(τ) − F(τ')` mod periods, and the algebraic Jacobian theory (a degree-0 divisor

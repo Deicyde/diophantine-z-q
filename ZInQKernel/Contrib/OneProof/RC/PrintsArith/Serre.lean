@@ -56,7 +56,8 @@ exponents `n_ℓ` such that every family `(α_ℓ)_ℓ` of `ℤ_ℓ`-linear auto
 with `α_ℓ ≡ 1 (mod ℓ^{n_ℓ})` for `ℓ ∈ S` is `(ρ_ℓ(σ))_ℓ` for a single `σ ∈ G_ℚ`.
 
 Used at tex 2882 and 3600 (`\cite{serre}`), through `serre_two_adic`, `serre_scalar` and
-`serre_SL2_part`. Hypotheses match: `E_ℓ` is non-CM (`curve_hasNoCM`). -/
+`serre_SL2_part`. Hypotheses match: `E_ℓ` is non-CM (`curve_hasNoCM`).
+Links: Serre 1972 https://doi.org/10.1007/BF01405086. -/
 def SerreThm3 : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic], HasNoCM E →
     ∃ (S : Finset Nat.Primes) (n : Nat.Primes → ℕ),
@@ -158,10 +159,18 @@ theorem serre_SL2_part (hS : SerreThm3) (E : WeierstrassCurve ℚ) [E.IsElliptic
 
 /-! ### `E_ℓ` has no complex multiplication -/
 
-/-- **GLUE (not proved here): rational CM `j`-invariants are integers.** If `E/ℚ` has complex
-multiplication over `ℚ̄`, then `j(E)` is an algebraic integer (Silverman, *Advanced Topics in the
-Arithmetic of Elliptic Curves*, Theorem II.6.1), hence an integer since it is rational. The
-manuscript uses exactly this (tex 1766–1767: "a rational CM `j`-invariant is an integer"). -/
+/-- **GLUE (not proved here): rational CM `j`-invariants are integers.** If `E/ℚ` has
+complex multiplication over `ℚ̄`, then `j(E)` is an algebraic integer, hence an integer since it is
+rational. The manuscript uses exactly this (tex 1766–1767: "a rational CM `j`-invariant is an
+integer"). Reading (page-checked; bibitem `milnemf`): Milne, *Modular Functions and Modular Forms*,
+v1.31 (2017), Corollary 12.15, p. 125: "If E is an elliptic curve over a number field k with
+complex multiplication, then j(E) ∈ O_K." (the ring of integers of `k` is meant, as the proof
+shows), with complex multiplication as defined on p. 124. GLUE: the complex multiplication of
+`E_ℚ̄` is defined over a number field `k`, and `O_k ∩ ℚ = ℤ`. Refereed locator: Silverman, *Advanced
+Topics in the Arithmetic of Elliptic Curves*, Theorem II.6.1 (page not checked).
+Kind: definition (GLUE input; Milne's notes are unrefereed, so they are a reading, not a print).
+Links: Milne, Modular Functions and Modular Forms https://www.jmilne.org/math/CourseNotes/MF.pdf;
+Silverman, Advanced Topics https://doi.org/10.1007/978-1-4612-0851-8. -/
 def CMjInteger : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic], ¬ HasNoCM E → ∃ z : ℤ, E.j = z
 

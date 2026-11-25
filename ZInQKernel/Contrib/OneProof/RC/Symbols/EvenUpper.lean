@@ -41,8 +41,8 @@ theorem even_upper_cubes {ε : L →+ ZMod 2} {A : Config L → ZMod 2} (hA : Co
 (F.2)). Kind: PROVED from the stated inputs, which are, in the manuscript:
 * `h33a` (3.3a): a unit symbol at `p` gives `L_*(p) ≠ 0` and `v₂ L_*(p) ≤ 2ω(p) + C₀` (ELLIOT:
   same-filter coefficient-square formula, App E `ex:app-even-phase`);
-* `hfwd`: nonzero central value gives Selmer corank zero (PRINT: the forward rank-zero theorem,
-  Kato / Kolyvagin, as `lem:forward-rank`);
+* `hfwd`: nonzero central value gives Selmer corank zero (the forward rank-zero theorem,
+  `lem:forward-rank`: PRINT through Kato, GLUE through Kolyvagin Thm 1, a cited statement);
 * `h32` (3.2): at corank-zero constituents the fixed-form Kato scalar `u` satisfies
   `u_p(0) = 0 ↔ L_*(p) = 0` and `|v₂ u_p(0) - (v₂ L_*(p) - 2ω(p) - s(p))| ≤ C_loc` (ELLIOT:
   App E `ex:app-central-calibration`, (E.8));

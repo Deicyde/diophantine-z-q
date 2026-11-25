@@ -9,8 +9,9 @@ Task neron-ext (2026-11-16; docs/research/neron-ext.md). The textbook field
 `ZInQ.Contrib.NeronC.NeronSchemeExtensionExists` (BLR §1.4 Thm. 3 over the Dedekind ring `𝓞_L`,
 existence half) is proved as `NeronExt.extension_of_dvrLocal` from
 
-* the new leaf `NeronExt.NeronDVRLocal`: BLR §1.4 Thm. 3 over the discrete valuation rings `(𝓞_L)_v`
-  (it follows from the field: `NeronExt.dvrLocal_of_extension`, so it is not stronger), and
+* `NeronExt.NeronDVRLocal`: BLR §1.4 Thm. 3 over the discrete valuation rings `(𝓞_L)_v` (it
+  follows from the field: `NeronExt.dvrLocal_of_extension`, so it is not stronger; introduced here
+  as a leaf, it is now proved, see its docstring), and
 * the chain's existing leaf `ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii` (descent of properness), used only to
   spread an abelian variety out to an abelian scheme over some `𝓞_L[1/f]`.
 
@@ -379,14 +380,17 @@ end Good
 
 /-! ## The main theorem -/
 
-/-- **`NeronDVRLocal` (LEAF; published).** For an abelian variety `A/K` and a number field `L ⊇ K`,
+/-- **`NeronDVRLocal` (PROVED; formerly a published leaf).** For an abelian variety `A/K`
+and a number field `L ⊇ K`,
 at every maximal ideal `v` of `𝓞_L` the abelian variety `A_L` has a Néron model over the discrete
 valuation ring `(𝓞_L)_v` (any presentation `R_v` with its map to `L`) in the sense of BLR §1.2 Def. 1:
 a smooth, separated, quasi-compact `R_v`-scheme `N` with the Néron mapping property for all smooth
 `R_v`-schemes (`CToPrinted.IsNeronModelOver`) and `N_L ≅ A_L`. Source: Bosch–Lütkebohmert–Raynaud,
 *Néron models* (1990), §1.4 Thm. 3 over the Dedekind scheme `Spec R_v` (a discrete valuation ring),
 with §1.2 Def. 1 (locators UNVERIFIED, no network). It follows from `NeronSchemeExtensionExists`
-(`dvrLocal_of_extension`), so it is not stronger. -/
+(`dvrLocal_of_extension`), so it is not stronger. It is proved: `dvrLocal_of_extension` applied to
+`GroupLawNeron.neronSchemeExtensionExists_of_dedekind NeronDVR.neronSchemeExtensionDedekind_proof`
+(`#print axioms`: `propext`, `Classical.choice`, `Quot.sound`). -/
 def NeronDVRLocal : Prop :=
   ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
     (v : Ideal (𝓞 L)) [v.IsMaximal] (Rv : Type) [CommRing Rv] [Algebra (𝓞 L) Rv]
@@ -395,7 +399,8 @@ def NeronDVRLocal : Prop :=
       Nonempty ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap Rv L)))).obj N ≅
         (A.baseChange L).X)
 
-/-- **`neronSchemeExtensionExists` from the local leaf** (and the chain's EGA IV 8.10.5 (xii) leaf). -/
+/-- **`neronSchemeExtensionExists` from `NeronDVRLocal`** (and the chain's EGA IV 8.10.5 (xii)
+leaf). -/
 theorem extension_of_dvrLocal (hpr : EGAIV_8_10_5_xii) (hloc : NeronDVRLocal) :
     ZInQ.Contrib.NeronC.NeronSchemeExtensionExists := by
   intro K _ A L _ _ _
@@ -416,7 +421,7 @@ theorem extension_of_dvrLocal (hpr : EGAIV_8_10_5_xii) (hloc : NeronDVRLocal) :
   let n := glued B hcov
   exact ⟨n.X, n.smooth, n.sep, n.qc, n.e, fun Y _ => n.ext Y (Scheme.Hom.preimage_top _)⟩
 
-/-- **The local leaf is not stronger than the field**: `NeronSchemeExtensionExists` gives `NeronDVRLocal`
+/-- **`NeronDVRLocal` is not stronger than the field**: `NeronSchemeExtensionExists` gives it
 (localize the Néron model over `𝓞_L`: gt-blr's `GapBLR.isNeronModelOver_localization`). -/
 theorem dvrLocal_of_extension (h : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists) : NeronDVRLocal := by
   intro K _ A L _ _ _ v _ Rv _ _ _ _ _

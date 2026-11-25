@@ -36,8 +36,9 @@ namespace ZInQ.BostGR9
 
 /-- **Leaf GR14-§9 (printed form): the general lower bound for the stable Faltings height**, as recorded by
 É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057-2108, §9, in the proof
-of Lemme 9.1, p. 2098 (read by the locator audit, docs/research/locators.md row R21; the paper refers there
-to Bost and to Gaudron–Rémond, Comment. Math. Helv. 89 (2014), Cor. 8.4): for every abelian variety `A` of
+of Lemme 9.1, p. 2098 (Duke 163 p. 2098: citation only; docs/research/locators.md row R21; the
+source is GR1 Cor 8.4: Gaudron–Rémond, Comment. Math. Helv. 89 (2014), Cor. 8.4, p. 400,
+attribution: Bost; normalization p. 352): for every abelian variety `A` of
 dimension `g` over a number field, `h(A) ≥ -(3/2) g`, `h` the stable Faltings height in Faltings' original
 normalization (the normalization of GR14 Thm 1.4, `(i/2)^g ∫ η ∧ η̄`). Cited by the manuscript at
 `diophantine_zq.tex` L894-895 (step E4) as "`h_F(Z) ≥ -(3/2) dim Z`, recorded in [gr2014, Section 9]".

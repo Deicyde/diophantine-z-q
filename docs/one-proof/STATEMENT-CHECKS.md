@@ -181,6 +181,10 @@ or the maintainer, and the ruling is recorded in the reviews.tsv row (ruled_by).
 through a pull request that cites that row. The person who records a reading is not the one who decides what it
 changes.
 
+**Row dependencies (Jack, 2026-11-24).** A bridge for row R may rest on row S only if S is a `frozenTarget`
+hypothesis rated LEAF or proved; the dependency is recorded on R; demoting S demotes R in the same commit; two
+rows can never certify each other.
+
 Readings produced by AI tools, the project's included, are recorded as AI-READ evidence. An AI-READ reading clears
 exactly one flag, `unread`, and only when the row's log records a page read of the cited print; for a source the
 manuscript cites, the arXiv version it cites counts as the print for this flag (the next section says what else it

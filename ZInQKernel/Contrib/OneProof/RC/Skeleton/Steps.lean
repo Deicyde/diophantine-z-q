@@ -8,15 +8,16 @@ package `FixedFieldPackage` of Branch 2) bundles Sections 7–9 and Appendices E
 manuscript (`diophantine_zq.tex`). This file states the inputs from which `Skeleton.lean` proves
 that node, following Elliot's text: one `Prop` per input, named after the manuscript, with its tex
 lines, its kind and the lane expected to discharge it. Kinds: `PRINT` (a printed theorem taken as
-a leaf), `ELLIOT` (Elliot's own step, stated, not proved here), `GLUE` (textbook fact). The
-printed leaves already stated by the blueprint (`Prints`: BCDT Theorem A, Kolyvagin Theorem 1,
-Dokchitser–Dokchitser, Cai–Shu–Tian) are used, not restated.
+a leaf), `ELLIOT` (Elliot's own step, stated, not proved here), `GLUE` (textbook fact or cited
+statement). The cited results already stated by the blueprint (`Prints`: the printed leaves BCDT
+Theorem A, Dokchitser–Dokchitser and Cai–Shu–Tian, and Kolyvagin Theorem 1, a cited statement,
+GLUE: its source is the MPIM preprint MPI/90-69) are used, not restated.
 
 ## The inputs, with tex lines, kind and the lane expected to discharge each
 
 | input | tex | kind | lane |
 |---|---|---|---|
-| `Prints` (blueprint: `bcdt`, `kolyvagin`) | 1086–1108, used 2616–2626 | PRINT | RC8 / RC9 (stated by batch 3) |
+| `Prints` (blueprint: `bcdt`, `kolyvagin`) | 1086–1108, used 2616–2626 | PRINT (BCDT Thm A) + GLUE (Kolyvagin Thm 1) | RC8 / RC9 (stated by batch 3) |
 | `KummerCorankZero` | 1098–1104 | GLUE (Kummer sequence) | RC9 |
 | `RCSteps.lstar_ne_zero_iff` | 1825–1830 | ELLIOT/GLUE | RC11-even |
 | `RCSteps.genus_partner` | 2404–2408 | ELLIOT | RC13-nonvanishing |
@@ -157,8 +158,8 @@ def SelmerCorankOneOverK (ℓ : ℕ) (k : ℤ) : Prop :=
 /-- **The Kummer sequence in rank zero** (GLUE; `lem:forward-rank`, lines 1098–1104: "the ordinary
 Kummer sequence `0 → A(ℚ) ⊗ ℚ₂/ℤ₂ → Sel_{2^∞}(A/ℚ) → Ш(A/ℚ)[2^∞] → 0` gives the corank
 assertion"; Silverman X.4; lane RC9): rank zero and finite `Ш` give `corank Sel_{2^∞} = 0`. With
-the blueprint's Kolyvagin leaf (`Prints.kolyvagin`, `r = 0`) it is the forward theorem used at
-2616–2626. -/
+the blueprint's Kolyvagin statement (`Prints.kolyvagin`, `r = 0`; a cited statement, GLUE: its
+source is the MPIM preprint MPI/90-69) it is the forward theorem used at 2616–2626. -/
 def KummerCorankZero : Prop :=
   ∀ A : WeierstrassCurve ℚ, A.IsElliptic → Module.rank ℤ A.toAffine.Point = 0 →
     Finite (sha A) → Z2Corank (selmerTwoPower A) 0
@@ -218,8 +219,9 @@ structure RCSteps {ℓ : ℕ} (D : RCData ℓ) : Prop where
   final_family : ¬ D.OddEmptyUnit → ∃ Co Ce : ℤ, ∃ b₀ : ℕ, ∀ b : ℕ, b₀ ≤ b →
     ∃ F : Family, F.b = b ∧ D.FinalFamilyAt Co Ce F
   /-- **The central calibration (4.6)** (Proposition `ex:arith-central-calibration`, lines
-  3987–4141; ELLIOT, resting on `lem:forward-rank` (Kolyvagin Thm 1, PRINT), Milne ADT I.7.3
-  (7.3.1) and Edixhoven Thm 5.3 / Rem 5.4.1 (lane RC9); lane RC15-central): one error bound
+  3987–4141; ELLIOT, resting on `lem:forward-rank` (Kolyvagin Thm 1, cited statement, GLUE),
+  Milne ADT I.7.3 (7.3.1) and Edixhoven Thm 5.3 / Rem 5.4.1 (lane RC9); lane RC15-central):
+  one error bound
   `C_cal` such that at a known simple zero `h_x` with `L(E^{(h_x k)}, 1) ≠ 0`,
   `v₂ u_{prim,x}(0) = 2j_rc(h_x,k) − 4ω(h_x) − s(h_x) − s(h_x k) − Σ_{p|k} t_p + O(1)`,
   `0 ≤ t_p ≤ 2`. -/

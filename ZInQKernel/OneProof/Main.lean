@@ -251,7 +251,8 @@ Theorem 5.3, the Cassels–Tate pairing, and the H bundles are unchanged (26 →
 Its record cites Miller's Theorem 4.4, from which
 `ZInQ.Manuscript.ForwardRankLiterature.silvermanRankOne_of_miller` proves it.
 
-Diamond–Shurman, Theorem 9.6.5, p. 393 (2005), supplies the weight-at-least-two representation in its
+Diamond–Shurman, Theorem 9.6.5, p. 404 (corrected fourth printing, 2016), supplies the
+weight-at-least-two representation in its
 prime-ideal convention. Lean proves the comparison with the existing inertia and arithmetic Frobenius
 interfaces. This changes one premise without adding to the count.
 

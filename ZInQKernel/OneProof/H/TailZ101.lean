@@ -13,8 +13,9 @@ namespace HDec.HSyn
 structure OpenResearchLeaves75 : Prop where
   /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
   pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- Diamond–Shurman, GTM 228 (2005), Theorem 9.6.5, p. 393: weight at least two, in the
-  prime-ideal convention. The inertia and arithmetic Frobenius comparison is proved. -/
+  /-- Diamond–Shurman, GTM 228, corrected fourth printing (2016), Theorem 9.6.5, p. 404, restricted
+  to weight at least two (the project's bound; the print has none), in the prime-ideal convention.
+  The inertia and arithmetic Frobenius comparison is proved. -/
   dsThm965AtPrimes : _root_.DS965Places.DiamondShurman965AtPrimes
   /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), pp. 513-514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
   dsThm966Printed : _root_.DSThm966EV.DSThm966Printed

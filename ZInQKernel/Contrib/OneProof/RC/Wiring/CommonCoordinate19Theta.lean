@@ -13,7 +13,10 @@ address's twist `h_x = ∏ (q*)^{λ_q(x)}` (tex 2683–2684), the family's movin
 (Proposition `ex:arith-moving-character`, tex 2725–2741, 3500–3702), the final companion
 `K = ℚ(√k)` (tex 2595–2603, 2716–2721) and the split primes of the families (tex 2720–2722).
 
-Two inputs of lane E2's class provider (`CommonCoordinate18E2.lean`) are derived here.
+The helpers here (`thetaCond` and its divisibility lemmas, `finrank_of_sqrt`,
+`isTotallyComplex_of_sqrt`, `discr_of_sqrt`, `jacobiSym_of_split`) feed the staged derivations
+`E2ChainInputsS.hθ` and `E2ChainInputsS.hsplit` (`CommonCoordinate19E2.lean`); the
+`ActualPresentation`-level theorems of this file have no remaining consumer.
 
 **(i) `ThetaOfDelta`.** For a genuine family moving character `G` (lane RC0's
 `GenuineFamilyMovingCharacter`, `InnerLimitFamilyPinGenuine.lean`) and a stage `s`, the
@@ -205,8 +208,9 @@ theorem ActualPresentation.discr_eq (A : ActualPresentation C D Fam x) (hk0 : D.
   discr_of_sqrt A.hr A.hgen hk0 hksq hk4
 
 /-- **The step primes split: `jacobiSym (disc K) q_i = 1`** (PROVED from the presentation's field
-`split` and the companion facts; tex 2720–2722, 4142–4146). This is the field `hsplit` of
-`E2ChainInputs` (`CommonCoordinate18E2.lean`). -/
+`split` and the companion facts; tex 2720–2722, 4142–4146). The staged analogue is
+`E2ChainInputsS.hsplit` (`CommonCoordinate19E2.lean`), proved from the same `discr_of_sqrt` and
+`jacobiSym_of_split`; this `ActualPresentation` form has no remaining consumer. -/
 theorem ActualPresentation.jacobiSym_discr_step (A : ActualPresentation C D Fam x)
     (hk0 : D.kfin < 0) (hksq : Squarefree D.kfin) (hk4 : D.kfin % 4 = 1) {i : ℕ}
     (hi : i < A.ps.length) : jacobiSym (discr C.K) (A.ps.getD i 1) = 1 := by

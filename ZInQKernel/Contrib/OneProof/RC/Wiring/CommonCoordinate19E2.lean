@@ -1,6 +1,8 @@
 import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19Pin
 import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19Theta
-import ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate18E2
+import ZInQKernel.Contrib.OneProof.RC.Wiring.ChainCond
+import ZInQKernel.Contrib.CloudB3E2Norm.H20PresClassMatch
+import ZInQKernel.Contrib.CloudB3E1RingClass.GenuineMovingData
 import ZInQKernel.Contrib.OneProof.RC.CCLUnitIndex.Units
 
 /-!
@@ -33,8 +35,8 @@ are those of the presentation by definition (`alphaStageU_eq`, by `rfl`), and `i
   (`E2ChainInputsS.hθ`, `E2ChainInputsS.hsplit`);
 * `E2ChainInputsS.hα` (PROVED), `E2ChainInputsS.actualPt`, `E2ChainInputsS.gE2`,
   `E2ChainInputsS.g` (definitions), **`E2ChainInputsS.hG`**, `E2ChainInputsS.urContU`,
-  `E2ChainInputsS.hloc` (PROVED) and **`e2ProviderS P t I : StageClassesAtS P (t + 1)`**, as in
-  `CommonCoordinate18E2.lean`, with `staged_stageFrobInput` for the junction and `P.places`,
+  `E2ChainInputsS.hloc` (PROVED) and **`e2ProviderS P t I : StageClassesAtS P (t + 1)`**,
+  with `staged_stageFrobInput` for the junction and `P.places`,
   `P.movingConj` for the places.
 
 Kinds: definitions, data, PROVED.

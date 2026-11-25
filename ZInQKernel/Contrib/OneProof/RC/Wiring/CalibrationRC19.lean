@@ -71,8 +71,8 @@ kinds and owners as there).
 | field | content | tex | kind | owner |
 |---|---|---|---|---|
 | `K`, `quad` | `K = ℚ(√k)`: a quadratic number field with a square root of `k` and the automorphism `√k ↦ −√k` (lane RC19's `QuadData`) | 3988, 4053 | definition | RC15 / RC19 |
-| `gA`, `freeA` | a free generator of `𝒜(ℚ) = E^{(h_x)}(K)` modulo torsion (rank one) | 4020–4021, 4050–4052; `lem:forward-rank` 1086–1090 | PRINT (BCDT Thm A + Kolyvagin Thm 1) + Mordell–Weil | RC9 / RC19 |
-| `gB`, `freeB` | a free generator of `ℬ(ℚ) = E^{(h_x)}(ℚ) × E^{(h_x k)}(ℚ)` modulo torsion (rank one) | 4020–4021, 4050–4052; 1086–1090 | PRINT (BCDT Thm A + Kolyvagin Thm 1) + Mordell–Weil | RC9 / RC19 |
+| `gA`, `freeA` | a free generator of `𝒜(ℚ) = E^{(h_x)}(K)` modulo torsion (rank one) | 4020–4021, 4050–4052; `lem:forward-rank` 1086–1090 | PRINT (BCDT Thm A) + GLUE (Kolyvagin Thm 1) + Mordell–Weil | RC9 / RC19 |
+| `gB`, `freeB` | a free generator of `ℬ(ℚ) = E^{(h_x)}(ℚ) × E^{(h_x k)}(ℚ)` modulo torsion (rank one) | 4020–4021, 4050–4052; 1086–1090 | PRINT (BCDT Thm A) + GLUE (Kolyvagin Thm 1) + Mordell–Weil | RC9 / RC19 |
 | `hmilne` | Cassels' isogeny invariance in Milne's form, with the canonical regulators `Reg_𝒜 = ĥ_𝒜(g_𝒜)` (the height of `E^{(h_x)}` relative to `K`) and `Reg_ℬ = ĥ_ℬ(g_ℬ)` (the sum of the two heights over `ℚ`), and self-dual torsion counts; as a leaf field it constrains only free parameters (`shaA`, `tA`, `tB`, `C_𝒜`, `C_ℬ`, `Ω_𝒜`, `ρ_Ω`): with RC19's height relation it holds for every choice of the other data, and its effect is to define `v₂ shaA − 2v₂ tA` | 4027–4030, 4106–4113 | PRINT (Milne ADT I.7.3, (7.3.1)) + GLUE (RC19's pairings are the canonical height pairings of `𝒜`, `ℬ` for their principal polarizations, `SumDifference.lean`) | RC15 / RC19 |
 
 No longer fields (PROVED by lane RC19's `regulator_inputs_sumDiff`, see

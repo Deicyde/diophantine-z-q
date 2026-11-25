@@ -64,9 +64,10 @@ theorem matAct_glOf_inv {N : ℕ} (A : ZMod N × ZMod N ≃+ ZMod N × ZMod N) (
 /-- **LEAF (Diamond–Shurman, GTM 228, Theorem 7.6.3, first part, in the print's one-basis form; printed form).**
 As `IgusaGL2DSGal`, for one basis `e` of `E_j[N]` instead of every basis: for `N > 1` there is a basis
 `e : (ℤ/N)² ≃ E_j[N]` such that every `g ∈ GL₂(ℤ/N)` is the action of some `σ₀ ∈ Gal(ℚ(j, E_j[N])/ℚ(j))` in the
-basis `e`. The print's basis is `(P_τ, Q_τ)` of (7.11) (analytic, p. 282 (2005) / p. 286 (2016)); its `ρ`, defined
-by `(P^σ, Q^σ)ᵀ = ρ(σ)(P, Q)ᵀ` (p. 287 / p. 291), is onto `GL₂(ℤ/N)` (Thm 7.6.3, p. 290 / p. 294), so in the column
-convention `σ(e v) = e(ρ(σ)ᵀ v)` used here every `g = ρ(σ)ᵀ` occurs. `N > 1` is the standing assumption of §7.5. -/
+basis `e`. The print's basis is `(P_τ, Q_τ)` of (7.11) (analytic); its `ρ`, defined by
+`(P^σ, Q^σ)ᵀ = ρ(σ)(P, Q)ᵀ` (§7.6, as in Cor. 7.5.3), is onto `GL₂(ℤ/N)` (Thm 7.6.3), so in the
+column convention `σ(e v) = e(ρ(σ)ᵀ v)` used here every `g = ρ(σ)ᵀ` occurs. `N > 1` is the
+standing assumption of §7.5. Locators AI-read (igusa-gal); no human reading. -/
 def IgusaGL2DSGalSome : Prop :=
   ∀ N : ℕ, 1 < N → ∃ e : (ZMod N × ZMod N) ≃+ nTors EDSBar N, ∀ g : GL (Fin 2) (ZMod N),
     ∃ σ₀ : LDS N ≃ₐ[Qj] LDS N, ∀ (v : ZMod N × ZMod N) (P : (EDS.baseChange (LDS N)).toAffine.Point),

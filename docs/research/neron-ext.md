@@ -14,7 +14,8 @@ Marks used below:
 
 The textbook field `neronSchemeExtensionExists` (`ZInQ.Contrib.NeronC.NeronSchemeExtensionExists`, BLR §1.4
 Thm. 3 over `𝓞_L`, existence half) is **proved** from two statements:
-* the new leaf **`NeronExt.NeronDVRLocal`**: BLR §1.4 Thm. 3 over the discrete valuation rings `(𝓞_L)_v`;
+* the new leaf **`NeronExt.NeronDVRLocal`** (proved on main since, see §5): BLR §1.4 Thm. 3 over the discrete
+  valuation rings `(𝓞_L)_v`;
 * the chain's existing leaf **`egaIV_8_10_5_xii`** (EGA IV 8.10.5 (xii), descent of properness). It is already a
   field of `OpenAddedLeaves17`, so nothing is added there.
 
@@ -145,7 +146,11 @@ Two smaller notes:
   through `GapNeron.NeronSchemeModelExistsDVRNF`) could read `NeronDVRLocal` directly: the ValuationSubring form
   follows from it with `CToPrinted.isLocalization_center`. That is a possible later simplification; it is not done
   here.
-* What remains open: `NeronDVRLocal` itself. This is BLR's local existence theorem (via Néron smoothening, BLR
+* Update 11-23: `NeronDVRLocal` is no longer open. It is proved on main as
+  `NeronExt.dvrLocal_of_extension (ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind
+  NeronDVR.neronSchemeExtensionDedekind_proof)`, with only the standard axioms (kernel axiom print on fork
+  branch `wip/neron-axprint`, commit 79426b2d). The bullets below are the 11-16 text.
+* What remained open: `NeronDVRLocal` itself. This is BLR's local existence theorem (via Néron smoothening, BLR
   3.1/1, and the construction of chapters 4–6 over strictly henselian DVRs, then descent). A further reduction to
   strictly henselian DVRs plus étale descent was not attempted. Its descent step needs effective descent of
   schemes (BLR 6.1/6.2), which the tree does not have. SPECULATIVE: that is a large project.
@@ -154,7 +159,7 @@ Two smaller notes:
   * CloudW03: BLR 1.2/8;
   * CloudW01: spreading out;
   * gt-blr: BLR 1.2/4.
-* **Lead for discharging `NeronDVRLocal`.** The Fermat's Last Theorem development (a local checkout, the
+* **Lead for discharging `NeronDVRLocal` (11-16; superseded, see the update above).** The Fermat's Last Theorem development (a local checkout, the
   source CloudW03 ported from) states and proves Néron models of abelian varieties over **henselian** DVRs (read
   in the file, VERIFIED):
   `GoodReductionJacobian.RelativeGroupLaw.exists_neronModelPropertyBundle_genericFibre_iso_of_abelianSchemePropertyBundle_of_henselianLocalRing`.

@@ -481,7 +481,8 @@ instances `(h, k')` of Proposition `ex:sec7-genus-lower`, tex 2418–2446, with 
 2. Regularity: `RegularityInputsS (uprim h k')` at every companion pair (tex 4976–5194; fields of
    `HeightOneSwitchDataS`).
 3. (4.6) at every companion pair, verbatim from `Eq35InputsGenuine` (tex 3987–4047; ELLIOT on
-   PRINTs Kolyvagin Thm 1, Milne ADT I.7.3, Edixhoven Thm 5.3; owner RC15, RC9).
+   GLUE Kolyvagin Thm 1 (cited statement) and PRINTs Milne ADT I.7.3, Edixhoven Thm 5.3; owner
+   RC15, RC9).
 4. Outer data: for every `A` and every sequence of companion pairs with `ω(k') ≤ A`, a field `K_out`,
    an exponent `a` and refined outer switching data `OuterSwitchDataS v_𝒪 (hyperfilter ℕ) K_out a`
    whose starting inner coordinates have the valuations of `ι_𝒪 (uprim h_j k'_j)` on an outer-large

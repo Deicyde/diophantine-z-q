@@ -10,3 +10,13 @@ hCM	statement-check	zachbaugher	partly	contrib desk	https://github.com/Deicyde/d
 abscissa-parity	statement-fix	CheyLoveday	unknown	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/88	faltings-fold	daed7487b0938208ebe04ebb2dc2a6a99d4f1f67
 fowlerProp27	statement-check	zachbaugher	drafting only	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973387139	faltings-fold	daed7487b0938208ebe04ebb2dc2a6a99d4f1f67
 cmjDegree	statement-check	zachbaugher	drafting only	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6973419601	faltings-fold	daed7487b0938208ebe04ebb2dc2a6a99d4f1f67
+neronSchemeExtensionDedekind	proof	mccorvie	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/152	outside-discharges-fold	c31ee59562870556b1d7a63862a093c310e1f679
+faltingsLemma1DVRPrint	proof	mccorvie	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/156	outside-discharges-fold	c31ee59562870556b1d7a63862a093c310e1f679
+r9a	reduction	mccorvie	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/153	outside-discharges-fold	c31ee59562870556b1d7a63862a093c310e1f679
+r9b	reduction	mccorvie	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/155	outside-discharges-fold	c31ee59562870556b1d7a63862a093c310e1f679
+y3ToP1j	reduction	mccorvie	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/157	outside-discharges-fold	c31ee59562870556b1d7a63862a093c310e1f679
+silverbergZarhinThm33	proof	mccorvie	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/177	sz33-fold	772a1716a268d194f5a841493535253ed49e628b
+silverbergZarhinThm35	reduction	mccorvie	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/177	sz35-swap	c53390a7e0d4dec579a4c9b6be489e2fa768c836
+frozenTarget	statement-check	carlostoledo1891	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/151	pr151-merge	19f23e1fa7f6d77b70d7d1799ed681f06d9ef63f
+dsThm965Printed	statement-check	zachbaugher	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7000317188	c2-records-1123	
+afCharpolyDS965	statement-check	zachbaugher	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7121091136	c2-records-1123	

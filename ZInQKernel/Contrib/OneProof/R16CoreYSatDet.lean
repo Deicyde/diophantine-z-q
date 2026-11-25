@@ -11,8 +11,9 @@ single Eichler–Shimura leaf `AfTateLam.AfTateDSLambda` (characteristic polynom
 
 * `AfTateLam.AfTateDSLambdaSat` (LEAF, printed form): Diamond–Shurman, *A First Course in Modular Forms*,
   GTM 228, Lemma 9.5.3 (`V_ℓ(A_f)` free of rank 2 over `K_f ⊗ ℚ_ℓ`) and Theorem 9.5.4 (`ρ_{f,λ}(Frob_𝔭)`
-  **satisfies** `x² − a_p(f)x + χ(p)p = 0`), 2005 printing pp. 389–391, 2016 fourth printing pp. 401–402
-  (read in both printings by r16-close and by the independent W24 statement check);
+  **satisfies** `x² − a_p(f)x + χ(p)p = 0`), corrected fourth printing (2016), pp. 400–402
+  (statements read by a human reader in a print copy for the `afCharpolyDS965` row, issue #14
+  comment 7121091136; the proofs were not read);
 * `AfTateLam.AfDetLambda` (GLUE): `det ρ_{f,λ}(Frob_p) = χ(p)p` for `p ∤ Nℓ`. Diamond–Shurman print the
   determinant only for the representation of Theorem 9.6.5 (Exercise 9.6.3(a)), not for the realization
   on `A_f` of Theorem 9.5.4; Shimura 1971 Thm 7.14 and Ribet, LNM 601 (1977) are candidate sources,

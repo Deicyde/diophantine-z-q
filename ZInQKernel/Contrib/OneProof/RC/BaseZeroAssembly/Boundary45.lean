@@ -26,7 +26,9 @@ At the base `h₀ = 1` the quadratic character `χ₁` is trivial and at `t = 0`
 trivial (tex 4280–4281), so the weighted point of the class at conductor `r_i` is the plain trace
 `Tr_{H_{r_i}/K} y_{r_i}`; `b₁ = Tr_{H_1/K} y_1` is the specified point `P` (the conductor-one point
 of the height formula). The split norm relation (4.1) (tex 2924–2932; Cai–Chen–Liu Thm 2.15 through
-`φ`, PRINT) at the split moving prime gives `Tr_{H_{r}/K} y_{r} = (a_r − 2) P` (lane RC10's
+`φ`, PRINT, which weights the trace by `u_1 = [𝒪_K^× : ℤ^×]`; the unweighted form here is the print
+when `D_K < -4`, `cclUnitFactor_eq_one_of_discr_lt`) at the split moving prime
+gives `Tr_{H_{r}/K} y_{r} = (a_r − 2) P` (lane RC10's
 twisted-sum algebra `B1b_twisted_split_norm`, with `θ = 1`). For `I = ∅` the class is the Kummer
 class of the `L`-multiplied weighted point (Proposition `ex:arith-finite-heegner`, tex 2867–2868,
 3293–3295; lane RC10's `H11_empty`).
@@ -79,7 +81,8 @@ with kinds:
 * `a` (`a_r`), `σ` (a Frobenius above `r`) and `hnorm`: the split norm relation (4.1) at
   `(d, q) = (1, r)`, `Tr_{H_r/H_1} y_r = (a_r − σ_r − σ_r⁻¹) y_1` (the content of Cai–Chen–Liu,
   Trans. AMS 370 (2018), Theorem 2.15, p. 3730, split case, through `φ`, as stated by lane RC9 in
-  `HeegnerPointData.NormRelations`, split clause; not a constraint inside `Boundary45Base`: the
+  `HeegnerPointData.NormRelations`, split clause, which is the print once the unit index
+  `u_1 = [𝒪_K^× : ℤ^×]` is one, `D_K < -4`; not a constraint inside `Boundary45Base`: the
   trivial stage satisfies it);
 * `incl` (`E(K) ⊂ E(H_r)`, injective), `hP` (`P = Tr_{H_1/K} y_1`, the specified point: the
   unaveraged ring-class point `b₁`), `W`, `hW` (`W = Tr_{H_r/K} y_r ∈ E(K)`, the weighted point of
@@ -318,7 +321,8 @@ theorem exists_smul_of_tendsto {n : ℕ} {c : ℕ → ℚ_[2]} {v zbar : Fin n �
 4345–4348). For the specified point `P` and the central specialization `z̄ ∈ ℚ₂ⁿ` of the actual
 cycle (in the model's central degree-one coordinates), with kinds:
 
-* `stage i`: the data of the `i`-th finite stage (`SplitNormStage`; PRINT (4.1) + definitions);
+* `stage i`: the data of the `i`-th finite stage (`SplitNormStage`; PRINT (4.1), unweighted, so the
+  print once `u_1 = [𝒪_K^× : ℤ^×]` is one, `D_K < -4`; + definitions);
 * `L`, `hL`: the fixed multiplier of Proposition `ex:arith-finite-heegner` (`L > 0` there;
   definition);
 * `kappa`: the central Kummer comparison `i ∘ κ_K : E(K) → ℚ₂ⁿ` (the rational Kummer map of

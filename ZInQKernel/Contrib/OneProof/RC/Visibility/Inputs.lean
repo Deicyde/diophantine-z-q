@@ -18,7 +18,8 @@ derives in turn from the finite theta coefficient (O.4), its orbit parametrizati
 Cornut–Jetchev reduction identity and the orientation signs (`Visibility/Models.lean`).
 
 Every hypothesis of `visibilityInputs_of_genuine`, with its kind and tex lines:
-* `P : Prints` — PRINT (Kolyvagin, BCDT, Dokchitser–Dokchitser, Cai–Shu–Tian; the shared layer);
+* `P : Prints` — PRINT (BCDT, Dokchitser–Dokchitser, Cai–Shu–Tian) and GLUE (Kolyvagin Thm 1,
+  cited statement); the shared layer;
 * `hArtin : ArtinFactorization` — batch 3's GLUE: `L(E/K, χ_{h_*} ∘ N, s) = L(E^{(h_*)}, s) L(E^{(D)}, s)`
   (Artin formalism; tex 2432, 8268–8270) — the only GLUE of the height-formula step (the splitting
   criterion is batch 3's `splittingCriterion_proof`, PROVED);

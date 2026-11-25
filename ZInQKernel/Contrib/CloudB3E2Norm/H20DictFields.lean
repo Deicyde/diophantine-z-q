@@ -8,9 +8,9 @@ Manuscript `diophantine_zq.tex`, tex 2914–2936. The interface `HeegnerPointDat
 conductor `d`; `relGal d ℓ` elements of `G_ℚ` restricting to the elements of
 `Gal(H_{dℓ}/H_d)`; `frob d q` an element of `G_ℚ` restricting to the Frobenius `σ_q` at a prime
 above the split `q` in `Gal(H_d/K)`.
-The print `CCLThm2_15Applied` is existential in the datum, so these descriptions must be part of the
-anchor. `FullAnchor` adds them to `GenuineHeegnerAnchor`, along a fixed isomorphism `κ : ℚ̄ ≃ K̄` of
-algebraic closures (`exists_kappa`):
+The existential norm premise uses the anchor to impose these descriptions on the datum.
+`FullAnchor` adds them to `GenuineHeegnerAnchor` along a fixed isomorphism
+`κ : ℚ̄ ≃ K̄` of algebraic closures (`exists_kappa`).
 
 * `field`: `x ∈ D.H n ↔ κ x ∈ H_{O_n}` (Tau Ceti's ring class field of `O_n = ℤ + n𝒪_K`, read in
   `K̄`), for the admissible conductors;
@@ -31,14 +31,14 @@ From these the field-level dictionary of `H20Dictionary` is **proved**:
   element of `𝔮` (for the text: a Frobenius at `𝔮`; with lane E1's local Frobenius lift once it is
   on the integration branch), `κ ∘ frob = σ ∘ κ` on `D.H d`, and `D.H d` is stable under `frob⁻¹`.
 * **`hnorm_of_full_anchor`** (PROVED): the input `hnorm` of `h1_shapiro` for the realized genuine
-  Heegner points from the anchored print `CCLThm2_15Applied E (FullAnchor …)` alone, given the
-  transfer data `HP = G_{H_d}`, `HR = G_{H_{dq}}` and a `σ` with the Artin restriction.
+  Heegner points from the anchored norm relations, given the transfer data `HP = G_{H_d}`,
+  `HR = G_{H_{dq}}` and a `σ` with the Artin restriction.
 
 No monotonicity `H_d ⊆ H_{dq}` of ring class fields is needed. Here `S₀` is the support of the
 ambient points; for the relaxed points take it to be the larger support `S₁` of `H20AmbientS`
 (containing the primes dividing `dq`).
 
-Kinds: definitions and PROVED from the PRINT with the full anchor.
+Kinds: definitions and PROVED.
 -/
 
 noncomputable section
@@ -432,7 +432,7 @@ theorem field_iv_stab (hA : FullAnchor E K p ι κ D) {d q : ℕ} [NeZero d] (ha
 
 end DataIV
 
-/-! ### `hnorm` from the print with the full anchor -/
+/-! ### `hnorm` from the anchored norm relations -/
 
 section Norm
 
@@ -440,16 +440,15 @@ variable {K : Type} [Field K] [NumberField K] (E : WeierstrassCurve ℚ)
   {S S₀ : Set (HeightOneSpectrum (𝓞 K))} (hS : S₀ ⊆ S) [(E.baseChange K).IsElliptic]
   {Δ : Type} [CommGroup Δ] [Finite Δ]
 
-/-- **`hnorm` for the realized genuine Heegner points from the print with the full anchor**
-(PROVED from the PRINT `CCLThm2_15Applied E (FullAnchor …)`): there is an anchored datum `D` with
-the norm relations such that, at an admissible `(d, q)` with `q` split, for the transfer data
-`HP = G_{H_d}`, `HR = G_{H_{dq}}` and a transversal `t` of `HP/(HP ∩ HR)`, there is a prime `𝔮 ∣ q`
-such that for every `σ` acting on `H_{O_d}` as the Artin element of `𝔮`, the realized points
+/-- **`hnorm` for the realized genuine Heegner points** (PROVED from the anchored norm relations).
+For the datum `D` and an admissible `(d, q)` with `q` split, take the transfer data
+`HP = G_{H_d}`, `HR = G_{H_{dq}}` and a transversal `t` of `HP/(HP ∩ HR)`. There is a prime
+`𝔮 ∣ q` such that for every `σ` acting on `H_{O_d}` as the Artin element of `𝔮`, the realized points
 `y_R = 1 ⊗ P_{dq}`, `y_P = 1 ⊗ P_d` satisfy the input `hnorm` of `h1_shapiro`. The memberships
 `hκP`, `hκR` are supplied by `field_ii`. -/
 theorem hnorm_of_full_anchor {p : CSTParam E} {ι : Qbar →ₐ[ℚ] ℂ}
     {κ : Qbar ≃ₐ[ℚ] AlgebraicClosure K}
-    (hprint : CCLThm2_15Applied E (FullAnchor E K p ι κ)) :
+    (hnorm : ∃ D : HeegnerPointData E, D.NormRelations ∧ FullAnchor E K p ι κ D) :
     ∃ D : HeegnerPointData E, FullAnchor E K p ι κ D ∧ D.NormRelations ∧
       ∀ {d q : ℕ} [NeZero d] (_ : D.Admissible d q) (_ : jacobiSym D.DK q = 1)
         (hSd : ∀ v : HeightOneSpectrum (𝓞 K), (d : 𝓞 K) ∈ v.asIdeal → v ∈ S₀)
@@ -484,7 +483,7 @@ theorem hnorm_of_full_anchor {p : CSTParam E} {ι : Qbar →ₐ[ℚ] ℂ}
                     (yPt E hS (Δ := Δ) (realize E S₀ κ.toAlgHom (D.H d) hκP (D.y d) hyP)) -
                   ambRhoU hS (E.baseChange K) Δ σ⁻¹
                     (yPt E hS (Δ := Δ) (realize E S₀ κ.toAlgHom (D.H d) hκP (D.y d) hyP)) := by
-  obtain ⟨D, hD, hA⟩ := hprint
+  obtain ⟨D, hD, hA⟩ := hnorm
   refine ⟨D, hA, hD, fun {d q} _ hadm hsplit hSd hκP hκR HP HR hHP hHR U hU _ t ht => ?_⟩
   obtain ⟨hd, hdcop, hq, hqd⟩ := hadm
   have hcopP : Nat.Coprime d (D.N * D.DK.natAbs) :=

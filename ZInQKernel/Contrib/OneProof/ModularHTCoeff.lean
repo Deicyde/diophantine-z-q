@@ -348,9 +348,12 @@ Sources (no network on this host: numbers and wordings UNVERIFIED unless said ot
 Sém. Bourbaki 355 (1969/1971) (existence over `K_{f,λ}`, `ℓ ∤ N` trace formula); Faltings, Math. Ann. 278 (1987)
 and Hodge–Tate decomposition (`ℓ ∤ N`); Saito, Invent. Math. 129 (1997) (every level); Kato, Astérisque 295 (2004)
 §§9.2-9.4, (9.2.2), pp. 187-188 (`V_{F_λ}(f)` over `F_λ`, de Rham at every level: read by the locator audit,
-row R13) and §11.3 (Hodge filtration jumps `0, k − 1`; UNVERIFIED). Existence form printed in the surveys Taylor,
-*Galois representations*, Ann. Fac. Sci. Toulouse Math. (6) 13 (2004), and Gee, *Modularity lifting theorems*,
-Essent. Number Theory 1 (2022) §2 (both UNVERIFIED). For Kato's statement the leaf is its consequence with witness
+row R13) and §11.3 (Hodge filtration jumps `0, k − 1`; UNVERIFIED). Existence form stated in the
+surveys Taylor, *Galois representations*, Ann. Fac. Sci. Toulouse Math. (6) 13 (2004)
+(UNVERIFIED), and Gee, *Modularity lifting theorems*, Essent. Number Theory 1 (2022), Fact 4.20
+in §4.19, p. 28 of arXiv:2202.05818v2 (AI-read; a Fact with no citation, its proof only sketched
+in Remark 4.22; journal numbering UNVERIFIED). For Kato's statement the leaf is its consequence
+with witness
 `E = F_λ`, `ρ = V_{F_λ}(f)` in a basis (∃-introduction). Replaces htnew-print's `ModularHTPrinted`, which is
 proved from it (`modularHTPrinted_of_coeff`). -/
 def ModularHTCoeff : Prop :=

@@ -19,7 +19,9 @@ proves that consequence:
   divisible subgroups; B. Poonen and M. Stoll, *The Cassels–Tate pairing on polarized abelian
   varieties*, Ann. of Math. 150 (1999), for the alternating property, which the manuscript cites at
   Lemma 5.4), stated without naming the pairing, so weaker than the print. Poonen–Stoll is the cited and
-  read print; Cassels 1962, Tate 1962 and Milne are background;
+  read statement, but a report: its introduction restates Cassels' theorem without proving
+  it, so the row is GLUE until a proof (Cassels 1962 or Milne I.6) is page-read and passes a
+  two-lens check; Tate 1962 is background;
 * `exists_nsmul_eq_zero_H1`: every class of `H¹(G_ℚ, E(ℚˢ))` has finite order;
 * `isSquare_card_tors_two_of_alternating`: a finite abelian `2`-group with a non-degenerate alternating
   `ℚ/ℤ`-valued pairing has a `2`-torsion subgroup of square order;
@@ -81,7 +83,8 @@ theorem exists_nsmul_eq_of_mem_divisiblePart {A : Type*} [AddCommGroup A] {x : A
 
 /-- **The Cassels–Tate pairing for an elliptic curve `E/ℚ`** (existence form): an alternating
 biadditive pairing `Sha(E/ℚ) × Sha(E/ℚ) → ℚ/ℤ` with left radical equal to the maximal divisible
-subgroup. This is Cassels' elliptic-curve theorem as stated in Poonen–Stoll, Ann. of Math. (2)
+subgroup. This is Cassels' elliptic-curve theorem as reported (restated, not proved) in
+Poonen–Stoll, Ann. of Math. (2)
 150 (1999), 1109–1149, Introduction, first paragraph (p. 2 of the author's version, p. 1110 of the journal; see the remarks
 after Corollary 12 for alternation). The manuscript cites it at `diophantine_zq.tex` L1079–1081.
 Milne, *Arithmetic Duality Theorems*, 2nd ed., I.6.13(a), p. 82, gives the kernels on each primary

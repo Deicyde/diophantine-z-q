@@ -158,12 +158,6 @@ theorem HeegnerPointData.zero_normRelations {E : WeierstrassCurve ℚ} (DK : ℤ
     (HeegnerPointData.mk (E := E) DK N H (fun _ => 0) relGal frob).NormRelations := by
   refine ⟨fun d ℓ _ _ => ?_, fun d q _ _ => ?_⟩ <;> simp [zsmul_zero]
 
-/-- The unweighted witness used by the older transport chain. In the manuscript this is the
-specialization after checking that the unit factor is one (tex 2921–2922).
-The staged application uses `CCLThm2_15AppliedWithUnits`. -/
-def CCLThm2_15Applied (E : WeierstrassCurve ℚ) (Anchor : HeegnerPointData E → Prop) : Prop :=
-  ∃ D : HeegnerPointData E, D.NormRelations ∧ Anchor D
-
 open scoped NumberField in
 /-- The printed factor `uₘ`. At `m = 1` this is the index of the image of the integral
 units in the units of the maximal order. -/

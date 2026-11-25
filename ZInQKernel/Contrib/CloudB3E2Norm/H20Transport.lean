@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.CloudB3E2Norm.H20HeegnerNorm
+import ZInQKernel.Contrib.OneProof.RC.PrintsArith.Heegner
 import ZInQKernel.Contrib.CloudB3E2Norm.H20Twist
 
 /-!
@@ -7,18 +7,13 @@ import ZInQKernel.Contrib.CloudB3E2Norm.H20Twist
 Manuscript `diophantine_zq.tex`, tex 2914–2936 (the Heegner points `y_d = π(x_d) ∈ E(H_d)` and the
 norm relations (4.1)) and tex 4157–4170 (the norm identity in the twisted-transfer form).
 
-`H20HeegnerNorm.lean` takes the norm relation `hnorm` from the print `CCLThm2_15Applied` through the
-GLUE `HeegnerTransportAt`: an additive comparison `j : E(ℚ̄) → D` into the ambient module of points,
-compatible with the Galois data of `HeegnerPointData` (which is abstract: `H`, `y`, `relGal`, `frob`
-are fields with no stated relations). For the ambient module of points of `H20Twist.lean`,
-`D = (ℤ[Δ] ⊗ E(K_{S₀}))(χ_h)`, no comparison is defined on all of `E(ℚ̄)`; this file replaces it by one
-defined on the points that are realized in `E(K_{S₀})`, and constructs it from an explicit
-dictionary.
+The ambient module of points of `H20Twist.lean` is `D = (ℤ[Δ] ⊗ E(K_{S₀}))(χ_h)`.
+The additive comparison is defined on a subgroup of `E(ℚ̄)` whose points are realized in
+`E(K_{S₀})`. The dictionary matches the Galois data in `HeegnerPointData`.
 
-* **`HeegnerTransportOn`** (Prop; GLUE form): as `HeegnerTransportAt`, with `j` defined on an
-  additive subgroup `Λ ⊆ E(ℚ̄)` containing the points used.
-* **`hnorm_of_normRelations_on`**, **`hnorm_of_print_on`** (PROVED): the norm relation from
-  `D.NormRelations` (resp. the print) and `HeegnerTransportOn`, as in `H20HeegnerNorm.lean`.
+* **`HeegnerTransportOn`** expresses the comparison on a subgroup containing the points used.
+* **`hnorm_of_normRelations_on`** transports the split clause of `D.NormRelations`
+  using `HeegnerTransportOn`.
 * `nonVacuity_transportOn` (the zero comparison into the zero system).
 * `bc_eq`, `compQ κ` (definitions/PROVED): for an embedding `κ : ℚ̄ → K̄` over `ℚ`, the comparison
   `E(ℚ̄) → E(K̄)` (with `E ×_ℚ K̄ = (E ×_ℚ K) ×_K K̄`); `incS`: `E(K_{S₀}) → E(K̄)`; `dictΛ`, `preS`,
@@ -36,7 +31,7 @@ dictionary.
   4. `χ_h(t_τ) = χ_h(σ) = 1` (the character of the twist is trivial on these elements, e.g. when
      `√h ∈ H_d`).
 
-Kinds: definitions and PROVED from the PRINT `CCLThm2_15Applied`; the dictionary is the GLUE.
+Kinds: definitions and PROVED; the dictionary is the GLUE.
 -/
 
 noncomputable section
@@ -61,8 +56,8 @@ variable {E : WeierstrassCurve ℚ} {G : Type*} [Group G] {A : Type*} [CommRing 
 
 /-- **The transport of the Heegner point data on a subgroup** at `(d, q)` (Prop; GLUE): an
 additive comparison `j : Λ → D` on a subgroup `Λ ⊆ E(ℚ̄)` containing `y_{dq}`, its conjugates by
-`relGal d q`, `y_d` and its Frobenius conjugates, with the compatibilities of
-`HeegnerTransportAt`. Kind: definition (Prop). -/
+`relGal d q`, `y_d` and its Frobenius conjugates. The comparison intertwines the
+transversal and Frobenius actions on these points. Kind: definition (Prop). -/
 def HeegnerTransportOn (D : HeegnerPointData E) (d q : ℕ) (σ : G) (yR yP : Dm) : Prop :=
   ∃ (Λ : AddSubgroup (E⁄Qbar).toAffine.Point) (j : Λ →+ Dm) (e : HP ⧸ U ≃ D.relGal d q)
     (hR : D.y (d * q) ∈ Λ) (hP : D.y d ∈ Λ)
@@ -101,19 +96,6 @@ theorem hnorm_of_normRelations_on (D : HeegnerPointData E) (hD : D.NormRelations
       AddSubgroup.sum_mem Λ hmem⟩ : Λ) =
       (E.LFunction q : ℤ) • ⟨_, hP⟩ - ⟨_, hf⟩ - ⟨_, hfi⟩ := Subtype.ext hrel
   rw [hsum, h2, map_sub, map_sub, map_zsmul, hjP, hjf, hjfi]
-
-/-- **`hnorm` from the print and the transport on a subgroup** (PROVED from the PRINT
-`CCLThm2_15Applied`). -/
-theorem hnorm_of_print_on {Anchor : HeegnerPointData E → Prop}
-    (hprint : CCLThm2_15Applied E Anchor) {d q : ℕ} (σ : G) (yR yP : HeegnerPointData E → Dm)
-    (hadm : ∀ D, Anchor D → D.Admissible d q) (hsplit : ∀ D : HeegnerPointData E, Anchor D →
-      jacobiSym D.DK q = 1)
-    (htr : ∀ D, Anchor D → HeegnerTransportOn ρ HP U t D d q σ (yR D) (yP D)) :
-    ∃ D : HeegnerPointData E, Anchor D ∧
-      ∑ τ : HP ⧸ U, ρ (t τ : G) (yR D) =
-        (E.LFunction q : ℤ) • yP D - ρ σ (yP D) - ρ σ⁻¹ (yP D) := by
-  obtain ⟨D, hD, hA⟩ := hprint
-  exact ⟨D, hA, hnorm_of_normRelations_on ρ HP U t D hD (hadm D hA) (hsplit D hA) (htr D hA)⟩
 
 /-- **Non-vacuity of `HeegnerTransportOn`** (logical consistency only): the zero comparison on the
 whole group into the zero system. -/

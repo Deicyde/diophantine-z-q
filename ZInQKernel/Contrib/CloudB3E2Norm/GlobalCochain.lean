@@ -45,7 +45,7 @@ definition inside `K_S`) and the ring class fields `H_T` as intermediate fields 
 in the tree; (3) the identification of the genuine coefficient module `M` with `D[k]` through `ι`
 and of the genuine action with the twisted action `R = θ ρ` (`hιeq`, `htors`); (4) the
 identification of the division points `Q_T` with those of the actual Heegner points
-(`CCLThm2_15Applied`'s anchor); (5) the local components `hU`, `hL` (item 3 of the
+(the anchor of `CCLThm2_15AppliedWithUnits`); (5) the local components `hU`, `hL` (item 3 of the
 common-coordinate step).
 
 Kinds: definitions and PROVED.

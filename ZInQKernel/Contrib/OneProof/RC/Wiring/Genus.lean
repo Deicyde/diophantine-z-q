@@ -10,8 +10,9 @@ import ZInQKernel.Contrib.OneProof.RC.PrintsAnalytic.Parity
   (tex 2404–2408).
 * `genusPartnerTarget_of` (PROVED): for data whose `h_*` is such a genus partner, the field
   `RCSteps.genus_partner` (`h_* < 0`, `L_*(h_*) ≠ 0`) from the normalization `lstar_ne_zero_iff`.
-* `forward_corankZero` (PROVED from the blueprint's BCDT and Kolyvagin leaves and the Kummer glue):
-  `L(E^{(d)}, 1) ≠ 0` gives `corank Sel_{2^∞}(E^{(d)}/ℚ) = 0` (`lem:forward-rank`, r = 0).
+* `forward_corankZero` (PROVED from the blueprint's BCDT leaf, Kolyvagin statement (GLUE) and the
+  Kummer glue): `L(E^{(d)}, 1) ≠ 0` gives `corank Sel_{2^∞}(E^{(d)}/ℚ) = 0` (`lem:forward-rank`,
+  r = 0).
 * `rootNumber_neg_one_of_simpleZero` (PROVED from lane RC8's `rootNumber_parity_of_analyticRank` and
   lane RC13's GLUE `RootNumberExists`): a twist with a simple zero has root number `−1`.
 * `f3Target_of` (PROVED from lane RC13's `roughCompanion`): the rough companion with (F.3) in the
@@ -67,7 +68,8 @@ theorem genusPartnerTarget_of {ℓ : ℕ} {D : RCData ℓ} (hL : LstarTarget D)
 /-! ## The forward theorem and root numbers of twists -/
 
 /-- **The forward theorem in analytic rank zero for the twists** (PROVED from the blueprint's
-BCDT and Kolyvagin leaves and the Kummer glue; `lem:forward-rank`, tex 1086–1108). -/
+BCDT leaf, its Kolyvagin statement (GLUE) and the Kummer glue; `lem:forward-rank`, tex
+1086–1108). -/
 theorem forward_corankZero (P : Prints) (hKum : KummerCorankZero) {ℓ : ℕ} (hℓ : 0 < ℓ) {d : ℤ}
     (hd : d ≠ 0) (hL : AnalyticRank (Etw ℓ d) 0) : Z2Corank (selmerTwoPower (Etw ℓ d)) 0 := by
   have hE : (Etw ℓ d).IsElliptic := by
@@ -135,7 +137,8 @@ theorem omega_eq_nonvanishing (n : ℤ) : omega n = Nonvanishing.omega n := rfl
 
 /-- **The rough companion with (F.3)** (PROVED from lane RC13's `roughCompanion`, tex 2343–2401,
 App G 10055–10150), in the form of batch 3's `FinalFamilyField`. Remaining inputs: the prints
-(Hoffstein–Luo, BFH's twist sign; BCDT, Kolyvagin in `Prints`), the GLUE `RootNumberExists`, the
+(Hoffstein–Luo, BFH's twist sign; BCDT in `Prints`), Kolyvagin's cited statement (GLUE, in
+`Prints`), the GLUE `RootNumberExists`, the
 Kummer glue, the normalization of `L_*`, the support and prepared-filter specifications, the
 partitionable auxiliary factor (RC2) and (3.3b) (RC11). -/
 theorem f3Target_of (P : Prints) (hKum : KummerCorankZero) (hHL : Nonvanishing.HoffsteinLuo)

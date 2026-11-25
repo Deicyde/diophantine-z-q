@@ -32,8 +32,9 @@ and `Discharges-output.txt`).
 * `AfCharpolyDS965`: same as `AfShimura`.
 
 **The reading** (§5): DS's identification of the §9.5 representation with 9.6.5's `ρ_{f,λ}` at `k = 2` is
-*asserted*, not presupposed. It is not in the sentence right after Thm 9.6.5, which is about the determinant. It is in
-the paragraph after that, on the same page: 2005 printing p. 393, 2016 printing p. 404.
+*asserted*, not presupposed. It is in the
+paragraph after Thm 9.6.5, on the same page: p. 404 of the corrected fourth printing (2016) (HUMAN-READ,
+zachbaugher, issue #14 comment 7121091136).
 
 **A side result.** The proved `EichlerHecke` fixes the orientation of `IsHeckeT`'s double-coset formula: the
 operator it defines has eigenvalue `a_p(f)` on the `f`-part, through `Ψ` (Claim B). It is not, for example, the
@@ -131,20 +132,23 @@ Consequences, proved from it:
   `K_f ⊆ ℂ`. So `θ` and `θ'` agree on the `a_p` and the `χ(d)`. Their equalizer is an intermediate field (inverses
   are unique in `End⁰`), so it contains `coeffField f = ℚ(a_n)`.
 
-## 5. Reading: Diamond–Shurman p. 393 (2005) / p. 404 (2016)
+## 5. Reading: Diamond–Shurman p. 404 (corrected fourth printing, 2016)
 
-VERIFIED by pdftotext of both local printings. Thm 9.6.5 is on p. 393 of the 2005 printing and p. 404 of the 2016
-fourth printing.
+Thm 9.6.5 is on p. 404 of the corrected fourth printing (2016): VERIFIED by a human reader's print copy (issue #14
+comment 7000317188, made for the earlier `dsThm965Printed` row). A second human reading in a print copy, made
+for this row (HUMAN-READ, zachbaugher, issue #14 comment 7121091136), quotes the paragraph after the theorem on
+p. 404 and reads §9.5 on pp. 395–402 (not the proofs of Lemma 9.5.3 and Thm 9.5.4).
 
-* The sentence right after the theorem derives `det ρ_{f,λ}` from the characteristic equation.
-* The relevant sentence is two paragraphs later, on the same page in both printings. It begins "Section 9.5
-  constructed ρf,λ when k = 2 but didn't prove that ρf,λ is irreducible or that the equation is the
-  characteristic equation."
+* The relevant sentence is in the paragraph after the theorem, on the same page (HUMAN-READ, zachbaugher,
+  issue #14 comment 7121091136). It begins "Section 9.5 constructed ρ_{f,λ} when k = 2 but didn't prove that
+  ρ_{f,λ} is irreducible or that the equation is the characteristic equation."
 * It **asserts** the identification: it names the §9.5 construction as the `k = 2` instance of the theorem's
   `ρ_{f,λ}`. So Thm 9.6.5 at `k = 2` claims the characteristic equation for the §9.5 representation.
 * The sentence gives no proof or reference for that claim. It flags that §9.5 did not prove it.
-* AfCharpolyDS965's reading risk is therefore the one r16-det recorded: an AI reading, no human reading. Shimura
-  1971 Thm 7.14 is unread as a second locator.
+* AfCharpolyDS965's reading: the human reading (issue #14 comment 7121091136) rates it a consequence, GLUE. DS
+  print the `k = 2` characteristic equation without proof or citation (§9.5 proves only that `ρ_{f,λ}(Frob_𝔭)`
+  satisfies the quadratic), and the step from DS's transported Galois action to the Lean's algebraic `A_f` is a
+  dictionary argument that is not in the print. Shimura 1971 Thm 7.14 is unread as a second locator.
 
 ## 6. The three rows
 
@@ -155,11 +159,11 @@ fourth printing.
 | `AfCharpolyDS965` | closed, as for `AfShimura` (same hypotheses) | the k = 2 identification is asserted by DS (§5); human reading |
 
 **New Props and their ratings:**
-* `X1TauPoints`: LEAF candidate, not printed form. It is a consequence of DS §7.7 (2005 pp. 290–291:
-  `X₁(N) = X₁(N)_alg,ℂ` with function field `ℂ(j, f₁)`). The step from Riemann-surface points to `ℂ`-points of the
+* `X1TauPoints`: LEAF candidate, not printed form. It is a consequence of DS §7.7
+  (`X₁(N) = X₁(N)_alg,ℂ` with function field `ℂ(j, f₁)`). The step from Riemann-surface points to `ℂ`-points of the
   `ℚ`-scheme, and the limit form of regularity in `AtTau`, are dictionary steps.
 * `AbelJacobiX1`: LEAF candidate, not printed form. It composes four sources:
-  * DS Thm 6.1.2 (2005 p. 214);
+  * DS Thm 6.1.2;
   * DS §3.3 (weight-2 cusp forms are holomorphic differentials);
   * the algebraic Jacobian theory (Milne 1986, Thm 1.1 / Prop. 6.1; numbers UNVERIFIED);
   * algebraic = meromorphic functions (DS §7.2).

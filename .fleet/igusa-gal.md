@@ -11,14 +11,14 @@
   `ZInQKernel/Contrib/OneProof/IgusaGL2DSGalSome.lean`.
 * No consumer of `IgusaGL2DS` loses anything: they all take it as a hypothesis.
 
-**Page check.** Diamond–Shurman, read in the 2005 and 2016 printings. Every answer is favourable:
-* Thm 7.6.3 is on p. 290 / p. 294;
-* ρ is the action on `E_j[N]` in the one basis `(P_τ, Q_τ)`, p. 287 / p. 291, so the every-basis form is a
-  consequence, now proved in Lean;
-* `N > 1` (§7.5 opening, p. 279 / p. 283);
-* `E_j[N]` lies in the algebraic closure of `ℚ(j)`, with `j` transcendental (p. 282 / p. 286 and
-  p. 287 / p. 291);
-* the group law is chord–tangent (§7.1, pp. 253–254 / pp. 257–258).
+**Statement check.** Diamond–Shurman, AI-read (no human reading), located by theorem, section and equation
+number. Every answer is favourable:
+* the statement is Thm 7.6.3;
+* ρ is the action on `E_j[N]` (§7.6) in the one basis `(P_τ, Q_τ)` of (7.11), as in Cor. 7.5.3, so the
+  every-basis form is a consequence, now proved in Lean;
+* `N > 1` (§7.5 opening);
+* `E_j[N]` lies in the algebraic closure of `ℚ(j)`, with `j` transcendental ((7.12), §7.5; §7.6 opening);
+* the group law is chord–tangent (§7.1).
 
 **What compiles** (all on standard axioms):
 * both new files;

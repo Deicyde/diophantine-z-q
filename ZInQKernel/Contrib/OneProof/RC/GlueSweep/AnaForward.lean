@@ -7,12 +7,13 @@ import ZInQKernel.Contrib.CloudB3RC53.Prints
 
 `lem:forward-rank` (tex 1086–1108) in rank zero: if `L(E, 1) ≠ 0` then
 `corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 0`. Lane RC13's `roughCompanion` (tex 2373–2387) takes it as the
-abstract hypothesis `hforward : ∀ d, CentralNonzero (qtwist E d) → CorankZero d` (labelled PRINT,
-Kolyvagin Theorem 1 / Kato Corollary 14.3), with `CorankZero` a free predicate.
+abstract hypothesis `hforward : ∀ d, CentralNonzero (qtwist E d) → CorankZero d` (labelled PRINT
+for Kato Corollary 14.3, GLUE for Kolyvagin Theorem 1, a cited statement), with `CorankZero` a
+free predicate.
 
 * `forwardRank_zero_of_prints` (PROVED): the rank-zero forward lemma from the shared top layer's
-  printed leaves `Prints` (BCDT Theorem A and Kolyvagin Theorem 1 at `r = 0`: rank zero and finite
-  `Ш`) and the proved Kummer sequence in rank zero of the shared top layer
+  `Prints` (BCDT Theorem A, PRINT, and Kolyvagin Theorem 1 at `r = 0`, a cited statement, GLUE:
+  rank zero and finite `Ш`) and the proved Kummer sequence in rank zero of the shared top layer
   (`CloudB3RC53.KummerCorankZero.kummerCorankZero_proof`). Lane RC9's `forward_rank_zero` proves the
   same from Kato's Corollary 14.3 instead; this route needs no print beyond `Prints`.
 * `roughCompanion_genuine` (PROVED): RC13's `roughCompanion` with `CorankZero d` the genuine

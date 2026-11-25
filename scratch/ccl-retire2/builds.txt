@@ -1,0 +1,32 @@
+Serial Lake builds on merge 5222492581202af090762d7ac62d6b042de53865.
+Each target has its own Lake invocation under MemoryMax 60G.
+The devserver load and available memory were checked before every run.
+Two initial Main attempts were interrupted to switch caches.
+The final pass uses Lake validation on the earlier retirement build cache.
+
+PASS ZInQKernel.OneProof.Main
+PASS ZInQKernel.OneProof.Discharges
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.ChainCond
+PASS ZInQKernel.Contrib.CloudB3E2Norm.CentralSpec
+PASS ZInQKernel.Contrib.CloudB3E2Norm.E2ChainActual
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20AmbientS
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20DictFields
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PairedLift
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PresClassMatch
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PresClassOf
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20ThetaMono
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20Transport
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20Untwisted
+PASS ZInQKernel.Contrib.CloudB3E2Norm.HeegnerRCBridge
+PASS ZInQKernel.Contrib.CloudB3E2Norm.RingClassMono
+PASS ZInQKernel.Contrib.OneProof.RC.CCLUnitIndex.Units
+PASS ZInQKernel.Contrib.OneProof.RC.HeegnerAnchor.Comparison
+PASS ZInQKernel.Contrib.OneProof.RC.O7Actual.Reduction
+PASS ZInQKernel.Contrib.OneProof.RC.PrintsArith.Bundle
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19E2
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19Leaf
+PASS ZInQKernel
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20Anchor
+PASS ZInQKernel.Contrib.OneProof.RC.PrintsArith.Heegner
+PASS ZInQKernel.Contrib.CloudB3E1RingClass.SupportReq
+PASS scratch/ccl-retire/Check.lean (21 declarations, 3 standard axioms)

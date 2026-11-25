@@ -12,7 +12,7 @@ glue. New file: `ZInQKernel/Contrib/OneProof/HeckePin.lean` (namespace `AfTateLa
 
 **Gap 1 (`KillsIf` is DS's `I_f`):** `evF_eq_zero_of_heckeJ_eq_zero_of_leaves` proves
 `ker(heckeJ) ⊆ ker(evF)`. From it, `killsIf_iff_IfDS_of_leaves` shows `KillsIf` kills exactly DS's `I_f J`.
-- Remaining inputs: the leaf candidates `X1TauPoints` (consequence of DS §7.7, pp. 290–291) and `AbelJacobiX1`
+- Remaining inputs: the leaf candidates `X1TauPoints` (consequence of DS §7.7) and `AbelJacobiX1`
   (DS Thm 6.1.2 composed with the algebraic Jacobian). Neither is in printed form.
 - The Eichler glue is proved. `eichlerPrimitive`: a holomorphic primitive of `f` exists. `eichlerHecke`: `T_p f =
   a_p f` from the `q`-expansion, plus the double-coset identities for the primitive.
@@ -24,9 +24,9 @@ glue. New file: `ZInQKernel/Contrib/OneProof/HeckePin.lean` (namespace `AfTateLa
 `ConstOnTauPoints` (a morphism `X → J` constant on the `x_τ` is constant). The proof goes through the Albanese
 property.
 
-**Reading:** DS 2005 p. 393 / 2016 p. 404. The sentence two paragraphs after Thm 9.6.5 ("Section 9.5 constructed
-ρf,λ when k = 2 …") *asserts* that the §9.5 representation is 9.6.5's `ρ` at k = 2, so it is not merely presupposed.
-It gives no proof, and it is not the sentence right after the theorem (that one is about `det`).
+**Reading:** DS Thm 9.6.5, 2016 printing p. 404 (human read, issue #14 comment 7121091136). The paragraph after
+Thm 9.6.5 ("Section 9.5 constructed ρ_{f,λ} when k = 2 …") *asserts* that the §9.5 representation is 9.6.5's `ρ`
+at k = 2, so it is not merely presupposed. It gives no proof.
 
 **Compiles (VERIFIED).**
 - `lake build ZInQKernel.Contrib.OneProof.HeckePin` succeeds, and every main theorem uses only the standard axioms.
@@ -37,5 +37,5 @@ It gives no proof, and it is not the sentence right after the theorem (that one 
 
 **Remains.** `X1TauPoints` and `AbelJacobiX1` are open leaf candidates (not printed form), and
 `ConstOnTauPoints` is open glue. A proof route for it is in the report §3; it needs two pieces the tree lacks:
-the dimension-one finiteness fact for curves, and geometric irreducibility of `X_ℂ`. A human reading of DS p. 393 is still needed. Report:
+the dimension-one finiteness fact for curves, and geometric irreducibility of `X_ℂ`. A human reading of DS Thm 9.6.5 at k = 2 was still needed (since posted: issue #14 comment 7121091136, 2016 printing p. 404). Report:
 `docs/research/hecke-pin.md`.
