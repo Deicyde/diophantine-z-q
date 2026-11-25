@@ -34,7 +34,7 @@ theorem noRamUnits_five : NoRamUnits 5 := by
 
 /-- **Step C8 without Conrad's App. B**: the twist has finite image, from R13 and R14. -/
 theorem c8TwistFinite_proof (hR : HDec.HSyn.EigenformRepExists)
-    (hHT : _root_.PkgI4.EigenformHT) : HDec.G0Galois.C8Conrad.C8TwistFinite := by
+    (hHT : HDec.PkgI4.EigenformHT) : HDec.G0Galois.C8Conrad.C8TwistFinite := by
   intro r N χ g ψ ιC ιL S hN hg hr hatt
   obtain ⟨E, hE, ψE, hlift, hwt⟩ :=
     HDec.G0Galois.C8Conrad.twistCharHTWt0_proof hR hHT r N χ g ψ ιC ιL S hN hg hr hatt
@@ -43,8 +43,8 @@ theorem c8TwistFinite_proof (hR : HDec.HSyn.EigenformRepExists)
 
 /-- **C8's consumer `G12DetPZ` without `C8Inputs`** (the replacement for
 `g12DetPZ_of_inputs r.r14 r.r13 m.c8 h9 r.r10`). -/
-theorem g12DetPZ_proof (hR : HDec.HSyn.EigenformRepExists) (hHT : _root_.PkgI4.EigenformHT)
-    (h9 : HDec.G0Galois.G9GlueNoT23) (hdR : _root_.PkgI4.DeRhamComparison) :
+theorem g12DetPZ_proof (hR : HDec.HSyn.EigenformRepExists) (hHT : HDec.PkgI4.EigenformHT)
+    (h9 : HDec.G0Galois.G9GlueNoT23) (hdR : HDec.PkgI4.DeRhamComparison) :
     HDec.G0Galois.G12DetPZ :=
   HDec.G0Galois.C8Conrad.g12DetPZ_of_twistFinite (c8TwistFinite_proof hR hHT) h9 hdR
 
