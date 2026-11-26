@@ -5,7 +5,7 @@ import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
 import ZInQKernel.Contrib.OneProof.CasselsTatePairing
 import ZInQKernel.Contrib.RC53Assist.BCDTPrint.Descent
 import ZInQKernel.Contrib.OneProof.SilvermanRankOne
-import ZInQKernel.Contrib.OneProof.CasselsIV.Glue
+import ZInQKernel.Contrib.OneProof.CasselsTatePS.Basic
 
 /-!
 # The whole proof in one theorem
@@ -13,15 +13,19 @@ import ZInQKernel.Contrib.OneProof.CasselsIV.Glue
 `ZInQ.OneProof.frozenTarget` derives the frozen target `ZInQ.FrozenTarget` from every statement that is still open on
 the development fork, and from nothing else: the open bundles of the H chain, the manuscript's Theorem 5.3 (the restricted
 converse, `ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine`, `diophantine_zq.tex` lines 1005–1011, over the genuine
-`Sel_{2^∞}(E_ℓ/ℚ)`), the Cassels–Tate pairing as Cassels proves it
-(`ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic`: Cassels, J. reine angew. Math. 211
-(1962), Theorem 1.1, p. 95, with §3 (viii), p. 104, at `k = ℚ`, for every elliptic curve over `ℚ`;
-`Contrib/OneProof/CasselsIV/`), and the forward rank-one implication from
+`Sel_{2^∞}(E_ℓ/ℚ)`), the Cassels–Tate pairing on the curves `E_ℓ` of Theorem 5.3 in the form
+printed by Poonen–Stoll (`ZInQ.Manuscript.PoleS12.CasselsTatePairingCurvesPS`,
+`Contrib/OneProof/CasselsTatePS/Basic.lean`, the printed input the manuscript cites for its
+Lemma 5.4 at `diophantine_zq.tex` L1079–1081; Lemma 5.4 is proved from it), and the forward
+rank-one implication from
 Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., Appendix C, Evidence 16.5.5, pp. 452–453.
-The Cassels row is routed through the Poonen–Stoll form at the curves `E_ℓ` of Theorem 5.3
-(`ZInQ.Manuscript.PoleS12.CasselsTatePairingCurvesPS`, by
-`ZInQ.Manuscript.PoleS12.casselsTatePairingCurvesPS_of_casselsIV`), the printed input the
-manuscript cites for its Lemma 5.4 at `diophantine_zq.tex` L1079–1081; Lemma 5.4 is proved from it.
+The Poonen–Stoll form is a weakening of Cassels, J. reine angew. Math. 211 (1962), Theorem 1.1,
+p. 95, with §3 (viii), p. 104: Lean proves it from the direct instance
+`ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic` (Theorem 1.1 at `k = ℚ`, for every
+elliptic curve over `ℚ`) by `ZInQ.Manuscript.PoleS12.casselsTatePairingCurvesPS_of_casselsIV`
+(`Contrib/OneProof/CasselsIV/`). It is also weaker than the previous statement of this
+hypothesis, `ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves`
+(`ZInQ.Manuscript.PoleS12.casselsTatePairingCurvesPS_of_current`).
 Pole completeness PC (`ZInQ.PoleCompleteness`, Theorem 5.2, lines 1001–1004, for the manuscript's pole polynomial) is
 proved from these by the manuscript's descent (lines 1019–1121):
 `ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne_PS`
@@ -278,21 +282,21 @@ hypothesis by its proof; the theorem's statement then loses that hypothesis.
 namespace ZInQ.OneProof
 
 /-- **Theorem 1.1, from every statement still open:** the open H bundles, the manuscript's Theorem 5.3 over
-its genuine Selmer condition, the Cassels–Tate pairing as Cassels proves it (`hCT`:
-`CasselsIVThm11Elliptic`, Cassels (1962), Theorem 1.1, for every elliptic curve over `ℚ`, routed
-through the Poonen–Stoll form at the curves `E_ℓ` by `casselsTatePairingCurvesPS_of_casselsIV`), and
-Silverman's rank-one forward implication (Appendix C, Evidence 16.5.5). Pole completeness
+its genuine Selmer condition, the Cassels–Tate pairing on the curves `E_ℓ` in the form printed by
+Poonen–Stoll (`hCT : CasselsTatePairingCurvesPS`, a weakening of Cassels (1962), Theorem 1.1,
+proved from its direct instance `CasselsIVThm11Elliptic` by
+`casselsTatePairingCurvesPS_of_casselsIV`, and weaker than the previous `CasselsTatePairingCurves`),
+and Silverman's rank-one forward implication (Appendix C, Evidence 16.5.5). Pole completeness
 (Theorem 5.2) uses only these last three inputs. -/
 theorem _root_.ZInQ.OneProof.frozenTarget
     (r : HDec.HSyn.OpenResearchLeaves78) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves30)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
-    (hCT : ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic)
+    (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurvesPS)
     (hRank : ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
     (HDec.HSyn.sixContactMin_of_open99 r t l)
-    (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne_PS hRC
-      (ZInQ.Manuscript.PoleS12.casselsTatePairingCurvesPS_of_casselsIV hCT)
+    (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne_PS hRC hCT
       (ZInQ.Manuscript.PoleS12.SilvermanRank.rankOne_of_aec hRank))
 
 end ZInQ.OneProof

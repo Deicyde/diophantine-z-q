@@ -1,4 +1,4 @@
-# Adversarial AI readings: `hCT` as Cassels (1962), Theorem 1.1 (2026-11-26)
+# Adversarial AI readings: Cassels (1962), Theorem 1.1, for `hCT` (2026-11-26)
 
 **Result.** The row `ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic`
 (`ZInQKernel/Contrib/OneProof/CasselsIV/Row.lean`, #217) matches its printed source, and every lens passed it. It
@@ -6,6 +6,9 @@ is Cassels's Theorem 1.1 at `k = ℚ`, for every elliptic curve over `ℚ`: a di
 weakening ("naturally-defined" is dropped). No reader found a clause stronger than the print, a missing hypothesis,
 a quantifier or slot error, or a definition that differs from the printed notion beyond the identifications recorded
 below.
+
+The field `hCT` of `ZInQ.OneProof.frozenTarget` is not this row but the weaker form printed by Poonen–Stoll,
+`PoleS12.CasselsTatePairingCurvesPS`, which Lean proves from it (§5).
 
 No person has read these pages. Under the maintainer's ruling of 2026-11-26 (STATEMENT-CHECKS.md, "Adversarial AI
 readings"), with no human reader available, this adversarial AI reading stands in for the human reading. The
@@ -20,13 +23,14 @@ the per-curve helper `CasselsIVThm11` now says that it is not the row (see §3).
 
 Three independent AI readings of the row. Each worked from page images rendered from the PDF at 150 dpi, not from a
 text layer (the scan has none). Each gives verbatim quotes and printed page numbers. The three readers ran on three
-different model families, so that they would not share blind spots. Each wrote its report independently.
+different model families (Claude, GPT, Gemini), so that they would not share blind spots. Each wrote its report
+independently.
 
-| Lens | Model | Task |
-| --- | --- | --- |
-| Fidelity | claude-opus-5-5 | Unfold the Lean statement and every definition it uses into atomic clauses, and map each clause to the printed text: MATCH, MATCH AFTER A PROVED IDENTIFICATION, DIRECT INSTANCE, WEAKER or STRONGER THAN THE PRINT, MISMATCH. |
-| Skeptic | gpt-6.2-sol | Try to break the match: hidden standing hypotheses, what Ш means and how its group law is defined, the target group, the slots and quantifiers of the duality clause, vacuity, and what the relied-on Lean lemmas actually state. |
-| Red team | gemini-4-neon | Read the source cold, before any Lean, and state what it asserts in plain words. Then list every difference with the Lean and classify it. |
+| Lens | Task |
+| --- | --- |
+| Fidelity | Unfold the Lean statement and every definition it uses into atomic clauses, and map each clause to the printed text: MATCH, MATCH AFTER A PROVED IDENTIFICATION, DIRECT INSTANCE, WEAKER or STRONGER THAN THE PRINT, MISMATCH. |
+| Skeptic | Try to break the match: hidden standing hypotheses, what Ш means and how its group law is defined, the target group, the slots and quantifiers of the duality clause, vacuity, and what the relied-on Lean lemmas actually state. |
+| Red team | Read the source cold, before any Lean, and state what it asserts in plain words. Then list every difference with the Lean and classify it. |
 
 Source (legal copy; SHA-256):
 
@@ -157,9 +161,9 @@ The red team rated the helper `CasselsIVThm11 (E : WeierstrassCurve ℚ) : Prop`
 `E.IsElliptic` guard, `sha E` and `E.PointCoeff` are defined for every Weierstrass curve, and at a singular cubic
 (for example `y² = x³`) it asserts something Theorem 1.1 does not. The fidelity lens and the skeptic note the same
 point and call it harmless, since only the guarded wrapper is the row. The red team's own fix allows either a guard
-or restricting the rating to `CasselsIVThm11Elliptic`. The fold takes the second: the row, and the new type of
-`hCT`, is `CasselsIVThm11Elliptic`, which applies the helper only at elliptic `E`. The helper's docstring on main
-says so: "The row is `CasselsIVThm11Elliptic`, which carries the guard `E.IsElliptic`; applied to a singular cubic,
+or restricting the rating to `CasselsIVThm11Elliptic`. The fold takes the second: the read row is
+`CasselsIVThm11Elliptic`, which applies the helper only at elliptic `E`, and the glue to `hCT` starts from it. The
+helper's docstring on main says so: "The row is `CasselsIVThm11Elliptic`, which carries the guard `E.IsElliptic`; applied to a singular cubic,
 this unguarded helper says more than Cassels does."
 
 ## 4. What the readings do not establish
@@ -171,19 +175,41 @@ this unguarded helper says more than Cassels does."
   is finite (footnote 26). These are inputs to the proof, not to the statement. The readings check the statement
   only; Paper III and Lang–Tate were not read.
 * **Comparison with the old row.** The old `hCT` (`PoleS12.CasselsTatePairingCurves`, Poonen–Stoll's restatement
-  at the curves `E_ℓ`) and the new row are not shown to imply each other in the tree: from Theorem 1.1 to "kernel ⊆
+  at the curves `E_ℓ`) and the read row are not shown to imply each other in the tree: from Theorem 1.1 to "kernel ⊆
   `divisiblePart`" needs Ш[q] or Ш/qШ finite. Both imply the Poonen–Stoll form
   `PoleS12.CasselsTatePairingCurvesPS`, which is all the consumer `poleCompleteness_of_rankOne_PS` reads
-  (`casselsTatePairingCurvesPS_of_casselsIV`, `CasselsIV/Glue.lean`).
+  (`casselsTatePairingCurvesPS_of_casselsIV`, `CasselsIV/Glue.lean`; `casselsTatePairingCurvesPS_of_current`,
+  `CasselsTatePS/Basic.lean`). That form is the new `hCT` (§5).
 * **Not formalised:** the Weil–Châtelet identification, Weierstrass models of genus-one curves, and Ostrowski's
   classification of the places of `ℚ`.
 
-## 5. Effect on the board
+## 5. The field `hCT`: the Poonen–Stoll form, rated through the proved implication
+
+The field `hCT` is `PoleS12.CasselsTatePairingCurvesPS` (`Contrib/OneProof/CasselsTatePS/Basic.lean`, #207): at
+each curve `E_ℓ` of Theorem 5.3, an alternating pairing on `sha E_ℓ` with values in `ℚ/ℤ` that kills the maximal
+divisible subgroup and whose kernel elements are infinitely divisible. It is not itself the statement the lenses read.
+It is rated through two Lean theorems:
+
+* `casselsTatePairingCurvesPS_of_casselsIV : CasselsIVThm11Elliptic → CasselsTatePairingCurvesPS`
+  (`CasselsIV/Glue.lean`, #217). Each `E_ℓ` is elliptic (`PoleRC.curve_isElliptic`), and the glue keeps Cassels's
+  pairing: alternation is (viii); the maximal divisible subgroup is killed because every class of `sha E` has finite
+  order; kernel elements are infinitely divisible by Theorem 1.1 at every `m > 0`, after alternation moves the
+  kernel element into the second slot. No finiteness of Ш/qШ is used. So `hCT` is a Lean-proved weakening of the
+  direct instance read here, and it is rated as that print is: LEAF, with kind consequence, since the step from the
+  print is an argument (proved), not a specialization.
+* `casselsTatePairingCurvesPS_of_current : CasselsTatePairingCurves → CasselsTatePairingCurvesPS`
+  (`CasselsTatePS/Basic.lean`, #207). The previous statement of `hCT` implies the new one, so the restatement is a
+  weakening: a proof of the previous statement, such as a route through Fisher's work on #158, still closes `hCT`.
+
+The consumer `poleCompleteness_of_rankOne_PS` reads exactly this form, so `frozenTarget` takes it with no glue in
+between.
+
+## 6. Effect on the board
 
 `hCT`, the root hypothesis of `ZInQ.OneProof.frozenTarget`, is restated from `PoleS12.CasselsTatePairingCurves` to
-`SelmerTwoPower.CasselsIVThm11Elliptic`, routed through `casselsTatePairingCurvesPS_of_casselsIV` and
-`poleCompleteness_of_rankOne_PS` exactly as `CasselsIV.frozenTarget_with_casselsIV` (`CasselsIV/FoldCheck.lean`).
-It is rated LEAF (strict and strictest), kind published, with a flag recording the reading and the points above.
-The earlier reading of the Poonen–Stoll statement moves to `reviews-retired.tsv`. The count of open statements stays
-at 22, and the strict count of the H part stays at 8/11. With the three root hypotheses, the strict count goes from
-8/14 to 9/13.
+`PoleS12.CasselsTatePairingCurvesPS`, fed to `poleCompleteness_of_rankOne_PS` as in
+`CasselsTatePS.frozenTarget_with_hCTps` (`CasselsTatePS/FoldCheck.lean`). It is rated LEAF (strict and strictest),
+kind consequence, with a flag recording the proved implication from the read row, the reading and the points above.
+The earlier reading of the Poonen–Stoll introduction moves to `reviews-retired.tsv`. The count of open statements
+stays at 22, and the strict count of the H part stays at 8/11. With the three root hypotheses, the strict count goes
+from 8/14 to 9/13.

@@ -120,11 +120,11 @@
    "docstring":
    "**Theorem 5.3 of the 11/5 manuscript (restricted converse, `hyp:RC`), over the genuine Selmer\ncondition.** For every positive squarefree `ℓ ≡ 11 (mod 12)`,\n`corank_{ℤ₂} Sel_{2^∞}(E_ℓ/ℚ) = 1` implies `ord_{s=1} L(E_ℓ, s) = 1`, where\n`E_ℓ : y² = x(x - ℓ)(x + 3ℓ)` (`ZInQ.Manuscript.curve`) and `ord_{s=1}` is\n`ZInQ.Manuscript.AnalyticRankOne`. It is `ZInQ.Manuscript.RestrictedConverse` at the predicate\n`SelmerCorankOne`. ",
    "bundle": "frozenTarget"},
-  {"type": "ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic",
-   "statement": "ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic",
+  {"type": "ZInQ.Manuscript.PoleS12.CasselsTatePairingCurvesPS",
+   "statement": "ZInQ.Manuscript.PoleS12.CasselsTatePairingCurvesPS",
    "field": "hCT",
    "docstring":
-   "**Cassels (1962), Theorem 1.1, at `k = ℚ`, for every elliptic curve over `ℚ`**: the theorem\nas printed, for every abelian variety of dimension 1 over the number field `ℚ`\n(`CasselsIVThm11` at each `E` with `E.IsElliptic`). ",
+   "**The Cassels–Tate pairing for the curves `E_ℓ`, in the form printed by Poonen–Stoll**\n(`SelmerTwoPower.CasselsTatePairingPS` at the curves of `CasselsTatePairingCurves`:\n`E_ℓ : y² = x(x − ℓ)(x + 3ℓ)` for positive squarefree `ℓ ≡ 11 (mod 12)`). Poonen–Stoll,\nAnn. of Math. 150 (1999), Theorem 8 (1) ⇒ (2), pp. 1122–1123, with Corollary 12 at `g = 1`,\np. 1126, and the definition of `M_div` on p. 1112. ",
    "bundle": "frozenTarget"},
   {"type":
    "ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne",

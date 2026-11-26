@@ -14,7 +14,7 @@ Later (fold-b105, pb-p1): the row of panPrintedP (replaced by panPrintedF, Pan o
 Later (ds965-reroute-fold, #197): the rows of dsThm965AtPrimes moved here. The field was removed by a reroute (its readers now use modularHTCoeff and dsThm966Printed), with no replacement leaf; the readings, one of them a human reading of the characteristic-equation clause, are kept here as a record.
 
 Later (hct-cassels-fold): the row of hCT moved here. The field keeps its name, but its statement changed from
-Poonen–Stoll's restatement of Cassels' theorem at the curves E_ℓ (`PoleS12.CasselsTatePairingCurves`) to Cassels
-(1962), Theorem 1.1, for every elliptic curve over ℚ (`SelmerTwoPower.CasselsIVThm11Elliptic`). The reading was of
-the old statement and does not rate the new one; the new statement's reading is in reviews.tsv
-(docs/research/cassels-adversarial-readings.md).
+Poonen–Stoll's restatement of Cassels' theorem in the introduction (`PoleS12.CasselsTatePairingCurves`) to the
+weaker form printed by Poonen–Stoll (`PoleS12.CasselsTatePairingCurvesPS`), which Lean proves from Cassels (1962),
+Theorem 1.1, read as `SelmerTwoPower.CasselsIVThm11Elliptic`. The reading was of the old statement and does not rate
+the new one; the reading of Cassels's theorem is in reviews.tsv (docs/research/cassels-adversarial-readings.md).
