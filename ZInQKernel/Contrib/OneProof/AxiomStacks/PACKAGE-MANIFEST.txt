@@ -545,9 +545,9 @@
   },
   "ZInQKernel.Contrib.OneProof.MilneTateDualityEtale": {
    "from": "ZInQKernel/Contrib/OneProof/MilneTateDualityEtale.lean",
-   "source_sha256": "7940649686e208bca869a44cdb270a30449fd01a12f0846060cae8e3f5b17a0a",
-   "sha256": "5d761741495badc0b9b639ca58695a83fe30aa228ff3b115c678320cca882d5e",
-   "bytes": 3368,
+   "source_sha256": "fc588af97f48a18f0d02c11775f67268dddbc461b39173dc1b3800e1405876f8",
+   "sha256": "12f3c48a4a9b904c066606ce0b8847e96e784063b41920dd468d51d0ec02cc2e",
+   "bytes": 4909,
    "vendor": false
   },
   "ZInQKernel.Contrib.OneProof.EllAdic.EllAdicHOneRebaseV1": {
@@ -5186,9 +5186,9 @@
   },
   "ZInQKernel.Contrib.OneProof.T10TateDualityFromMilne": {
    "from": "ZInQKernel/Contrib/OneProof/T10TateDualityFromMilne.lean",
-   "source_sha256": "ea918fa7fa0f080fd8c40e9f47c7764d50ec6bb57a523145529be96cff0ed8a7",
-   "sha256": "e53d9009f16d4f392a9072fe42c655a831e60c822db48b776da17291a16e759f",
-   "bytes": 3740,
+   "source_sha256": "a7b8d0eb440368a3f8b8054f5bc6866a97932eeea940ca823f39ba5b8e15da80",
+   "sha256": "4d9fe04ac13f2e6ff66c07fec6b2c38a02402d92d6915498c2b8eafceb233e63",
+   "bytes": 5889,
    "vendor": false
   }
  },

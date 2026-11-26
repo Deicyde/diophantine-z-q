@@ -69,4 +69,43 @@ theorem t10TateDuality_iff_milneAV86 :
 theorem t10TateDuality_of_milneAV86 (h : MilneAV86Thm151aRem155) : T10Etale.T10_TateDuality :=
   t10TateDuality_iff_milneAV86.mpr h
 
+/-! ## Characteristic zero
+
+The single proof reads `t10TateDuality` only over finite extensions of `ℚ_p`. Over fields of
+characteristic zero the row is equivalent to `MilneAV86Thm151aRem155CharZero`, where `K̄` is a
+separable closure of `K` and no step from `k_s` to `K̄` is needed. -/
+
+/-- `T10Etale.T10_TateDuality` over fields of characteristic zero. -/
+def T10TateDualityCharZero : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →
+    ∃ φ : (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃ₗ[ℤ_[ℓ]]
+        Module.Dual ℤ_[ℓ] (A.T ℓ),
+      ∀ (σ : Field.absoluteGaloisGroup K) x,
+        φ (T10Etale.galH A ℓ σ x) = (A.galT (ℓ := ℓ) σ⁻¹).dualMap (φ x)
+
+theorem t10TateDualityCharZero_of_t10TateDuality (h : T10Etale.T10_TateDuality) :
+    T10TateDualityCharZero :=
+  fun K _ _ A ℓ _ hℓ => h K A ℓ hℓ
+
+theorem milneAV86CharZero_of_milneAV86 (h : MilneAV86Thm151aRem155) :
+    MilneAV86Thm151aRem155CharZero :=
+  fun K _ _ A ℓ _ hℓ => h K A ℓ hℓ
+
+set_option maxHeartbeats 4000000 in
+/-- **In characteristic zero, `t10TateDuality` is equivalent to Milne's printed statement.** -/
+theorem t10TateDualityCharZero_iff_milneAV86CharZero :
+    T10TateDualityCharZero ↔ MilneAV86Thm151aRem155CharZero := by
+  refine forall_congr' fun K => forall_congr' fun _ => forall_congr' fun _ => forall_congr' fun A =>
+    forall_congr' fun ℓ => forall_congr' fun _ => forall_congr' fun _ => ?_
+  let _inst := etaleHOneKernelModule (A.baseChange (AlgebraicClosure K)).X.left ℓ
+  exact exists_equivariant_iff
+    (ellAdicHOne_actualEtale_linearEquiv (A.baseChange (AlgebraicClosure K)).X.left ℓ)
+    (fun σ => (T10Etale.galH A ℓ σ).toAddMonoidHom) (etaleGalH A ℓ)
+    (fun σ => (A.galT (ℓ := ℓ) σ⁻¹).dualMap) (comparison_galH A ℓ)
+
+/-- `t10TateDuality` over fields of characteristic zero from Milne's printed Tate duality. -/
+theorem t10TateDualityCharZero_of_milneAV86CharZero (h : MilneAV86Thm151aRem155CharZero) :
+    T10TateDualityCharZero :=
+  t10TateDualityCharZero_iff_milneAV86CharZero.mpr h
+
 end ZInQ.OneProof.MilneTateDuality
