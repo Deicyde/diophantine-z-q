@@ -25,9 +25,9 @@ MEMMAX=${MEMMAX:-60G}
 foreign() { local p a c; for p in $(pgrep -x lean; pgrep -x lake; pgrep -x repl); do
   a=$(tr '\0' ' ' < /proc/$p/cmdline 2> /dev/null); c=$(readlink /proc/$p/cwd 2> /dev/null)
   case "$a $c" in *"$HOME/dzq-check2"*) ;; *) [ -n "$a" ] && return 0 ;; esac; done; return 1; }
-L() { if foreign; then note "  (host task Lean running: 4 threads, CPUQuota=1600%) $*"
+L() { if foreign; then note "  (host task Lean running: 4 threads, CPUQuota=1600%) $(echo "$*" | cut -c1-160)"
     systemd-run --user --scope -q -p MemoryMax=$MEMMAX -p CPUQuota=1600% env LEAN_NUM_THREADS=4 "$@"
-  else note "  (16 threads) $*"; systemd-run --user --scope -q -p MemoryMax=$MEMMAX env LEAN_NUM_THREADS=16 "$@"; fi; }
+  else note "  (16 threads) $(echo "$*" | cut -c1-160)"; systemd-run --user --scope -q -p MemoryMax=$MEMMAX env LEAN_NUM_THREADS=16 "$@"; fi; }
 # 0 if every "depends on axioms" list in the file is standard and nothing mentions sorry, else 1.
 axok() { python3 -I -c '
 import sys
@@ -39,6 +39,8 @@ max() { local m=0 x; for x in "$@"; do [ "$x" -gt "$m" ] 2> /dev/null && m=$x; [
 note "chain w$N for $REF starts"
 git -C "$HOME/dzq" fetch -q origin || { note "fetch failed"; exit 1; }
 SHA=$(git -C "$HOME/dzq" rev-parse "origin/$REF^{commit}") || { note "no origin/$REF"; exit 1; }
+# main as fetched at chain start (other fetches on the host move origin/main during the chain)
+BASE=$(git -C "$HOME/dzq" rev-parse "origin/main^{commit}"); note "base main $BASE"
 [ -d "$C" ] || git -C "$HOME/dzq" worktree add -q --detach "$C" "$SHA"
 cd "$C" || exit 1
 for d in site-src site; do test -e "$d" && mv "$d" "$D/$d.old.$(date +%s)"; done
@@ -118,7 +120,7 @@ PY=$(
   py claims_tests python3 -I -m unittest discover -s scripts/claims -p 'test_*.py'
   py check_lean python3 scripts/check_lean.py
   py inventory python3 docs/theorem-application-audit/validate.py
-  PR_BODY="$(git log --format=%B "origin/main..$SHA")" py guard_rows python3 scripts/guard/check_pr.py rows --base origin/main
+  PR_BODY="$(git log --format=%B "$BASE..$SHA")" py guard_rows python3 scripts/guard/check_pr.py rows --base "$BASE"
 )
 pv() { echo "$PY" | sed -n "s/^$1=//p"; }
 
@@ -154,7 +156,7 @@ LEAVES=$(max "$E_LPRE" "$E_LV" "$E_LVAX")
 OAX=$(max "$E_OAL" "$E_OAC")
 FROZEN=$(tr '\n' ' ' < "$D/frozen-target-axioms.txt" | tr -s ' ' | grep -o "'ZInQ.OneProof.frozenTarget' depends on axioms: \[[^]]*\]")
 {
-  echo "head ${SHA:0:8} $SHA $REF w$N"
+  echo "head ${SHA:0:8} $SHA $REF w$N base-main ${BASE:0:9}"
   echo "CHECK-EXIT=$CHECK"
   echo "CHECK-PARTS: build-ZInQKernel=$E_BUILD print_axioms=$E_PRINTAX check_target=$E_TARGET autoform-check=$(sv CHECK) test_scoring=$(pv test_scoring) claims_tests=$(pv claims_tests) check_lean=$(pv check_lean) inventory=$(pv inventory) guard_rows=$(pv guard_rows) extra=$E_EXTRA"
   [ -n "$EXTRA_PARTS" ] && echo "EXTRA-PARTS:$EXTRA_PARTS"
