@@ -1,0 +1,10 @@
+module
+
+public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Triangulated.Localization.Pretriangulated
+public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Triangulated.Localization.IndexCategory
+public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Triangulated.Localization.Resolutions
+public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Triangulated.Localization.OreConditionsAndKernel
+
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option maxSynthPendingDepth 3
