@@ -1,0 +1,9 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:83:0: 'WeierstrassCurve.ModelLevels.cyclicSubgroupsEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:84:0: 'WeierstrassCurve.ModelLevels.reduceTorsionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:85:0: 'WeierstrassCurve.ModelLevels.reduceCyclicKernels' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:86:0: 'WeierstrassCurve.ModelLevels.reduceGenerator_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:87:0: 'WeierstrassCurve.ModelLevels.oddVelu_equations_reduce' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/Cyclicity.lean:328:0: 'ZInQ.Manuscript.RC.ModelGeneric6.isAddCyclic_map_atkinSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/Cyclicity.lean:329:0: 'ZInQ.Manuscript.RC.ModelGeneric6.isAddCyclic_map_atkinSum_curve' depends on axioms: [propext,
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/Cyclicity.lean:330:0: 'ZInQ.Manuscript.RC.ModelGeneric6.atkinImage' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9073 jobs).
