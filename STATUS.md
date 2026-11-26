@@ -36,16 +36,16 @@ in the Glossary at the end):
   theorem (Theorem 5.3), the Cassels–Tate pairing on its curves (from which Lean proves Lemma 5.4), and the rank-one
   line of Silverman's *The Arithmetic of Elliptic Curves*, 2nd ed., Appendix C, Evidence 16.5.5, p. 453.
   The construction is the manuscript's; the textbook citation replaces the two previous forward-rank inputs.
-- **Reduced in Lean:** H follows from 19 statements that are still open, and Lean proves every step from them to H
-  (`HDec.HSyn.sixContactMin_of_open99`, the H part of `ZInQ.OneProof.frozenTarget`). By the project's ratings, 9 of
+- **Reduced in Lean:** H follows from 18 statements that are still open, and Lean proves every step from them to H
+  (`HDec.HSyn.sixContactMin_of_open100`, the H part of `ZInQ.OneProof.frozenTarget`). By the project's ratings, 8 of
   them are published theorems (some specialized or weakened) and 10 are consequences of published theorems or of the
   manuscript's own text. Under the strict count, which also requires that a reader has checked the statement against
-  the printed page, 8 of the 19 count as published statements in their printed form and 11 do not. Since 2026-11-26,
+  the printed page, 7 of the 18 count as published statements in their printed form and 11 do not. Since 2026-11-26,
   with no human reader available, an adversarial AI reading stands in for the human one (docs/DECISIONS.md).
-- **Open:** the 19 statements behind H and the three inputs of pole completeness: the manuscript's Theorem 5.3,
+- **Open:** the 18 statements behind H and the three inputs of pole completeness: the manuscript's Theorem 5.3,
   the Cassels–Tate pairing, and Silverman's rank-one implication.
 
-These 24 statements are exactly the hypotheses of `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`).
+These 21 statements are exactly the hypotheses of `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`).
 Folding in a proof can remove a hypothesis from that theorem. The count block above is generated from the Lean type.
 
 ## How far to trust each part
@@ -54,8 +54,8 @@ Folding in a proof can remove a hypothesis from that theorem. The count block ab
 | --- | --- |
 | The construction of P and every finite computation about it (variables, degree, coefficients) | proved in Lean, no hypotheses |
 | Theorem 1.1 from H and pole completeness | proved in Lean (`ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`) |
-| H, the manuscript's Theorem 4.1 (one instance) | unrefereed; its new arguments reviewed only by AI models; in Lean, derived from 21 open statements (next row) |
-| H from 21 open statements | proved in Lean, in the module chain under `ZInQKernel/OneProof/H/` and `ZInQKernel/Contrib/OneProof/` (built with `ZInQKernel/OneProof/Main.lean`, outside the default library target) |
+| H, the manuscript's Theorem 4.1 (one instance) | unrefereed; its new arguments reviewed only by AI models; in Lean, derived from 18 open statements (next row) |
+| H from 18 open statements | proved in Lean, in the module chain under `ZInQKernel/OneProof/H/` and `ZInQKernel/Contrib/OneProof/` (built with `ZInQKernel/OneProof/Main.lean`, outside the default library target) |
 | Pole completeness, the manuscript's Theorem 5.2 | proved in Lean from three hypotheses, with the manuscript's Lemma 5.4 proved from the Cassels–Tate pairing (`ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne`) |
 | Theorem 5.3 (restricted converse) of the manuscript | unrefereed; assumed |
 | The Cassels–Tate pairing on the curves of Theorem 5.3 | Poonen and Stoll's restatement of Cassels' theorem, specialized to these curves; assumed; classified as glue pending a check against a source that proves it |
@@ -82,14 +82,14 @@ The headline Lean theorem is
 `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`
 (`ZInQKernel/MainGreenTao.lean`), with the two hypotheses `hH : SixContactMin` and `hPC : PoleCompleteness`.
 `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`) applies it to H and to pole completeness. It takes the
-open statements of H as the fields of `HDec.HSyn.OpenResearchLeaves76` and `HDec.HSyn.OpenAddedLeaves28` (the third
+open statements of H as the fields of `HDec.HSyn.OpenResearchLeaves79` and `HDec.HSyn.OpenAddedLeaves30` (the third
 bundle, `HDec.HSyn.OpenTextbookLeaves18`, has no open field left), and the three inputs of pole completeness as the
 hypotheses `hRC` (Theorem 5.3), `hCT` (the Cassels–Tate pairing on the curves of Theorem 5.3, from which Lean proves
 Lemma 5.4), and `hRank` (Silverman's forward rank-one implication), and nothing else.
 
 ## The open statements
 
-### H, the six-contact height estimate (21)
+### H, the six-contact height estimate (18)
 
 docs/one-proof/OPEN.md gives each statement's Lean form, source, rating and holder. They come from these areas:
 
@@ -97,21 +97,21 @@ docs/one-proof/OPEN.md gives each statement's Lean form, source, rating and hold
   Z[1/30] (Lean derives the map to the projective line from these two);
 - complex multiplication: the degree of a CM j-invariant, Faltings heights of CM elliptic curves, and Fowler's
   Proposition 2.7;
-- abelian varieties: the duality between the Tate module and étale cohomology (Milne, Theorem 12.1(a)); Lean derives
-  Faltings' semisimplicity and Tate theorems (1983, §5) from Gaudron–Rémond's Theorem 1.4 and Silverberg–Zarhin's
-  Theorem 3.4, through their Theorem 3.5 and the existence of Néron models, which Lean proves (all below);
+- abelian varieties: Lean derives Faltings' semisimplicity and Tate theorems (1983, §5) from Gaudron–Rémond's
+  Theorem 1.4 and Silverberg–Zarhin's Theorem 3.4, through their Theorem 3.5 and the existence of Néron models,
+  which Lean proves (all below);
 - Néron models and semistable reduction: Grothendieck's semistable reduction theorem in the form of Silverberg–Zarhin,
   Theorem 3.4; Lean proves their inertia criterion for semistable reduction (Theorem 3.3, fork PR #177), Raynaud's
   criterion in their form (Theorem 3.5) from Theorems 3.4 and 3.3, the existence of Néron models over a Dedekind base,
   and Faltings' extension lemma for semiabelian schemes (1983, Lemma 1) over a discrete valuation ring;
 - Faltings heights: Gaudron–Rémond's Theorem 1.4 and the lower bound recorded in their Section 9, Javanpeykar's
   Theorem 1.1.1, and Pazuki's Corollary 1.3;
-- p-adic Hodge theory: Berger's p-adic monodromy theorem, Scholze's comparison theorem for the first cohomology of
-  abelian varieties, and Conrad's local algebraicity of Hodge–Tate characters;
-- modular forms: Shimura's theorem on the factors of the Jacobian of a modular curve (1973, Theorem 1), the Galois
-  representations attached to eigenforms (Diamond–Shurman 9.6.5, Deligne–Serre), Carayol's local–global compatibility
-  in the form of Darmon–Diamond–Taylor, Pan's theorem on the Fontaine–Mazur conjecture, and the Hodge–Tate weights of
-  the Galois representations of modular forms.
+- p-adic Hodge theory: Berger's p-adic monodromy theorem, and two theorems on the Tate module of an abelian variety
+  over a p-adic field, Colmez's p-adic periods (1992, Théorème 5.2) and Fontaine's Hodge–Tate theorem (1982,
+  Théorème 2);
+- modular forms: the Galois representations attached to eigenforms (Diamond–Shurman 9.6.5, Deligne–Serre), Carayol's
+  local–global compatibility in the form of Darmon–Diamond–Taylor, Pan's theorem on the Fontaine–Mazur conjecture,
+  and the Hodge–Tate weights of the Galois representations of modular forms.
 
 Two of them are steps of the manuscript itself rather than citations: the Hodge numbers in its de Rham descent
 lemma (part of `scholzeH1AbVar`) are uncited there, and the integral model of the

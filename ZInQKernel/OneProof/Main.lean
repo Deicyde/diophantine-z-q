@@ -254,7 +254,8 @@ Its record cites Miller's Theorem 4.4, from which
 Diamond–Shurman, Theorem 9.6.5, p. 404 (corrected fourth printing, 2016), supplies the
 weight-at-least-two representation in its
 prime-ideal convention. Lean proves the comparison with the existing inertia and arithmetic Frobenius
-interfaces. This changes one premise without adding to the count.
+interfaces. This changes one premise without adding to the count; ds965-reroute-fold (below) later removed the
+premise from the live route.
 
 pb-refereed-fold (`TailZ103`, docs/research/pb-refereed-fold.md) took `panPrintedF` to `panThm104F`,
 the same statement, token for token, with Fontaine's definition of potential semistability
@@ -268,6 +269,46 @@ again, sourced to Berger, Invent. Math. 148 (2002), the manuscript's citation (t
 checked), with Fontaine's definitions; Colmez's theorem is kept as a record (it passed an
 adversarial AI reading, docs/research/pb-adversarial-readings.md). The count does not
 change.
+
+`OpenResearchLeaves77` (`TailZ103`) is pb-refereed-fold's generation and `HDec.HSyn.sixContactMin_of_open96` its top
+(24 → 24 assumptions).
+
+outside-fold-1126 (`TailZ104`, autofold) folds an outside proof of Conrad's Appendix B over `ℚ_p`,
+`ZInQ.Contrib.SenWeightZero.conradAppB_proof` (`Contrib/OneProof/ConradAppB.lean`, from the rank-one weight-zero Sen
+theorem): `conradAppB` is discharged with no new leaf. `OpenAddedLeaves29` is the new generation and
+`HDec.HSyn.sixContactMin_of_open97` the new top (24 → 23 assumptions).
+
+ds965-reroute-fold (`TailZ105`, fork PR #197) removes `dsThm965AtPrimes` without proving it. Its readers on the live
+route are served by `modularHTCoeff` (weight at least 2) and `dsThm966Printed` (weight 1) through the copy chain
+`Contrib/OneProof/DS965Reroute/Chain1` to `Chain5`, whose top is `sixContactMin_of_open96_ds`; the determinant clause
+of `R14Det`, which the live route does not read, is dropped there. `OpenResearchLeaves78` is the new generation and
+`HDec.HSyn.sixContactMin_of_open98` the new top (23 → 22 assumptions).
+
+tate-prints-fold (`TailZ106`, the rows of fork PR #213, docs/research/tate-prints-adversarial-readings.md) replaces
+the added fields `scholzeH1AbVar` and `t10TateDuality` by two single-print leaves, `colmez1992DeRhamAbVar` (Colmez,
+Math. Ann. 292 (1992), Théorème 5.2 (i)-(ii), p. 639) and `fontaine1982HTAbVar` (Fontaine, Invent. Math. 65 (1982),
+Théorème 2 and its proof, p. 388). `DeRhamScholze.TatePrints.vpDual_of_colmezFontaine` derives from them the one
+field `vpDual` that vpdual-merge's copy chain (`Contrib/OneProof/VpDualMerge/Chain.lean`, top
+`sixContactMin_of_open98_vp`) reads in place of the pair. `OpenAddedLeaves30` is the new generation and
+`HDec.HSyn.sixContactMin_of_open99` the new top (22 → 22 assumptions).
+
+gr14-printed (`TailZ107`, autofold, fork PR #209, `Contrib/OneProof/GR14Printed/README.md`) restates
+`gaudronRemondThm14AnSS` with the printed hypotheses: Gaudron and Rémond assume `g ≥ 1` throughout (Duke Math. J. 163
+(2014), p. 2058) and take isogenies to be surjective with finite kernel (p. 2062, a locator no reading covers yet),
+while the field covered every `g` and used `IsIsogeny`. The leaf `gaudronRemondThm14Printed`
+(`ZInQ.GR14Printed.GaudronRemondThm14Printed`) has `1 ≤ g` and `IsIsogenyPrinted`, and keeps the field's
+specialization `K′ = k` and its split of the printed couple into two isogenies of degree at most κ, which is weaker
+than the couple. `ZInQ.GR14Printed.gaudronRemondThm14AnSS_of_printed` proves the old field from it (the case `g = 0`
+and `isIsogenyPrinted_iff` are proved in Lean), and `gaudronRemondThm14Printed_iff` proves the two equivalent.
+`OpenResearchLeaves79` is the new generation and `HDec.HSyn.sixContactMin_of_open100` the new top (22 → 22
+assumptions).
+
+m1-afshimura (docs/research/m1-afshimura.md) supplies the field `afShimura` by its proof, `AfTateLam.afShimura_proof`
+(`Contrib/OneProof/AfShimuraProof.lean`). The live route read `shimuraThm1Af` only to build that field, in the copies
+of `DS965Reroute/Chain3`, so `shimuraThm1Af` is removed from `OpenResearchLeaves79`, `OpenResearchLeaves78`, the copy
+chain and its vpdual-merge copy; the generations off the live route keep it. `AfShimura` carries only quotient
+existence, the coefficient recurrence and the finiteness of `K_f`: it is weaker than Shimura 1973 Theorem 1, and its
+proof is not a Lean proof of that theorem. No generation is added (22 → 21 assumptions).
 
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
 hypothesis by its proof; the theorem's statement then loses that hypothesis.

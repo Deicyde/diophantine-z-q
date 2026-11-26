@@ -1,8 +1,9 @@
-# ds965-reroute (work in progress)
+# ds965-reroute (landed as `TailZ105`, fork PR #197)
 
 Goal: remove the research hypothesis `dsThm965AtPrimes` (Diamond–Shurman 9.6.5, GLUE) from
 `ZInQ.OneProof.frozenTarget` by routing its three uses on the live route to rows that stay live,
-with no new leaf. Count 24 → 23; strict and strictest GLUE 17 → 16; LEAF unchanged.
+with no new leaf. As landed, after the `conradAppB` fold: count 23 → 22; strict and strictest GLUE 16 → 15;
+LEAF unchanged.
 
 ## Where `dsThm965AtPrimes` is used (base `3df47b6b`; unchanged below `TailZ103` since `9b223968`)
 
@@ -64,18 +65,21 @@ structures, `_ds` for theorems; `set_option maxHeartbeats` lines dropped):
   top `HDec.HSyn.sixContactMin_of_open96_ds (r : OpenResearchLeaves77DS) (t : OpenTextbookLeaves18)
   (l : OpenAddedLeaves28) : ZInQ.SixContactMin`.
 
-## The fold (integrator)
+## The fold (landed)
 
-`OneProof/H/TailZ104.lean`: `OpenResearchLeaves78` = `OpenResearchLeaves77` without
+The `conradAppB` discharge fold (PR #202) landed first and took `TailZ104` (`OpenAddedLeaves29`,
+`sixContactMin_of_open97`), so this reroute landed as `OneProof/H/TailZ105.lean` (175afaaff), without
+regenerating the copy chain: `OpenResearchLeaves78` = `OpenResearchLeaves77` without
 `dsThm965AtPrimes` (the fields of `OpenResearchLeaves77DS`), the field-by-field conversion
 `openResearchLeaves77DS_of_OpenResearchLeaves78`, and
-`sixContactMin_of_open97 (r : OpenResearchLeaves78) t l :=
-sixContactMin_of_open96_ds (openResearchLeaves77DS_of_OpenResearchLeaves78 r) t l`; `Main.lean`:
-`frozenTarget (r : HDec.HSyn.OpenResearchLeaves78) …` through `sixContactMin_of_open97`
-(`FoldCheck.frozenTarget_without_ds965` is that body over `OpenResearchLeaves77DS`); the
-`kinds.tsv` row of `dsThm965AtPrimes` removed; OPEN.md regenerated. No existing constant changes.
-`afCharpolyDS965` (the k = 2 statement on `A_f`) is untouched.
+`sixContactMin_of_open98 (r : OpenResearchLeaves78) t l :=
+sixContactMin_of_open96_ds (openResearchLeaves77DS_of_OpenResearchLeaves78 r) t
+(openAddedLeaves28_of_OpenAddedLeaves29 l)`, so `conradAppB` reaches the chain through
+`openAddedLeaves28_of_OpenAddedLeaves29`; `Main.lean`: `frozenTarget (r : HDec.HSyn.OpenResearchLeaves78) …`
+through `sixContactMin_of_open98` (`FoldCheck.frozenTarget_without_ds965` is that body over
+`OpenResearchLeaves77DS`); the `kinds.tsv` row of `dsThm965AtPrimes` removed; OPEN.md regenerated.
+No existing constant changes. `afCharpolyDS965` (the k = 2 statement on `A_f`) is untouched.
 
-PR #202 (the `conradAppB` discharge fold) also needs `TailZ104`. Whichever lands first takes it;
-the other regenerates on top (for this reroute: re-run `gen_ds.txt` with the generations up to
-the new top, so that `OpenResearchLeaves…DS` follows the new bundle).
+Later folds edit the copies here: berger-restore (`Chain5`) and m1-afshimura (`Chain3`-`Chain5`). The
+tate-prints fold's top runs through `VpDualMerge/Chain.lean`, a copy of this chain with `vpDual` in
+place of `scholzeH1AbVar` and `t10TateDuality`, so a fold that edits these copies edits that one too.
