@@ -21,3 +21,12 @@ Base: 796582ac1 (main after GoodRow wiring). SamePlace.lean and ComplexPoints.le
 - `isSeam_comp'` (generic4's private lemma, same proof); `isSeam_changePoints` (changePoints is a seam via vcFunHomInv); `isSeam_changePoints_symm` (its inverse via vcFunHom).
 - `exists_lift_of_seam`: seam f between period curves of L₁, L₂ ⇒ ∃ α, f (toPoint z) = toPoint (α z). Vendored lift exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint + exists_smul_mem_and_apply_eq_of_forall_sub_mem + pointMapOfPushforward_eq_of_seam.
 - axioms: propext, Classical.choice, Quot.sound.
+
+## Item 2b — `RC/ModelGeneric6/ComplexStep.lean` (builds)
+- `analyticCyclicPair_eq_of_scale'`: generic4's homothety lemma for an arbitrary period pair P with IsScale P (ofTau τ') α.
+- `not_mem_span_half`, `mem_span_iff_atkin` (ℤτ + ℤ/Q = ω₂(ℤτ' + ℤ), ω₂ = Mcτ + d, Q(ad) − M(bc) = 1).
+- `atkinPair_complex`: complex pair (E, C) with class analyticCyclicPair τ, every seam g : E → E.cyclicQuotientCurve C_Q Q with g.ker = C_Q = (N/Q)•C ⇒ class of (E', g(E[Q] ⊔ C)) = analyticCyclicPair (atkinGL hQ • τ). Q = q^e, Q ∥ N.
+- `rationalPoints_atkinRat_complex_moduli`: target theorem of item 2 for k = ℂ (every representative, every seam).
+- `atkinClass_independent`: independence corollary.
+- Route: seams conjugated by variable-change seams; lift z ↦ αz; kernel ⟨τ, 1/Q⟩ ⇒ L₂ = α(ℤτ + ℤ/Q); AL matrix (exists_entries) ⇒ IsScale L₂ (ofTau W_Qτ) (αω₂); ω₂/N = cτ/Q + d/N generates ⟨τ/Q,1/N⟩ mod ℤτ+ℤ/Q (explicit: τ/Q = −Mb·ω₂/N + adτ + bd/Q, 1/N = Qa·ω₂/N − acτ − bc/Q).
+- axioms: propext, Classical.choice, Quot.sound.

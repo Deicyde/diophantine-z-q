@@ -1,0 +1,7 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/ComplexStep.lean:473:0: 'ZInQ.Manuscript.RC.ModelGeneric6.analyticCyclicPair_eq_of_scale'' depends on axioms: [propext,
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/ComplexStep.lean:474:0: 'ZInQ.Manuscript.RC.ModelGeneric6.not_mem_span_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/ComplexStep.lean:475:0: 'ZInQ.Manuscript.RC.ModelGeneric6.mem_span_iff_atkin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/ComplexStep.lean:476:0: 'ZInQ.Manuscript.RC.ModelGeneric6.atkinPair_complex' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/ComplexStep.lean:477:0: 'ZInQ.Manuscript.RC.ModelGeneric6.rationalPoints_atkinRat_complex_moduli' depends on axioms: [propext,
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/ComplexStep.lean:478:0: 'ZInQ.Manuscript.RC.ModelGeneric6.atkinClass_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (13582 jobs).
