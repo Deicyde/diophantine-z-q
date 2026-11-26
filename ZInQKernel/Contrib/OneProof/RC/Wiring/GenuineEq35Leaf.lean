@@ -121,7 +121,8 @@ RC20). Conjuncts (tex; kind; owner):
    `GenuineSwitchData` over configuration families genuine at `𝔭`; fields and owners at
    `RegularityInputsG`).
 3. (4.6) at every companion pair, verbatim from `Eq35InputsGenuineG` (tex 3987–4047; ELLIOT on
-   PRINTs Kolyvagin Thm 1, Milne ADT I.7.3, Edixhoven Thm 5.3; owners RC15, RC9).
+   GLUE Kolyvagin Thm 1 (cited statement) and PRINTs Milne ADT I.7.3, Edixhoven Thm 5.3; owners
+   RC15, RC9).
 4. Outer data, fixed by the instances (tex 4927–4972):
    * a label type `Pl` of derivative primes and ONE family `G` of switched minimal models over `𝒪`
      for all ring instances (batch 3's `GenuineOuterModels`; `model i []` the actual minimal model

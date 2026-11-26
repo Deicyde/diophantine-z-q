@@ -32,11 +32,11 @@ normal extension:
   through `K_{S₁}`.
 * **`heegnerActual`** (definition): the actual Heegner point of conductor `d` on a support, built
   with `ActualPoint.ofField` from the anchored datum.
-* **`gx_step_heegner`** (PROVED from the PRINT `CCLThm2_15Applied E (FullAnchor …)`): the step
-  identity `g_R = pointFactor a_q z z⁻¹ · g_T + d b` for the classes of the constructed actual
-  Heegner points `heegnerActual … d`, `heegnerActual … (dq)` at the place over the anchor's prime
-  `𝔮 ∣ q`. Inputs beyond the print: the support sets (`S_T, S_R ⊆ S₁`, primes of `d`/`dq` and of
-  `2`, good reduction outside, no place off the support) and `hα`: `χ_h [π]` trivial on `G_{H_d}`.
+* **`gx_step_heegner`** gives the step identity `g_R = pointFactor a_q z z⁻¹ · g_T + d b` for the
+  classes of the constructed actual Heegner points `heegnerActual … d`, `heegnerActual … (dq)` at the place over the anchor's prime
+  `𝔮 ∣ q`. The other inputs are the support sets (`S_T, S_R ⊆ S₁`, primes of `d`/`dq` and of
+  `2`, good reduction outside, no place off the support) and the triviality `hα` of
+  `χ_h [π]` on `G_{H_d}`.
 
 Kinds: definitions and PROVED.
 -/
@@ -530,17 +530,17 @@ variable {K : Type} [Field K] [NumberField K] (E : WeierstrassCurve ℚ)
   (k : Type) [CommRing k] [TopologicalSpace k] [DiscreteTopology k] [StageIsoA k i]
   [DecidableEq (Places K S₀)] {ι : Type} [DecidableEq ι] (place : ι × Bool → Places K S)
 
-/-- **The step identity for the actual Heegner points** (PROVED from the PRINT
-`CCLThm2_15Applied E (FullAnchor …)`; tex 2914–2936, 3080–3084, 3915, 4157–4172): there is an
-anchored datum `D` such that for admissible `(d, q)` with `q` split and consecutive supports
-`Tp`, `Tp ∪ {p}` with sets `S_T, S_R ⊆ S₁` as in `heegnerActual` (primes of `d`, resp. `dq`, and
+/-- **The step identity for the actual Heegner points** (PROVED from the anchored norm relations,
+tex 2914–2936, 3080–3084, 3915, 4157–4172). For an anchored datum `D`, admissible `(d, q)`
+with `q` split, and consecutive supports `Tp`, `Tp ∪ {p}` with sets `S_T, S_R ⊆ S₁` as in `heegnerActual` (primes of `d`, resp. `dq`, and
 of `2`; good reduction outside; no place off the support), the classes of the actual Heegner
 points `A_T = heegnerActual … d`, `A_R = heegnerActual … (dq)` satisfy, at every new place `w`
 over the anchor's prime `𝔮 ∣ q` (with `w ∤ d`, prime to the conductors), lane RC32's step
-identity `g_R = pointFactor a_q z z⁻¹ · g_T + d b`, `z = α(Frob_w)`. The only inputs beyond the
-print are `hα_T`, `hα_R`: `χ_h [π]` is trivial on `G_{H_d}`, `G_{H_{dq}}`. -/
+identity `g_R = pointFactor a_q z z⁻¹ · g_T + d b`, `z = α(Frob_w)`. The character assumptions
+`hα_T` and `hα_R` make `χ_h [π]` trivial on `G_{H_d}` and `G_{H_{dq}}`. -/
 theorem gx_step_heegner {cp : CSTParam E} {emb : Qbar →ₐ[ℚ] ℂ}
-    {κ : Qbar ≃ₐ[ℚ] AlgebraicClosure K} (hprint : CCLThm2_15Applied E (FullAnchor E K cp emb κ)) :
+    {κ : Qbar ≃ₐ[ℚ] AlgebraicClosure K}
+    (hnorm : ∃ D : HeegnerPointData E, D.NormRelations ∧ FullAnchor E K cp emb κ D) :
     ∃ D : HeegnerPointData E, ∃ hA : FullAnchor E K cp emb κ D, D.NormRelations ∧
       ∀ {d q : ℕ} [NeZero d] [NeZero q] (hadm : D.Admissible d q) (_ : jacobiSym D.DK q = 1)
         {Tp : Finset ι} {p : ι} {ST SR : Set (HeightOneSpectrum (𝓞 K))}
@@ -578,7 +578,7 @@ theorem gx_step_heegner {cp : CSTParam E} {emb : Qbar →ₐ[ℚ] ℂ}
                       (admissible_coprime_d hadm) hSdT hmT hgoodT hαT hplT) +
                 (globalCx k (GKS K S) (MinS hS (E.baseChange K) i
                   (alphaStage i s hs hs0 π ψ))).d 0 1 rfl bG := by
-  obtain ⟨D, hA, hD, hall⟩ := gx_step_anchored E hS h01 h1 i s hs hs0 hFull π ψ P k place hprint
+  obtain ⟨D, hA, hD, hall⟩ := gx_step_anchored E hS h01 h1 i s hs hs0 hFull π ψ P k place hnorm
   refine ⟨D, hA, hD, fun {d q} _ _ hadm hsplit Tp p ST SR hT hR hSdT hSdR hmT hmR hgoodT hgoodR
     hαT hαR hplT hplR => ?_⟩
   have hcopP := admissible_coprime_d hadm

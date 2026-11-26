@@ -37,7 +37,8 @@ family `F` with `h = h_x`.
 Named inputs, beyond the block's non-point fields:
 * `hcomp` (GLUE, tex 4005–4014): `κ(P) ⊗ d ↦ δ(P, d)` through the coefficient comparison, with
   the identification `ι` of the points;
-* `gen`, `hgen`, `nP`, `hnP`, `hnP0` (PRINT, rank one and non-torsion: Kolyvagin / GZK);
+* `gen`, `hgen`, `nP`, `hnP`, `hnP0` (rank one and non-torsion: Kolyvagin / GZK; the Kolyvagin
+  part is a cited statement, GLUE (MPIM preprint MPI/90-69); the Gross–Zagier part stays PRINT);
 * `L`, `hL` (H11, tex 3071–3085);
 * `cK`, `hcK` (the conjugate-dual transport, tex 3904);
 * the full anchor `hA`, the coprimality `hcop`, and the support conditions.

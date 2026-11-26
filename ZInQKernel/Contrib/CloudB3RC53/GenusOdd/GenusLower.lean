@@ -32,9 +32,10 @@ selection of data (one datum per `h`, resp. `(h, k')`).
 
 ## The proof (tex L2427–2439)
 
-PRINT `Prints.cst` twice (common constant `C`: "the parametrization is the same"), PRINT
-`Prints.kolyvagin` and `Prints.bcdt` (ranks of `E^{(h)}`, `E^{(h_*)}`, `E^{(hk')}`), the GLUE of
-`Glue.lean`, and Elliot's index-at-most-two comparison (PROVED, `Elliot.lean`).
+PRINT `Prints.cst` twice (common constant `C`: "the parametrization is the same"), GLUE
+`Prints.kolyvagin` (a cited statement) and PRINT `Prints.bcdt` (ranks of `E^{(h)}`, `E^{(h_*)}`,
+`E^{(hk')}`), the GLUE of `Glue.lean`, and Elliot's index-at-most-two comparison (PROVED,
+`Elliot.lean`).
 -/
 
 noncomputable section

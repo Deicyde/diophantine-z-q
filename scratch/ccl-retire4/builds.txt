@@ -1,0 +1,53 @@
+Lean source tree: f5299bb9d6f9ada2fcd170099f784f0e0945bf79.
+Main: 29bfbc3f6793d98b7c1ac637f9728fe51e701e5b.
+Each Lake build runs separately under MemoryMax=60G with a lock around compiler invocations.
+Each executable Lean command is gated by uptime and free -g.
+Project artifacts are seeded from the ccl-retire2 cache and validated by Lake.
+PASS ZInQKernel.OneProof.Main
+PASS ZInQKernel.OneProof.Discharges
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.ChainCond
+PASS ZInQKernel.Contrib.CloudB3E2Norm.CentralSpec
+PASS ZInQKernel.Contrib.CloudB3E2Norm.E2ChainActual
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20AmbientS
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20DictFields
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PairedLift
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PresClassMatch
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PresClassOf
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20ThetaMono
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20Transport
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20Untwisted
+PASS ZInQKernel.Contrib.CloudB3E2Norm.HeegnerRCBridge
+PASS ZInQKernel.Contrib.CloudB3E2Norm.RingClassMono
+PASS ZInQKernel.Contrib.OneProof.RC.CCLUnitIndex.Units
+PASS ZInQKernel.Contrib.OneProof.RC.HeegnerAnchor.Comparison
+PASS ZInQKernel.Contrib.OneProof.RC.O7Actual.Reduction
+PASS ZInQKernel.Contrib.OneProof.RC.PrintsArith.Bundle
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19E2
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19Leaf
+PASS ZInQKernel
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20Anchor
+PASS ZInQKernel.Contrib.OneProof.RC.PrintsArith.Heegner
+PASS ZInQKernel.Contrib.CloudB3E1RingClass.SupportReq
+PASS ZInQKernel.Contrib.CloudB3E2Norm.CochainNorm
+PASS ZInQKernel.Contrib.CloudB3E2Norm.GlobalCochain
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20Dictionary
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PresAssembly
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20PresClass
+PASS ZInQKernel.Contrib.OneProof.RC.BaseZeroAssembly.Boundary45
+PASS ZInQKernel.Contrib.OneProof.RC.BaseZeroLimit.Boundary
+PASS ZInQKernel.Contrib.OneProof.RC.GlueSweep.HeegAdjusted
+PASS ZInQKernel.Contrib.OneProof.RC.GlueSweep.HeegKummer
+PASS ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.Frobenius
+PASS ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.Interfaces
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate18Leaf
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19Theta
+PASS ZInQKernel.Contrib.CloudB3E1RingClass.CalPointActual
+PASS ZInQKernel.Contrib.CloudB3E2Norm.CentralSpecC1
+PASS ZInQKernel.Contrib.CloudB3E2Norm.CentralSpecCone
+PASS ZInQKernel.Contrib.CloudB3E2Norm.CentralTwistDict
+PASS ZInQKernel.Contrib.CloudB3E2Norm.H20QuadFrob
+PASS ZInQKernel.Contrib.OneProof.RC.CMScope.Anchor
+PASS ZInQKernel.Contrib.OneProof.RC.HeegnerAnchor.AtScale
+PASS ZInQKernel.Contrib.OneProof.RC.Wiring.CommonCoordinate19DualS
+PASS ZInQKernel.Contrib.RC53Assist.CentralStageReduction.ReductionV3
+PASS scratch/ccl-retire/Check.lean (21 declarations, 3 standard axioms)

@@ -71,8 +71,9 @@ def R20_FaltingsLemma5 : Prop :=
     ∀ x y : ℝ, stableFaltingsHeight A = x → stableFaltingsHeight B = y →
       |x - y| ≤ (1 / 2) * Real.log (isogDeg φ)
 
-/-- **R21. Bost's lower bound**, in the form printed by Gaudron-Rémond 2014 §9 (proof of
-Lemma 9.1, p. 2098): `h_F(A) ≥ −(3/2) dim A`. Bost's own display UNVERIFIED (locators.md). -/
+/-- **R21. Bost's lower bound** `h_F(A) ≥ −(3/2) dim A`, a weakening of GR1 Cor 8.4 (Gaudron–Rémond,
+Comment. Math. Helv. 89 (2014), Cor. 8.4, p. 400, attribution: Bost; normalization p. 352). Duke 163
+p. 2098 (Gaudron-Rémond 2014 §9, proof of Lemma 9.1): citation only. -/
 def R21_Bost : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
     ((-(3 / 2) * g : ℝ) : EReal) ≤ stableFaltingsHeight A

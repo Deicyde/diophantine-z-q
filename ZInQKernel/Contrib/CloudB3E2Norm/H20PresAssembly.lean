@@ -14,7 +14,8 @@ by `ι` to `𝒯_{θ_R}(κ(Q_R))` and `𝒯_{θ_P}(κ(Q_P))`) have strict lifts 
 `z = χ_h(σ_q)[π σ_q]`) — the input `hnorm` of lane RC32's
 `CMStepHyps` — from the same named inputs as `H20Assembly.h1_shapiro`:
 
-* the norm relation `hnorm` (`H20HeegnerNorm.hnorm_of_print`, the Cai–Chen–Liu print), the division
+* the norm relation `hnorm` (`H20DictFields.hnorm_of_full_anchor`, from the unweighted norm
+  relations, derived from the Cai–Chen–Liu print `CCLThm2_15AppliedWithUnits`), the division
   points `hQR`, `hQP`, the fixedness `hfixR`, `hfixP`, the coefficient/twist data `ι`, `hι`, `hιeq`,
   `htors` (`H20Twist.lean`), the classes `hzR`, `hzP` (`GlobalCochain.exists_gval_eq_transfer`);
 * the old-place inputs `hinR`, `hinP` (`OldPlaceInput`; `H20Twist.oldPlaceInput_actual` reduces

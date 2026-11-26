@@ -46,10 +46,10 @@ Definition 9.1.4, p. 131; $B_{\rm st}$, Definition 9.2.3, p. 138, its embedding 
 
 ## Diamond-Shurman 9.6.5 on Af
 
-F. Diamond and J. Shurman, *A First Course in Modular Forms*, GTM 228 (2005), Theorem 9.6.5 and the
-paragraph after it, p. 393 (fourth printing, 2016: p. 404); Lemma 9.5.3, Theorem 9.5.4 and Exercise
-9.5.2(a), pp. 389–391; $A_f$ and the action of $K_f$, Definition 6.6.3, p. 241, and Proposition
-6.6.4, p. 242 (all AI-read).
+F. Diamond and J. Shurman, *A First Course in Modular Forms*, GTM 228, corrected fourth printing
+(2016), Theorem 9.6.5 and the paragraph after it, p. 404; Lemma 9.5.3, Theorem 9.5.4 and Exercise
+9.5.2(a), in Section 9.5, pp. 397–402 (read by a human reader, Deicyde/diophantine-z-q#14 comment
+7121091136); $A_f$ and the action of $K_f$, Definition 6.6.3 and Proposition 6.6.4 (AI-read).
 
 ## Kato Hodge-Tate weights
 
@@ -80,12 +80,11 @@ G. Shimura, Ann. of Math. 85 (1967), Main Theorem I; P. Deligne, *Travaux de Shi
 
 ## Bost lower bound
 
-É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057–2108, §9,
-proof of Lemme 9.1, p. 2098, with the normalization of $h_F$ on p. 2058; the manuscript's citation.
 É. Gaudron and G. Rémond, *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math.
-Helv. 89 (2014), 343–403, Corollaire 8.4 and §2.3, as numbered in arXiv 1105.1230v1 (pp. 37 and
-6–7), which was read; the numbering of the published version is unverified. J.-B. Bost, Sém.
-Bourbaki 795, Astérisque 237 (1996) (unread).
+Helv. 89 (2014), 343–403, Corollaire 8.4, p. 400, attributed there to Bost, with the normalization
+of §2.3, p. 352. É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014),
+2057–2108, §9, proof of Lemme 9.1, p. 2098, with the normalization of $h_F$ on p. 2058; the
+manuscript's citation, a citation only of Corollaire 8.4.
 
 ## Gaudron-Remond isogeny bound
 
@@ -126,7 +125,7 @@ $\operatorname{End}(J)$, and uniqueness under (i) and (ii) up to isomorphisms ov
 526; multiplicity one from $q$-expansions, p. 527. A sentence on p. 526 that the statement does not
 use has a harmless misprint, "$f_\sigma\mid T_n=a_n^\sigma f$" for
 "$f_\sigma\mid T_n=a_n^\sigma f_\sigma$". F. Diamond and J. Shurman, *A First Course in Modular
-Forms*, GTM 228 (2005), Definition 6.6.3, p. 241 (AI-read).
+Forms*, GTM 228 (2005), Definition 6.6.3 (AI-read).
 
 ## Barquero-Sanchez et al. Eq. (6.2)
 

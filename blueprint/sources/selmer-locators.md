@@ -1,7 +1,7 @@
 # Locators for the Proposition 0 chapter
 
-Proposition 0 is not in the manuscript. It identifies the explicit linear system of the Route K
-chapter with the 2-Selmer group of the congruent number curve $C_d:y^2=x^3-d^2x$, and so lets the
+Proposition 0 is not in the manuscript. It identifies the explicit linear system of the
+congruent-number route chapter with the 2-Selmer group of the congruent number curve $C_d:y^2=x^3-d^2x$, and so lets the
 certified rank hypothesis be stated on the Selmer group itself. The mathematics is written in the
 project-authored research note `docs/research/nt-prop0.md` of this repository, a specification
 written for this project, not a published source; it refines `docs/research/descent-alt.md` §4.1.

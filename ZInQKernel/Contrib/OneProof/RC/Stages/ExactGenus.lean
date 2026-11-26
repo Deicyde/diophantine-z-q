@@ -136,7 +136,7 @@ set_option maxRecDepth 2048 in
 open ZInQ.Manuscript.RC.Visibility in
 /-- Apply the common multiplier to the selected conductor-one genus datum.
 The two roots come from the existing genus theorem; rank zero on the unwanted
-twist uses the existing forward Kolyvagin print. -/
+twist uses the existing forward Kolyvagin theorem (cited statement, GLUE). -/
 theorem exact_twist_of_genusPoint (C : WeierstrassCurve ℤ) [(C⁄ℚ).IsElliptic]
     (h₁ : (C⁄ℚ).a₁ = 0) (h₃ : (C⁄ℚ).a₃ = 0) (P : Prints)
     {f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel (C⁄ℚ)) :

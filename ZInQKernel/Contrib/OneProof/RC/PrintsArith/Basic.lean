@@ -23,7 +23,8 @@ they share.
   `K̄`-endomorphisms has rank two over `ℤ`).
 * The shared top layer's vocabulary (`ZInQ.Contrib.CloudB3RC53`, read-only): `AnalyticRank E r`,
   `IsLContinuation`, `qtwist`, `Ecurve`, `Adm`, and its printed leaves `PoleS12.BCDTThmA`,
-  `KolyvaginThm1Printed`, `DokchitserThm18`, `CST.CSTThm11Split`, which this lane does not restate.
+  `DokchitserThm18`, `CST.CSTThm11Split` and the cited statement `KolyvaginThm1Printed` (GLUE),
+  which this lane does not restate.
   `analyticRank_zero_iff` (PROVED): `AnalyticRank E 0` is `L(E, 1) ≠ 0` for an entire
   continuation.
 * `twistedCoeffS`, `LSValueVanishes`: the partial twisted `L`-series

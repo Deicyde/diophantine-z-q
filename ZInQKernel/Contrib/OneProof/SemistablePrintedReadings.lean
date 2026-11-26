@@ -238,9 +238,12 @@ theorem isAnStableHeightSS_of {K : Type} [Field K] {A : PkgI3.AbVar K} {x : ℝ}
   obtain ⟨L, iF, iN, iA, 𝒩, g, hN, hS, rest⟩ := hx
   exact ⟨L, iF, iN, iA, 𝒩, g, hN, isSemistablePrinted_of_res 𝒩 hS, rest⟩
 
-/-- **Leaf R21-Bost over the printed semistability** (J.-B. Bost, Sém. Bourbaki 795 (1994/95), Astérisque
-237 (1996); display UNVERIFIED): `ZInQ.R3Residual.BostLowerBoundAn` verbatim with `IsAnStableHeight` replaced
-by `IsAnStableHeightSS` (semistable reduction as printed, in the geometric and the `k(𝔭)` reading at once). -/
+/-- **Leaf R21-Bost over the printed semistability** (GR1 Cor 8.4: É. Gaudron and G. Rémond,
+Comment. Math. Helv. 89 (2014), Cor. 8.4, p. 400, `h(A) ≥ -(g/2) log(2π)`, attribution: Bost;
+normalization `h(A) = h_F(A) + (g/2) log π`, p. 352; two-lens statement check 2026-11-24; Bost,
+Sém. Bourbaki 795 does not print this display): `ZInQ.R3Residual.BostLowerBoundAn` verbatim with
+`IsAnStableHeight` replaced by `IsAnStableHeightSS` (semistable reduction as printed, in the
+geometric and the `k(𝔭)` reading at once). -/
 def BostLowerBoundAnSS : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
     ∀ x : ℝ, IsAnStableHeightSS A x →

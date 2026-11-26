@@ -215,9 +215,11 @@ section Leaf
 
 open HeckeRing.GL2 NumberField IsDedekindDomain
 
-/-- **LEAF (published; consequence of Darmon–Diamond–Taylor 1997 Thm 3.1, proved below from carirr-odd's
-transcription `CarayolDDT.CarayolDDT31`): the `λ`-adic representation of a weight-2 newform, with its
-Frobenius polynomial in the normalization the manuscript reads off Carayol 1986, Théorème (A).**
+/-- **Leaf, kind consequence (counted GLUE): a consequence of Darmon–Diamond–Taylor 1997
+Thm 3.1, proved below from carirr-odd's transcription `CarayolDDT.CarayolDDT31`; DDT's proof
+(p. 87 of the authors' 2007 revision, AI-read) attributes clause (d) to Carayol's Théorème (A)
+without proving it. The `λ`-adic representation of a weight-2 newform, with its Frobenius
+polynomial in the normalization the manuscript reads off Carayol 1986, Théorème (A).**
 
 For a newform `f ∈ S₂(Γ₁(N), ψ)` (Tau Ceti's `Newform N 2`, `ψ = f.χ`) whose coefficient field
 `K_f = ℚ(a_n) ⊆ ℂ` is a number field, a prime `ℓ` and a place `λ ∣ ℓ` of `K_f`, there is a continuous

@@ -115,8 +115,9 @@ def IsPrintedStableHeight {K : Type} [Field K] (A : PkgI3.AbVar K) (x : ℝ) : P
         x = (Real.log (secIndex (printedDetLattice 𝒩 g) eta) -
           (1 / 2) * ∑ τ : L →+* ℂ, Real.log (r τ)) / Module.finrank ℚ L
 
-/-- **Leaf R21-Bost over the printed height** (J.-B. Bost, Sém. Bourbaki 795 (1994/95), Astérisque
-237 (1996); display UNVERIFIED): `ZInQ.HeightSplit.BostLowerBound` with `IsStableFaltingsHeight`
+/-- **Leaf R21-Bost over the printed height** (GR1 Cor 8.4: Gaudron–Rémond, Comment. Math. Helv. 89
+(2014), Cor. 8.4, p. 400, attribution: Bost; normalization p. 352; Sém. Bourbaki 795 does not print
+this display): `ZInQ.HeightSplit.BostLowerBound` with `IsStableFaltingsHeight`
 replaced by `IsPrintedStableHeight` (Deligne's normalization `h_D = h_F + (g/2) log π`). -/
 def BostLowerBoundPrinted : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →

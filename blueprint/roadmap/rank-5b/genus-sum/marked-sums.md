@@ -9,7 +9,7 @@ lean: ZInQ.RouteK.Rank5b.Sec3.genusSum5b_eq_marked, ZInQ.RouteK.Rank5b.Sec3.mark
 
 # Partition sums with marked blocks
 
-> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank5b.Sec3.markW'`, `ZInQ.RouteK.Rank5b.Sec3.class73_eq_marked`. The page belongs to Route K, which the [main theorem](../../main/main-theorem.md) no longer uses.
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed from this fork's main with the congruent-number route (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank5b.Sec3.markW'`, `ZInQ.RouteK.Rank5b.Sec3.class73_eq_marked`. The page belongs to the congruent-number route; [Elliot's route](../../main/main-theorem.md) is the other route to the same theorem.
 
 Let $a,y,z$ be bits on a finite set $V$, and let $w_7,w_3,w_1$ be the block weights: $w_c(B)$ is
 $g(B)$ if $B$ has class $c$ and $0$ otherwise.

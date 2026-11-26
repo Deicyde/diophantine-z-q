@@ -12,7 +12,8 @@ published Appendix to Chapter III of
   Lecture Notes written with the collaboration of W. Kuyk and J. Labute, Addison-Wesley,
   Advanced Book Classics, 1989 (originally W. A. Benjamin, 1968), ISBN 0-201-09384-7.
 
-All page numbers below are those of that edition, checked against the scan.
+All page numbers below are those of that edition. Status: statement transcribed; page check
+pending (Jack reading list row 1).
 
 * III-34, A2, Definition and Remark 1. A continuous character `φ : G → K^*` of
   `G = Gal(K̄/K)` is *admissible*, `φ ∼ 1`, if some `x ∈ C`, `x ≠ 0`, satisfies `s(x) = φ(s) x`
@@ -95,10 +96,11 @@ def SerreA6NormForm (K : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimens
           (TauCeti.ClassFieldTheory.artinMap ℚ_[p] (TauCeti.Algebra.normUnits ℚ_[p] u)) : Kˣ) : K) *
         ∏ σ : K ≃ₐ[ℚ_[p]] K, σ.symm ((u : Kˣ) : K) ^ n σ = 1
 
-/-- **PRINT + GLUE** (Serre, *Abelian `l`-adic representations*, 1989 ed., Appendix to
-Chapter III: A5, Theorem 2 (ii), p. III-44 ⇔ A6, Proposition 6 (iv), pp. III-49–50, with the
-definitions of III-34 and III-47/48). The ground field and coefficient field are a finite Galois
-`K/ℚ_p` inside `ℚ̄_p`, and `ρ = ψ|_{G_K}`. The equivalence is printed. Reading `ρ(u)` as
+/-- **Serre's statement + GLUE** (Serre, *Abelian `l`-adic representations*, 1989 ed.,
+Appendix to Chapter III: A5, Theorem 2 (ii), p. III-44 ⇔ A6, Proposition 6 (iv), pp. III-49–50,
+with the definitions of III-34 and III-47/48; statement transcribed; page check pending (Jack
+reading list row 1)). The ground field and coefficient field are a finite Galois `K/ℚ_p` inside
+`ℚ̄_p`, and `ρ = ψ|_{G_K}`. The equivalence is Serre's, as transcribed. Reading `ρ(u)` as
 `ψ(i_{ℚ_p}(N_{K/ℚ_p} u))` in (iv) is GLUE: norm functoriality of local class field theory
 (Serre III-5; proved by Tau Ceti as `artinMap_norm` for local-field types, not instantiated at
 `K`). Kind: named input. -/

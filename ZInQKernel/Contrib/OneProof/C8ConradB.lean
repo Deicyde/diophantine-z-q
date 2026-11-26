@@ -98,7 +98,12 @@ def ConradPropB3Qp : Prop :=
 pp. 32-33]{conrad-local-characters}"): p. 32 (`ConradAppBQp`: a Hodge–Tate character is locally algebraic) and p. 33,
 Prop. B.3 (`ConradPropB3Qp`: its Hodge–Tate weight is the exponent). Flags: unrefereed author preprint (the
 manuscript's own citation); p. 32's Hodge–Tate ⇒ locally algebraic paragraph as reported by the theorem-application
-audit, Prop. B.3 by the AI page read of 11-17. -/
+audit, Prop. B.3 by the AI page read of 11-17. Fork PR #183 (merged at 29bfbc3f6) derives
+it from Serre, *Abelian l-adic representations and elliptic curves* (1989), III-44 and
+III-49/50 (locators as given in #183, UNVERIFIED; `conradAppB_of_serreIntegerUnits`,
+`ConradSerre/ConcreteLocal.lean`); that route is additive. The fold that would replace this
+field by `LocalArtin.serreA6OnIntegerUnits` (fork branch `fold/conrad-serre-1123`, 8ed0590c0)
+is held until a reader checks Serre's printed page. -/
 def ConradAppB : Prop :=
   ConradAppBQp ∧ ConradPropB3Qp
 

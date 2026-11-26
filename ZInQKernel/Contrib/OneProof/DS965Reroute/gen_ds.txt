@@ -1,0 +1,343 @@
+"""ds965-reroute: copy reroute of the live chain without `dsThm965AtPrimes`.
+
+Inputs (read from the pinned base, never edited): NOSNarrowChain.lean (the live copy chain under
+`sixContactMin_of_open83_nos`), TailZ91..TailZ103 (the generations above it), and C8Chain's
+`GaloisPiecesC8`. Output: Contrib files with
+
+* every NOS-chain declaration that takes a bundle carrying a Diamond-Shurman 9.6.5 field
+  (`dsThm965Printed`, `dsThm965Weak`, `dsThm965`) or R14Det (`r14 : G0Galois.R14Det`), or
+  `GaloisPiecesC8`, or (transitively) one of the copies, copied with the suffix `DS` / `_ds`;
+* in the copied bundles above the conversion that reads `modularHTCoeff`
+  (`openResearchLeaves36EBCFSFU_y3x6_of_54SFU_y3x6`) the 9.6.5 field deleted, below it replaced by
+  `repExists : ZInQ.Contrib.G9.PkgI4.EigenformRepExists`, filled at that conversion from
+  `modularHTCoeff` and `dsThm966Printed`;
+* `r14 : G0Galois.R14Det` replaced by `r14 : EigenformRepExists` (the chain's `HSyn` copy), and
+  `GaloisPiecesC8` by `GaloisPiecesC8DS` without `r14det`;
+* the readers: `panBerger_of_F` -> `panBerger_of_F_mht`, `eigenformHT_of_kato_ds` ->
+  `eigenformHT_of_kato`, `r14Det_of_printed` -> `eigenformRepExists_hsyn_of_g9`,
+  `eigenformRepExists_of_r14Det r.r14` -> `r.r14`;
+* the generations TailZ91..TailZ103 copied without `dsThm965Printed` / `dsThm965AtPrimes`, with
+  the top `HDec.HSyn.sixContactMin_of_open96_ds (r : OpenResearchLeaves77DS)`.
+
+`set_option maxHeartbeats` lines of the sources are dropped (default limit).
+Usage: python3 gen_ds.py SRC_DIR OUT_DIR
+"""
+import re
+import sys
+from pathlib import Path
+
+SRC = Path(sys.argv[1])
+OUT = Path(sys.argv[2])
+AUDIT = []
+DSF = ('dsThm965Printed', 'dsThm965Weak', 'dsThm965', 'dsThm965AtPrimes')
+DSF_RE = '|'.join(DSF)
+SWITCH = 'openResearchLeaves36EBCFSFU_y3x6_of_54SFU_y3x6_nos'
+REP_DOC = ('  /-- ds965-reroute: R14 without its determinant, from the live rows `modularHTCoeff` '
+           '(weight `k ≥ 2`) and `dsThm966Printed` (weight `1`) '
+           '(`DS965Reroute.eigenformRepExistsG9_of_modularHT`); replaces the Diamond–Shurman 9.6.5 '
+           'field. -/\n')
+REP_FIELD = REP_DOC + '  repExists : _root_.ZInQ.Contrib.G9.PkgI4.EigenformRepExists\n'
+R14_FIELD = ('  /-- R14 without its determinant (ds965-reroute: the determinant clause of `R14Det` is '
+             'not read on this route). -/\n  r14 : EigenformRepExists\n')
+DECL = re.compile(r'(?m)^(?:noncomputable |private |protected )*'
+                  r'(structure|theorem|lemma|def|abbrev|instance) (\S+)')
+IDCH = r"[\w'.]"
+
+
+def code_of(txt):
+    txt = re.sub(r'/-[\s\S]*?-/', '', txt)
+    return re.sub(r'(?m)--.*$', '', txt)
+
+
+def last(name):
+    return name.rsplit('.', 1)[-1]
+
+
+def split_blocks(text):
+    parts = re.split(r'(?m)^(?=-- copied from )', text)
+    head, blocks = parts[0], parts[1:]
+    tail = ''
+    m = re.search(r'(?m)^#print axioms .*\n?\Z', blocks[-1])
+    if m:
+        tail = blocks[-1][m.start():]
+        blocks[-1] = blocks[-1][:m.start()]
+    out = []
+    for b in blocks:
+        decl = DECL.search(code_of(b))
+        out.append({'txt': b, 'kind': decl.group(1), 'name': decl.group(2)})
+    return head, out, tail
+
+
+def has_ds_field(b):
+    c = code_of(b['txt'])
+    return bool(re.search(r'(?m)^  (?:' + DSF_RE + r') :', c) or
+                re.search(r'(?m)^  r14 : G0Galois\.R14Det', c))
+
+
+def refs(txt, names):
+    c = code_of(txt)
+    return any(re.search(r'(?<![\w\'])' + re.escape(n) + r'(?![\w\'])', c) for n in names)
+
+
+def rename(txt, ren):
+    # longest names first; identifiers only (no partial matches)
+    for old in sorted(ren, key=len, reverse=True):
+        txt = re.sub(r'(?<![\w\'])' + re.escape(old) + r'(?![\w\'])', ren[old], txt)
+    return txt
+
+
+def field_re(names):
+    return re.compile(r'(?m)(^  /--(?:(?!-/)[\s\S])*?-/\n)?^  (?:' + names +
+                      r') : [^\n]*\n(?:^    [^\n]*\n)*')
+
+
+def assign_re(names):
+    return re.compile(r'(?m)^(  )(?:' + names + r') :=[^\n]*\n(?:^\1  +[^\n]*\n)*')
+
+
+def strip_hb(txt):
+    return re.sub(r'(?m)^set_option maxHeartbeats \d+\n', '', txt)
+
+
+def transform_struct(txt, upper):
+    if re.search(r'(?m)^  r14 : G0Galois\.R14Det', code_of(txt)):
+        txt, n = field_re('r14').subn(R14_FIELD, txt)
+        assert n == 1, n
+        return txt
+    txt, n = field_re(DSF_RE).subn('' if upper else REP_FIELD, txt)
+    assert n == 1, ('one 9.6.5 field expected', n, txt[:300])
+    return txt
+
+
+def transform_theorem(b, txt, upper_targets):
+    name = last(b['name'])
+    sig = code_of(txt)
+    tgt = re.search(r'\) : (\S+) where', sig)
+    tgt = last(tgt.group(1)) if tgt else None
+    if name == SWITCH:
+        txt, n = assign_re(DSF_RE).subn(
+            '  repExists := _root_.DS965Reroute.eigenformRepExistsG9_of_modularHT '
+            'n.modularHTCoeff n.dsThm966Printed\n', txt)
+        assert n == 1
+        old = ('(_root_.HDec.PkgI4.PanDict.panBerger_of_F n.panPrintedF n.bergerSurveyF '
+               'n.dsThm965Printed (_root_.eigenformCoeffFieldFinite_proof) n.dsThm966Printed)')
+        assert txt.count(old) == 1
+        txt = txt.replace(old, '(_root_.HDec.PkgI4.PanDict.panBerger_of_F_mht n.panPrintedF '
+                          'n.bergerSurveyF n.modularHTCoeff n.dsThm966Printed)')
+        return txt
+    if tgt is not None and tgt in upper_targets:
+        txt, _ = assign_re(DSF_RE).subn('', txt)
+    else:
+        def rep(m):
+            body = m.group(0)
+            var = re.search(r'\b([nr])\.(?:' + DSF_RE + r')\b', body)
+            assert var, body
+            return f'  repExists := {var.group(1)}.repExists\n'
+        txt, _ = assign_re(DSF_RE).subn(rep, txt)
+    old13 = ('  r13 := HodgeLF7.eigenformHT (_root_.ZInQ.Contrib.HodgeSplit.eigenformHT_of_kato_ds '
+             'r.eigenformHTNew\n    HodgeLF7.newformOfEigenformG9 r.dsThm965 r.dsThm966)\n')
+    old14 = ('  r14 := HodgeLF7.r14Det (_root_.ZInQ.Contrib.HodgeSplit.r14Det_of_printed '
+             'r.dsThm965 r.dsThm966)\n')
+    if old13 in txt:
+        assert old14 in txt
+        txt = txt.replace(old13, '  r13 := HodgeLF7.eigenformHT (_root_.ZInQ.Contrib.HodgeSplit.'
+                          'eigenformHT_of_kato r.eigenformHTNew\n    HodgeLF7.newformOfEigenformG9 '
+                          'r.repExists)\n')
+        txt = txt.replace(old14, '  r14 := _root_.DS965Reroute.eigenformRepExists_hsyn_of_g9 '
+                          'r.repExists\n')
+    txt = txt.replace('  r14 := eigenformRepExists_of_r14Det r.r14\n', '  r14 := r.r14\n')
+    txt = txt.replace('⟨burnsideAbsIrred_proved3, r.r14,', '⟨burnsideAbsIrred_proved3,')
+    return txt
+
+
+def wrap_lines(text, width=100):
+    """Wrap lines longer than `width` characters: comment text at any space, code at a space outside
+    string literals with the continuation indented four more columns; a trailing line comment on a
+    long code line moves to its own line above it."""
+    out, depth = [], 0
+    for line in text.split('\n'):
+        start_depth = depth
+        depth += len(re.findall(r'/-', line)) - len(re.findall(r'-/', line))
+        if len(line) <= width:
+            out.append(line)
+            continue
+        ind = re.match(r' *', line).group(0)
+        if start_depth == 0 and line.lstrip().startswith('-- '):
+            cur = line
+            while len(cur) > width:
+                cut = cur.rfind(' ', len(ind) + 4, width - 1)
+                out.append(cur[:cut])
+                cur = ind + '-- ' + cur[cut + 1:].lstrip(' ')
+            out.append(cur)
+            continue
+        if start_depth > 0 or line.lstrip().startswith('/-'):
+            cont = ind if start_depth > 0 else ind + '  '
+            cur = line
+            while len(cur) > width:
+                cut = cur.rfind(' ', len(ind) + 4, width - 1)
+                if cut <= len(cont):
+                    break
+                out.append(cur[:cut])
+                cur = cont + cur[cut + 1:].lstrip(' ')
+            out.append(cur)
+            continue
+        code, comment = line, None
+        m = re.search(r'\s--\s', line)
+        if m and '"' not in line[:m.start()]:
+            code, comment = line[:m.start()].rstrip(), line[m.start():].strip()
+        if comment:
+            out.append(ind + comment)
+        assert '"' not in code, line[:120]
+        cont = ind + '    '
+        cur = code
+        while len(cur) > width:
+            cut = cur.rfind(' ', len(ind) + 4, width - 1)
+            assert cut > len(cont), cur[:120]
+            out.append(cur[:cut])
+            cur = cont + cur[cut + 1:].lstrip(' ')
+        out.append(cur)
+    return '\n'.join(out)
+
+
+def main():
+    head, blocks, _ = split_blocks((SRC / 'NOSNarrowChain.lean').read_text())
+    by_last = {}
+    for b in blocks:
+        by_last.setdefault(last(b['name']), []).append(b)
+    tainted = {id(b) for b in blocks if b['kind'] == 'structure' and has_ds_field(b)}
+    seeds = ['GaloisPiecesC8']
+    changed = True
+    while changed:
+        changed = False
+        names = seeds + [last(b['name']) for b in blocks if id(b) in tainted]
+        for b in blocks:
+            if id(b) in tainted:
+                continue
+            if refs(b['txt'], names):
+                tainted.add(id(b))
+                changed = True
+    copied = [b for b in blocks if id(b) in tainted]
+    ren = {'GaloisPiecesC8': 'GaloisPiecesC8DS'}
+    for b in copied:
+        L = last(b['name'])
+        assert L not in ren, L
+        ren[L] = L + ('DS' if b['kind'] == 'structure' else '_ds')
+    # upper bundles: copies whose structure still carries `modularHTCoeff`
+    upper = {last(b['name']) for b in copied if b['kind'] == 'structure'
+             and re.search(r'(?m)^  modularHTCoeff :', code_of(b['txt']))}
+    out_blocks = []
+    gp = (SRC / 'GaloisPiecesC8.block').read_text()
+    gp = gp.split('\n-- copied from ZInQKernel/OneProof/H/PicZeroCharZeroCopy')[0] + '\n'
+    gp, n = re.subn(r'(?m)^  r14det : R14Det\n', '', gp)
+    gp = gp.replace('/-- The pieces of the range G8-G12', '/-- ds965-reroute: `GaloisPiecesC8` without '
+                    'its field `r14det` (read by no declaration\non this route). The pieces of the '
+                    'range G8-G12')
+    assert n == 1
+    gp = gp.replace('-- copied from ZInQKernel/OneProof/H/TailA.lean:2530 (GaloisPieces)',
+                    '-- copied from ZInQKernel/OneProof/H/C8Chain.lean:29 (GaloisPiecesC8), '
+                    'without `r14det`')
+    gp_head, gp_body = gp.split('\n', 1) if gp.startswith('-- copied') else gp.lstrip('\n').split('\n', 1)
+    out_blocks.append(gp_head + '\n' + strip_hb(rename(gp_body, ren)))
+    for b in copied:
+        txt = b['txt']
+        if b['kind'] == 'structure':
+            if has_ds_field(b):
+                txt = transform_struct(txt, last(b['name']) in upper)
+        else:
+            txt = transform_theorem(b, txt, upper)
+        txt = re.sub(r'(?m)^-- copied from (.*)$',
+                     lambda m: f'-- copied from NOSNarrowChain.lean (there: copied from {m.group(1)})',
+                     txt, count=1)
+        txt = rename(txt, ren)
+        txt = strip_hb(txt)
+        txt = txt.replace('#CM(R)', 'card CM(R)').replace('#Pic(R)', 'card Pic(R)')
+        base = strip_hb(rename(b['txt'], ren))
+        import difflib
+        AUDIT.extend(difflib.unified_diff(base.splitlines(), txt.splitlines(), b['name'],
+                                          b['name'] + ' (ds)', n=0, lineterm=''))
+        c = code_of(txt)
+        assert not re.search(r'(?<![\w\'])(?:' + DSF_RE + r'|r14Det_of_printed|eigenformHT_of_kato_ds'
+                             r'|panBerger_of_F)(?![\w\'])', c), (b['name'], c[:400])
+        out_blocks.append(txt)
+    # the generations above the NOS chain
+    top_blocks = []
+    prev_top = None
+    for i in range(91, 104):
+        src = (SRC / f'TailZ{i}.lean').read_text()
+        end = src.rindex('#print axioms') if '#print axioms' in src else len(src)
+        body = src[src.index('namespace HDec'):end]
+        body = re.sub(r'(?m)^namespace HDec\.HSyn$', 'namespace HDec\n\nnamespace HSyn', body)
+        body = re.sub(r'(?m)^end HDec\.HSyn$', 'end HSyn\n\nend HDec', body)
+        body = body.rstrip()
+        assert body.endswith('end HDec'), i
+        decls = re.findall(r'(?m)^(?:structure|theorem) (\S+)', body)
+        local = {d: d + ('DS' if d[0].isupper() else '_ds') for d in decls}
+        if i == 91:
+            local['sixContactMin_of_open83_nos'] = 'sixContactMin_of_open83_nos_ds'
+            local['OpenResearchLeaves64NOS'] = 'OpenResearchLeaves64NOSDS'
+        else:
+            local.update(prev_top)
+        txt = rename(body, local)
+        # structures: drop the 9.6.5 field
+        txt, n = field_re(DSF_RE).subn('', txt)
+        assert n == 1, (i, n)
+        txt, n = assign_re(DSF_RE).subn('', txt)
+        assert n <= 1, (i, n)
+        assert not re.search(r'(?<![\w\'])(?:' + DSF_RE + r')(?![\w\'])', code_of(txt)), i
+        prev_top = {d: local[d] for d in decls}
+        txt = txt.replace('#CM(R)', 'card CM(R)').replace('#Pic(R)', 'card Pic(R)')
+        top_blocks.append(f'-- copied from ZInQKernel/OneProof/H/TailZ{i}.lean, without the '
+                          f'Diamond–Shurman 9.6.5 field\n' + txt + '\n')
+    return copied, out_blocks, top_blocks, upper
+
+
+HEADER = '''{imports}
+
+/-! # The live chain without `dsThm965AtPrimes` ({part}; ds965-reroute, generated)
+
+Generated from `NOSNarrowChain.lean` and the generations `TailZ91`–`TailZ103`: every declaration
+that takes a bundle carrying a Diamond–Shurman 9.6.5 field, `R14Det` or `GaloisPiecesC8` is copied
+with the suffix `DS` / `_ds`. Below the conversion that reads `modularHTCoeff`, the 9.6.5 field is
+replaced by `repExists` (R14 without its determinant, from `modularHTCoeff` and
+`dsThm966Printed`); above it, it is deleted. `r14` carries `EigenformRepExists` and
+`GaloisPiecesC8DS` has no `r14det` (neither determinant is read on this route). The originals are
+unchanged.
+-/
+
+set_option linter.style.longLine false
+set_option linter.style.haveILetI false
+'''
+
+if __name__ == '__main__':
+    copied, out_blocks, top_blocks, upper = main()
+    OUT.mkdir(parents=True, exist_ok=True)
+    # split into parts under ~140 KB, in source order
+    parts, cur, size = [], [], 0
+    for b in out_blocks + top_blocks:
+        if cur and size + len(b.encode()) > 140_000:
+            parts.append(cur)
+            cur, size = [], 0
+        cur.append(b)
+        size += len(b.encode())
+    parts.append(cur)
+    prev = None
+    for k, blks in enumerate(parts, 1):
+        imports = ['import ZInQKernel.Contrib.OneProof.DS965Reroute.PanBerger',
+                   'import ZInQKernel.OneProof.H.TailZ103'] if prev is None \
+            else [f'import ZInQKernel.Contrib.OneProof.DS965Reroute.{prev}']
+        name = f'Chain{k}'
+        text = HEADER.format(imports='\n'.join(imports), part=f'part {k} of {len(parts)}')
+        text += '\n' + '\n'.join(blks)
+        text = text.replace('set_option linter.style.longLine false\n', '')
+        if k == len(parts):
+            text += '\n#print axioms HDec.HSyn.sixContactMin_of_open96_ds\n'
+        text = wrap_lines(text)
+        bad = [l for l in text.split("\n") if len(l) > 100]
+        for l in bad[:5]: print("LONG", len(l), l[:160])
+        (OUT / f'{name}.lean').write_text(text)
+        prev = name
+        print(name, len(text.encode()), 'bytes', len(blks), 'blocks')
+    Path(OUT.parent / 'edits.diff').write_text('\n'.join(AUDIT) + '\n')
+    print(len(copied), 'copied declarations; upper bundles:', sorted(upper))
+    for b in copied:
+        print(' ', b['kind'], b['name'])

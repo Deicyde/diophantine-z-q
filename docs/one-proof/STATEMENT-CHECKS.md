@@ -181,6 +181,10 @@ or the maintainer, and the ruling is recorded in the reviews.tsv row (ruled_by).
 through a pull request that cites that row. The person who records a reading is not the one who decides what it
 changes.
 
+**Row dependencies (Jack, 2026-11-24).** A bridge for row R may rest on row S only if S is a `frozenTarget`
+hypothesis rated LEAF or proved; the dependency is recorded on R; demoting S demotes R in the same commit; two
+rows can never certify each other.
+
 Readings produced by AI tools, the project's included, are recorded as AI-READ evidence. An AI-READ reading clears
 exactly one flag, `unread`, and only when the row's log records a page read of the cited print; for a source the
 manuscript cites, the arXiv version it cites counts as the print for this flag (the next section says what else it
@@ -190,6 +194,23 @@ the reviewer's call.
 Each reviews.tsv row has an evidence column: HUMAN-READ when a person read the print and the row meets the rule
 above (AI use stated, a short verbatim quote, edition and page), AI-READ otherwise. AI-READ never counts as a human
 reading: OPEN.md's count of human readings counts only distinct readers with evidence HUMAN-READ.
+
+**Adversarial AI readings (ruling 2026-11-26).** With no human reader available, an adversarial AI reading stands
+in for the human reading that rates a row. It is three independent readings of the page images, each quoting the
+print verbatim with edition and page:
+
+* fidelity: every clause of the Lean statement, with every definition it uses unfolded, is mapped to the printed
+  text (match, match after a proved identification named by its Lean theorem, direct instance, or mismatch);
+* skeptic: hidden standing hypotheses, conventions (Frobenius, Hodge-Tate sign, normalizations), vacuity, the
+  quantifiers, and what the statements of the relied-on identifications actually say;
+* red team: the print is read before the Lean and stated in plain words, then every difference is listed.
+
+The three readers run on different model families. A row is rated on the reading only if no reader finds a
+mismatch beyond a direct instance of the print. Every difference a reader reports is recorded in the report, with
+the reading the row follows. The evidence stays AI-READ (it is not a human reading, and OPEN.md's count of human
+readings does not change), the ruling goes in the reviews.tsv row, and a pending comparison of a journal text with
+the author copy that was read stays pending (next section). First applied to `colmezThm01` and `panThm104F`
+([docs/research/pb-adversarial-readings.md](../research/pb-adversarial-readings.md)).
 
 ## Preprints and author copies
 

@@ -1,0 +1,24 @@
+# Rational model comparison results
+
+- Pinned base `65bf903367af4f838ad5c694974b58b981173dc8`. Clean initial worktree.
+- Prior reports `docs/research/rc-model-levels3.md`, `docs/research/rc-model-levels2.md` and `GenericComparison.lean` read.
+- `Pinned.levelQuotientBaseChange` compares the tensor product to degree-zero invariants in the scalar-extended marked cover. To identify this cover with the rational marked cover requires the short coefficient pushout, exact-order base change, and compatibility with the weights and geometric unit multiplication.
+- `NormalModel.f.normalizationObjIso` on the first affine chart identifies the branch chart ring with the integral closure over the actual j-line. See `RC/X0Model2/Projection.lean` and `CloudW07JacobiansCurves/NormalModel.lean`.
+- `CyclicQuotientJBijOn` enters `Bridge.lean` as a hypothesis. The pinned tree also contains its later port in `ZInQKernel/Contrib/OneProof/ModularEquationGeneric.lean`. Task requires an explicit hypothesis wherever used.
+- `FltCqj.bijOn_of_modularEquation` computes the root cardinality using `dedekindPsi`. `ModularCurve.finrank_adjoin_jqN_eq_dedekindPsi` proves the degree of the named Laurent-series extension. `ModularPolynomialData.irreducible_map_ratFunc_of_natCast_ne_zero` and `ModularPolynomialData.minpoly_jqN_eq` provide the shared-minimal-polynomial route.
+- `cyclicQuotientJ` uses `cqjIterate` (prime-kernel Vélu steps, including the separate two-torsion step) and the final equation's `c₄ ^ 3 / Δ`. Base change and variable change compatibility already have vendor statements.
+- The pinned base lacks the `RC/AtkinRational` modules. The refreshed `origin/wip/rc-atkin-rational2` contains `rationalAtkin hQ` for `X0Branch.model N` and its pinned chart action.
+- Scoped builds require the user systemd bus. Compiler invocations are serialized, run under the specified CPU and memory limits, and carry the niceness and thread settings. The early prerequisite builds were replaced by reuse of artifacts from source-identical predecessor modules.
+- `ShortBaseChange`: Lake build passed. All seven theorem axiom checks contain only `propext`, `Classical.choice` and `Quot.sound`. Commit `263316587`.
+- `Rational`: Lake build passed. Detector-independent degree-zero invariant ring with finite j-map. Commit `e2a71a71e`.
+- `DetectorFibre`: Lake build passed. Generic pullback presentation and geometric pairs at each detector. Commit `326c7c6f6`.
+- `Normal`: Lake build passed. Every prime localization of the named rational ring is a normal domain. Commit `543247191`.
+- `CoverBaseChange`: Lake build passed. Canonical scalar extension of the marked short cover. Commit `73ae9aa7f`.
+- `CoverCompatibility`: Lake build passed. Scalar extension preserves the five weighted coordinates, geometric unit action and source j. Commit `d0f64e5bb`.
+- `QuotientBaseChange`: Lake build passed. All detector fibre algebras identify with the same rational quotient. Commit `62f1c2db5`.
+- `FibreJ`: Lake build passed. The comparison preserves the actual j-coordinate. Commit `d384975fc`.
+- `RationalFibre`: Lake build passed. Scheme-theoretic generic pullback comparison over the rationals. Commit `8659e4672`.
+- `JLine`: Lake build passed. The short form of `LeafModCurves.Ej` witnesses dominance of the short j-map. The rational quotient is torsion-free over the actual j-line. Commit `fa9e1aa30`.
+- `GenericJ`: Lake build passed. Finite reduced `Qj`-algebra and injective localization map from the rational ring. Commit `a84d49303`.
+- Combined serialized Lake build passed for all eleven modules. All 56 axiom checks passed the three-axiom allowlist. Four inherited tier rows match exactly.
+- Scoped stop at equivariance of the actual generic pair reading on `Y0RationalGenericJ`. Descent of the iterated Vélu invariant, integrality, identification with the fixed finite chart, and the fixed operator comparisons remain pending.

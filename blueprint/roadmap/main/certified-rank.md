@@ -8,7 +8,7 @@ lean: ZInQ.CertifiedRank
 
 # The certified rank hypothesis
 
-> **Retired with Route K.** The certified rank hypothesis belonged to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Its Lean definition is still in the tree.
+> **The congruent-number route.** The certified rank hypothesis is the hypothesis of the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](main-theorem.md), the other route to the same theorem, does not use it. The route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q; this definition is still in the tree.
 
 For an integer $d$ let $C_d$ be the congruent number curve $y^2=x^3-d^2x$. The certified rank
 hypothesis CR₃ is the following assertion. Let $d$ be a squarefree positive integer with
@@ -68,7 +68,7 @@ CR₃^Rk and CR₃^TYZ,Rk, and [the main theorem also holds](main-theorem-two-cu
 ([the positive-rank chapter](../rank/README.md)). CR₃ is not proved here; it is a
 hypothesis of [the main theorem from three hypotheses](main-theorem-three-hypotheses.md) and of
 [the main theorem from two hypotheses](main-theorem-two-hypotheses.md), while
-the former main theorem (tag `route-k-final`) derived it from four statements about L-series. It implies pole
+the main theorem at the tag `route-k-final` derived it from four statements about L-series. It implies pole
 completeness for the pole polynomial with the
 curves $x+\ell$.
 

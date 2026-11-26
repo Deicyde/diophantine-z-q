@@ -16,13 +16,18 @@ and `E[2^∞] ⊂ E(K_S)`: (i) locally trivial cocycles of `G_{K,S}` inflate int
 * `decomp_subsingleton`, `locK_real_eq_zero` (PROVED): for `k < 0` the decomposition group at a
   real embedding of `ℚˢ` is trivial, so the real places impose nothing;
 * `KcSelOfLocFinite` (definition; the named finite-place input of (i), PRINT + GLUE: Milne,
-  *Arithmetic Duality Theorems*, I.3.8, at the places outside `S`; the comparison of the two local
-  models at the places of `S`), and `kcSelOfLoc_of_finite` (PROVED): (i) from it;
+  *Arithmetic Duality Theorems*, I.3.8, at the places outside `S`, with I, Proposition 6.5 as a
+  reading for the global form; the comparison of the two local models at the places of `S`), and
+  `kcSelOfLoc_of_finite` (PROVED): (i) from it;
 * `kcArithSelmerLevel_of` (PROVED): `KcArithSelmerLevel` from `KcSelOfLocFinite` and (ii).
 
-Kinds: definitions and PROVED; the named inputs `KcSelOfLocFinite` (PRINT + GLUE) and `KcLocOfSel`
-(GLUE: Silverman X.4.4, locator unverified; the Néron–Ogg–Shafarevich criterion;
-inflation–restriction).
+Kinds: definitions and PROVED; the named inputs `KcSelOfLocFinite` (PRINT + GLUE, on I.3.8) and
+`KcLocOfSel` (GLUE; Milne I.6.5 is a reading, with no recorded page read). Milne's displayed
+sequences in I.6.5 (p. 75) concern primary-limit groups; the fixed-level argument uses a
+torsion representative in the proof (p. 76). Corollary 6.6
+(p. 76; proof p. 77) gives primary-limit Selmer comparison, not the fixed-level statement.
+For good reduction use Silverman AEC, 2nd ed., VII, Theorem 7.1(c) ⇒ (a), p. 201. The
+comparisons with the local models and the inflation used here are GLUE.
 -/
 
 noncomputable section
@@ -116,8 +121,21 @@ def KcSelOfLoc : Prop :=
         kerToH1 (k := ℤ) ⟨((kcInfl k S E m).f 1).hom f, kcInfl_mem_ker k S E hf⟩ ∈
           selmerLevelK (sqrtK k) E m
 
-/-- **Field (ii) of `KcArithSelmerLevel`**: every class of `Sel_{2^m}(E/K)` is such an
-inflation. Kind: definition (the statement; the named input). -/
+/-- **Field (ii) of `KcArithSelmerLevel`**: every class of `Sel_{2^m}(E/K)` is such an inflation.
+Reading, not a print (GLUE): Milne, *Arithmetic Duality Theorems*, 2nd ed., Ch. I, Prop. 6.5.
+The first displayed sequence is for `A(m)`, the primary-limit coefficient group. Its proof
+starts with a representative at finite level `A_m` and uses the unramified division fibres
+of Lemma 6.1, p. 73. The finite `S`-Selmer group is defined just before 6.4 on p. 75;
+Corollary 6.6, p. 76 (proof p. 77), gives context at the primary-limit level.
+GLUE: extract the argument at the same level `2^m`, where it gives a class represented by a
+cocycle on `G_{K,S}`. Verify its inflation and the local coboundary condition `KcLocTriv` at
+`S` against the actual Lean maps. The places of bad reduction are in `S` by full `2`-power
+torsion and Silverman, AEC, 2nd ed., VII, Theorem 7.1(c) ⇒ (a), p. 201. Silverman X,
+Theorem 4.2 and Corollary 4.4, pp. 333–334, corroborate unramifiedness, not the entire
+inflation and localization comparison.
+Kind: definition (the statement; the named input).
+Links: Milne, Arithmetic Duality Theorems https://www.jmilne.org/math/Books/ADTnot.pdf; Silverman,
+The Arithmetic of Elliptic Curves https://doi.org/10.1007/978-0-387-09494-6. -/
 def KcLocOfSel : Prop :=
   E.IsElliptic → k < 0 → S.Finite →
     (∀ v : HeightOneSpectrum (𝓞 (QuadraticField k)), (2 : 𝓞 (QuadraticField k)) ∈ v.asIdeal →
@@ -145,14 +163,20 @@ embedding `τ : ℚˢ → ℚ_pˢ` (a place `v` of `K` above `p`), the localizat
   Duality Theorems*, 2nd ed., Ch. I, Proposition 3.8 (pp. 46–47), verbatim: "Let A be an abelian
   variety over K, and let 𝒜 be its Néron model over R. Then H^1(G/I, A(K^un)) = H^1(G/I,
   π_0(𝒜_0)) where 𝒜_0 is the closed fibre of 𝒜/R. In particular, if A has good reduction, then
-  H^1(G/I, A(K^un)) = 0." (PRINT; its proof uses Lang's lemma and Hensel's lemma.) GLUE: the
-  inflation–restriction from `G/I` to `G_{K_v}` and the good reduction outside `S` (from
-  `E[2^∞] ⊂ E(K_S)` and the Néron–Ogg–Shafarevich criterion).
+  H^1(G/I, A(K^un)) = 0." (PRINT; its proof uses Lang's lemma and Hensel's lemma.) The global
+  form is Milne, I, Proposition 6.5 (p. 75), whose proof (p. 76) reads: "According to (3.8),
+  H¹(g_v, A(K_v^un)) = 0, and so the diagram shows that the image of H¹(G_S, A(m)) in H¹(K, A(m))
+  is contained in the kernel of H¹(K, A(m)) → ⊕_{v∉S} H¹(K_v, A)." The displayed sequence is
+  primary-limit; the fixed-level outside-`S` argument uses I.3.8 on the inflated cocycle.
+  GLUE: good reduction outside `S` follows from `E[2^∞] ⊂ E(K_S)` and Silverman, AEC,
+  2nd ed., VII, Theorem 7.1(c) ⇒ (a), p. 201 (Néron–Ogg–Shafarevich).
 * At `v ∈ S`: GLUE, the comparison of `KcLocTriv` (stated with `G_{K_v}` and the points over the
   completion `K_v`) with the localization `locK` at `τ` (stated with embeddings of separable
   closures); the tree has no map from `τ` to the place `v`, which a split of this input by place
   needs.
-Kind: definition (the statement; the named input). -/
+Kind: definition (the statement; the named input).
+Links: Milne, Arithmetic Duality Theorems https://www.jmilne.org/math/Books/ADTnot.pdf; Silverman,
+The Arithmetic of Elliptic Curves https://doi.org/10.1007/978-0-387-09494-6. -/
 def KcSelOfLocFinite : Prop :=
   E.IsElliptic → k < 0 → S.Finite →
     (∀ v : HeightOneSpectrum (𝓞 (QuadraticField k)), (2 : 𝓞 (QuadraticField k)) ∈ v.asIdeal →

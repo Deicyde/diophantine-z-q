@@ -4,7 +4,7 @@ article_id: af_c38e410c645b4cd568ed5d2b
 
 # The row-5b determinant
 
-> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+> **The congruent-number route.** This chapter belongs to the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](../main/main-theorem.md) is the other route to the same theorem. The route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q. Pages whose Lean is not on this fork's main (fork issue #77) say so; the Lean of the other pages is still in the tree.
 
 The certified rank hypothesis CR₃ rests, through Proposition 0, on the Selmer form CR₃^Sel:
 for squarefree $n\equiv5\pmod8$ with $|\mathrm{Sel}_2(C_n)|=8$ and a Selmer class with
@@ -25,7 +25,7 @@ the genus sum is the same with the class numbers of Tian, Yuan and Zhang; that f
 hypothesis is in the [Rédei chapter](../redei/README.md).
 
 Throughout, $C_n$ is the congruent number curve $y^2=x^3-n^2x$, and the Selmer system and the
-configuration of $n$ are those of the [Route K chapter](../route-k/README.md); the Selmer group is
+configuration of $n$ are those of the [congruent-number route chapter](../route-k/README.md); the Selmer group is
 that of the [Proposition 0 chapter](../selmer/README.md). The [Rédei chapter](../redei/README.md) and
 the [positive-rank chapter](../rank/README.md), outside its Mordell–Weil section, write $d$ and $C_d$
 for the same number and curve.

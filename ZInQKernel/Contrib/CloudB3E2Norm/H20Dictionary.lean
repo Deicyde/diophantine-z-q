@@ -34,8 +34,9 @@ Declarations:
 * **`heegnerTransportOn_of_fields`** (PROVED): `HeegnerTransportOn` into the untwisted ambient
   module
   with `y_R = 1 ⊗ P_{dq}`, `y_P = 1 ⊗ P_d` from (i)–(iv); **`hnorm_of_fields`** (PROVED): the input
-  `hnorm` of `h1_shapiro` from the norm relations (4.1) of the datum (the Cai–Chen–Liu print, via
-  `hnorm_of_print_on`) and (i)–(iv).
+  `hnorm` of `h1_shapiro` from the unweighted norm relations (4.1) of the datum (derived from the
+  Cai–Chen–Liu print `CCLThm2_15AppliedWithUnits` when `D_K < -4`; via
+  `hnorm_of_normRelations_on`) and (i)–(iv).
 
 Kinds: definitions and PROVED; (i)–(iv) are the GLUE (the CM-point construction of the Heegner
 points).
@@ -269,8 +270,10 @@ abbrev yPt (P : PtS K S₀ (E.baseChange K)) : ambU hS (E.baseChange K) Δ :=
   ((1 : MonoidAlgebra ℤ Δ) ⊗ₜ P : MonoidAlgebra ℤ Δ ⊗[ℤ] PtS K S₀ (E.baseChange K))
 
 /-- **The norm relation (4.1) in the twisted-transfer form for the realized Heegner points**
-(PROVED from the PRINT `CCLThm2_15Applied` and the field-level dictionary (i)–(iv), tex 2914–2936):
-for a datum `D` satisfying the norm relations (as the print provides), admissible `(d, q)` with `q`
+(PROVED from the unweighted norm relations and the field-level dictionary (i)–(iv), tex 2914–2936):
+for a datum `D` satisfying the unweighted norm relations (derived from the print
+`CCLThm2_15AppliedWithUnits` by `CCLThm2_15AppliedWithUnits.exists_normRelations` when the unit
+index is one, `D_K < -4`), admissible `(d, q)` with `q`
 split, `∑_τ ρ₀(t_τ) y_R = a_q y_P − ρ₀(σ) y_P − ρ₀(σ)⁻¹ y_P` with `y_R = 1 ⊗ P_{dq}`,
 `y_P = 1 ⊗ P_d` — the input `hnorm` of `h1_shapiro`. -/
 theorem hnorm_of_fields (D : HeegnerPointData E) (hD : D.NormRelations) {d q : ℕ}

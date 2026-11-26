@@ -919,8 +919,9 @@ def ModuliAtUnitsHP (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
 zeta functions of algebraic curves*, Ann. of Math. 85 (1967), Main Theorem I; P. Deligne, *Travaux de Shimura*,
 Sém. Bourbaki 389 (1971), §4 (`Sh_K(ℂ) = G(ℚ) \ X × G(𝔸_f) / K` for `(G, X) = (B^×, ℍ^±)`; the point `[h, g]` is the
 abelian variety `A` with `(H₁(A, ℤ), ι_*, h_A) ≅ (L_g, left multiplication, h)`, `L_g = B ∩ 𝒪̂ g⁻¹`) and §5 (Cor. 5.7 /
-Ex. 5.8: the PEL moduli scheme is the canonical model over `E(G, X) = ℚ`, reciprocity at CM points);
-J. S. Milne, *Introduction to Shimura varieties*, §§5–8, 12–14.
+Ex. 5.8: the PEL moduli scheme is the canonical model over `E(G, X) = ℚ`, reciprocity at CM points).
+Background only, not a source (lecture notes; it carries no rating): J. S. Milne, *Introduction to
+Shimura varieties* (2005), §§5–8, 12–14.
 
 *Lean form*: `Ψ : ℍ^± × (B ⊗ 𝔸_f)^× → Y(ℂ)` onto, with fibres exactly the print's `DCRelPM`; holomorphic on `ℍ`
 for every `g` (on `ℍ⁻` it is then holomorphic too, `Ψ(μτ, g) = Ψ(τ, μ⁻¹g)`); the moduli clause at `[τ, u]`,

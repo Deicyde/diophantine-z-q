@@ -3,6 +3,10 @@
 One line per decision: date, what was decided, and where (issue, pull request or comment). Newest first. A decision
 that replaces an older one says so, and the older line stays.
 
+- 2026-11-26: With no human reader available, an adversarial AI reading stands in for the human reading of a
+  printed source: three independent AI lenses (fidelity, skeptic, red team) read the page images, and a row is
+  rated on it only if no lens finds a mismatch beyond a direct instance. The evidence stays AI-READ. First applied
+  to `colmezThm01` and `panThm104F` ([docs/research/pb-adversarial-readings.md](research/pb-adversarial-readings.md)).
 - 2026-11-17: The reference text is the 5 November manuscript; the Lean deviates from it only when needed, and each
   deviation is documented. ([#95](https://github.com/Deicyde/diophantine-z-q/issues/95), [#97](https://github.com/Deicyde/diophantine-z-q/pull/97))
 - 2026-11-17: The proof follows the manuscript's Section 5: the headline takes pole completeness (Theorem 5.2), and

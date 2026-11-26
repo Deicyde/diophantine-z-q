@@ -11,8 +11,9 @@ obtains them from the forward theorems: "At known simple zeros, Lemma `lem:forwa
 one and finite `Ш`" (tex 4020–4021; Lemma `lem:forward-rank`, tex 1086–1110: BCDT Theorem A and
 Kolyvagin Theorem 1). This file proves their existence from
 
-* `Prints.bcdt`, `Prints.kolyvagin` (the blueprint's prints): `rank E^{(h_x)}(ℚ) = 1` from
-  `ord_{s=1} L(E^{(h_x)},s) = 1`, and `rank E^{(h_x k)}(ℚ) = 0` from `L(E^{(h_x k)},1) ≠ 0`;
+* `Prints.bcdt`, `Prints.kolyvagin` (the blueprint's BCDT print and its Kolyvagin statement,
+  GLUE): `rank E^{(h_x)}(ℚ) = 1` from `ord_{s=1} L(E^{(h_x)},s) = 1`, and `rank E^{(h_x k)}(ℚ) = 0`
+  from `L(E^{(h_x k)},1) ≠ 0`;
 * Mordell's theorem for the curves `E_m` (`PoleRC.mordellWeil_curve`, PROVED in the tree);
 * the structure theorem of finitely generated abelian groups (Mathlib): rank one and finite
   generation give a free generator `q` of `E^{(h_x)}(ℚ)`, and rank zero makes `E^{(h_x k)}(ℚ)`

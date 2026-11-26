@@ -13,11 +13,13 @@ reference. **SPECULATIVE** = a judgement. **UNVERIFIED** = recalled without a so
 ## 0. Result
 
 1. **Statement check: Diamond–Shurman Thm 9.5.4 prints "satisfies", not "characteristic polynomial"**
-   (VERIFIED: read in a local copy of the 2005 printing, printed pp. 390–391, and in a local copy of the
-   2016 fourth printing, pp. 401–402; the independent W24 statement check reads the same). The print says that `ρ_{f,λ}(Frob_𝔭)` "satisfies the
+   (VERIFIED: Thm 9.5.4, corrected fourth printing (2016), pp. 401–402, read by a human reader, issue #14
+   comment 7121091136). The print says that `ρ_{f,λ}(Frob_𝔭)` "satisfies the
    polynomial equation" `x² − a_p(f)x + χ(p)p = 0`. DS print "the characteristic equation" only in Thm 9.6.5,
    the general-weight theorem, whose `ρ_{f,λ}` is an abstract representation, not the realization on `A_f`.
-   DS derive the determinant `det ρ_{f,λ} = χχ_ℓ^{k−1}` only for 9.6.5's `ρ` (Exercise 9.6.3(a)).
+   An earlier AI read, not covered by any recorded human read, has DS derive the determinant
+   `det ρ_{f,λ} = χχ_ℓ^{k−1}` only for 9.6.5's `ρ` (Exercise 9.6.3(a)); issue #14 comment 7000317188 lists
+   Exercise 9.6.3 under "Not read".
    So aftate-fix2's leaf `AfTateLam.AfTateDSLambda` (the characteristic polynomial on `V_λ(A_f)`) **is stronger
    than its print**. It is not a printed-form LEAF. aftate-fix2's "reading risk" is resolved against it.
 
@@ -49,7 +51,10 @@ reference. **SPECULATIVE** = a judgement. **UNVERIFIED** = recalled without a so
 
 5. **None of the leaves is proved outright** (§4). Each is a theorem about modular Jacobians (Hecke
    correspondences, Shimura's quotient, Eichler–Shimura, Igusa) with no Lean infrastructure in Mathlib or the
-   tree. Printed forms, locators and ratings are in §4; every DS locator was read in this task.
+   tree. Printed forms, locators and ratings are in §4. Of the DS locators, only Lemma 9.5.3, Thm 9.5.4,
+   Ex. 9.5.2 and Thm 9.6.5 with the paragraph after it are covered by human reads (issue #14 comments
+   7000317188 and 7121091136); the others (§6.3, Prop. 5.2.1, §7.9, Def. 6.6.3, Prop. 6.6.4, Thm 7.6.3,
+   (7.12), Ex. 9.6.3) were AI-read only and are not claimed as read.
 
 ## 1. The determinant: what is missing
 
@@ -126,24 +131,25 @@ varieties and their `Pic⁰` duals (`HDec.HSyn.WeilPairingMumford`, `ZInQKernel/
 
 ## 4. Leaf ratings and printed forms
 
-Every DS locator below was read in this task, in the 2005 printing (pdftotext of the audit copy; page numbers
-from the running heads). That reading is AI-read, not a human reading.
+DS locators below are given by theorem and section number. DS page numbers are those of the corrected fourth
+printing (2016), given only where a human reading covers them (issue #14 comment 7121091136). The other
+locators are AI-read, not human readings.
 
 | leaf | Lean | printed form? | kind / strict | printed statement and locator | reason |
 |---|---|---|---|---|---|
-| `heckeJ1DS` | `AfTateLam.HeckeJ1DS` | **yes** | published / LEAF (unread) | DS §6.3 (pp. 226–227): the double-coset operator `[Γ₁αΓ₂]₂` on `Div`, `Pic⁰` of `X₁(N)`, `Γ₂τ ↦ Σ_j Γ₁β_j(τ)`; Prop. 5.2.1 (p. 171): the representatives `(1 j; 0 p)` and, for `p ∤ N`, `(m n; N p)(p 0; 0 1)`; §7.9 (p. 300): `T_p` and `⟨d⟩` are defined over `ℚ`. | The Lean action on `[x_τ] − [x_τ']` through Abel–Jacobi is DS's divisor formula with these representatives. Over `ℚ` is §7.9. It is a consequence of the print plus the standard passage from a `ℚ`-rational correspondence to an endomorphism of `J` over `ℚ` (STANDARD; Shimura 1971 §7.2, unread). Not stronger: aftate-fix2 §5 argues uniqueness. |
-| `afShimura` | `AfTateLam.AfShimura` | **yes** | published / LEAF (unread) | Shimura 1973 Thm 1, pp. 526–527 (read by the locator audit, row R16: the `ℚ`-rational quotient, the coefficient-field action, `dim A_f = [K_f:ℚ]`); DS Def. 6.6.3 (p. 241): `A_f = J₁(M_f)/I_f J₁(M_f)`; Prop. 6.6.4 (p. 242). | `IsAfQuotient` is the universal property of `J/I_f J` (STANDARD), and `I_f` is DS's annihilator. Only the unconditional clauses of Thm 1 are used. Weakening: newforms only, `N ≥ 2`. |
-| `afTateDSLambdaSat` | `AfTateLam.AfTateDSLambdaSat` | **yes** (read) | published / LEAF (unread: no human reading) | DS Lemma 9.5.3 (p. 390): `V_ℓ(A_f)` free of rank 2 over `K_f ⊗_ℚ ℚ_ℓ`; Thm 9.5.4 (pp. 390–391): `ρ_{f,λ}` 2-dimensional over `K_{f,λ}`, and `ρ_{f,λ}(Frob_𝔭)` satisfies `x² − a_p(f)x + χ(p)p = 0` for `p ∤ ℓN`. | `dim_{K_λ} V_λ = 2` is the λ-factor of 9.5.3. DS's `ρ_{f,λ}` is the λ-projection of `V_ℓ(A_f)` (DS Exercise 9.5.2(a), read), which is the base change `K_λ ⊗_{ℚ_ℓ⊗K_f} V_ℓ(A_f)` of the Lean. "Satisfies" is the printed wording. Weakening: newforms only, unramifiedness dropped. |
-| `afDetLambda` | `AfTateLam.AfDetLambda` | **no** | consequence / GLUE | `det ρ_{f,λ}(Frob_p) = χ(p)p` for `p ∤ Nℓ`. Not in DS for 9.5.4 (VERIFIED: DS's determinant statements are in §7.6 (`E[N]`) and §9.6 (9.6.5's `ρ`) only). Candidates: Shimura 1971 Thm 7.14, Ribet 1977 (UNVERIFIED, unread). | True (STANDARD: `ρ_{f,λ}` has `det = χχ_ℓ`), but no printed locator was read. See §1. |
-| `igusaGL2DS` | `X1Igusa.IgusaGL2DS` | **yes** | published / LEAF (unread) | DS Thm 7.6.3 (p. 290): `ρ : Gal(ℚ(j, E_j[N])/ℚ(j)) ≅ GL₂(ℤ/N)`, with `E_j : y² = 4x³ − (27j/(j−1728))x − 27j/(j−1728)` of (7.12) (p. 282). | The Lean states surjectivity in every basis of `E_j[N]` over an algebraic closure of `ℚ(j)`, which is the printed isomorphism. x1-igusa's locator was UNVERIFIED and is now read. |
+| `heckeJ1DS` | `AfTateLam.HeckeJ1DS` | **yes** | published / LEAF (unread) | DS §6.3: the double-coset operator `[Γ₁αΓ₂]₂` on `Div`, `Pic⁰` of `X₁(N)`, `Γ₂τ ↦ Σ_j Γ₁β_j(τ)`; Prop. 5.2.1: the representatives `(1 j; 0 p)` and, for `p ∤ N`, `(m n; N p)(p 0; 0 1)`; §7.9: `T_p` and `⟨d⟩` are defined over `ℚ`. | The Lean action on `[x_τ] − [x_τ']` through Abel–Jacobi is DS's divisor formula with these representatives. Over `ℚ` is §7.9. It is a consequence of the print plus the standard passage from a `ℚ`-rational correspondence to an endomorphism of `J` over `ℚ` (STANDARD; Shimura 1971 §7.2, unread). Not stronger: aftate-fix2 §5 argues uniqueness. |
+| `afShimura` | `AfTateLam.AfShimura` | **yes** | published / LEAF (unread) | Shimura 1973 Thm 1, pp. 526–527 (read by the locator audit, row R16: the `ℚ`-rational quotient, the coefficient-field action, `dim A_f = [K_f:ℚ]`); DS Def. 6.6.3: `A_f = J₁(M_f)/I_f J₁(M_f)`; Prop. 6.6.4. | `IsAfQuotient` is the universal property of `J/I_f J` (STANDARD), and `I_f` is DS's annihilator. Only the unconditional clauses of Thm 1 are used. Weakening: newforms only, `N ≥ 2`. |
+| `afTateDSLambdaSat` | `AfTateLam.AfTateDSLambdaSat` | **yes** (read) | published / LEAF (unread: no human reading) | DS Lemma 9.5.3 (2016 p. 400): `V_ℓ(A_f)` free of rank 2 over `K_f ⊗_ℚ ℚ_ℓ`; Thm 9.5.4 (2016 pp. 401–402): `ρ_{f,λ}` 2-dimensional over `K_{f,λ}`, and `ρ_{f,λ}(Frob_𝔭)` satisfies `x² − a_p(f)x + χ(p)p = 0` for `p ∤ ℓN`. | `dim_{K_λ} V_λ = 2` is the λ-factor of 9.5.3. DS's `ρ_{f,λ}` is the λ-projection of `V_ℓ(A_f)` (DS Exercise 9.5.2(a), read), which is the base change `K_λ ⊗_{ℚ_ℓ⊗K_f} V_ℓ(A_f)` of the Lean. "Satisfies" is the printed wording. Weakening: newforms only, unramifiedness dropped. |
+| `afDetLambda` | `AfTateLam.AfDetLambda` | **no** | consequence / GLUE | `det ρ_{f,λ}(Frob_p) = χ(p)p` for `p ∤ Nℓ`. No print found for 9.5.4's `ρ`. An earlier AI read of DS saw determinant statements only in §7.6 (`E[N]`) and §9.6 (9.6.5's `ρ`); no recorded human read covers this (UNVERIFIED). Candidates: Shimura 1971 Thm 7.14, Ribet 1977 (UNVERIFIED, unread). | True (STANDARD: `ρ_{f,λ}` has `det = χχ_ℓ`), but no printed locator was read. See §1. |
+| `igusaGL2DS` | `X1Igusa.IgusaGL2DS` | **yes** | published / LEAF (unread) | DS Thm 7.6.3: `ρ : Gal(ℚ(j, E_j[N])/ℚ(j)) ≅ GL₂(ℤ/N)`, with `E_j : y² = 4x³ − (27j/(j−1728))x − 27j/(j−1728)` of (7.12). | The Lean states surjectivity in every basis of `E_j[N]` over an algebraic closure of `ℚ(j)`, which is the printed isomorphism. x1-igusa's locator was UNVERIFIED and is now read. |
 | (dropped) `afTateDSLambda` | `AfTateLam.AfTateDSLambda` | **no** | — | DS 9.5.4 prints "satisfies" (above) | Stronger than the print. It is still used inside the proof, derived from the pair. |
 
 Proposed `locators.md` rows (that file is not this task's to edit):
-- `heckeJ1DS`: DS GTM 228 (2005) §6.3 pp. 226–227, Prop. 5.2.1 p. 171, §7.9 p. 300; read (AI).
-- `afTateDSLambdaSat`: DS Lemma 9.5.3 p. 390, Thm 9.5.4 pp. 390–391 (2016: pp. 401–402); read (AI), wording
+- `heckeJ1DS`: DS GTM 228 §6.3, Prop. 5.2.1, §7.9; read (AI).
+- `afTateDSLambdaSat`: DS Lemma 9.5.3 (2016 p. 400), Thm 9.5.4 (2016 pp. 401–402); read (AI), wording
   "satisfies the polynomial equation".
 - `afDetLambda`: no locator; Shimura 1971 Thm 7.14 and Ribet 1977 to be checked.
-- `igusaGL2DS`: DS Thm 7.6.3 p. 290, (7.12) p. 282; read (AI).
+- `igusaGL2DS`: DS Thm 7.6.3, (7.12); read (AI).
 
 ## 5. Files
 

@@ -106,7 +106,9 @@ theorem LocalDescentInput.kummer {Pt Pt' HV HV' HB HB' Hinf : Type*} [AddCommGro
     D.hH10 m0 v hv
 
 /-- `PRINT` (Cai–Chen–Liu, Trans. AMS 370, Theorem 2.15, p. 3730, read and stated by lane RC9),
-the inert norm relations (4.1), tex 2914–2936, together with the Artin identification (H5)
+the inert norm relations (4.1) (unweighted: the print once the unit index
+`u_1 = [𝒪_K^× : ℤ^×]` is one, `D_K < -4`), tex 2914–2936, together with the Artin
+identification (H5)
 (`GLUE`, tex 2969–2985), in the form used by (H7): the points `y J = y_{f n_J}` (`J ⊆ I`) live in
 the module `P = E(M_I)` over the commutative group ring `𝒜 = ℤ[Gal(M_I/H_f)]`; `σ i`, `D i`,
 `Tr i ∈ 𝒜` are the generator, the derivative and the trace of the `i`-factor `C_{ℓ_i+1}` of (H5);
@@ -161,7 +163,8 @@ G_{H_{f n_I}}` acts on `V = E(ℚ̄)`; `Hup = G_{H_{f n_I ℓ}}`; `σ` a local i
 generator `σ_ℓ`; `red` the reduction at a place above `ℓ` with Frobenius `F`; `J = ρ_T(τ)`.
 Kinds: `cocycle`, `tors`, `kummer_upper` are the choice of the adjusted representative of
 `b_{I∪ℓ,a}` (`ELLIOT`, tex 3122–3128); `hZ`, `hQ` define the division points; `hY`, `hTr` are
-(4.1) with `d = f n_I` (`PRINT`, CCL 2.15); `hXfix`, `hYfix` say `X, Y` are points of the
+(4.1) with `d = f n_I` (`PRINT`, CCL 2.15, unweighted: the print once the unit index
+`u_1 = [𝒪_K^× : ℤ^×]` is one, `D_K < -4`); `hXfix`, `hYfix` say `X, Y` are points of the
 indicated fields; `hH2` is (H2) for the upper field (`H2_assembled`); `hu'`, `hv'` come from
 (H12) (`H12_divisibility`); `hinert` (inertia acts trivially on reductions), `hYX` ((H4), the CM
 congruence, `ELLIOT` tex 2948–2967), `hXF` (`(ℓ)` splits completely in `H_{f n_I}`),

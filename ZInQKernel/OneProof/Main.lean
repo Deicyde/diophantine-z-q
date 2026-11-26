@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailZ102
+import ZInQKernel.OneProof.H.TailZ106
 import ZInQKernel.MainGreenTao
 import ZInQKernel.Contrib.OneProof.DeRhamRange
 import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
@@ -251,9 +251,17 @@ Theorem 5.3, the Cassels–Tate pairing, and the H bundles are unchanged (26 →
 Its record cites Miller's Theorem 4.4, from which
 `ZInQ.Manuscript.ForwardRankLiterature.silvermanRankOne_of_miller` proves it.
 
-Diamond–Shurman, Theorem 9.6.5, p. 393 (2005), supplies the weight-at-least-two representation in its
+Diamond–Shurman, Theorem 9.6.5, p. 404 (corrected fourth printing, 2016), supplies the
+weight-at-least-two representation in its
 prime-ideal convention. Lean proves the comparison with the existing inertia and arithmetic Frobenius
 interfaces. This changes one premise without adding to the count.
+
+pb-refereed-fold (`TailZ103`, docs/research/pb-refereed-fold.md) restates two research fields from refereed
+prints. `bergerSurveyF` becomes `colmezThm01`, Colmez, Astérisque 319 (2008), Théorème 0.1, p. 118, in its printed
+form (semi-stable means `B_st^+[1/t] ⊗ V ≅ (B_st^+[1/t])^d`). `panPrintedF` becomes `panThm104F`, the same statement
+with Fontaine's definition of potential semistability (Astérisque 223 (1994), Exp. III, 5.6.1 and 1.8.5). The
+earlier citation was Brinon–Conrad's unrefereed notes. Both new leaves are pending a reading, so the count does not
+change.
 
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
 hypothesis by its proof; the theorem's statement then loses that hypothesis.
@@ -265,13 +273,13 @@ namespace ZInQ.OneProof
 its genuine Selmer condition, the Cassels–Tate pairing on the curves `E_ℓ`, and Silverman's rank-one forward
 implication (Appendix C, Evidence 16.5.5). Pole completeness (Theorem 5.2) uses only these last three inputs. -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves76) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves28)
+    (r : HDec.HSyn.OpenResearchLeaves78) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves30)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
     (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves)
     (hRank : ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
-    (HDec.HSyn.sixContactMin_of_open95 r t l)
+    (HDec.HSyn.sixContactMin_of_open99 r t l)
     (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne hRC hCT
       (ZInQ.Manuscript.PoleS12.SilvermanRank.rankOne_of_aec hRank))
 

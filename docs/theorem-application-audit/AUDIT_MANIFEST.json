@@ -15,8 +15,8 @@
     },
     {
       "path": "applications.json",
-      "bytes": 604109,
-      "sha256": "1d53028414eefe1eeed85db566aae47b2b00d4206f3eaffeec8625f0e3c089bb"
+      "bytes": 604176,
+      "sha256": "f75bf94380b59f4976c32d86b768a84f83ad2a5947013a8e9f874ef88af54486"
     },
     {
       "path": "authoring/application_specs.py",
@@ -60,8 +60,8 @@
     },
     {
       "path": "authoring/FROZEN_APPLICATIONS.json",
-      "bytes": 412224,
-      "sha256": "137365140052b08f0f7ffae08a9d0f4e0d5b63611dc6fdef018b0baa774c3d74"
+      "bytes": 412291,
+      "sha256": "06a8954c113e139e2f35558c997ffbcfaf6c01c91bba2b9a8d0f37ead38fd32f"
     },
     {
       "path": "authoring/PROSE_REPAIRS.json",
@@ -460,8 +460,8 @@
     },
     {
       "path": "INVENTORY.md",
-      "bytes": 205018,
-      "sha256": "0c95233d38b80a2cae7c4995b8925ed469f61e3672d100dfa06ca0d37e468b64"
+      "bytes": 205085,
+      "sha256": "1aa33f9c22b9ce1fb87abf6e5c7007a49b0d3359acf7b06a6fb12dcdf4605e58"
     },
     {
       "path": "MANUSCRIPT_BUILD.json",

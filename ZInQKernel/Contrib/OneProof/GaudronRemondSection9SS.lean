@@ -21,13 +21,19 @@ open ZInQ.SemistabAssembly
 
 namespace ZInQ.BostGR9
 
-/-- **Leaf GR14-§9 over the printed semistability** (step E4, `diophantine_zq.tex` L894-895, cited there as
-"recorded in [gr2014, Section 9]"; É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014),
-2057-2108, §9, proof of Lemme 9.1, p. 2098, read by the locator audit, docs/research/locators.md row R21): for every
-abelian variety `A` of dimension `g` over a number field, `h(A) ≥ -(3/2) g`, `h` the stable Faltings height in
-Faltings' original normalization. `GaudronRemondSec9LowerAn` verbatim with `ZInQ.R3Residual.IsAnStableHeight`
-replaced by `ZInQ.SemistabAssembly.IsAnStableHeightSS` (semistable reduction as printed: the identity component of
-the special fibre is semi-abelian, over `k(𝔭)` and over its algebraic closure; semistab-assembly). -/
+/-- **Leaf GR14-§9 over the printed semistability** (step E4, `diophantine_zq.tex` L894-895, cited
+there as "recorded in [gr2014, Section 9]"). Source: É. Gaudron and G. Rémond, *Théorème des
+périodes et degrés minimaux d'isogénies*, Comment. Math. Helv. 89 (2014), Cor. 8.4, p. 400 (GR1;
+attribution: Bost), `h(A) ≥ -(g/2) log(2π)`, with the normalization `h_F(A) = h(A) - (g/2) log π`
+on p. 352; two-lens statement check 2026-11-24. This leaf is the weaker bound, implied by that one
+(`gaudronRemondSec9LowerAnSS_of_bostLowerBoundAnSS`). Duke 163 p. 2098: citation only
+(É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057-2108, §9,
+proof of Lemme 9.1, citing GR1 Cor. 8.4; docs/research/locators.md row R21). For every abelian
+variety `A` of dimension `g` over a number field, `h(A) ≥ -(3/2) g`, `h` the stable Faltings height
+in Faltings' original normalization. `GaudronRemondSec9LowerAn` verbatim with
+`ZInQ.R3Residual.IsAnStableHeight` replaced by `ZInQ.SemistabAssembly.IsAnStableHeightSS`
+(semistable reduction as printed: the identity component of the special fibre is semi-abelian, over
+`k(𝔭)` and over its algebraic closure; semistab-assembly). -/
 def GaudronRemondSec9LowerAnSS : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
     ∀ x : ℝ, IsAnStableHeightSS A x → -(3 / 2) * (g : ℝ) ≤ x

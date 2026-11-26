@@ -6,7 +6,7 @@ import ZInQKernel.Contrib.CloudB3RC53.Assembly
 
 `branchPackageNode_of_steps` proves the blueprint's node
 `ZInQ.Contrib.CloudB3RC53.BranchPackageNode` (Branch 1, or the fixed-field package
-`FixedFieldPackage` of Branch 2) from the blueprint's printed leaves `Prints` (BCDT, Kolyvagin),
+`FixedFieldPackage` of Branch 2) from the blueprint's `Prints` (BCDT, PRINT; Kolyvagin, GLUE),
 the Kummer-sequence glue `KummerCorankZero`, and, for each admissible `ℓ` with
 `corank_{ℤ₂} Sel_{2^∞}(E_ℓ/ℚ) = 1`, the finer steps `RCSteps (D ℓ)` about interface data `D ℓ`
 (`Steps.lean`), following Elliot's text:
@@ -129,8 +129,8 @@ theorem central_upper_bound {ℓ : ℕ} {D : RCData ℓ} (S : RCSteps D) (hk0 : 
 /-! ## The remaining branch: the fixed-field package -/
 
 /-- **`s₂(E/K) = 1` in the remaining branch** (lines 2616–2626, PROVED from the blueprint's BCDT
-and Kolyvagin leaves and the Kummer glue): the forward theorem at the known nonzero central value
-`L(E^{(k)},1)` gives `corank Sel_{2^∞}(E^{(k)}/ℚ) = 0`. -/
+leaf, its Kolyvagin statement (GLUE) and the Kummer glue): the forward theorem at the known
+nonzero central value `L(E^{(k)},1)` gives `corank Sel_{2^∞}(E^{(k)}/ℚ) = 0`. -/
 theorem selmerCorankOneOverK_of {ℓ : ℕ} (hℓ : 0 < ℓ) (P : Prints) (hKum : KummerCorankZero)
     {k : ℤ} (hk0 : k ≠ 0) (hk : AnalyticRank (Etw ℓ k) 0) (hSel : SelmerCorankOne (Ecurve ℓ)) :
     SelmerCorankOneOverK ℓ k := by

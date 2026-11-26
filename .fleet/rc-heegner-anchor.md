@@ -33,3 +33,6 @@ Final implementation and report SHA: `706cf30eb7cc0cafd45c856a6620fabf8ca3b8b7`.
 The final branch SHA is returned by
 `git log -1 --format=%H -- .fleet/rc-heegner-anchor.md`;
 a commit cannot contain its own SHA.
+
+Update: `CCLThm2_15Applied` and `CCLGenuine` are retired; the staged path uses
+`CCLThm2_15AppliedWithUnits`. See docs/research/ccl-retire.md.

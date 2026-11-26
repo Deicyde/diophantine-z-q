@@ -2,14 +2,14 @@
 article_id: af_227585a2d1d47bd1ca422fc3
 ---
 
-# Pole completeness from certified rank (Route K)
+# Pole completeness from certified rank (the congruent-number route)
 
-> **Retired with Route K.** This chapter belongs to Route K, the project's earlier replacement for pole completeness through Tian–Yuan–Zhang and Gross–Zagier, which the [main theorem](../main/main-theorem.md) no longer uses (fork issue #77; the tag `route-k-final` keeps the whole route). Pages whose Lean was removed say so; the Lean of the other pages is still in the tree.
+> **The congruent-number route.** This chapter belongs to the congruent-number route to pole completeness, through Tian–Yuan–Zhang and Gross–Zagier. [Elliot's route](../main/main-theorem.md) is the other route to the same theorem. The route's Lean is kept at the tag `route-k-final` and pinned upstream in elliotglazer/diophantine-z-q. Pages whose Lean is not on this fork's main (fork issue #77) say so; the Lean of the other pages is still in the tree.
 
 The manuscript's pole polynomial puts two points on curves $y^2=x(x-\ell)(x+3\ell)$, and the
 manuscript derives pole completeness from its restricted converse theorem, whose proof uses
 Kato's Euler system, Waldspurger's formula, Bump–Friedberg–Hoffstein and Nekovář's Selmer
-complexes. Route K changes the polynomial to the congruent number curves
+complexes. The congruent-number route changes the polynomial to the congruent number curves
 $C_\ell:y^2=x(x-\ell)(x+\ell)$; the elementary direction, Lemma 5.1, is unchanged
 ([the one-sided pole obstruction](../multiplication/pole-obstruction.md)). This chapter proves
 pole completeness for the new polynomial from one narrow hypothesis on congruent number curves,
@@ -80,7 +80,7 @@ $|n|$ and $|n\theta|$ to the base configuration, and the class $\beta$ survives 
 
 Two points with abscissas in $\beta\mathbb Q^{*2}$ on $C_N$ and $C_{N\theta}$ rescale to the
 witnesses of the pole polynomial. With CR₃ applied to the two certified curves this proves pole
-completeness, which the main theorem therefore no longer assumes. The proof applies CR₃ to these
+completeness, which the main theorem by the congruent-number route therefore does not assume. The proof applies CR₃ to these
 two curves only; the [two-curves section](../rank/two-curves/README.md) proves pole completeness
 from positive rank on curves of the same kind: the two curves of some slot choice, for every
 triple $\beta,\theta,p_0$ satisfying the hypotheses of the realization (CR₃^DL,Rk), or, for each

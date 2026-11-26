@@ -77,7 +77,7 @@ theorem componentFields_of_edixhovenIso {ℓ : ℕ} {h : ℚ} {k : ℤ} {cB : �
 /-- **The remaining inputs of (4.6) at one address** (Proposition `ex:arith-central-calibration`,
 tex 3987–4141). The fields not listed are those of batch 3's `CalibrationModelG` (the same as
 `CalibrationModelC`, with the same names, tex lines, kinds and owners: the two-primary Ш and
-torsion orders with `s_ℬ = s(h_x) + s(h_x k)` and the torsion bound, ELLIOT + PRINT Kolyvagin; the
+torsion orders with `s_ℬ = s(h_x) + s(h_x k)` and the torsion bound, ELLIOT + GLUE Kolyvagin; the
 component numbers with cancellation away from `k` and `c_p(𝒜) = 1` at `p ∣ k`; `K = ℚ(√k)`; the
 pullbacks `ab = 4`, the real kernel and cokernel orders, the periods; Cassels–Milne at the canonical
 regulators of any free generators, PRINT Milne ADT I.7.3 + GLUE; the moving prime in the output

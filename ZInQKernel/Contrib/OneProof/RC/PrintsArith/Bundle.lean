@@ -11,7 +11,8 @@ import ZInQKernel.Contrib.CloudB3RC53.DetTateCyclotomic.Basic
 in the manner of the shared top layer's `ZInQ.Contrib.CloudB3RC53.Prints` (which holds BCDT,
 Kolyvagin, Dokchitser–Dokchitser and Cai–Shu–Tian and is not restated here). `GlueArith` bundles
 the one textbook fact the derived forms still take as an input, `CMjInteger`. The interface-level
-statements (`KatoZetaLeaf`, `CCLThm2_15Applied`, `CJReductionData.Thm3_1KappaOne`) are not bundled:
+statements (`KatoZetaLeaf`, `CCLThm2_15AppliedWithUnits`, `CJReductionData.Thm3_1KappaOne`) are
+not bundled:
 their objects are abstract (`Thm3_1KappaOne` is no longer a PRINT leaf: it is derived from the one
 Cornut–Jetchev print `CJSetting.Thm31` by `CJReductionData.thm3_1KappaOne_of_print`).
 

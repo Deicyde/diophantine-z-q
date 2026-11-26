@@ -18,7 +18,7 @@ as each statement that uses it says. This is Faltings' normalization $h_F$; Deli
 $h_D=h_F+\frac g2\log\pi$. The height and semistable reduction enter through the project's own
 definitions; that these agree with the published ones is a judgement of AI reviews.
 
-Of these four statements, two are published statements and two are consequences of published
+Of these four statements, one is a published statement and three are consequences of published
 theorems; none is proved here.
 
 - [Pazuki's comparison of the theta height with the Faltings height](pazuki-bound.md)

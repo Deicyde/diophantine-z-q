@@ -17,7 +17,8 @@ invertible).  Here the hypothesis is removed: (H7) is restated with the genuine 
 connecting map
 `δ⁰` of the restricted sequence) and the genuine conjugation action `explicitConj1` of `G` on
 `H¹(N, A)`; the remaining inputs are exactly those of the constructions plus RC10's
-`DerivativeInput` (the norm relations of Cai–Chen–Liu and the generators of (H5), `PRINT`/`GLUE`)
+`DerivativeInput` (the norm relations of Cai–Chen–Liu, unweighted, so the print once the unit
+index `u_1 = [𝒪_K^× : ℤ^×]` is one, `D_K < -4`, and the generators of (H5), `PRINT`/`GLUE`)
 and the precision hypothesis (H12) (gap B1-a).
 -/
 

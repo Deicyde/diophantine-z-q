@@ -63,8 +63,8 @@ def eq51Cap (ℓ A j : ℕ) : ℕ :=
 2. regularity: `RegularityInputsGPK (uprim h k')` at every companion pair (tex 4976–5194; the actual
    classes nonzero, the primitive kernel vectors PROVED; fields and owners at
    `RegularityInputsGPK`);
-3. (4.6) at every companion pair (tex 3987–4047; ELLIOT on PRINTs Kolyvagin Thm 1, Milne ADT I.7.3,
-   Edixhoven Thm 5.3; owners RC15, RC9);
+3. (4.6) at every companion pair (tex 3987–4047; ELLIOT on GLUE Kolyvagin Thm 1
+   (cited statement) and PRINTs Milne ADT I.7.3, Edixhoven Thm 5.3; owners RC15, RC9);
 4. for every `A` (tex 4910, 4454): a label type `Pl` of derivative primes and a family `G` of
    switched models over `𝒪` for the companion pairs with `ω(k') ≤ A` (batch 3's
    `GenuineOuterModels`; `model i []` the actual model of `i`; integral, primitive actual class,

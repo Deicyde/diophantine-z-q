@@ -36,7 +36,7 @@ is any element of $\mathrm{SL}_2(\mathbb Z)$ with lower row $(c,d')$, $N\mid c$ 
 respectively $d'\equiv d$, modulo $N$. That such operators exist on every model, for Shimura's Hecke
 correspondences, is proved here and is no longer an open statement.
 
-Of these six statements, three are published statements and three are consequences of published
+Of these six statements, two are published statements and four are consequences of published
 theorems; none is proved here.
 
 - [Deligne's Galois representations of eigenforms](deligne-representations.md)

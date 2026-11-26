@@ -431,22 +431,23 @@ end Finite
 
 /-! ## §C. H-17, R21 (Bost) -/
 
-/-- **Leaf R21-Bost. Bost's lower bound** (J.-B. Bost, *Périodes et isogénies des variétés abéliennes
-sur les corps de nombres*, Sém. Bourbaki 795 (1994/95), Astérisque 237 (1996); the display is
-UNVERIFIED: locators.md could not read it). Recalled display: `h(A) ≥ −(g/2) log(2π)` for every
-abelian variety of dimension `g` over a number field, `h` the stable height in Deligne's
-normalization `(i/2π)^g`, `h_D = h_F + (g/2) log π`. Stated in Deligne's normalization, the weaker of
-the two readings (a Faltings-normalized display `h_F ≥ −(g/2) log 2π` implies it, as `h_D ≥ h_F`; the
-Faltings-normalized reading is false for `E` with `j = 0`, `h_F ≈ −1.32`, so Deligne's is the one
-meant). Residual risk: if Bost printed in a third normalization giving larger heights, e.g.
-`(i/4π)^g`, this leaf would be stronger than the print; R21 itself needs only `h_F ≥ −(3/2)g`. -/
+/-- **Leaf R21-Bost. Bost's lower bound** (GR1 Cor 8.4: É. Gaudron and G. Rémond, *Théorème des
+périodes et degrés minimaux d'isogénies*, Comment. Math. Helv. 89 (2014), Cor. 8.4, p. 400,
+attribution: Bost; normalization p. 352; J.-B. Bost, Sém. Bourbaki 795 (1994/95), Astérisque 237
+(1996) does not print this display): `h(A) ≥ −(g/2) log(2π)` for every abelian variety of
+dimension `g` over a number field, `h` the stable height in Deligne's normalization `(i/2π)^g`,
+which is GR1's `h` (p. 352: `h_F = h − (g/2) log π`); R21 itself needs only `h_F ≥ −(3/2)g`.
+Stays GLUE pending the SGA 7 2.1.5 re-check (Jack's reading list row 2): `IsStableFaltingsHeight`
+uses the geometric semistability reading only, and matching GR1's semi-abelian model needs the
+SGA 7 IX 2.1.5 dictionary. -/
 def BostLowerBound : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
     ∀ x : ℝ, IsStableFaltingsHeight A x →
       -((g : ℝ) / 2 * Real.log (2 * Real.pi)) ≤ x + (g : ℝ) / 2 * Real.log Real.pi
 
 /-- **The form printed by Gaudron–Rémond** (Duke Math. J. 163 (2014), §9, proof of Lemma 9.1,
-p. 2098, read by the locator audit; referred there to Bost and to GR's earlier Cor. 8.4):
+p. 2098; Duke 163 p. 2098: citation only, referred there to Bost and to GR1 Cor 8.4, Comment. Math.
+Helv. 89 (2014), p. 400; normalization p. 352):
 `h_F(A) ≥ −(3/2) dim A`, Faltings' normalization. A consequence of `BostLowerBound`
 (`grBostBound_of_bost`). -/
 def GRBostBound : Prop :=

@@ -26,7 +26,7 @@ $L(C_{m^2a},s)=L(C_a,s)$ for every $s$, so $F$ is also an entire continuation of
 
 (3) Gauss's point count [holds](gauss/gauss-point-count-holds.md); apply (1).
 
-So Hecke's continuation, one of the five hypotheses of the former main theorem (tag `route-k-final`),
+So Hecke's continuation, one of the five hypotheses of the main theorem at the tag `route-k-final`,
 is proved, with no hypothesis.
 
 ## Depends on

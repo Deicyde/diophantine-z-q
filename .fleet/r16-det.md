@@ -1,8 +1,8 @@
 # r16-det (fleet summary)
 
 **Verdict: −1 GLUE.** The printed characteristic equation (so also the determinant) of the Section 9.5
-realization `ρ_{f,λ}` on `A_f` is in **Diamond–Shurman Thm 9.6.5 at k = 2** (2005 printing p. 393; 2016
-printing p. 404; VERIFIED, AI-read in both). The theorem prints "the characteristic equation" of
+realization `ρ_{f,λ}` on `A_f` is in **Diamond–Shurman Thm 9.6.5 at k = 2** (2016 corrected
+fourth printing p. 404; VERIFIED by a human read, issue #14 comments 7000317188, 7121091136). The theorem prints "the characteristic equation" of
 `ρ_{f,λ}(Frob_p)`, `x² − a_p x + χ(p)p^{k−1}`. In the paragraph right after it, DS say that Section 9.5
 constructed `ρ_{f,λ}` for k = 2 but did not prove irreducibility or that the equation is the characteristic
 equation. So at k = 2, 9.6.5 is a statement about the 9.5 representation `e_λ V_ℓ(A_f)`.
@@ -25,7 +25,7 @@ equation. So at k = 2, 9.6.5 is a statement about the 9.5 representation `e_λ V
 after the theorem, and the theorem itself is phrased existentially. Shimura 1971 Thm 7.14 and Ribet 1977 are
 not on this host and remain unread, as a possible second locator. The other leaves are as rated by r16-close.
 
-**Also.** The host path in r16-close's report and log is reworded to "a local copy of the 2005 printing".
+**Also.** The host path in r16-close's report and log is removed.
 
-**Remains.** A human reading of DS p. 393. The spec keeps `{t}.mumfordTorsionAlgClosed`; substitute PR #54's
+**Remains.** A human reading of DS Thm 9.6.5 at k = 2 (since posted: issue #14 comment 7121091136). The spec keeps `{t}.mumfordTorsionAlgClosed`; substitute PR #54's
 proof after fold34-pr. Report: docs/research/r16-det.md.

@@ -1,0 +1,37 @@
+'ZInQ.Manuscript.RC.PrintsArith.cclUnitFactor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.HeegnerPointData.NormRelationsWithUnits' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.CCLThm2_15AppliedWithUnits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.cclUnitFactor_of_ne_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.disc_ne_exceptional_of_heegner_form' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.cclUnitFactor_eq_one_of_discr_lt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.cclUnitFactor_eq_one_of_heegner_level' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.HeegnerPointData.NormRelationsWithUnits.toNormRelations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PrintsArith.CCLThm2_15AppliedWithUnits.exists_normRelations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.E2ChainInputsS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.E2ChainInputsS.unitFactor_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.E2ChainInputsS.normRelations' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.E2ChainInputsS.datum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.E2ChainInputsS.anchor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.E2ChainInputsS.hG' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.e2ProviderS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB3E2.ChainActual.e2ChainInputsS_of_actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB3E2.ChainActual.e2ChainInputsS_of_actual'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.CloudB3E1RingClass.e2ChainInputsS_of_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.Wiring.commonCoordinateTarget_of_genuineS' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]

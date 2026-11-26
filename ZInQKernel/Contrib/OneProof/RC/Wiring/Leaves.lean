@@ -408,7 +408,7 @@ structure PostLeaves {ℓ : ℕ} (W : WData ℓ) : Prop where
   characters, Chebotarev by the repository's density theorem. -/
   address : ¬ W.OddEmptyUnit → ZInQ.Manuscript.RC.AddressGenuine.AddressDensityLeaf W
   /-- The inputs of (4.6) at every address (`CalibrationInputsH`): the two-primary Ш and torsion
-  orders (ELLIOT + PRINT Kolyvagin), the component groups at `p ∣ k` through good models up to
+  orders (ELLIOT + GLUE Kolyvagin), the component groups at `p ∣ k` through good models up to
   isomorphism and Edixhoven's print in its model-free form (PRINT Edixhoven Thm 5.3, Rem. 5.4.1, as
   GLUE), the pullback and comparison data, Cassels–Milne isogeny invariance at the genuine canonical
   regulators (PRINT Milne ADT I.7.3 + GLUE), the moving prime in the output form of RC17's moving

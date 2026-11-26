@@ -848,8 +848,9 @@ end Equiv
 
 section Leaves
 
-/-- **Leaf R21-Bost over the print's stable height** (J.-B. Bost, Sém. Bourbaki 795 (1994/95),
-Astérisque 237 (1996); display UNVERIFIED): `ZInQ.HeightFix.BostLowerBoundPrinted` verbatim with
+/-- **Leaf R21-Bost over the print's stable height** (GR1 Cor 8.4: Gaudron–Rémond, Comment. Math.
+Helv. 89 (2014), Cor. 8.4, p. 400, attribution: Bost; normalization p. 352; Sém. Bourbaki 795 does
+not print this display): `ZInQ.HeightFix.BostLowerBoundPrinted` verbatim with
 `IsPrintedStableHeight` replaced by `IsAnStableHeight` (the archimedean metric is the integral of
 `(i/2)^g η̃ ∧ η̄̃` over the complex manifold `A_τ(ℂ)^an`, read in all its holomorphic charts; Deligne's
 normalization `h_D = h_F + (g/2) log π`). -/

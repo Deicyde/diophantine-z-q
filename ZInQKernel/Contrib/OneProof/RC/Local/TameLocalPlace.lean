@@ -64,11 +64,16 @@ family of `IwasawaGeneratorsAt`. Literature: K. Iwasawa, "On Galois groups of lo
 Trans. Amer. Math. Soc. 80 (1955), 448–469; verbatim, p. 448: "We shall first determine the
 structure of the groups G(V/k) = G(Ω/k)/G(Ω/V), and G(Ω/V) and show that the group extension
 G(Ω/k)/G(Ω/V) splits." (`V` the ramification field: "the composite of all finite tamely ramified
-extensions of k in Ω"; the proofs are in §3). The fuller quotation and the reading are at
-`IwasawaGeneratorsAt`.
+extensions of k in Ω"; the proofs are in §3). Further reading, not a print:
+Neukirch–Schmidt–Wingberg, *Cohomology of Number Fields*, 2nd ed., author-hosted electronic
+edition v2.3, Ch. VII §5: (7.5.1), p. 409, (7.5.3), p. 410, and the splitting by (3.5.6),
+p. 192, as used in the proof of (7.5.13), p. 418 (v2.3 page numbers; the Springer print pages
+are not checked). The fuller quotations and the reading are at `IwasawaGeneratorsAt`.
 Kind: ELLIOT-uncited classical (Iwasawa 1955, p. 448 and §3: the tame quotient and the splitting
 over the wild inertia; not cited in the manuscript, so not a PRINT) + GLUE (the reading as an
-Iwasawa triple at each place). -/
+Iwasawa triple at each place).
+Links: Iwasawa 1955 https://doi.org/10.1090/S0002-9947-1955-0075239-5; Neukirch–Schmidt–Wingberg
+https://www.mathi.uni-heidelberg.de/~schmidt/NSW2e/NSW2.3.pdf. -/
 def IwasawaGenerators : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (w : HeightOneSpectrum (𝓞 K)),
     (2 : 𝓞 K) ∉ w.asIdeal → IwasawaGeneratorsAt K w

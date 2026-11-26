@@ -1,0 +1,3 @@
+# Level-one boundary of the proposed affine construction
+
+TeX 8468–8479 uses the coarse modular curve at every level prime to the detecting prime. The proposed complement inside nonidentity affine torsion needs a separate level-one case. At level 1, the multiplication-by-one kernel has only the identity, so the affine nonidentity torsion is empty, and deleting the union over proper divisors still gives the empty scheme. The exact-order-one locus in the full torsion is the identity section, with coordinate algebra the coefficient ring itself. Its short Weierstrass quotient is the j-line, by the first-wave degree-zero computation. This is a boundary error in the proposed construction and the manuscript's geometric assertion allows the corrected level-one case.

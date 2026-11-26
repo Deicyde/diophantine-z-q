@@ -41,9 +41,9 @@ Kummer classes of actual points and **proves** the identities from the point rel
   leaf's value see `H20QuadFrob.charValueAt_leaf_genuine`).
 * **`gxClass_step`** (PROVED): the norm identity of the classes,
   `[y_{T ∪ {p}}] = e · i([y_T]) + d b` in `C_{T ∪ {p}}¹` (the input `hnorm` of `CMStepHyps`).
-* **`gx_step_anchored`** (PROVED from the PRINT `CCLThm2_15Applied E (FullAnchor …)`): for the
-  realized anchored Heegner points `1 ⊗ P_d`, `1 ⊗ P_{dq}` with transfer subgroups `G_{H_d}`,
-  `G_{H_{dq}}`, the step identity at the place over the anchor's prime `𝔮 ∣ q`, with
+* **`gx_step_anchored`** gives the step identity at the place over the anchor's prime `𝔮 ∣ q`
+  for the realized Heegner points `1 ⊗ P_d`, `1 ⊗ P_{dq}` with transfer subgroups `G_{H_d}`,
+  `G_{H_{dq}}`, using
   `a = a_q` and `σ = p_w(φ)` from `H20FrobArtin.exists_sigma_field_iv` (the Artin restriction is
   lane E1's Frobenius lift), and `H_{d} ⊆ H_{dq}` from `RingClassMono` (no hypothesis);
   `pointFactor_anticyclotomic`: the same factor at the conjugate place under lane RC32's
@@ -469,19 +469,19 @@ variable {K : Type} [Field K] [NumberField K] (E : WeierstrassCurve ℚ)
   (k : Type) [CommRing k] [TopologicalSpace k] [DiscreteTopology k] [StageIsoA k i]
   [DecidableEq (Places K S₀)] {ι : Type} [DecidableEq ι] (place : ι × Bool → Places K S)
 
-/-- **The step identity for the anchored Heegner points** (PROVED from the PRINT
-`CCLThm2_15Applied E (FullAnchor …)`; tex 2914–2936, 3915, 4157–4172): there is an anchored datum
-`D` such that at every admissible `(d, q)` with `q` split, for actual points `A_T`, `A_{T∪p}` of
-two consecutive supports whose transfer subgroups are `G_{H_d}`, `G_{H_{dq}}` (fixing `κ(D.H d)`,
-`κ(D.H (dq))` in `K_{S₁}`) and whose points are `1 ⊗ P_d`, `1 ⊗ P_{dq}` (the realized Heegner
-points), the inclusion `G_{H_{dq}} ⊆ G_{H_d}` holds (`RingClassMono.heegnerField_le_mul`) and there
+/-- **The step identity for the anchored Heegner points** (PROVED from the anchored
+norm relations, tex 2914–2936, 3915, 4157–4172). For an anchored datum `D` and an admissible
+`(d, q)` with `q` split, take actual points `A_T`, `A_{T∪p}` of consecutive supports with
+transfer subgroups `G_{H_d}`, `G_{H_{dq}}` (fixing `κ(D.H d)`, `κ(D.H (dq))` in `K_{S₁}`)
+and realized points `1 ⊗ P_d`, `1 ⊗ P_{dq}`. The inclusion `G_{H_{dq}} ⊆ G_{H_d}` holds (`RingClassMono.heegnerField_le_mul`) and there
 is a prime `𝔮 ∣ q` such that at every new place `w` with `w = 𝔮`,
 `g_{T ∪ {p}} = pointFactor a_q z z⁻¹ · g_T + d b` with `z = α(Frob_w)`: the classes of the
 actual points satisfy lane RC32's step identity at `w` (`σ = p_w(φ)` a Frobenius lift,
 `H20FrobArtin.exists_sigma_field_iv`). At the conjugate place the factor is the same under
 lane RC32's `AnticyclotomicAt` (`pointFactor_anticyclotomic`). -/
 theorem gx_step_anchored {cp : CSTParam E} {emb : Qbar →ₐ[ℚ] ℂ}
-    {κ : Qbar ≃ₐ[ℚ] AlgebraicClosure K} (hprint : CCLThm2_15Applied E (FullAnchor E K cp emb κ)) :
+    {κ : Qbar ≃ₐ[ℚ] AlgebraicClosure K}
+    (hnorm : ∃ D : HeegnerPointData E, D.NormRelations ∧ FullAnchor E K cp emb κ D) :
     ∃ D : HeegnerPointData E, FullAnchor E K cp emb κ D ∧ D.NormRelations ∧
       ∀ {d q : ℕ} [NeZero d] (_ : D.Admissible d q) (_ : jacobiSym D.DK q = 1)
         (_ : ∀ v : HeightOneSpectrum (𝓞 K), (d : 𝓞 K) ∈ v.asIdeal → v ∈ S₁)
@@ -522,7 +522,7 @@ theorem gx_step_anchored {cp : CSTParam E} {emb : Qbar →ₐ[ℚ] ℂ}
                   gx hS h01 h1 (E.baseChange K) i s hs hs0 hFull π ψ P k place AT +
                 (globalCx k (GKS K S) (MinS hS (E.baseChange K) i
                   (alphaStage i s hs hs0 π ψ))).d 0 1 rfl bG := by
-  obtain ⟨D, hA, hD, hrel⟩ := hnorm_of_full_anchor E h1 (Δ := Δ) hprint
+  obtain ⟨D, hA, hD, hrel⟩ := hnorm_of_full_anchor E h1 (Δ := Δ) hnorm
   refine ⟨D, hA, hD, fun {d q} _ hadm hsplit hSd hκP hκR Tp p AT AR hHP hHR U hU _ t ht hyP
     hyR hyT hyR' => ?_⟩
   have hle : AR.H ≤ AT.H := fun g hg => (hHP g).2 fun x hx =>

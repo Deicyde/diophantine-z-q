@@ -14,8 +14,9 @@ integration tree now discharges:
 
 * `hfwd : ForwardRankZero E` — the forward rank-zero theorem for the twists (`lem:forward-rank`,
   tex 1086–1108). The manuscript's proof is: modularity (BCDT Theorem A), Kolyvagin's Theorem 1 at
-  `r = 0`, and the Kummer sequence. The first two are the shared printed leaves `Prints.bcdt` and
-  `Prints.kolyvagin`; the Kummer step is `KummerCorankZero.kummerCorankZero_proof` (PROVED by the
+  `r = 0`, and the Kummer sequence. The first two are the shared printed leaf `Prints.bcdt` and
+  the cited statement `Prints.kolyvagin` (GLUE); the Kummer step is
+  `KummerCorankZero.kummerCorankZero_proof` (PROVED by the
   other group in `CloudB3RC53/KummerCorankZero`); lane RC22's `Ana.forwardRank_zero_of_prints`
   combines them for one curve. So `ForwardRankZero E` holds for every elliptic `E` from `Prints`
   alone (`forwardRankZero_of_prints`, applied to the twists). Lane RC9's route through Kato's

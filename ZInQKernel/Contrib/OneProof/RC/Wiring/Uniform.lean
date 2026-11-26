@@ -543,9 +543,9 @@ Conjuncts (tex; kind; owner):
    batch 3.
 5. (4.6) at every companion pair: for the element `uh ∈ Λ[1/2]` representing `uprim h k'`,
    `v₂ uh(0) = 2 j_rc(h, k') − 4ω(h) − s(h) − s(hk') − Σ_{p ∣ k'} t_p + err` with `|err| ≤ C₀`.
-   Tex 3987–4047 (statement 3987–4004, display 4045); ELLIOT, resting on PRINTs (Kolyvagin
-   Thm 1, Milne ADT I.7.3, Edixhoven Thm 5.3); owner RC15 (`Central.calibration_46`), RC9. It
-   contains:
+   Tex 3987–4047 (statement 3987–4004, display 4045); ELLIOT, resting on GLUE (Kolyvagin Thm 1,
+   cited statement) and PRINTs (Milne ADT I.7.3, Edixhoven Thm 5.3); owner RC15
+   (`Central.calibration_46`), RC9. It contains:
    * `t_p ≤ 2` (`t : ℕ → ℕ`, so `0 ≤ t_p`). Tex 4000–4001, 4039; ELLIOT; owner RC15.
    * `uh(0) ≠ 0` (`v₂` is finite, `v2 0 = ⊤`): the central class is nonzero at a known simple
      zero. Tex 4928–4930; ELLIOT; owner RC15.

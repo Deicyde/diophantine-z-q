@@ -973,9 +973,11 @@ weaker than the leaf):
 
 Sources (no network on this host: every number and wording UNVERIFIED unless said otherwise). Existence form as
 printed: the theorem on representations attached to newforms in the surveys Taylor, *Galois representations*,
-Ann. Fac. Sci. Toulouse Math. (6) 13 (2004), and Gee, *Modularity lifting theorems*, Essent. Number Theory 1
-(2022) §2 (both UNVERIFIED). Content: Deligne 1971 (existence; Sém. Bourbaki 355), Faltings, Math. Ann. 278
-(1987) (Hodge–Tate, `ℓ ∤ N`), Saito, Invent. Math. 129 (1997) (all levels), Kato, Astérisque 295 (2004) §§9.2-9.4,
+Ann. Fac. Sci. Toulouse Math. (6) 13 (2004) (UNVERIFIED), and Gee, *Modularity lifting theorems*,
+Essent. Number Theory 1 (2022), Fact 4.20 in §4.19, p. 28 of arXiv:2202.05818v2 (AI-read; journal
+numbering UNVERIFIED). Content: Deligne 1971 (existence; Sém. Bourbaki 355), Faltings,
+Math. Ann. 278 (1987) (Hodge–Tate, `ℓ ∤ N`), Saito, Invent. Math. 129 (1997) (all levels), Kato,
+Astérisque 295 (2004) §§9.2-9.4,
 (9.2.2), pp. 187-188 (de Rham at every level for `V_{F_λ}(f)`: read by the locator audit, row R13) and §11.3
 (filtration jumps `0, k − 1`; UNVERIFIED). For prints about the étale-cohomological `V_{F_λ}(f)` (Kato, Saito),
 the leaf is their consequence with witness `V_{F_λ}(f) ⊗_{F_λ} ℚ̄_ℓ` (∃-introduction). Replaces ht-exists's

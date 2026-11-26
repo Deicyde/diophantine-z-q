@@ -37,8 +37,10 @@ finite-dimensional are the print's presuppositions. A review rates it a conseque
 an existence statement, identified with $V_\lambda$ only in the text after it, and that the given
 Hecke operators and $I_f$ are Diamond and Shurman's rests on statements about the complex points and
 the Abel–Jacobi map of $X_1(N)$ that are not proved here. That $(A,\pi)$ is unique up to unique
-isomorphism, and $\theta$ determined by it, is proved here. Only AI agents have read the theorem and
-the paragraph after it, in the 2005 and 2016 printings. It is a hypothesis, not proved here.
+isomorphism, and $\theta$ determined by it, is proved here. A human reader has checked the theorem
+at $k=2$, the paragraph after it and Section 9.5 in a print copy of the corrected fourth printing
+(2016). Diamond and Shurman state the characteristic polynomial for $k=2$ without proof or citation,
+and Section 9.5 proves only that Frobenius satisfies it. It is a hypothesis, not proved here.
 
 ## Depends on
 

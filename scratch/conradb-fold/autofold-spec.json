@@ -1,0 +1,4 @@
+{"name": "outside-fold-1126",
+ "imports": ["ZInQKernel.Contrib.OneProof.ConradAppB"],
+ "discharges": [
+   {"field": "conradAppB", "proof": "_root_.ZInQ.Contrib.SenWeightZero.conradAppB_proof"}]}

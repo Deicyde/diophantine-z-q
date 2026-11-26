@@ -14,10 +14,11 @@ import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Theorems.Thm_M
 over the objects of `ZInQKernel/HDecomp/ModCurves/Defs.lean` (`Qj = ℚ(j)`, `Kbar`, `Ej`, `EjBar`;
 nothing is redefined here), is derived from `CyclicQuotientJBijOn`: the exact statement (at
 universe `0`) of Anthropic FLT's
-`WeierstrassCurve.bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j`. That
-theorem's 661-module proof cone is not ported (see the worker report); everything else used here
-is proved (Mathlib, and the ported FLT theorems imported below). `Reduction.lean` states the
-reduction against the original constant `ZInQ.RLeaf.X0Transitive`.
+`WeierstrassCurve.bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j`.
+`FltCqj2.cyclicQuotientJBijOn_proof` in
+`ZInQKernel.Contrib.OneProof.ModularEquationGeneric` proves this statement from the vendored
+theorem. `Reduction.lean` states the reduction against the original constant
+`ZInQ.RLeaf.X0Transitive`, and `FltCqj2.x0Transitive_proof` supplies the transitivity theorem.
 
 For points `P, P'` of exact order `N > 0` on `E_j` over `\overline{ℚ(j)}` (all `N`, `N = 1`
 included):
@@ -41,8 +42,7 @@ Sources (vendored under `Vendor/AnthropicFLT/`, see its `SOURCE_MANIFEST.json`, 
 unchanged. The mathematics: Lang, *Elliptic functions*, Ch. 5, §2, Thm 3; Cox, *Primes of the form
 x² + ny²*, Thm 11.18.
 
-No `sorry`, no `axiom`, no `native_decide`; the one unproved input is the hypothesis
-`CyclicQuotientJBijOn`.
+No `sorry`, no `axiom`, no `native_decide`.
 -/
 
 noncomputable section

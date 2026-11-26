@@ -153,13 +153,14 @@ variable {K : Type} [Field K] [NumberField K] (E : WeierstrassCurve ℚ)
   [DecidableEq (Places K S₀)] {ι : Type} [DecidableEq ι] (place : ι × Bool → Places K S)
 
 /-- **The step identity for the actual Heegner points at the places of the presentation**
-(PROVED from the PRINT `CCLThm2_15Applied E (FullAnchor …)` and the ELLIOT `ThetaOfDelta f`;
-tex 2847–2855, 2914–2936, 4157–4172): for the two places `w₀`, `w₁` above the split prime `q`
+(PROVED from the anchored norm relations and the ELLIOT `ThetaOfDelta f`,
+tex 2847–2855, 2914–2936, 4157–4172). For the two places `w₀`, `w₁` above the split prime `q`
 of the switch (every prime containing `q` is one of them, `SplitPlacesAt.above`) with
 `AnticyclotomicAt α w₀ w₁`, and `f ∣ d`, the classes of the constructed actual Heegner points
 satisfy `g_R = pointFactor a_q z z⁻¹ · g_T + d b` with `z = α(Frob_{w₀})`. -/
 theorem gx_step_heegner_at {cp : CSTParam E} {emb : Qbar →ₐ[ℚ] ℂ}
-    {κ : Qbar ≃ₐ[ℚ] AlgebraicClosure K} (hprint : CCLThm2_15Applied E (FullAnchor E K cp emb κ)) :
+    {κ : Qbar ≃ₐ[ℚ] AlgebraicClosure K}
+    (hnorm : ∃ D : HeegnerPointData E, D.NormRelations ∧ FullAnchor E K cp emb κ D) :
     ∃ D : HeegnerPointData E, ∃ hA : FullAnchor E K cp emb κ D, D.NormRelations ∧
       ∀ {d q : ℕ} [NeZero d] [NeZero q] (hadm : D.Admissible d q) (_ : jacobiSym D.DK q = 1)
         {Tp : Finset ι} {p : ι} {ST SR : Set (HeightOneSpectrum (𝓞 K))}
@@ -202,7 +203,7 @@ theorem gx_step_heegner_at {cp : CSTParam E} {emb : Qbar →ₐ[ℚ] ℂ}
                 (globalCx k (GKS K S) (MinS hS (E.baseChange K) i
                   (alphaStage i s hs hs0 π ψ))).d 0 1 rfl bG := by
   obtain ⟨D, hA, hD, hall⟩ := gx_step_heegner E hS h01 h1 i s hs hs0 hFull π ψ P hψ hΨ k place
-    hprint
+    hnorm
   refine ⟨D, hA, hD, fun {d q} _ _ hadm hsplit Tp p ST SR hT hR hSdT hSdR hmT hmR hgoodT hgoodR f _
     hθ hfd hplT hplR w₀ w₁ habove hanti hwd => ?_⟩
   obtain ⟨𝔮, hq, hw⟩ := hall hadm hsplit hT hR hSdT hSdR hmT hmR hgoodT hgoodR

@@ -8,7 +8,8 @@ import ZInQKernel.Contrib.CloudB3RC53.KummerCorankZero.Basic
 `restrictedConverseGenuine_of_steps'` is `RC.restrictedConverseGenuine_of_steps` (lane RC0: Elliot's deduction of
 Theorem 5.3, both branches, over the shared top layer `ZInQ.Contrib.CloudB3RC53`) with the missing-address node
 discharged by `RC.Boolean.missingAddressNode` (lane RC1, tex 5665–5727). What remains as hypotheses: the printed
-leaves `Prints` (BCDT Theorem A, Kolyvagin Theorem 1, Dokchitser–Dokchitser Theorem 1.8, Cai–Shu–Tian Theorem 1.1),
+leaves `Prints` (BCDT Theorem A, Dokchitser–Dokchitser Theorem 1.8, Cai–Shu–Tian Theorem 1.1)
+with Kolyvagin Theorem 1 (also in `Prints`; a cited statement, GLUE),
 the Kummer-sequence statement `KummerCorankZero`, and, for each admissible `ℓ` with
 `corank_{ℤ₂} Sel_{2^∞}(E_ℓ/ℚ) = 1` (the hypothesis under which the text proves them), Elliot's thirteen
 steps `RCSteps (D ℓ)` (each named after the manuscript, with its tex lines, in `RC/Skeleton/Steps.lean`).

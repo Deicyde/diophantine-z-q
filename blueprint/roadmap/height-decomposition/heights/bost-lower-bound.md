@@ -21,13 +21,12 @@ $\mathcal N$, $\eta\in\omega$ is nonzero with $\omega/\mathcal O_L\eta$ finite, 
 $\|\eta\|_\tau^2=(i/2)^g\int_{A_\tau(\mathbb C)}\eta\wedge\overline\eta$, integrated over the
 complex manifold $A_\tau(\mathbb C)$.
 
-It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
-Its reading against the print or its review is not complete, and until both are the project's strict
-count does not count it as published. Gaudron and Rémond use the inequality in the proof of their
-Lemme 9.1, citing Bost through Corollary 8.4 of their 2014 paper in *Commentarii*; an AI reading of
-both papers found the inequality in Faltings' original normalization, as here. That corollary states
-$h(A)\ge-\frac g2\log(2\pi)$ for their height $h=h_F+\frac g2\log\pi$, which gives the stronger
-$h_F(A)\ge-\frac g2\log(2\pi^2)$. It is a hypothesis, not proved here.
+It is not printed in this form but follows from published theorems; reaching it from the print takes
+further theorems, which are not proved here. Gaudron and Rémond use the inequality in the proof of
+their Lemme 9.1, citing Bost through Corollary 8.4 of their 2014 paper in *Commentarii*; an AI
+reading of both papers found the inequality in Faltings' original normalization, as here. That
+corollary states $h(A)\ge-\frac g2\log(2\pi)$ for their height $h=h_F+\frac g2\log\pi$, which gives
+the stronger $h_F(A)\ge-\frac g2\log(2\pi^2)$. It is a hypothesis, not proved here.
 
 ## Depends on
 

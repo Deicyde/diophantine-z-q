@@ -18,11 +18,10 @@ $X^2-a_p(f)X+p\,\psi(p)$; and at every prime $p\ne\ell$ the conductor exponent o
 a decomposition group, $\operatorname{codim}V^{I_p}+\int_0^\infty\operatorname{codim}V^{G_p^u}\,du$
 in the upper numbering, equals $v_p(N)$.
 
-It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
-Its reading against the print or its review is not complete, and until both are the project's strict
-count does not count it as published. Darmon, Diamond and Taylor print the package as Theorem 3.1
-(a)–(d) of their survey of Fermat's Last Theorem, with absolute irreducibility; an AI reading found
-every clause printed there, the conductor as clause (d). The Frobenius clause is in the
+It is not printed in this form but follows from published theorems; reaching it from the print takes
+further theorems, which are not proved here. Darmon, Diamond and Taylor print the package as Theorem
+3.1 (a)–(d) of their survey of Fermat's Last Theorem, with absolute irreducibility; an AI reading
+found every clause printed there, the conductor as clause (d). The Frobenius clause is in the
 normalization that the manuscript reads off Carayol's theorem, and oddness is proved here from the
 determinant. Carayol's own statement, compatibility with the local Langlands correspondence, has no
 Lean form; his §0.8 states the conductor only for newforms with rational coefficients on

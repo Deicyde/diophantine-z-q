@@ -32,7 +32,7 @@ the shared vocabulary `ZInQ.Contrib.CloudB3RC53` (`qtwist`, `IsLContinuation`, `
   `twistedFunctionalEquation_proved`, `TwistedFE.lean`, from the primitive quadratic character
   `χ_D` of `TwistedFEKronecker.lean` and the Fricke relation of the twist of
   `TwistedFEFricke.lean`).
-* Dokchitser–Dokchitser Theorem 1.8, BCDT Theorem A, Kolyvagin Theorem 1 and Cai–Shu–Tian
-  Theorem 1.1 are the shared blueprint's leaves (`ZInQ.Contrib.CloudB3RC53.Prints`) and are not
-  restated.
+* Dokchitser–Dokchitser Theorem 1.8, BCDT Theorem A and Cai–Shu–Tian Theorem 1.1 are the shared
+  blueprint's leaves and Kolyvagin Theorem 1 its cited statement (GLUE), all in
+  `ZInQ.Contrib.CloudB3RC53.Prints`; they are not restated.
 -/

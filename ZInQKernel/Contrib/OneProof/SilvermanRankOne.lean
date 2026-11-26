@@ -9,6 +9,10 @@ J. H. Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., Springer GTM 106
 `ℚ`. The text after the display removes the historical modularity assumption.
 This is the rank-one line only, not a finite-Shafarevich–Tate claim. Theorem
 C.13.6, p. 442, is the modularity theorem, not the rank-one display.
+
+The pole proof uses only a point of infinite order on each `E_ℓ`:
+`PoleRC.crm_of_restrictedConverse_M` (`MordellWeilM.lean`) reads `rank E(ℚ) = 1` only through
+`PoleRC.exists_not_isOfFinAddOrder_of_rank`.
 -/
 
 namespace ZInQ.Manuscript.PoleS12.SilvermanRank
@@ -16,7 +20,8 @@ namespace ZInQ.Manuscript.PoleS12.SilvermanRank
 /-- Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed. (2009), Appendix C,
 Evidence 16.5.5, p. 453, rank-one line. The Hasse–Weil L-function is represented
 by its analytic continuation from the half-plane of absolute convergence.
-Kind: PRINT. -/
+Kind: consequence, GLUE. Silverman reports this line; the records derive it from
+Miller, LMS J. Comput. Math. 14 (2011), Thm 4.4 (`silvermanRankOne_of_miller`). -/
 def SilvermanAEC_C_16_5_5_RankOne : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → ∀ F : ℂ → ℂ,
     Differentiable ℂ F → (∀ s : ℂ, 3 / 2 < s.re → F s = E.LSeries s) →

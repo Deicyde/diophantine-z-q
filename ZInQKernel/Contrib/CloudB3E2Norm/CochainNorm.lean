@@ -57,10 +57,14 @@ The Kummer cocycle of a division point `Q` on a subgroup `H` is `κ_H(Q)(h) = h 
 3. the identification of `A[m]` (here a subgroup of the ambient `A`) with the finite coefficient
    module of the genuine complexes, and continuity of the cochains;
 4. the passage through the inner limit to the `Λ`-adic coefficients and the identification of the
-   actual classes with the classes of the Heegner points `y_T` (the anchor of `CCLThm2_15Applied`).
+   actual classes with the classes of the Heegner points `y_T` (the anchor of
+   `CCLThm2_15AppliedWithUnits`).
 
 Kinds: definitions and PROVED. The relation (4.1) is a hypothesis here (in the tree it is
-`HeegnerPointData.NormRelations`, a PRINT of Cai–Chen–Liu Theorem 2.15 through `φ`).
+`HeegnerPointData.NormRelations`, the unweighted form of Cai–Chen–Liu Theorem 2.15 through `φ`;
+the print weights the trace by the unit index `u_1 = [𝒪_K^× : ℤ^×]`, so the unweighted form is
+derived from `CCLThm2_15AppliedWithUnits` once that index is one, `D_K < -4`:
+`CCLThm2_15AppliedWithUnits.exists_normRelations`).
 -/
 
 noncomputable section

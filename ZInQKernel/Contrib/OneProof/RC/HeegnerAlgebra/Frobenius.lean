@@ -13,7 +13,8 @@ on the reduced curve, `F² - a_ℓ F + ℓ = 0`, `Tr Y = a_ℓ X`, `Ȳ = F X̄`,
 adjusted cocycle with `b|_{G_{H_{f n_I ℓ}}} = (g - 1) Z`, `U = (σ_ℓ - 1) Z - b(σ_ℓ)`.
 
 Everything is `PROVED` from explicit hypotheses.  The hypotheses are the arithmetic inputs:
-(4.1) (`Tr Y = a_ℓ X`; Cai–Chen–Liu, `PRINT`), (H4) (`Ȳ = F X̄`, the CM congruence; `ELLIOT`'s
+(4.1) (`Tr Y = a_ℓ X`; Cai–Chen–Liu, `PRINT`, unweighted: the print once the unit index
+`u_1 = [𝒪_K^× : ℤ^×]` is one, `D_K < -4`), (H4) (`Ȳ = F X̄`, the CM congruence; `ELLIOT`'s
 supersingular-specialization argument, tex 2948–2967), the splitting of `(ℓ)` in `H_{f n_I}`
 (`F² X̄ = X̄`), inertia acting trivially on reductions, injectivity of reduction on `2`-primary
 torsion, the characteristic polynomial of Frobenius, (H2) for the upper field, and the

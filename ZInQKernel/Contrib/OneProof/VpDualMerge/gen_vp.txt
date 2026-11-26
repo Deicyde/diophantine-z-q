@@ -1,0 +1,365 @@
+"""vpdual-merge: copy reroute of the live chain with one field `vpDual` in place of the pair
+`scholzeH1AbVar`, `t10TateDuality`.
+
+Inputs (read from the pinned base, never edited; named files only, no directory is listed):
+
+* ZInQKernel/OneProof/H/TailZ87.lean: `OpenAddedLeaves28` and `c8Leaves_of_OpenAddedLeaves28`;
+* ZInQKernel/Contrib/OneProof/DS965Reroute/Chain3.lean, Chain4.lean, Chain5.lean: the live copy chain
+  under `sixContactMin_of_open96_ds` (the NOS-chain declarations that take the added bundle, and the
+  generations TailZ91-TailZ103);
+* ZInQKernel/OneProof/H/TailZ104.lean: `OpenAddedLeaves29` and its conversion to `OpenAddedLeaves28`;
+* ZInQKernel/OneProof/H/TailZ105.lean: the live top `sixContactMin_of_open98`.
+
+Chain1.lean and Chain2.lean (upstream of Chain3) are read only to check that they mention neither the
+added bundle `OpenAddedLeaves28` nor either field.
+
+Output: one Contrib file with
+
+* every declaration of the inputs above that names `OpenAddedLeaves28` or (transitively) one of the
+  copies, copied with the suffix `VP` (structures) / `_vp` (theorems);
+* in the copied bundles `OpenAddedLeaves28VP`, `OpenAddedLeaves29VP` the two fields replaced by
+  `vpDual : DeRhamScholze.HTMerge.VpDualDeRhamAbVar`, and in the conversion between them the two
+  assignments by `vpDual := n.vpDual`;
+* the readers switched: `HTMerge.<out>_of_scholzeH1[Milne] x.scholzeH1AbVar x.t10TateDuality` ->
+  `HTMerge.<out>_of_vpDual x.vpDual` for the three outputs `deRhamVpAbVarDirect`,
+  `hodgeTateDecompOr`, `hodgeTateDecompAbVar` (VpDualMerge/Row.lean);
+* the top `HDec.HSyn.sixContactMin_of_open98_vp (r : OpenResearchLeaves78)
+  (t : OpenTextbookLeaves18) (l : OpenAddedLeaves29VP)`.
+
+The generator checks that no copied declaration mentions either field or either row afterwards, so
+every reader on the copied route has been switched. Lean then checks the rest: an uncopied reader of
+the bundle would not accept the new bundle type.
+
+Usage: python3 gen_vp.txt REPO_ROOT OUT_DIR [AUDIT_FILE]
+"""
+import difflib
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(sys.argv[1])
+OUT = Path(sys.argv[2])
+AUDIT_PATH = Path(sys.argv[3]) if len(sys.argv) > 3 else None
+
+H = 'ZInQKernel/OneProof/H/'
+DS = 'ZInQKernel/Contrib/OneProof/DS965Reroute/'
+# (file, names to take or None for "every declaration the taint reaches")
+SOURCES = [
+    (H + 'TailZ87.lean', ['OpenAddedLeaves28', 'c8Leaves_of_OpenAddedLeaves28']),
+    (DS + 'Chain3.lean', None),
+    (DS + 'Chain4.lean', None),
+    (DS + 'Chain5.lean', None),
+    (H + 'TailZ104.lean', ['OpenAddedLeaves29', 'openAddedLeaves28_of_OpenAddedLeaves29']),
+    (H + 'TailZ105.lean', ['sixContactMin_of_open98']),
+]
+UPSTREAM = [DS + 'Chain1.lean', DS + 'Chain2.lean']
+SEEDS = ['OpenAddedLeaves28']
+TOP_OLD = 'sixContactMin_of_open98'
+
+FIELDS = ('scholzeH1AbVar', 't10TateDuality')
+ROWS = ('ScholzeH1AbVar', 'T10_TateDuality')
+READERS = {
+    'deRhamVpAbVarDirect_of_scholzeH1Milne': 'deRhamVpAbVarDirect_of_vpDual',
+    'hodgeTateDecompOr_of_scholzeH1Milne': 'hodgeTateDecompOr_of_vpDual',
+    'hodgeTateDecompAbVar_of_scholzeH1': 'hodgeTateDecompAbVar_of_vpDual',
+}
+VP_FIELD = ('  /-- vpdual-merge: `V_p(A)^∨` is de Rham, with Hodge jumps in `[0, 1]` and\n'
+            '  `dim_{ℚ_p} Fil¹ D_dR = [F:ℚ_p] g` (`DeRhamScholze.HTMerge.VpDualDeRhamAbVar`). It '
+            'replaces\n'
+            '  `scholzeH1AbVar` and `t10TateDuality`, which imply it\n'
+            '  (`DeRhamScholze.HTMerge.vpDual_of_pair`). -/\n'
+            '  vpDual : _root_.DeRhamScholze.HTMerge.VpDualDeRhamAbVar\n')
+TOP_DOC = ('/-- **G0 with only the open leaves and the open glue**, with the field `vpDual` in place '
+           'of the pair\n`scholzeH1AbVar`, `t10TateDuality` (vpdual-merge; the copy of '
+           '`sixContactMin_of_open98`). -/\n')
+HEADER_OPTS = {'set_option linter.style.haveILetI false'}
+STRUCT_NOTE = '(vpdual-merge: `scholzeH1AbVar`, `t10TateDuality` replaced by `vpDual`) '
+
+DECL_HEAD = re.compile(r"(?:noncomputable |private |protected )*"
+                       r"(structure|theorem|lemma|def|abbrev|instance) (\S+)")
+AUDIT = []
+
+
+def code_of(txt):
+    txt = re.sub(r'/-[\s\S]*?-/', '', txt)
+    return re.sub(r'(?m)--.*$', '', txt)
+
+
+def last(name):
+    return name.rsplit('.', 1)[-1]
+
+
+def ident(n):
+    return re.compile(r"(?<![\w'])" + re.escape(n) + r"(?![\w'])")
+
+
+def refs(txt, names):
+    c = code_of(txt)
+    return any(ident(n).search(c) for n in names)
+
+
+def rename(txt, ren):
+    for old in sorted(ren, key=len, reverse=True):
+        txt = ident(old).sub(ren[old], txt)
+    return txt
+
+
+def parse(rel):
+    """The top-level declarations of one file, each with its namespace/section context."""
+    lines = (ROOT / rel).read_text().split('\n')
+    scopes = [{'kind': 'file', 'name': '', 'opens': [], 'opts': []}]
+    out = []
+    i, n = 0, len(lines)
+    while i < n:
+        line = lines[i]
+        if line.startswith('namespace '):
+            scopes.append({'kind': 'namespace', 'name': line.split()[1], 'opens': [], 'opts': []})
+            i += 1
+            continue
+        m = re.match(r'(noncomputable )?section(?: (\S+))?$', line)
+        if m:
+            scopes.append({'kind': 'section', 'name': m.group(2) or '', 'nc': bool(m.group(1)),
+                           'opens': [], 'opts': []})
+            i += 1
+            continue
+        if line == 'end' or line.startswith('end '):
+            name = line[4:].strip()
+            top = scopes.pop()
+            assert top['name'] == name, (rel, i + 1, line, top)
+            i += 1
+            continue
+        if line.startswith('open '):
+            scopes[-1]['opens'].append(line)
+            i += 1
+            continue
+        if line.startswith('set_option ') and not line.endswith(' in'):
+            scopes[-1]['opts'].append(line)
+            i += 1
+            continue
+        if line.startswith('/-!') or (line.startswith('/-') and not line.startswith('/--')):
+            while '-/' not in lines[i]:
+                i += 1
+            i += 1
+            continue
+        if line.startswith('/--') or DECL_HEAD.match(line) or \
+                (line.startswith('set_option ') and line.endswith(' in')):
+            start = i
+            while lines[i].startswith('set_option ') and lines[i].endswith(' in'):
+                i += 1
+            if lines[i].startswith('/--'):
+                while '-/' not in lines[i]:
+                    i += 1
+                i += 1
+            m = DECL_HEAD.match(lines[i])
+            assert m, (rel, i + 1, lines[i][:80])
+            j = i + 1
+            while j < n and lines[j].startswith(' '):
+                j += 1
+            ctx = [{**s, 'opens': list(s['opens']), 'opts': list(s['opts'])} for s in scopes]
+            out.append({'file': rel, 'line': start + 1, 'kind': m.group(1), 'name': m.group(2),
+                        'txt': '\n'.join(lines[start:j]) + '\n', 'ctx': ctx})
+            i = j
+            continue
+        i += 1
+    return out
+
+
+def wrap_lines(text, width=100):
+    """Wrap lines longer than `width` characters: comment text at any space, code at a space outside
+    string literals with the continuation indented four more columns; a trailing line comment on a
+    long code line moves to its own line above it (as in DS965Reroute/gen_ds.txt)."""
+    out, depth = [], 0
+    for line in text.split('\n'):
+        start_depth = depth
+        depth += len(re.findall(r'/-', line)) - len(re.findall(r'-/', line))
+        if len(line) <= width:
+            out.append(line)
+            continue
+        ind = re.match(r' *', line).group(0)
+        if start_depth == 0 and line.lstrip().startswith('-- '):
+            cur = line
+            while len(cur) > width:
+                cut = cur.rfind(' ', len(ind) + 4, width - 1)
+                out.append(cur[:cut])
+                cur = ind + '-- ' + cur[cut + 1:].lstrip(' ')
+            out.append(cur)
+            continue
+        if start_depth > 0 or line.lstrip().startswith('/-'):
+            cont = ind if start_depth > 0 else ind + '  '
+            cur = line
+            while len(cur) > width:
+                cut = cur.rfind(' ', len(ind) + 4, width - 1)
+                if cut <= len(cont):
+                    break
+                out.append(cur[:cut])
+                cur = cont + cur[cut + 1:].lstrip(' ')
+            out.append(cur)
+            continue
+        code, comment = line, None
+        m = re.search(r'\s--\s', line)
+        if m and '"' not in line[:m.start()]:
+            code, comment = line[:m.start()].rstrip(), line[m.start():].strip()
+        if comment:
+            out.append(ind + comment)
+        assert '"' not in code, line[:120]
+        cont = ind + '    '
+        cur = code
+        while len(cur) > width:
+            cut = cur.rfind(' ', len(ind) + 4, width - 1)
+            assert cut > len(cont), cur[:120]
+            out.append(cur[:cut])
+            cur = cont + cur[cut + 1:].lstrip(' ')
+        out.append(cur)
+    return '\n'.join(out)
+
+
+def field_re(names):
+    return re.compile(r'(?m)(^  /--(?:(?!-/)[\s\S])*?-/\n)?^  (?:' + names +
+                      r') : [^\n]*\n(?:^    [^\n]*\n)*')
+
+
+def assign_re(names):
+    return re.compile(r'(?m)^(  )(?:' + names + r') :=[^\n]*\n(?:^\1  +[^\n]*\n)*')
+
+
+def transform(b, txt):
+    """The edits of one copied declaration (after renaming); returns (text, edit counts)."""
+    counts = {}
+    names = '|'.join(FIELDS)
+    if last(b['name']) == TOP_OLD:
+        txt, k = re.subn(r'\A/--(?:(?!-/)[\s\S])*-/\n', lambda m: TOP_DOC, txt)
+        assert k == 1
+        counts['docstring'] = 1
+    if b['kind'] == 'structure' and re.search(r'(?m)^  (?:' + names + r') :', code_of(txt)):
+        found = field_re(names).findall(txt)
+        assert len(field_re(names).findall(txt)) == 2, (b['name'], found)
+        txt = field_re(names).sub('\0', txt, count=2)
+        txt = txt.replace('\0', VP_FIELD, 1).replace('\0', '', 1)
+        counts['fields'] = 2
+        txt, k = re.subn(r'/-- ', '/-- ' + STRUCT_NOTE, txt, count=1)
+        assert k == 1
+    assigns = assign_re(names).findall(txt)
+    if assigns:
+        ms = list(assign_re(names).finditer(txt))
+        assert len(ms) == 2, (b['name'], len(ms))
+        var = set(re.findall(r':= ([nlr])\.(?:' + names + r')\b', txt))
+        assert len(var) == 1, (b['name'], var)
+        v = var.pop()
+        txt = assign_re(names).sub('\0', txt, count=2)
+        txt = txt.replace('\0', f'  vpDual := {v}.vpDual\n', 1).replace('\0', '', 1)
+        counts['assignments'] = 2
+    rd = re.compile(r'_root_\.DeRhamScholze\.HTMerge\.(' + '|'.join(READERS) +
+                    r')(\s+)(\w+)\.scholzeH1AbVar\s+\3\.t10TateDuality(?![\w\'])')
+
+    def sub(m):
+        counts[m.group(1)] = counts.get(m.group(1), 0) + 1
+        return f'_root_.DeRhamScholze.HTMerge.{READERS[m.group(1)]}{m.group(2)}{m.group(3)}.vpDual'
+    txt = rd.sub(sub, txt)
+    c = code_of(txt)
+    bad = [w for w in FIELDS + ROWS + tuple(READERS) if ident(w).search(c)]
+    assert not bad, (b['name'], bad, c[:600])
+    return txt, counts
+
+
+def wrap_ctx(b, body):
+    head, tail = [], []
+    for s in b['ctx']:
+        assert not s['opens'], (b['file'], b['line'], s['opens'])
+        if s['kind'] == 'namespace':
+            head.append(f"namespace {s['name']}")
+            tail.insert(0, f"end {s['name']}")
+        elif s['kind'] == 'section':
+            nc = 'noncomputable ' if s['nc'] else ''
+            head.append(f"{nc}section {s['name']}".rstrip())
+            tail.insert(0, f"end {s['name']}".rstrip())
+        head.extend(o for o in s['opts']
+                    if 'maxHeartbeats' not in o and o not in HEADER_OPTS)
+    return '\n'.join(head) + '\n' + body + '\n'.join(tail) + '\n'
+
+
+def main():
+    for rel in UPSTREAM:
+        c = code_of((ROOT / rel).read_text())
+        bad = [w for w in SEEDS + list(FIELDS) if ident(w).search(c)]
+        assert not bad, (rel, bad)
+    picked = []
+    for rel, names in SOURCES:
+        decls = parse(rel)
+        if names is not None:
+            got = [d for d in decls if last(d['name']) in names]
+            assert sorted(last(d['name']) for d in got) == sorted(names), (rel, names)
+            picked.extend((d, True) for d in got)
+        else:
+            picked.extend((d, False) for d in decls)
+    tainted = set(SEEDS)
+    chosen = {id(d) for d, forced in picked if forced}
+    for d, forced in picked:
+        if forced:
+            tainted.add(last(d['name']))
+    changed = True
+    while changed:
+        changed = False
+        for d, forced in picked:
+            if id(d) in chosen:
+                continue
+            if refs(d['txt'], tainted):
+                chosen.add(id(d))
+                tainted.add(last(d['name']))
+                changed = True
+    copied = [d for d, _ in picked if id(d) in chosen]
+    for d, forced in picked:
+        if forced and last(d['name']) not in SEEDS:
+            has_fields = bool(re.search(r'(?m)^  (?:' + '|'.join(FIELDS) + r') :',
+                                        code_of(d['txt'])))
+            assert has_fields or refs(d['txt'], tainted - {last(d['name'])}), d['name']
+    ren = {}
+    for d in copied:
+        L = last(d['name'])
+        assert L not in ren, ('duplicate short name', L)
+        ren[L] = L + ('VP' if d['kind'] == 'structure' else '_vp')
+    blocks = []
+    for d in copied:
+        base = rename(d['txt'], ren)
+        txt, counts = transform(d, base)
+        prov = f"-- copied from {d['file']}:{d['line']} ({last(d['name'])})"
+        if counts:
+            prov += ', edits: ' + ', '.join(f'{k} x{v}' for k, v in sorted(counts.items()))
+        AUDIT.extend(difflib.unified_diff(base.splitlines(), txt.splitlines(),
+                                          d['name'], d['name'] + ' (vp)', n=0, lineterm=''))
+        blocks.append(prov + '\n' + wrap_ctx(d, txt))
+        print(f"{d['kind']:9} {d['name']} -> {ren[last(d['name'])]} {counts}")
+    assert TOP_OLD in ren and ren[TOP_OLD] == TOP_OLD + '_vp'
+    return copied, ren, blocks
+
+
+HEADER = '''import ZInQKernel.OneProof.H.TailZ105
+import ZInQKernel.Contrib.OneProof.VpDualMerge.Row
+
+/-! # The live chain with one field `vpDual` (vpdual-merge, generated by `gen_vp.txt`)
+
+Generated from `TailZ87` (`OpenAddedLeaves28`), the live copy chain `DS965Reroute/Chain3`-`Chain5`
+(under `sixContactMin_of_open96_ds`), `TailZ104` (`OpenAddedLeaves29`) and `TailZ105` (the top
+`sixContactMin_of_open98`). Every declaration that takes the added bundle `OpenAddedLeaves28`, or
+(transitively) one of the copies, is copied with the suffix `VP` / `_vp`. In the copied bundles the
+pair `scholzeH1AbVar`, `t10TateDuality` is replaced by one field
+`vpDual : DeRhamScholze.HTMerge.VpDualDeRhamAbVar`, and the readers take the conversions of
+`VpDualMerge/Row.lean`. The new top is `HDec.HSyn.sixContactMin_of_open98_vp`. The originals are
+unchanged.
+-/
+
+set_option linter.style.haveILetI false
+'''
+
+if __name__ == '__main__':
+    copied, ren, blocks = main()
+    OUT.mkdir(parents=True, exist_ok=True)
+    text = HEADER + '\n' + '\n'.join(blocks)
+    text += '\n#print axioms HDec.HSyn.sixContactMin_of_open98_vp\n'
+    text = wrap_lines(text)
+    bad = [ln for ln in text.split('\n') if len(ln) > 100]
+    assert not bad, bad[:3]
+    (OUT / 'Chain.lean').write_text(text)
+    if AUDIT_PATH is not None:
+        AUDIT_PATH.write_text('\n'.join(AUDIT) + '\n')
+    print('Chain.lean', len(text.encode()), 'bytes;', len(copied), 'copied declarations')
+    print('theorems:', ' '.join(v for k, v in ren.items() if v.endswith('_vp')))

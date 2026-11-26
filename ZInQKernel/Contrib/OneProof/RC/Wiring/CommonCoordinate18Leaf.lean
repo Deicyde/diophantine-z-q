@@ -17,8 +17,8 @@ family (tex 2729–2737) and the old Kummer places (tex 2748–2760).
 * `iwasawa` (GLUE: Iwasawa 1955, the tame quotient, joined with the splitting over the wild
   inertia): `IwasawaGenerators`;
 * `genuineInj` (`GenuineCochainsInjective`, a statement PROVED by Nöbeling, Invent. Math. 6
-  (1968), Thm 2, with Bass–Papp: `genuineCochainsInjective_proved`; the pinned leaf
-  `CommonCoordinateInputsGenuineE2` discharges it);
+  (1968), Thm 2, with Bass–Papp: `genuineCochainsInjective_proved`; the analogous staged leaf
+  `CommonCoordinateInputsGenuineS` (`CommonCoordinate19Leaf.lean`) uses it);
 * `chains`: a coefficient datum `C`; for every final family ONE nonprincipal ultrafilter on the
   coefficient stages (tex 4401–4404) and ONE moving character `Φ` (`FamilyCharacter`; tex 2737:
   one character for all characters of the family; the intended instance is lane E1's genuine
@@ -34,8 +34,9 @@ family (tex 2729–2737) and the old Kummer places (tex 2748–2760).
     classes of the Kummer classes of the actual anchored Heegner points with their norm identity at
     the switch primes (lane E2's `FullAnchor`, ambient module over `K_{S₁}`). In this structure the
     field is a named hypothesis, met by any provider, the zero provider (`StageClassesAt.zero`)
-    included; `CommonCoordinateInputsGenuineE2` (`CommonCoordinate18LeafE2.lean`) pins it to lane
-    E2's classes (`e2Provider`);
+    included; no surviving declaration pins it (the analogous staged leaf
+    `CommonCoordinateInputsGenuineS`, `CommonCoordinate19Leaf.lean`, on `StagedPresentation`, pins
+    its own provider to lane E2's classes, `e2ProviderOnS` from `E2ChainInputsS`);
   - the genuine stage chains with these classes (`GenuineStageSTUK`): the step identities are
     DERIVED from the provider, the pins of the classes and functionals, lane RC30's retention and
     the Frobenius data (`exists_stepHyps_provider`); the boundaries and coboundaries are chosen
@@ -48,9 +49,10 @@ The retractions of the switch quotients onto the two singular blocks are PROVED 
 CommonCoordinateInputsGenuine → CommonCoordinateInputsNF` (PROVED). The new leaf pins the Kummer
 places to the places above `2N` and the moving character to the family's, and moves the remaining
 content of the step identities into the class provider. In this structure the classes are free, as
-in the round-13 leaf, and the step identities are met by a choice of the provider; in
-`CommonCoordinateInputsGenuineE2` the provider is lane E2's Kummer classes of the actual points
-and the step identities are derived from lane E2's global identities.
+in the round-13 leaf, and the step identities are met by a choice of the provider; in the analogous
+staged leaf `CommonCoordinateInputsGenuineS` (`CommonCoordinate19Leaf.lean`, on
+`StagedPresentation`) the provider is lane E2's Kummer classes of the actual points and the step
+identities are derived from lane E2's global identities.
 
 Kinds: definitions and PROVED.
 -/

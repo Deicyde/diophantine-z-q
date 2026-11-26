@@ -25,7 +25,8 @@ torsion (tex 2416).
 **`RetainedPointData.ofRC`** (definition) is the retained point data with `P := rcPoint`,
 `j := j_rc` and `vL := v₂ L`. Its remaining fields are inputs of their own kinds:
 * `L`, `hL`: the multiplier (H11);
-* `gen`, `hgen`, `nP`, `hnP`, `hnP0`: PRINT, rank one and non-torsion (Kolyvagin / GZK);
+* `gen`, `hgen`, `nP`, `hnP`, `hnP0`: rank one and non-torsion (Kolyvagin / GZK); the Kolyvagin
+  part is a cited statement, GLUE (MPIM preprint MPI/90-69); the Gross–Zagier part stays PRINT;
 * `hκ`, `cK`, `hcK`: GLUE / data, as in `RetainedPointData`.
 
 Kinds: definitions and PROVED.
@@ -85,7 +86,8 @@ def jrc (nP : ℤ) : ℤ := ((padicValInt 2 nP : ℕ) : ℤ)
 
 /-- **The retained point data at the ring-class point** (tex 2411–2416, 3071–3085, 3895–3907):
 `P := P^{rc}_{h,k}`, `j := j_rc`, `vL := v₂ L`. The rank-one/non-torsion inputs `gen`, `nP` are
-PRINT (Kolyvagin / GZK), and the Kummer and conjugate-dual inputs are those of
+cited from Kolyvagin / GZK (the Kolyvagin part a cited statement, GLUE; the Gross–Zagier
+part PRINT), and the Kummer and conjugate-dual inputs are those of
 `RetainedPointData`. Kind: definition. -/
 def RetainedPointData.ofRC
     (κ : (centralCurve G).toAffine.Point →+ (compactCentralComplex G).homology 1)

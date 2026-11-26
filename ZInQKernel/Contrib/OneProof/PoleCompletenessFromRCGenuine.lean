@@ -17,8 +17,8 @@ from `SelmerTwoPower.RestrictedConverseGenuine` (Theorem 5.3 as printed: the Sel
   `par:simultaneous-matrices`, ELLIOT (supplement));
 * Lemma 5.4 as a printed leaf over the genuine `Sel₂` and `Sel_{2^∞}` (`PoleS12.Lemma54`) and the
   Kummer identification `#Sel₂(E_ℓ/ℚ) = #SelM ℓ` (`PoleS12.KummerSelmerM`, textbook GLUE);
-* Lemma 5.5 from the printed leaves `PoleS12.BCDTThmA` and `PoleS12.KolyvaginThm1` (with finite
-  `Ш`), and Mordell's theorem;
+* Lemma 5.5 from the printed leaf `PoleS12.BCDTThmA`, the cited statement `PoleS12.KolyvaginThm1`
+  (GLUE; with finite `Ш`), and Mordell's theorem;
 * the local images of the Kummer map of `E_ℓ` (round 1's GLUE Props; see `PoleS12.LocalS12` for
   their status).
 

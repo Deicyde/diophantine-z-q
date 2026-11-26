@@ -511,13 +511,14 @@ noncomputable def galH {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.
       (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 :=
   transportₗ ℓ (galIso A (σ⁻¹ : Field.absoluteGaloisGroup K)) 1
 
-/-- **T10, Galois-equivariant form (textbook leaf).** For an abelian variety `A/K` and a prime
+/-- **T10, Galois-equivariant form (consequence, GLUE).** For an abelian variety `A/K` and a prime
 `ℓ ≠ char K` there is a `ℤ_ℓ`-linear isomorphism `φ : H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`
 intertwining the Galois action `galH` on `H¹` with the contragredient action
 `σ · f = f ∘ σ⁻¹` on the dual of `T_ℓ A` (`A.galT σ` acts on points by `P ↦ P ∘ Spec σ`).
 Equivalently `V_ℓ(A) ≅ H¹(A_K̄, ℚ_ℓ)^∨` as `G_K`-representations after `⊗ ℚ_ℓ`.
-A consequence of Milne 1986 (Cornell–Silverman), Thm 15.1(a) (UNVERIFIED number) and the
-pro-étale/étale comparison (Bhatt–Scholze 2015 §5.6; UNVERIFIED number), both natural in the
+A consequence of Milne, *Abelian Varieties* v2.0 (2008), Part I, Thm 12.1(a), p. 55 (separably
+closed `k`), with Rem. 12.5, p. 56 (Galois compatibility, stated without proof in the notes),
+and the pro-étale/étale comparison (Bhatt–Scholze 2015 §5.6; UNVERIFIED number), natural in the
 scheme, hence compatible with transport along `1 × Spec(σ⁻¹)`. -/
 def T10_TateDuality : Prop :=
   ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →

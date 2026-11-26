@@ -24,8 +24,8 @@ as a named gap:
   here. The print below is therefore faithful to the printed statement only modulo the
   translation algebraic `X₀(N) → E` ⇔ analytic data, which is an unproved GLUE (translation)
   step.
-* `KolyvaginThm1WeilParam` (PRINT modulo that GLUE translation): Kolyvagin's Theorem 1 with the
-  weak Weil parametrization premise.
+* `KolyvaginThm1WeilParam` (GLUE: its source is an unrefereed preprint; also modulo that GLUE
+  translation): Kolyvagin's Theorem 1 with the weak Weil parametrization premise.
 * `ModularToWeakWeil`: a modular `E` has a weak Weil parametrization by `X₀(N)`. GLUE (textbook:
   BCDT condition (2) with trivial nebentypus, Shimura's construction (Milne, Modular functions and
   modular forms, Theorem 11.19 and Remark 11.18) and Faltings' isogeny theorem, with Carayol for
@@ -38,11 +38,11 @@ as a named gap:
   gap and the print, so the current consumers of `Prints.kolyvagin` keep working
   (`prints_of_weilParam`).
 
-The old leaf is not relabelled: its premise is not Kolyvagin's.
+The old statement is not relabelled: its premise is not Kolyvagin's.
 
-Classification: `KolyvaginThm1WeilParam` PRINT modulo the GLUE translation above (not plain
-PRINT); `ModularToWeakWeil` GLUE (the manuscript carries it out for `E_ℓ` at tex 1779–1788); the
-bridges PROVED.
+Classification: `KolyvaginThm1WeilParam` GLUE (its source is an unrefereed preprint, never a
+leaf; also modulo the GLUE translation above); `ModularToWeakWeil` GLUE (the manuscript carries it
+out for `E_ℓ` at tex 1779–1788); the bridges PROVED.
 -/
 
 noncomputable section
@@ -64,14 +64,15 @@ def HasWeakWeilParametrization (E : WeierstrassCurve ℚ) : Prop :=
     (∀ n : ℕ, 0 < n → (UpperHalfPlane.qExpansion 1 f).coeff n = (E.LFunction n : ℂ)) ∧
       IsLatticeOf E Lat ∧ IsParamScale (newformLevel E) f Lat (c : ℂ)
 
-/-- **Kolyvagin, Theorem 1, with its own premise** (printed leaf; V. A. Kolyvagin, "On the
+/-- **Kolyvagin, Theorem 1, with its own premise** (GLUE, cited statement; V. A. Kolyvagin, "On the
 Mordell–Weil group and the Shafarevich–Tate group of modular elliptic curves", MPIM preprint
 MPI/90-69 (1990), Theorem 1, pp. 4–5, under the weak Weil parametrization of p. 3; tex L1093
 `\cite[Theorem 1, pp. 4–5]{kolyvagin}`): an elliptic curve `E/ℚ` with a weak Weil parametrization
 `X₀(N) → E` (`N` the conductor) and `ord_{s=1} L(E, s) = r ≤ 1` has `rank E(ℚ) = r` and finite
-`Ш(E/ℚ)`. The parametrization is in its analytic form (`HasWeakWeilParametrization`), so this leaf
+`Ш(E/ℚ)`. The parametrization is in its analytic form (`HasWeakWeilParametrization`), so this form
 is faithful to the printed statement only modulo the translation algebraic `X₀(N) → E` ⇔ analytic
-data, which is an unproved GLUE (translation) step. -/
+data, which is an unproved GLUE (translation) step. Rating: GLUE; the source is an unrefereed
+preprint, which never counts as a leaf. -/
 def KolyvaginThm1WeilParam : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → HasWeakWeilParametrization E →
     ∀ r : ℕ, r ≤ 1 → AnalyticRank E r →
@@ -94,7 +95,7 @@ theorem kolyvaginThm1Printed_of_weilParam (hG : ModularToWeakWeil)
     (hK : KolyvaginThm1WeilParam) : KolyvaginThm1Printed :=
   fun E hE hM r hr hA => hK E hE (hG E hE hM) r hr hA
 
-/-- **The printed leaves with Kolyvagin's own premise** (PROVED): `Prints` from BCDT Theorem A,
+/-- **The cited results with Kolyvagin's own premise** (PROVED): `Prints` from BCDT Theorem A,
 the GLUE `ModularToWeakWeil`, Kolyvagin's Theorem 1 with the weak Weil parametrization premise,
 Dokchitser–Dokchitser Theorem 1.8 and Cai–Shu–Tian Theorem 1.1. -/
 theorem prints_of_weilParam (hB : BCDTThmA) (hG : ModularToWeakWeil)

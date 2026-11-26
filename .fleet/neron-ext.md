@@ -3,7 +3,7 @@
 **Verdict.** The textbook field `neronSchemeExtensionExists` (BLR 1.4/3 over 𝓞_L) is **proved**, VERIFIED:
 `NeronExt.extension_of_dvrLocal : EGAIV_8_10_5_xii → NeronDVRLocal → NeronSchemeExtensionExists`.
 * `EGAIV_8_10_5_xii` is the chain's existing leaf.
-* `NeronExt.NeronDVRLocal` is a new leaf: BLR 1.4/3 over the DVRs (𝓞_L)_v. It is in printed form and not
+* `NeronExt.NeronDVRLocal` was a new leaf (proved since; see What remains): BLR 1.4/3 over the DVRs (𝓞_L)_v. It is in printed form and not
   stronger than the field: the converse `dvrLocal_of_extension` is proved.
 * The fold is count-neutral (34/11 → 34/11). The global textbook leaf becomes a local one.
 
@@ -22,7 +22,9 @@
   still assumes `[EGAIV_8_10_5_xii, NeronExt.NeronDVRLocal]`.
 * The autofold spec `scratch/neron-ext/autofold.json` works: its dry-run module compiles.
 
-**What remains.** `NeronDVRLocal` itself (BLR's local existence). The FLT development (a local checkout, Lean 4.33.1)
-proves Néron existence over *henselian* DVRs (577-file closure). Discharging the leaf would need that port plus
-descent from the henselization. Locators are UNVERIFIED, and a locators.md row is still to add.
+**What remains.** Nothing for `NeronDVRLocal` (update 11-23): it is proved on main by
+`NeronExt.dvrLocal_of_extension (ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind
+NeronDVR.neronSchemeExtensionDedekind_proof)`, standard axioms only (kernel axiom print on fork branch
+`wip/neron-axprint`, 79426b2d). The 11-16 lead (the FLT development's Néron existence over *henselian* DVRs,
+a 577-file closure, plus descent from the henselization) is superseded by that proof. Locators are UNVERIFIED, and a locators.md row is still to add.
 Report: docs/research/neron-ext.md. Log: scratch/neron-ext/log.md.
