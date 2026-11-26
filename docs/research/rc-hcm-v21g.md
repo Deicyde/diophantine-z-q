@@ -1,5 +1,14 @@
 # Level-one fixes, the JetchevKane split, and the level-N Deuring correspondence in Lean
 
+> **Review correction (2026-11-25): not fold-ready.** The review of this branch at 2630f292 found one error, and it changes what part (2) rests on. Full review: docs/research/review-rc-hcm-v21g.md. Line numbers below are at 2630f292.
+> - `levelDeuringClass_injective` and `nonempty_enhancedIso_of_translate` (HCMV21/LevelDeuringInjective.lean:212-215, :276) apply `VoightThm4232Etale` to arbitrary supersingular curves. That candidate (HCMV21/VoightCandidates.lean:90-98) quantifies over every supersingular `E, E′`, although its docstring (:87-89) says it reaches a curve only through an étale isogeny from `E₀`.
+> - In separable scope, injectivity therefore rests on `SeparableIsogenyExists` (GLUE: Voight p. 786 asserts it without proof). It also rests on Prop. 42.2.16 (Nehrkorn), Exercise 16.11 and the Silverman III.4.11 reading of Lemma 42.2.7.
+> - Three statements in this report are therefore wrong: "used by no theorem" in the summary, "not through `SeparableIsogenyExists`" in the `hEt` row, and "not used" for 42.2.16, 16.11 and 42.2.7.
+> - The order lemma has the same gap through `VoightCor4237`, which applies Lemma 42.2.9 to the given `E` and so needs `E ≅ E_I`.
+> - Soundness is unaffected: every candidate is a hypothesis, and none is false or stronger than Voight's print.
+> - Planned fixup: reach premises on `VoightThm4232Etale` and `VoightCor4237`, and `SeparableIsogenyExists` as an explicit hypothesis of injectivity and of the order lemma. Then derive the reach from printed statements instead of Voight p. 786.
+> - Interaction with wip/rc-goodrow-wire: merged with that branch on main 162d4636 (checks27), GoodRowWire/Assembly.lean fails with 9 errors. Part (1) gives `Reference` an operator family `O`, which that file does not pass. Agreed order: the wiring lands first, then this branch's fixup threads `O` through GoodRowWire/Assembly.lean.
+
 **Result: scoped stop after injectivity.** Parts (0) and (1) are complete. Part (2) fixes a supersingular reference pair `(E₀, ⟨P₀⟩)`. For it, part (2) builds in Lean:
 - the map `levelDeuringClass` from isomorphism classes of supersingular enhanced elliptic curves of level `N` to `ClassSet (levelOrder q h N hN)`;
 - its reference lemma;
