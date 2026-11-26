@@ -30,3 +30,12 @@ Base: 796582ac1 (main after GoodRow wiring). SamePlace.lean and ComplexPoints.le
 - `atkinClass_independent`: independence corollary.
 - Route: seams conjugated by variable-change seams; lift z ↦ αz; kernel ⟨τ, 1/Q⟩ ⇒ L₂ = α(ℤτ + ℤ/Q); AL matrix (exists_entries) ⇒ IsScale L₂ (ofTau W_Qτ) (αω₂); ω₂/N = cτ/Q + d/N generates ⟨τ/Q,1/N⟩ mod ℤτ+ℤ/Q (explicit: τ/Q = −Mb·ω₂/N + adτ + bd/Q, 1/N = Qa·ω₂/N − acτ − bc/Q).
 - axioms: propext, Classical.choice, Quot.sound.
+
+## Item 3a — `RC/ModelGeneric6/CharFreeSeam.lean`, `CharFreeSeamTwo.lean` (build)
+- Copies of generic4's gate, gate_isCentred, gate_abel, pointPlace, IsSeam, StepSeam, isSeam_comp, exists_oddStep, stepSeam_of_odd, exists_quotientSeam_of_steps, twoFFHom_seam, stepSeam_two, exists_quotientSeam, without [CharZero k]. Gate uses vendored hasPrincipalDivisors_functionField_of_isElliptic (char-free).
+- StepSeam now records finrankAlong k ι = ℓ; odd: vendored finrankAlong = 2m+1; two: `finrankAlong_twoFFHom_le` (≤ 2: K(x) = whole field, x quadratic over image) + `finrankAlong_ne_one_of_seam` (a seam with nonzero kernel point is not degree 1) + positivity.
+- `finrankAlong_comp'` (tower law).
+- `exists_quotientSeam n hn hchar E H hH`: separable seam (FiniteAlong, finrankAlong = n, g.ker = H) for E.cyclicQuotientCurve H n whenever every prime ℓ ∣ n has (ℓ : k) ≠ 0.
+- `isSeam_iff_modelGeneric4` : in char 0 the notions agree by Iff.rfl (HasPrincipalDivisors is a Prop).
+- axioms: propext, Classical.choice, Quot.sound.
+- Deviation: the quadratic for x over the image is re-derived inside finrankAlong_twoFFHom_le (generic4's isIntegral_X_twoFFHom does not expose the polynomial).

@@ -1,0 +1,13 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:267:0: 'ZInQ.Manuscript.RC.ModelGeneric6.gate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:268:0: 'ZInQ.Manuscript.RC.ModelGeneric6.isSeam_iff_modelGeneric4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:269:0: 'ZInQ.Manuscript.RC.ModelGeneric6.isSeam_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:270:0: 'ZInQ.Manuscript.RC.ModelGeneric6.finrankAlong_comp'' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:271:0: 'ZInQ.Manuscript.RC.ModelGeneric6.finrankAlong_ne_one_of_seam' depends on axioms: [propext,
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:272:0: 'ZInQ.Manuscript.RC.ModelGeneric6.exists_oddStep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:273:0: 'ZInQ.Manuscript.RC.ModelGeneric6.stepSeam_of_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeam.lean:274:0: 'ZInQ.Manuscript.RC.ModelGeneric6.exists_quotientSeam_of_steps' depends on axioms: [propext,
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeamTwo.lean:254:0: 'ZInQ.Manuscript.RC.ModelGeneric6.finrankAlong_twoFFHom_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeamTwo.lean:255:0: 'ZInQ.Manuscript.RC.ModelGeneric6.twoFFHom_seam' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeamTwo.lean:256:0: 'ZInQ.Manuscript.RC.ModelGeneric6.stepSeam_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/CharFreeSeamTwo.lean:257:0: 'ZInQ.Manuscript.RC.ModelGeneric6.exists_quotientSeam' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9712 jobs).
