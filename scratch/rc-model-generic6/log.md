@@ -11,3 +11,8 @@ Base: 796582ac1 (main after GoodRow wiring). SamePlace.lean and ComplexPoints.le
 - `isAddCyclic_map_atkinSum_curve`: curve version, needs (N : k) ≠ 0 and (2 : k) ≠ 0 (vendored card_torsionBy_eq_sq_of_isAlgClosed); any algebraically closed k, any characteristic.
 - `atkinImage`: the image as `CyclicSubgroups _ N`.
 - axioms: propext, Classical.choice, Quot.sound.
+
+## Item 2b(1) — `RC/ModelGeneric6/VariableChangeSeam.lean` (builds)
+- `vcFunHom W C : W.FF →ₐ (C • W).FF` (vendored `mrtw60aVCFunHom`: X ↦ u²X + r, Y ↦ u³Y + u²sX + t), `vcFunHomInv`, inverse laws, integrality, finiteness, `vcFunHom_X`, `vcFunHom_Y`.
+- `restrictAlong_vcFunHom` (ON THE SPOT (c)): for all centred gates on W and C • W, (place of P).restrictAlong vcFunHom = place of `Point.addEquivVariableChange W C P`. Characteristic-free. Proof: transported gate (`transportGate`) is centred (`transportGate_isCentred`); centred gates are unique (vendored `GenusOnePlaceGate.ext_of_isCentred`).
+- axioms: propext, Classical.choice, Quot.sound.
