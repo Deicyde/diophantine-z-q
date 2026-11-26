@@ -398,6 +398,34 @@ It is Theorem 1.0.4 of Pan, whose hypotheses are those of his Conjecture 1.0.1, 
 L. Pan, *The Fontaine–Mazur conjecture in the residually reducible case*, J. Amer. Math. Soc. 35 (2022), 1031–1169, Theorem 1.0.4, read in arXiv:1901.07166v2, the version the manuscript cites: Conjecture 1.0.1, p. 2; Theorem 1.0.4, p. 5; conventions (geometric Frobenius, Hodge–Tate weight $-1$ for the cyclotomic character), pp. 6–7. The journal numbering is unverified. Potential semistability in the sense of Fontaine as in O. Brinon and B. Conrad, *CMI summer school notes on $p$-adic Hodge theory* (preliminary version, June 24, 2009): admissibility in the dimension form, §5.2, pp. 67–68; $A_{\rm cris}$, p. 128, and its image in $B_{\rm dR}^+$, p. 129; $B_{\rm cris}$, Definition 9.1.4, p. 131; $B_{\rm st}$, Definition 9.2.3, p. 138, its embedding in $B_{\rm dR}$, pp. 140–142, injective by Theorem 9.2.10, p. 143; potential semistability, Theorem 9.3.5, p. 148.
 """,
     ),
+    'colmez1992DeRhamAbVar': dict(
+        group='p-adic-hodge', slug='colmez-p-adic-periods',
+        title="Colmez's p-adic periods of an abelian variety",
+        anchor='Colmez Theorem 5.2',
+        statement=r"""
+The *period statement* is the following assertion. Let $F$ be a finite extension of $\mathbb Q_p$, $A$ an abelian variety over $F$, $T_pA=\varprojlim_nA(\overline F)[p^n]$ its Tate module and $V_pA=\mathbb Q_p\otimes_{\mathbb Z_p}T_pA$, on which $G_F$ acts through its action on the points of $A$, and let $G_F$ act on $B_{\rm dR}$ through the restriction map $G_F\to G_{\mathbb Q_p}$ along an embedding of $\overline{\mathbb Q}_p$ in $\overline F$. Then there are a set $H$ and, for each $\omega\in H$, a $\mathbb Q_p$-linear map $P_\omega:V_pA\to B_{\rm dR}$ with the following properties: every value $P_\omega(u)$ lies in $B_{\rm dR}^+$; $P_\omega(\sigma u)=\sigma\bigl(P_\omega(u)\bigr)$ for every $\sigma\in G_F$ and $u\in V_pA$; and if $x\in B_{\rm dR}\otimes_{\mathbb Q_p}V_pA$ is sent to $0$ by the $B_{\rm dR}$-linear extension $b\otimes u\mapsto b\,P_\omega(u)$ of every $P_\omega$, then $x=0$.
+""",
+        caveat=r"""
+It is Théorème 5.2 (i)–(ii) of Colmez with $H$ the de Rham cohomology $H^1_{\rm dR}(A/F)$ and $P_\omega(u)=\int_u\omega$, the $p$-adic period of $\omega$ along $u$, extended $\mathbb Q_p$-linearly from $T_pA$ to $V_pA$. Of the printed theorem the statement keeps three clauses: the periods lie in $B_{\rm dR}^+$, they commute with the action of $G_F$, and the pairing is non-degenerate on the side of $T_pA$ once the scalars are extended to $B_{\rm dR}$. It drops the identification of $H$ with de Rham cohomology, the linearity in $\omega$, the compatibility with the filtrations, part (iii) and the functoriality. Colmez works with a proper model of $A$ over the integers of $F$, which exists, and the periods do not depend on it. He builds $T_pA$ from the points of $A$ over $\mathbb C_p$; on $p$-power torsion these are the points over $\overline F$, a step that the reading argues and that is not proved here.
+""",
+        src=r"""
+P. Colmez, *Périodes $p$-adiques des variétés abéliennes*, Math. Ann. 292 (1992), 629–644, Théorème 5.2 (i)–(ii), p. 639, with the standing hypotheses on pp. 629 and 638 and $B_{\rm dR}$ as in §2, p. 632; the proof is on pp. 639–641. AI-read: a three-lens adversarial reading of page images, 2026-11-26 (docs/research/tate-prints-adversarial-readings.md); no person has read these pages. For this step the manuscript's lemma on de Rham comparison and finite descent (`diophantine_zq.tex`, lines 10939–10970) cites Scholze's Corollary 1.8 and Milne's Theorem 12.1(a); this statement and Fontaine's Théorème 2 replace those two citations.
+""",
+    ),
+    'fontaine1982HTAbVar': dict(
+        group='p-adic-hodge', slug='fontaine-hodge-tate-abelian',
+        title="Fontaine's Hodge–Tate theorem for abelian varieties",
+        anchor='Fontaine Theorem 2',
+        statement=r"""
+The *Hodge–Tate statement* is the following assertion. Let $F$ be a finite extension of $\mathbb Q_p$, $A$ an abelian variety of dimension $g$ over $F$, and $V_pA=\mathbb Q_p\otimes_{\mathbb Z_p}T_pA$ with $T_pA=\varprojlim_nA(\overline F)[p^n]$, on which $G_F$ acts through its action on the points of $A$. Let $G_F$ act on $\mathbb C_p$ through the restriction map $G_F\to G_{\mathbb Q_p}$ along an embedding of $\overline{\mathbb Q}_p$ in $\overline F$, and let $F$ act on $\mathbb C_p$ through the same embedding. For $i=0,1$ let $W_i$ be the $F$-vector space of $\mathbb Q_p$-linear maps $\varphi:V_pA\to\mathbb C_p$ with $\varphi(\sigma v)=\chi_p(\sigma)^i\,\sigma\bigl(\varphi(v)\bigr)$ for all $\sigma\in G_F$ and $v\in V_pA$, that is, of the $G_F$-equivariant maps $V_pA\to\mathbb C_p(i)$. Then $\dim_FW_1=\dim_FW_0=g$.
+""",
+        caveat=r"""
+It is Théorème 2 of Fontaine, which he credits to Tate and Raynaud, for $K=F$ finite over $\mathbb Q_p$, in dimension form. Fontaine gives canonical $F$-linear bijections from $H^1(A,\mathcal O_A)$ onto $\operatorname{Hom}_{\mathbb Z_p[G_F]}(T_pA,\mathbb C_p)$ and from $H^0(A,\Omega^1_A)$ onto $\operatorname{Hom}_{\mathbb Z_p[G_F]}(T_pA,\mathbb C_p(1))$, and the equality of both dimensions with $g$ is printed in the proof on the same page; the statement keeps only the two dimensions. A $\mathbb Z_p$-linear map from $T_pA$ to $\mathbb C_p(i)$ extends uniquely to $V_pA$, and a generator of $\varprojlim_n\mu_{p^n}(\overline F)$ identifies Fontaine's $\mathbb C_p(1)$ with the twist used here. Fontaine allows any complete discretely valued field of characteristic $0$ with perfect residue field of characteristic $p$; the statement takes only finite extensions of $\mathbb Q_p$.
+""",
+        src=r"""
+J.-M. Fontaine, *Formes différentielles et modules de Tate des variétés abéliennes sur les corps locaux*, Invent. Math. 65 (1982), 379–409, Théorème 2 and its proof, p. 388, with the standing hypotheses in 0.1, p. 379, §1.1, p. 381, and §3, p. 387, and $T_p(X)$ as in 3.1, p. 388. AI-read: a three-lens adversarial reading of page images, 2026-11-26 (docs/research/tate-prints-adversarial-readings.md); no person has read these pages. For this step the manuscript's lemma on de Rham comparison and finite descent (`diophantine_zq.tex`, lines 10939–10970) cites Scholze's Corollary 1.8 and Milne's Theorem 12.1(a); this statement and Colmez's Théorème 5.2 replace those two citations.
+""",
+    ),
     'afCharpolyDS965': dict(
         group='modular-galois', slug='shimura-af-frobenius',
         title="Frobenius on the Tate module of Shimura's abelian variety",
