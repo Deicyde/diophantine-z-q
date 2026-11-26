@@ -273,13 +273,13 @@ of §2.3, p. 352. É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duk
 manuscript's citation, a citation only of Corollaire 8.4.
 """,
     ),
-    'gaudronRemondThm14AnSS': dict(
+    'gaudronRemondThm14Printed': dict(
         group='heights', slug='gaudron-remond-isogeny-bound',
         title='The isogeny theorem of Gaudron and Rémond',
         anchor='Gaudron-Remond isogeny bound',
         statement=r"""
 The *isogeny statement* is the following assertion. Let $A$ and $B$ be abelian varieties over a number
-field $K$ of degree $d$ that are isogenous over $K$, with $\dim A=g$, and let $h_F(A)$ be a stable
+field $K$ of degree $d$ that are isogenous over $K$, with $\dim A=g\geq1$, and let $h_F(A)$ be a stable
 Faltings height of $A$, built as for the [lower bound](bost-lower-bound.md). Then there are isogenies
 $A\to B$ and $B\to A$ over $K$ of degree at most
 $$\kappa=\Bigl((14g)^{64g^2}\,d\,\max\bigl(h_F(A),\log d,1\bigr)^2\Bigr)^{1024g^3}.$$
