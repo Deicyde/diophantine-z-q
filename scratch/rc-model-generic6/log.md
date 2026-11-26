@@ -39,3 +39,9 @@ Base: 796582ac1 (main after GoodRow wiring). SamePlace.lean and ComplexPoints.le
 - `isSeam_iff_modelGeneric4` : in char 0 the notions agree by Iff.rfl (HasPrincipalDivisors is a Prop).
 - axioms: propext, Classical.choice, Quot.sound.
 - Deviation: the quadratic for x over the image is re-derived inside finrankAlong_twoFFHom_le (generic4's isIntegral_X_twoFFHom does not expose the polynomial).
+
+## Scoped stop (items 2c, 3b, 3c)
+- 2c open: T1 naturality of rationalPoints on classes (needs PairClasses.map), T2 Vélu composite under embeddings, T3 seams under base change, T4 descent (only for |k| > 𝔠), T5 injectivity of PairClasses.map. Vendored descent theorems transport kernels only.
+- 3b open: Y0LevelPoints computation lemma at cover points (needs private detectorCoverAlgebra), Hensel lift over W(k) (EGA IV 18.5.17 UNVERIFIED), reading comparison.
+- 3c open: order-two Vélu reduction (R2), composite (R3), seam image comparison (R4); odd reduction (R1) in tree.
+- Report: docs/research/rc-model-generic6.md.
