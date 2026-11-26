@@ -22,22 +22,6 @@ open scoped CategoryTheory.MonObj
 
 variable {a b : ℚ}
 
-/-- In a definite algebra the right order of a left ideal is the left order
-of its mirror. -/
-theorem LeftIdeal.mem_rightRing_iff_mem_mirror_leftRing (ha : a < 0) (hb : b < 0)
-    {R : Order a b} (I : LeftIdeal R) (x : B a b) :
-    x ∈ I.rightRing ↔ x ∈ I.mirror.leftRing := by
-  have hstar : ∀ y, y ∈ I.mirror.leftRing → star y ∈ I.mirror.leftRing := fun y hy =>
-    order_star_mem (I.mirror.leftOrder ha hb) hy
-  constructor
-  · intro hx
-    have h0 : star (star x) ∈ I.rightRing := by rwa [star_star]
-    have h1 := hstar _ ((I.mem_leftRing_mirror (star x)).mpr h0)
-    rwa [star_star] at h1
-  · intro hx
-    have h1 := (I.mem_leftRing_mirror (star x)).mp (hstar x hx)
-    rwa [star_star] at h1
-
 theorem conj_conj_inv (u : (B a b)ˣ) (y : B a b) :
     (↑u⁻¹ : B a b) * ((u : B a b) * y * ↑u⁻¹) * u = y := by
   simp only [mul_assoc, Units.inv_mul, mul_one, Units.inv_mul_cancel_left]
@@ -76,7 +60,7 @@ variable {q : ℕ} [Fact q.Prime] (h : q % 4 = 3) {k : Type} [Field k] [Algebra 
 include h hcop h₀ in
 /-- The order lemma for a placed enhanced curve: `End(E, C)` is isomorphic to
 the left order of the mirror of its placed level ideal. -/
-def levelEndEquivMirror (hCor : VoightCor4237) (hT : VoightThm4219)
+def levelEndEquivMirror (hT : VoightThm4219)
     (hV : QuaternionRamificationUniqueness) (X : SupersingularEnhanced q k N)
     (Pl : HomPlacement S j X.curve) :
     levelEnd X.curve X.level ≃+* (placedLevelIdeal hN hP₀ X Pl).mirror.leftRing := by
@@ -98,7 +82,7 @@ def levelEndEquivMirror (hCor : VoightCor4237) (hT : VoightThm4219)
       (∀ y ∈ (placedLevelIdeal hN hP₀ X Pl).lattice, y * x ∈ (placedLevelIdeal hN hP₀ X Pl).lattice)
     rw [hlat]
   exact ((RingEquiv.subringCongr (congrArg (levelEnd X.curve) hX)).trans
-    (levelEndEquivRight hCor hT hV h (by norm_num) (neg_q_lt_zero (q := q)) h₀ X.supersingular Pl
+    (levelEndEquivRight hT hV h (by norm_num) (neg_q_lt_zero (q := q)) h₀ X.supersingular Pl
       N hN.ne' hcop Pt hPt P₀ hP₀ (zpowers_pow_eq_one N P₀ hP₀) hC)).trans
     (RingEquiv.subringCongr hsub)
 
@@ -106,7 +90,7 @@ def levelEndEquivMirror (hCor : VoightCor4237) (hT : VoightThm4219)
 `J` of its class `levelDeuringClass [X]` in `ClassSet (levelOrder q h N hN)`,
 the level endomorphism ring `End(E, C)` is isomorphic to the left ring of `J`
 (tex 8467–8468: automorphisms are `R_z^×`). -/
-theorem levelDeuringClass_order (hCor : VoightCor4237) (hT : VoightThm4219)
+theorem levelDeuringClass_order (hT : VoightThm4219)
     (hV : QuaternionRamificationUniqueness) (X : SupersingularEnhanced q k N)
     (J : LPIdeal (levelOrder q h N hN))
     (hJ : levelDeuringClass h hN hcop h₀ hP₀ j hmax hInv (Quotient.mk _ X) = Quotient.mk _ J) :
@@ -118,17 +102,17 @@ theorem levelDeuringClass_order (hCor : VoightCor4237) (hT : VoightThm4219)
   have hJ' : classSetEquivOfReference (enhancedReferenceCoordinate_spec h hN hcop h₀ hP₀ j hmax)
       (Quotient.mk _ I) = Quotient.mk _ J := hJ
   obtain ⟨u, hu⟩ := leftRing_classSetEquivOfReference _ I J hJ'
-  exact ⟨(levelEndEquivMirror h hN hcop h₀ hP₀ j hCor hT hV X Pl).trans
+  exact ⟨(levelEndEquivMirror h hN hcop h₀ hP₀ j hT hV X Pl).trans
     (conjSubringEquiv _ _ u hu)⟩
 
 include hInv in
 /-- The order lemma at the reference: the level endomorphism ring of the
 reference pair is isomorphic to the left ring of `fromAdelic z`. -/
-theorem levelDeuringClass_reference_order (hCor : VoightCor4237) (hT : VoightThm4219)
+theorem levelDeuringClass_reference_order (hT : VoightThm4219)
     (hV : QuaternionRamificationUniqueness) :
     Nonempty (levelEnd E₀ (Subgroup.zpowers P₀) ≃+*
       (fromAdelic (enhancedReferenceCoordinate h hN hcop h₀ hP₀ j hmax)).val.leftRing) :=
-  levelDeuringClass_order h hN hcop h₀ hP₀ j hmax hInv hCor hT hV
+  levelDeuringClass_order h hN hcop h₀ hP₀ j hmax hInv hT hV
     (referenceEnhanced E₀ h₀ P₀ hP₀) _ (levelDeuringClass_reference h hN hcop h₀ hP₀ j hmax hInv)
 
 end Classes

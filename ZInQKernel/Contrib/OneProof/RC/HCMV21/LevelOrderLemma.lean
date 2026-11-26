@@ -3,16 +3,25 @@ import ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelIdealPrincipal
 
 /-! The level endomorphisms of an enhanced curve are the right order of its
 placed level ideal (tex 8467–8468). For `x` in the right order of the placed
-level ideal, `N x` lies in the right order of the level-one ideal; a placement
-moved by a right unit to an integral ideal containing an integer prime to `q`
-(`LeftIdeal.exists_integral_primeTo`) lets the order candidate (Voight,
-Cor. 42.3.7, ring statement from Lemma 42.2.9, in separable scope) produce
-`γ'` with `γ' ↦ N x`. At every prime `p ∣ N` a chain isomorphism of the Tate
-modules shows that `T_p γ'` is divisible by `p^{v_p(N)}`, so `γ' = N γ`
-(divisibility descends from the Tate module at primes invertible in `k`).
-The same chain isomorphism shows that `γ` preserves each primary part of the
-level subgroup, hence the subgroup. All steps after the candidate are Lean
-proofs. -/
+level ideal, `N x` lies in the right order of the level-one ideal.
+
+The level-one order lemma (`exists_endRight_eq_of_mem_rightRing`) is proved by
+inclusion plus maximality, Voight's own proof of Lemma 42.2.9 done on the
+placement (ON THE SPOT, provenance (c)), with no `φ_I` and so no reach premise:
+the right action `End(E) → B` on a placement is an injective ring map into the
+right order `O_R(I)` of the placed ideal; through a frame `(SE, jE)` of `E`
+(Thm 42.1.9 candidate with the uniqueness candidate) it extends to a
+`ℚ`-algebra automorphism `σ` of `B`; `σ(SE)` is a maximal order contained in the
+order `O_R(I)` (the left order of the mirror), hence equal to it. So every
+`x ∈ O_R(I)` is the action of an endomorphism. The order candidate
+`VoightCor4237` is not used.
+
+At every prime `p ∣ N` a chain isomorphism of the Tate modules then shows that
+`T_p γ'` is divisible by `p^{v_p(N)}`, so `γ' = N γ` (divisibility descends from
+the Tate module at primes invertible in `k`). The same chain isomorphism shows
+that `γ` preserves each primary part of the level subgroup, hence the subgroup.
+All steps are Lean proofs from `VoightThm4232Invertible` (through the
+placement), `VoightThm4219` and `QuaternionRamificationUniqueness`. -/
 
 noncomputable section
 
@@ -270,23 +279,146 @@ theorem localLattice_mul_right_mem {a b : ℚ} (p : ℕ) [Fact p.Prime] {L : Sub
   | add y y' _ _ h h' => rw [add_mul]; exact Submodule.add_mem _ h h'
   | smul c y _ h => rw [smul_mul_assoc]; exact Submodule.smul_mem _ c h
 
+section MaxOrder
+
+variable {a b : ℚ}
+
+/-- In a definite algebra the right order of a left ideal is the left order
+of its mirror. -/
+theorem LeftIdeal.mem_rightRing_iff_mem_mirror_leftRing (ha : a < 0) (hb : b < 0)
+    {R : Order a b} (I : LeftIdeal R) (x : B a b) :
+    x ∈ I.rightRing ↔ x ∈ I.mirror.leftRing := by
+  have hstar : ∀ y, y ∈ I.mirror.leftRing → star y ∈ I.mirror.leftRing := fun y hy =>
+    order_star_mem (I.mirror.leftOrder ha hb) hy
+  constructor
+  · intro hx
+    have h0 : star (star x) ∈ I.rightRing := by rwa [star_star]
+    have h1 := hstar _ ((I.mem_leftRing_mirror (star x)).mpr h0)
+    rwa [star_star] at h1
+  · intro hx
+    have h1 := (I.mem_leftRing_mirror (star x)).mp (hstar x hx)
+    rwa [star_star] at h1
+
+/-- **A ring map out of an order extends to an automorphism of the algebra.**
+For an order `SE` of the definite algebra `B = (a, b)_ℚ`, every ring map
+`f : SE → B` is the restriction of a `ℚ`-algebra automorphism of `B`: extend
+`ℚ`-linearly along the rational basis given by an integer basis of `SE`; it is
+multiplicative on basis pairs, hence everywhere; it is injective since `B` is a
+division algebra, hence bijective by dimension. -/
+theorem exists_algEquiv_extend (ha : a < 0) (hb : b < 0) (SE : Order a b)
+    (f : SE.ring →+* B a b) : ∃ σ : B a b ≃ₐ[ℚ] B a b, ∀ s : SE.ring, σ s = f s := by
+  classical
+  let e := QuaternionAlgebra.basisOneIJK a 0 b
+  let bZ := SE.full.basis e
+  let bQ := SE.full.ratBasis e
+  letI : Submodule.IsLattice ℚ SE.lattice := SE.full
+  have hbQ : ∀ i, (bQ i : B a b) = (bZ i : B a b) := fun i =>
+    Module.Basis.extendOfIsLattice_apply ℚ (SE.full.basis e) i
+  have hmemZ : ∀ i, (bZ i : B a b) ∈ SE.ring := fun i => (bZ i).2
+  have hmemQ : ∀ i, (bQ i : B a b) ∈ SE.ring := fun i => by rw [hbQ]; exact hmemZ i
+  let L : B a b →ₗ[ℚ] B a b := bQ.constr ℚ (fun i => f ⟨bQ i, hmemQ i⟩)
+  let fZ : SE.lattice →ₗ[ℤ] B a b :=
+    ({ toFun := fun y => f ⟨y.1, y.2⟩
+       map_zero' := f.map_zero
+       map_add' := fun y y' => by
+         rw [← f.map_add]; rfl } : SE.lattice →+ B a b).toIntLinearMap
+  have hLZ : (L.restrictScalars ℤ).comp SE.lattice.subtype = fZ := by
+    refine bZ.ext fun i => ?_
+    change L (bZ i : B a b) = f ⟨(bZ i : B a b), hmemZ i⟩
+    calc L (bZ i : B a b) = L (bQ i) := by rw [hbQ]
+      _ = f ⟨bQ i, hmemQ i⟩ := Module.Basis.constr_basis bQ ℚ _ i
+      _ = f ⟨(bZ i : B a b), hmemZ i⟩ := congrArg f (Subtype.ext (hbQ i))
+  have hL : ∀ s : SE.ring, L s = f s := fun s => by
+    have h1 := LinearMap.congr_fun hLZ ⟨s.1, s.2⟩
+    exact h1
+  have hone : L 1 = 1 := by
+    have h1 := hL 1
+    rw [map_one] at h1
+    exact h1
+  have hmul2 : (LinearMap.mul ℚ (B a b)).compr₂ L = (LinearMap.mul ℚ (B a b)).compl₁₂ L L := by
+    refine bQ.ext fun i => bQ.ext fun j => ?_
+    simp only [LinearMap.compr₂_apply, LinearMap.compl₁₂_apply, LinearMap.mul_apply']
+    have h1 := hL (⟨_, hmemQ i⟩ * ⟨_, hmemQ j⟩)
+    rw [map_mul] at h1
+    rw [show (bQ i : B a b) * bQ j = ((⟨_, hmemQ i⟩ * ⟨_, hmemQ j⟩ : SE.ring) : B a b) from rfl,
+      h1, ← hL, ← hL]
+  have hmul : ∀ x y : B a b, L (x * y) = L x * L y := fun x y =>
+    LinearMap.congr_fun₂ hmul2 x y
+  let σ₀ : B a b →ₐ[ℚ] B a b := AlgHom.ofLinearMap L hone hmul
+  have hinj : Function.Injective σ₀ := by
+    rw [injective_iff_map_eq_zero]
+    intro x hx
+    by_contra hx0
+    let u := unitOfNeZero ha hb x hx0
+    have h1 : σ₀ x * σ₀ (↑u⁻¹ : B a b) = 1 := by
+      rw [← map_mul, show x * (↑u⁻¹ : B a b) = (u : B a b) * ↑u⁻¹ from rfl, Units.mul_inv,
+        map_one]
+    rw [hx, zero_mul] at h1
+    exact zero_ne_one h1
+  have hsurj : Function.Surjective σ₀ :=
+    (LinearMap.injective_iff_surjective (f := σ₀.toLinearMap)).mp hinj
+  exact ⟨AlgEquiv.ofBijective σ₀ ⟨hinj, hsurj⟩, fun s => hL s⟩
+
+variable {q : ℕ} [Fact q.Prime] {k : Type} [Field k] [Algebra (ZMod q) k]
+  [IsAlgClosure (ZMod q) k] {E₀ E : PkgI3.AbVar k}
+  {S : Order (-1) (-(q : ℚ))} {j : E₀.End ≃+* S.ring}
+
+/-- **The level-one order lemma, by inclusion plus maximality** (ON THE SPOT,
+provenance (c): Voight's own proof of Lemma 42.2.9, inclusion plus maximality,
+done on the placement, with no `φ_I` and so no reach premise). Every element of
+the right order of a placed ideal is the right action of an endomorphism of `E`.
+Sketch: the right action `End(E) → B` lands in `O_R(I)`; a frame `(SE, jE)` of
+`E` (`exists_referenceFrame`, from `hT` and `hV`) makes it a ring map
+`SE → B`, which extends to a `ℚ`-algebra automorphism `σ` of `B`
+(`exists_algEquiv_extend`); the transport of the order `O_R(I)`
+(`= I.mirror.leftOrder`) by `σ⁻¹` contains `SE`, so equals it by maximality,
+and `x = σ(σ⁻¹ x)` is the action of `jE⁻¹(σ⁻¹ x)`. -/
+theorem exists_endRight_eq_of_mem_rightRing (hT : VoightThm4219)
+    (hV : QuaternionRamificationUniqueness) (hq : q % 4 = 3) (ha : (-1 : ℚ) < 0)
+    (hb : -(q : ℚ) < 0) (hE : IsSupersingular E) (P : HomPlacement S j E)
+    {x : B (-1) (-(q : ℚ))} (hx : x ∈ P.ideal.val.rightRing) :
+    ∃ gam : E.End, P.endRight gam = x := by
+  obtain ⟨SE, ⟨jE⟩, hmaxE⟩ := exists_referenceFrame hT hV q hq E hE
+  let f : SE.ring →+* B (-1) (-(q : ℚ)) := (P.endRightHom ha hb).comp jE.symm.toRingHom
+  obtain ⟨σ, hσ⟩ := exists_algEquiv_extend ha hb SE f
+  let T := P.ideal.val.mirror.leftOrder ha hb
+  have hrange : ∀ gam : E.End, P.endRight gam ∈ P.ideal.val.rightRing := by
+    intro gam y hy
+    obtain ⟨α, rfl⟩ := P.exists_of_mem hy
+    rw [← P.endRight_spec]
+    exact P.mem_ideal _
+  have hT' : ∀ y, y ∈ P.ideal.val.rightRing ↔ y ∈ T.ring := fun y =>
+    LeftIdeal.mem_rightRing_iff_mem_mirror_leftRing ha hb _ y
+  let V := transportOrder T σ.symm
+  have hSV : SE.ring ≤ V.ring := fun y hy =>
+    ⟨σ y, (hT' _).mp (by rw [hσ ⟨y, hy⟩]; exact hrange _), σ.symm_apply_apply y⟩
+  have hx' : σ.symm x ∈ SE.ring := hmaxE V hSV ⟨x, (hT' x).mp hx, rfl⟩
+  refine ⟨jE.symm ⟨_, hx'⟩, ?_⟩
+  have h1 := hσ ⟨_, hx'⟩
+  rw [σ.apply_symm_apply] at h1
+  exact h1.symm
+
+end MaxOrder
+
 section Surj
 
 variable {q : ℕ} [Fact q.Prime] {k : Type} [Field k] [Algebra (ZMod q) k]
-  [IsAlgClosure (ZMod q) k] {a b : ℚ} {E₀ E : PkgI3.AbVar k}
-  {S : Order a b} {j : E₀.End ≃+* S.ring}
+  [IsAlgClosure (ZMod q) k] {E₀ E : PkgI3.AbVar k}
+  {S : Order (-1) (-(q : ℚ))} {j : E₀.End ≃+* S.ring}
 
 set_option maxHeartbeats 800000 in
 /-- **Surjectivity of the order map.** Every element of the right order of
-the placed level ideal is the action of a level endomorphism. The order
-candidate is applied to an integral placement containing an integer prime to
-`q` (separable scope). -/
-theorem exists_endRight_eq_level (hCor : VoightCor4237) (ha : a < 0) (hb : b < 0)
+the placed level ideal is the action of a level endomorphism. `N x` lies in the
+right order of the level-one ideal, so it is the action of some `γ'`
+(`exists_endRight_eq_of_mem_rightRing`, inclusion plus maximality); the Tate
+chains then give `γ' = N γ`. -/
+theorem exists_endRight_eq_level (hT : VoightThm4219) (hV : QuaternionRamificationUniqueness)
+    (hq : q % 4 = 3) (ha : (-1 : ℚ) < 0) (hb : -(q : ℚ) < 0)
     (h₀ : IsSupersingular E₀) (hE : IsSupersingular E) (P : HomPlacement S j E)
     (N : ℕ) (hN : N ≠ 0) (hcop : N.Coprime q) (Pt : E.Pt k) (hPt : orderOf Pt = N)
     (P₀ : E₀.Pt k) (hP₀ : orderOf P₀ = N)
     (hC₀ : ∀ x ∈ Subgroup.zpowers P₀, x ^ N = 1) (hC : ∀ x ∈ Subgroup.zpowers Pt, x ^ N = 1)
-    (x : B a b)
+    (x : B (-1) (-(q : ℚ)))
     (hx : x ∈ (levelIdeal P (Subgroup.zpowers P₀) hN hC₀ (Subgroup.zpowers Pt) hC).rightRing) :
     ∃ gam ∈ levelEnd E (Subgroup.zpowers Pt), P.endRight gam = x := by
   haveI := charP_of_isAlgClosure q k
@@ -298,36 +430,20 @@ theorem exists_endRight_eq_level (hCor : VoightCor4237) (ha : a < 0) (hb : b < 0
     have hqp : q = p := (Nat.prime_dvd_prime_iff_eq Fact.out hp).mp hd
     exact (Nat.Prime.coprime_iff_not_dvd Fact.out).mp hcop.symm (hqp ▸ hpN)
   -- `N x` lies in the right order of the level-one ideal
-  have hNx : ∀ y ∈ I.lattice, y * ((N : B a b) * x) ∈ I.lattice := by
+  have hNx : ∀ y ∈ I.lattice, y * ((N : B (-1) (-(q : ℚ))) * x) ∈ I.lattice := by
     intro y hy
     obtain ⟨α, rfl⟩ := P.exists_of_mem hy
     have hmem : P.emb (N • α) * x ∈ levelLattice P (Subgroup.zpowers Pt) (Subgroup.zpowers P₀) :=
       hx _ ⟨N • α, nsmul_mem_levelHom hC α, rfl⟩
-    have he : P.emb α * ((N : B a b) * x) = P.emb (N • α) * x := by
+    have he : P.emb α * ((N : B (-1) (-(q : ℚ))) * x) = P.emb (N • α) * x := by
       rw [map_nsmul, nsmul_eq_mul, ← mul_assoc, (Nat.cast_commute N (P.emb α)).eq]
     rw [he]
     exact levelLattice_le P hmem
-  -- move the placement to an integral ideal containing an integer prime to `q`
-  obtain ⟨u, huR, m, hmq, hm⟩ := I.exists_integral_primeTo P.ideal.prop ha hb q
-  let P' := P.translate u (I.locallyPrincipal_translate P.ideal.prop u)
-  have hP'emb : ∀ α, P'.emb α = P.emb α * u := fun α => rfl
-  set x' : B a b := (↑u⁻¹ : B a b) * ((N : B a b) * x) * u with hx'def
-  have hx' : x' ∈ P'.ideal.val.rightRing := by
-    intro y hy
-    change y ∈ (I.translate u).lattice at hy
-    change y * x' ∈ (I.translate u).lattice
-    rw [LeftIdeal.mem_translate] at hy ⊢
-    have he : y * x' * (↑u⁻¹ : B a b) = y * (↑u⁻¹ : B a b) * ((N : B a b) * x) := by
-      simp only [hx'def, mul_assoc, Units.mul_inv, mul_one]
-    rw [he]
-    exact hNx _ hy
-  obtain ⟨gam', hgam'⟩ := hCor q k E₀ h₀ a b S j E hE P' huR ⟨m, hmq, hm⟩ x' hx'
-  have hgam'N : ∀ α, P.emb (homPull gam' α) = P.emb α * ((N : B a b) * x) := by
-    intro α
-    have h := hgam' α
-    rw [hP'emb, hP'emb] at h
-    have h2 := congrArg (· * (↑u⁻¹ : B a b)) h
-    simpa only [hx'def, mul_assoc, Units.mul_inv, mul_one, Units.mul_inv_cancel_left] using h2
+  -- `N x` is the action of some `γ'` (inclusion plus maximality)
+  obtain ⟨gam', hγ'⟩ := exists_endRight_eq_of_mem_rightRing hT hV hq ha hb hE P
+    (x := (N : B (-1) (-(q : ℚ))) * x) hNx
+  have hgam'N : ∀ α, P.emb (homPull gam' α) = P.emb α * ((N : B (-1) (-(q : ℚ))) * x) :=
+    fun α => by rw [P.endRight_spec, hγ']
   -- divisibility of `γ'` at every prime dividing the level
   have hdivp : ∀ p : ℕ, p.Prime → p ∣ N →
       ∃ g : E.End, gam' = (p ^ N.factorization p : ℕ) • g := by
@@ -353,11 +469,11 @@ theorem exists_endRight_eq_level (hCor : VoightCor4237) (ha : a < 0) (hb : b < 0
            map_add' := fun _ _ => LinearMap.add_comp _ _ _
            map_smul' := fun _ _ => LinearMap.smul_comp _ _ _ } :
           (E.T p →ₗ[ℤ_[p]] E₀.T p) →ₗ[ℤ_[p]] (E.T p →ₗ[ℤ_[p]] E₀.T p)) =
-        (localMulRight p (toLocal p ((N : B a b) * x))).comp (tateToLocal P hpk' hE.1 h₀.1) := by
+        (localMulRight p (toLocal p ((N : B (-1) (-(q : ℚ))) * x))).comp (tateToLocal P hpk' hE.1 h₀.1) := by
       apply LinearMap.ext_on_range hfull
       intro α
       change tateToLocal P hpk' hE.1 h₀.1 ((homT (ℓ := p) α).comp (homT (ℓ := p) gam')) =
-        tateToLocal P hpk' hE.1 h₀.1 (tateHom p E E₀ α) * toLocal p ((N : B a b) * x)
+        tateToLocal P hpk' hE.1 h₀.1 (tateHom p E E₀ α) * toLocal p ((N : B (-1) (-(q : ℚ))) * x)
       rw [← homT_homPull]
       change tateToLocal P hpk' hE.1 h₀.1 (tateHom p E E₀ (homPull gam' α)) = _
       rw [tateToLocal_tateHom, tateToLocal_tateHom, hgam'N, map_mul]
@@ -365,7 +481,7 @@ theorem exists_endRight_eq_level (hCor : VoightCor4237) (ha : a < 0) (hb : b < 0
       apply tateToLocal_injective P p hpk' hE.1 h₀.1
       have h1 := LinearMap.congr_fun hext β.toLinearMap
       change tateToLocal P hpk' hE.1 h₀.1 (β.toLinearMap.comp (homT (ℓ := p) gam')) =
-        tateToLocal P hpk' hE.1 h₀.1 β.toLinearMap * toLocal p ((N : B a b) * x) at h1
+        tateToLocal P hpk' hE.1 h₀.1 β.toLinearMap * toLocal p ((N : B (-1) (-(q : ℚ))) * x) at h1
       rw [h1, map_nsmul, hφ₁, map_mul, map_natCast, nsmul_eq_mul, ← mul_assoc, ← mul_assoc,
         (Nat.cast_commute N (tateToLocal P hpk' hE.1 h₀.1 β.toLinearMap)).eq]
     refine exists_eq_nsmul_of_primeTo_homT_dvd gam' p _ hpk'
@@ -385,7 +501,7 @@ theorem exists_endRight_eq_level (hCor : VoightCor4237) (ha : a < 0) (hb : b < 0
     intro α
     have hl : N • P.emb (homPull gam α) = P.emb (homPull gam' α) := by
       rw [← map_nsmul, ← homPullLeft_apply, ← map_nsmul, homPullLeft_apply, ← hgam]
-    have hr : N • (P.emb α * x) = P.emb α * ((N : B a b) * x) := by
+    have hr : N • (P.emb α * x) = P.emb α * ((N : B (-1) (-(q : ℚ))) * x) := by
       rw [nsmul_eq_mul, ← mul_assoc, ← mul_assoc, (Nat.cast_commute N (P.emb α)).eq]
     have h2 : (N : ℚ) • P.emb (homPull gam α) = (N : ℚ) • (P.emb α * x) := by
       rw [Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul, hl, hr, hgam'N]
@@ -412,14 +528,15 @@ end Surj
 section Equiv
 
 variable {q : ℕ} [Fact q.Prime] {k : Type} [Field k] [Algebra (ZMod q) k]
-  [IsAlgClosure (ZMod q) k] {a b : ℚ} {E₀ E : PkgI3.AbVar k}
-  {S : Order a b} {j : E₀.End ≃+* S.ring}
+  [IsAlgClosure (ZMod q) k] {E₀ E : PkgI3.AbVar k}
+  {S : Order (-1) (-(q : ℚ))} {j : E₀.End ≃+* S.ring}
 
 /-- **The order statement for a placement.** The level endomorphisms of
 `(E, ⟨Pt⟩)` are isomorphic, through the right action on the placement, to the
 right order of the placed level ideal. -/
-def levelEndEquivRight (hCor : VoightCor4237) (hT : VoightThm4219)
-    (hV : QuaternionRamificationUniqueness) (hq : q % 4 = 3) (ha : a < 0) (hb : b < 0)
+def levelEndEquivRight (hT : VoightThm4219)
+    (hV : QuaternionRamificationUniqueness) (hq : q % 4 = 3) (ha : (-1 : ℚ) < 0)
+    (hb : -(q : ℚ) < 0)
     (h₀ : IsSupersingular E₀) (hE : IsSupersingular E) (P : HomPlacement S j E)
     (N : ℕ) (hN : N ≠ 0) (hcop : N.Coprime q) (Pt : E.Pt k) (hPt : orderOf Pt = N)
     (P₀ : E₀.Pt k) (hP₀ : orderOf P₀ = N)
@@ -441,20 +558,21 @@ def levelEndEquivRight (hCor : VoightCor4237) (hT : VoightThm4219)
       apply Subtype.ext
       exact endRight_injective ha hb P hE.1 h₀.1 SE jE 2 hq2 (congrArg Subtype.val h),
      fun ⟨x, hx⟩ => by
-      obtain ⟨gam, hgam, hgamx⟩ := exists_endRight_eq_level hCor ha hb h₀ hE P N hN hcop Pt hPt P₀ hP₀
+      obtain ⟨gam, hgam, hgamx⟩ := exists_endRight_eq_level hT hV hq ha hb h₀ hE P N hN hcop Pt hPt P₀ hP₀
         hC₀ hC x hx
       exact ⟨⟨gam, hgam⟩, Subtype.ext hgamx⟩⟩
 
-theorem levelEndEquivRight_apply (hCor : VoightCor4237) (hT : VoightThm4219)
-    (hV : QuaternionRamificationUniqueness) (hq : q % 4 = 3) (ha : a < 0) (hb : b < 0)
+theorem levelEndEquivRight_apply (hT : VoightThm4219)
+    (hV : QuaternionRamificationUniqueness) (hq : q % 4 = 3) (ha : (-1 : ℚ) < 0)
+    (hb : -(q : ℚ) < 0)
     (h₀ : IsSupersingular E₀) (hE : IsSupersingular E) (P : HomPlacement S j E)
     (N : ℕ) (hN : N ≠ 0) (hcop : N.Coprime q) (Pt : E.Pt k) (hPt : orderOf Pt = N)
     (P₀ : E₀.Pt k) (hP₀ : orderOf P₀ = N)
     (hC₀ : ∀ x ∈ Subgroup.zpowers P₀, x ^ N = 1) (hC : ∀ x ∈ Subgroup.zpowers Pt, x ^ N = 1)
     (gam : levelEnd E (Subgroup.zpowers Pt)) :
-    ((levelEndEquivRight hCor hT hV hq ha hb h₀ hE P N hN hcop Pt hPt P₀ hP₀ hC₀ hC gam :
+    ((levelEndEquivRight hT hV hq ha hb h₀ hE P N hN hcop Pt hPt P₀ hP₀ hC₀ hC gam :
       (levelIdeal P (Subgroup.zpowers P₀) hN hC₀ (Subgroup.zpowers Pt) hC).rightRing) :
-        B a b) = P.endRight gam := rfl
+        B (-1) (-(q : ℚ))) = P.endRight gam := rfl
 
 end Equiv
 

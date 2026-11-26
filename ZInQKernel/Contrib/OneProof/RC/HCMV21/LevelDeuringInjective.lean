@@ -7,7 +7,8 @@ Tate modules lies in the completed level ideal and generates the completed
 level-one ideal over `O₀`; away from the level the two completions agree), so
 `I(X) u = I(Y)`. Right multiplication by `u⁻¹` is then a bijective left
 `O₀`-module map `Hom(E_Y, E₀) → Hom(E_X, E₀)`; the bijection clause of the
-Theorem 42.3.2 candidate (étale maps, separable scope) writes it and its inverse
+Theorem 42.3.2 candidate (étale maps, separable scope; its reach premises for
+the two curves come from `SeparableReach E₀`) writes it and its inverse
 as `φ*` and `ψ*` for étale `φ, ψ`, and the injectivity clause gives
 `ψ ∘ φ = 1`, `φ ∘ ψ = 1`. The level subgroups correspond by the recovery of the
 level from the Hom lattice (`mem_levelHom_of_comp`) and a cardinality count. -/
@@ -153,7 +154,9 @@ include hcop h₀ in
 theorem nonempty_enhancedIso_of_translate (hEt : VoightThm4232Etale)
     (X Y : SupersingularEnhanced q k N) (PX : HomPlacement S j X.curve)
     (PY : HomPlacement S j Y.curve) (u : (Eichler.B (-1) (-(q : ℚ)))ˣ)
-    (hu : (placedLevelIdeal hN hP₀ X PX).translate u = placedLevelIdeal hN hP₀ Y PY) :
+    (hu : (placedLevelIdeal hN hP₀ X PX).translate u = placedLevelIdeal hN hP₀ Y PY)
+    (rX : ∃ φ : Hom E₀ X.curve, IsSeparableIsogeny φ)
+    (rY : ∃ φ : Hom E₀ Y.curve, IsSeparableIsogeny φ) :
     Nonempty (EnhancedIso X Y) := by
   haveI := charP_of_isAlgClosure q k
   haveI := isAlgClosed_of_isAlgClosure q k
@@ -209,10 +212,10 @@ theorem nonempty_enhancedIso_of_translate (hEt : VoightThm4232Etale)
     apply PY.injective
     change PY.emb (Gfun (postcomp o α)) = PY.emb (postcomp o (Gfun α))
     rw [hG, PX.map_postcomp, PY.map_postcomp, hG, mul_assoc]
-  obtain ⟨-, hfull⟩ := hEt q k E₀ h₀ X.curve Y.curve X.supersingular Y.supersingular
-  obtain ⟨-, hfull'⟩ := hEt q k E₀ h₀ Y.curve X.curve Y.supersingular X.supersingular
-  obtain ⟨hinjX, -⟩ := hEt q k E₀ h₀ X.curve X.curve X.supersingular X.supersingular
-  obtain ⟨hinjY, -⟩ := hEt q k E₀ h₀ Y.curve Y.curve Y.supersingular Y.supersingular
+  obtain ⟨-, hfull⟩ := hEt q k E₀ h₀ X.curve Y.curve X.supersingular Y.supersingular rX rY
+  obtain ⟨-, hfull'⟩ := hEt q k E₀ h₀ Y.curve X.curve Y.supersingular X.supersingular rY rX
+  obtain ⟨hinjX, -⟩ := hEt q k E₀ h₀ X.curve X.curve X.supersingular X.supersingular rX rX
+  obtain ⟨hinjY, -⟩ := hEt q k E₀ h₀ Y.curve Y.curve Y.supersingular Y.supersingular rY rY
   obtain ⟨φ, hφ, hφF⟩ := hfull F hFlin
   obtain ⟨ψ, hψ, hψF⟩ := hfull' F.symm hGlin
   have hφψ : φ.hom ≫ ψ.hom = 𝟙 _ := by
@@ -272,8 +275,11 @@ theorem nonempty_enhancedIso_of_translate (hEt : VoightThm4232Etale)
   rw [Subgroup.card_map_of_injective hinj, X.card_level, Y.card_level]
 
 include h hmax in
-/-- **Injectivity.** Equal classes come from isomorphic enhanced curves. -/
-theorem levelDeuringClass_injective (hEt : VoightThm4232Etale) :
+/-- **Injectivity.** Equal classes come from isomorphic enhanced curves. Rests on
+`hEt` (bijection clause in separable scope), `hInv` and the reach binder
+`hR : SeparableReach E₀` (a specialization of Voight p. 786, GLUE), which supplies
+the reach premises of `hEt` for the two curves. -/
+theorem levelDeuringClass_injective (hEt : VoightThm4232Etale) (hR : SeparableReach E₀) :
     Function.Injective (levelDeuringClass h hN hcop h₀ hP₀ j hmax hInv) := by
   intro x y hxy
   induction x using Quotient.inductionOn with
@@ -285,7 +291,8 @@ theorem levelDeuringClass_injective (hEt : VoightThm4232Etale) :
     apply (leftClassSetEquiv _).injective
     exact (classSetEquivOfReference (enhancedReferenceCoordinate_spec h hN hcop h₀ hP₀ j hmax)).injective hxy
   obtain ⟨u, hu⟩ := Quotient.exact h1
-  exact Quotient.sound (nonempty_enhancedIso_of_translate hN hcop h₀ hP₀ j hEt X Y _ _ u hu)
+  exact Quotient.sound (nonempty_enhancedIso_of_translate hN hcop h₀ hP₀ j hEt X Y _ _ u hu
+    (hR X.curve X.supersingular) (hR Y.curve Y.supersingular))
 
 end Injective
 
