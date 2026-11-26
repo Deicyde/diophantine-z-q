@@ -5,6 +5,11 @@ This directory prepares, additively, the replacement of the root hypothesis `hRa
 `ZInQ.OneProof.frozenTarget` by refereed single-print rows. Nothing existing is changed.
 Base: `main` at `9f98d2946011ebbab63aee3e144075b275badafd`.
 
+**Status (2026-11-26): this route cannot fold as built.** `CarayolCor08` failed its three-lens
+reading (see "Readings" below): as stated it is not a direct instance of Carayol's Cor. 0.8, and
+it must not be folded as one. The consumer and the Gross–Zagier row stand; the open item is the
+modularity bridge described under "The remaining gap".
+
 ## Files
 
 * `Row.lean`: the rows `GZThm73NonTorsion` (Gross–Zagier (7.3)(1)) and `CarayolCor08`
@@ -55,28 +60,47 @@ The fold would replace the argument `hRank` of `frozenTarget` by `hGZ`, `hB` and
 * added back: `hB`, `BCDTPrint.BCDTThmAPrinted`; published, LEAF/LEAF when it was a row (until
   the forward-rank fold of 2026-11-20 removed it), journal check MATCH (JAMS 14, pp. 843–845);
   its review row records the verdict CONSEQUENCE (AI audit of the author manuscript).
-* added: `hC`, `GZRank.CarayolCor08`; published, pending reading on two dictionary items (`E_f`
-  read through its isogeny class; "rationnelle" left implicit).
+* added: `hC`, `GZRank.CarayolCor08`; **failed its reading** (not a direct instance; see
+  "Readings"), so this item of the plan is withdrawn until the gap below is closed.
 
 Counts: 22 open hypotheses (19 H + `hRC`, `hCT`, `hRank`) become 24 (19 H + `hRC`, `hCT`,
 `hGZ`, `hB`, `hC`). Outside H the strict count goes from 0 LEAF / 3 GLUE to 1 LEAF / 4 GLUE
-(`hB` LEAF; `hGZ` and `hC` glue until read), and to 3 LEAF / 2 GLUE if both readings clear.
+(`hB` LEAF; `hGZ` and `hC` glue until read). With `CarayolCor08` failed, the plan is not
+foldable in this form; these counts describe the shape only.
 The rows also give less than `hRank` claimed: no row asserts rank one, only a point of infinite
 order, which is all the pole proof uses.
 
-## Rows that still need a reading
+## Readings (2026-11-26, AI-read, three lenses by three model families)
 
-* `hGZ`: Theorem (7.3)(1), p. 231, with the standing assumption of Chapter V, §2, pp. 309–310,
-  and the proof on p. 312 (Gross–Zagier, Invent. Math. 84 (1986); the GDZ scan, PDF SHA-256
-  `d0c9d7761c6fc5395e2335bd02b58af400f1910e3f708adbe5aa81c96d1a1751`). Inside the proof the
-  choice of `K` cites Waldspurger and Vignéras (p. 309) and the covering map cites Faltings
-  (p. 310); (7.3) itself is Gross–Zagier's own theorem.
-* `hC`: Corollaire 0.8, p. 411 (Carayol, Ann. Sci. ÉNS (4) 19 (1986); the numdam scan, PDF
-  SHA-256 `d4a5fb6b1cd76f944f8948e06df1c7ad5656ae5ee14b9189178ee1e8f2b0dab8`). The reading must
-  rule on (ii) `E_f` read as any elliptic curve with `a_p(E) = a_p(f)` at almost all primes, and
-  (iii) the rationality of `f` left implicit (see the docstring).
-* `hB`: already rated; the conductor item (the level of condition (2) is not identified with
-  `N(E)`) is unchanged.
+* `GZThm73NonTorsion`: PASS from the fidelity and the skeptic lenses; the red-team lens is
+  pending. Non-blocking note: the Lean newform (`Newform N 2`, `f.χ = 1`) agrees with the
+  classical newform on `Γ₀(N)` only through Atkin–Lehner–Li, and p. 310 leaves the level free.
+  Source: Theorem (7.3)(1), p. 231, the standing assumption of Chapter V, §2, pp. 309–310, and
+  the proof on p. 312 (Gross–Zagier, Invent. Math. 84 (1986); the GDZ scan, PDF SHA-256
+  `d0c9d7761c6fc5395e2335bd02b58af400f1910e3f708adbe5aa81c96d1a1751`).
+* `BCDTThmAPrinted`: PASS from the fidelity and the skeptic lenses, against the author
+  manuscript. Dropping level = conductor is a weakening; the journal comparison is pending.
+* `CarayolCor08`: **FAIL** from the fidelity and the skeptic lenses (Corollaire 0.8, p. 411,
+  Carayol, Ann. Sci. ÉNS (4) 19 (1986); the numdam scan, PDF SHA-256
+  `d4a5fb6b1cd76f944f8948e06df1c7ad5656ae5ee14b9189178ee1e8f2b0dab8`).
+  * B1: the print is about `E_f`, the curve attached to a rational newform `f`. The row covers
+    every curve agreeing with `f` at almost all primes; getting there needs Faltings' isogeny
+    theorem, Eichler–Shimura and the isogeny invariance of `L`, none of which is in Carayol §0.
+  * B2: the hypothesis "rationnelle" is dropped; recovering it needs Shimura's conjugate
+    newforms and strong multiplicity one.
+
+`CarayolCor08` as stated is therefore **not a direct instance** of Carayol's Cor. 0.8 and must
+not be folded as one. Its docstring's dictionary items (ii) and (iii) are exactly B1 and B2.
+
+## The remaining gap
+
+The open step is the bridge from BCDT's eigenform with `L(E, s) = L(f, s)` at level `N(E)` to a
+newform with `L(E, s) = L(f, s)`: local–global compatibility at the bad primes. It needs either
+
+* a refereed print stating it for every elliptic curve over `ℚ`, or
+* Carayol's Cor. 0.8 with its printed hypotheses (a rational newform and its curve `E_f`), plus
+  Faltings' isogeny theorem, Eichler–Shimura and rationality, each as its own row, with Lean glue
+  between them.
 
 Before a merge the integrator also needs `docs/research/locators.md` rows and `kinds.tsv` rows
-for `hGZ` and `hC`; they are outside this directory and so not part of this pull request.
+for the new rows; they are outside this directory and so not part of this pull request.
