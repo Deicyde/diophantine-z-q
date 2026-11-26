@@ -26,3 +26,6 @@ LogPTildeTranscendental	proof	project	yes		https://github.com/Deicyde/diophantin
 FontaineCrystallineImage	proof	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/194	pb-refereed-fold	d1e82159e970e503ff92f4972327294c59f7b080
 colmezThm01	statement-check	project	yes			pb-adversarial-readings	
 panThm104F	statement-check	project	yes			pb-adversarial-readings	
+conradAppB	proof	project	yes		https://github.com/Deicyde/diophantine-z-q/commit/7131c56721138b59b1ea67ba18b25adddfaf34b1	outside-fold-1126	57f3bcc275aeb8607e116e2d8627ccc6e8332a22
+dsThm965AtPrimes	reduction	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/197	ds965-reroute-fold	175afaaff9ad02e23ecc0ad2a2ec9df99c2bf9ec
+gaudronRemondThm14AnSS	reduction	project	yes		https://github.com/Deicyde/diophantine-z-q/commit/59bd3fced700ee465037ba3f1ae17d25eafcf950	gr14-pos	dd249d3a14984c66c550db09f288c2fa32c0dd9b

@@ -269,6 +269,31 @@ checked), with Fontaine's definitions; Colmez's theorem is kept as a record (it 
 adversarial AI reading, docs/research/pb-adversarial-readings.md). The count does not
 change.
 
+outside-fold-1126 (`TailZ104`, autofold) folds an outside proof of Conrad's Appendix B over `ℚ_p`,
+`ZInQ.Contrib.SenWeightZero.conradAppB_proof` (`Contrib/OneProof/ConradAppB.lean`, from the rank-one weight-zero Sen
+theorem): `conradAppB` is discharged with no new leaf. `OpenAddedLeaves29` is the new generation and
+`HDec.HSyn.sixContactMin_of_open97` the new top (24 → 23 assumptions).
+
+ds965-reroute-fold (`TailZ105`, fork PR #197) removes `dsThm965AtPrimes` without proving it. Its readers on the live
+route are served by `modularHTCoeff` (weight at least 2) and `dsThm966Printed` (weight 1) through the copy chain
+`Contrib/OneProof/DS965Reroute/Chain1` to `Chain5`, whose top is `sixContactMin_of_open96_ds`; the determinant clause
+of `R14Det`, which the live route does not read, is dropped there. `OpenResearchLeaves78` is the new generation and
+`HDec.HSyn.sixContactMin_of_open98` the new top (23 → 22 assumptions).
+
+gr14-pos (`TailZ106`, autofold, docs/research/gr14-pos.md) restates `gaudronRemondThm14AnSS` as printed:
+Gaudron and Rémond assume `g ≥ 1` throughout (Duke Math. J. 163 (2014), p. 2058), while the field covered every `g`.
+The leaf `gaudronRemondThm14AnSSPos` is the same statement with `1 ≤ g`, and
+`ZInQ.SemistabAssembly.gaudronRemondThm14AnSS_of_pos` proves the old field from it, with the case `g = 0` proved in Lean
+(`Contrib/OneProof/GaudronRemondThm14Pos.lean`). `OpenResearchLeaves79` is the new generation and
+`HDec.HSyn.sixContactMin_of_open99` the new top (22 → 22 assumptions).
+
+m1-afshimura (docs/research/m1-afshimura.md) supplies the field `afShimura` by its proof, `AfTateLam.afShimura_proof`
+(`Contrib/OneProof/AfShimuraProof.lean`). The live route read `shimuraThm1Af` only to build that field, in the copies
+of `DS965Reroute/Chain3`, so `shimuraThm1Af` is removed from `OpenResearchLeaves79`, `OpenResearchLeaves78` and the
+copy chain; the generations off the live route keep it. `AfShimura` carries only quotient existence, the coefficient
+recurrence and the finiteness of `K_f`: it is weaker than Shimura 1973 Theorem 1, and its proof is not a Lean proof of
+that theorem. No generation is added (22 → 21 assumptions).
+
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
 hypothesis by its proof; the theorem's statement then loses that hypothesis.
 -/
