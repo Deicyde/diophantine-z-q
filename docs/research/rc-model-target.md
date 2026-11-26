@@ -7,7 +7,7 @@ None.
 ## Retired frozen fields and GLUE rows
 
 None yet. This lane retires no field of `frozenTarget` and changes no GLUE count. The `hRC` GLUE row
-(`docs/one-proof/OPEN.md:462` on main) and its odd-side input `PreLeaves.odd_staged`
+(`docs/one-proof/OPEN.md`, section hRC: `docs/one-proof/OPEN.md#hrc`) and its odd-side input `PreLeaves.odd_staged`
 (`ZInQKernel/Contrib/OneProof/RC/Wiring/Leaves.lean:305`) still need the `PMWire.GoodRow` fields owned by
 other lanes:
 

@@ -20,7 +20,7 @@ The supplied fields:
 lanes' fields. The `LocalTarget` route is also filled: `NeronDVRLocal` enters only as the proved closed term
 `neronDVRLocal`, with `neronLaw` and `localReadComplex`.
 
-**Retired frozen field or GLUE row:** none yet. The `hRC` row (`docs/one-proof/OPEN.md:462`) and
+**Retired frozen field or GLUE row:** none yet. The `hRC` row (`docs/one-proof/OPEN.md`, section hRC: `docs/one-proof/OPEN.md#hrc`) and
 `PreLeaves.odd_staged` (`RC/Wiring/Leaves.lean:305`) still need `point`, `point_frob` and `frobenius_sq`
 (same-place lane), `point_W` (an input of `SamePlaceData`, same-place lane in the hCM lane; it also needs the
 special-fibre action of `Wint`, generic5 item 4, not started), and `ha`, the aθ definition pin

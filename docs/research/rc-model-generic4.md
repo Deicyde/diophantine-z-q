@@ -1,6 +1,6 @@
 # Generic comparison on the pinned rational open: pair classes at every point
 
-**Retired frozen fields: none yet.** No field of the frozen target and no count changes. The hRC GLUE row (`docs/one-proof/OPEN.md:460`) and its odd-side input `PreLeaves.odd_staged` (`ZInQKernel/Contrib/OneProof/RC/Wiring/Leaves.lean:305`) are unchanged.
+**Retired frozen fields: none yet.** No field of the frozen target and no count changes. The hRC GLUE row (`docs/one-proof/OPEN.md`, section hRC: `docs/one-proof/OPEN.md#hrc`) and its odd-side input `PreLeaves.odd_staged` (`ZInQKernel/Contrib/OneProof/RC/Wiring/Leaves.lean:305`) are unchanged.
 
 **Scoped stop.** Items 1 and 2 are proved. Item 5 is partly done: the pair-class conjunct is proved with actual readings on both sides. Items 3 (Atkin–Lehner) and 4 (good Hecke) remain open; the smallest faithful statements are below. `GenericFibreComparison` is **not** instantiated, because the Atkin–Lehner and Hecke readings are not yet actual on both sides.
 
@@ -66,7 +66,7 @@ None of these is supplied by this task.
 | Tier | Statement | Reference |
 | --- | --- | --- |
 | Small after item 3 | Generic σ_Q equals `rationalAtkin hQ` on the open, by separatedness and density (`AtkinRational.ext_model_of_chart`, `RC/AtkinRational/Model.lean:232`) once agreement holds at all complex points. | — |
-| Medium | Specialization of σ_Q and the good Hecke neighbours over the strict henselian DVR at the detector. | Katz–Mazur, *Arithmetic Moduli of Elliptic Curves*, Ann. of Math. Studies 108, Princeton Univ. Press, 1985; the section locator §2.4 could not be checked (no access to the print) and is UNVERIFIED; background only. (For W_Q this tier is superseded: rc-model-generic5 constructs the integral operator on the pinned model, `ModelGeneric5.extendsAtkin_Wint`.) |
+| Medium | Specialization of σ_Q and the good Hecke neighbours over the strict henselian DVR at the detector. | Katz–Mazur, *Arithmetic Moduli of Elliptic Curves*, Ann. of Math. Studies 108, Princeton Univ. Press, 1985; the section locator §2.4 could not be checked (no access to the print) and is UNVERIFIED; background only. (For W_Q the integral operator, GoodRow.extension, is now constructed without this citation: ModelGeneric5.extendsAtkin_Wint. The specialization of its moduli action to the special fibre, which point_W needs, is open: generic5's item 4, continued in rc-model-generic6.) |
 | Downstream | Same-place comparison (supersingular pair classes, Frobenius). | hCM lane; Cornut–Jetchev 2010 §§4.9–4.10 UNVERIFIED. |
 
 ## Known issues
@@ -74,14 +74,14 @@ None of these is supplied by this task.
 - Inherited: the Milne locators at tex 1784–1788 do not state the normalized-newform and Hecke claims.
 - Inherited: Jetchev–Kane (arXiv v1), cited at tex 8468–8474, refers the class correspondence to Ribet 1990 Prop. 3.3 and does not print the Hecke, Atkin–Lehner or Frobenius compatibilities. Ribet's Prop. 3.3 and Rem. 3.5 are reported with proofs deferred (to Milne 1979, Carayol 1986 and Vignéras); they are never sources. Every item of this chain is UNVERIFIED: K. A. Ribet, *On modular representations of Gal(Q̄/Q) arising from modular forms*, Invent. Math. 100 (1990) (UNVERIFIED); J. S. Milne, *Points on Shimura varieties mod p*, Proc. Sympos. Pure Math. 33, Part 2 (1979) (UNVERIFIED); H. Carayol, *Sur la mauvaise réduction des courbes de Shimura*, Compositio Math. 59 (1986) (UNVERIFIED); M.-F. Vignéras, *Arithmétique des algèbres de quaternions*, Lecture Notes in Math. 800, Springer, 1980 (UNVERIFIED). The level-N correspondence is being built in the hCM lane.
 - `GenericFibreComparison` (`ZInQKernel/Contrib/OneProof/RC/ModelLevels/GenericComparison.lean:36`) has no consumer: `git grep` finds only its definition, its `#print axioms` and a docstring in `ModelGeneric4/Readings.lean`. Item 5 of this run (the pair-class conjunct) therefore feeds nothing downstream; the consumed targets are `GoodRow.extension`, `point_W` and the stage-prime hypotheses (re-aimed in rc-model-generic5).
+- The vendored order-two Vélu step has no function-field map; this task constructs one (`twoFFHom`).
+- The vendored function-field isomorphism along a Weierstrass variable change is only `Nonempty`, with no point formula. The kernel computation here goes around this by cardinality (`isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj` plus one containment). Item 3 will need the point formula.
+- `PeriodContinuity` imports `WeberField`, which pulls a large dependency chain (a long first build).
 
 ## References note (added by rc-model-generic5; all UNVERIFIED)
 
 - A. P. Ogg, *Hyperelliptic modular curves*, Bull. Soc. Math. France 102 (1974), 449–462 (UNVERIFIED; defines w_M analytically).
 - B. Conrad, *Arithmetic moduli of generalized elliptic curves*, J. Inst. Math. Jussieu 6 (2007), no. 2, 209–278 (UNVERIFIED; quotient maps only, no moduli form of W_Q).
-- The vendored order-two Vélu step has no function-field map; this task constructs one (`twoFFHom`).
-- The vendored function-field isomorphism along a Weierstrass variable change is only `Nonempty`, with no point formula. The kernel computation here goes around this by cardinality (`isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj` plus one containment). Item 3 will need the point formula.
-- `PeriodContinuity` imports `WeberField`, which pulls a large dependency chain (a long first build).
 
 ## Manuscript check
 

@@ -1,6 +1,6 @@
 # rc-model-generic4
 
-**Retired frozen fields: none yet.** No frozen field or count changes (hRC GLUE row, `docs/one-proof/OPEN.md:460`;
+**Retired frozen fields: none yet.** No frozen field or count changes (hRC GLUE row, `docs/one-proof/OPEN.md`, section hRC (`docs/one-proof/OPEN.md#hrc`);
 `PreLeaves.odd_staged`, `ZInQKernel/Contrib/OneProof/RC/Wiring/Leaves.lean:305`, unchanged).
 
 **Scoped stop.** Items 1 and 2 are proved; item 5 is partial; items 3 (W_Q) and 4 (good Hecke) are open.
