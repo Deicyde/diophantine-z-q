@@ -77,6 +77,7 @@ ping, and is released if there is no reply within 7 days of the ping.
 | hypothesis | holder | since |
 | --- | --- | --- |
 | [`dsThm966Printed`](#dsthm966printed) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/48)) | 2026-11-17 |
+| [`y3FullThreeRepZ30`](#y3fullthreerepz30) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/211)) | 2026-11-26 |
 | [`carayolThmAFrob`](#carayolthmafrob) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6998146928)) | 2026-11-19 |
 | [`shimuraThm1Af`](#shimurathm1af) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6997431192)) | 2026-11-19 |
 | [`cmHeight62`](#cmheight62) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7005825482)) | 2026-11-19 |
@@ -132,13 +133,13 @@ p-adic Hodge theory and modular Galois representations. Claim it on [Deicyde #14
 | [`modularHTCoeff`](#modularhtcoeff) | research | consequence | GLUE | pending-review | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open (last released by the project: #191 landed as additive code without a fold. Its premise `NewformGeometricComparison` is stronger than `ModularHTCoeff` (it fixes one of the row's two normalizations and adds algebraic coefficients...) |
 | [`pazukiCor13Upper`](#pazukicor13upper) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`shimuraThm1Af`](#shimurathm1af) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6997431192)) |
-| [`y3FullThreeRepZ30`](#y3fullthreerepz30) | research | consequence | GLUE | unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
+| [`y3FullThreeRepZ30`](#y3fullthreerepz30) | research | consequence | GLUE | unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/211)) |
 | [`cmjDegreePrint`](#cmjdegreeprint) | research | published | LEAF | note |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 1 | open |
 | [`colmezThm01`](#colmezthm01) | research | published | LEAF | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`dsThm966Printed`](#dsthm966printed) | research | published | LEAF | note | good-first |  | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/48)) |
 | [`fowlerProp27PrintCanonical`](#fowlerprop27printcanonical) | research | published | LEAF | note |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 1 | open (last released by the project: no fold. Oesterlé's Théorème 1 implies Fowler's Proposition 2·7, so putting it in place of the Fowler row at the same count would make `frozenTarget`'s hypothesis stronger (review on #184). #184 st...) |
 | [`panThm104F`](#panthm104f) | research | published | LEAF | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
-| [`silverbergZarhinThm34`](#silverbergzarhinthm34) | research | published | LEAF | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
+| [`silverbergZarhinThm34`](#silverbergzarhinthm34) | research | published | LEAF | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 1 | open |
 | [`hRC`](#hrc) | frozenTarget | manuscript hypothesis | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/83)) |
 | [`hCT`](#hct) | frozenTarget | published | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by [@mccorvie](https://github.com/mccorvie) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7031756860)) |
 | [`hRank`](#hrank) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #127](https://github.com/Deicyde/diophantine-z-q/issues/127) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/198)) |
@@ -336,7 +337,7 @@ R16Thm1b.ShimuraThm1Af
 * Source: diophantine_zq.tex L443-477 (Glazer, 11/5 manuscript): Buzzard, Integral models of certain Shimura curves, Duke Math. J. 87 (1997) Thm 2.1 and Cor. 2.3 at V1(5) over Z[1/30], full five-marking, Isom_O(O/3O, A[3]), free quotient by (O/5O)^x, etale descent; Buzzard Thm 2.1 p. 5 and Cor. 2.3 p. 7 in the author's preprint (https://www.ma.imperial.ac.uk/~buzzard/maths/research/papers/shimura.pdf), Duke pages UNVERIFIED
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
-* Status: open.
+* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/211)).
 
 ```lean
 Y3RouteA.Y3FullThreeRepZ30
@@ -419,7 +420,7 @@ HDec.PkgI4.PanBergerRefereed.PanThm104F
 * Bundle field `HDec.HSyn.OpenResearchLeaves78.silverbergZarhinThm34`; kind **published**, strict **LEAF**; flag: reading 11-21 (two-lens skeptic pass, docs desk: statement vs print FAITHFUL, soundness SOUND): SZ Thm 3.4, pp. 405-406, proved there by SGA 7 IX Th. 3.6, p. 351 (Def. 3.4 p. 349; the Neron model localizes, 3.2.1 p. 348); glue: the prolongations of O to E are the localizations of its normalization in E and are discrete valuation rings (standard, not printed; proved here as FiniteSeparableDVR).
 * Source: Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351); Grothendieck's semistable reduction theorem; replaces silverbergZarhinThm35 (Raynaud's criterion) through SZRaynaud.silverbergZarhinThm35_of_sz34
 * packet [R1](#packet-r1); label good-first (a good first target); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
-* Human readings recorded: none.
+* Human readings recorded: 1.
 * Status: open.
 
 ```lean
@@ -522,4 +523,5 @@ ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne
 | FontaineCrystallineImage | proof | project | yes | https://github.com/Deicyde/diophantine-z-q/pull/194 |
 | colmezThm01 | statement-check | project | yes |  |
 | panThm104F | statement-check | project | yes |  |
+| silverbergZarhinThm34 | statement-check | CheyLoveday | partly | https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7200201479 |
 
