@@ -133,7 +133,15 @@ theorem isSeparableIsogeny_id {A : PkgI3.AbVar k} (h : A.dim = 1) :
 presentation `j : End(E₀) ≃+* S.ring` of `O₀` as an order `S` of `(a, b)_ℚ`,
 `Hom(E, E₀)` is invertible when it embeds additively and `O₀`-linearly into
 `B = (a, b)_ℚ` with image a locally principal full left ideal of `S`. Such an
-embedding gives the `ℤ`-basis of rank four used in the Tate comparison. -/
+embedding gives the `ℤ`-basis of rank four used in the Tate comparison.
+
+Equivalence with invertibility: an invertible left `O₀`-module `M` has
+`M ⊗ ℚ ≅ B` as a left `B`-module (`B` is a division algebra, and `M ⊗ ℚ` is a
+nonzero `B`-module of `ℚ`-dimension four), so `M` embeds `O₀`-linearly into `B`
+with image a locally principal full left ideal of `O₀`, which is a placement;
+conversely the image of a placement is such an ideal, which is invertible. The
+placement fixes no embedding or basis: any two differ by a right unit of `B`
+(`HomPlacement.exists_unit`). -/
 structure HomPlacement {a b : ℚ} {E₀ : PkgI3.AbVar k} (S : Order a b)
     (j : E₀.End ≃+* S.ring) (E : PkgI3.AbVar k) where
   emb : Hom E E₀ →+ B a b
@@ -184,7 +192,12 @@ conclusions.
 Separable-scope dependencies (Voight's proof in this scope rests on):
 * the reach premise (`SeparableReach E₀` for the ∀-statements, `rX`/`rY` per
   curve); as a statement it is a specialization of Voight p. 786 (GLUE,
-  `SeparableIsogenyExists`), and it stays the binder of the part (2) theorems;
+  `SeparableIsogenyExists`), and it stays the binder of the part (2) theorems.
+  Rating of `SeparableReach`: derivable in Lean from `SilvermanII212PrimeModel`
+  (UNVERIFIED, rating UNCERTAIN) for a reference `A_k` with `A` over `F_q`
+  (`separableReach_of_primeModel`, `RC/HCMV21/PrimeModelReach.lean`), together
+  with `VoightThm4232Invertible`, `VoightThm4219` and
+  `QuaternionRamificationUniqueness`;
 * Voight Prop. 42.2.16 (GLUE, Nehrkorn);
 * Voight Exercise 16.11 (step 8(b), not built);
 * the Silverman III.4.11 reading of Lemma 42.2.7;

@@ -2,6 +2,8 @@ import ZInQKernel.Contrib.OneProof.RC.HCMV21.DeuringRankFour
 import ZInQKernel.Contrib.OneProof.RC.PMAdelic.Geometry
 import ZInQKernel.Contrib.OneProof.RC.PMWire.Fibre
 import ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective
+import ZInQKernel.Contrib.OneProof.RC.HCMV21.PrimeModelReach
+import ZInQKernel.Contrib.OneProof.RC.GoodRowWire.Assembly
 
 open ZInQ.Manuscript.RC
 
@@ -44,3 +46,33 @@ open ZInQ.Manuscript.RC
 #print axioms HCMV21.levelDeuringClass_reference_order
 #print axioms HCMV21.orderSpan_levelLattice
 #print axioms HCMV21.levelDeuringClass_injective
+-- fixup: item 1
+#print axioms GoodRowWire.oddStagedOfSamePlace
+-- fixup: item 2
+#print axioms HCMV21.exists_ne_of_dim_eq_one
+#print axioms HCMV21.isNonconstant_id
+#print axioms HCMV21.isSeparableMor_id
+#print axioms HCMV21.isSeparableIsogeny_id
+#print axioms HCMV21.separableReach_of_separableIsogenyExists
+#print axioms HCMV21.LeftIdeal.mem_rightRing_iff_mem_mirror_leftRing
+#print axioms HCMV21.exists_algEquiv_extend
+#print axioms HCMV21.exists_endRight_eq_of_mem_rightRing
+#print axioms HCMV21.levelEndEquivRight_apply
+#print axioms HCMV21.levelEndEquivMirror
+#print axioms HCMV21.nonempty_enhancedIso_of_translate
+-- fixup: item 3
+#print axioms HCMV21.frO_naturality
+#print axioms HCMV21.frO_tensor
+#print axioms HCMV21.primeFrob
+#print axioms HCMV21.primeFrobBC
+#print axioms HCMV21.primeFrobBC_left_fst
+#print axioms HCMV21.primeFrobBC_pt
+#print axioms HCMV21.surjective_primeFrobBC
+#print axioms HCMV21.surjective_pow_hom
+#print axioms HCMV21.surjective_tensorHom
+#print axioms HCMV21.isNonconstant_of_ne_zero
+#print axioms HCMV21.base_genericPoint_of_isNonconstant
+#print axioms HCMV21.isMonHom_of_frob_comp
+#print axioms HCMV21.isNonconstant_of_comp
+#print axioms HCMV21.separableReach_of_primeModel
+#print axioms HCMV21.levelDeuringClass_injective_primeModel

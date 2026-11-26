@@ -16,3 +16,14 @@
 - Order lemma (non-fallback branch): exists_algEquiv_extend (Basis.constr on SE.full.ratBasis, mult on basis pairs, AlgEquiv.ofBijective), exists_endRight_eq_of_mem_rightRing (frame of E, transportOrder, maximality). mem_rightRing_iff_mem_mirror_leftRing moved to LevelOrderLemma. hCor dropped from 6 declarations; exists_endRight_eq_level gains hT hV hq; stated at a = -1, b = -q.
 - Build fixes: isSeparableMor_id first try (rw Over.id_left inside algebraMap) failed + whnf timeout; fixed by generalizing f = 𝟙 then rw stalkMap_id. extendOfIsLattice_apply needs Module. prefix and a letI IsLattice instance.
 - build LevelDeuringInjective: OK (13568 jobs).
+
+## Item 3 (reach from a prime model)
+- New file RC/HCMV21/PrimeModelReach.lean: frO (absolute Frobenius over Spec F_q, Over condition from fr_naturality + fr_Spec_zmod), frO_naturality, frO_unit (toUnit_unique), frO_tensor (hom_ext + naturality), IsMonHom instance, primeFrob, primeFrobBC = bcHom; primeFrobBC_left_fst, primeFrobBC_pt (q-power map on k-points via fr_naturality + fr_Spec).
+- Surjectivity: surjective_frO (base = id), surjective_primeFrobBC (MorphismProperty.overPullbackMap), surjective_pow_hom, surjective_tensorHom (MorphismProperty.pullbackMap; IsStableUnderComposition @Surjective.{0} not found by instance search, supplied from IsMultiplicative).
+- isNonconstant_of_ne_zero via Mathlib ext_of_apply_eq (alg. closed k; no copy of the private overHom_ext_geometricPoints needed).
+- Teeth (a) base_genericPoint_of_isNonconstant: chain closure{w} < closure{ζ} < univ in IrreducibleCloseds, length 2 > dim 1.
+- Teeth (b) (primeFrobBC not IsSeparableMor): OPEN. Needs the stalk map of primeFrobBC at the generic point (absolute Frobenius = primeFrobBC ∘ (id × Fr_k), id × Fr_k an iso) and non-perfectness of the function field of a curve (a uniformizer at a closed point with DVR stalk is not a q-th power); DVR stalks need SmoothOfRelativeDimension 1 from Smooth + dim = 1. Large.
+- SilvermanII212PrimeModel (candidate, UNVERIFIED, UNCERTAIN); isMonHom_of_frob_comp (factor lemma; A×A reduced via isReduced_of_flat_of_finite_irreducibleComponents on pullback.fst; ext_of_isDominant_of_isSeparated); isNonconstant_of_comp.
+- separableReach_of_primeModel: proved. levelDeuringClass_injective_primeModel: proved.
+- isSeparableIsogeny_of_isEtaleIsogeny: not attempted (open).
+- builds: LevelDeuringInjective OK (13568), PrimeModelReach OK (13571), Odd.Statements OK (9058).
