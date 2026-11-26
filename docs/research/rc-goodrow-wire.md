@@ -8,7 +8,7 @@ is retired until the same-place data `sp` (and the other remaining hypotheses be
 **Error verdicts:** none.
 
 **Main result.** `GoodRowWire.oddStagedOfSamePlace` (`RC/GoodRowWire/Assembly.lean`) is
-`PMWire.oddStagedOfGoodRows` (`RC/PMWire/Assembly.lean:220`) with its hypotheses `G` and `hcop`
+`PMWire.oddStagedOfGoodRows` (`RC/PMWire/Assembly.lean:222`) with its hypotheses `G` and `hcop`
 replaced. Every `GoodRow` field other than the four same-place fields is now the actual object of its
 lane. `stageRow` (`RC/GoodRowWire/Row.lean`) assembles the row at every stage prime, and the same-place
 fields form one explicit input, `SamePlaceData` (`RC/GoodRowWire/SamePlace.lean`). All three modules
@@ -21,7 +21,7 @@ new declaration gives only `propext`, `Classical.choice` and `Quot.sound`.
 `StageKummer.goodAt s i`. In the restated theorem no free `G`, `hcop` or `R` is left. The substitution is
 `R i := LocalIntegers (s.q.stage i).p`, `G := stageRows a s π hQ hN hB sp`
 (`= fun i => stageRow s hN hB π hQ i (sp i)`) and `hcop := stage_coprime s hN hB`. It is applied in
-`J`, `relations`, `cusps`, `refs` and `ha`, whose content is otherwise unchanged.
+`J`, `O`, `relations`, `cusps`, `refs` and `ha`, whose content is otherwise unchanged.
 
 ## Per-field GoodRow table (`stageRow s hN hB π hQ i S`)
 
@@ -96,7 +96,7 @@ The file uses `open scoped Classical`, as `Assembly.lean:11` does, so the `Decid
 
 * `abbrev stageRows a s π hQ hN hB sp i := stageRow s hN hB π hQ i (sp i)`.
 * `theorem oddStagedOfSamePlace` takes the hypotheses of `oddStagedOfGoodRows` except `G` and `hcop`,
-  in the binder order `hB, sp, J, relations, cusps, H, hm, refs, ha, hL, hsign`. Its conclusion is
+  in the binder order `hB, sp, J, O, relations, cusps, H, hm, refs, ha, hL, hsign`. Its conclusion is
   `Nonempty (OddStagedInstance (withParamIndices a))`. The proof is `oddStagedOfGoodRows` at
   `hcop := stage_coprime s hN hB` and `G := stageRows a s π hQ hN hB sp`.
 
@@ -106,7 +106,8 @@ The file uses `open scoped Classical`, as `Assembly.lean:11` does, so the `Decid
 | --- | --- |
 | `sp` (`point`, `point_W`, `point_frob`, `frobenius_sq` at each stage) | same-place lane (hCM lane) |
 | `hB : (N φ(N)).primeFactors ⊆ s.B` | stage lane (choice of exclusion set; satisfiable, see below) |
-| `J` (`PMAdelic.JetchevKane`) | hCM lane (class correspondence GLUE, three compatibilities ELLIOT) |
+| `J` (`PMAdelic.JetchevKane`) | hCM lane (the class correspondence, GLUE) |
+| `O` (`PMAdelic.OperatorComparison`: Hecke, Atkin–Lehner and Frobenius compatibilities read through `J.classes`) | hCM lane (ELLIOT, to be proved in Lean) |
 | `relations` (`Relations`: `hecke`, `eigen`) | detector-specialization lane |
 | `cusps` (Manin–Drinfeld torsion, `KillsTranslation`) | J0Cusps lane |
 | `H`, `hm` | stage lane (discriminant data) |
@@ -149,9 +150,9 @@ support of D_w h_* and any other finite set". No `Setup` is built here.
 * Degenerate witnesses. `SamePlaceData` fixes `point` only up to an equivariant choice on each orbit:
   post-composing `point` with the special-fibre map of `Wint_q0` preserves the four fields, as it already
   does in `PMWire.GoodRow`. A constant `point` is ruled out: `point_frob` forces it to be `F_ell`-rational,
-  and `point_W` would need a common fixed point of every `Wint_q`; `X.frobenius` is pinned by
-  `J.frobenius` on `X.ss` (`RC/PMAdelic/Comparison.lean:89–90`). Faithfulness is carried by `refs`
-  (`CMDiagram.sourceResidue`, `RC/PMWire/CM.lean:163`; `Reference.hCM`, `RC/PMWire/Assembly.lean:168–174`)
+  and `point_W` would need a common fixed point of every `Wint_q`; `X.frobenius` is pinned on `X.ss` by
+  `O.frobenius` (ELLIOT; `RC/PMAdelic/Comparison.lean:103–104`), read through `J.classes` (GLUE). Faithfulness is carried by `refs`
+  (`CMDiagram.sourceResidue`, `RC/PMWire/CM.lean:163`; `Reference.hCM`, `RC/PMWire/Assembly.lean:170–176`)
   and `relations` (`HeckePacket.source_eq` and `target_eq`), which are typed over the same
   `stageRows … sp`. So `sp`, `refs` and `relations` must come from one construction of `point`.
 
@@ -167,6 +168,6 @@ support of D_w h_* and any other finite set". No `Setup` is built here.
 | 8478–8479 | gap filled | The good-reduction elliptic curve and the extension of the map: `goodTarget` with `hΔ := goodAt s i`; `πInt` through `weierstrassModel_isNeron`. |
 | 8486–8488 | gap filled (extension); open (`point_W`) | Atkin–Lehner over the local base: `Wint` (generic5); its action on the special-fibre points is in `sp`. |
 | 8489–8492 | open (input) | Frobenius on the supersingular set: `point_frob` and `frobenius_sq` in `sp`. |
-| 9101–9113 | reduced to the listed inputs | (O.7) is derived in Lean from the listed inputs (`O7Actual`'s `DatumAt.representative`, `RC/O7Actual/Family.lean:111`, converts `DatumAt.reduce` into the (O.7) shape, but the actual `DatumAt` is built from `J`, `G` (now `stageRows … sp`), `relations`, `cusps` and `refs`); the wiring feeds `oddStagedOfGoodRows`. |
+| 9101–9113 | reduced to the listed inputs | (O.7) is derived in Lean from the listed inputs (`O7Actual`'s `DatumAt.representative`, `RC/O7Actual/Family.lean:111`, converts `DatumAt.reduce` into the (O.7) shape, but the actual `DatumAt` is built from `J`, `O`, `G` (now `stageRows … sp`), `relations`, `cusps` and `refs`; `actualFamily` now takes `adaptOperators (O i)` after `adaptComparison (J i)`); the wiring feeds `oddStagedOfGoodRows`. |
 
 Provenance: everything in this run is wiring, on the spot (c). No new leaf and no print.
