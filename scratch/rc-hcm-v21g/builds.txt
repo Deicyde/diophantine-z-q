@@ -68,3 +68,8 @@ ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective (at 2630f292, the to
 ZInQKernel.Contrib.OneProof.RC.GoodRowWire.Assembly: OK (Build completed successfully (13747 jobs).); stageRows, oddStagedOfSamePlace: [propext, Classical.choice, Quot.sound]
 ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective: FAILED on first attempt (VoightCandidates.lean isSeparableMor_id: rewrite inside the algebra map, whnf timeout; LevelOrderLemma.lean: Module.Basis prefix, IsLattice instance, injective_iff_surjective argument); fixed
 ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective: OK (Build completed successfully (13568 jobs).)
+ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective (item 6): OK (Build completed successfully (13568 jobs).)
+ZInQKernel.Contrib.OneProof.RC.HCMV21.PrimeModelReach (item 6): OK (Build completed successfully (13571 jobs).)
+ZInQKernel.Contrib.OneProof.RC.Odd.Statements (item 6): OK (Build completed successfully (9058 jobs).)
+ZInQKernel.Contrib.OneProof.RC.GoodRowWire.Assembly (item 6; the first attempt was stopped by the session's 10-minute background limit, rerun): OK (Build completed successfully (13747 jobs).)
+Check.lean: 61 axiom prints, all [propext, Classical.choice, Quot.sound] (scratch/rc-hcm-v21g-fixup/axioms.txt)

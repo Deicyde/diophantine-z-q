@@ -27,3 +27,7 @@
 - separableReach_of_primeModel: proved. levelDeuringClass_injective_primeModel: proved.
 - isSeparableIsogeny_of_isEtaleIsogeny: not attempted (open).
 - builds: LevelDeuringInjective OK (13568), PrimeModelReach OK (13571), Odd.Statements OK (9058).
+
+## Item 6
+- builds (one at a time): LevelDeuringInjective OK, PrimeModelReach OK, Odd.Statements OK, GoodRowWire.Assembly OK (first attempt stopped by a 10-minute tool limit; rerun OK).
+- Check.lean: 61 #print axioms, all [propext, Classical.choice, Quot.sound]; scratch/rc-hcm-v21g-fixup/axioms.txt.

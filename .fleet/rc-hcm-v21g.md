@@ -1,6 +1,6 @@
 # rc-hcm-v21g: level-one fixes, the JetchevKane split, level-N Deuring in Lean
 
-> **Review correction (2026-11-25): not fold-ready.** Injectivity rests on `SeparableIsogenyExists` (GLUE) through `VoightThm4232Etale`, so the sentence below saying it "is stated but unused" is wrong. See the correction at the top of docs/research/rc-hcm-v21g.md and the review in docs/research/review-rc-hcm-v21g.md.
+> **Fixed by rc-hcm-v21g-fixup:** see .fleet/rc-hcm-v21g-fixup.md (reach premises, order lemma without `VoightCor4237`, reach derived from Silverman II.2.12 for a reference over `F_q`, `O` threaded through the GoodRow wiring).
 
 **Scoped stop after injectivity.** Parts (0) and (1) are complete. Part (2) fixes a supersingular reference pair `(E₀, ⟨P₀⟩)` over `F_q^al`. For it, part (2) proves in Lean:
 - the map `levelDeuringClass` from isomorphism classes of supersingular enhanced curves of level `N` to `ClassSet (levelOrder q h N hN)`;
