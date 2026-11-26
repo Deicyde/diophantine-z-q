@@ -31,7 +31,7 @@ structure IsAbVarQuotient (i : AbVar.Hom C J) (q : AbVar.Hom J Q) : Prop where
     i.hom ≫ v.hom = (0 : AbVar.Hom C D).hom →
     ∃! w : AbVar.Hom Q D, q.hom ≫ w.hom = v.hom
 
-/-- Remaining representability target, over `ℚ`. This is a statement only. -/
+/-- Representability target, over `ℚ`. Proved by `abVarQuotientBySubvarietyExists` (`AbVarQuotientComplement.lean`). -/
 def AbVarQuotientBySubvarietyExists : Prop :=
   ∀ (J C : AbVar ℚ) (i : AbVar.Hom C J), IsClosedImmersion i.hom.left →
     ∃ (Q : AbVar ℚ) (q : AbVar.Hom J Q), IsAbVarQuotient i q
