@@ -1,0 +1,6 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/VariableChangeSeam.lean:264:0: 'ZInQ.Manuscript.RC.ModelGeneric6.restrictAlong_vcFunHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/SeamLift.lean:132:0: 'ZInQ.Manuscript.RC.ModelGeneric6.isSeam_comp'' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/SeamLift.lean:133:0: 'ZInQ.Manuscript.RC.ModelGeneric6.isSeam_changePoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/SeamLift.lean:134:0: 'ZInQ.Manuscript.RC.ModelGeneric6.isSeam_changePoints_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric6/SeamLift.lean:135:0: 'ZInQ.Manuscript.RC.ModelGeneric6.exists_lift_of_seam' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9726 jobs).

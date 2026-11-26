@@ -16,3 +16,8 @@ Base: 796582ac1 (main after GoodRow wiring). SamePlace.lean and ComplexPoints.le
 - `vcFunHom W C : W.FF →ₐ (C • W).FF` (vendored `mrtw60aVCFunHom`: X ↦ u²X + r, Y ↦ u³Y + u²sX + t), `vcFunHomInv`, inverse laws, integrality, finiteness, `vcFunHom_X`, `vcFunHom_Y`.
 - `restrictAlong_vcFunHom` (ON THE SPOT (c)): for all centred gates on W and C • W, (place of P).restrictAlong vcFunHom = place of `Point.addEquivVariableChange W C P`. Characteristic-free. Proof: transported gate (`transportGate`) is centred (`transportGate_isCentred`); centred gates are unique (vendored `GenusOnePlaceGate.ext_of_isCentred`).
 - axioms: propext, Classical.choice, Quot.sound.
+
+## Item 2b(1) cont. — `RC/ModelGeneric6/SeamLift.lean` (builds)
+- `isSeam_comp'` (generic4's private lemma, same proof); `isSeam_changePoints` (changePoints is a seam via vcFunHomInv); `isSeam_changePoints_symm` (its inverse via vcFunHom).
+- `exists_lift_of_seam`: seam f between period curves of L₁, L₂ ⇒ ∃ α, f (toPoint z) = toPoint (α z). Vendored lift exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint + exists_smul_mem_and_apply_eq_of_forall_sub_mem + pointMapOfPushforward_eq_of_seam.
+- axioms: propext, Classical.choice, Quot.sound.
