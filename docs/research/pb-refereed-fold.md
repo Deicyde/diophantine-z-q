@@ -1,5 +1,7 @@
 # pb-refereed-fold: `bergerSurveyF` and `panPrintedF` restated from refereed prints
 
+**Correction (2026-11-26).** The `colmezThm01` half was not a restatement. `ColmezThm01` is the basis form `PanDict.BergerSurveyFBasis`: it implies `bergerSurveyF` (`bergerSurveyF_of_colmez`), but the converse is not proved; the tree notes that it needs the `G_K`-regularity of `B_st` (`PanBergerFontaine.lean`, §5 and the docstrings of `IsPstFBasis` and `bergerPrintedVT_of_surveyBasis`). The fold therefore made `frozenTarget`'s hypothesis strictly stronger at the same count, with no change in rating, which the fold rule forbids. Ruling: `bergerSurveyF` is restored as the field, sourced to Berger, Invent. Math. 148 (2002), the manuscript's own citation (theorem number to be checked), with Fontaine's Astérisque 223 for the definitions; Colmez's theorem stays as an additive record (`PanBergerRefereed.lean`) and as a corroborating flag. Proving the `G_K`-regularity of `B_st` in Lean would make the two forms equivalent. `panThm104F` stays: its statement is `panPrintedF`'s, token for token. Pan's theorem was read in arXiv:1901.07166v2; the numbering in J. Amer. Math. Soc. 35 (2022) is unchecked.
+
 **Result.** `ZInQ.OneProof.frozenTarget` now goes through `HDec.HSyn.sixContactMin_of_open96`
 (`ZInQKernel/OneProof/H/TailZ103.lean`). Two fields of the research bundle are replaced by leaves stated from
 refereed prints. The open count (24) and the strict and strictest LEAF/GLUE counts (4/17 on the 21 H

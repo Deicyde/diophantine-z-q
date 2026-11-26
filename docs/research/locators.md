@@ -12,11 +12,12 @@
 | --- | --- | --- |
 | `dsThm965AtPrimes` | Diamond–Shurman, *A First Course in Modular Forms*, Springer GTM 228, corrected fourth printing (2016), Theorem 9.6.5, p. 404; Definition 5.8.1 and §§9.1–9.3. | AI-READ; the printed text is attested by a reader's print copy (#14 comment 7000317188). The weight-at-least-two restriction (the project's, not the print's) uses full normalized eigenforms, the actual coefficient completion and arithmetic Frobenius at primes of the algebraic integers. Lean proves the valuation-subring comparison. |
 
-## Later locator: Colmez's and Pan's leaves (2026-11-26)
+## Later locator: Berger's, Colmez's and Pan's leaves (2026-11-26)
 
 | Row | Published source and location | Statement check |
 | --- | --- | --- |
-| `colmezThm01` | P. Colmez, *Espaces vectoriels de dimension finie et représentations de de Rham*, Astérisque 319 (2008), 117–186, Théorème 0.1, p. 118; definitions §0.2, p. 118; `B_st^+ = B_cris^+[u]`, p. 120. | AI-READ (numdam scan): "Toute représentation de de Rham de 𝒢_K est potentiellement semi-stable", with semi-stable printed as `B_st^+[1/t] ⊗ V ≅ (B_st^+[1/t])^d` as a 𝒢_K-module and de Rham with the equivalent `dim_K D_dR(V) = d`. Pending a human reading. |
+| `bergerSurveyF` (restored 2026-11-26) | L. Berger, *Représentations p-adiques et équations différentielles*, Invent. Math. 148 (2002), 219–284, the p-adic monodromy theorem, cited by the manuscript (bibitem `berger2002`); theorem number UNVERIFIED (Théorème 0.6 in the earlier row, 0.7 in the pb-refereed-fold report). Definitions: Fontaine, Astérisque 223 (1994), Exp. III, 1.8.5, pp. 134–135, and 5.6.1, p. 166; Exp. II, 4.2.4–4.2.5, p. 86. | Not read. Berger states the theorem for `B_st = B_max[log [π̄]]` and asserts (§1.2) that his `D_st` is Fontaine's, according to the pb-refereed-fold report; a page read of Berger 2002 is the next step. |
+| `colmezThm01` (record; not a field) | P. Colmez, *Espaces vectoriels de dimension finie et représentations de de Rham*, Astérisque 319 (2008), 117–186, Théorème 0.1, p. 118; definitions §0.2, p. 118; `B_st^+ = B_cris^+[u]`, p. 120. | AI-READ (numdam scan): "Toute représentation de de Rham de 𝒢_K est potentiellement semi-stable", with semi-stable printed as `B_st^+[1/t] ⊗ V ≅ (B_st^+[1/t])^d` as a 𝒢_K-module and de Rham with the equivalent `dim_K D_dR(V) = d`. Pending a human reading. |
 | `panThm104F` | L. Pan, J. Amer. Math. Soc. 35 (2022), 1031–1169, Theorem 1.0.4 with Conjecture 1.0.1 (arXiv:1901.07166v2, pp. 5 and 2); J.-M. Fontaine, Astérisque 223 (1994), Exp. III, 1.8.5, pp. 134–135, and 5.6.1, p. 166; Exp. II, 3.1.5–3.1.6, p. 81, and 4.2.4–4.2.5, p. 86. | AI-READ: the arXiv v2 text; the journal text is not read (the AMS site refused automated access). Fontaine's definition of potentially semi-stable and the equivalent dimension form of 1.8.5 read from the numdam scans. Pending a human reading and the journal check. |
 
 The original audit follows.
