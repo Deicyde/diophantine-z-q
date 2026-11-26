@@ -20,7 +20,7 @@ silverbergZarhinThm35	reduction	mccorvie	yes	contrib desk	https://github.com/Dei
 frozenTarget	statement-check	carlostoledo1891	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/pull/151	pr151-merge	19f23e1fa7f6d77b70d7d1799ed681f06d9ef63f
 dsThm965Printed	statement-check	zachbaugher	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7000317188	c2-records-1123	
 afCharpolyDS965	statement-check	zachbaugher	yes	contrib desk	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7121091136	c2-records-1123	
-bergerSurveyF	reduction	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/201	pb-refereed-fold	6999ead90d6305bc6f547f5c599de3e288db3788
+#201 refereed restatements (ColmezThm01, PanThm104F, bridge bergerSurveyF_of_colmez), additive record; the bergerSurveyF swap was declined 2026-11-26 (fold rule)	proof	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/201	pb-refereed-fold	6999ead90d6305bc6f547f5c599de3e288db3788
 panPrintedF	reduction	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/201	pb-refereed-fold	6999ead90d6305bc6f547f5c599de3e288db3788
 LogPTildeTranscendental	proof	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/194	pb-refereed-fold	d1e82159e970e503ff92f4972327294c59f7b080
 FontaineCrystallineImage	proof	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/194	pb-refereed-fold	d1e82159e970e503ff92f4972327294c59f7b080
