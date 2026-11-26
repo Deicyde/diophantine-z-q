@@ -14,6 +14,12 @@ Marks: **VERIFIED** (compiled here, or read in a source available here), **STAND
 `BergerBst.LogPTildeTranscendental` nor the image-of-`A_cris` statement is proved. Each needs a theory that is
 missing and large (§4, §5), so the stop rule applies: nothing was built in their place and no leaf was added.
 
+**Update (2026-11-26).** Co-step (i) is now proved, without the Frobenius:
+`LogPFontaine.notInFrac_bmax_logPTilde` (Fontaine, Astérisque 223 (1994), Exp. II, Lemme 4.3.1) proves
+`log [p̃] ∉ Frac(B_max)`, and `LogPFontaine.logPTildeTranscendental_proof` proves
+`BergerBst.LogPTildeTranscendental` (`ZInQKernel/Contrib/OneProof/LogPTildeFontaine.lean`, #194). The statements
+below about co-step (i) being open, and about the Frobenius being needed, are as of 2026-11-17.
+
 **Main result** (VERIFIED: compiled with `lake env lean`, no `sorry`, axioms `[propext, Classical.choice, Quot.sound]`):
 
 ```lean
@@ -41,7 +47,8 @@ The other proved results:
    `σ(u) − u ∈ B`, `u` is transcendental over `B` as soon as `u ∉ Frac(B) + B_dR^{G_{ℚ_p}}`
    (`transcendental_of_logCore`). This step does not use `B_dR^{G} = ℚ_p`.
 
-**The one missing statement for co-step (i)** is `log [p̃] ∉ Frac(B_max)` (or `∉ Frac(B_cris)`).
+**The one missing statement for co-step (i)** is `log [p̃] ∉ Frac(B_max)` (or `∉ Frac(B_cris)`). (Proved since,
+without `φ`: see the update above.)
 
 * The Galois action alone cannot give it. For units `v`, the elements `log([ṽ]/v)` lie in `B_max` and have the same
   kind of Galois behaviour (§4.2).

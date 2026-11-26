@@ -18,8 +18,12 @@ Lecture Notes in Math. 244, pp. 123–165. Legal copy: numdam, `SB_1970-1971__13
 (44 pages; pdf page N is printed page N + 121), SHA-256
 `054847cecac9c396e2a6f568443db180786a0c5528ec08530fd464d5474bd534`.
 The text layer is degraded: read the page images. Pages 148 and 149 were re-read as images for
-this packet, and page 129 for 1.7–1.8; the other locators and quotes are taken from the research
-report on this row. All readings here are AI-READ evidence.
+this packet, and page 129 for 1.7–1.8. The other locators follow the statement-check sweep of
+2026-11-18 (AI-READ, same copy and SHA-256; commit b1a8d27e7,
+`docs/one-proof/statement-checks/deligneCanonicalModelY3EveryPrint-sweep-20261118.md`, not on
+`main`), which read §1.2, §§1.5–1.12, §§3.13–3.15, §§4.9–4.12, §§4.15–4.17, Thm 4.21, Cor.
+5.5–5.7 and Ex. 5.8. Rows below marked UNVERIFIED are outside that list and outside the pages
+re-read here. All readings here are AI-READ evidence.
 
 Locators used (printed pages):
 
@@ -28,15 +32,15 @@ Locators used (printed pages):
 | 1.7 | 128–129 | "Soit K_n le sous-groupe compact ouvert de G(𝔸^f) formé des k = (k_p) tels que k_p · V_ℤ ⊗ ℤ_p = V_ℤ ⊗ ℤ_p et que k_p ≡ 1 (mod n) pour p \| n" |
 | 1.8 | 129 | "Soit K un sous-groupe compact ouvert de G(𝔸^f). L'espace K_∞ × K\G(𝔸)/G(ℚ) = K\X × G(𝔸^f)/G(ℚ) = X × (K\G(𝔸^f))/G(ℚ) […] On le notera _K M_ℂ(G, h₀)" |
 | 4.9 | 147 | the PEL datum `(L, V, ψ)`; `G` = the `L`-linear symplectic similitudes of `(V, ψ)` |
-| Thm 4.7 (Riemann) | 146 | polarized abelian varieties ↔ `(V, ψ, V_ℤ, h)` |
+| Thm 4.7 (Riemann) | 146 | polarized abelian varieties ↔ `(V, ψ, V_ℤ, h)` (UNVERIFIED) |
 | Scholie 4.11 | 148 | "Les points de `_K M_ℂ(G, h₀)` correspondent bijectivement aux classes d'isomorphie de variétés abéliennes à isogénie près A, munies de (a) ρ : L → End(A) tel que Tr(ρ(ℓ), Lie(A)) = t(ℓ), (b) une polarisation homogène p̄ qui induise l'involution donnée de L, (c) une classe mod K, k̄, de similitudes symplectiques L-linéaires k : V̂(A) ≅ V ⊗ 𝔸^f, et telles que (*) les conditions (4.10.1) (4.10.2) soient vérifiées." |
 | 4.12 | 148–149 | "Soient K un sous-groupe compact ouvert de G(𝔸^f), V_ℤ un réseau entier dans V tel que V̂_ℤ = V_ℤ ⊗ Ẑ soit K-invariant, L_ℤ un ordre de L tel que L_ℤ V_ℤ ⊂ V_ℤ, ψ_ℤ un multiple rationnel positif de la forme alternée de V, à valeurs entières sur V_ℤ […] Soient n un entier, et K_n = {g ∈ G(𝔸^f) \| (g−1) V̂_ℤ ⊂ n V̂_ℤ}. On suppose n assez grand pour que K ⊃ K_n." Then `T̂(B) = k⁻¹(V̂_ℤ)` and the points as `(B, p, ρ, k̄_n)` |
 | 4.16–Prop. 4.17 | 150 | Mumford's moduli scheme of principally polarized abelian schemes with symplectic level `n ≥ 3` is a model |
-| Thm 4.19 | 151 | Shimura–Taniyama; "On renvoie à [16] pour la démonstration" |
-| Thm 4.21 | 152 | the model of 4.17 is canonical (proof: "oubli de la multiplication complexe" and Mumford [8]) |
+| Thm 4.19 | 151 | Shimura–Taniyama; "On renvoie à [16] pour la démonstration" (locator and quote UNVERIFIED) |
+| Thm 4.21 | 152 | the model of 4.17 is canonical (proof: "oubli de la multiplication complexe" and Mumford [8]; the proof paraphrase is UNVERIFIED) |
 | Cor. 5.7 | 156 | canonical models for sub-data, proof via 5.1–5.3 |
 | Ex. 5.8 | 157 | "Pour (G, h₀) comme en 4.9, on construit par 5.7 et 4.21 un modèle canonique M(G°, h₀) ⊂ M(Gp(V, ψ), h₀) ⊗_ℚ E(G°, h°)" |
-| 6.3–Thm 6.4 | 160–161 | the quaternionic case over a totally real `F`; for `F = ℚ`, `E(G, h₀) = ℚ` |
+| 6.3–Thm 6.4 | 160–161 | the quaternionic case over a totally real `F`; for `F = ℚ`, `E(G, h₀) = ℚ` (UNVERIFIED) |
 
 ## The PEL datum of the kernel
 
@@ -110,7 +114,8 @@ equivalence, and clauses 3, 4, 5 and U are weakenings of the print's statements.
   algebraic half (at each `ℓ`, a `B`-linear isomorphism respects the forms up to one scalar);
   that the Weil pairing of the canonical polarization has adjoint `†` is a reading step.
 * **D2 (open).** The print does not prove Thm 4.19: it refers it to Shimura–Taniyama [16]
-  ("On renvoie à [16] pour la démonstration"), and the last step of Thm 4.21 rests on Mumford [8].
+  ("On renvoie à [16] pour la démonstration"; quote UNVERIFIED, see the locator table), and the
+  last step of Thm 4.21 rests on Mumford [8] (UNVERIFIED).
   A statement that a paper only cites must be read in the original source, so Shimura–Taniyama
   [16] (for Thm 4.19) and Mumford [8] (for the last step of 4.21) must be read in the original.
   D2 stays open until then.

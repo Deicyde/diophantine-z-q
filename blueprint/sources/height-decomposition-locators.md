@@ -69,8 +69,9 @@ June 24, 2009), Theorem 9.3.5, p. 148, the "only if" half; admissibility by dime
 and Theorem 9.2.10, p. 143; $B_{\rm dR}^{G_K}=K$, Theorem 4.4.13, p. 64 (AI-read; in the
 manuscript's bibliography, which cites it for other results). The manuscript cites L. Berger,
 *Représentations $p$-adiques et équations différentielles*, Invent. Math. 148 (2002), 219–284,
-Théorème 0.6 = Théorème 5.19 (arXiv math/0102179v3, pp. 6 and 56, AI-read; Théorème 0.7 there is
-Sen's theorem); the journal numbering is unverified.
+Théorème 0.7, p. 6, proved as Corollaire 5.22 (author copy, AI-read; Théorème 0.8 there is Sen's
+theorem); in arXiv math/0102179v3 it is Théorème 0.6 = Théorème 5.19, pp. 6 and 56. The typeset
+journal pages are unread.
 
 ## Shimura Main Theorem I in Deligne form
 

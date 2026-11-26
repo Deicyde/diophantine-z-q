@@ -34,8 +34,8 @@ injective, and their description of the image of $A_{\rm cris}$ in $B_{\rm dR}^+
 omit the proof that the map is injective; neither is proved here. Their de Rham condition is the one
 above because $B_{\rm dR}^{G_{\mathbb Q_p}}=\mathbb Q_p$, which is proved here. The statement takes
 the base field $\mathbb Q_p$ and representations of the form $E^n$. The manuscript cites Berger's
-paper, whose Théorème 0.6 is the same theorem over Berger's own variant of $B_{\rm st}$, which has
-the same $D_{\rm st}$. It is a hypothesis, not proved here.
+paper, whose Théorème 0.7 (Théorème 0.6 in the arXiv version) is the same theorem over Berger's own
+variant of $B_{\rm st}$, which has the same $D_{\rm st}$. It is a hypothesis, not proved here.
 
 ## Depends on
 

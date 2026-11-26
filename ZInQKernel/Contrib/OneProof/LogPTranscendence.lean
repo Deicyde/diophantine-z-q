@@ -21,8 +21,10 @@ Report: `docs/research/logp-transc.md`. This file proves:
 * **Converse** (`logCore_of_transcendental`): the transcendence over `B` gives `LogCore B` whenever
   `B_dR^{G_{ℚ_p}} ⊆ B`; so `LogCore` is exactly the remaining content.
 
-The core `LogCore (B_max) (log [p̃])` itself is not proved: every proof known here uses the Frobenius of
-`B_max` (see the report, §4).
+The transcendence itself is proved in `LogPTildeFontaine.lean` (#194), without the Frobenius
+of `B_max`: `LogPFontaine.notInFrac_bmax_logPTilde` (Fontaine, Astérisque 223, Exp. II,
+Lemme 4.3.1) gives `log [p̃] ∉ Frac(B_max)`, and `LogPFontaine.logPTildeTranscendental_proof`
+concludes. The report's §4 was written before #194.
 -/
 
 noncomputable section

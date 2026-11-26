@@ -681,8 +681,9 @@ def mobPM (g : GL (Fin 2) ℝ) (z : HPM) : HPM :=
     rw [im_num_div_denom]
     exact div_ne_zero (mul_ne_zero g.det.ne_zero z.2) (normSq_denom_pos g z.2).ne'⟩
 
-/-- **The print's relation on `ℍ^± × G(𝔸_f)`**: `(z, g) ~ (γz, γ g k)` with `γ ∈ B^×` (any sign of `nrd γ`),
-`k ∈ K₃`: the double coset space `B^× \ (ℍ^± × (B ⊗ 𝔸_f)^× / K₃)` of the print. -/
+/-- **The relation on `ℍ^± × G(𝔸_f)`**: `(z, g) ~ (γz, γ g k)` with `γ ∈ B^×` (any sign of `nrd γ`),
+`k ∈ K₃`: the double coset space `B^× \ (ℍ^± × (B ⊗ 𝔸_f)^× / K₃)`, the kernel's convention
+(Deligne's 1.8 puts `K` on the left: `DeligneY3Bridges.PEL.dcRelDel_iff_PM`). -/
 def DCRelPM (z : HPM) (g : BAQˣ) (z' : HPM) (g' : BAQˣ) : Prop :=
   ∃ (gm : LeafQM.B) (hγ : ShimuraGlue.nrdQ ℚ gm ≠ 0), mobPM (RayClassCFT.iotaGL gm hγ) z = z' ∧
     ∃ k ∈ K3Q, (g' : BAQ) = bEmb gm * (g : BAQ) * (k : BAQ)
@@ -917,7 +918,9 @@ def ModuliAtUnitsHP (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
 
 *Published statement* (locators recalled, UNVERIFIED; no network): G. Shimura, *Construction of class fields and
 zeta functions of algebraic curves*, Ann. of Math. 85 (1967), Main Theorem I; P. Deligne, *Travaux de Shimura*,
-Sém. Bourbaki 389 (1971), §4 (`Sh_K(ℂ) = G(ℚ) \ X × G(𝔸_f) / K` for `(G, X) = (B^×, ℍ^±)`; the point `[h, g]` is the
+Sém. Bourbaki 389 (1971), §4 (`Sh_K(ℂ)` for `(G, X) = (B^×, ℍ^±)`, written here as
+`G(ℚ) \ X × G(𝔸_f) / K`; Deligne's 1.8 is `K \ X × G(𝔸^f) / G(ℚ)`, see
+`DeligneY3Bridges.PEL.dcRelDel_iff_PM`; the point `[h, g]` is the
 abelian variety `A` with `(H₁(A, ℤ), ι_*, h_A) ≅ (L_g, left multiplication, h)`, `L_g = B ∩ 𝒪̂ g⁻¹`) and §5 (Cor. 5.7 /
 Ex. 5.8: the PEL moduli scheme is the canonical model over `E(G, X) = ℚ`, reciprocity at CM points).
 Background only, not a source (lecture notes; it carries no rating): J. S. Milne, *Introduction to

@@ -163,9 +163,10 @@ theorem mem_K3Q_iff (k : ShimuraCFT.BAQˣ) : k ∈ ShimuraCFT.K3Q ↔ toGAf k �
 /-- The element `γ ∈ B^×` of `f ∈ G(ℚ)` (`f = (x ↦ x γ⁻¹)`). -/
 def gammaQ (f : GQ) : LeafQM.B := ((toGQ.symm f : (LeafQM.B)ˣ) : LeafQM.B)
 
-/-- **The print's relation on `X × G(𝔸_f)`** (Def. 1.8, `Sh_K(ℂ) = G(ℚ) \ X × G(𝔸_f) / K`):
-`(z, g) ~ (f z, f g k)` with `f ∈ G(ℚ)` acting on `X = ℍ^±` through `ι(γ_f) ∈ GL₂(ℝ)` and on
-`G(𝔸_f)` through `baseChange`, and `k ∈ K = G(Ẑ) ∩ K_3`. -/
+/-- **The relation on `X × G(𝔸_f)` in the kernel's convention** `G(ℚ) \ X × G(𝔸_f) / K`
+(Deligne's 1.8 puts `K` on the left: `DCRelDel`, `dcRelDel_iff_PM`): `(z, g) ~ (f z, f g k)`
+with `f ∈ G(ℚ)` acting on `X = ℍ^±` through `ι(γ_f) ∈ GL₂(ℝ)` and on `G(𝔸_f)` through
+`baseChange`, and `k ∈ K = G(Ẑ) ∩ K_3`. -/
 def DCRelPEL (z : Y3Hodge.HPM) (g : GAf) (z' : Y3Hodge.HPM) (g' : GAf) : Prop :=
   ∃ (f : GQ) (hγ : ShimuraGlue.nrdQ ℚ (gammaQ f) ≠ 0),
     Y3Hodge.mobPM (RayClassCFT.iotaGL (gammaQ f) hγ) z = z' ∧

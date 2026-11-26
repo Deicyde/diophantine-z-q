@@ -103,8 +103,9 @@ structure OpenResearchLeaves65DS : Prop where
     manuscript cites nothing. With silverbergZarhinThm35 it gives D2 (d2a6-reroute:
     Contrib/OneProof/D2WildNF.lean) and replaces sga7_IX_3_5_ForwardGeom_Def34. -/
   elliotWildInertiaTrivial : _root_.SZRaynaud.ElliotWildInertiaTrivial
-  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
-    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.7 = Cor.
+    5.22 in the author copy (Theoreme 0.8 there is Sen's theorem) = Theoreme 0.6 = Theoreme 5.19
+    of arXiv:math/0102179v3) in the printed form of
     Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
     of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
     Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/
@@ -365,8 +366,9 @@ structure OpenResearchLeaves66DS : Prop where
     manuscript cites nothing. With silverbergZarhinThm35 it gives D2 (d2a6-reroute:
     Contrib/OneProof/D2WildNF.lean) and replaces sga7_IX_3_5_ForwardGeom_Def34. -/
   elliotWildInertiaTrivial : _root_.SZRaynaud.ElliotWildInertiaTrivial
-  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
-    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.7 = Cor.
+    5.22 in the author copy (Theoreme 0.8 there is Sen's theorem) = Theoreme 0.6 = Theoreme 5.19
+    of arXiv:math/0102179v3) in the printed form of
     Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
     of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
     Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/
@@ -614,8 +616,9 @@ structure OpenResearchLeaves67DS : Prop where
     manuscript cites nothing. With silverbergZarhinThm35 it gives D2 (d2a6-reroute:
     Contrib/OneProof/D2WildNF.lean) and replaces sga7_IX_3_5_ForwardGeom_Def34. -/
   elliotWildInertiaTrivial : _root_.SZRaynaud.ElliotWildInertiaTrivial
-  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
-    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.7 = Cor.
+    5.22 in the author copy (Theoreme 0.8 there is Sen's theorem) = Theoreme 0.6 = Theoreme 5.19
+    of arXiv:math/0102179v3) in the printed form of
     Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
     of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
     Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/
@@ -868,8 +871,9 @@ structure OpenResearchLeaves68DS : Prop where
     manuscript cites nothing. With silverbergZarhinThm35 it gives D2 (d2a6-reroute:
     Contrib/OneProof/D2WildNF.lean) and replaces sga7_IX_3_5_ForwardGeom_Def34. -/
   elliotWildInertiaTrivial : _root_.SZRaynaud.ElliotWildInertiaTrivial
-  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
-    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.7 = Cor.
+    5.22 in the author copy (Theoreme 0.8 there is Sen's theorem) = Theoreme 0.6 = Theoreme 5.19
+    of arXiv:math/0102179v3) in the printed form of
     Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
     of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
     Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/
@@ -1119,8 +1123,9 @@ structure OpenResearchLeaves69DS : Prop where
     manuscript cites nothing. With silverbergZarhinThm35 it gives D2 (d2a6-reroute:
     Contrib/OneProof/D2WildNF.lean) and replaces sga7_IX_3_5_ForwardGeom_Def34. -/
   elliotWildInertiaTrivial : _root_.SZRaynaud.ElliotWildInertiaTrivial
-  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
-    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.7 = Cor.
+    5.22 in the author copy (Theoreme 0.8 there is Sen's theorem) = Theoreme 0.6 = Theoreme 5.19
+    of arXiv:math/0102179v3) in the printed form of
     Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
     of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
     Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/
@@ -1359,8 +1364,9 @@ structure OpenResearchLeaves70DS : Prop where
     manuscript cites nothing. With silverbergZarhinThm35 it gives D2 (d2a6-reroute:
     Contrib/OneProof/D2WildNF.lean) and replaces sga7_IX_3_5_ForwardGeom_Def34. -/
   elliotWildInertiaTrivial : _root_.SZRaynaud.ElliotWildInertiaTrivial
-  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
-    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.7 = Cor.
+    5.22 in the author copy (Theoreme 0.8 there is Sen's theorem) = Theoreme 0.6 = Theoreme 5.19
+    of arXiv:math/0102179v3) in the printed form of
     Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
     of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
     Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/
@@ -1589,8 +1595,9 @@ structure OpenResearchLeaves71DS : Prop where
     C_l(w))^G = htMult(rho dual, -w) (trace-form isomorphism V tensor C_l = Hom(E^n, C_l)), HTDual
     and the coefficient extension E in Qbar_l are proved in Lean (ModularHTCoeff.lean). -/
   modularHTCoeff : _root_.HTNewAssembly.ModularHTCoeff
-  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
-    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.7 = Cor.
+    5.22 in the author copy (Theoreme 0.8 there is Sen's theorem) = Theoreme 0.6 = Theoreme 5.19
+    of arXiv:math/0102179v3) in the printed form of
     Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
     of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
     Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/

@@ -696,7 +696,8 @@ open BmaxOne BergerBst PanBergerSplit FontaineSt
 
 /-- **R11. Berger's theorem, with Fontaine's `B_st` and Fontaine's (dimension) form of admissibility**: every de
 Rham representation is potentially semistable (L. Berger, *Représentations p-adiques et équations différentielles*,
-Invent. Math. 148 (2002), cited in the manuscript at L739; Thm 0.6 = Thm 5.19 (arXiv v3, arXiv:math/0102179v3); the
+Invent. Math. 148 (2002), cited in the manuscript at L739; Thm 0.7 = Cor. 5.22 in the author copy
+(Thm 0.8 there is Sen's), = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3; the
 statement is read in Berger's survey *An introduction to the theory of p-adic representations*, arXiv:math/0210184v1,
 IV.5.1 p. 30, as the same theorem; the survey is not in the manuscript's bibliography), at `K = ℚ_p`, for a `p`-adic
 representation `V = E^n` (`E/ℚ_p` finite inside `ℚ̄_p`, `ρ_E : G_{ℚ_p} → GL_n(E)` continuous):
