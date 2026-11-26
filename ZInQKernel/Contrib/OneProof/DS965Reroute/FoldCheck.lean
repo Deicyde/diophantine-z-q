@@ -37,7 +37,7 @@ def researchLeaves77DS_ofLive (r : HDec.HSyn.OpenResearchLeaves77) :
   fowlerProp27PrintCanonical := r.fowlerProp27PrintCanonical
   cmjDegreePrint := r.cmjDegreePrint
   silverbergZarhinThm34 := r.silverbergZarhinThm34
-  colmezThm01 := r.colmezThm01
+  bergerSurveyF := _root_.HDec.PkgI4.PanBergerRefereed.bergerSurveyF_of_colmez r.colmezThm01
   panThm104F := r.panThm104F
 
 example : HDec.HSyn.OpenResearchLeaves77DS → HDec.HSyn.OpenTextbookLeaves18 →

@@ -58,9 +58,9 @@ structure OpenResearchLeaves78 : Prop where
   cmjDegreePrint : HDec.CMBranch.CMjBridges.CMjDegreePrint
   /-- Grothendieck's semistable reduction theorem as stated in Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351): for an abelian variety A over a field K with a discrete valuation ring O, one finite Galois extension E of K inside an algebraic closure such that A_E has semistable reduction (HasSemistableReductionSZ, which also asserts a Neron model) at every prolongation of O to E. Replaces silverbergZarhinThm35 (Raynaud's criterion), which SZRaynaud.silverbergZarhinThm35_of_sz34 proves from it with the proved Theorem 3.3. -/
   silverbergZarhinThm34 : _root_.SZRaynaud.SilverbergZarhinThm34
-  /-- Colmez, Astérisque 319 (2008), Théorème 0.1, p. 118, in its printed form: every de Rham representation of G_{Q_p} is potentially semistable, with the definitions of §0.2, p. 118 (semi-stable = B_st^+[1/t] ⊗ V ≅ (B_st^+[1/t])^d as G_L-module, Fontaine's rings). Replaces bergerSurveyF, whose source (Brinon-Conrad Thm 9.3.5) is unrefereed; bergerSurveyF_of_colmez. -/
-  colmezThm01 : _root_.HDec.PkgI4.PanBergerRefereed.ColmezThm01
-  /-- Pan, J. Amer. Math. Soc. 35 (2022), Theorem 1.0.4 with Conjecture 1.0.1 (arXiv:1901.07166v2 pp. 5 and 2), p >= 5, with potential semistability in Fontaine's sense (Astérisque 223 (1994), Exp. III, 5.6.1, in the equivalent form of 1.8.5). Same statement as the replaced panPrintedF; only the source of the definitions changes from Brinon-Conrad's notes to Fontaine's exposés; panPrintedF_of_thm104F. -/
+  /-- Berger's p-adic monodromy theorem, Invent. Math. 148 (2002), 219-284, as cited by the manuscript (bibitem berger2002; theorem number to be checked against the print, Théorème 0.6 or 0.7): every de Rham representation of G_{Q_p} is potentially semistable, here in Fontaine's dimension form over BstFOf (Astérisque 223 (1994), Exp. III, 1.8.5 and 5.6.1; Exp. II, 4.2.4-4.2.5). Colmez, Astérisque 319 (2008), Théorème 0.1, prints the basis form, which implies this field (PanBergerRefereed.bergerSurveyF_of_colmez); the converse needs the G_K-regularity of B_st, which is not proved, so ColmezThm01 is not a replacement at the same count. -/
+  bergerSurveyF : _root_.HDec.PkgI4.PanDict.BergerSurveyF
+  /-- Pan, The Fontaine-Mazur conjecture in the residually reducible case, Theorem 1.0.4 with Conjecture 1.0.1, read in arXiv:1901.07166v2 (pp. 5 and 2), the version the manuscript cites; published in J. Amer. Math. Soc. 35 (2022), whose numbering is unchecked. Here p >= 5, with potential semistability in Fontaine's sense (Astérisque 223 (1994), Exp. III, 5.6.1, in the equivalent form of 1.8.5). Same statement as the replaced panPrintedF, token for token; only the source of the definitions changes from Brinon-Conrad's notes to Fontaine's exposés; panPrintedF_of_thm104F. -/
   panThm104F : _root_.HDec.PkgI4.PanBergerRefereed.PanThm104F
 
 /-- `OpenResearchLeaves77DS` (the bundle of the copy chain of #197) from `OpenResearchLeaves78`, field by field. -/
@@ -80,7 +80,7 @@ theorem openResearchLeaves77DS_of_OpenResearchLeaves78 (n : OpenResearchLeaves78
   fowlerProp27PrintCanonical := n.fowlerProp27PrintCanonical
   cmjDegreePrint := n.cmjDegreePrint
   silverbergZarhinThm34 := n.silverbergZarhinThm34
-  colmezThm01 := n.colmezThm01
+  bergerSurveyF := n.bergerSurveyF
   panThm104F := n.panThm104F
 
 /-- **G0 with only the open leaves and the open glue** (ds965-reroute-fold). -/

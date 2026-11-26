@@ -1067,8 +1067,8 @@ namespace HDec
 
 namespace HSyn
 
-/-- `OpenResearchLeaves76DS` without `bergerSurveyF`, `panPrintedF`, with the leaves
-  `colmezThm01`, `panThm104F` (pb-refereed-fold). -/
+/-- `OpenResearchLeaves76DS` without `panPrintedF`, with the leaf `panThm104F` (pb-refereed-fold;
+  `bergerSurveyF` keeps its dimension form, berger-restore). -/
 structure OpenResearchLeaves77DS : Prop where
   /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
   pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
@@ -1214,11 +1214,12 @@ structure OpenResearchLeaves77DS : Prop where
     Replaces silverbergZarhinThm35 (Raynaud's criterion), which
     SZRaynaud.silverbergZarhinThm35_of_sz34 proves from it with the proved Theorem 3.3. -/
   silverbergZarhinThm34 : _root_.SZRaynaud.SilverbergZarhinThm34
-  /-- Colmez, Astérisque 319 (2008), Théorème 0.1, p. 118, in its printed form: every de Rham
-    representation of G_{Q_p} is potentially semistable, with the definitions of §0.2, p. 118
-    (semi-stable = B_st^+[1/t] ⊗ V ≅ (B_st^+[1/t])^d as G_L-module, Fontaine's rings). Replaces
-    bergerSurveyF, whose source (Brinon-Conrad Thm 9.3.5) is unrefereed; bergerSurveyF_of_colmez. -/
-  colmezThm01 : _root_.HDec.PkgI4.PanBergerRefereed.ColmezThm01
+  /-- R11 (pb-p1, fold-b105). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Theoreme
+    5.19 of arXiv:math/0102179v3; Theoreme 0.7 there is Sen's theorem) in the printed form of
+    Brinon-Conrad Thm 9.3.5 p. 148 ('only if' half): potentially semistable over the image in B_dR
+    of Brinon-Conrad's B_st (as above), dimension form (Brinon-Conrad §5.2 pp. 67-68), for a de
+    Rham p-adic representation V = E^n of G_Qp. Replaces bergerPrintedVT. -/
+  bergerSurveyF : _root_.HDec.PkgI4.PanDict.BergerSurveyF
   /-- Pan, J. Amer. Math. Soc. 35 (2022), Theorem 1.0.4 with Conjecture 1.0.1 (arXiv:1901.07166v2
     pp. 5 and 2), p >= 5, with potential semistability in Fontaine's sense (Astérisque 223 (1994),
     Exp. III, 5.6.1, in the equivalent form of 1.8.5). Same statement as the replaced panPrintedF;
@@ -1226,8 +1227,8 @@ structure OpenResearchLeaves77DS : Prop where
     panPrintedF_of_thm104F. -/
   panThm104F : _root_.HDec.PkgI4.PanBergerRefereed.PanThm104F
 
-/-- `OpenResearchLeaves76DS` from `OpenResearchLeaves77DS`: `bergerSurveyF`, `panPrintedF` by the
-  contributions. -/
+/-- `OpenResearchLeaves76DS` from `OpenResearchLeaves77DS`: `panPrintedF` by the
+  contribution. -/
 theorem openResearchLeaves76_of_OpenResearchLeaves77_ds (n : OpenResearchLeaves77DS) :
     OpenResearchLeaves76DS where
   pazukiCor13Upper := n.pazukiCor13Upper
@@ -1235,7 +1236,7 @@ theorem openResearchLeaves76_of_OpenResearchLeaves77_ds (n : OpenResearchLeaves7
   panPrintedF := _root_.HDec.PkgI4.PanBergerRefereed.panPrintedF_of_thm104F n.panThm104F
   afCharpolyDS965 := n.afCharpolyDS965
   modularHTCoeff := n.modularHTCoeff
-  bergerSurveyF := _root_.HDec.PkgI4.PanBergerRefereed.bergerSurveyF_of_colmez n.colmezThm01
+  bergerSurveyF := n.bergerSurveyF
   deligneCanonicalModelY3EveryPrint := n.deligneCanonicalModelY3EveryPrint
   gaudronRemondSec9LowerAnSS := n.gaudronRemondSec9LowerAnSS
   gaudronRemondThm14AnSS := n.gaudronRemondThm14AnSS
