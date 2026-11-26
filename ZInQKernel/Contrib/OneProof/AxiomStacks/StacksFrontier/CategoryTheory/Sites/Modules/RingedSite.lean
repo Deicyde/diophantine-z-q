@@ -1,6 +1,6 @@
 module
 
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget
 public import Mathlib.Algebra.Category.Ring.Adjunctions
 public import Mathlib.Algebra.Category.Ring.FilteredColimits
 public import Mathlib.Algebra.Category.Ring.Limits

@@ -3,9 +3,9 @@ module
 public import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
 public import Mathlib.RingTheory.Localization.Away.Basic
 public import Mathlib.RingTheory.Spectrum.Prime.Topology
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksCore.RingTheory.Spectrum.Prime.Topology
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksCore.RingTheory.Spectrum.Prime.Topology
 public import Mathlib.Tactic.CrossRefAttribute
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Spectrum.Prime.SpectralComap
+public import ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.RingTheory.Spectrum.Prime.SpectralComap
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false

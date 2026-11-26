@@ -1,6 +1,6 @@
 module
 
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor
 
 public import Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal
 public import Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification

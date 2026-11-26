@@ -4,7 +4,7 @@ public import Mathlib.AlgebraicGeometry.IdealSheaf.Functorial
 public import Mathlib.AlgebraicGeometry.Morphisms.Affine
 public import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
 public import Mathlib.Tactic.CrossRefAttribute
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.ReducedInducedSubscheme
+public import ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.AlgebraicGeometry.Limits.ReducedInducedSubscheme
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false

@@ -13,7 +13,7 @@ public import Mathlib.CategoryTheory.Sites.Equivalence
 public import Mathlib.CategoryTheory.Sites.LeftExact
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Sites.AbelianSheafificationExistence
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Sites.SmallSiteSheafification
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget
 import Mathlib.Tactic.CrossRefAttribute
 
 set_option autoImplicit false

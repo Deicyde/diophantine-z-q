@@ -9,8 +9,8 @@ public import Mathlib.CategoryTheory.Limits.ExactFunctor
 public import Mathlib.CategoryTheory.Abelian.ShortExact
 public import Mathlib.RingTheory.Flat.Basic
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Presheaf.RingPresheaf
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.Algebras
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.Algebras
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor
 public import Mathlib.Tactic.CrossRefAttribute
 
 set_option autoImplicit false

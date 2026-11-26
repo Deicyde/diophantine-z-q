@@ -1,6 +1,6 @@
 module
 
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Glueing
+public import ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Glueing
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Etale
 
 set_option autoImplicit false

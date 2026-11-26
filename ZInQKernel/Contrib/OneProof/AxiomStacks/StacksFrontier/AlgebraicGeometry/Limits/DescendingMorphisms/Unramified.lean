@@ -1,8 +1,8 @@
 module
 
 public import Mathlib.AlgebraicGeometry.Morphisms.FlatMono
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Diagonal
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Smooth
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Diagonal
+public import ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Smooth
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Diagonal
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.Unramified.Properties
 import Mathlib.Tactic.CrossRefAttribute

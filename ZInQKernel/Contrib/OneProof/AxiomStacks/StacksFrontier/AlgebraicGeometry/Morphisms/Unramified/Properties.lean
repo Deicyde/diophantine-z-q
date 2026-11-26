@@ -4,7 +4,7 @@ public import Mathlib.AlgebraicGeometry.Morphisms.FinitePresentation
 public import Mathlib.AlgebraicGeometry.Morphisms.FiniteType
 public import Mathlib.AlgebraicGeometry.Morphisms.QuasiFinite
 public import Mathlib.RingTheory.Unramified.LocalStructure
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic
+public import ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.QuasiFinite.Defs
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.Unramified.Local
 import Mathlib.Tactic.CrossRefAttribute

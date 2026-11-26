@@ -15,7 +15,7 @@ import Mathlib.RingTheory.PicardGroup
 import Mathlib.Tactic.ENatToNat
 import Std.Tactic.BVDecide.Normalize.Prop
 
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.ReducedInducedSubscheme
+public import ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.AlgebraicGeometry.Limits.ReducedInducedSubscheme
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Nagata
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.EssentialFiniteness.Defs
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Nagata.Shrink

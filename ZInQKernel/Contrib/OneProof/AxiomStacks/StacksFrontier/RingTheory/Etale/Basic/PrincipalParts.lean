@@ -2,7 +2,7 @@ module
 
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Etale.Basic.DiagonalIdeal
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.DifferentialOperator.Defs
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.TensorProduct.IsBaseChangeSpan
+public import ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.RingTheory.TensorProduct.IsBaseChangeSpan
 import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.DifferentialOperator.PrincipalParts
 import Mathlib.Tactic.CrossRefAttribute
 

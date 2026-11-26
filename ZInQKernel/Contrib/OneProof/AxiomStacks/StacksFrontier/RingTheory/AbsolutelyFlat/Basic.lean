@@ -10,7 +10,7 @@ public import Mathlib.RingTheory.LocalProperties.Reduced
 public import Mathlib.Tactic.CrossRefAttribute
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Homology.TorAmplitude.Module
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.AbsolutelyFlat.ProductOfFields
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.MinimalPrimes.Reduced
+public import ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.RingTheory.MinimalPrimes.Reduced
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.WeaklyEtale.Basic
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.WeaklyEtale.Defs
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.WeaklyEtale.Flat

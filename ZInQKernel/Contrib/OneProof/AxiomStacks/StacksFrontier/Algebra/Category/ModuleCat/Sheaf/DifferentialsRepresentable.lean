@@ -5,7 +5,7 @@ public import Mathlib.Algebra.Category.ModuleCat.Differentials.Presheaf
 public import Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification
 public import Mathlib.Algebra.Category.ModuleCat.Sheaf
 public import Mathlib.Tactic.CrossRefAttribute
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget
+public import ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false

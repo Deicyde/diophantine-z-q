@@ -1,7 +1,7 @@
 module
 
 public import Mathlib.CategoryTheory.Limits.Shapes.Diagonal
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Isomorphism
+public import ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Isomorphism
 public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Diagonal
 
 set_option autoImplicit false

@@ -18,7 +18,7 @@ public import Mathlib.Algebra.Category.CommAlgCat.Basic
 import Std.Tactic.BVDecide.Normalize.Prop
 public import Mathlib.CategoryTheory.Limits.Filtered
 import Mathlib.Tactic.CrossRefAttribute
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.TensorProduct.IsBaseChangeSpan
+public import ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.RingTheory.TensorProduct.IsBaseChangeSpan
 import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Cotangent.H1BaseChange
 
 set_option autoImplicit false

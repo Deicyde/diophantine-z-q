@@ -1,7 +1,7 @@
 module
 
 public import Mathlib.Tactic.CrossRefAttribute
-public import ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic
+public import ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false

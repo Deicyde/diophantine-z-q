@@ -928,160 +928,6 @@
    "bytes": 14070,
    "vendor": true
   },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitUniverse.AffineTransitionLimit": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitUniverse/AffineTransitionLimit.lean",
-   "source_sha256": "505c3d92e63ceb3420cf76c98c0a76cdc61f75736167a7cf8aaf052e4521872b",
-   "sha256": "eec114119a442e22a46284b3325891a0c5889b48778271261c053b4058e8c5d0",
-   "bytes": 28912,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.ColimitPresentation.FinitePresentation": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/ColimitPresentation/FinitePresentation.lean",
-   "source_sha256": "70986e1dc803f3e418d86050c21fdaa515bfcb00c2a1aff602a6b440c174c0e8",
-   "sha256": "8b621f2b5059fefc40e5577594d22591e3e4acacca12afdf312b50a4b8b1da88",
-   "bytes": 48611,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Affine": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Affine.lean",
-   "source_sha256": "fd67bbb53e9847cb05b9177fa530025c9b97871641b2aeb3e2cf1994bab7a836",
-   "sha256": "e3e105ab22a8e5801ffc42ad23c75bfcfc2e6566a940c4350b11c5e997bcb7cd",
-   "bytes": 10722,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.BaseChange": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/BaseChange.lean",
-   "source_sha256": "1b8865f137e0a354d0c5c38ff7589e273455c7be6fd84d44f7c9c993c32a955c",
-   "sha256": "b5b2803c39f25ac4d3dff24e18bcf2f5dea06746c8652f0cde7751e172e89cc4",
-   "bytes": 32805,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Pieces": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Pieces.lean",
-   "source_sha256": "3b036308ae3de7e6984a2e49eedcb90d00181d87580547a5f2d8ef0b7e945325",
-   "sha256": "180354fbeb56a22ec264591362a771fd0636e423edb5a8ab4db4b5852c9d8684",
-   "bytes": 22361,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux1": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux1.lean",
-   "source_sha256": "0606ba1660c8b00d6ae3770473794ea50585debd0ee41b428c1a0370566c8e25",
-   "sha256": "10499d5497d58bca1d9e739526b9973fc05b3294c4182b69fcf01eb7de8a08ad",
-   "bytes": 4095,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentationPoint": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentationPoint.lean",
-   "source_sha256": "889f1fdcd77df114c16f785079326b6d6c33f7fb4675729964f556e8407dd2b1",
-   "sha256": "7873eff4760a0f4caa896776c62aba2e95b7056e6c426c77dbcd406b4bced8a2",
-   "bytes": 4258,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Relative": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Relative.lean",
-   "source_sha256": "eba0d32fc7e91d479d3c143e7f2a9d88508c1ec5fff711bbe67efe56afa4cbba",
-   "sha256": "536207059726e741e724543234c4c62f1055e3bda872d9c16bcb33d7dfbce14c",
-   "bytes": 19048,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Affine": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Affine.lean",
-   "source_sha256": "c516920611d30a2b5cac5292fb41447d931f89ef1addde5484e267131161ea59",
-   "sha256": "b22441d2a2d606ab5a23fb455085f296b31fad5c8a839edf3e739599e56aba86",
-   "bytes": 18841,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Finite": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Finite.lean",
-   "source_sha256": "e871d2feffe9e1a4f9148aae5b0a7c8c3cb677497f4749172d66ed405952f130",
-   "sha256": "6d5307908a9fd9231fadaf627ec630c38938e14926b53c643985b0025d27bfb5",
-   "bytes": 29420,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Surjective": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Surjective.lean",
-   "source_sha256": "008102339860f2fc89609d8bc4b34928f7d7f50610a5286117bb94ba2a5a2f95",
-   "sha256": "6852bf96f9e517d80a311b4382827c52ba6dc30a7c530fca3a94bd51d8bfd270",
-   "bytes": 16460,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Bijective": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Bijective.lean",
-   "source_sha256": "fbeb44d4a40c376f74105dd06996b05c6422ee8228b4f5f917186af67bd1db8c",
-   "sha256": "c008f23e4e763562de3e6ef8f5f7879aa162f8ea77e345fdf5dd21c07dc9de03",
-   "bytes": 45729,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Unramified": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Unramified.lean",
-   "source_sha256": "cb01c51cf33d4a96e9b3c2f5bc953c11b8dd92b7ece5688a0f3215617fdfdfb0",
-   "sha256": "c6824d1f694be0e47c2ada40ae4457e1153d118c8da1bb58e1379c21127f1378",
-   "bytes": 31111,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent.lean",
-   "source_sha256": "8c450db779ed05b44d73f96b1d881249a4d7e458dafd5f75fe89ab401825b1c6",
-   "sha256": "dea3bc11da480f97ef937af50992f66b2cbbfd7f49ca5aae5ec34cf776c21688",
-   "bytes": 581,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.ClosedImmersion": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/ClosedImmersion.lean",
-   "source_sha256": "d705ae4ace852fa753998f6e9a11a9119118748e2f85e2d91f83d692f57f965e",
-   "sha256": "a0120543d90f44e88469a21fe94c0515fe145bf47808e74103403a069d6a204f",
-   "bytes": 24634,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Isomorphism": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Isomorphism.lean",
-   "source_sha256": "767ddd889da51ec2f913aa2f2e3519e286dbd5cda5d867ac41c6a5ede3823479",
-   "sha256": "b05f0d13a858f80994b414fe3616952c4beb09c1042f9abac8011974f1a3a037",
-   "bytes": 11880,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentation/Basic.lean",
-   "source_sha256": "0ffb11ca69734d5502802812e6b7aed22b3a3753bb728d392851a8e26e5910f7",
-   "sha256": "f282e13a913a3f87687928b4b47940c6f34b0b693e713c56ff1cfdc5d3a7151b",
-   "bytes": 4566,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux2": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux2.lean",
-   "source_sha256": "8aec568d457d4182926c11cda1ca6cbdfff575f384c22679417889b90d3bac30",
-   "sha256": "fdeee89620f13048372343dbc541327a9e568e5304d17d396ff2acaecba933f8",
-   "bytes": 14851,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux3": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux3.lean",
-   "source_sha256": "d68a04af981c22cd519f34332342bd33747ce6152e2b8ab3ba3ddb31852c2d50",
-   "sha256": "aa82df5cf5dd095ed54d82e87dcee29c419d81a32ebd856ff143bcbb54a82d1c",
-   "bytes": 12395,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux4": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux4.lean",
-   "source_sha256": "3ad8a8fc99579b68afb1b29881e993831b17c13f6621256e892b4b5a54d63746",
-   "sha256": "e3cfaa6d3ec50ba3596dee72d19bdf8bad14934f33995f44f2a4a4a08035db5a",
-   "bytes": 4707,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.FinitePresentationModels": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/FinitePresentationModels.lean",
-   "source_sha256": "53fffd8c24930ee2b6ac369b140fa6c99392e0e1a00e1462142c214289ee7d69",
-   "sha256": "ad0d7316eb9db0ebbd6ba0e34ec5c634cf4e432abcbb2e95d322c1bc7e5e9c5c",
-   "bytes": 1754,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Glueing": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Glueing.lean",
-   "source_sha256": "d6857930cdb8b211a477dc4dba6df50f56aaee2a060b562de779645bbb925a5f",
-   "sha256": "2d7fab08735c2d24c1e947e760b782a0e0bce387e005e44a922ccebdf4436486",
-   "bytes": 41474,
-   "vendor": true
-  },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.Etale.Defs": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Morphisms/Etale/Defs.lean",
    "source_sha256": "e8c7e2c5dec95c5b8e6986daddd6f5081cb156dcb2d35f9ff6dbfbaa4462290f",
@@ -1113,36 +959,15 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Diagonal": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentation/Diagonal.lean",
    "source_sha256": "cc786997458024f9c3e563d01ae68d2c3711903369f86e8d8c5479333e8965e7",
-   "sha256": "875a8dcd726b82af2f453a79232c008219b0b8ef0be29210a1255cfef3f1503a",
-   "bytes": 2219,
+   "sha256": "777dcef014b80e30f9b68e45d1ce7d0bbca86c072b587ec0fe5b738c7b113ffa",
+   "bytes": 2213,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Monomorphism": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Monomorphism.lean",
    "source_sha256": "58d1c77510ab5a9f4e98fc58c33debcea5c421aab8048b6f609315936f40b92c",
-   "sha256": "5b23f4a4953d90d6de06ec86ef68a3e11e5517f95e0b58a42e36e694170386ec",
-   "bytes": 6928,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Diagonal": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Diagonal.lean",
-   "source_sha256": "6e8da19d0f0200a8570b4a857c6e95c0a71a2dcb13e6ee050d8878aa8cfff5c9",
-   "sha256": "a953a772fd11bbd1f8e6e82d35f788ae371d4b0891afe28bd0c4632f9195de3f",
-   "bytes": 7596,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.SpreadingOut.Smooth": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/SpreadingOut/Smooth.lean",
-   "source_sha256": "0138fdc78ff009b636de4ef3c4d0ac997cadb6466ce21ef00856be5c2d037fec",
-   "sha256": "43298298131456135bfd8a336beeb338087fe7ccbfd18442248cabdde64a7329",
-   "bytes": 81622,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Smooth": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Smooth.lean",
-   "source_sha256": "1e73880c007146bb15b553664944066f43fd8453de59aa08f41ef233a2020520",
-   "sha256": "ccd19f3ec9e2d697758403276eac89d9f1a556736a90c808a48841b24bfa18cb",
-   "bytes": 23248,
+   "sha256": "fe6bf7739c778e6ab50380cbfea42437a73b5ba0f4fba0e446337b74b59f14e3",
+   "bytes": 6922,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FiniteTypePoint": {
@@ -1176,15 +1001,15 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.Unramified.Properties": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Morphisms/Unramified/Properties.lean",
    "source_sha256": "afe4b9049b2ca2dece68528f5b0dc296490bf4502a80d64683ca0cf0bfb2ed0e",
-   "sha256": "4964758981345d1d5eff88f77f2277d9800614d418d9a7e94b601a64b2436da1",
-   "bytes": 17718,
+   "sha256": "1e8400c6b60fedaac24eef0e1d077c3dd6719cf173c588aa1d9c36a08703b13a",
+   "bytes": 17712,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Unramified": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Unramified.lean",
    "source_sha256": "e704e0497372b63c8ab47c2e0f8a93042256cc4483d645bdf6dfc9bcf549913a",
-   "sha256": "10ebc41f59ac34dea9bc27a41a6064c9946379a17df2fc0329e382f2727f7909",
-   "bytes": 6849,
+   "sha256": "ddec5db332cb8edf6cac2e646f0b3cb9c73425a7e045b361152ea4431ec298ae",
+   "bytes": 6846,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Etale": {
@@ -1197,8 +1022,8 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.EtaleCover": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/EtaleCover.lean",
    "source_sha256": "007b2f5e503b7be103a26fc7733622f43419f662ca48abe8d6233334c0e1aaba",
-   "sha256": "cb9d7cb9bea0f1afbb039a2ed2749b528c49475a2fe9f5d92491e2bfead04ed1",
-   "bytes": 21545,
+   "sha256": "0fc193e179890aca595605f3a5dc4b0ff7a642cc00225229be59d7a2d4a045be",
+   "bytes": 21539,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.ProEtale.Site.AbelianSheafification": {
@@ -2237,13 +2062,6 @@
    "bytes": 8293,
    "vendor": true
   },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.MinimalPrimes.Reduced": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/MinimalPrimes/Reduced.lean",
-   "source_sha256": "7adf61e18d20cb6d8b1eb757e3833dd87ba0e88cf064730083e0c9a04bc05a72",
-   "sha256": "5cb7f7cff2a7944c2ef957113c3970b1eadf14dc11a64d1e9ea2c2810059b37e",
-   "bytes": 15618,
-   "vendor": true
-  },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.WeaklyEtale.Basic": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/WeaklyEtale/Basic.lean",
    "source_sha256": "91e081789022b4ac457da7049de1a973f7bbe04c61ad912c04cba8b018749070",
@@ -2275,8 +2093,8 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.AbsolutelyFlat.Basic": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/AbsolutelyFlat/Basic.lean",
    "source_sha256": "5638f3abfae0d7732e63235e639ca84f2b416deb7a281921d885cba03d90dba5",
-   "sha256": "30733be9f2457c980bf3bb6eeefda9b3663218570ddd80784860c094d91c75a8",
-   "bytes": 14818,
+   "sha256": "9dfb43387d38f638ad065ee81cba1d5d7071ff610961875bd1c6bbdab329f7be",
+   "bytes": 14817,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.WeaklyEtale.FormallyUnramified": {
@@ -2307,13 +2125,6 @@
    "bytes": 38099,
    "vendor": true
   },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.TensorProduct.IsBaseChangeSpan": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/TensorProduct/IsBaseChangeSpan.lean",
-   "source_sha256": "d72d74eae478f297473c0dd48492eabe9dda3effa46d87c85afc5b9df621cc57",
-   "sha256": "fc2b0bfc695bdc452e6bef7c89928b8f57543cfc47a998178f100e3ad859edeb",
-   "bytes": 1122,
-   "vendor": true
-  },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Cotangent.H1BaseChange": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Cotangent/H1BaseChange.lean",
    "source_sha256": "56077cc522ef7affe8ff99cb08ce053e2a2c60efbef620484304e95331babc9e",
@@ -2324,8 +2135,8 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Etale.Basic.FirstProperties": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Etale/Basic/FirstProperties.lean",
    "source_sha256": "9922e57d1779452f650ee00510fb2b6ea2cc364c0069ffdcf1e0ed97af124891",
-   "sha256": "29124107ca6038ac66c700480078487128471726e3b810d2ed591df1c19b0190",
-   "bytes": 36887,
+   "sha256": "210d178854c9901b9537eff7d56a9d2ebe771a66c1eb733b1906f0a17ee09e57",
+   "bytes": 36886,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Etale.AssociatedGraded": {
@@ -2352,8 +2163,8 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Etale.Basic.PrincipalParts": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Etale/Basic/PrincipalParts.lean",
    "source_sha256": "fa88df95aaa83c6323048022eda6120f67ce35908a8e1714fcb292fee65bfca2",
-   "sha256": "c305900cb87acfe0c43fcb50c989cbdc96097b7095f5529362c839af2001e26f",
-   "bytes": 45400,
+   "sha256": "9bceb105ddbd5150112b9939ff71c4baca60a39522a29e42d6484d2bbc26f894",
+   "bytes": 45399,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Etale.Basic": {
@@ -2629,18 +2440,11 @@
    "bytes": 8939,
    "vendor": true
   },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean",
-   "source_sha256": "f29d8b35d77bbb22f9add9b88fa190471911f75c941496f49d6c8f7ceec9c47c",
-   "sha256": "68f48ef11e857b0bcffa3bf5e6d1d399e60065826259bd87d0dc3b78c235d1c3",
-   "bytes": 8611,
-   "vendor": true
-  },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.DifferentialsRepresentable": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsRepresentable.lean",
    "source_sha256": "928bc4253ab60c4774b0bb4f194bc9b00394273410a619ab56adee9dfbbfb158",
-   "sha256": "7bbf3de40651c916b7ec79c80547db0c968ef3c82d0faedf4e7ecfb7cb1c741d",
-   "bytes": 6905,
+   "sha256": "402bde5562b9c5bdb9786e45af487439bab921c47b600693558fd09ed2743e1c",
+   "bytes": 6908,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Topology.Sheaves.Functors.Module.RingedSpace": {
@@ -2695,8 +2499,8 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Sites.Modules.Differentials": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean",
    "source_sha256": "c1555d41cfa4d9bc85b2563c377b5e4f802e02d64a403867a8bc377fbde0a100",
-   "sha256": "5102feb4fcc1ef6639ae7e6eaf64acc76fcb27395fea6e9b8b5cce1e38dc600f",
-   "bytes": 20715,
+   "sha256": "1aba2c59fa73a63e3733fdae5b1d8d71fba304fb3615fcd1e25a921d3163c175",
+   "bytes": 20718,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Topology.Sheaves.Modules.Differentials": {
@@ -3000,25 +2804,11 @@
    "bytes": 13123,
    "vendor": true
   },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksCore.RingTheory.Spectrum.Prime.Topology": {
-   "from": "ThirdParty/AxiomStacks/StacksCore/RingTheory/Spectrum/Prime/Topology.lean",
-   "source_sha256": "502bbade9bbc181fccdc46fa2d2def2ff8370114c94d67d3fee42635b41b3c07",
-   "sha256": "30863fa5b4a6e1036aed9e781255667432683a81a920b6ff2a60a73eccd453fc",
-   "bytes": 6923,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Spectrum.Prime.SpectralComap": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Spectrum/Prime/SpectralComap.lean",
-   "source_sha256": "494497d448280a5f74dddfe77c34e8c561032b77e011b67169824fd2d1f13d91",
-   "sha256": "9de6c39ec626a014c080d2de16efff4da0b150ea628e945c297048b38075bf82",
-   "bytes": 1486,
-   "vendor": true
-  },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.ProEtale.WLocal.Localization": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/ProEtale/WLocal/Localization.lean",
    "source_sha256": "46fe850a2e5c74ab4b87ff2e6149cca8349b67616c878a0d0049613a87d505de",
-   "sha256": "17e623f069cba17e8964d69c21454de56101641624fbd71d3b837a8ca8bf2bf1",
-   "bytes": 13829,
+   "sha256": "4e15044cd8866bf6e26ffaaf9ac1a696f53c589d3b4d8092a1e0c7853eb7307f",
+   "bytes": 13831,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.ProEtale.WLocal.Stratification": {
@@ -3252,18 +3042,11 @@
    "bytes": 3575,
    "vendor": true
   },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.ReducedInducedSubscheme": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Limits/ReducedInducedSubscheme.lean",
-   "source_sha256": "5fb076c4302fa100ad5467583a14bfb98e983ffa96f12662d87b4477d05b9409",
-   "sha256": "e38ef756886c30599bbc9c139dc6b66660d194eedc376f4f6931faa78735adbc",
-   "bytes": 5683,
-   "vendor": true
-  },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Properties.ReducedClosedSubscheme": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/AlgebraicGeometry/Properties/ReducedClosedSubscheme.lean",
    "source_sha256": "e1c5609c08f1b5664a6532d571c52e03c723a963eca099bbf47dd34f7da547d1",
-   "sha256": "3e61bb648583060407cd11eaaec9f8e6f0d5027ed799dae8c8cb31223f81621e",
-   "bytes": 5495,
+   "sha256": "eb2be3b15c1d3462a4aba58bb3d3957f7fb83a86f40945233244c201f4b2e4b2",
+   "bytes": 5494,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Nagata.Defs": {
@@ -3297,29 +3080,29 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Nagata.Japanese.EssFiniteType": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Nagata/Japanese/EssFiniteType.lean",
    "source_sha256": "b3a743102468659fa88927aa1959b2dfd0ccaf711dea88a403007ed16ef7e9c8",
-   "sha256": "9c67821dcc3f0fecfa23e1e1afdcdf408d8ab742c4fbfdb98a47040f18c12967",
-   "bytes": 21163,
+   "sha256": "b842f1d14a103cdfe34ebcce779b7ee209e4cad9b86fa51b62ec40589e7faa7d",
+   "bytes": 21162,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Nagata.Japanese.Localization": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Nagata/Japanese/Localization.lean",
    "source_sha256": "118de640cb2f284cfaa3f333ed0b9fd4bc6b0956634e2b290d6672fc45965d01",
-   "sha256": "7c777a2b0373a64b216cb5c2f2d253d97cd145cd1700d65bbef8484fea2fe3cf",
-   "bytes": 15134,
+   "sha256": "45960e4c88c4f4babbef6713315e9a32e84b7c5e64eeb09908265d794b8969df",
+   "bytes": 15133,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Nagata.Japanese.N1Criterion": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Nagata/Japanese/N1Criterion.lean",
    "source_sha256": "6bec4c2bed94a0581c578ae3f133d7f02b341b2883701d51e5ccc2b45706113c",
-   "sha256": "16d4abe1c7435055d28971d303d4f0315a900fc0623dd92ee98c44c679f60dda",
-   "bytes": 15393,
+   "sha256": "804f954c642d848a4d2f8ce8e391133a1056338bfb31f8714e1e9f2d714527c8",
+   "bytes": 15392,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Nagata.Japanese.NagataScheme": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/RingTheory/Nagata/Japanese/NagataScheme.lean",
    "source_sha256": "53dbce33371fa3b07cd359db80c4987702f2ec52ac4b703d50b60a29bcafecd2",
-   "sha256": "faadac255664c8bbb7db11a422b1d6e34a3ef7815623bc22c879885a7e7d1b7d",
-   "bytes": 41613,
+   "sha256": "90b3f7fc62c68876b6eed9fe879ba2f0d2ea6346b868c0095917fba3ef8ba084",
+   "bytes": 41612,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Nagata.Japanese": {
@@ -4008,27 +3791,6 @@
    "bytes": 19742,
    "vendor": true
   },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Presheaf.Tensor": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/Algebra/Category/ModuleCat/Presheaf/Tensor.lean",
-   "source_sha256": "30b81f90a656c51c8bae024d2630f806b53f7de711ea4edfc87fc82797f5e4d6",
-   "sha256": "0b13b085da2b4155066de14e5108e4dd6b3f68fc0281c0a23af61c42b0f54f77",
-   "bytes": 19163,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.Algebras": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/Algebras.lean",
-   "source_sha256": "b91ac2859eb01e113b6986150293509b348767a0f44a26a6bf85877d10568b6e",
-   "sha256": "06652a37265025a308a7fc473f2bb76c6182676789f909026df2da2b71e6be70",
-   "bytes": 26538,
-   "vendor": true
-  },
-  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor": {
-   "from": "ThirdParty/AxiomStacks/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/SheafificationTensor.lean",
-   "source_sha256": "51cfab91b194b66eb0c4108a91d0a91ee99d84a200b6022ddea199a433449873",
-   "sha256": "719ea80ef5ea1179fc8dcd0e5adc48844a41f09cbb741ac2988f34a3c7fc5cb4",
-   "bytes": 70529,
-   "vendor": true
-  },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Presheaf.RingPresheaf": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/Algebra/Category/ModuleCat/Presheaf/RingPresheaf.lean",
    "source_sha256": "ec994aa799a14b1abe07e648fdf177970aac93a9dd065bba8c7bba3c09b8ef1c",
@@ -4039,15 +3801,15 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Sites.Modules.Flat": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/CategoryTheory/Sites/Modules/Flat.lean",
    "source_sha256": "bff67f8d7473020549c516f7e483095986af35a4db554a2e54e0060470c8d4cc",
-   "sha256": "379349ac7b84a1c9598c0a533f5c689cde3e0ee401746e703a985160a035c60b",
-   "bytes": 14217,
+   "sha256": "d18e8052be23c42de954e162c2cbc8a61896438ddcce03e49fbc4d8618491f5c",
+   "bytes": 14220,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Sites.Modules.RingedSite": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/CategoryTheory/Sites/Modules/RingedSite.lean",
    "source_sha256": "6731abca158e1248311d2bcb277fa191ddf44012b638794ef2b2946886e81e3a",
-   "sha256": "8576c31b39e61997190f0e0e6ac353cef6f2ac7fb4b700ac5717cea19ce87bca",
-   "bytes": 7127,
+   "sha256": "59e33be621b8853b67c1fc049b03f583624bbe0e1b9f9a17fe23113ed7b5fb87",
+   "bytes": 7130,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Sites.Modules.FlatMorphisms.RingedSites": {
@@ -4060,8 +3822,8 @@
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.TensorExactness": {
    "from": "ThirdParty/AxiomStacks/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/TensorExactness.lean",
    "source_sha256": "40dc4ef987169f7f2de91794a70bd155d97effd6c1776454163a38702be49b06",
-   "sha256": "fa0b6cba49c7478b0863d27588f515fb755d8d61c4458305e48bd4847285b606",
-   "bytes": 31994,
+   "sha256": "812dd6e9db1f150e42b8e17914dd3b0f81c16aa0dff8caa3d5d1c71bbfb46268",
+   "bytes": 32000,
    "vendor": true
   },
   "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.CategoryTheory.Sites.Cohomology.Cech.IntegralComplexFlatness": {
@@ -5196,11 +4958,44 @@
   "StacksCore.Tactic.StacksAttribute",
   "StacksCore.Tactic.EgaSgaAttribute"
  ],
- "attribute_strip_totals": {
-  "commands": 300,
-  "entries": 1077,
-  "blocks_removed": 378,
-  "attribute_cmds_removed": 1
+ "leftovers": [],
+ "shared_with_main": {
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksCore.RingTheory.Spectrum.Prime.Topology": "ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksCore.RingTheory.Spectrum.Prime.Topology",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Presheaf.Tensor": "ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Presheaf.Tensor",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.Algebras": "ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.Algebras",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor": "ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.SheafificationTensor",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget": "ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Affine": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Affine",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Glueing": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Glueing",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux1": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux1",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux2": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux2",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux3": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux3",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux4": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux4",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Pieces": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Pieces",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.LimitUniverse.AffineTransitionLimit": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.LimitUniverse.AffineTransitionLimit",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Affine": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Affine",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.BaseChange": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.BaseChange",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.ClosedImmersion": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.ClosedImmersion",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Diagonal": "ZInQKernel.Contrib.OneProof.EGAProperLimit.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Diagonal",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Isomorphism": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Isomorphism",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Relative": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Relative",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Smooth": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Smooth",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.ReducedInducedSubscheme": "ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.AlgebraicGeometry.Limits.ReducedInducedSubscheme",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentationPoint": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentationPoint",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Bijective": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Bijective",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Finite": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Finite",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Surjective": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Surjective",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Unramified": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Unramified",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.ColimitPresentation.FinitePresentation": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.RingTheory.ColimitPresentation.FinitePresentation",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.MinimalPrimes.Reduced": "ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.RingTheory.MinimalPrimes.Reduced",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.Spectrum.Prime.SpectralComap": "ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.RingTheory.Spectrum.Prime.SpectralComap",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.SpreadingOut.Smooth": "ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.RingTheory.SpreadingOut.Smooth",
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.RingTheory.TensorProduct.IsBaseChangeSpan": "ZInQKernel.Contrib.CloudB3W16Dimension.StacksFrontier.RingTheory.TensorProduct.IsBaseChangeSpan"
  },
- "leftovers": []
+ "dropped": [
+  "ZInQKernel.Contrib.OneProof.AxiomStacks.StacksFrontier.AlgebraicGeometry.Limits.FinitePresentationModels"
+ ],
+ "note": "Modules listed in shared_with_main are vendored on main from upstream revision c496df0d9beea9deaeabcea8492605f9a0a2313b (CloudW01Spread, OneProof/EGAProperLimit, CloudB3W16Dimension); this package imports those copies instead of its own. The dropped module was the bounded-extraction leaf used only by the omitted Glueing override."
 }
