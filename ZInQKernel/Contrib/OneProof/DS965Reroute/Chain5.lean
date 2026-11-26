@@ -166,19 +166,6 @@ structure OpenResearchLeaves72DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, consequence form, pending review): Barquero-Sanchez et al., Res. Number
     Theory 3 (2017), Eq. (6.2) (L600-605). -/
   cmHeight62 : _root_.HDec.CMBranch.CMHeight62
@@ -229,7 +216,6 @@ theorem openResearchLeaves71_of_OpenResearchLeaves72_ds (n : OpenResearchLeaves7
   silverbergZarhinThm35 := n.silverbergZarhinThm35
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmjDegree := HDec.CMBranch.CMjBridges.cmjDegree_of_print_closed n.cmjDegreePrint
   cmHeight62 := n.cmHeight62
   y3ToP1j := n.y3ToP1j
@@ -392,19 +378,6 @@ structure OpenResearchLeaves73DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, consequence form, pending review): Barquero-Sanchez et al., Res. Number
     Theory 3 (2017), Eq. (6.2) (L600-605). -/
   cmHeight62 : _root_.HDec.CMBranch.CMHeight62
@@ -446,7 +419,6 @@ theorem openResearchLeaves72_of_OpenResearchLeaves73_ds (n : OpenResearchLeaves7
   silverbergZarhinThm35 := n.silverbergZarhinThm35
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmHeight62 := n.cmHeight62
   y3ToP1j := _root_.Y3P1j.y3ToP1j_of_printed_moduli n.y3FullThreeRepZ30
       n.deligneCanonicalModelY3EveryPrint
@@ -608,19 +580,6 @@ structure OpenResearchLeaves74DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, consequence form, pending review): Barquero-Sanchez et al., Res. Number
     Theory 3 (2017), Eq. (6.2) (L600-605). -/
   cmHeight62 : _root_.HDec.CMBranch.CMHeight62
@@ -649,7 +608,6 @@ theorem openResearchLeaves73_of_OpenResearchLeaves74_ds (n : OpenResearchLeaves7
   silverbergZarhinThm35 := n.silverbergZarhinThm35
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmHeight62 := n.cmHeight62
   fowlerProp27PrintCanonical := n.fowlerProp27PrintCanonical
   silverbergZarhinThm33 := _root_.SZRaynaud.silverbergZarhinThm33_proof
@@ -808,19 +766,6 @@ structure OpenResearchLeaves75DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, consequence form, pending review): Barquero-Sanchez et al., Res. Number
     Theory 3 (2017), Eq. (6.2) (L600-605). -/
   cmHeight62 : _root_.HDec.CMBranch.CMHeight62
@@ -848,7 +793,6 @@ theorem openResearchLeaves74_of_OpenResearchLeaves75_ds (n : OpenResearchLeaves7
   silverbergZarhinThm35 := n.silverbergZarhinThm35
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmHeight62 := n.cmHeight62
   fowlerProp27PrintCanonical := n.fowlerProp27PrintCanonical
   cmjDegreePrint := n.cmjDegreePrint
@@ -999,19 +943,6 @@ structure OpenResearchLeaves76DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 in consequence form (GLUE, pending review), one row. For a
-    newform f in S_2(Gamma_1(N)) with nebentypus chi, the kernel's model X of X_1(N), Jacobian J,
-    Hecke operators T_p = xi_p, <d>: K_f finite over Q, and there is a triple (A, nu, theta) with
-    Shimura's clauses (i) nu surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at
-    n = p and n = p^2 (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu
-    = I_f J: nu kills I_f J and is universal for that), unique up to a nu-compatible isomorphism
-    over Q among triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the
-    ideal annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q
-    (p. 526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps:
-    C = I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all
-    n from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation);
-    nu-compatible isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, consequence form; GLUE: rating refuted 11-17, reported formula):
   Barquero-Sanchez et al., Res. Number Theory 3 (2017), Eq. (6.2) (L600-605). -/
   cmHeight62 : _root_.HDec.CMBranch.CMHeight62
@@ -1048,7 +979,6 @@ theorem openResearchLeaves75_of_OpenResearchLeaves76_ds (n : OpenResearchLeaves7
   silverbergZarhinThm35 := _root_.SZRaynaud.silverbergZarhinThm35_of_sz34 n.silverbergZarhinThm34
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmHeight62 := n.cmHeight62
   fowlerProp27PrintCanonical := n.fowlerProp27PrintCanonical
   cmjDegreePrint := n.cmjDegreePrint
@@ -1183,19 +1113,6 @@ structure OpenResearchLeaves77DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 in consequence form (GLUE, pending review), one row. For a
-    newform f in S_2(Gamma_1(N)) with nebentypus chi, the kernel's model X of X_1(N), Jacobian J,
-    Hecke operators T_p = xi_p, <d>: K_f finite over Q, and there is a triple (A, nu, theta) with
-    Shimura's clauses (i) nu surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at
-    n = p and n = p^2 (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu
-    = I_f J: nu kills I_f J and is universal for that), unique up to a nu-compatible isomorphism
-    over Q among triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the
-    ideal annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q
-    (p. 526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps:
-    C = I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all
-    n from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation);
-    nu-compatible isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, consequence form; GLUE: rating refuted 11-17, reported formula):
   Barquero-Sanchez et al., Res. Number Theory 3 (2017), Eq. (6.2) (L600-605). -/
   cmHeight62 : _root_.HDec.CMBranch.CMHeight62
@@ -1243,7 +1160,6 @@ theorem openResearchLeaves76_of_OpenResearchLeaves77_ds (n : OpenResearchLeaves7
   javanpeykarThm111An := n.javanpeykarThm111An
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmHeight62 := n.cmHeight62
   fowlerProp27PrintCanonical := n.fowlerProp27PrintCanonical
   cmjDegreePrint := n.cmjDegreePrint
