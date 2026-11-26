@@ -1,0 +1,27 @@
+diff --git a/docs/one-proof/open-statements.json b/docs/one-proof/open-statements.json
+index e9e9e12c2..a7f567b70 100644
+--- a/docs/one-proof/open-statements.json
++++ b/docs/one-proof/open-statements.json
+@@ -90,17 +90,17 @@
+    "docstring":
+    "Grothendieck's semistable reduction theorem as stated in Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351): for an abelian varie
+    "bundle": "OpenResearchLeaves78"},
+-  {"type": "HDec.PkgI4.PanBergerRefereed.ColmezThm01",
+-   "statement": "HDec.PkgI4.PanBergerRefereed.ColmezThm01",
+-   "field": "colmezThm01",
++  {"type": "HDec.PkgI4.PanDict.BergerSurveyF",
++   "statement": "HDec.PkgI4.PanDict.BergerSurveyF",
++   "field": "bergerSurveyF",
+    "docstring":
+-   "Colmez, Astérisque 319 (2008), Théorème 0.1, p. 118, in its printed form: every de Rham representation of G_{Q_p} is potentially semistable, with the definitions of §0.2, p. 118 (semi-stable = B_
++   "Berger's p-adic monodromy theorem, Invent. Math. 148 (2002), 219-284, as cited by the manuscript (bibitem berger2002; Théorème 0.7 = Corollaire 5.22 in the author copy, Théorème 0.6 = Théorème 5.
+    "bundle": "OpenResearchLeaves78"},
+   {"type": "HDec.PkgI4.PanBergerRefereed.PanThm104F",
+    "statement": "HDec.PkgI4.PanBergerRefereed.PanThm104F",
+    "field": "panThm104F",
+    "docstring":
+-   "Pan, J. Amer. Math. Soc. 35 (2022), Theorem 1.0.4 with Conjecture 1.0.1 (arXiv:1901.07166v2 pp. 5 and 2), p >= 5, with potential semistability in Fontaine's sense (Astérisque 223 (1994), Exp. III
++   "Pan, The Fontaine-Mazur conjecture in the residually reducible case, Theorem 1.0.4 with Conjecture 1.0.1, read in arXiv:1901.07166v2 (pp. 5 and 2), the version the manuscript cites; published in 
+    "bundle": "OpenResearchLeaves78"},
+   {"type": "DeRhamScholze.TatePrints.Colmez1992DeRhamAbVar",
+    "statement": "DeRhamScholze.TatePrints.Colmez1992DeRhamAbVar",
