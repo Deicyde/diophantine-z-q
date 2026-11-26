@@ -76,7 +76,6 @@ theorem openResearchLeaves60_y3x6_of_OpenResearchLeaves63_nos_ds_vp (n : OpenRes
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := n.bShStandardModel
-  shimuraThm1Af := n.shimuraThm1Af
   y3ToP1j := n.y3ToP1j
   heckeSqrtBranchAny := n.heckeSqrtBranchAny
 end HSyn
@@ -163,7 +162,6 @@ theorem openResearchLeaves65_of_OpenResearchLeaves66_ds_vp (n : OpenResearchLeav
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := n.bShStandardModel
-  shimuraThm1Af := n.shimuraThm1Af
   cmFibreSplit := _root_.HDec.CMBranch.FibreSplit.cmFibreSplit_of_liveInputs_nos
       n.neronSchemeExtensionDedekind n.silverbergZarhinThm35 n.elliotWildInertiaTrivial
       n.y3FullThreeRepZ30 n.deligneCanonicalModelY3EveryPrint n.y3ToP1j

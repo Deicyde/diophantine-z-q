@@ -211,19 +211,6 @@ structure OpenResearchLeaves65DS : Prop where
     (defined in Shimura 1971, which the 1973 print cites) and (B4) Shimura's xi_p, <d> act on the
     classes of the x_tau by DS's double-coset formulas (convention dictionary). -/
   bShStandardModel : _root_.R16Thm1.BShStandardModel
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (GLUE, open): A8 at a CM fibre and the matrix units (diophantine_zq.tex L520-562,
     L581-586). -/
   cmFibreSplit : _root_.HDec.CMBranch.CMFibreSplit
@@ -269,7 +256,6 @@ theorem openResearchLeaves64NOS_of_OpenResearchLeaves65_ds (n : OpenResearchLeav
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := n.bShStandardModel
-  shimuraThm1Af := n.shimuraThm1Af
   cmFibreSplit := n.cmFibreSplit
   fowlerProp27 := n.fowlerProp27
   cmjDegree := n.cmjDegree
@@ -473,19 +459,6 @@ structure OpenResearchLeaves66DS : Prop where
     (defined in Shimura 1971, which the 1973 print cites) and (B4) Shimura's xi_p, <d> act on the
     classes of the x_tau by DS's double-coset formulas (convention dictionary). -/
   bShStandardModel : _root_.R16Thm1.BShStandardModel
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, printed form, pending review): Fowler, Math. Proc. Cambridge Philos. Soc.
     180 (2026), Prop. 2.7 (L588-590). -/
   fowlerProp27 : _root_.HDec.CMBranch.FowlerProp27
@@ -530,7 +503,6 @@ theorem openResearchLeaves65_of_OpenResearchLeaves66_ds (n : OpenResearchLeaves6
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := n.bShStandardModel
-  shimuraThm1Af := n.shimuraThm1Af
   cmFibreSplit := _root_.HDec.CMBranch.FibreSplit.cmFibreSplit_of_liveInputs_nos
       n.neronSchemeExtensionDedekind n.silverbergZarhinThm35 n.elliotWildInertiaTrivial
       n.y3FullThreeRepZ30 n.deligneCanonicalModelY3EveryPrint n.y3ToP1j
@@ -722,19 +694,6 @@ structure OpenResearchLeaves67DS : Prop where
     (defined in Shimura 1971, which the 1973 print cites) and (B4) Shimura's xi_p, <d> act on the
     classes of the x_tau by DS's double-coset formulas (convention dictionary). -/
   bShStandardModel : _root_.R16Thm1.BShStandardModel
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, printed form, pending review): Fowler, Math. Proc. Cambridge Philos. Soc.
     180 (2026), Prop. 2.7 (L588-590). -/
   fowlerProp27 : _root_.HDec.CMBranch.FowlerProp27
@@ -787,7 +746,6 @@ theorem openResearchLeaves66_of_OpenResearchLeaves67_ds (n : OpenResearchLeaves6
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := n.bShStandardModel
-  shimuraThm1Af := n.shimuraThm1Af
   fowlerProp27 := n.fowlerProp27
   cmjDegree := n.cmjDegree
   cmPotentialGood := n.cmPotentialGood
@@ -976,19 +934,6 @@ structure OpenResearchLeaves68DS : Prop where
     (defined in Shimura 1971, which the 1973 print cites) and (B4) Shimura's xi_p, <d> act on the
     classes of the x_tau by DS's double-coset formulas (convention dictionary). -/
   bShStandardModel : _root_.R16Thm1.BShStandardModel
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, ELLIOT-literature, pending review): the degree of a singular modulus, card
     Pic(R) <= [L:Q] (L586-587). -/
   cmjDegree : _root_.HDec.CMBranch.CMjDegree
@@ -1038,7 +983,6 @@ theorem openResearchLeaves67_of_OpenResearchLeaves68_ds (n : OpenResearchLeaves6
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := n.bShStandardModel
-  shimuraThm1Af := n.shimuraThm1Af
   fowlerProp27 := HDec.CMBranch.FowlerBridges.fowlerProp27_of_canonical n.fowlerProp27PrintCanonical
   cmjDegree := n.cmjDegree
   cmPotentialGood := n.cmPotentialGood
@@ -1215,19 +1159,6 @@ structure OpenResearchLeaves69DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, ELLIOT-literature, pending review): the degree of a singular modulus, card
     Pic(R) <= [L:Q] (L586-587). -/
   cmjDegree : _root_.HDec.CMBranch.CMjDegree
@@ -1278,7 +1209,6 @@ theorem openResearchLeaves68_of_OpenResearchLeaves69_ds (n : OpenResearchLeaves6
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
   bShStandardModel := _root_.BShFamily.bShStandardModel_proof
-  shimuraThm1Af := n.shimuraThm1Af
   cmjDegree := n.cmjDegree
   cmPotentialGood := n.cmPotentialGood
   cmHeight62 := n.cmHeight62
@@ -1455,19 +1385,6 @@ structure OpenResearchLeaves70DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, ELLIOT-literature, pending review): the degree of a singular modulus, card
     Pic(R) <= [L:Q] (L586-587). -/
   cmjDegree : _root_.HDec.CMBranch.CMjDegree
@@ -1514,7 +1431,6 @@ theorem openResearchLeaves69_of_OpenResearchLeaves70_ds (n : OpenResearchLeaves7
   silverbergZarhinThm35 := n.silverbergZarhinThm35
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmjDegree := n.cmjDegree
   cmPotentialGood := _root_.HDec.CMSerreTate.cmPotentialGood_of_neronSchemeExtensionDedekind
       n.neronSchemeExtensionDedekind
@@ -1685,19 +1601,6 @@ structure OpenResearchLeaves71DS : Prop where
     (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces
     carayolThmAIrr. -/
   carayolThmAFrob : _root_.CarayolRefold.CarayolThmAFrob
-  /-- r16-thm1b: Shimura 1973 Thm 1 as printed, one row. For a newform f in S_2(Gamma_1(N)) with
-    nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>:
-    K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu
-    surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2
-    (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills
-    I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among
-    triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal
-    annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p.
-    526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C =
-    I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n
-    from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible
-    isomorphisms. Euler clause and (iv) not in this row. -/
-  shimuraThm1Af : _root_.R16Thm1b.ShimuraThm1Af
   /-- cm-branch (leaf, ELLIOT-literature, pending review): the degree of a singular modulus, card
     Pic(R) <= [L:Q] (L586-587). -/
   cmjDegree : _root_.HDec.CMBranch.CMjDegree
@@ -1750,7 +1653,6 @@ theorem openResearchLeaves70_of_OpenResearchLeaves71_ds (n : OpenResearchLeaves7
   silverbergZarhinThm35 := n.silverbergZarhinThm35
   y3FullThreeRepZ30 := n.y3FullThreeRepZ30
   carayolThmAFrob := n.carayolThmAFrob
-  shimuraThm1Af := n.shimuraThm1Af
   cmjDegree := n.cmjDegree
   cmHeight62 := n.cmHeight62
   y3ToP1j := n.y3ToP1j

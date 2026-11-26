@@ -32,7 +32,6 @@ def researchLeaves77DS_ofLive (r : HDec.HSyn.OpenResearchLeaves77) :
   javanpeykarThm111An := r.javanpeykarThm111An
   y3FullThreeRepZ30 := r.y3FullThreeRepZ30
   carayolThmAFrob := r.carayolThmAFrob
-  shimuraThm1Af := r.shimuraThm1Af
   cmHeight62 := r.cmHeight62
   fowlerProp27PrintCanonical := r.fowlerProp27PrintCanonical
   cmjDegreePrint := r.cmjDegreePrint
