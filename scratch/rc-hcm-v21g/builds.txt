@@ -60,3 +60,11 @@ ZInQKernel.Contrib.OneProof.RC.HCMV21.ReferenceOrder: OK (Build completed succes
 ## Frozen targets
 ZInQKernel.OneProof.Main: OK (Build completed successfully (19896 jobs).)
 ZInQKernel.OneProof.Discharges: OK (Build completed successfully (2 jobs).)
+
+## Part (2) builds (tails only)
+ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective (at 2630f292, the top of the part (2) chain): OK (Build completed successfully); axiom prints of the part (2) declarations: propext, Classical.choice, Quot.sound (scratch/rc-hcm-v21g/axioms.txt).
+
+## Fixup builds (tails only)
+ZInQKernel.Contrib.OneProof.RC.GoodRowWire.Assembly: OK (Build completed successfully (13747 jobs).); stageRows, oddStagedOfSamePlace: [propext, Classical.choice, Quot.sound]
+ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective: FAILED on first attempt (VoightCandidates.lean isSeparableMor_id: rewrite inside the algebra map, whnf timeout; LevelOrderLemma.lean: Module.Basis prefix, IsLattice instance, injective_iff_surjective argument); fixed
+ZInQKernel.Contrib.OneProof.RC.HCMV21.LevelDeuringInjective: OK (Build completed successfully (13568 jobs).)

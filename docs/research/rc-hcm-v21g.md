@@ -15,7 +15,7 @@
 - its order lemma (`End(E, C)` is isomorphic to the left ring of every representative of its class);
 - its injectivity.
 
-The level-one inputs are the permitted Voight candidates, stated in separable scope. Every step at level `N` is a Lean proof. Surjectivity, and hence the `Equiv`, remains (see "What remains"). No new print was needed and no stop rule fired. The only GLUE Prop of part (2), `SeparableIsogenyExists`, is stated but used by no theorem.
+The level-one inputs are the permitted Voight candidates, stated in separable scope. Every step at level `N` is a Lean proof. Surjectivity, and hence the `Equiv`, remains (see "What remains"). Injectivity takes the reach binder `hR : SeparableReach E₀` (a specialization of Voight p. 786, GLUE); the order lemma rests on `hInv`, `hT` and `hV` only (see the fixup block).
 
 All new declarations depend only on `propext`, `Classical.choice` and `Quot.sound` (`scratch/rc-hcm-v21g/axioms.txt`).
 
@@ -65,7 +65,7 @@ The readers of `model.classes` read `GeometricInput.classes`, whose shape did no
 
 Builds, one at a time (`scratch/rc-hcm-v21g/builds.txt`):
 - the four sinks `AtkinPin.Specialization`, `CMScope.Selector`, `PMQuotient.Assembly` and `PMWire.Assembly`: OK;
-- the nine docstring-edited modules: OK;
+- the nine modules edited in part (1) outside the four sinks (some only in docstrings, some in code, e.g. `PMAdelic.Comparison`, `PMAdelic.Geometry`, `PMWire.Fibre`): OK;
 - `ZInQKernel.OneProof.Main` (19896 jobs) and `ZInQKernel.OneProof.Discharges`: OK.
 
 Scratch files from other runs were left unchanged; both lists are in `builds.txt`:
@@ -129,7 +129,7 @@ All new files are in `ZInQKernel/Contrib/OneProof/RC/HCMV21/` (namespace `ZInQ.M
   - `endRight_mem_levelRight`;
   - `endRight_injective`. The Tate maps span, so `α ∘ γ = 0` for all `α` forces `T_p γ = 0`, and then `γ` is divisible by every power of `p` in the lattice `End(E)`. A frame of `E` is used only to know that `End(E)` is a lattice.
 - `LevelOrderLemma.lean`:
-  - `exists_endRight_eq_level` (surjectivity onto the right order of the placed level ideal). `N x` is in the level-one right order. The Cor. 42.3.7 candidate is applied to a placement translated to an integral ideal containing an integer prime to `q` and gives `γ'`. At each `p ∣ N` the chain isomorphism shows `p^{v_p N} ∣ T_p γ'`. `exists_eq_nsmul_of_primeTo_homT_dvd` and `exists_nsmul_of_forall_primary` give `γ' = N γ`.
+  - `exists_endRight_eq_level` (surjectivity onto the right order of the placed level ideal). `N x` is in the level-one right order, so it is the action of some `γ'` by the level-one order lemma `exists_endRight_eq_of_mem_rightRing`: inclusion plus maximality (ON THE SPOT, Voight's own proof of Lemma 42.2.9 done on the placement, with no `φ_I` and so no reach). The right action `End(E) → B` lands in `O_R(I)`; through the frame `(SE, jE)` of `E` (which also gives the maximality of `End(E)`) it extends to a `ℚ`-algebra automorphism `σ` of `B` (`exists_algEquiv_extend`: `Basis.constr` on the rational basis of `SE`, multiplicative on basis pairs, bijective by dimension); `σ(SE)` is a maximal order inside the order `O_R(I)` (the left order of the mirror), hence equal to it. `VoightCor4237` is not used. At each `p ∣ N` the chain isomorphism shows `p^{v_p N} ∣ T_p γ'`. `exists_eq_nsmul_of_primeTo_homT_dvd` and `exists_nsmul_of_forall_primary` give `γ' = N γ`.
   - `mem_levelHom_of_comp` (recovery of the level from the Hom lattice, through the Tate chains and `mem_of_primary_pow_mem`).
   - **`levelEndEquivRight`**: `levelEnd E ⟨Pt⟩ ≃+* rightRing(placed level ideal)`.
 - `LevelDeuringOrder.lean`:
@@ -142,7 +142,7 @@ All new files are in `ZInQKernel/Contrib/OneProof/RC/HCMV21/` (namespace `ZInQ.M
 
 `LevelDeuringInjective.lean`:
 - `orderSpan_levelLattice`: the level-one ideal is the `O₀`-span of the placed level ideal. This is local: away from `N` the completions agree, and at `p ∣ N` the chain isomorphism lies in the completed level ideal and generates the completed level-one ideal over `O₀`.
-- `nonempty_enhancedIso_of_translate`. If `I_N(X) u = I_N(Y)`, then `I(X) u = I(Y)`, and right multiplication by `u⁻¹` is a bijective left `O₀`-module map `Hom(E_Y, E₀) → Hom(E_X, E₀)`. The bijection clause of the Thm 42.3.2 candidate writes it and its inverse as `φ*`, `ψ*` with `φ, ψ` étale. The injectivity clause gives `ψ ∘ φ = 1` and `φ ∘ ψ = 1`. The level subgroups correspond by `mem_levelHom_of_comp` and a cardinality count.
+- `nonempty_enhancedIso_of_translate`. If `I_N(X) u = I_N(Y)`, then `I(X) u = I(Y)`, and right multiplication by `u⁻¹` is a bijective left `O₀`-module map `Hom(E_Y, E₀) → Hom(E_X, E₀)`. The bijection clause of the Thm 42.3.2 candidate, with its reach premises `rX`, `rY` for the two curves (from `hR : SeparableReach E₀`), writes it and its inverse as `φ*`, `ψ*` with `φ, ψ` étale. The injectivity clause gives `ψ ∘ φ = 1` and `φ ∘ ψ = 1`. The level subgroups correspond by `mem_levelHom_of_comp` and a cardinality count.
 - **`levelDeuringClass_injective`**.
 
 ### What remains (surjectivity, step 13, and the `Equiv`)
@@ -157,25 +157,28 @@ Estimated size: 600–900 lines of Lean. No new statement is needed beyond the c
 
 ## Audit table (step 14)
 
-| Hypothesis on the path | Where | Verdict |
+| Hypothesis on the path | Where (binder file:line) | Verdict |
 |---|---|---|
-| `hT : VoightThm4219` | `HCMV21/EnhancedObjects.lean` (`exists_referenceFrame`), `HCMV21/LevelOrderLemma.lean` (`levelEndEquivRight`, frame of `E` for injectivity) | level-one (Thm 42.1.9 candidate). Not in separable scope: it involves no isogeny or ideal. |
-| `hV : QuaternionRamificationUniqueness` | same | level-one (Main Thm 14.1.3 candidate). |
-| `S, j, hmax` (frame of `E₀`) | parameters of every part (2) result; supplied by `exists_referenceFrame` from `hT`, `hV` and `explicit_ramifiedExactlyAtEll0Infty` | level-one (Thm 42.1.9 + 14.1.3). |
-| `h₀ : IsSupersingular E₀`, `P₀`, `hP₀` | parameters | reference pair (Voight's setting 42.3.1 fixes `E₀`). Supplying it is outside part (2). |
-| `hInv : VoightThm4232Invertible` | `HCMV21/LevelDeuringMap.lean` (`levelLeftClass`), every map statement | level-one (Thm 42.3.2 candidate, invertibility clause). Unrestricted as printed, a clean clause; no isogeny involved. |
-| `hCor : VoightCor4237` | `HCMV21/LevelOrderLemma.lean` (`exists_endRight_eq_level`) | level-one (Cor. 42.3.7 / Lemma 42.2.9 candidate). Used only on a placement whose ideal is integral and contains an integer prime to `q` (`exists_integral_primeTo`): **prime to `q`**. Lemma 42.2.9 applies (42.1.4) to `φ_I`; **this use is marked on the spot here**, with `nrd(I)` prime to `q`. |
-| `hEt : VoightThm4232Etale` | `HCMV21/LevelDeuringInjective.lean` | level-one (Thm 42.3.2 candidate, bijection clause on étale maps). Applied to bijective module maps, giving étale `φ, ψ`, and to the étale maps `ψ ∘ φ` and `1`: **prime to `q`** (étale). It reaches the curves through placements, not through `SeparableIsogenyExists`. |
-| `VoightThm4232EssSurj`, `SeparableIsogenyExists` | stated in `HCMV21/VoightCandidates.lean`; not used by any theorem | level-one candidate / GLUE (Voight p. 786, unproved there; re-cite candidate Nehrkorn), unused. |
-| Prop. 42.2.16, Exercise 16.11, Lemma 42.2.7 and 42.2.22 forms | not used | — |
+| `hT : VoightThm4219` | `HCMV21/EnhancedObjects.lean:148` (`exists_referenceFrame`); `HCMV21/LevelOrderLemma.lean:376` (`exists_endRight_eq_of_mem_rightRing`, frame and maximality of `End(E)`), `:415`, `:537`; `HCMV21/LevelDeuringOrder.lean:63`, `:93`, `:111` | level-one (Thm 42.1.9 candidate). Not in separable scope: it involves no isogeny or ideal. |
+| `hV : QuaternionRamificationUniqueness` | same lines as `hT` | level-one (Main Thm 14.1.3 candidate). |
+| `S, j, hmax` (frame of `E₀`) | section variables `HCMV21/LevelDeuringMap.lean:211–215`, `HCMV21/LevelDeuringOrder.lean:53–58`, `HCMV21/LevelDeuringInjective.lean:133–139`; supplied by `exists_referenceFrame` (`HCMV21/EnhancedObjects.lean:148`) | level-one (Thm 42.1.9 + 14.1.3). |
+| `h₀ : IsSupersingular E₀`, `P₀`, `hP₀` | same section variables | reference pair (Voight's setting 42.3.1 fixes `E₀`). Supplying it is outside part (2). |
+| `hInv : VoightThm4232Invertible` | `HCMV21/LevelDeuringMap.lean:181`, `:235`; `HCMV21/LevelDeuringOrder.lean:58`; `HCMV21/LevelDeuringInjective.lean:139` | level-one (Thm 42.3.2 candidate, invertibility clause). Unrestricted as printed; no isogeny involved. |
+| `hEt : VoightThm4232Etale` | `HCMV21/LevelDeuringInjective.lean:154` (`nonempty_enhancedIso_of_translate`), `:282` (`levelDeuringClass_injective`); candidate at `HCMV21/VoightCandidates.lean:195` | level-one (Thm 42.3.2 candidate, bijection clause on étale maps, with reach premises). Applied to bijective module maps and to `ψ ∘ φ`, `1`. Separable-scope inputs (five): (1) the reach premise: `SeparableReach E₀` for the ∀-statements, `rX`/`rY` per curve; as a statement it is a specialization of Voight p. 786 (GLUE), and it stays the binder of the part (2) theorems; (2) Voight Prop. 42.2.16 (GLUE, Nehrkorn); (3) Voight Exercise 16.11 (step 8(b), not built); (4) the Silverman III.4.11 reading of Lemma 42.2.7; (5) the step of 42.2.21's separable branch "for separable φ, ker φ is étale and deg φ = #ker φ is prime to q" (reading-desk inference: Silverman III.4.10(c), and `E₀[q](k) = 0` from Voight 42.1.7(ii), proved there only by citing Silverman V.3.1). |
+| reach premises `rX`, `rY`, `hR` | `HCMV21/LevelDeuringInjective.lean:158–159` (`rX`, `rY`), `:282` (`hR : SeparableReach E₀`); `SeparableReach` at `HCMV21/VoightCandidates.lean:89` | the source-fixed instance of `SeparableIsogenyExists` (Voight p. 786, GLUE); binder of injectivity. No order declaration takes a reach binder. |
+| `hCor : VoightCor4237` | not used: the order lemma no longer uses `VoightCor4237`; candidate stated at `HCMV21/VoightCandidates.lean:281` with its reach premise | level-one candidate (Cor. 42.3.7 / Lemma 42.2.9), unused. Its own separable-scope inputs (docstring): its reach premise and the Silverman III.4.11 reading of Lemma 42.2.7 through 42.2.9. |
+| `VoightThm4232EssSurj` | stated at `HCMV21/VoightCandidates.lean:214`; unused | level-one candidate, unused. |
+| `SeparableIsogenyExists` | stated at `HCMV21/VoightCandidates.lean:243`; on no path | GLUE (Voight p. 786, Springer printing; deleted in Voight's errata, replaced in v1.0.7u by Cor. 42.2.28, which is itself GLUE). The two-curve Prop is on no path; its source-fixed instance `SeparableReach E₀` (`separableReach_of_separableIsogenyExists`, `:249`) binds the part (2) theorems. |
+| Where the separable-scope inputs enter | — | Prop. 42.2.16, Exercise 16.11, the Silverman III.4.11 reading of Lemma 42.2.7 (with 42.2.22) and the étale-kernel step enter through `hEt`. None enters through the order lemma. |
+| Order lemma by inclusion plus maximality | `HCMV21/LevelOrderLemma.lean:308` (`exists_algEquiv_extend`), `:376` (`exists_endRight_eq_of_mem_rightRing`) | Lean, ON THE SPOT (provenance (c); Voight's proof of Lemma 42.2.9 done on the placement, no `φ_I`, no reach). |
 | Level ideal locally principal | `levelIdeal_locallyPrincipal_tate`, `levelIdeal_locallyPrincipal_away`, `placedLevelIdeal_locallyPrincipal` | level-N proved |
 | Placement independence / iso invariance | `HomPlacement.exists_unit`, `placedLevelClass_eq`, `placedLevelClass_iso` | level-N proved |
 | `End(E₀, C₀)` Eichler order identified with `levelOrder` on class sets | `exists_levelReferenceCoordinates`, `classSetEquivOfReference`, `leftRing_classSetEquivOfReference` | level-N proved (no `hD`). |
-| Order lemma | `levelEndEquivRight`, `levelDeuringClass_order` | level-N proved from `hCor` (prime to `q`). |
-| Injectivity | `orderSpan_levelLattice`, `mem_levelHom_of_comp`, `levelDeuringClass_injective` | level-N proved from `hEt` (étale). |
-| Surjectivity / `Equiv` | — | **open**, this lane (see "What remains"). |
-| `JetchevKane.classes` | `PMAdelic/Comparison.lean` | GLUE, open: a Lean proof in this lane (the present construction once surjective), then the bridge to the consumer's coarse fibre, owned by the O.7 integral-model lane. |
-| `OperatorComparison` (`hecke`, `atkin`, `frobenius`) | `PMAdelic/Comparison.lean` | ELLIOT, open: the next run in this lane. |
+| Order lemma | `levelEndEquivRight` (`HCMV21/LevelOrderLemma.lean:537`), `levelDeuringClass_order` (`HCMV21/LevelDeuringOrder.lean:93`) | level-N proved from `hInv`, `hT` and `hV` only. |
+| Injectivity | `orderSpan_levelLattice`, `mem_levelHom_of_comp`, `levelDeuringClass_injective` (`HCMV21/LevelDeuringInjective.lean:282`) | level-N proved from `hEt` (étale, with its five inputs), `hInv` and `hR : SeparableReach E₀`. |
+| Surjectivity / `Equiv` | not built | **open**, this lane (see "What remains"). |
+| `JetchevKane.classes` | `PMAdelic/Comparison.lean:88` | GLUE, open: a Lean proof in this lane (the present construction once surjective), then the bridge to the consumer's coarse fibre, owned by the O.7 integral-model lane. |
+| `OperatorComparison` (`hecke`, `atkin`, `frobenius`) | `PMAdelic/Comparison.lean:95` | ELLIOT, open: the next run in this lane. |
 
 None of the hD-taking lemmas (`end_basis_of_deuring`, `span_homT_eq_top_of_deuring`, `exists_rationalTate_coordinates_of_deuring`, `exists_referenceEndOrder`, `detector_referenceCoordinates_of_cyclic`, `exists_detectorEndOrder`) is used in part (2). The GLUE bridge of part (0) does not enter part (2).
 
@@ -190,17 +193,18 @@ All are UNVERIFIED until the reading desk's two-lens pass.
 | `VoightThm4219` | Thm 42.1.9, p. 784 (proof p. 785) | as printed |
 | `QuaternionRamificationUniqueness` | Main Thm 14.1.3, p. 218 | restricted to `Ram B = {q, ∞}` |
 | `VoightThm4232Invertible` | Thm 42.3.2, p. 791, invertibility clause (print quoted, typo "defines and" noted) | unrestricted |
-| `VoightThm4232Etale` | Thm 42.3.2, bijection clause | étale maps only |
+| `VoightThm4232Etale` | Thm 42.3.2, bijection clause | étale maps only, with reach premises for `E` and `E′` |
 | `VoightThm4232EssSurj` | Thm 42.3.2, essential surjectivity | integral invertible left ideals containing an integer prime to `q` |
-| `VoightCor4237` | Cor. 42.3.7, p. 792; ring statement from Lemma 42.2.9, p. 788 | integral ideals containing an integer prime to `q` |
-| `SeparableIsogenyExists` | sentence after Lemma 42.1.11, p. 786 | GLUE (unproved in Voight) |
+| `VoightCor4237` | Cor. 42.3.7, p. 792; ring statement from Lemma 42.2.9, p. 788 | integral ideals containing an integer prime to `q`, with a reach premise `∃ φ₀ : Hom E₀ E, IsSeparableIsogeny φ₀`; stated, unused |
+| `SeparableIsogenyExists` | sentence after Lemma 42.1.11, p. 786 (Springer printing; deleted in the errata, replaced by Cor. 42.2.28 in v1.0.7u) | GLUE (unproved in every Voight version); stated, on no path |
 
-The candidate docstrings quote the sentence of 42.2.4, p. 787, on which the inseparable case rests.
+The module docstring of `VoightCandidates.lean` (lines 10–16) quotes the sentence of 42.2.4, p. 787, on which the inseparable case rests; the candidate docstrings refer to it.
 
 Strict weakness of the hypotheses taken by part (2) theorems:
 - `VoightThm4232Invertible` says nothing about levels, cyclic subgroups, `levelOrder` or class sets. It only places one `Hom` module.
 - `VoightThm4232Etale` says nothing beyond `N = 1`: it compares maps of curves with module maps.
-- `VoightCor4237` is a level-one ring statement for one placement.
+- `VoightCor4237` is a level-one ring statement for one placement (unused).
+- The reach binder `SeparableReach E₀` says nothing about levels, cyclic subgroups, `levelOrder` or class sets: it asks only for one separable isogeny `E₀ → E` per supersingular `E`.
 - None mentions `End(E, C)` or Eichler orders, and none asserts that pairs correspond to classes.
 
 The Thm 42.3.2 candidate implies the `N = 1` case of the target, as the owner ruled for this permitted leaf. For `N > 1` and the class-set form, the level-`N` ideal, its local principality, the identification with `levelOrder`, the order lemma and injectivity are all Lean proofs.
@@ -212,9 +216,12 @@ None. The count tracks Theorem 5.3 as `RestrictedConverseGenuine` (`docs/one-pro
 ## Known issues
 
 - **Jetchev–Kane scope.** arXiv v1 §1.1 states `N ≥ 1` with ell prime to `N`. `docs/theorem-application-audit/INVENTORY.md:1510` (row A052) gives `N > 1`. The "citation scope error at tex 8468–8474" in `docs/research/rc-hcm-v21f.md:5` and `:89` rested on that row and is withdrawn: the scope of the cited source covers level one. However, the cited source does not prove the correspondence: §2.5 refers to Ribet's Prop. 3.3, which reports it without proof. INVENTORY.md is not edited.
-- **Integrality in the separable-scope candidates.** "Ideal containing an integer prime to `q`" is only meaningful for integral ideals: a fractional translate always contains `1`. `VoightThm4232EssSurj` and `VoightCor4237` therefore require `I ⊆ O₀` as well, and `exists_integral_primeTo` supplies such representatives.
-- **The Cor. 42.3.7 candidate is stated for a placement.** It is invariant under moving the placement by a right unit (both sides conjugate), so stating it for an admissible placement of the class loses nothing (docstring).
+- **Integrality in the separable-scope candidates.** "Ideal containing an integer prime to `q`" is only meaningful for integral ideals: some rational translate contains `1`. `VoightThm4232EssSurj` and `VoightCor4237` therefore require `I ⊆ O₀` as well, and `exists_integral_primeTo` supplies such representatives.
+- **The Cor. 42.3.7 candidate (unused) is stated for a placement.** It is invariant under moving the placement by a right unit (both sides conjugate), so stating it for an admissible placement of the class loses nothing (docstring).
 - **Voight errata.** Springer numbering is used throughout. Errata item 125 (display (42.2.18)) is not cited. The printed slips in Ch. 42 are not copied.
+- **Voight p. 786 is GLUE in every version.** The sentence after Lemma 42.1.11 ("there exists a separable isogeny E → E′") is in the Springer printing (p. 786). Voight's errata and addenda (the author's PDF of 2026-08-05, Addenda item 17; UNVERIFIED, one reader) delete it; in the online v1.0.7u that the manuscript cites (tex 11241–11245) it is replaced by Cor. 42.2.28 (p. 777), whose proof uses Cor. 42.2.21 (its inseparable branch goes through 42.2.15 to the asserted 42.2.4), Lemma 42.2.7 and Exercise 17.5 (Nehrkorn). Nehrkorn's density argument is not a re-cite: it needs a link between degree and `nrd` at `q`, which is not printed for a general `Hom`.
+- **Partial withdrawal of the v21f scope error in other lanes (for the integrator; not edited here).** `docs/research/pm-adelic-join.md:115–121`, `:131`, `docs/research/rc-pm-geometry.md:93–99` and `docs/research/rc-stage-kummer.md:55`, `:66` still assert the v21f "citation scope error at tex 8468–8474", which this run's report withdraws.
+- **Stale locator outside this lane (for the integrator).** `RC/GoodRowWire/Row.lean:12` (module docstring) and `:72` cite `RC/PMWire/Assembly.lean:120–122` for `G`; on this branch `G` is at `:122–124`.
 - **Reserved tokens.** `ι` and `γ` are reserved tokens in this scope, so Lean names use `emb` and `gam`; docstrings keep the printed letters.
 
 ## Manuscript check
@@ -222,10 +229,10 @@ None. The count tracks Theorem 5.3 as `RestrictedConverseGenuine` (`docs/one-pro
 | Tex | Step | Verdict |
 |---|---|---|
 | 8462–8463 | `B/ℚ` ramified exactly at ell₀ and ∞ by Main Thm 14.6.1 | OK for existence as cited. The manuscript cites the author's PDF v1.0.7u; the number is the same in the Springer edition. Uniqueness, used for the frame, is Main Thm 14.1.3 (candidate). |
-| 8464–8466 | `R` Eichler of level `N`; supersingular pairs are `B^×\B̂^×/R̂^×` | gap filled for the map and injectivity (`levelDeuringClass`, `levelDeuringClass_injective`), from the level-one candidates. Surjectivity is open. The explicit `levelOrder` is Eichler (`levelOrder_isEichler`); `End(E₀, C₀)` is identified with it on class sets. |
-| 8467–8468 | automorphism groups `R_z^×`, `R_z = B ∩ z R̂ z⁻¹` | gap filled at the level of rings (`levelDeuringClass_order`, `levelDeuringClass_reference_order`), from the Cor. 42.3.7 candidate in separable scope. |
+| 8464–8466 | `R` Eichler of level `N`; supersingular pairs are `B^×\B̂^×/R̂^×` | gap filled for the map and injectivity (`levelDeuringClass`, `levelDeuringClass_injective`), from the level-one candidates and the reach binder `hR : SeparableReach E₀`. Surjectivity is open. The explicit `levelOrder` is Eichler (`levelOrder_isEichler`); `End(E₀, C₀)` is identified with it on class sets. |
+| 8467–8468 | automorphism groups `R_z^×`, `R_z = B ∩ z R̂ z⁻¹` | gap filled at the level of rings (`levelDeuringClass_order`, `levelDeuringClass_reference_order`), by inclusion plus maximality (Voight's proof of Lemma 42.2.9 on the placement, ON THE SPOT) from `hInv`, `hT` and `hV`; `VoightCor4237` is not used. |
 | 8468–8469 | every `N` prime to ell₀, including powers of two | OK: all part (2) results take any `N ≥ 1` prime to `q`, including `N = 1` and powers of two. |
 | 8469–8473 | scalar Frobenius over `F_{ell₀²}`; coarse points over that field | unverified (not part of this run; ELLIOT `frobSS`). |
 | 8473–8474 | attribution to Jetchev–Kane §§1.1–1.2, 2.5 | unverified. The source's scope is `N ≥ 1` (arXiv v1 §1.1), so the v21f scope error is withdrawn. The source states the description and refers to Ribet Prop. 3.3, which gives no proof. |
 | 8480–8492 | Hecke, Atkin–Lehner and Frobenius compatibilities | unverified (ELLIOT; `OperatorComparison`, next run). |
-| 9136–9142 | local orbits; the Eichler lattice pair's cyclic quotient at `p^e ∥ N` | gap filled for the geometric level ideal: local principality at `p ∣ N` through a chain isomorphism of Tate modules (`levelIdeal_locallyPrincipal_tate`), and away from `N` from level one. |
+| 9136–9142 | local orbits; the Eichler lattice pair's cyclic quotient at `p^e ∥ N` | unverified (orientation classification not in this run); only the cyclic-chain form at 9140–9142 is used. Tex 9136–9148 classifies local orientations (`2^(ω(N)+1)` of them); the Lean proves local principality of the Hom level ideal at `p ∣ N` through a chain isomorphism of Tate modules (`levelIdeal_locallyPrincipal_tate`), and away from `N` from level one. |
