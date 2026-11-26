@@ -384,7 +384,7 @@ Brinon and Conrad state the theorem without proof, crediting Berger and André�
 O. Brinon and B. Conrad, *CMI summer school notes on $p$-adic Hodge theory* (preliminary version, June 24, 2009), Theorem 9.3.5, p. 148, the "only if" half; admissibility by dimension, §5.2, pp. 67–68; $A_{\rm cris}$, p. 128, and its image in $B_{\rm dR}^+$, p. 129; $B_{\rm cris}$, Definition 9.1.4, p. 131; $B_{\rm st}$, Definition 9.2.3, p. 138, its embedding in $B_{\rm dR}$, pp. 140–142, and Theorem 9.2.10, p. 143; $B_{\rm dR}^{G_K}=K$, Theorem 4.4.13, p. 64 (AI-read; in the manuscript's bibliography, which cites it for other results). The manuscript cites L. Berger, *Représentations $p$-adiques et équations différentielles*, Invent. Math. 148 (2002), 219–284, Théorème 0.6 = Théorème 5.19 (arXiv math/0102179v3, pp. 6 and 56, AI-read; Théorème 0.7 there is Sen's theorem); the journal numbering is unverified.
 """,
     ),
-    'panPrintedF': dict(
+    'panThm104F': dict(
         group='p-adic-hodge', slug='pan-fontaine-mazur',
         title="Pan's Fontaine–Mazur theorem",
         anchor='Pan Theorem 1.0.4',

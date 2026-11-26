@@ -256,11 +256,17 @@ weight-at-least-two representation in its
 prime-ideal convention. Lean proves the comparison with the existing inertia and arithmetic Frobenius
 interfaces. This changes one premise without adding to the count.
 
-pb-refereed-fold (`TailZ103`, docs/research/pb-refereed-fold.md) restates two research fields from refereed
-prints. `bergerSurveyF` becomes `colmezThm01`, Colmez, Astérisque 319 (2008), Théorème 0.1, p. 118, in its printed
-form (semi-stable means `B_st^+[1/t] ⊗ V ≅ (B_st^+[1/t])^d`). `panPrintedF` becomes `panThm104F`, the same statement
-with Fontaine's definition of potential semistability (Astérisque 223 (1994), Exp. III, 5.6.1 and 1.8.5). The
-earlier citation was Brinon–Conrad's unrefereed notes. Both new leaves are pending a reading, so the count does not
+pb-refereed-fold (`TailZ103`, docs/research/pb-refereed-fold.md) took `panPrintedF` to `panThm104F`,
+the same statement, token for token, with Fontaine's definition of potential semistability
+(Astérisque 223 (1994), Exp. III, 5.6.1 and 1.8.5) in place of Brinon–Conrad's unrefereed notes;
+Pan's theorem was read in arXiv:1901.07166v2, and the numbering in J. Amer. Math. Soc. 35 (2022) is
+unchecked. It also replaced `bergerSurveyF` by `colmezThm01` (Colmez, Astérisque 319 (2008),
+Théorème 0.1), which is strictly stronger: Colmez prints the basis form of semistability, which
+implies the dimension form `IsPstF` (`bergerSurveyF_of_colmez`), and the converse needs the
+`G_K`-regularity of `B_st`, not proved here. That swap is undone: `bergerSurveyF` is the field
+again, sourced to Berger, Invent. Math. 148 (2002), the manuscript's citation (theorem number to be
+checked), with Fontaine's definitions; Colmez's theorem is kept as a record (it passed an
+adversarial AI reading, docs/research/pb-adversarial-readings.md). The count does not
 change.
 
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
