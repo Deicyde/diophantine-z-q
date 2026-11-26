@@ -56,9 +56,9 @@ Folding in a proof can remove a hypothesis from that theorem. The count block ab
 | Theorem 1.1 from H and pole completeness | proved in Lean (`ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`) |
 | H, the manuscript's Theorem 4.1 (one instance) | unrefereed; its new arguments reviewed only by AI models; in Lean, derived from 21 open statements (next row) |
 | H from 21 open statements | proved in Lean, in the module chain under `ZInQKernel/OneProof/H/` and `ZInQKernel/Contrib/OneProof/` (built with `ZInQKernel/OneProof/Main.lean`, outside the default library target) |
-| Pole completeness, the manuscript's Theorem 5.2 | proved in Lean from three hypotheses, with the manuscript's Lemma 5.4 proved from the Cassels–Tate pairing (`ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne`) |
+| Pole completeness, the manuscript's Theorem 5.2 | proved in Lean from three hypotheses, with the manuscript's Lemma 5.4 proved from the Cassels–Tate pairing (`ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne_PS`, fed by `ZInQ.Manuscript.PoleS12.casselsTatePairingCurvesPS_of_casselsIV`) |
 | Theorem 5.3 (restricted converse) of the manuscript | unrefereed; assumed |
-| The Cassels–Tate pairing on the curves of Theorem 5.3 | Poonen and Stoll's restatement of Cassels' theorem, specialized to these curves; assumed; classified as glue pending a check against a source that proves it |
+| The Cassels–Tate pairing | Cassels, J. reine angew. Math. 211 (1962), Theorem 1.1, p. 95, with (viii), p. 104, at k = ℚ for every elliptic curve over ℚ; assumed; rated a published statement in its printed form on a three-lens adversarial AI reading (AI-read only, no human statement check); Lean derives from it Poonen and Stoll's form on the curves of Theorem 5.3 |
 | Silverman, Appendix C, Evidence 16.5.5, p. 453 | the analytic-rank-one to Mordell–Weil-rank-one implication, without the finite-Sha conclusion; assumed; recorded as a consequence of Miller's Theorem 4.4, from which Lean proves it; rated by Miller's Theorem 4.4; AI-read only, no human statement check |
 | Theorem 1.1 from exactly the statements that are still open | proved in Lean (`ZInQ.OneProof.frozenTarget`) |
 
@@ -84,8 +84,8 @@ The headline Lean theorem is
 `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`) applies it to H and to pole completeness. It takes the
 open statements of H as the fields of `HDec.HSyn.OpenResearchLeaves76` and `HDec.HSyn.OpenAddedLeaves28` (the third
 bundle, `HDec.HSyn.OpenTextbookLeaves18`, has no open field left), and the three inputs of pole completeness as the
-hypotheses `hRC` (Theorem 5.3), `hCT` (the Cassels–Tate pairing on the curves of Theorem 5.3, from which Lean proves
-Lemma 5.4), and `hRank` (Silverman's forward rank-one implication), and nothing else.
+hypotheses `hRC` (Theorem 5.3), `hCT` (Cassels' theorem on the Cassels–Tate pairing for every elliptic curve over ℚ,
+from which Lean proves Lemma 5.4), and `hRank` (Silverman's forward rank-one implication), and nothing else.
 
 ## The open statements
 
@@ -133,11 +133,12 @@ recorded; neither changes a count.
 Pole completeness is the manuscript's Theorem 5.2 for its own pole polynomial (whose solutions give points on its
 curves E_ℓ: y² = x(x − ℓ)(x + 3ℓ); `diophantine_zq.tex` lines 976–986 and 1001–1004). Lean proves it from three
 statements: `hRC`, the manuscript's Theorem 5.3 (the restricted converse), stated over the genuine 2-primary Selmer
-group; `hCT`, the Cassels–Tate pairing on the same curves in Poonen and Stoll's restatement of Cassels' theorem
-(Ann. of Math. 150 (1999), Introduction), from which Lean proves Lemma 5.4; and `hRank`, Silverman's forward rank-one
-implication (2nd ed., Appendix C, Evidence 16.5.5, p. 453). The last replaces `hB` and `hK` at this root, without
-changing the pole construction or using the finiteness of Sha. Its record cites Miller's Theorem 4.4 (LMS J. Comput.
-Math. 14 (2011)), from which Lean proves it (`ZInQ.Manuscript.ForwardRankLiterature.silvermanRankOne_of_miller`);
+group; `hCT`, Cassels' theorem on the Cassels–Tate pairing (J. reine angew. Math. 211 (1962), Theorem 1.1) for every
+elliptic curve over ℚ, from which Lean derives Poonen and Stoll's form on the same curves and proves Lemma 5.4; and
+`hRank`, Silverman's forward rank-one implication (2nd ed., Appendix C, Evidence 16.5.5, p. 453). The last replaces
+`hB` and `hK` at this root, without changing the pole construction or using the finiteness of Sha. Its record cites
+Miller's Theorem 4.4 (LMS J. Comput. Math. 14 (2011)), from which Lean proves it
+(`ZInQ.Manuscript.ForwardRankLiterature.silvermanRankOne_of_miller`);
 an AI reading found the Lean form of Miller's theorem faithful to the print. `hRank` is rated by Miller's Theorem 4.4;
 AI-read only, no human statement check.
 Fork PR #110 reduces Theorem 5.3 in Lean to step-level hypotheses along the manuscript's

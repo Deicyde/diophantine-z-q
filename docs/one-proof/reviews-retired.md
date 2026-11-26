@@ -12,3 +12,9 @@ by modularHTCoeff, htnew-assembly) moved here for the same reason.
 Later (fold-b105, pb-p1): the row of panPrintedP (replaced by panPrintedF, Pan over Fontaine's B_st as printed) moved here for the same reason.
 
 Later (ds965-reroute-fold, #197): the rows of dsThm965AtPrimes moved here. The field was removed by a reroute (its readers now use modularHTCoeff and dsThm966Printed), with no replacement leaf; the readings, one of them a human reading of the characteristic-equation clause, are kept here as a record.
+
+Later (hct-cassels-fold): the row of hCT moved here. The field keeps its name, but its statement changed from
+Poonen–Stoll's restatement of Cassels' theorem at the curves E_ℓ (`PoleS12.CasselsTatePairingCurves`) to Cassels
+(1962), Theorem 1.1, for every elliptic curve over ℚ (`SelmerTwoPower.CasselsIVThm11Elliptic`). The reading was of
+the old statement and does not rate the new one; the new statement's reading is in reviews.tsv
+(docs/research/cassels-adversarial-readings.md).

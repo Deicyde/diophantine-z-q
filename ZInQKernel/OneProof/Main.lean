@@ -5,6 +5,7 @@ import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
 import ZInQKernel.Contrib.OneProof.CasselsTatePairing
 import ZInQKernel.Contrib.RC53Assist.BCDTPrint.Descent
 import ZInQKernel.Contrib.OneProof.SilvermanRankOne
+import ZInQKernel.Contrib.OneProof.CasselsIV.Glue
 
 /-!
 # The whole proof in one theorem
@@ -275,12 +276,13 @@ implication (Appendix C, Evidence 16.5.5). Pole completeness (Theorem 5.2) uses 
 theorem _root_.ZInQ.OneProof.frozenTarget
     (r : HDec.HSyn.OpenResearchLeaves78) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves30)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
-    (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves)
+    (hCT : ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic)
     (hRank : ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
     (HDec.HSyn.sixContactMin_of_open99 r t l)
-    (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne hRC hCT
+    (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne_PS hRC
+      (ZInQ.Manuscript.PoleS12.casselsTatePairingCurvesPS_of_casselsIV hCT)
       (ZInQ.Manuscript.PoleS12.SilvermanRank.rankOne_of_aec hRank))
 
 end ZInQ.OneProof

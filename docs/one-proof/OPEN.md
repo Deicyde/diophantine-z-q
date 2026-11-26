@@ -140,7 +140,7 @@ p-adic Hodge theory and modular Galois representations. Claim it on [Deicyde #14
 | [`panThm104F`](#panthm104f) | research | published | LEAF | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`silverbergZarhinThm34`](#silverbergzarhinthm34) | research | published | LEAF | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`hRC`](#hrc) | frozenTarget | manuscript hypothesis | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/83)) |
-| [`hCT`](#hct) | frozenTarget | published | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by [@mccorvie](https://github.com/mccorvie) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7031756860)) |
+| [`hCT`](#hct) | frozenTarget | published | LEAF | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by [@mccorvie](https://github.com/mccorvie) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7031756860)) |
 | [`hRank`](#hrank) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #127](https://github.com/Deicyde/diophantine-z-q/issues/127) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/198)) |
 
 ## The hypotheses
@@ -463,19 +463,19 @@ ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine
 
 ### hCT
 
-* Argument `hCT` of `frozenTarget`; kind **published**, strict **GLUE**; flag: AI read (docs/research/cassels-tate-pairing.md, docs/research/lem54-ct-check.md); a direct instance of a report (provenance (b)): Poonen-Stoll restating Cassels' theorem without proof, existence form, specialized to the curves E_l; Milne ADT I.6.13(a) corroborates only; GLUE until read (Jack 11-21, #125: "Re-cite; glue until read"): the cited Poonen-Stoll sentence reports Cassels' theorem and does not prove it. Re-citing to a theorem that proves it: Cassels, 'Arithmetic on curves of genus 1, IV', J. reine angew. Math. 211 (1962), or Milne, Arithmetic Duality Theorems, I.6; locator UNVERIFIED. LEAF returns after the page read and a two-lens skeptic pass.
-* Source: Poonen-Stoll, The Cassels-Tate pairing on polarized abelian varieties, Ann. of Math. (2) 150 (1999), 1109-1149, Introduction, first paragraph, p. 2 of the author's version, p. 1110 of the journal (pagination from arXiv:math/9911267v1) (the author's version the bibliography links, math.mit.edu/~poonen/papers/sha.pdf; the cited version is the print): for an elliptic curve over a number field a pairing Sha x Sha -> Q/Z that is alternating and nondegenerate after dividing by the maximal divisible subgroup (Poonen-Stoll restating Cassels' theorem: a report, not a proof); cited at diophantine_zq.tex L1079-1081
+* Argument `hCT` of `frozenTarget`; kind **published**, strict **LEAF**; flag: adversarial AI reading 11-26 (docs/research/cassels-adversarial-readings.md; three independent lenses on three model families from the page images: fidelity PASS, skeptic PASS, red team PASS on CasselsIVThm11Elliptic, no blocking item): direct instance at k = Q of Cassels, J. reine angew. Math. 211 (1962), Thm 1.1 p. 95 ('there exists a naturally-defined skew-symmetric form l(ξ, η) defined for ξ, η ∈ Ш and taking values in the group Q/Z'), with §3 (viii) p. 104 ('l(ξ, η) is skewsymmetric, i.e. l(ξ, ξ) = 0 for all ξ'), for every elliptic curve over Q (E.IsElliptic; C an abelian variety of dimension 1, p. 97, read as a nonsingular Weierstrass cubic); Ш is sha E, the classes of continuous H^1(G_Q, E(Q^sep)) (discrete coefficients) that restrict to 0 at every Q_p and at R (everywhere locally trivial: kernel of j_p for every valuation, (5.1) p. 105; the reals included, p. 108); positive m, eta in the second slot and H in Ш, as printed; dictionary notes: (1) Cassels's identification WC = H^1(Γ, 𝔊̄) (§1, p. 98, footnote 12; p. 108) is the print's own and is not formalised: the row is stated on the H^1 side, where Cassels builds the pairing; (2) 'naturally-defined' is dropped, a weakening; (3) the proof imports Paper III, Thm 7.1 (Lemma 6.2, p. 108), and uses that Ш/qШ is finite (p. 105): proof inputs, not the statement; (4) the old row (PoleS12.CasselsTatePairingCurves, Poonen-Stoll's restatement at the curves E_l) and this row are not shown to imply each other in the tree; both imply the Poonen-Stoll form PoleS12.CasselsTatePairingCurvesPS, which is all the consumer poleCompleteness_of_rankOne_PS reads (casselsTatePairingCurvesPS_of_casselsIV, #217); the unguarded helper CasselsIVThm11 is not the row (red team; its docstring says so); the maintainer 11-26: with no human reader available the adversarial AI reading stands in for the human reading (evidence AI-READ); replaces the Poonen-Stoll report (GLUE until read, Jack 11-21, #125).
+* Source: Cassels, Arithmetic on curves of genus 1. IV. Proof of the Hauptvermutung, J. reine angew. Math. 211 (1962), 95-112, Theorem 1.1, p. 95, with §3 (viii), p. 104 (WC = H^1: §1, p. 98; everywhere locally trivial: (5.1), p. 105); GDZ copy PPN243919689_0211, LOG_0012, SHA-256 660a9e4fd00cd6447108464d47600d667330ff1d1e1128985e3bec215b0f31fc; CasselsIVThm11Elliptic in Contrib/OneProof/CasselsIV/Row.lean, glue to the Poonen-Stoll form in CasselsIV/Glue.lean
 * discussion: [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83).
 * Human readings recorded: none.
 * Status: held by [@mccorvie](https://github.com/mccorvie) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7031756860)).
 
 ```lean
-ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves
+ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic
 ```
 
-> **The Cassels–Tate pairing for the curves `E_ℓ`** (`SelmerTwoPower.CasselsTatePairing` at
-> `E_ℓ : y² = x(x − ℓ)(x + 3ℓ)` for positive squarefree `ℓ ≡ 11 (mod 12)`, the curves of Theorem 5.3 and
-> Lemma 5.4).
+> **Cassels (1962), Theorem 1.1, at `k = ℚ`, for every elliptic curve over `ℚ`**: the theorem
+> as printed, for every abelian variety of dimension 1 over the number field `ℚ`
+> (`CasselsIVThm11` at each `E` with `E.IsElliptic`).
 
 ### hRank
 
@@ -528,4 +528,5 @@ ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne
 | panThm104F | statement-check | project | yes |  |
 | colmez1992DeRhamAbVar | statement-check | project | yes |  |
 | fontaine1982HTAbVar | statement-check | project | yes |  |
+| hCT | statement-check | project | yes |  |
 

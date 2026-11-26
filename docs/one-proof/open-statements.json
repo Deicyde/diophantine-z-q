@@ -120,11 +120,11 @@
    "docstring":
    "**Theorem 5.3 of the 11/5 manuscript (restricted converse, `hyp:RC`), over the genuine Selmer\ncondition.** For every positive squarefree `ℓ ≡ 11 (mod 12)`,\n`corank_{ℤ₂} Sel_{2^∞}(E_ℓ/ℚ) = 1` implies `ord_{s=1} L(E_ℓ, s) = 1`, where\n`E_ℓ : y² = x(x - ℓ)(x + 3ℓ)` (`ZInQ.Manuscript.curve`) and `ord_{s=1}` is\n`ZInQ.Manuscript.AnalyticRankOne`. It is `ZInQ.Manuscript.RestrictedConverse` at the predicate\n`SelmerCorankOne`. ",
    "bundle": "frozenTarget"},
-  {"type": "ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves",
-   "statement": "ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves",
+  {"type": "ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic",
+   "statement": "ZInQ.Manuscript.SelmerTwoPower.CasselsIVThm11Elliptic",
    "field": "hCT",
    "docstring":
-   "**The Cassels–Tate pairing for the curves `E_ℓ`** (`SelmerTwoPower.CasselsTatePairing` at\n`E_ℓ : y² = x(x − ℓ)(x + 3ℓ)` for positive squarefree `ℓ ≡ 11 (mod 12)`, the curves of Theorem 5.3 and\nLemma 5.4). ",
+   "**Cassels (1962), Theorem 1.1, at `k = ℚ`, for every elliptic curve over `ℚ`**: the theorem\nas printed, for every abelian variety of dimension 1 over the number field `ℚ`\n(`CasselsIVThm11` at each `E` with `E.IsElliptic`). ",
    "bundle": "frozenTarget"},
   {"type":
    "ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne",
