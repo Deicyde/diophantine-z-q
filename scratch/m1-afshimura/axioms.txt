@@ -1,0 +1,98 @@
+'ShimuraSteps.Quotient.comp0_tmul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.hom0Inclusion_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.hom0_exists_positive_denominator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.hom0_nsmul_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.cleared_hecke_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.heckeCompat_iff_rational' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.unit_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.kernelInclusion_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.kills_iff_kills_imageSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.printQuotient_iff_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.schemeKernelConnected_of_isAbVarQuotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraSteps.Quotient.unit_isIso_of_finite_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.kerConnected_of_schemeKernelConnected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientFinite.0.ShimuraSteps.Quotient.target_pair_mono' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientFinite.0.ShimuraSteps.Quotient.target_properties' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientFinite.0.ShimuraSteps.Quotient.finiteSchemeQuotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientFinite.0.ShimuraSteps.Quotient.exists_operations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientFinite.0.ShimuraSteps.Quotient.separated_quotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientFinite.0.ShimuraSteps.Quotient.translation_kernel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraSteps.Quotient.finiteSubgroupQuotient_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientComplement.0.ShimuraSteps.Quotient.intersection_isPullback' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientComplement.0.ShimuraSteps.Quotient.factor_of_effectiveEpi' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientComplement.0.ShimuraSteps.Quotient.descended_kernel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraSteps.Quotient.abVarQuotientBySubvarietyExists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientConnected.0.ShimuraSteps.Quotient.componentModel_kernel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientConnected.0.ShimuraSteps.Quotient.openImmersion_of_closed_and_open_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientConnected.0.ShimuraSteps.Quotient.residual_unit_open' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AbVarQuotientConnected.0.ShimuraSteps.Quotient.finite_of_open_kernel_unit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraSteps.Quotient.schemeKernelConnected_of_kerConnected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.kerConnected_iff_schemeKernelConnected' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ShimuraSteps.Quotient.factors_of_range_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.range_le_of_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.range_eq_of_surj_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.imageSum_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.exists_printQuotient_of_abVarQuotientBySubvarietyExists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.exists_afQuotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.af_coeffField_finite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.inducedHecke_rel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.inducedHecke_eq_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.diamond_mem_coeffField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.integralEvaluation_coe' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.rationalEvaluation_one_tmul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.rationalEvaluation_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.rationalEvaluation_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'_private.ZInQKernel.Contrib.OneProof.AfShimuraProof.0.AfTateLam.exists_afAction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'AfTateLam.afShimura_proof' depends on axioms: [propext, Classical.choice, Quot.sound]

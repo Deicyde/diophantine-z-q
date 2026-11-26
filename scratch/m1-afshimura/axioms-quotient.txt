@@ -1,0 +1,3 @@
+'ShimuraSteps.Quotient.imageSum_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.abVarQuotientBySubvarietyExists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSteps.Quotient.kills_iff_kills_imageSum' depends on axioms: [propext, Classical.choice, Quot.sound]
