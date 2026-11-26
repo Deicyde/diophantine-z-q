@@ -15,12 +15,12 @@ removes it. See
 
 **19 hypotheses of the H part** (in the bundles `OpenAddedLeaves29`, `OpenResearchLeaves78`), plus three hypotheses outside the H part (`hRC`, `hCT`, `hRank`, from which Lean proves pole completeness, Theorem 5.2 of the 11/5 manuscript), listed at the end.
 
-* **Strict count: 6 published / 13 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* **Strict count: 5 published / 14 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
   column `flag`).
-* By kind: consequence 12, published 7.
+* By kind: consequence 13, published 6.
 
 ## Kernel-wide readings
 
@@ -66,7 +66,7 @@ Readings that apply to every statement built on a shared kernel definition.
 
 ## Good first targets
 
-* [`silverbergZarhinThm34`](#silverbergzarhinthm34): a good first target; published, [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
+* [`silverbergZarhinThm34`](#silverbergzarhinthm34): a good first target; consequence, [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 
 ## Held
 
@@ -95,7 +95,7 @@ A packet is a set of statements decided by reading one block of the literature. 
 
 Reduction block: SGA 7 I Exp. IX, BLR 1.2 Prop. 4, Serre-Tate 1968. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
 
-* [`silverbergZarhinThm34`](#silverbergzarhinthm34) (LEAF): Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351); Grothendieck's semistable reduction theorem; replaces silverbergZarhinThm35 (Raynaud's criterion) through SZRaynaud.silverbergZarhinThm35_of_sz34
+* [`silverbergZarhinThm34`](#silverbergzarhinthm34) (GLUE): Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351); Grothendieck's semistable reduction theorem; replaces silverbergZarhinThm35 (Raynaud's criterion) through SZRaynaud.silverbergZarhinThm35_of_sz34; Néron-model existence: SGA 7 I, Exp. IX, §3.2.1, p. 348
 
 ### Packet R5
 
@@ -133,13 +133,13 @@ p-adic Hodge theory and modular Galois representations. Claim it on [Deicyde #14
 | [`modularHTCoeff`](#modularhtcoeff) | research | consequence | GLUE | pending-review | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open (last released by the project: #191 landed as additive code without a fold. Its premise `NewformGeometricComparison` is stronger than `ModularHTCoeff` (it fixes one of the row's two normalizations and adds algebraic coefficients...) |
 | [`pazukiCor13Upper`](#pazukicor13upper) | research | consequence | GLUE | note | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`shimuraThm1Af`](#shimurathm1af) | research | consequence | GLUE | pending-review |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6997431192)) |
+| [`silverbergZarhinThm34`](#silverbergzarhinthm34) | research | consequence | GLUE | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 1 | open |
 | [`y3FullThreeRepZ30`](#y3fullthreerepz30) | research | consequence | GLUE | unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/211)) |
 | [`cmjDegreePrint`](#cmjdegreeprint) | research | published | LEAF | note |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 1 | open |
 | [`colmezThm01`](#colmezthm01) | research | published | LEAF | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`dsThm966Printed`](#dsthm966printed) | research | published | LEAF | note | good-first |  | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/48)) |
 | [`fowlerProp27PrintCanonical`](#fowlerprop27printcanonical) | research | published | LEAF | note |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 1 | open (last released by the project: no fold. Oesterlé's Théorème 1 implies Fowler's Proposition 2·7, so putting it in place of the Fowler row at the same count would make `frozenTarget`'s hypothesis stronger (review on #184). #184 st...) |
 | [`panThm104F`](#panthm104f) | research | published | LEAF | note | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
-| [`silverbergZarhinThm34`](#silverbergzarhinthm34) | research | published | LEAF | note | good-first |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 1 | open |
 | [`hRC`](#hrc) | frozenTarget | manuscript hypothesis | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/83)) |
 | [`hCT`](#hct) | frozenTarget | published | GLUE | note |  |  | [Deicyde #83](https://github.com/Deicyde/diophantine-z-q/issues/83) | 0 | held by [@mccorvie](https://github.com/mccorvie) ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7031756860)) |
 | [`hRank`](#hrank) | frozenTarget | consequence | GLUE | note |  |  | [Deicyde #127](https://github.com/Deicyde/diophantine-z-q/issues/127) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/pull/198)) |
@@ -331,6 +331,20 @@ R16Thm1b.ShimuraThm1Af
 
 > r16-thm1b: Shimura 1973 Thm 1 in consequence form (GLUE, pending review), one row. For a newform f in S_2(Gamma_1(N)) with nebentypus chi, the kernel's model X of X_1(N), Jacobian J, Hecke operators T_p = xi_p, <d>: K_f finite over Q, and there is a triple (A, nu, theta) with Shimura's clauses (i) nu surjective with connected kernel, (ii) nu o xi_n = theta(a_n) o nu at n = p and n = p^2 (xi_{p^2} = T_p^2 - p<p>), (iii) dim A = [K_f : Q], and IsAfQuotient (ker nu = I_f J: nu kills I_f J and is universal for that), unique up to a nu-compatible isomorphism over Q among triples with (i)-(iii). Printed (AI page read): C = Ker(nu) (p. 525), C from the ideal annihilating f intersected with End(J) (p. 526), uniqueness up to isomorphisms over Q (p. 526), dimension and tangent space from m = 1 via q-expansions (p. 527). ON THE SPOT steps: C = I_f J (the ideal is ker rho, saturation, Hecke relations in both directions); (ii) for all n from p and p^2 via xi_{p^2} = T_p^2 - p<p> (a theorem step, the Hecke relation); nu-compatible isomorphisms. Euler clause and (iv) not in this row.
 
+### silverbergZarhinThm34
+
+* Bundle field `HDec.HSyn.OpenResearchLeaves78.silverbergZarhinThm34`; kind **consequence**, strict **GLUE**; flag: human readings 11-26 (CheyLoveday, HUMAN-READ): SZ Thm 3.4 pp. 405-406 and SGA 7 I Exp. IX Th. 3.6 p. 351 both CONSEQUENCE: the Lean predicate (HasSemistableReductionSZ) asserts the existence of a Néron model, which SZ presupposes; Néron-model existence is SGA 7 IX §3.2.1 (HUMAN-READ), cited in place of the unverified BLR locator; a faithful restatement that takes the Néron model as given would be a direct instance (follow-up).
+* Source: Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351); Grothendieck's semistable reduction theorem; replaces silverbergZarhinThm35 (Raynaud's criterion) through SZRaynaud.silverbergZarhinThm35_of_sz34; Néron-model existence: SGA 7 I, Exp. IX, §3.2.1, p. 348
+* packet [R1](#packet-r1); label good-first (a good first target); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
+* Human readings recorded: 1.
+* Status: open.
+
+```lean
+SZRaynaud.SilverbergZarhinThm34
+```
+
+> Grothendieck's semistable reduction theorem as stated in Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351): for an abelian variety A over a field K with a discrete valuation ring O, one finite Galois extension E of K inside an algebraic closure such that A_E has semistable reduction (HasSemistableReductionSZ, which also asserts a Neron model) at every prolongation of O to E. Replaces silverbergZarhinThm35 (Raynaud's criterion), which SZRaynaud.silverbergZarhinThm35_of_sz34 proves from it with the proved Theorem 3.3.
+
 ### y3FullThreeRepZ30
 
 * Bundle field `HDec.HSyn.OpenResearchLeaves78.y3FullThreeRepZ30`; kind **consequence**, strict **GLUE**; flag: ELLIOT: the manuscript's own claim (diophantine_zq.tex L473-477), derived there from Buzzard 1997 Thm 2.1 / Cor. 2.3 at V1(5) plus the Isom sheaf, the free G5 = (O/5O)^x quotient and descent (L443-477); not a print at level 3 (Buzzard excludes level at 3 | disc 6); polarization-free form equivalent to the manuscript's polarized problem through the canonical principal polarization (relative Lemma P), ON THE SPOT, not proved in the tree; Buzzard locators read 11-17 in the author's copy, preprint pagination: Thm 2.1 p. 5 (standing hypotheses (i)-(iii) on U, p. 5), Lemma 2.2 p. 6, Cor. 2.3 p. 7; Duke page numbers UNVERIFIED.
@@ -414,20 +428,6 @@ HDec.PkgI4.PanBergerRefereed.PanThm104F
 ```
 
 > Pan, J. Amer. Math. Soc. 35 (2022), Theorem 1.0.4 with Conjecture 1.0.1 (arXiv:1901.07166v2 pp. 5 and 2), p >= 5, with potential semistability in Fontaine's sense (Astérisque 223 (1994), Exp. III, 5.6.1, in the equivalent form of 1.8.5). Same statement as the replaced panPrintedF; only the source of the definitions changes from Brinon-Conrad's notes to Fontaine's exposés; panPrintedF_of_thm104F.
-
-### silverbergZarhinThm34
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves78.silverbergZarhinThm34`; kind **published**, strict **LEAF**; flag: reading 11-21 (two-lens skeptic pass, docs desk: statement vs print FAITHFUL, soundness SOUND): SZ Thm 3.4, pp. 405-406, proved there by SGA 7 IX Th. 3.6, p. 351 (Def. 3.4 p. 349; the Neron model localizes, 3.2.1 p. 348); glue: the prolongations of O to E are the localizations of its normalization in E and are discrete valuation rings (standard, not printed; proved here as FiniteSeparableDVR).
-* Source: Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351); Grothendieck's semistable reduction theorem; replaces silverbergZarhinThm35 (Raynaud's criterion) through SZRaynaud.silverbergZarhinThm35_of_sz34
-* packet [R1](#packet-r1); label good-first (a good first target); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
-* Human readings recorded: 1.
-* Status: open.
-
-```lean
-SZRaynaud.SilverbergZarhinThm34
-```
-
-> Grothendieck's semistable reduction theorem as stated in Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.4, pp. 405-406 (proof: SGA 7 I, Exp. IX, Th. 3.6, p. 351): for an abelian variety A over a field K with a discrete valuation ring O, one finite Galois extension E of K inside an algebraic closure such that A_E has semistable reduction (HasSemistableReductionSZ, which also asserts a Neron model) at every prolongation of O to E. Replaces silverbergZarhinThm35 (Raynaud's criterion), which SZRaynaud.silverbergZarhinThm35_of_sz34 proves from it with the proved Theorem 3.3.
 
 ## Hypotheses outside the H part
 
