@@ -8,3 +8,4 @@
 - no copy bridging needed: row I3.AbVar terms accepted at DeRhamPrint.toKer / PkgI3.Tate.map types as-is
 - lake build +...CpPoints: ok 11.9s, no warnings from CpPoints
 - ProofCheck.lean (uncommitted): lake env lean ok 6.3s; both theorems: [propext, Classical.choice, Quot.sound]
+- report written; ProofCheck.lean removed
