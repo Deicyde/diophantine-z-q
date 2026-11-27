@@ -1,24 +1,30 @@
-import ZInQKernel.Contrib.OneProof.GaudronRemondSection9SS
+import ZInQKernel.Contrib.OneProof.HeightModelM.Rows
 
 /-!
-# `gaudronRemondSec9LowerAnSS` as printed: Gaudron–Rémond, Duke Math. J. 163 (2014), p. 2101
+# Gaudron–Rémond's §9 lower bound as printed: Duke Math. J. 163 (2014), p. 2101
 
-The row `gaudronRemondSec9LowerAnSS` (`ZInQ.BostGR9.GaudronRemondSec9LowerAnSS`) is Bost's lower bound
-h_F(A) ≥ −(3/2) dim A for the stable Faltings height in Faltings' original normalization. Its recorded source,
-Gaudron–Rémond, Comment. Math. Helv. 89 (2014), Cor. 8.4, proves a stronger bound, and a replacement of the row by
-a stronger statement is declined. The inequality of the row itself is printed in Gaudron–Rémond, *Polarisations et
-isogénies*, Duke Math. J. 163 (2014), the paper the manuscript cites (§9): on p. 2101, for an abelian variety A of
-dimension g ≥ 1 over a number field (the setting of p. 2058), and on pp. 2098 and 2102 for the abelian varieties met
-in the proofs. The print attributes the bound to Bost and does not prove it there (a report).
+The row `ZInQ.HeightModelM.GaudronRemondSec9LowerGR1Weak` is Bost's lower bound h_F(A) ≥ −(3/2) dim A for
+Gaudron–Rémond's stable height computed on a semi-abelian model, in Faltings' original normalization
+(`ZInQ.HeightModelM.IsGR1StableHeightOriginal`: GR1 = Gaudron–Rémond, *Théorème des périodes et degrés minimaux
+d'isogénies*, Comment. Math. Helv. 89 (2014), §2.3, pp. 351–352). Its recorded source, GR1 Cor. 8.4, proves a
+stronger bound, and a replacement of the row by a stronger statement is declined. The inequality of the row itself
+is printed in Gaudron–Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), the paper the manuscript cites
+(§9): on p. 2101, for an abelian variety A of dimension g ≥ 1 over a number field, with h_F the height of
+[GR1, §2.3] (the setting of p. 2058), and on pp. 2098 and 2102 for the abelian varieties met in the proofs. The
+print attributes the bound to Bost and does not prove it there (a report).
 
 The row also covers g = 0, which the print does not. That case is proved here: an abelian variety of dimension 0 is
-`Spec K`, each of its group models has a single complex point at each embedding τ, and the height is 0.
+`Spec K`, each of its group models has a single complex point at each embedding τ, and the height computed on any
+group model is 0 (`height_eq_zero_of_dim_zero`), for the GR1 height and for the Néron-model height
+`ZInQ.SemistabAssembly.IsAnStableHeightSS` alike.
 
 * `GaudronRemondDuke163Bost`: the printed statement, in the row's Lean form, for g ≥ 1 as printed.
-* `isAnStableHeightSS_eq_zero_of_dim_zero`, `isAnStableHeightSS_nonneg_of_dim_zero`: at g = 0 the height is 0
-  (proved).
-* `gaudronRemondSec9LowerAnSS_of_duke163`, `duke163_of_gaudronRemondSec9LowerAnSS`, `gaudronRemondDuke163Bost_iff`:
-  the printed statement is equivalent to the row (g = 0 by the proof here, g ≥ 1 by the print).
+* `isGR1StableHeightOriginal_eq_zero_of_dim_zero`, `isGR1StableHeightOriginal_nonneg_of_dim_zero`: at g = 0 the
+  GR1 height is 0 (proved); `isAnStableHeightSS_eq_zero_of_dim_zero`, `isAnStableHeightSS_nonneg_of_dim_zero`: the
+  same for the Néron-model height.
+* `gaudronRemondSec9LowerGR1Weak_of_duke163`, `duke163_of_gaudronRemondSec9LowerGR1Weak`,
+  `gaudronRemondDuke163Bost_iff`: the printed statement is equivalent to the row (g = 0 by the proof here, g ≥ 1
+  by the print).
 -/
 
 set_option autoImplicit false
@@ -123,20 +129,21 @@ theorem volume_univ_fin_zero : (volume (Set.univ : Set (Fin 0 → ℂ))).toReal 
   rw [MeasureTheory.volume_pi, Measure.pi_univ]
   simp
 
-/-- **At g = 0 the height is 0.** For `dim A = 0` and `x` as in `ZInQ.SemistabAssembly.IsAnStableHeightSS`:
+/-- **At g = 0 the height on any group model is 0.** Let `dim A = 0`, `𝒩` a group model of `A_L`, `η ≠ 0` in the
+lattice `⋀⁰ω` (`printedDetLattice`), and `r τ = ‖η‖²_τ` (`IsAnMetricSq`). Then
+`(log #(⋀⁰ω / 𝓞_L η) − ½ ∑_τ log r τ) / [L:ℚ] = 0`:
 * the lattice `⋀⁰ω` is the `𝓞_L`-span of `w₀ = 1 ⊗ 1`, so `η = a • w₀` with `a ≠ 0` and
   `#(⋀⁰ω / 𝓞_L η) = |N_{L/ℚ}(a)|` (`secIndex_smul`);
 * the complex points at `τ` are a single point (`pts_subsingleton_of_dim_zero`), and the measure `|τ a|² δ₁` has
   the density of `(i/2)⁰ η̃ ∧ η̄̃` in every chart (`ℂ⁰` is a point of Lebesgue measure 1 and every derivative has
-  determinant 1), so the metric is `‖η‖²_τ = |τ a|²`;
-* hence `x = (log |N a| − ½ ∑_τ log |τ a|²)/[L:ℚ] = 0` (`sum_log_norm_embeddings_int`). -/
-theorem isAnStableHeightSS_eq_zero_of_dim_zero {K : Type} [Field K] (A : PkgI3.AbVar K)
-    (hA : A.dim = (0 : ℕ)) (x : ℝ) (hx : ZInQ.SemistabAssembly.IsAnStableHeightSS A x) : x = 0 := by
-  obtain ⟨L, iF, iN, iA, 𝒩, g, -, -, hdim, eta, hetaM, heta0, -, r, hr, rfl⟩ := hx
-  have hg : g = 0 := by
-    rw [hA] at hdim
-    exact_mod_cast hdim.symm
-  subst hg
+  determinant 1), so `r τ = |τ a|²`;
+* hence the degree is `(log |N a| − ½ ∑_τ log |τ a|²)/[L:ℚ] = 0` (`sum_log_norm_embeddings_int`). -/
+theorem height_eq_zero_of_dim_zero {K : Type} [Field K] {A : PkgI3.AbVar K} {L : Type} [Field L]
+    [NumberField L] [Algebra K L] (𝒩 : GroupModel A L) (hA : A.dim = (0 : ℕ)) {eta : 𝒩.hodgeSpace 0}
+    (hetaM : eta ∈ printedDetLattice 𝒩 0) (heta0 : eta ≠ 0) {r : (L →+* ℂ) → ℝ}
+    (hr : ∀ τ, IsAnMetricSq 𝒩 τ eta (r τ)) :
+    (Real.log (secIndex (printedDetLattice 𝒩 0) eta) -
+      (1 / 2) * ∑ τ : L →+* ℂ, Real.log (r τ)) / Module.finrank ℚ L = 0 := by
   have hfun : ∀ u v : Fin 0 → 𝒩.cotangent, u = v := fun u v => funext fun i => i.elim0
   set w₀ : 𝒩.hodgeSpace 0 :=
     (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) 0 (fun i : Fin 0 => (i.elim0 : 𝒩.cotangent))
@@ -214,8 +221,35 @@ theorem isAnStableHeightSS_eq_zero_of_dim_zero {K : Type} [Field K] (A : PkgI3.A
   rw [hsum]
   ring
 
-/-- **The row at g = 0** (outside the print): the height of an abelian variety of dimension 0 is `≥ 0` (it is
-`0`, `isAnStableHeightSS_eq_zero_of_dim_zero`). -/
+/-- **At g = 0 the GR1 height is 0** (`height_eq_zero_of_dim_zero` on the semi-abelian model). -/
+theorem isGR1StableHeightOriginal_eq_zero_of_dim_zero {K : Type} [Field K] (A : PkgI3.AbVar K)
+    (hA : A.dim = (0 : ℕ)) (x : ℝ) (hx : ZInQ.HeightModelM.IsGR1StableHeightOriginal A x) : x = 0 := by
+  obtain ⟨K', iF, iN, iA, 𝒜, g, -, hdim, eta, hetaM, heta0, -, r, hr, rfl⟩ := hx
+  have hg : g = 0 := by
+    rw [hA] at hdim
+    exact_mod_cast hdim.symm
+  subst hg
+  exact height_eq_zero_of_dim_zero 𝒜 hA hetaM heta0 hr
+
+/-- **The row at g = 0** (outside the print): the GR1 height of an abelian variety of dimension 0 is `≥ 0` (it is
+`0`, `isGR1StableHeightOriginal_eq_zero_of_dim_zero`). -/
+theorem isGR1StableHeightOriginal_nonneg_of_dim_zero {K : Type} [Field K] [NumberField K]
+    (A : PkgI3.AbVar K) (hA : A.dim = (0 : ℕ)) (x : ℝ)
+    (hx : ZInQ.HeightModelM.IsGR1StableHeightOriginal A x) : 0 ≤ x :=
+  (isGR1StableHeightOriginal_eq_zero_of_dim_zero A hA x hx).ge
+
+/-- **At g = 0 the Néron-model height is 0** (`height_eq_zero_of_dim_zero` on the Néron model). -/
+theorem isAnStableHeightSS_eq_zero_of_dim_zero {K : Type} [Field K] (A : PkgI3.AbVar K)
+    (hA : A.dim = (0 : ℕ)) (x : ℝ) (hx : ZInQ.SemistabAssembly.IsAnStableHeightSS A x) : x = 0 := by
+  obtain ⟨L, iF, iN, iA, 𝒩, g, -, -, hdim, eta, hetaM, heta0, -, r, hr, rfl⟩ := hx
+  have hg : g = 0 := by
+    rw [hA] at hdim
+    exact_mod_cast hdim.symm
+  subst hg
+  exact height_eq_zero_of_dim_zero 𝒩 hA hetaM heta0 hr
+
+/-- The Néron-model height of an abelian variety of dimension 0 is `≥ 0` (it is `0`,
+`isAnStableHeightSS_eq_zero_of_dim_zero`). -/
 theorem isAnStableHeightSS_nonneg_of_dim_zero {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
     (hA : A.dim = (0 : ℕ)) (x : ℝ) (hx : ZInQ.SemistabAssembly.IsAnStableHeightSS A x) : 0 ≤ x :=
   (isAnStableHeightSS_eq_zero_of_dim_zero A hA x hx).ge
@@ -234,34 +268,35 @@ end DimZero
 * p. 2098 (the same bound for the factors C_{i,j}) and p. 2102, proof of Cor. 1.5: "Par la minoration de Bost
   utilisée ci-dessus, h_{F,K}(B₁) ≥ h_F(B₁) ≥ −(3/2) dim B₁ ≥ −(3/2) g."
 
-Lean form (the row `ZInQ.BostGR9.GaudronRemondSec9LowerAnSS` with the print's hypothesis g ≥ 1): for every number
-field K, every abelian variety A over K of dimension g ≥ 1 (the print's setting, p. 2058), and every real x that is
-the stable Faltings height of A in Faltings' original normalization, computed on a model with semistable reduction
-as printed (`ZInQ.SemistabAssembly.IsAnStableHeightSS`), −(3/2) g ≤ x. Reading step: "stable" Faltings height read
-as the height on a semistable model, as in the row. The row's case g = 0, which the print does not cover, is proved
-(`isAnStableHeightSS_eq_zero_of_dim_zero`). Proof in the literature: Gaudron–Rémond, Comment. Math. Helv. 89
-(2014), Cor. 8.4, p. 400 (h(A) ≥ −(1/2)(dim A) log(2π), attributed to Bost), with h_F(A) = h(A) − (g/2) log π
-(p. 352), so h_F(A) ≥ −g log(π√2) ≥ −(3/2) g. -/
+Lean form (the row `ZInQ.HeightModelM.GaudronRemondSec9LowerGR1Weak` with the print's hypothesis g ≥ 1): for every
+number field K, every abelian variety A over K of dimension g ≥ 1 (the print's setting, p. 2058), and every real x
+that is h_F(A), −(3/2) g ≤ x. The height is the one p. 2058 names: the stable Faltings height in Faltings' original
+normalization of [GR1, §2.3] (GR1 = Comment. Math. Helv. 89 (2014), pp. 351–352), Gaudron–Rémond's height computed
+on a semi-abelian model, which is `ZInQ.HeightModelM.IsGR1StableHeightOriginal`. The row's case g = 0, which the
+print does not cover, is proved (`isGR1StableHeightOriginal_eq_zero_of_dim_zero`). Proof in the literature: GR1
+Cor. 8.4, p. 400 (h(A) ≥ −(1/2)(dim A) log(2π), attributed to Bost), with h_F(A) = h(A) − (g/2) log π (p. 352),
+so h_F(A) ≥ −g log(π√2) ≥ −(3/2) g. -/
 def GaudronRemondDuke163Bost : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (g : ℕ), 1 ≤ g →
-    A.dim = g → ∀ x : ℝ, ZInQ.SemistabAssembly.IsAnStableHeightSS A x → -(3 / 2) * (g : ℝ) ≤ x
+    A.dim = (g : WithBot ℕ∞) → ∀ x : ℝ, ZInQ.HeightModelM.IsGR1StableHeightOriginal A x →
+      -(3 / 2) * (g : ℝ) ≤ x
 
-/-- **The row from the print:** g = 0 by `isAnStableHeightSS_nonneg_of_dim_zero`, g ≥ 1 by the print. -/
-theorem gaudronRemondSec9LowerAnSS_of_duke163 (h : GaudronRemondDuke163Bost) :
-    ZInQ.BostGR9.GaudronRemondSec9LowerAnSS := by
+/-- **The row from the print:** g = 0 by `isGR1StableHeightOriginal_nonneg_of_dim_zero`, g ≥ 1 by the print. -/
+theorem gaudronRemondSec9LowerGR1Weak_of_duke163 (h : GaudronRemondDuke163Bost) :
+    ZInQ.HeightModelM.GaudronRemondSec9LowerGR1Weak := by
   intro K _ _ A g hg x hx
   rcases Nat.eq_zero_or_pos g with rfl | hpos
-  · simpa using isAnStableHeightSS_nonneg_of_dim_zero A hg x hx
+  · simpa using isGR1StableHeightOriginal_nonneg_of_dim_zero A hg x hx
   · exact h K A g hpos hg x hx
 
 /-- The print from the row (the row has no hypothesis on g). -/
-theorem duke163_of_gaudronRemondSec9LowerAnSS :
-    ZInQ.BostGR9.GaudronRemondSec9LowerAnSS → GaudronRemondDuke163Bost :=
+theorem duke163_of_gaudronRemondSec9LowerGR1Weak :
+    ZInQ.HeightModelM.GaudronRemondSec9LowerGR1Weak → GaudronRemondDuke163Bost :=
   fun h K _ _ A g _ hg x hx => h K A g hg x hx
 
 /-- The printed statement is equivalent to the row. -/
 theorem gaudronRemondDuke163Bost_iff :
-    GaudronRemondDuke163Bost ↔ ZInQ.BostGR9.GaudronRemondSec9LowerAnSS :=
-  ⟨gaudronRemondSec9LowerAnSS_of_duke163, duke163_of_gaudronRemondSec9LowerAnSS⟩
+    GaudronRemondDuke163Bost ↔ ZInQ.HeightModelM.GaudronRemondSec9LowerGR1Weak :=
+  ⟨gaudronRemondSec9LowerGR1Weak_of_duke163, duke163_of_gaudronRemondSec9LowerGR1Weak⟩
 
 end ZInQ.GRDuke163
