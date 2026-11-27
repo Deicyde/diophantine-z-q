@@ -82,11 +82,11 @@ On normality (item 2(b)): the run does not need normality of the integral ring, 
 | `source` | supplied upstream | `ModelNeron.source` |
 | `E`, `groupE`, `neron`, `jE`, `properGenericE`, `geomIntGenericE` | supplied upstream | rc-model-neron (local Néron target) |
 | `readComplex`, `readComplex_eq` | open | target lane (rc-model-target) |
-| `point` | open | same-place comparison (hCM lane) |
+| `point` | open | the same-place lane (rc-same-place1) |
 | **`extension`** | **supplied (this run)** | `ModelGeneric5.goodRow_extension` |
-| `point_W` | open | input of `SamePlaceData`, owned by the same-place lane (the hCM lane); also needs the special-fibre action of `Wint` (item 4 here, not started) |
+| `point_W` | open | the point_W assembly (a small brief after rc-same-place1, SP2, rc-model-generic7 and rc-model-generic8): SP2 states the `SamePlaceData` assembly with `PointW` (rc-model-generic7's named Prop of this field) as a hypothesis, and the point_W assembly proves `PointW` and builds the final `sp`; it also needs the special-fibre action of `Wint` (rc-model-generic8's atkinLevel_moduli_special) |
 | `read`, `read_frob` | open | target lane |
-| `point_frob`, `frobenius_sq` | open | same-place comparison (hCM lane) |
+| `point_frob`, `frobenius_sq` | open | point_frob: SP2 (input: rc-model-generic7's naturality of Y0LevelPoints); frobenius_sq: the same-place lane (rc-same-place1) |
 
 Pinned-model parameters at each stage: `h₅`, `htame` (given `B`) and `h₂` (given `hN`) are supplied by this run. `htame` is owned by the GoodRow wiring for the choice of `B`.
 
@@ -96,15 +96,15 @@ Pinned-model parameters at each stage: `h₅`, `htame` (given `B`) and `h₂` (g
 | --- | --- | --- |
 | 3 (char. 0), choice-free | For every algebraically closed `k` of characteristic 0, every prime `q` with `0 < N.factorization q`, `Q = q^(v_q N)` with `hQ := TauCeti.Nat.isExactDivisor_primePow`, every `x : Y0RationalAlgebra h₂ →ₐ[ℚ] k`, every pair `(E, C)` representing `rationalPoints h₂ x` (`E` elliptic over `k`, `C` cyclic of order `N`), and every seam `g : E.toAffine.Point →+ (E.cyclicQuotientCurve C_Q Q).toAffine.Point` (there are `ι`, `hι` with `FiniteAlong k ι` and `IsSeam ι hι g`, as `ModelGeneric4.exists_quotientSeam` produces) with `g.ker = C_Q`, where `C_Q = (N/Q) • C`: `rationalPoints h₂ (x.comp (atkinRatAlg h₂ hQ))` is the class of `(E.cyclicQuotientCurve C_Q Q, g(E[Q] + C))`. Independence of `g` and of the representative is a corollary (the left side involves no choice). Pieces: (a) `g(E[Q] + C)` is cyclic of order `N` for every group homomorphism `g` with `g.ker = C_Q`, over every algebraically closed `k` with `N` invertible; (b) the complex step, `analyticCyclicPair τ ↦ analyticCyclicPair (W_Q τ)`; (c) transfer from `ℂ` to every algebraically closed `k` of characteristic 0. Continued in rc-model-generic6. | (a): `card_torsionBy_eq_sq_of_isAlgClosed` for every `d ∣ Q` with `AddCommGroup.nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq`, then finite group theory. (b): the lift of a seam to `z ↦ αz` (from the proof of `ModelGeneric4.j_eq_analyticJN_of_seam`, which needs a point formula for the function-field isomorphism of a Weierstrass variable change), `PeriodPair.exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker`, and the Atkin–Lehner lattice identity through `ModelGeneric4.analyticCyclicPair_eq_of_scale`; background Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., 2009, VI.3.6, VI.4.1 (UNVERIFIED); Diamond–Shurman 2005 §1.5 (UNVERIFIED). (c): `rationalPoints`, the Vélu composite and seams commute with field embeddings; descent to a subfield embeddable in `ℂ`. Uniqueness of quotients is not needed. The moduli form is **ON THE SPOT (c)**: Ogg 1974 defines w_M analytically; Conrad 2007 has only quotient maps. |
 | 4 (char. ℓ), existential over separable seams | For every algebraically closed `k` of characteristic ℓ with `Algebra (LocalIntegers ell) k`, every `x : Y0LevelAlgebra h₅ htame h₂ →ₐ[LocalIntegers ell] k` and every pair `(E, C)` representing `Y0LevelPoints x`, there is a separable seam `g` (a characteristic-free `IsSeam ι hι g` with `FiniteAlong k ι` and `finrankAlong k ι = Q`) with `g.ker = C_Q` and `Y0LevelPoints (x.comp atkinLevelAlg)` equal to the class of `(E.cyclicQuotientCurve C_Q Q, g(E[Q] + C))`. Continued in rc-model-generic6. | A characteristic-free copy of the seam construction (the tree's `IsSeam` needs `[CharZero k]`); a computation lemma for `Y0LevelPoints` on the exact-order cover; the lift of a cover point to `W(k)` (the cover is finite étale over `ShortBase R`, `universalExactOrder_finite_etale`; Hensel for smooth morphisms, EGA IV 18.5.17, UNVERIFIED); item 3 over an algebraic closure of `Frac W(k)`; reduction of the Vélu quotient and of separable seams (Silverman VII.3.1, UNVERIFIED). |
-| Uniqueness in char. ℓ (downstream of point_W, not of item 4) | Two separable isogenies out of `E` with kernel `C_Q` differ by an isomorphism of their targets, over `k` algebraically closed of characteristic ℓ. | Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., 2009, III.4.11–4.12 (UNVERIFIED). Missing from the tree. Needed by the consumer of item 4, since the X.W side supplies its own Q-isogeny and the witness of item 4 is not named. |
-| `point_W` | `point (X.W q x) = point x ≫ special.map Wint`. | Needs item 4 and `point` (hCM lane). Not stated as supplied. |
+| Uniqueness in char. ℓ (a piece of point_W, not of item 4) | Two separable isogenies out of `E` with kernel `C_Q` differ by an isomorphism of their targets, over `k` algebraically closed of characteristic ℓ. | Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., 2009, III.4.11–4.12 (UNVERIFIED). Missing from the tree. Needed by the consumer of item 4, since the X.W side supplies its own Q-isogeny and the witness of item 4 is not named. |
+| `point_W` | `point (X.W q x) = point x ≫ special.map Wint`. | Owner: the point_W assembly. Inputs: the same-place lane's `point`, point form, φ lemma and `sigmaQ` (the moduli σ_Q that defines `X.W`); rc-model-generic7's `atkinLevelAlg` and `Wint` lemma; rc-model-generic8's `atkinLevel_moduli_special`; SP2's `X.W` comparison for every separable seam. Not stated as supplied. |
 
 ## What `Relations` needs (no Hecke item in this run)
 
 `Relations ap` (`RC/PMWire/Operators.lean:143–145`) has two parts: `hecke`, a `HeckePacket q x` for every good `q ∤ N ell` and supersingular `x`, and `eigen`, a `HeckeIdentity`. A `HeckePacket` (`Operators.lean:122`) consists of the following.
 - `B`, a smooth `Over (Spec R)`, with `source : B ⟶ G.M` and `q+1` maps `target j : B ⟶ G.M`. This is an integral good Hecke correspondence on the pinned model. Owner: a model lane; this run builds no correspondence object.
-- `lift : residueSource ⟶ special B` with `source_eq` and `target_eq` through `G.point`. Owner: the same-place lane (hCM), since both go through `point`.
-- `neighbour` and `divisor_eq : X.T q x = Σ neighbour`. Owner: the coarse-fibre (adelic/hCM) side.
+- `lift : residueSource ⟶ special B` with `source_eq` and `target_eq` through `G.point`. Owner: SP2, which states the point-dependent fields (`lift`, `source_eq`, `target_eq`) through `X.T`.
+- `neighbour` and `divisor_eq : X.T q x = Σ neighbour`. Owner: SP2, which states `divisor_eq` through `X.T`; `Relations.hecke` (`docs/research/rc-goodrow-wire.md:110`, `docs/research/rc-model-neron.md:82`) and `refs` (`docs/research/rc-goodrow-wire.md:113`) keep their owners.
 
 `eigen` is the generic-fibre identity `∏_j (target j ≫ πInt) = (source ≫ πInt)^{a_q}` on the generic fibre. Owner: the generic Hecke comparison (generic4 item 4, open) plus the intertwining of `T_q` with `[a_q]` on the elliptic quotient.
 
@@ -115,7 +115,7 @@ Pinned-model parameters at each stage: `h₅`, `htame` (given `B`) and `h₂` (g
 | Done | Integral `W` on the pinned model, extending `rationalW`; unique; involution; complex points read as matrix translates | this run |
 | Next | Item 3 (char. 0) above: choice-free over seams, for every representative and every seam | open; continued in rc-model-generic6 |
 | Then | Item 4 (char. ℓ) above: existential over separable seams | open; continued in rc-model-generic6 |
-| Downstream | `point_W` itself, against the hCM lane's `point` and the coarse fibre's `X.W` | open |
+| Downstream | `point_W` itself: the point_W assembly, against the same-place lane's `point` and SP2's `X.W` comparison for every separable seam | open |
 
 ## Known issues
 
@@ -134,5 +134,5 @@ Pinned-model parameters at each stage: `h₅`, `htame` (given `B`) and `h₂` (g
 | 8478–8479 | unverified | "The good Hecke correspondences also extend": not touched (`Relations`, see above). |
 | 8487–8489 | gap filled (implicit step) | `W_{p^e}`: the tex uses the integral operator here without stating it. The Atkin–Lehner involution `W_{q^{v_q N}}` extends to the pinned smooth model, uniquely, as an involution (`extendsAtkin_Wint`, `eq_Wint_of_extendsAtkin`, `Wint_comp_self`); **ON THE SPOT (c)**: integral closure plus reduced special fibre. It acts on complex points as the matrix translate. The eigenvalue identity and the moduli form on points (item 3) are not touched. |
 | 9101–9113 | reduced to the listed inputs | (O.7) is derived in Lean from the listed inputs (oddStagedOfSamePlace); this run supplies GoodRow.extension and the stage-prime hypotheses. |
-| ON THE SPOT (conductor; no tex locator) | OK | The level `N` of `E_ℓ` is at least 2 (`two_le_level`, from `hN`). |
+| ON THE SPOT (c) (conductor; no tex locator) | OK | The level `N` of `E_ℓ` is at least 2 (`two_le_level`, from `hN`). |
 | 1784–1788 | unverified | Inherited citation scope. |

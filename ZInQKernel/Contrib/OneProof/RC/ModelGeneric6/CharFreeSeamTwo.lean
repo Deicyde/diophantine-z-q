@@ -1,6 +1,6 @@
 import ZInQKernel.Contrib.OneProof.RC.ModelGeneric6.CharFreeSeam
 
-/-! # The order-two step and the composite, with degree, in every characteristic `≠ 2`
+/-! # The order-two step and the composite, with degree, in every characteristic prime to the order
 
 Continuation of `CharFreeSeam` (generic6 item 3a). The opens follow `RC/ModelGeneric4/OrderTwoStep`
 (the vendored order-two function-field map `twoFFHom` is stated with the vendored

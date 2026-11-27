@@ -42,6 +42,6 @@ Base: 796582ac1 (main after GoodRow wiring). SamePlace.lean and ComplexPoints.le
 
 ## Scoped stop (items 2c, 3b, 3c)
 - 2c open: T1 naturality of rationalPoints on classes (needs PairClasses.map), T2 Vélu composite under embeddings, T3 seams under base change, T4 descent (only for |k| > 𝔠), T5 injectivity of PairClasses.map. Vendored descent theorems transport kernels only.
-- 3b open: Y0LevelPoints computation lemma at cover points (needs private detectorCoverAlgebra), Hensel lift over W(k) (EGA IV 18.5.17 UNVERIFIED), reading comparison.
-- 3c open: order-two Vélu reduction (R2), composite (R3), seam image comparison (R4); odd reduction (R1) in tree.
+- 3b open: Y0LevelPoints computation lemma at cover points (needs private detectorCoverAlgebra), lift over W(k) (pinned Mathlib: Algebra.FormallySmooth.exists_mkₐ_comp_eq_of_isAdicComplete, WittVector.quotientPEquiv, WittVector.isAdicCompleteIdealSpanP), reading comparison.
+- 3c open: odd Vélu point map vs reduceHom on prime-to-ℓ torsion (R1′), order-two Vélu reduction on curves and prime-to-ℓ points (R2), composite (R3), formula-carrying composite seam (R0), seam image comparison (R4). In tree: curve-level odd reduction (RC/ModelLevels/Reduction.lean:74) and torsion reduction on one curve (CloudB3RC53/ModularWeil/ReductionInjective.lean:54, :76).
 - Report: docs/research/rc-model-generic6.md.
