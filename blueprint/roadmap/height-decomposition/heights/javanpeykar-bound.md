@@ -3,7 +3,7 @@ article_id: af_9795dfc6482d108fba24362b
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves82.javanpeykarThm111An
+lean: HDec.HSyn.OpenResearchLeaves83.javanpeykarThm111An
 ---
 
 # Javanpeykar's bound for curves with a Belyi map

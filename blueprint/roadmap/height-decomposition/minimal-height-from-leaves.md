@@ -4,25 +4,25 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: HDec.HSyn.sixContactMin_of_open103
+lean: HDec.HSyn.sixContactMin_of_open104
 ---
 
-# The minimal height hypothesis from twenty-six statements
+# The minimal height hypothesis from twenty-five statements
 
 The [minimal height hypothesis](../multiplication/certificate/six-contact-min.md) follows from the
-twenty-six statements of this chapter taken together: theorems from the literature, grouped by the
+twenty-five statements of this chapter taken together: theorems from the literature, grouped by the
 theory they come from ([Shimura curves of discriminant 6](shimura-curves/README.md),
 [complex multiplication](cm-fibres/README.md), [abelian varieties](abelian-varieties/README.md),
 [Néron models, semistable reduction and monodromy](neron-models/README.md),
 [Faltings 1983 and Faltings heights](heights/README.md),
 [p-adic Hodge theory](p-adic-hodge/README.md),
-[Galois representations of modular forms](modular-galois/README.md)). Of the twenty-six statements
-from the literature, fourteen are published statements, some of them specialized or weakened; and
+[Galois representations of modular forms](modular-galois/README.md)). Of the twenty-five statements
+from the literature, thirteen are published statements, some of them specialized or weakened; and
 twelve are consequences of published theorems, which take further theorems to reach from the print.
 The project's strict convention, which counts a published statement only once its reading against
-the print and its review are complete and find it in its printed form, counts nine of the twenty-six
-as published (ten without the strictest reading of one flagged statement). None of the twenty-six is
-proved here.
+the print and its review are complete and find it in its printed form, counts eight of the
+twenty-five as published (nine without the strictest reading of one flagged statement). None of the
+twenty-five is proved here.
 
 The proof follows the manuscript's proof of its Theorem 4.1 at the one instance the main theorem
 uses, which the project has split into named steps, each proved from these statements and the steps
@@ -49,7 +49,6 @@ height hypothesis.
 - [Carayol's theorem on the conductor](modular-galois/carayol-conductor.md)
 - [The discriminant formula for the Faltings height of an elliptic curve](cm-fibres/elliptic-height-discriminant-formula.md)
 - [Fowler's bound for discriminants of bounded class number](cm-fibres/fowler-class-number-bound.md)
-- [The degree of a singular modulus](cm-fibres/cm-field-degree.md)
 - [Grothendieck's semistable reduction theorem](neron-models/semistable-reduction-theorem.md)
 - [Berger's theorem: de Rham representations are potentially semistable](p-adic-hodge/berger-de-rham-potentially-semistable.md)
 - [Pan's Fontaine–Mazur theorem](p-adic-hodge/pan-fontaine-mazur.md)

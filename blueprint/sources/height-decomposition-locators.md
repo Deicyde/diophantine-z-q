@@ -10,7 +10,7 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the twenty-six statements of the chapter in the
+The minimal height hypothesis is proved from the twenty-five statements of the chapter in the
 project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
 is the project-authored note `docs/research/h-trust.md`.
 
@@ -78,13 +78,6 @@ Silverman, Proposition 1.1 (not read).
 G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
 Proc. Cambridge Philos. Soc. 180 (2026), 607–641, Proposition 2.7, p. 615, with the class number
 defined on p. 613; the manuscript's citation (`diophantine_zq.tex`, lines 588–593).
-
-## Degree of singular moduli
-
-G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
-Proc. Cambridge Philos. Soc. 180 (2026), 607–641, §2.1, p. 613, with the discriminant of a singular
-modulus defined on p. 612; D. A. Cox, *Primes of the form $x^2+ny^2$*, Theorem 11.1 and Proposition
-13.2, as Fowler cites them. The manuscript's use: `diophantine_zq.tex`, lines 584–587.
 
 ## Semistable reduction theorem
 

@@ -278,36 +278,6 @@ Equation (6.2) of Barquero-Sanchez, Cadwallader, Cannon, Genao and Masri is the 
 A. Barquero-Sanchez, L. Cadwallader, O. Cannon, T. Genao and R. Masri, *Faltings heights of CM elliptic curves and special Gamma values*, Res. Number Theory 3 (2017), art. 13, §6, Eq. (6.2), pp. 13–14, with the metric on p. 1, read in the published article by the upstream review of the manuscript's CM argument (project note `docs/reviews/height-replacement/height/AUDIT.md`, item 2); the manuscript's citation (`diophantine_zq.tex`, lines 595–605). The paper attributes the formula to Silverman, Proposition 1.1 (not read).
 """,
     ),
-    'cmjDegreePrint': dict(
-        group='cm-fibres', slug='cm-field-degree',
-        title='The degree of a singular modulus',
-        anchor='Degree of singular moduli',
-        statement=r"""
-The *degree statement* is the following assertion. Let $\tau$ be a point of the upper half-plane
-satisfying $a\tau^2+b\tau+c=0$ with $a,b,c\in\mathbb Z$, $a>0$ and $\gcd(a,b,c)=1$, put
-$\Delta=b^2-4ac$, and let $x=j(\tau)$ be the corresponding singular modulus. Then for every order $R$
-of an imaginary quadratic field with discriminant $\Delta$, $[\mathbb Q(x):\mathbb Q]=\#\operatorname{Pic}(R)$,
-the class number of $R$.
-""",
-        caveat=r"""
-This is the equality over $\mathbb Q$ in a sentence of Fowler's §2.1, which he derives from Cox (Theorem
-11.1 and Proposition 13.2): for a singular modulus of discriminant $\Delta$, $[\mathbb Q(x):\mathbb Q]=h(\Delta)$,
-the class number of the imaginary quadratic order of discriminant $\Delta$. The discriminant is the
-one of his form definition. The order of discriminant $\Delta$ is a parameter here; Lean proves that it
-is unique up to isomorphism and that its class number does not depend on the choice. The manuscript
-uses the fact without a citation ("The degree of $j(E)$ is its order class number, so $h(\Delta)\le d\le D$"),
-and Lean derives from this statement the bound it needs: an elliptic curve over a number field $L$
-with complex multiplication by $R$ has $\#\operatorname{Pic}(R)\le[L:\mathbb Q]$. A person's reading
-of the publisher's PDF, recorded as a human reading, compared the sentence with the print. A two-lens
-review rated the statement published in its printed form.
-""",
-        src=r"""
-G. Fowler, *Some uniform effective results on André–Oort for sums of powers in $\mathbb C^n$*, Math.
-Proc. Cambridge Philos. Soc. 180 (2026), 607–641, §2.1, p. 613, with the discriminant of a singular
-modulus defined on p. 612; D. A. Cox, *Primes of the form $x^2+ny^2$*, Theorem 11.1 and Proposition
-13.2, as Fowler cites them. The manuscript's use: `diophantine_zq.tex`, lines 584–587.
-""",
-    ),
     'fowlerProp27PrintCanonical': dict(
         group='cm-fibres', slug='fowler-class-number-bound',
         title="Fowler's bound for discriminants of bounded class number",

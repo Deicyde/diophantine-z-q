@@ -1,0 +1,692 @@
+"""cmj-reroute: copy reroute of the live chain without `cmjDegreePrint`.
+
+The row `cmjDegreePrint` (Fowler 2026, section 2·1: the degree of a singular modulus) is read on the
+live route only by `CMBranch.faltingsHeight_le_bcm`, through the field `cmjDegree` of the bundles and
+of `CMBranch.CMInputs3`, to bound `#Pic(R)` by `[L:Q]`. The reroute replaces that bound by
+`#Pic(R0) <= 324` for a sub-order `R0 <= R` (`CMjReroute.CMFibreSplitBL`, supplied from the same six
+research inputs as `CMFibreSplit` by `CMjReroute.cmFibreSplitBL_of_liveInputs_nos`) and Fowler at
+`n = 324` (`CMjReroute.cmBranchOut_of_bl`). This script regenerates the copy chain on the current tree.
+
+Steps (no file is searched: declarations are located by a dependency walk on the built world, and only
+the files that hold them are read):
+
+1. The walk (`walk_cmj.txt`, run as a scratch Lean file with `lake env lean`): from
+   `ZInQ.OneProof.frozenTarget`, every reached declaration that depends on `CMjDegreePrint`,
+   `CMjDegree` or `CMFibreSplit`, with its module and line range, and its owner-level dependencies.
+2. The copy set: closure from the root along dirty dependencies. A dirty dependency is copied when it
+   lies in a generated chain file (blocks starting with `-- copied from`) or in a generation file
+   `ZInQKernel/OneProof/H/TailZ<n>.lean`; it must otherwise be one of HANDLED (replaced below), or the
+   script stops. The root itself becomes `FoldCheck.lean`.
+3. Edits, each counted and checked:
+   * every copied declaration gets the suffix `CMJ` (structures) or `_cmj` (theorems);
+   * fields `cmjDegreePrint` and `cmjDegree` are deleted from the copied structures, their
+     assignments from the copied structure instances, and `x.cmjDegree` from anonymous constructors
+     and argument lists;
+   * the field type `CMBranch.CMFibreSplit` becomes `CMBranch.CMjReroute.CMFibreSplitBL`, its supplier
+     `FibreSplit.cmFibreSplit_of_liveInputs_nos` becomes `CMjReroute.cmFibreSplitBL_of_liveInputs_nos`
+     (same arguments);
+   * `CMBranch.CMInputs3` becomes `CMBranch.CMjReroute.CMInputs3BL`;
+   * at the base, the binder `(hJ : CMBranch.CMjDegree)` and its one use are deleted and
+     `CMBranch.cmBranchOut_of` becomes `CMBranch.CMjReroute.cmBranchOut_of_bl`.
+4. Output: `Chain<k>.lean` (parts under ~140 KB, in import order of the sources) and `FoldCheck.lean`
+   in OUT; the walk TSV, the copy list and an audit diff in SCRATCH.
+
+`set_option maxHeartbeats` lines of the sources are dropped (default limit).
+
+With `--fold` it also writes the fold: `ZInQKernel/OneProof/H/TailZ<n+1>.lean` (the top research bundle
+without `cmjDegreePrint`, its field-by-field conversion to the copied bundle, and the new top theorem, with the
+numbers of the current top raised by one) and edits `ZInQKernel/OneProof/Main.lean` (its import, the bundle and the
+top theorem of `frozenTarget`, and one paragraph before the closing one of its docstring). The records
+(`docs/one-proof/kinds.tsv`, `reviews.tsv`, `reviews-retired.*`, the blueprint chapter text) are edited by hand.
+
+Usage (from the repository root, after `lake build +ZInQKernel.OneProof.Main` and the CMjReroute
+modules `SplitBL`, `LiveBL`, `BranchBL`):
+
+    python3 ZInQKernel/Contrib/OneProof/CMjReroute/gen_cmj.txt --repo . \
+        --out ZInQKernel/Contrib/OneProof/CMjReroute --scratch <scratch dir> [--walk-tsv <file>] [--fold]
+"""
+import argparse
+import difflib
+import json
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+OUT_MODULE_PREFIX = 'ZInQKernel.Contrib.OneProof.CMjReroute'
+ROOT = 'ZInQ.OneProof.frozenTarget'
+NEW_ROOT = 'CMjReroute.frozenTarget_without_cmjDegreePrint'
+SFX_STRUCT, SFX_THM = 'CMJ', '_cmj'
+HANDLED = {
+    'HDec.CMBranch.CMjBridges.CMjDegreePrint': 'field deleted',
+    'HDec.CMBranch.CMjDegree': 'field and binder deleted',
+    'HDec.CMBranch.CMFibreSplit': 'retyped to CMjReroute.CMFibreSplitBL',
+    'HDec.CMBranch.CMInputs3': 'replaced by CMjReroute.CMInputs3BL',
+    'HDec.CMBranch.cmBranchOut_of': 'replaced by CMjReroute.cmBranchOut_of_bl',
+    'HDec.CMBranch.CMjBridges.cmjDegree_of_print_closed': 'assignment deleted',
+    'HDec.CMBranch.FibreSplit.cmFibreSplit_of_liveInputs_nos':
+        'replaced by CMjReroute.cmFibreSplitBL_of_liveInputs_nos',
+}
+GONE_RE = (r'(?<![\w\'])(?:cmjDegree|cmjDegreePrint|CMjDegree|CMjDegreePrint|cmjDegree_of_print_closed|'
+           r'CMInputs3|cmBranchOut_of|CMFibreSplit|cmFibreSplit_of_liveInputs_nos)(?![\w\'])')
+CMJF = 'cmjDegreePrint|cmjDegree'
+DECL = re.compile(r'(?m)^(?:noncomputable |private |protected )*'
+                  r'(structure|theorem|lemma|def|abbrev|instance) (\S+)')
+TAILZ_RE = re.compile(r'ZInQKernel\.OneProof\.H\.TailZ\d+\Z')
+AUDIT = []
+COUNTS = {}
+
+
+def count(key, n=1):
+    COUNTS[key] = COUNTS.get(key, 0) + n
+
+
+def code_of(txt):
+    txt = re.sub(r'/-[\s\S]*?-/', '', txt)
+    return re.sub(r'(?m)--.*$', '', txt)
+
+
+def last(name):
+    return name.rsplit('.', 1)[-1]
+
+
+def field_re(names):
+    return re.compile(r'(?m)(^  /--(?:(?!-/)[\s\S])*?-/\n)?^  (?:' + names +
+                      r') : [^\n]*\n(?:^    [^\n]*\n)*')
+
+
+def assign_re(names):
+    return re.compile(r'(?m)^(  )(?:' + names + r') :=[^\n]*\n(?:^\1  +[^\n]*\n)*')
+
+
+def strip_hb(txt):
+    return re.sub(r'(?m)^set_option maxHeartbeats \d+\n', '', txt)
+
+
+def rename(txt, ren):
+    for old in sorted(ren, key=len, reverse=True):
+        txt = re.sub(r'(?<![\w\'])' + re.escape(old) + r'(?![\w\'])', ren[old], txt)
+    return txt
+
+
+def wrap_lines(text, width=100):
+    """Wrap lines longer than `width` characters (as the ds965-reroute generator): comment text at any
+    space, code at a space outside string literals with the continuation indented four more columns; a
+    trailing line comment on a long code line moves to its own line above it."""
+    out, depth = [], 0
+    for line in text.split('\n'):
+        start_depth = depth
+        depth += len(re.findall(r'/-', line)) - len(re.findall(r'-/', line))
+        if len(line) <= width:
+            out.append(line)
+            continue
+        ind = re.match(r' *', line).group(0)
+        if start_depth == 0 and line.lstrip().startswith('-- '):
+            cur = line
+            while len(cur) > width:
+                cut = cur.rfind(' ', len(ind) + 4, width - 1)
+                out.append(cur[:cut])
+                cur = ind + '-- ' + cur[cut + 1:].lstrip(' ')
+            out.append(cur)
+            continue
+        if start_depth > 0 or line.lstrip().startswith('/-'):
+            cont = ind if start_depth > 0 else ind + '  '
+            cur = line
+            while len(cur) > width:
+                cut = cur.rfind(' ', len(ind) + 4, width - 1)
+                if cut <= len(cont):
+                    break
+                out.append(cur[:cut])
+                cur = cont + cur[cut + 1:].lstrip(' ')
+            out.append(cur)
+            continue
+        code, comment = line, None
+        m = re.search(r'\s--\s', line)
+        if m and '"' not in line[:m.start()]:
+            code, comment = line[:m.start()].rstrip(), line[m.start():].strip()
+        if comment:
+            out.append(ind + comment)
+        assert '"' not in code, line[:120]
+        cont = ind + '    '
+        cur = code
+        while len(cur) > width:
+            cut = cur.rfind(' ', len(ind) + 4, width - 1)
+            assert cut > len(cont), cur[:120]
+            out.append(cur[:cut])
+            cur = cont + cur[cut + 1:].lstrip(' ')
+        out.append(cur)
+    return '\n'.join(out)
+
+
+# ---------------------------------------------------------------- walk
+
+def run_walk(repo, scratch):
+    scratch.mkdir(parents=True, exist_ok=True)
+    lean_file = scratch / 'CMjWalk.lean'
+    lean_file.write_text((HERE / 'walk_cmj.txt').read_text())
+    tsv = scratch / 'walk.tsv'
+    env = dict(os.environ, CMJ_WALK_OUT=str(tsv))
+    p = subprocess.run(['lake', 'env', 'lean', str(lean_file)], cwd=repo, env=env,
+                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    (scratch / 'walk.log').write_bytes(p.stdout)
+    if p.returncode != 0 or not tsv.exists():
+        sys.exit('walk failed (exit %d); see %s' % (p.returncode, scratch / 'walk.log'))
+    return tsv
+
+
+def read_walk(tsv):
+    owners, fields, deps, stats = {}, {}, {}, {}
+    for line in Path(tsv).read_text().splitlines():
+        f = line.split('\t')
+        if f[0] == 'OWNER':
+            owners[f[1]] = {'kind': f[2], 'module': f[3], 'modidx': int(f[4]),
+                            'l0': int(f[5]), 'l1': int(f[6])}
+        elif f[0] == 'FIELD':
+            fields.setdefault(f[1], []).append(f[2])
+        elif f[0] == 'DEP':
+            deps.setdefault(f[1], []).append((f[2], f[3] == '1', f[4]))
+        elif f[0] == 'STAT':
+            stats[f[1]] = f[2]
+    return owners, fields, deps, stats
+
+
+# ---------------------------------------------------------------- sources
+
+class Source:
+    """One source file (named by the walk), with its blocks if it is a generated chain file."""
+
+    def __init__(self, repo, module):
+        self.module = module
+        self.rel = module.replace('.', '/') + '.lean'
+        self.text = (Path(repo) / self.rel).read_text()
+        self.lines = self.text.split('\n')
+        starts = [i for i, l in enumerate(self.lines) if l.startswith('-- copied from ')]
+        self.blocks = []
+        if starts:
+            ends = starts[1:] + [len(self.lines)]
+            for a, b in zip(starts, ends):
+                body = self.lines[a:b]
+                # the tail of the last block: `#print axioms` lines of the file
+                while body and (body[-1].startswith('#print axioms') or body[-1].strip() == ''):
+                    body = body[:-1]
+                self.blocks.append((a + 1, a + len(body), '\n'.join(body) + '\n'))
+
+    def block_of(self, l0, l1):
+        for (a, b, txt) in self.blocks:
+            if a <= l0 and l1 <= b:
+                return (a, b, txt)
+        return None
+
+    def scope_at(self, l0):
+        """namespace / section stack and the open / set_option lines in force before line l0 (1-based);
+        block comments are skipped."""
+        stack, depth = [], 0
+        for raw in self.lines[:l0 - 1]:
+            d0 = depth
+            depth += len(re.findall(r'/-', raw)) - len(re.findall(r'-/', raw))
+            if d0 > 0 or raw.lstrip().startswith('/-'):
+                continue
+            s = raw.strip()
+            if re.match(r'namespace \S+$', s):
+                stack.append(['namespace ' + s.split()[1], []])
+            elif re.match(r'(noncomputable )?section\b', s):
+                stack.append([s, []])
+            elif re.match(r'end\b', s):
+                if stack:
+                    stack.pop()
+            elif (s.startswith('open ') or s.startswith('set_option ')) and raw == s:
+                if stack:
+                    stack[-1][1].append(s)
+        return stack
+
+
+def classify(owner, info, sources, repo):
+    mod = info['module']
+    if owner == ROOT:
+        return 'root'
+    if owner in HANDLED:
+        return 'handled'
+    if mod not in sources:
+        sources[mod] = Source(repo, mod)
+    src = sources[mod]
+    if src.blocks and src.block_of(info['l0'], info['l1']):
+        return 'block'
+    if TAILZ_RE.match(mod):
+        return 'gen'
+    return 'other'
+
+
+# ---------------------------------------------------------------- edits
+
+def edit_text(txt, where):
+    """The field and reader edits on one copied text (before renaming)."""
+    c0 = txt
+    # structures: delete the cmj fields
+    txt, n = field_re(CMJF).subn('', txt)
+    count('field deleted (cmjDegreePrint / cmjDegree)', n)
+    # structure instances: delete the cmj assignments
+    txt, n = assign_re(CMJF).subn('', txt)
+    count('assignment deleted (cmjDegreePrint / cmjDegree)', n)
+    # anonymous constructors: `x.cmjDegree, `
+    txt, n = re.subn(r'(?<![\w\'.])\w+\.cmjDegree,\s*', '', txt)
+    count('anonymous-constructor component deleted', n)
+    # argument lists: ` x.cmjDegree`
+    txt, n = re.subn(r'\s+(?<![\w\'.])\w+\.cmjDegree(?![\w\'])', '', txt)
+    count('argument x.cmjDegree deleted', n)
+    # binders of type CMjDegree and their uses
+    for m in list(re.finditer(r'\s*\((\w+) :\s*(?:_root_\.)?(?:HDec\.)?CMBranch\.CMjDegree\)', txt)):
+        var = m.group(1)
+        txt = txt.replace(m.group(0), '', 1)
+        txt, k = re.subn(r'\s+' + re.escape(var) + r'(?![\w\'])', '', txt)
+        assert k == 1, ('one use of the CMjDegree binder expected', where, var, k)
+        count('CMjDegree binder and its use deleted')
+    # retype the split, its supplier, the input package, the branch
+    pre = r'(?<![\w\'.])((?:_root_\.)?(?:HDec\.)?CMBranch\.)'
+    txt, n = re.subn(pre + r'FibreSplit\.cmFibreSplit_of_liveInputs_nos(?![\w\'])',
+                     r'\1CMjReroute.cmFibreSplitBL_of_liveInputs_nos', txt)
+    count('supplier -> cmFibreSplitBL_of_liveInputs_nos', n)
+    txt, n = re.subn(pre + r'CMFibreSplit(?![\w\'])', r'\1CMjReroute.CMFibreSplitBL', txt)
+    count('CMFibreSplit -> CMFibreSplitBL', n)
+    txt, n = re.subn(pre + r'CMInputs3(?![\w\'])', r'\1CMjReroute.CMInputs3BL', txt)
+    count('CMInputs3 -> CMInputs3BL', n)
+    txt, n = re.subn(pre + r'cmBranchOut_of(?![\w\'])', r'\1CMjReroute.cmBranchOut_of_bl', txt)
+    count('cmBranchOut_of -> cmBranchOut_of_bl', n)
+    txt = strip_hb(txt)
+    txt = txt.replace('#CM(R)', 'card CM(R)').replace('#Pic(R)', 'card Pic(R)')
+    return txt
+
+
+STRUCT_NOTE = ('cmj-reroute copy without the fields `cmjDegreePrint` and `cmjDegree` (the degree of a '
+               'singular modulus is not read on this route), with `cmFibreSplit` carrying the bound '
+               '`card Pic(R0) <= 324` of a sub-order. ')
+
+
+def note_structs(txt, copied_structs):
+    def add(m):
+        return m.group(1) + STRUCT_NOTE
+    for s in copied_structs:
+        pat = r'(/--\s*)(?=(?:(?!-/)[\s\S])*?-/\s*\n(?:@\[[^\]]*\]\s*\n)?structure ' + re.escape(s) + r'\b)'
+        txt, n = re.subn(pat, add, txt, count=1)
+    return txt
+
+
+# ---------------------------------------------------------------- main
+
+HEADER = '''{imports}
+
+/-! # The live chain without `cmjDegreePrint` ({part}; cmj-reroute, generated)
+
+Generated by `gen_cmj.txt` from the live chain under the top theorem
+`{top}`.
+Every declaration that reaches the degree of a singular modulus (`cmjDegreePrint`,
+`cmjDegree`) or the CM fibre split is copied with the suffix `CMJ` / `_cmj`: without the
+fields `cmjDegreePrint` and `cmjDegree`, with `cmFibreSplit` of type
+`CMjReroute.CMFibreSplitBL` (filled from the same research inputs by
+`CMjReroute.cmFibreSplitBL_of_liveInputs_nos`), with `CMjReroute.CMInputs3BL` in place of
+`CMInputs3`, and with the CM branch `CMjReroute.cmBranchOut_of_bl` (Fowler's Prop. 2·7 at
+`n = 324` for a sub-order) at the base. The originals are unchanged.
+-/
+
+set_option linter.style.haveILetI false
+'''
+
+
+def load_scanner(repo):
+    """The repository's own contribution scanner (`scripts/one_proof/sandbox/scan_contrib.py`)."""
+    import importlib.util
+    path = Path(repo) / 'scripts/one_proof/sandbox/scan_contrib.py'
+    spec = importlib.util.spec_from_file_location('scan_contrib', str(path))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def check_scan(scanner, name, text):
+    hits, _notes = scanner.scan_lean(text)
+    assert not hits, ('the contribution scanner flags generated text', name, hits[:5])
+
+
+FOLD_PARAGRAPH = """cmj-reroute-fold (`{mod}`, `Contrib/OneProof/CMjReroute/README.md`) removes `cmjDegreePrint` without proving
+it. Its one reader on the live route, `CMBranch.faltingsHeight_le_bcm`, used it (as `cmjDegree`) only to bound the
+class number of the CM order `R` of the matrix-unit curve by `[L:ℚ]`, before Fowler's Prop. 2·7 at `n = D`. The
+copy chain `Contrib/OneProof/CMjReroute/Chain1` to `{last_chain}` (top `{top_copy}`) applies Fowler at `n = 324`
+to a sub-order `R₀ ⊆ R` with at most `324` proper ideal classes (`CMjReroute.cmBranchOut_of_bl`):
+`CMjReroute.cmFibreSplitBL_of_liveInputs_nos` supplies `R₀` from the inputs of the CM split, as the order of the CM
+point of the fibre, whose ring class field has degree at most the number of points of a fibre of `Y₃ → P¹_j`, by
+Shimura's reciprocity law in `deligneCanonicalModelY3EveryPrint`. `{bundle_new}` is the new generation and
+`HDec.HSyn.{top_new}` the new top ({before} → {after} assumptions).
+
+"""
+
+TAIL_HEADER = """import ZInQKernel.OneProof.H.{prev_mod}
+import {out_prefix}.{last_chain}
+
+/-! # OneProof H, cmj-reroute-fold: `{top_new}` (generated by `Contrib/OneProof/CMjReroute/gen_cmj.txt`)
+
+Field removed (rerouted, not proved): `cmjDegreePrint`. Its one reader on the live route,
+`CMBranch.faltingsHeight_le_bcm`, used it as `cmjDegree` to bound the class number of the CM order `R` of the
+matrix-unit curve by `[L:ℚ]` before Fowler's Prop. 2·7 at `n = D`. The copy chain
+`Contrib/OneProof/CMjReroute/Chain1`-`{last_chain}` (top `{top_copy}`) applies Fowler at `n = 324` to a sub-order
+`R₀ ⊆ R` with at most `324` proper ideal classes (`CMjReroute.cmBranchOut_of_bl`), supplied from the inputs of the
+CM split by `CMjReroute.cmFibreSplitBL_of_liveInputs_nos`.
+Fields added (new leaves): none. -/
+
+namespace HDec
+
+namespace HSyn
+
+"""
+
+
+def fill(par, width=118):
+    """Fill one paragraph to `width` columns, breaking only at spaces outside backticks."""
+    words, cur, inside = [], '', False
+    for ch in ' '.join(par.split()):
+        if ch == '`':
+            inside = not inside
+        if ch == ' ' and not inside:
+            words.append(cur)
+            cur = ''
+        else:
+            cur += ch
+    words.append(cur)
+    lines, line = [], ''
+    for w in words:
+        if line and len(line) + 1 + len(w) > width:
+            lines.append(line)
+            line = w
+        else:
+            line = (line + ' ' + w) if line else w
+    lines.append(line)
+    return '\n'.join(lines)
+
+
+def bump(name):
+    m = re.search(r'(\d+)$', name)
+    assert m, name
+    return name[:m.start()] + str(int(m.group(1)) + 1)
+
+
+def emit_fold(repo, owners, top, bundles, ren, last_chain):
+    """Write ZInQKernel/OneProof/H/TailZ<n+1>.lean (the new generation without cmjDegreePrint, its field-by-field
+    conversion to the copied bundle, the new top) and edit Main.lean (import, bundle, top, one paragraph)."""
+    assert len(bundles) == 1, ('one research bundle expected among the root\'s dirty arguments', bundles)
+    bundle = bundles[0]
+    main_rel = owners[ROOT]['module'].replace('.', '/') + '.lean'
+    main_path = Path(repo) / main_rel
+    main_txt = main_path.read_text()
+    imp = re.findall(r'(?m)^import ZInQKernel\.OneProof\.H\.(TailZ\d+)$', main_txt)
+    assert len(imp) == 1, imp
+    prev_mod = imp[0]
+    new_mod = bump(prev_mod)
+    new_path = Path(repo) / ('ZInQKernel/OneProof/H/%s.lean' % new_mod)
+    assert not new_path.exists(), new_path
+    bundle_new = bump(last(bundle))
+    top_new = bump(last(top))
+    bundle_copy = ren[last(bundle)]
+    top_copy = ren[last(top)]
+    conv = bundle_copy[0].lower() + bundle_copy[1:] + '_of_' + bundle_new
+    # the source structure, without its docstring and without the field
+    binfo = owners[bundle]
+    bsrc = Source(repo, binfo['module'])
+    btxt = '\n'.join(bsrc.lines[binfo['l0'] - 1:binfo['l1']]) + '\n'
+    k = btxt.index('structure %s : Prop where\n' % last(bundle))
+    body = btxt[k + len('structure %s : Prop where\n' % last(bundle)):]
+    body, n = field_re(CMJF).subn('', body)
+    assert n == 1, ('one cmjDegreePrint field expected in the top bundle', n)
+    assert '\n\n' not in body.rstrip('\n'), 'blank line inside the structure'
+    flds = re.findall(r"(?m)^  ([A-Za-z_][\w']*) : ", code_of(body))
+    # the source top theorem's other binders
+    tinfo = owners[top]
+    tsrc = Source(repo, tinfo['module'])
+    ttxt = ' '.join('\n'.join(tsrc.lines[tinfo['l0'] - 1:tinfo['l1']]).split())
+    sig = re.search(r'theorem %s ((?:\(\w+ : [\w.]+\) ?)+): ZInQ\.SixContactMin' % re.escape(last(top)), ttxt)
+    assert sig, ttxt[:300]
+    binders = re.findall(r'\((\w+) : ([\w.]+)\)', sig.group(1))
+    assert binders[0][1] == last(bundle) and [b[0] for b in binders] == ['r', 't', 'l'], binders
+    t_ty, l_ty = binders[1][1], binders[2][1]
+    out = TAIL_HEADER.format(prev_mod=prev_mod, out_prefix=OUT_MODULE_PREFIX, last_chain=last_chain,
+                             top_new=top_new, top_copy=top_copy)
+    a0 = out.index('Field removed')
+    a1 = out.index('Fields added (new leaves): none. -/')
+    out = out[:a0] + fill(out[a0:a1]) + '\n' + out[a1:]
+    out += '/-- `%s` without `cmjDegreePrint` (cmj-reroute-fold). -/\n' % last(bundle)
+    out += 'structure %s : Prop where\n' % bundle_new + body.rstrip('\n') + '\n\n'
+    out += ('/-- `%s` (the bundle of the copy chain) from `%s`, field by field. -/\n' % (bundle_copy, bundle_new))
+    out += 'theorem %s (n : %s) : %s where\n' % (conv, bundle_new, bundle_copy)
+    out += ''.join('  %s := n.%s\n' % (f, f) for f in flds) + '\n'
+    out += '/-- **G0 with only the open leaves and the open glue** (cmj-reroute-fold). -/\n'
+    out += ('theorem %s (r : %s) (t : %s) (l : %s) : ZInQ.SixContactMin :=\n  %s (%s r) t l\n\n'
+            % (top_new, bundle_new, t_ty, l_ty, top_copy, conv))
+    out += 'end HSyn\n\nend HDec\n\n#print axioms HDec.HSyn.%s\n' % top_new
+    new_path.write_text(out)
+    # Main.lean
+    count = json.load(open(Path(repo) / 'docs/one-proof/open-statements.json'))['count']
+    edits = [
+        ('import ZInQKernel.OneProof.H.%s\n' % prev_mod, 'import ZInQKernel.OneProof.H.%s\n' % new_mod),
+        ('(r : HDec.HSyn.%s)' % last(bundle), '(r : HDec.HSyn.%s)' % bundle_new),
+        ('(HDec.HSyn.%s r t l)' % last(top), '(HDec.HSyn.%s r t l)' % top_new),
+    ]
+    for old, new in edits:
+        assert main_txt.count(old) == 1, ('Main.lean edit', old, main_txt.count(old))
+        main_txt = main_txt.replace(old, new)
+    anchor = 'The hypotheses of `frozenTarget` are therefore exactly the open statements.'
+    assert main_txt.count(anchor) == 1, 'Main.lean paragraph anchor'
+    para = fill(FOLD_PARAGRAPH.format(mod=new_mod, last_chain=last_chain, top_copy=top_copy, bundle_new=bundle_new,
+                                      top_new=top_new, before=count, after=count - 1)) + '\n\n'
+    main_txt = main_txt.replace(anchor, para + anchor)
+    main_path.write_text(main_txt)
+    print('fold: %s (%s, %s -> %s, conversion %s); Main.lean: %s -> %s, %s -> %s, %d -> %d assumptions'
+          % (new_mod, bundle_new, len(flds), top_new, conv, prev_mod, new_mod, last(top), top_new, count, count - 1))
+    return new_path
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--repo', default='.')
+    ap.add_argument('--out', required=True)
+    ap.add_argument('--scratch', required=True)
+    ap.add_argument('--walk-tsv', default=None)
+    ap.add_argument('--fold', action='store_true',
+                    help='also write OneProof/H/TailZ<n+1>.lean and edit Main.lean (the fold)')
+    a = ap.parse_args()
+    repo, out, scratch = Path(a.repo).resolve(), Path(a.out), Path(a.scratch)
+    scratch.mkdir(parents=True, exist_ok=True)
+    scanner = load_scanner(repo)
+    tsv = Path(a.walk_tsv) if a.walk_tsv else run_walk(repo, scratch)
+    owners, fields, deps, stats = read_walk(tsv)
+    assert ROOT in owners, 'the root does not reach the seeds'
+    sources = {}
+    # copy closure from the root along dirty dependencies
+    kinds = {}
+    todo, seen = [ROOT], set()
+    used_handled = set()
+    problems = []
+    while todo:
+        o = todo.pop()
+        if o in seen:
+            continue
+        seen.add(o)
+        kinds[o] = classify(o, owners[o], sources, repo)
+        if kinds[o] in ('handled',):
+            used_handled.add(o)
+            continue
+        if kinds[o] == 'other':
+            problems.append('dirty declaration %s (%s) is neither copyable nor handled' % (o, owners[o]['module']))
+            continue
+        for (d, dirty, _m) in deps.get(o, []):
+            if dirty and d not in seen:
+                todo.append(d)
+    if problems:
+        sys.exit('\n'.join(problems))
+    copied = sorted((o for o in seen if kinds[o] in ('block', 'gen')),
+                    key=lambda o: (owners[o]['modidx'], owners[o]['l0']))
+    # renaming map by last component; collisions with clean dependencies are refused
+    ren = {}
+    for o in copied:
+        L = last(o)
+        assert L not in ren, ('two copied declarations share a last component', L)
+        ren[L] = L + (SFX_STRUCT if owners[o]['kind'] == 'structure' else SFX_THM)
+    clean_lasts = {}
+    for o in copied + [ROOT]:
+        for (d, dirty, _m) in deps.get(o, []):
+            if not dirty:
+                clean_lasts.setdefault(last(d), set()).add(d)
+    clash = {L: sorted(v) for L, v in clean_lasts.items() if L in ren}
+    assert not clash, ('a copied name shares its last component with a clean dependency', clash)
+    copied_structs = [last(o) for o in copied if owners[o]['kind'] == 'structure']
+    # collect texts: blocks once each, generation declarations grouped by file
+    units = []  # (modidx, line, header, text)
+    done_blocks = set()
+    for o in copied:
+        info = owners[o]
+        src = sources[info['module']]
+        whole = False
+        if kinds[o] == 'block':
+            a0, b0, txt = src.block_of(info['l0'], info['l1'])
+            decls = [m.group(2) for m in DECL.finditer(code_of(txt))]
+            # the whole block when every declaration in it is copied; otherwise (another reroute
+            # already replaced some of them) only the copied declarations, in the block's scope
+            whole = all(last(dn) in ren for dn in decls)
+        if whole:
+            if (src.module, a0) in done_blocks:
+                continue
+            done_blocks.add((src.module, a0))
+            first = txt.split('\n', 1)
+            head = ('-- copied from %s:%d; there: %s' % (src.rel, a0, first[0][len('-- '):]))
+            units.append((info['modidx'], a0, head, first[1] if len(first) > 1 else ''))
+            count('whole blocks copied')
+        else:
+            if kinds[o] == 'block':
+                count('single declarations copied out of partly replaced blocks')
+            body = '\n'.join(src.lines[info['l0'] - 1:info['l1']]) + '\n'
+            stack = src.scope_at(info['l0'])
+            opener = ''.join(s[0] + '\n' + ''.join(x + '\n' for x in s[1]) + '\n' for s in stack)
+            closer = ''.join(('end ' + s[0].split()[1] if s[0].startswith('namespace ') else 'end') + '\n\n'
+                             for s in reversed(stack))
+            head = '-- copied from %s:%d (%s), without `cmjDegreePrint`' % (src.rel, info['l0'], last(o))
+            units.append((info['modidx'], info['l0'], head, opener + body + '\n' + closer))
+    units.sort(key=lambda u: (u[0], u[1]))
+    out_blocks = []
+    for (_mi, _l, head, txt) in units:
+        base = strip_hb(rename(txt, ren))
+        new = edit_text(txt, head)
+        new = rename(new, ren)
+        new = note_structs(new, [ren[s] for s in copied_structs])
+        AUDIT.extend(difflib.unified_diff(base.splitlines(), new.splitlines(), head, head + ' (cmj)',
+                                          n=0, lineterm=''))
+        bad = re.findall(GONE_RE, code_of(new))
+        assert not bad, ('names left in code', head, sorted(set(bad)))
+        out_blocks.append(head + '\n' + new.rstrip('\n') + '\n')
+    # expectations at the switch points
+    for key, lo, hi in [('supplier -> cmFibreSplitBL_of_liveInputs_nos', 1, 1),
+                        ('cmBranchOut_of -> cmBranchOut_of_bl', 1, 1),
+                        ('CMjDegree binder and its use deleted', 1, 1),
+                        ('anonymous-constructor component deleted', 1, 1),
+                        ('field deleted (cmjDegreePrint / cmjDegree)', 2, 10 ** 6),
+                        ('CMInputs3 -> CMInputs3BL', 1, 10 ** 6)]:
+        v = COUNTS.get(key, 0)
+        assert lo <= v <= hi, ('unexpected count', key, v)
+    # the top theorem: the copy that the root reads
+    root_deps = [d for (d, dirty, _m) in deps[ROOT] if dirty]
+    tops = [d for d in root_deps if owners[d]['kind'] == 'theorem']
+    bundles = [d for d in root_deps if owners[d]['kind'] == 'structure']
+    assert len(tops) == 1, ('one top theorem expected', tops)
+    top = tops[0]
+    # split into parts
+    parts, cur, size = [], [], 0
+    for b in out_blocks:
+        if cur and size + len(b.encode()) > 140_000:
+            parts.append(cur)
+            cur, size = [], 0
+        cur.append(b)
+        size += len(b.encode())
+    parts.append(cur)
+    src_mods = sorted({owners[o]['module'] for o in copied}, key=lambda m: min(
+        owners[o]['modidx'] for o in copied if owners[o]['module'] == m))
+    out.mkdir(parents=True, exist_ok=True)
+    names = []
+    for k, blks in enumerate(parts, 1):
+        if k == 1:
+            imports = ['import %s.BranchBL' % OUT_MODULE_PREFIX, 'import %s.LiveBL' % OUT_MODULE_PREFIX] + \
+                      ['import %s' % m for m in src_mods]
+        else:
+            imports = ['import %s.%s' % (OUT_MODULE_PREFIX, names[-1])]
+        name = 'Chain%d' % k
+        text = HEADER.format(imports='\n'.join(imports), part='part %d of %d' % (k, len(parts)),
+                             top=top)
+        text += '\n' + '\n\n'.join(blks)
+        if k == len(parts):
+            text += '\n#print axioms %s\n' % (re.sub(r'[^.]+$', ren[last(top)], top))
+        text = wrap_lines(text)
+        check_scan(scanner, name, text)
+        (out / ('%s.lean' % name)).write_text(text)
+        names.append(name)
+        print(name, len(text.encode()), 'bytes', len(blks), 'blocks')
+    # FoldCheck
+    main_src = Source(repo, owners[ROOT]['module'])
+    rinfo = owners[ROOT]
+    root_txt = '\n'.join(main_src.lines[rinfo['l0'] - 1:rinfo['l1']]) + '\n'
+    root_new = rename(root_txt, ren)
+    root_new, n = re.subn(r'_root_\.ZInQ\.OneProof\.frozenTarget(?![\w\'])', '_root_.' + NEW_ROOT, root_new)
+    assert n >= 1, 'root name not found'
+    root_new = re.sub(r'^/--[\s\S]*?-/\n', '', root_new)
+    main_imports = [l for l in main_src.lines if l.startswith('import ')]
+    new_top = re.sub(r'[^.]+$', ren[last(top)], top)
+    ofl = []
+    for b in bundles:
+        nb = re.sub(r'[^.]+$', ren[last(b)], b)
+        kept = [f for f in fields[b] if f not in ('cmjDegreePrint', 'cmjDegree')]
+        dropped = [f for f in fields[b] if f in ('cmjDegreePrint', 'cmjDegree')]
+        assert dropped == ['cmjDegreePrint'], ('the top bundle should lose exactly cmjDegreePrint', b, dropped)
+        ofl.append((b, nb, kept))
+    fc = '\n'.join(main_imports + ['import %s.%s' % (OUT_MODULE_PREFIX, names[-1])]) + '\n\n'
+    ofl_names = ', '.join('`%s_ofLive`' % (last(nb)[0].lower() + last(nb)[1:]) for (_b, nb, _k) in ofl)
+    fc += ('/-! # Headline check for cmj-reroute (generated by `gen_cmj.txt`)\n\n'
+           '* %s: the live research bundle gives the new one by field projections\n'
+           '  alone, so every field of the new bundle has exactly the type of the live field of the same\n'
+           '  name, and the new bundle has one field fewer: `cmjDegreePrint`.\n' % ofl_names)
+    fc += (
+           '* `frozenTarget_without_cmjDegreePrint`: `ZInQ.OneProof.frozenTarget`\'s statement and body\n'
+           '  (`OneProof/Main.lean`) verbatim, over the new research bundle, with the top theorem\n'
+           '  `%s` replaced by its copy `%s`.\n-/\n\n' % (top, new_top))
+    fc += 'namespace CMjReroute\n\n'
+    for (b, nb, kept) in ofl:
+        fc += ('/-- The live research bundle gives the new one, field by field (no field is proved here). -/\n'
+               'theorem %s_ofLive (r : %s) : %s where\n' % (last(nb)[0].lower() + last(nb)[1:], b, nb))
+        fc += ''.join('  %s := r.%s\n' % (f, f) for f in kept)
+        fc += '\n'
+    fc += 'end CMjReroute\n\nnamespace ZInQ.OneProof\n\n'
+    fc += ('/-- **Theorem 1.1 without `cmjDegreePrint`**: `frozenTarget` over the research bundle without\n'
+           'the degree of a singular modulus. -/\n')
+    fc += root_new + '\nend ZInQ.OneProof\n\n'
+    prints = [NEW_ROOT] + ['CMjReroute.%s_ofLive' % (last(nb)[0].lower() + last(nb)[1:]) for (_b, nb, _k) in ofl] + [
+        new_top, 'HDec.CMBranch.CMjReroute.cmBranchOut_of_bl',
+        'HDec.CMBranch.CMjReroute.cmFibreSplitBL_of_liveInputs_nos',
+        'HDec.CMBranch.CMjReroute.cmFibreSplitBL_of', 'HDec.CMBranch.CMjReroute.cmMatrixUnitSplitBL_of',
+        'HDec.CMBranch.CMjReroute.cmFibreSplit_of_bl',
+        'HDec.CMBranch.CMjReroute.faltingsHeight_le_bcm_of_sub',
+        'HDec.CMBranch.CMjReroute.exists_suborder_card_pic_le_324']
+    fc += ''.join('#print axioms %s\n' % p for p in prints)
+    fc = wrap_lines(fc)
+    check_scan(scanner, 'FoldCheck', fc)
+    (out / 'FoldCheck.lean').write_text(fc)
+    (scratch / 'edits.diff').write_text('\n'.join(AUDIT) + '\n')
+    with open(scratch / 'copied.tsv', 'w') as fh:
+        for o in copied:
+            i = owners[o]
+            fh.write('%s\t%s\t%s\t%s:%d-%d\t%s\n' % (o, ren[last(o)], i['kind'], i['module'], i['l0'], i['l1'],
+                                                   kinds[o]))
+    if a.fold:
+        emit_fold(repo, owners, top, bundles, ren, names[-1])
+    print('walk:', stats)
+    print(len(copied), 'copied declarations;', len(units), 'units; top', top, '->', new_top)
+    print('handled and read:', sorted(used_handled))
+    for k in sorted(COUNTS):
+        print('  %4d  %s' % (COUNTS[k], k))
+
+
+if __name__ == '__main__':
+    main()

@@ -28,3 +28,11 @@ from buzzardLemma22Full5 (Buzzard's Lemma 2.2) and milneThm125Pts (Milne's Thm 1
 milneTorsionCount and milneZeroPreservingHomLN. With them
 y3FullThreeRepZ30 is Y3Buzzard.y3FullThreeRepZ30_of_printed_xdv15 of eight rows. The readings of the old rows were of
 the old statements; those of the new rows are sections 8 and 9 of docs/research/y3-adversarial-readings.md.
+
+Later (cmj-reroute-fold): the row of cmjDegreePrint moved here. The field was removed by a reroute, with no
+replacement leaf: its one reader, the CM branch's bound h_F(E) <= B_cm, used it only to bound the class number of the
+CM order of E by [L:Q] before Fowler's Prop. 2.7 at n = D. The reroute bounds instead by 324 the class number of a
+sub-order, the order of the CM point of the fibre, from Shimura's reciprocity law in deligneCanonicalModelY3EveryPrint
+and the fibre bound of Y3 -> P^1_j, and applies Fowler at n = 324 (ZInQKernel/Contrib/OneProof/CMjReroute/README.md).
+The reading, a human reading of Fowler's p. 613 sentence that the maintainer ruled YES for this field, is kept here as
+a record.

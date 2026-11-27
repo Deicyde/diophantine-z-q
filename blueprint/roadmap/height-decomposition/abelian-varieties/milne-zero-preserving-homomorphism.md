@@ -3,7 +3,7 @@ article_id: af_3438e7a1563596ce561d0f97
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves82.milneZeroPreservingHomLN
+lean: HDec.HSyn.OpenResearchLeaves83.milneZeroPreservingHomLN
 ---
 
 # Morphisms of abelian schemes fixing zero are homomorphisms

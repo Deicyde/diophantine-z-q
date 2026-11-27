@@ -3,7 +3,7 @@ article_id: af_5d682daa8ef5fac275ff2a7d
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves82.projectiveFalseEllipticCurve
+lean: HDec.HSyn.OpenResearchLeaves83.projectiveFalseEllipticCurve
 ---
 
 # False elliptic curves over a projective base are projective

@@ -1,0 +1,153 @@
+/-
+Dependency walk for the cmjDegreePrint copy reroute (input of gen_cmj.txt; run by it as a scratch
+Lean file on the built world, never built as part of the library).
+
+From the root `ZInQ.OneProof.frozenTarget`, it follows the constants used by types and values
+(theorem values included) inside the modules `ZInQKernel.*`, marks as dirty every reached constant
+that depends, directly or through reached constants, on one of the seeds, and maps each dirty
+constant to the declaration that owns it (projections and constructors to their structure,
+auxiliary constants to their parent). It writes a TSV to the path in `CMJ_WALK_OUT`:
+
+  ROOT   name
+  SEED   name
+  OWNER  name  kind  module  module-index  first-line  last-line
+  FIELD  structure  field
+  DEP    owner  dependency-owner  dirty(0/1)  dependency-module
+  STAT   key  value
+
+Module indices follow the import order of the environment (dependencies first).
+-/
+import ZInQKernel.OneProof.Main
+
+open Lean Meta
+
+namespace CMjWalk
+
+/-- The root of the walk: the single theorem of the proof. -/
+def root : Name := `ZInQ.OneProof.frozenTarget
+
+/-- The statements that leave the chain or change type: the degree of a singular modulus (the
+printed row and the older field) and the CM fibre split (retyped to `CMFibreSplitBL`). -/
+def seeds : Array Name :=
+  #[`HDec.CMBranch.CMjBridges.CMjDegreePrint, `HDec.CMBranch.CMjDegree,
+    `HDec.CMBranch.CMFibreSplit]
+
+def modIdx? (env : Environment) (c : Name) : Option Nat :=
+  (env.getModuleIdxFor? c).map (·.toNat)
+
+def modName (env : Environment) (c : Name) : Name :=
+  match env.getModuleIdxFor? c with
+  | some idx => env.header.modules[idx.toNat]!.module
+  | none => `_current
+
+def inProject (env : Environment) (c : Name) : Bool :=
+  (`ZInQKernel).isPrefixOf (modName env c)
+
+def depsOf (env : Environment) (c : Name) : Array Name := Id.run do
+  let some ci := env.find? c | return #[]
+  let mut acc : Std.HashSet Name := {}
+  for n in ci.type.getUsedConstants do acc := acc.insert n
+  if let some v := ci.value? (allowOpaque := true) then
+    for n in v.getUsedConstants do acc := acc.insert n
+  if let .inductInfo v := ci then
+    for n in v.ctors do acc := acc.insert n
+  return acc.toArray.filter (inProject env)
+
+partial def ownerOf (c : Name) : CoreM Name := do
+  let env ← getEnv
+  if let some info := env.getProjectionFnInfo? c then
+    return info.ctorName.getPrefix
+  match env.find? c with
+  | some (.ctorInfo v) => return v.induct
+  | some (.recInfo _) => return c.getPrefix
+  | _ => pure ()
+  if isAuxRecursor env c || isNoConfusion env c then
+    return c.getPrefix
+  if (← findDeclarationRanges? c).isSome then
+    return c
+  if c.isAnonymous || c.getPrefix.isAnonymous then
+    return c
+  ownerOf c.getPrefix
+
+def kindOf (env : Environment) (c : Name) : String :=
+  match env.find? c with
+  | some (.thmInfo _) => "theorem"
+  | some (.defnInfo _) => "def"
+  | some (.inductInfo _) => if isStructure env c then "structure" else "inductive"
+  | some (.opaqueInfo _) => "opaque"
+  | some (.ctorInfo _) => "ctor"
+  | some (.recInfo _) => "rec"
+  | some (.quotInfo _) => "quot"
+  | some _ => "other"
+  | none => "missing"
+
+def run : CoreM Unit := do
+  let env ← getEnv
+  let some out ← IO.getEnv "CMJ_WALK_OUT" | throwError "set CMJ_WALK_OUT"
+  -- reach
+  let mut graph : Std.HashMap Name (Array Name) := {}
+  let mut stack : Array Name := #[root]
+  while !stack.isEmpty do
+    let c := stack.back!
+    stack := stack.pop
+    if graph.contains c then continue
+    let ds := depsOf env c
+    graph := graph.insert c ds
+    for d in ds do
+      unless graph.contains d do stack := stack.push d
+  -- dirty: backwards from the seeds
+  let mut rev : Std.HashMap Name (Array Name) := {}
+  for (c, ds) in graph.toList do
+    for d in ds do
+      rev := rev.insert d ((rev.getD d #[]).push c)
+  let mut dirty : Std.HashSet Name := {}
+  let mut st : Array Name := seeds.filter graph.contains
+  while !st.isEmpty do
+    let d := st.back!
+    st := st.pop
+    if dirty.contains d then continue
+    dirty := dirty.insert d
+    for c in rev.getD d #[] do
+      unless dirty.contains c do st := st.push c
+  -- owners
+  let mut ownerCache : Std.HashMap Name Name := {}
+  for (c, _) in graph.toList do
+    ownerCache := ownerCache.insert c (← ownerOf c)
+  let mut dirtyOwners : Std.HashSet Name := {}
+  for c in dirty.toArray do
+    dirtyOwners := dirtyOwners.insert (ownerCache.getD c c)
+  let mut lines : Array String := #[s!"ROOT\t{root}"]
+  for s in seeds do lines := lines.push s!"SEED\t{s}"
+  let sorted := dirtyOwners.toArray.qsort (fun a b => a.toString < b.toString)
+  for o in sorted do
+    let (l0, l1) ← match ← findDeclarationRanges? o with
+      | some r => pure (r.range.pos.line, r.range.endPos.line)
+      | none => pure (0, 0)
+    let mi := (modIdx? env o).getD 0
+    lines := lines.push s!"OWNER\t{o}\t{kindOf env o}\t{modName env o}\t{mi}\t{l0}\t{l1}"
+    if isStructure env o then
+      for f in getStructureFields env o do
+        lines := lines.push s!"FIELD\t{o}\t{f}"
+  -- owner-level dependencies of the dirty owners
+  let mut depsByOwner : Std.HashMap Name (Std.HashSet Name) := {}
+  for (c, ds) in graph.toList do
+    let o := ownerCache.getD c c
+    unless dirtyOwners.contains o do continue
+    let mut acc := depsByOwner.getD o {}
+    for d in ds do
+      let od := ownerCache.getD d d
+      unless od == o do acc := acc.insert od
+    depsByOwner := depsByOwner.insert o acc
+  for o in sorted do
+    let ds := (depsByOwner.getD o {}).toArray.qsort (fun a b => a.toString < b.toString)
+    for d in ds do
+      let dd := if dirtyOwners.contains d then 1 else 0
+      lines := lines.push s!"DEP\t{o}\t{d}\t{dd}\t{modName env d}"
+  lines := lines.push s!"STAT\treached\t{graph.size}"
+  lines := lines.push s!"STAT\tdirty\t{dirty.size}"
+  lines := lines.push s!"STAT\tdirtyOwners\t{dirtyOwners.size}"
+  IO.FS.writeFile out (String.intercalate "\n" lines.toList ++ "\n")
+
+end CMjWalk
+
+#eval CMjWalk.run
