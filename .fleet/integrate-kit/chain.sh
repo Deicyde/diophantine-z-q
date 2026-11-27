@@ -22,10 +22,14 @@ note() { echo "$(date +%m-%d_%H:%M:%S) $*" >> "$D/progress.txt"; }
 # One Lean/lake job, foreground, capped (MEMMAX, default 60G). When a Lean/lake/repl process that is not this
 # chain's (not in ~/dzq-check2) runs on the host, the job gets LEAN_NUM_THREADS=4 and CPUQuota=1600%, else 16 threads.
 MEMMAX=${MEMMAX:-60G}
-foreign() { local p a c; for p in $(pgrep -x lean; pgrep -x lake; pgrep -x repl); do
-  a=$(tr '\0' ' ' < /proc/$p/cmdline 2> /dev/null); c=$(readlink /proc/$p/cwd 2> /dev/null)
-  case "$a $c" in *"$HOME/dzq-check2"*) ;; *) [ -n "$a" ] && return 0 ;; esac; done; return 1; }
-L() { if foreign; then note "  (host task Lean running: 4 threads, CPUQuota=1600%) $(echo "$*" | cut -c1-160)"
+# Inbox 27a: only Z-in-Q tasks' Lean jobs (paths under ~/dzq*) count; other projects' builds do not, provided at least
+# 80 GB is available and the load is below 120 (otherwise throttle anyway).
+foreign() { local p a c m l; m=$(awk '/MemAvailable/ {print int($2/1048576)}' /proc/meminfo); l=$(cut -d. -f1 /proc/loadavg)
+  [ "${m:-0}" -lt 80 ] || [ "${l:-999}" -ge 120 ] && return 0
+  for p in $(pgrep -x lean; pgrep -x lake; pgrep -x repl); do
+  a=$(tr '\0' ' ' 2> /dev/null < /proc/$p/cmdline); c=$(readlink /proc/$p/cwd 2> /dev/null)
+  case "$a $c" in *"$HOME/dzq-check2"*) ;; *"$HOME/dzq"*) return 0 ;; esac; done; return 1; }
+L() { if foreign; then note "  (Z-in-Q task Lean running or host busy: 4 threads, CPUQuota=1600%) $(echo "$*" | cut -c1-160)"
     systemd-run --user --scope -q -p MemoryMax=$MEMMAX -p CPUQuota=1600% env LEAN_NUM_THREADS=4 "$@"
   else note "  (16 threads) $(echo "$*" | cut -c1-160)"; systemd-run --user --scope -q -p MemoryMax=$MEMMAX env LEAN_NUM_THREADS=16 "$@"; fi; }
 # 0 if every "depends on axioms" list in the file is standard and nothing mentions sorry, else 1.
