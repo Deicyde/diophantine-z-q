@@ -3616,3 +3616,16 @@ import ZInQKernel.Contrib.OneProof.JavanpeykarJacK
 import ZInQKernel.Contrib.OneProof.JavanpeykarJacKEx
 import ZInQKernel.Contrib.OneProof.JavanpeykarJacKReader
 import ZInQKernel.Contrib.OneProof.DeligneNarrow
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.Action
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.BdR
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.Check
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.Cp
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.Ring
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.RowTp
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.Theta
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.TpShape
+import ZInQKernel.Contrib.OneProof.BstRegular.Abstract
+import ZInQKernel.Contrib.OneProof.BstRegular.Bst
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.Algebra
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.Check2
+import ZInQKernel.Contrib.OneProof.ColmezTiltIso.RowPrinted

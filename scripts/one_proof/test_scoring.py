@@ -1,5 +1,6 @@
 """Unit tests of render_open.py: the LEAF/GLUE scoring rule (ruling 2026-11-17: unread and unverified rows count as
-glue), reading the tables as raw text, claims.tsv rows of hypotheses that are no longer open, and volatile.tsv rows.
+glue), reading the tables as raw text, claims.tsv rows of hypotheses that are no longer open, volatile.tsv rows,
+and the claims-sync lag.
 
 Run: python3 -I scripts/one_proof/test_scoring.py   (or pytest scripts/one_proof/test_scoring.py)
 """
@@ -125,6 +126,25 @@ def test_real_text_rule():
     m['reviews'] = [review('a', legacy[1] + ' (re-read)', 'scan', '')]
     m['reviews'][0]['field'] = legacy[0]
     assert not [p for p in render_open.validate(m) if 'real-text rule' in p]
+
+
+def test_claims_lag_is_a_note():
+    """After a claims sync OPEN.md lags claims.tsv until the next fold: tolerated; any other difference is not."""
+    old = board()
+    open_md, pages, _ = render_open.generated(old)
+    synced = board([claim('b')])                       # the sync adds a claim; nothing else changes
+    assert render_open.generated(synced)[0] != open_md
+    assert render_open.claims_lag_only(synced, open_md, pages)
+    assert render_open.claims_lag_only(old, open_md, pages)
+    relabeled = board([claim('b')])                    # a kinds.tsv change as well: not a claims-only lag
+    relabeled['kinds']['c']['label'] = 'good-first'
+    assert not render_open.claims_lag_only(relabeled, open_md, pages)
+    restrict = board()                                 # a kinds.tsv change alone
+    restrict['kinds']['a']['strictest'] = 'GLUE'
+    assert not render_open.claims_lag_only(restrict, open_md, pages)
+    assert not render_open.claims_lag_only(synced, open_md.replace('open', 'opne', 1), pages)  # hand edit
+    assert not render_open.claims_lag_only(synced, open_md, pages + 'x\n')
+    assert not render_open.claims_lag_only(synced, open_md.split('<!-- render stamp')[0], pages)  # no stamp
 
 if __name__ == '__main__':
     for name, fn in list(globals().items()):

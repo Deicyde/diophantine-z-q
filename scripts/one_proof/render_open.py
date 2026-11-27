@@ -31,8 +31,13 @@ flag without a class, a strictest-reading flag that does not match the strict co
 vocabularies, an unheld hypothesis without an area issue, a held claim without a link), or if a generated,
 contributor-facing or table file contains text that must not be public (session or worker labels, host names,
 HTML markers, local paths).
+One lag is tolerated: the claims sync is the only writer of claims.tsv and never re-renders, so after a sync OPEN.md
+and pages-wanted.md show the holders of the last fold. OPEN.md ends with a render stamp (a digest of what the render
+gives with no claims rows, and a digest of the two files as written); when they differ from a fresh render only
+because claims.tsv changed (the files still match their stamp, and the claims-free render is unchanged), --check
+prints a note instead of a problem. Any other difference fails.
 """
-import csv, json, os, re, sys
+import csv, hashlib, json, os, re, sys
 from collections import Counter
 
 D = 'docs/one-proof/'
@@ -85,7 +90,7 @@ EVIDENCE = {'HUMAN-READ', 'AI-READ'}
 # millerRankOneOnMinimalQ_iff, so it is legacy with that row.
 LEGACY_AI_READS = {('pazukiCor13Upper', 'e1b31749'), ('hRC', '181efe5b'), ('hCT', '181efe5b'),
                    ('hRank', '119a412d'), ('hRank', 'fa21b107'), ('hRank', '014ea897b'), ('hRank', 'a6d49800b'),
-                   ('dsThm966Printed', '29bfbc3f'), ('silverbergZarhinThm34', 'a728cb72'),
+                   ('silverbergZarhinThm34', 'a728cb72'),
                    ('gaudronRemondSec9LowerAnSS', '55cc29bd4')}
 SHA256_COPY = re.compile(r'sha256 [0-9a-f]{6,}')
 
@@ -599,10 +604,44 @@ def splice(text, begin, end, body):
     return text[:i] + body + text[j + len(end):]
 
 
+STAMP = re.compile(r'<!-- render stamp: claims-free ([0-9a-f]{16}), output ([0-9a-f]{16}) -->\n\Z')
+
+
+def digest(*texts):
+    return hashlib.sha256('\0'.join(texts).encode()).hexdigest()[:16]
+
+
+def claims_free(m):
+    """Digest of OPEN.md and pages-wanted.md as rendered with no claims rows: it changes with every input but
+    claims.tsv."""
+    open_md, pages, _ = render(dict(m, claims_rows=[]))
+    return digest(open_md + '\n', pages + '\n')
+
+
+def generated(m):
+    """OPEN.md (ending with its render stamp), pages-wanted.md and the STATUS.md count block."""
+    open_md, pages, status_block = render(m)
+    open_md, pages = open_md + '\n', pages + '\n'
+    stamp = f'<!-- render stamp: claims-free {claims_free(m)}, output {digest(open_md, pages)} -->\n'
+    return open_md + '\n' + stamp, pages, status_block
+
+
+def claims_lag_only(m, open_text, pages_text):
+    """True if OPEN.md and pages-wanted.md as written are an unedited render whose inputs differed from m's only
+    in claims.tsv: the files match their stamp, and the claims-free render is unchanged."""
+    s = STAMP.search(open_text)
+    if not s:
+        return False
+    body = open_text[:s.start()]
+    if not body.endswith('\n\n'):
+        return False
+    return s.group(1) == claims_free(m) and s.group(2) == digest(body[:-1], pages_text)
+
+
 def outputs(m):
     """(path -> intended content of every generated file or block, problems with the marker blocks)."""
-    open_md, pages, status_block = render(m)
-    res = {D + 'OPEN.md': open_md + '\n', D + 'pages-wanted.md': pages + '\n'}
+    open_md, pages, status_block = generated(m)
+    res = {D + 'OPEN.md': open_md, D + 'pages-wanted.md': pages}
     problems = []
     text = open(CONTRIBUTING).read() if os.path.exists(CONTRIBUTING) else ''
     if EX_BEGIN in text:
@@ -659,9 +698,14 @@ def main():
                   f'real-text rule and lacks {gap}')
     if '--check' in sys.argv:
         problems += marker_problems
-        for p, content in res.items():
-            if not os.path.exists(p) or open(p).read() != content:
-                problems.append(f'{p} is out of date: run python3 scripts/one_proof/render_open.py')
+        differ = [p for p, content in res.items() if not os.path.exists(p) or open(p).read() != content]
+        lag = {D + 'OPEN.md', D + 'pages-wanted.md'}
+        if differ and set(differ) <= lag and all(os.path.exists(p) for p in lag) and claims_lag_only(
+                m, open(D + 'OPEN.md').read(), open(D + 'pages-wanted.md').read()):
+            print("note: claims.tsv is newer than OPEN.md's holder column; the next fold re-renders")
+            differ = []
+        for p in differ:
+            problems.append(f'{p} is out of date: run python3 scripts/one_proof/render_open.py')
         problems += hygiene(list(res) + PUBLIC_DOCS + TABLES)
         if os.path.exists(EXAMPLE_OUT):
             got = re.search(r'#discharges: (\d+) open hypotheses', open(EXAMPLE_OUT).read())
