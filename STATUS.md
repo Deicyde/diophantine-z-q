@@ -94,11 +94,11 @@ Lemma 5.4), and `hRank` (Silverman's forward rank-one implication), and nothing 
 
 docs/one-proof/OPEN.md gives each statement's Lean form, source, rating and holder. They come from these areas:
 
-- the Shimura curve of discriminant 6 with level-three structure: Deligne's canonical model, and the integral model
-  over Z[1/30], which Lean proves along the manuscript's construction from Buzzard's Theorem 2.1, Lemma 2.2 and
-  Corollary 2.3 (Duke 1997), five results of Milne's *Abelian varieties* (Cornell–Silverman 1986, read in the author's
-  retyped edition), and one consequence on Buzzard's false elliptic curves (Lean derives the map to the projective
-  line from the canonical model and the integral model);
+- the Shimura curve of discriminant 6 with level-three structure: Deligne's canonical model, and the integral model over
+  Z[1/30], which Lean proves along the manuscript's construction from Buzzard's Theorem 2.1, Lemma 2.2 and Corollary 2.3
+  (Duke 1997), five rows citing Milne's *Abelian varieties* (Cornell–Silverman 1986, read in the author's retyped
+  edition; one combines several of its results), and one consequence on Buzzard's false elliptic curves (Lean derives
+  the map to the projective line from the canonical model and the integral model);
 - complex multiplication: the degree of a CM j-invariant, Faltings heights of CM elliptic curves, and Fowler's
   Proposition 2.7;
 - abelian varieties: Lean derives Faltings' semisimplicity and Tate theorems (1983, §5) from Gaudron–Rémond's
