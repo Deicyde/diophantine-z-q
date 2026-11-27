@@ -105,19 +105,19 @@ hypotheses it names exists.
   and the [run list](https://github.com/Deicyde/diophantine-z-q/actions/workflows/main-build-cache.yml) shows the other
   commits it has passed on ([#62](https://github.com/Deicyde/diophantine-z-q/issues/62)). The [build-cost
   table](docs/one-proof/CONTRIBUTING.md#what-it-costs-to-build) has no build by anyone outside the project yet.
-- **The hypotheses are premises, not axioms:** Lean proves "if they all hold, then ℤ is Diophantine in ℚ". 21 belong
+- **The hypotheses are premises, not axioms:** Lean proves "if they all hold, then ℤ is Diophantine in ℚ". 18 belong
   to the six-contact height estimate (the manuscript's Theorem 4.1). The other three supply pole completeness
   (Theorem 5.2): the manuscript's Theorem 5.3, the Cassels–Tate pairing on its curves `E_ℓ` (from which Lean proves
-  Lemma 5.4), and Silverman's forward rank-one implication. Of the 21, 8 are classed as published theorems and
-  13 as consequences of a published theorem or of the manuscript's text. Under the strict
-  count (a refereed theorem as printed, checked against the page), 4 qualify; the other 17 still need an argument or a
+  Lemma 5.4), and Silverman's forward rank-one implication. Of the 18, 6 are classed as published theorems and
+  12 as consequences of a published theorem or of the manuscript's text. Under the strict
+  count (a refereed theorem as printed, checked against the page), 4 qualify; the other 14 still need an argument or a
   reading. AI raters assigned these classes. The live list, with each statement's source, rating and holder, is
   [`docs/one-proof/OPEN.md`](docs/one-proof/OPEN.md).
-- **Progress:** 65 open hypotheses on 2026-11-15, 30 on 2026-11-17, 33 on 2026-11-18, 31 on 2026-11-19, 25 on 2026-11-20, 24 now. The
-  count falls when a hypothesis is proved, can rise or fall when one is restated as printed statements, and changes when the proof
-  follows the manuscript more closely: the switch away from Route K removed five hypotheses and added pole
-  completeness, following the manuscript's complex-multiplication argument in Section 4 added four, and deriving pole
-  completeness from its Section 5 replaced one by four. So it does not measure proved content.
+- **Progress:** 65 open hypotheses on 2026-11-15, 30 on 2026-11-17, 33 on 2026-11-18, 31 on 2026-11-19, 25 on 2026-11-20, 24
+  on 2026-11-21, 21 now. The count falls when a hypothesis is proved, can rise or fall when one is restated as printed
+  statements, and changes when the proof follows the manuscript more closely: the switch away from Route K removed five
+  hypotheses and added pole completeness, following the manuscript's complex-multiplication argument in Section 4 added
+  four, and deriving pole completeness from its Section 5 replaced one by four. So it does not measure proved content.
 - **AI caveat.** The manuscript was written with AI models and audited by an AI model, and the project's Lean was
   written by AI coding agents. Published hypotheses have been compared with their printed sources by AI readers, and
   those flagged `unread` on OPEN.md have had no statement check against the page yet. Contributors have also posted
