@@ -27,7 +27,7 @@ This is a definition.
 
 ## Depends on
 
-- [The codes of multiples of the generator](../../model/point-codes.md)
+- [The codes of multiples of the generator](../../curve/point-codes.md)
 
 ## Sources
 

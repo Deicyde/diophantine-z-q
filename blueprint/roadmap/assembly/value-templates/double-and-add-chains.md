@@ -34,7 +34,7 @@ beyond lying on $E$ is used.
 ## Depends on
 
 - [The exceptional-values template](../../syntax/templates/template-exceptions.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 

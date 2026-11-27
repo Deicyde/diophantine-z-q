@@ -58,7 +58,7 @@ $\psi_{-2n}=-\psi_{2n}$) and $[-n]P=-[n]P=(x([n]P),-y([n]P))$.
 
 - [The multiplication-by-n formulas](../../syntax/division-polynomial-multiplication.md)
 - [Normalized division polynomials and their components](../../syntax/division-polynomials.md)
-- [The generator curve $E$](generator-curve.md)
+- [The generator curve $E$](../../curve/generator-curve.md)
 
 ## Sources
 

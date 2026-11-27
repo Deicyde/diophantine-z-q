@@ -81,9 +81,9 @@ field 2′ gives the target.
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
-- [Pole completeness](pole-completeness.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 
 ## Proof depends on
 

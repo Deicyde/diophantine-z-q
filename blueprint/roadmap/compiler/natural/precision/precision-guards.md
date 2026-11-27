@@ -22,7 +22,7 @@ $a\ne0$.
 ## Depends on
 
 - [The precision relation](precision-relation.md)
-- [The point $P_0$](../../../model/field/generator-point.md)
+- [The point $P_0$](../../../curve/generator-point.md)
 
 ## Informally uses
 

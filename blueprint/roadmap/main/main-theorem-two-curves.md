@@ -49,8 +49,8 @@ infinite order; CR₃^DL,Adm,Rk
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [The slot conditions](../route-k/slot-conditions.md)
 - [The positive-rank hypothesis on the two curves of a slot choice](../rank/two-curves/certified-rank-dl-rk.md)
 - [The positive-rank hypothesis at the inputs of admissible numbers](../rank/two-curves/certified-rank-dl-adm-rk.md)

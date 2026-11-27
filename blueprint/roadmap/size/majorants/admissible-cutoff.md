@@ -40,7 +40,7 @@ $B\ge2^{20}$; for comparison with the manuscript's constant nodes, $2^{69}<T$.
 ## Depends on
 
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)
-- [The catalogue bound](../../main/catalogue-bound.md)
+- [The catalogue bound](../../statements/catalogue-bound.md)
 - [Templates satisfy the height majorant](node-majorant.md)
 
 ## Proof depends on
@@ -51,7 +51,7 @@ $B\ge2^{20}$; for comparison with the manuscript's constant nodes, $2^{69}<T$.
 - [Bounds for $D$](../constants/d-bounds.md)
 - [Size of $N_s$ and $\ell$](../constants/catalogue-size.md)
 - [Size of the formal multiple constant](../constants/formal-multiple-size.md)
-- [The template library](../../syntax/templates/template-library.md)
+- [The template library](../../syntax/recipes/template-library.md)
 - [Shape of the natural precision circuit](../../compiler/natural/universal/circuit-node-counts.md)
 - [Node statistics of the halting circuit and the power template](../../compiler/natural/universal/halting-node-check.md)
 - [Size of the program literal](../../compiler/natural/universal/wrapper-code-size.md)

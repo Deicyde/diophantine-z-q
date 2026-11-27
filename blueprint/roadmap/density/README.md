@@ -70,4 +70,3 @@ $C_L$ from below, and a positive lower Dirichlet density gives a positive relati
 - [Dirichlet density gives relative upper density](dirichlet-density.md)
 - [Theorem D: the density statement from the uniform bound](theorem-d.md)
 - [Proposition D: the good slope primes have positive relative density](proposition-d.md)
-- [Progressions of good slope primes from Szemerédi's theorem in the primes alone](good-prime-ap-from-dense-form.md)

@@ -33,7 +33,7 @@ intermediate conclusion are:
   exactly $1$, $E(\mathbb Q)$ has a point of infinite order;
 - the minimal height hypothesis: for every $u\in\mathbb Q\setminus\mathcal C$,
   $h(u)\le H_6(D)\,M_{S_{\rm mul}}(u)^{24}$, with the notation of
-  [the minimal height hypothesis](six-contact-min.md);
+  [the minimal height hypothesis](../multiplication/certificate/six-contact-min.md);
 - CR₃^TYZ_Cl,Rk, the conclusion of the first part: for every natural number $d$ with
   $d\equiv5\pmod8$, $d$ squarefree and $T^{\rm Cl}_{5b}(d)=1$, the curve $C_d$ has a rational point
   of infinite order.
@@ -71,8 +71,8 @@ pass through the five-hypothesis main theorem.
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [Entire continuations of the L-series of an elliptic curve](../rank/literature/l-series-continuation.md)
 - [The first genus sum $T^{\rm Cl}_{5a}$](../rank/literature/genus-sum-5a.md)
 - [The genus sum of class numbers](../redei/class-number-genus-sum.md)

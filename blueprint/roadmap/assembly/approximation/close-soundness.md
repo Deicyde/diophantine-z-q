@@ -27,11 +27,11 @@ the last step because $(e/4)^B\le1<2$. No height input is used here.
 
 - [The precision relation](../../compiler/natural/precision/precision-relation.md)
 - [The precision constant is the six-contact constant](../../compiler/natural/precision/precision-height-constant-value.md)
-- [The outer composition recipes](../../syntax/recipes/outer-recipes.md)
-- [Point codes](../../model/point-codes.md)
-- [The six-contact height estimate](../../main/six-contact-estimate.md)
-- [Pole completeness](../../main/pole-completeness.md)
-- [The twenty-two-prime pattern](../../main/prime-pattern.md)
+- [The outer composition recipes](../../recipe-translation/outer-recipes.md)
+- [Point codes](../../curve/point-codes.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
+- [Pole completeness](../../statements/pole-completeness.md)
+- [The twenty-two-prime pattern](../../statements/prime-pattern.md)
 
 ## Proof depends on
 

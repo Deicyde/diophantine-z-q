@@ -53,7 +53,7 @@ $-(x,0)=(x,0)$.
 
 ## Depends on
 
-- [The generator curve $E$](../../../model/field/generator-curve.md)
+- [The generator curve $E$](../../../curve/generator-curve.md)
 
 ## Sources
 

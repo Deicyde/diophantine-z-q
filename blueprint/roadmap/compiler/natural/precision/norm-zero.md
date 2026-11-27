@@ -21,7 +21,7 @@ $a$ even, then $b$ even, a contradiction. So $v=0$ and then $u=0$.
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../../model/field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../../curve/quadratic-field.md)
 
 ## Sources
 

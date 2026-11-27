@@ -28,7 +28,7 @@ $35282=25+49+35134+12+20+6+5+2+12+3+2+1+11$; $406=3+36\cdot11+7$.
 
 ## Depends on
 
-- [The template library](../templates/template-library.md)
+- [The template library](template-library.md)
 
 ## Proof depends on
 

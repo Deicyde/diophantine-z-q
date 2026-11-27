@@ -35,8 +35,8 @@ order. Injectivity of $\iota$ follows from injectivity of codes.
 
 ## Depends on
 
-- [The point $P_0$](field/generator-point.md)
-- [Point codes](point-codes.md)
+- [The point $P_0$](../curve/generator-point.md)
+- [Point codes](../curve/point-codes.md)
 
 ## Proof depends on
 

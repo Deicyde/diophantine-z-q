@@ -26,8 +26,8 @@ since $K+450<2.4\cdot10^{14}$ and $Y\ge1$.
 ## Depends on
 
 - [The $j$-form of the height hypothesis](j-height-bound.md)
-- [The minimal height hypothesis](../six-contact-min.md)
-- [The six-contact height estimate](../six-contact-estimate.md)
+- [The minimal height hypothesis](../../multiplication/certificate/six-contact-min.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
 
 ## Proof depends on
 

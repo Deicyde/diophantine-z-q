@@ -10,9 +10,9 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the eighteen statements of the chapter in the project's
-assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof is the
-project-authored note `docs/research/h-trust.md`.
+The minimal height hypothesis is proved from the twenty-six statements of the chapter in the
+project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
+is the project-authored note `docs/research/h-trust.md`.
 
 ## Pazuki bound
 
@@ -47,14 +47,6 @@ G. Shimura, Ann. of Math. 85 (1967), Main Theorem I; P. Deligne, *Travaux de Shi
 389 (1971), §§4–5 (Corollaire 5.7, Exemple 5.8); J. Milne, *Introduction to Shimura varieties*
 (2005), §§5–8 and 12–14. Numbers unverified.
 
-## Bost lower bound
-
-É. Gaudron and G. Rémond, *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math.
-Helv. 89 (2014), 343–403, Corollaire 8.4, p. 400, attributed there to Bost, with the normalization
-of §2.3, p. 352. É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014),
-2057–2108, §9, proof of Lemme 9.1, p. 2098, with the normalization of $h_F$ on p. 2058; the
-manuscript's citation, a citation only of Corollaire 8.4.
-
 ## Javanpeykar bound
 
 A. Javanpeykar, *Polynomial bounds for Arakelov invariants of Belyi curves*, Algebra Number Theory 8
@@ -62,14 +54,6 @@ A. Javanpeykar, *Polynomial bounds for Arakelov invariants of Belyi curves*, Alg
 manuscript's citation. AI-read: arXiv:1403.6404v1, pp. 1 and 9, and p. 90; p. 98 not checked.
 Independence of the height: G. Faltings, Invent. Math. 73 (1983), 349–366; P. Deligne, Sém. Bourbaki
 616 (1983/84); locators unverified.
-
-## Y3 over Z[1/30]
-
-The 11/5 manuscript (`diophantine_zq.tex`, lines 443–477), the construction of the integral model of
-$Y_3$; K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), Theorem 2.1
-and Corollary 2.3, read in the author's preprint (Theorem 2.1, p. 5; Corollary 2.3, p. 7; the moduli
-problem, without a polarization, p. 2; the canonical principal polarization, p. 3). The journal
-pages are unverified.
 
 ## Carayol conductor
 
@@ -134,10 +118,90 @@ $B_{\rm st}$; $B_{\rm st}$ inside $B_{\rm dR}$ as in J.-M. Fontaine, *Le corps d
 $p$-adiques*, Astérisque 223 (1994), Exp. II, 4.2.4–4.2.5, p. 86. AI-read: a three-lens adversarial
 reading of page images, 2026-11-26 (docs/research/pb-adversarial-readings.md).
 
+## Gaudron-Remond lower bound
+
+É. Gaudron and G. Rémond, *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math.
+Helv. 89 (2014), 343–403, Corollaire 8.4, p. 400, attributed there to Bost, with the height of §2.3,
+p. 351, and the normalization and the weakening on p. 352. The manuscript cites É. Gaudron and G.
+Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057–2108, §9, proof of Lemme 9.1,
+p. 2098, which cites Corollaire 8.4. AI-read: a three-lens adversarial reading of page images of the
+journal file, 2026-11-27 (docs/research/item-m-adversarial-readings.md); no person has read these
+pages.
+
 ## Gaudron-Remond isogeny bound
 
 É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057–2108,
-Théorème 1.4, p. 2060, with $\kappa$ on p. 2058.
+Théorème 1.4, p. 2060, with $\kappa$ and $g\ge1$ on p. 2058 and isogenies and their degree on p.
+2062. AI-read: a three-lens adversarial reading of page images of Duke's version of record, posted
+on the first author's page, 2026-11-27 (docs/research/item-m-adversarial-readings.md,
+docs/research/duke163-version-of-record.md); no person has read these pages.
+
+## EGA IV 9.7.7
+
+A. Grothendieck and J. Dieudonné, *Éléments de géométrie algébrique IV, troisième partie*, Publ.
+Math. IHÉS 28 (1966), Théorème (9.7.7), p. 79; with EGA IV₁, Publ. Math. IHÉS 20 (1964), (1.6.1), p.
+234; EGA IV₂, Publ. Math. IHÉS 24 (1965), (4.5.1)–(4.5.2), p. 61; and EGA 0_III, Publ. Math. IHÉS 11
+(1961), (9.1.1), (9.1.2) and (9.1.11), pp. 12–14. AI-read: a three-lens adversarial reading of page
+images of the numdam scans, 2026-11-27 (docs/research/item-m-adversarial-readings.md); no person has
+read these pages.
+
+## Buzzard Thm 2.1 and Cor 2.3 at V1(5), literal
+
+K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1, Theorem 2.1,
+Lemma 2.2 and Corollary 2.3, read in the author's preprint (pp. 2–7; Theorem 2.1, p. 5; Corollary
+2.3, p. 7). The journal pages are unverified.
+
+## Milne Prop 20.7 at n = 3
+
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*,
+Springer (1986), Proposition 20.7, read in the author's retyped edition (p. 44 there; abelian
+schemes are defined on p. 42). The pages of the 1986 printing are unverified.
+
+## Milne Rem 8.4
+
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*,
+Springer (1986), Theorem 8.2, Remark 8.4 and §20, read in the author's retyped edition (pp. 13, 14
+and 42 there); the same statement is Remark 7.3 of Milne's course notes *Abelian varieties*, v2.0
+(2008). The pages of the 1986 printing are unverified.
+
+## Buzzard Lemma 2.2 at N = 5
+
+K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), Definition 1.1 and
+Lemma 2.2, read in the author's preprint (pp. 3 and 6); J. S. Milne, *Abelian varieties*, in G.
+Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Proposition 20.7, read
+in the author's retyped edition (p. 44 there); J. Voight, *Quaternion algebras*, Graduate Texts in
+Mathematics 288, Springer (2021), Theorem 15.5.5. The journal pages and those of the 1986 printing
+are unverified.
+
+## Milne Thm 12.5
+
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*,
+Springer (1986), Corollary 2.4, Remark 8.4 and Theorem 12.5, read in the author's retyped edition
+(pp. 3, 14 and 21 there). The pages of the 1986 printing are unverified.
+
+## Milne Cor 20.2(a)
+
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*,
+Springer (1986), Corollary 20.2(a) and Proposition 20.1, read in the author's retyped edition (p. 43
+there); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*, Harvard thesis
+(2008), Corollary 1.3.1.6. The pages of the 1986 printing are unverified, and Mumford's corollary
+was not read.
+
+## False elliptic curves are projective
+
+K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1, read in the
+author's preprint (p. 3); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*,
+Harvard thesis (2008), Theorem 1.3.2.6, Lemma 1.3.2.16, Corollary 1.3.1.5, Proposition 1.3.2.18 and
+Definition 1.3.2.20 (Proposition 1.3.2.15 and Definition 1.3.2.16 of the 2021 revision); J. S.
+Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*,
+Springer (1986), §20 (p. 46 of the author's retyped edition); The Stacks Project, tags 01VT, 0C4K
+and 0B45. The journal and 1986 pages are unverified.
+
+## Milne Prop 20.7 at n = 5
+
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*,
+Springer (1986), Proposition 20.7, read in the author's retyped edition (p. 44 there; abelian
+schemes are defined on p. 42). The pages of the 1986 printing are unverified.
 
 ## Colmez Theorem 5.2
 

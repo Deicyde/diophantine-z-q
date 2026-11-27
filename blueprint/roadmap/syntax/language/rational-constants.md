@@ -33,7 +33,7 @@ $-15465/4=-123720/32$.
 
 ## Proof depends on
 
-- [Sums of squares and products over the rationals](../sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](sum-of-squares-semantics.md)
 
 ## Sources
 

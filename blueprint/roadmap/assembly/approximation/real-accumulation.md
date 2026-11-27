@@ -30,8 +30,8 @@ neighbourhoods and subtract two close multiples) is the same pigeonhole principl
 
 ## Depends on
 
-- [The point $P_0$](../../model/field/generator-point.md)
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
+- [The point $P_0$](../../curve/generator-point.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 
 ## Proof depends on
 

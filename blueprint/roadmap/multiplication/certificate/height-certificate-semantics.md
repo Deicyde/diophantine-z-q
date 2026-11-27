@@ -38,14 +38,14 @@ shift points being the canonical codes $\iota(c_k)$. The converse chooses the sa
 
 - [The height certificate template](../../syntax/templates/template-height-certificate.md)
 - [The slope predicate](slope-predicate.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
 - [Semantics of the slope template](slope-semantics.md)
 - [Inverse witnesses](../../syntax/nonzero-gadgets.md)
-- [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../../syntax/language/sum-of-squares-semantics.md)
 - [Evaluation of a template call](../../syntax/language/call-semantics.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)

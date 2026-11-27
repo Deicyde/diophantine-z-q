@@ -37,14 +37,15 @@ given the multiplication statement, its relation holds exactly on the codes of n
 - [The multiplication template](template-multiply.md)
 - [The natural-code template](template-natural.md)
 
-Its semantics, the natural-code predicate, is proved in the translation chapter:
-[the natural-code predicate](../../compiler/translation/natural-code-semantics.md).
+Its semantics, the natural-code predicate, is proved in the chapter on the outer recipes and their
+translation:
+[the natural-code predicate](../../recipe-translation/natural-code-semantics.md).
 
 The value templates encode signed indices, absolute values, the coordinate window, the six
 raw tests with the pole predicate, and the six exceptional values.
 
 - [The signed-encoding template](template-signed-encode.md)
-- [The absolute-value template](template-abs.md)
+- [The absolute-value template](../language/template-abs.md) (with the formula language, whose absolute-value gadget uses it)
 - [The coordinate-window template](template-close-coordinates.md)
 - [The value-test template](template-value-test.md)
 - [The exceptional-values template](template-exceptions.md)
@@ -52,4 +53,4 @@ raw tests with the pole predicate, and the six exceptional values.
 The library lists the 23 templates in order, including five fixed-scalar templates for the
 constants of the natural precision polynomial.
 
-- [The template library](template-library.md)
+- [The template library](../recipes/template-library.md)

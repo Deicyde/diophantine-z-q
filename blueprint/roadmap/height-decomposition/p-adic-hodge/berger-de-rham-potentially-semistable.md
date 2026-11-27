@@ -3,7 +3,7 @@ article_id: af_6b1091f7d1be24b3f05e830f
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves79.bergerSurveyF
+lean: HDec.HSyn.OpenResearchLeaves82.bergerSurveyF
 ---
 
 # Berger's theorem: de Rham representations are potentially semistable
@@ -35,8 +35,12 @@ same $D_{\rm st}$ as Fontaine's; reaching Fontaine's ring from his is a step of 
 theorem proved here, so the statement counts as a consequence of the print. Its de Rham condition is
 the one above because $B_{\rm dR}^{G_{\mathbb Q_p}}=\mathbb Q_p$, which is proved here. Colmez
 prints the conclusion in the stronger form of a basis (Théorème 0.1 of his 2008 paper); that form
-implies this statement, which is proved here, but the converse needs the $G_K$-regularity of
-$B_{\rm st}$, which is not. It is a hypothesis, not proved here.
+implies this statement, which is proved here, and the converse is proved here from two properties of
+$B_{\rm st}$ that make it $G_K$-regular, for every finite extension $K$ of $\mathbb Q_p$ in
+$\overline{\mathbb Q}_p$: the $G_K$-invariants of its field of fractions lie in $B_{\rm st}$, and a
+nonzero element $b$ of $B_{\rm st}$ with $\sigma(b)\in\mathbb Q_pb$ for every $\sigma\in G_K$ is a
+unit of $B_{\rm st}$. Both are in Fontaine's account of $B_{\rm st}$ (the locator is unverified);
+neither is proved here. It is a hypothesis, not proved here.
 
 ## Depends on
 

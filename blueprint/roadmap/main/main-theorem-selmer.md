@@ -31,8 +31,8 @@ pattern, the form with CR₃^Sel and the pattern).
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [The Selmer form of the certified rank hypothesis](../selmer/certified-rank-sel.md)
 - [The certified rank hypothesis in row-5b form](../rank-5b/certified-rank-5b.md)
 

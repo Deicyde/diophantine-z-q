@@ -41,7 +41,7 @@ of the companion proof.
 
 ## Depends on
 
-- [Semantics of templates and recipes](../../syntax/template-semantics.md)
+- [Semantics of templates and recipes](../../syntax/language/template-semantics.md)
 - [Coefficient norms and degrees](../norms/l1-norm.md)
 
 ## Sources

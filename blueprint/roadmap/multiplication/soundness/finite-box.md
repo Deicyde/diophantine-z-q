@@ -37,8 +37,8 @@ inequality gives $N<(48A_{\rm ht})^{13}=T$.
 
 - [The height certificate template](../../syntax/templates/template-height-certificate.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
-- [Point codes](../../model/point-codes.md)
-- [The minimal height hypothesis](../../main/six-contact-min.md)
+- [Point codes](../../curve/point-codes.md)
+- [The minimal height hypothesis](../certificate/six-contact-min.md)
 
 ## Proof depends on
 

@@ -23,8 +23,8 @@ $\Phi(B)$.
 
 ## Depends on
 
-- [The certified rank hypothesis](../main/certified-rank.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [The certified rank hypothesis](certified-rank.md)
+- [Pole completeness](../statements/pole-completeness.md)
 
 ## Proof depends on
 

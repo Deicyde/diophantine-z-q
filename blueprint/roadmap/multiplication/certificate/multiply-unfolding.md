@@ -35,19 +35,19 @@ certificate and guard relations, in disjoint private blocks.
 - [The height certificate template](../../syntax/templates/template-height-certificate.md)
 - [The guard template](../../syntax/templates/template-guard.md)
 - [Prime sets and clearing exponents of the multiplication certificate](constants.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 
 - [Semantics of the height certificate template](height-certificate-semantics.md)
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
-- [Semantics of the fixed-scalar templates](../../syntax/fixed-scalar-semantics.md)
+- [Semantics of the fixed-scalar templates](../../model/fixed-scalar-semantics.md)
 - [Properties of the multiplication constants](constants-properties.md)
 - [Rational constants by global equations](../../syntax/language/rational-constants.md)
 - [Elementary properties of codes](../../model/field/point-code-properties.md)
 - [Evaluation of a template call](../../syntax/language/call-semantics.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
-- [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../../syntax/language/sum-of-squares-semantics.md)
 - [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources

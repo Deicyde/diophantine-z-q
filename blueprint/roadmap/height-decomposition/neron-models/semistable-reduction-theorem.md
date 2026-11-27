@@ -3,7 +3,7 @@ article_id: af_70dd910be7c9583b5f9744da
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves79.silverbergZarhinThm34
+lean: HDec.HSyn.OpenResearchLeaves82.silverbergZarhinThm34
 ---
 
 # Grothendieck's semistable reduction theorem

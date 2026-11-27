@@ -29,7 +29,7 @@ because $e,H,z\ne0$. Every summand of the pole polynomial vanishes.
 ## Depends on
 
 - [Admissible inputs, the squarefree part, $\beta$ and $\theta$](squarefree-part.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [Pole completeness](../statements/pole-completeness.md)
 
 ## Sources
 

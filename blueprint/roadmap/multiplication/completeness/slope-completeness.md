@@ -36,7 +36,7 @@ $\Phi(B)$, which completes the slope predicate.
 - [The slope predicate](../certificate/slope-predicate.md)
 - [The slope representation](slope-representation.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
-- [Pole completeness](../../main/pole-completeness.md)
+- [Pole completeness](../../statements/pole-completeness.md)
 
 ## Proof depends on
 

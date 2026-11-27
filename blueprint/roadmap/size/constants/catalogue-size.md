@@ -31,7 +31,7 @@ constructor.
 ## Depends on
 
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)
-- [The catalogue bound](../../main/catalogue-bound.md)
+- [The catalogue bound](../../statements/catalogue-bound.md)
 
 ## Proof depends on
 

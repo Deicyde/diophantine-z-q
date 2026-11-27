@@ -9,12 +9,12 @@ gets a point code, natural variables get the natural template, constants get fix
 templates, and additions, multiplications and power calls get the corresponding templates.
 
 - [Translation of a natural circuit into a model-evaluation recipe](model-evaluation-translation.md)
-- [The power-value recipe](recipe-power-value.md)
-- [The precision recipe](recipe-precision.md)
+- [Witness scope of constructed templates and recipes](builder-well-formed.md)
+- [The template library](template-library.md)
 
-Five composition recipes assemble the value relation and the root.
-
-- [The outer composition recipes](outer-recipes.md)
+The power-value and precision recipes, the five composition recipes that assemble the value
+relation and the root, and the accounting of $P_*$ use the compiler's natural circuits, so they are
+in [the chapter on the outer recipes and their translation](../../recipe-translation/README.md).
 
 The witness counts follow from the template counts, the shape of the natural circuit
 (proved in the compiler chapter:
@@ -23,9 +23,3 @@ and explicit arithmetic; the root has one input and $292{,}890{,}231{,}904$ witn
 
 - [Parameter and witness counts of the templates](template-witness-counts.md)
 - [The witness-count arithmetic](witness-count-identity.md)
-- [Witness accounting of the specified polynomial](witness-accounting.md)
-
-In the variable format of the target statement, the rational zero projection of $P_*$ is
-the set of $q$ for which the value relation has a code.
-
-- [The rational zero projection of the specified polynomial](fin-variable-form.md)

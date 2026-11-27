@@ -24,7 +24,7 @@ $$\beta=\mathrm{sqf}(mB),\qquad\theta=\mathrm{sqf}\bigl(m(m-B)\bigr).$$
 
 ## Depends on
 
-- [Pole completeness](../main/pole-completeness.md)
+- [Pole completeness](../statements/pole-completeness.md)
 
 ## Sources
 

@@ -195,8 +195,10 @@ pⁿ" for the `pⁿ`-th roots of unity) is unambiguous from the notation `μ_{p�
 
 * **The evidence stays AI-READ.** No person has read these pages, and OPEN.md's count of human readings does not
   change.
-* **The `C_p`-points step of R1** is argued (finite torsion schemes, the torsion count `card_torsion`) and not
-  stated as a Lean theorem.
+* **The `C_p`-points step of R1** was argued here (finite torsion schemes, the torsion count `card_torsion`). Since
+  #228 the identification is a Lean theorem (`ColmezCp.colmez1992DeRhamAbVar_iff_cp`, `ColmezTorsionIso.vCp_galRep`);
+  since #239 so is `𝒳(O_{C_p}) = X(C_p)` (`ColmezProperModel.modelPtsEquiv`), and the model step reduces to
+  `ColmezProperModel.ProperModelExists`, proposed for a ruling by Jack or the maintainer.
 * **Scope.** R1 is Colmez's theorem at its own generality, minus dropped clauses. R2 is Fontaine's theorem only for
   `K` finite over `ℚ_p` (Fontaine allows any complete discretely valued `K` of characteristic 0 with perfect residue
   field), and only in dimension form.
@@ -207,6 +209,7 @@ pⁿ" for the `pⁿ`-th roots of unity) is unambiguous from the notation `μ_{p�
 
 The two rows replace the added rows `scholzeH1AbVar` and `t10TateDuality` in the bundle `OpenAddedLeaves30`
 (`ZInQKernel/OneProof/H/TailZ106.lean`). `vpDual_of_colmezFontaine` derives the merged field
-`VpDualDeRhamAbVar` from them in Lean. Both rows are rated LEAF (strict and strictest), with flags recording the
-reading, the instance and the points above. The count of open statements stays at 22. The strict count of the H part
+`VpDualDeRhamAbVar` from them in Lean. Both rows were first rated LEAF (strict and strictest), with flags recording
+the reading, the instance and the points above; since w188 `colmez1992DeRhamAbVar` is GLUE (the lead's Tate-fold audit)
+and `fontaine1982HTAbVar` is LEAF. The count of open statements stays at 22. The strict count of the H part
 goes from 6/13 to 8/11, and from 6/16 to 8/14 with the three root hypotheses.

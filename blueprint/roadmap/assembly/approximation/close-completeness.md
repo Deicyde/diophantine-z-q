@@ -43,12 +43,12 @@ $a$ depending on $\epsilon_l$.
 - [The precision relation](../../compiler/natural/precision/precision-relation.md)
 - [The local parameter z on multiples of the generator](../../compiler/natural/precision/z-coordinate.md)
 - [The precision constant is the six-contact constant](../../compiler/natural/precision/precision-height-constant-value.md)
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
-- [The outer composition recipes](../../syntax/recipes/outer-recipes.md)
-- [Point codes](../../model/point-codes.md)
-- [The six-contact height estimate](../../main/six-contact-estimate.md)
-- [Pole completeness](../../main/pole-completeness.md)
-- [The twenty-two-prime pattern](../../main/prime-pattern.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
+- [The outer composition recipes](../../recipe-translation/outer-recipes.md)
+- [Point codes](../../curve/point-codes.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
+- [Pole completeness](../../statements/pole-completeness.md)
+- [The twenty-two-prime pattern](../../statements/prime-pattern.md)
 
 ## Proof depends on
 

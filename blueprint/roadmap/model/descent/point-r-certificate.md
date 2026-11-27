@@ -30,7 +30,7 @@ multiply by $\epsilon^4=17+12s$ and $\epsilon^6=99+70s$ and compare components.
 ## Depends on
 
 - [The change of variables to $C$](coordinate-change.md)
-- [The point $P_0$](../field/generator-point.md)
+- [The point $P_0$](../../curve/generator-point.md)
 
 ## Sources
 

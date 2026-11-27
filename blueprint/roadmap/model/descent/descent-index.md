@@ -30,7 +30,7 @@ descent image.
 
 ## Depends on
 
-- [The generator curve $E$](../field/generator-curve.md)
+- [The generator curve $E$](../../curve/generator-curve.md)
 - [Two-isogenies and the Kummer map](kummer-map.md)
 
 ## Proof depends on

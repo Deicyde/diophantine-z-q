@@ -38,7 +38,7 @@ differentiable everywhere, with $F(s)=L(E,s)$ for $\operatorname{Re}s>3/2$. The 
   $$h(J(u))\le(40\cdot10^4\cdot2^{24}+22)\,\max\bigl(1,C_{\rm cm},Q_D^{17}\bigr)\,M_{S_{\rm mul}}(u)^{24},$$
   where $J$ is [the Hauptmodul value](j-form/hauptmodul-value.md), and $\mathcal C$, $h$,
   $C_{\rm cm}$, $Q_D$, $S_{\rm mul}$ and $M_S(u)$ are as in
-  [the minimal height hypothesis](six-contact-min.md) and
+  [the minimal height hypothesis](../multiplication/certificate/six-contact-min.md) and
   [the $j$-form of the height hypothesis](j-form/j-height-bound.md).
 
 The functional equation, with root number $-1$ for squarefree $d\equiv5\pmod8$, is proved here
@@ -86,8 +86,8 @@ minimal height hypothesis and CR₃^TYZ_Cl,Rk, and the third form of
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [The $j$-form of the height hypothesis](j-form/j-height-bound.md)
 - [The Hauptmodul value $J(u)$](j-form/hauptmodul-value.md)
 - [Entire continuations of the L-series of an elliptic curve](../rank/literature/l-series-continuation.md)

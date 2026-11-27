@@ -22,12 +22,12 @@ the effective Dirichlet theorem changes the numeral.
 ## Depends on
 
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)
-- [The catalogue bound](../../main/catalogue-bound.md)
+- [The catalogue bound](../../statements/catalogue-bound.md)
 
 ## Proof depends on
 
 - [Closed numerical comparisons](closed-comparisons.md)
-- [A successful formal multiple](../formal-multiple/formal-multiple-existence.md)
+- [A successful formal multiple](../../multiplication/formal-multiple/formal-multiple-existence.md)
 - [Size of $N_s$ and $\ell$](catalogue-size.md)
 
 ## Sources

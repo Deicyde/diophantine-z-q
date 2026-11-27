@@ -5,7 +5,7 @@ article_id: af_c1605d3922671d7aec32be48
 # Pole completeness from the restricted converse
 
 This chapter belongs to Elliot's route to the pole input. Section 5.1 of the manuscript derives
-[pole completeness](../main/pole-completeness.md), its Theorem 5.2, from the restricted converse,
+[pole completeness](../statements/pole-completeness.md), its Theorem 5.2, from the restricted converse,
 [Theorem 5.3](../restricted-converse/restricted-converse.md), by a simultaneous 2-descent on the curves
 $E_\ell:y^2=x(x-\ell)(x+3\ell)$. The other route to the pole input is
 [the congruent-number route](../route-k/README.md).

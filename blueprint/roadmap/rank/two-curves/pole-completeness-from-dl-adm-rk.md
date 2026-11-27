@@ -20,7 +20,7 @@ from CR₃^DL,Rk, applied to the two points of infinite order, then gives $\Phi(
 ## Depends on
 
 - [The positive-rank hypothesis at the inputs of admissible numbers](certified-rank-dl-adm-rk.md)
-- [Pole completeness](../../main/pole-completeness.md)
+- [Pole completeness](../../statements/pole-completeness.md)
 
 ## Proof depends on
 

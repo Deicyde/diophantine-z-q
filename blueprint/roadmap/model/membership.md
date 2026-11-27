@@ -36,11 +36,11 @@ branch holds with $p=\operatorname{code}(Q)$.
 ## Depends on
 
 - [The membership template](../syntax/template-member.md)
-- [Point codes](point-codes.md)
+- [Point codes](../curve/point-codes.md)
 
 ## Proof depends on
 
-- [Sums of squares and products over the rationals](../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../syntax/language/sum-of-squares-semantics.md)
 - [Pair arithmetic represents the quadratic field](../syntax/field-pair-arithmetic.md)
 - [Elementary properties of codes](field/point-code-properties.md)
 

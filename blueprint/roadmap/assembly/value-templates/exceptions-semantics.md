@@ -28,7 +28,7 @@ by the accepted-indices statement; the witnesses of the inactive branches are ar
 ## Depends on
 
 - [The exceptional-values template](../../syntax/templates/template-exceptions.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 
@@ -38,7 +38,7 @@ by the accepted-indices statement; the witnesses of the inactive branches are ar
 - [Rational constants by global equations](../../syntax/language/rational-constants.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Template construction from formulas](../../syntax/language/builder-soundness.md)
-- [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Witness scope of constructed templates and recipes](../../syntax/recipes/builder-well-formed.md)
 - [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources

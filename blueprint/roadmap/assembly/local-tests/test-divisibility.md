@@ -54,14 +54,14 @@ $p\mid\kappa(n-c)$, and $n-c$ divides $F(n)$, so $p\mid\kappa F(n)$.
 ## Depends on
 
 - [The six local tests](../value-templates/six-local-tests.md)
-- [The six-contact height estimate](../../main/six-contact-estimate.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
 
 ## Proof depends on
 
 - [The one-sided pole obstruction](../../multiplication/pole-obstruction.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
 - [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../../multiplication/local/formal-group.md)
-- [Multiplication in a formal neighbourhood](formal-multiplication.md)
+- [Multiplication in a formal neighbourhood](../../multiplication/local/formal-multiplication.md)
 - [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources

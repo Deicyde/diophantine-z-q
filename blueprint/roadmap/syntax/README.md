@@ -20,13 +20,13 @@ that use it; the inventory at the end says where.
 
 Scalar nodes, templates, calls with witness blocks and recipes denote integer polynomials.
 
-- [Semantics of templates and recipes](template-semantics.md)
+- [Semantics of templates and recipes](language/template-semantics.md)
 
 Over $\mathbb Q$ a sum of squares vanishes exactly when every term does, and a product when
 some factor does. Inverses are equations $uv=1$, and pairs of rationals represent the
 arithmetic of $K_0=\mathbb Q(\sqrt2)$ faithfully.
 
-- [Sums of squares and products over the rationals](sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](language/sum-of-squares-semantics.md)
 - [Inverse witnesses](nonzero-gadgets.md)
 - [Pair arithmetic represents the quadratic field](field-pair-arithmetic.md)
 
@@ -52,7 +52,9 @@ fixed-scalar templates on $2E(K_0)$.
 - [Normalized division polynomials and their components](division-polynomials.md)
 - [Agreement with the classical division polynomials](division-polynomials-classical.md)
 - [The multiplication-by-n formulas](division-polynomial-multiplication.md)
-- [Semantics of the fixed-scalar templates](fixed-scalar-semantics.md)
+
+The semantics of the fixed-scalar templates rests on these formulas and on the generator, so it is
+stated in the elliptic model chapter ([semantics of the fixed-scalar templates](../model/fixed-scalar-semantics.md)).
 
 ## The template library
 
@@ -75,9 +77,10 @@ assemble the root, and the witness counts are accounted for.
 
 - [Recipes and witness accounting](recipes/README.md)
 
-$P_*$ is the polynomial of the root recipe `integers`.
-
-- [The specified polynomial](literal-polynomial.md)
+$P_*$ is the polynomial of the root recipe `integers`. The recipes that use the compiler's natural
+circuits, and $P_*$ itself, are stated in
+[the chapter on the outer recipes and their translation](../recipe-translation/README.md)
+([the specified polynomial](../recipe-translation/literal-polynomial.md)).
 
 ## Inventory and correctness
 

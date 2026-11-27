@@ -22,7 +22,7 @@ $\iota(n)$; uniqueness of $n$ is injectivity of $\iota$.
 ## Depends on
 
 - [The membership template](../syntax/template-member.md)
-- [Point codes](point-codes.md)
+- [Point codes](../curve/point-codes.md)
 
 ## Proof depends on
 

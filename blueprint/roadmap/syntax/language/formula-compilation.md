@@ -52,7 +52,7 @@ the order in which the allocations occur.
 
 ## Depends on
 
-- [Semantics of templates and recipes](../template-semantics.md)
+- [Semantics of templates and recipes](template-semantics.md)
 
 ## Sources
 

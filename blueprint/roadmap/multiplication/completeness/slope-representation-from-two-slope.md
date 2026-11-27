@@ -37,7 +37,7 @@ at most $1\le4$ and $13\le32$ in absolute value, and at $q\in\mathcal H$ they va
 ## Depends on
 
 - [The slope representation](slope-representation.md)
-- [The two-slope prime pattern](../../main/two-slope-pattern.md)
+- [The two-slope prime pattern](../../statements/two-slope-pattern.md)
 
 ## Proof depends on
 

@@ -44,6 +44,12 @@ their own section.
 
 - [Local conventions: the formal group and the truncated logarithm](local/README.md)
 
+The least formal multiple $M_0=\mathrm{LFM}(N_s)$ is found by a search that succeeds at an index at
+most $N_s^{10}$; the proof uses the local conventions, and the properties of the multiplication
+constants and the size chapter's literal cutoff use the bound.
+
+- [The least formal multiple](formal-multiple/README.md)
+
 ## The certificate
 
 The constants and prime sets of the certificate, the twelve tests, the slope predicate and

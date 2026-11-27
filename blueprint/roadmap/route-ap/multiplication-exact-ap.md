@@ -21,9 +21,9 @@ multiplication template under field 2′.
 ## Depends on
 
 - [The multiplication template](../syntax/templates/template-multiply.md)
-- [Point codes](../model/point-codes.md)
-- [The minimal height hypothesis](../main/six-contact-min.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [Point codes](../curve/point-codes.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [The slope representation under field 2′](slope-representation-ap.md)
 
 ## Proof depends on

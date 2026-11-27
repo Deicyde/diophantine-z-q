@@ -37,7 +37,7 @@ multiplication by an integer prime to $p$ is invertible on it.
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 
 ## Sources
 

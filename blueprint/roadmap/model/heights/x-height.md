@@ -19,7 +19,7 @@ For $x\in\mathbb Q$ this is the height $\log\max(|a|,b)$ of a reduced fraction $
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 - [The change of variables to $C$](../descent/coordinate-change.md)
 
 ## Sources

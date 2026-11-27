@@ -26,7 +26,7 @@ values range over all of $\mathbb Q^m$; this is the existential statement.
 
 ## Depends on
 
-- [Semantics of templates and recipes](../template-semantics.md)
+- [Semantics of templates and recipes](template-semantics.md)
 
 ## Sources
 

@@ -35,13 +35,13 @@ field operations, so the two components of $L(\zeta)-\lambda$ vanish iff $[\lamb
 - [The local parameter template](../../syntax/templates/template-raw-z.md)
 - [The inverse abscissa template](../../syntax/templates/template-raw-inverse-x.md)
 - [The truncated logarithm template](../../syntax/templates/template-log25.md)
-- [Point codes](../../model/point-codes.md)
-- [Semantics of templates and recipes](../../syntax/template-semantics.md)
+- [Point codes](../../curve/point-codes.md)
+- [Semantics of templates and recipes](../../syntax/language/template-semantics.md)
 
 ## Proof depends on
 
 - [Pair arithmetic represents the quadratic field](../../syntax/field-pair-arithmetic.md)
-- [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../../syntax/language/sum-of-squares-semantics.md)
 - [Elementary properties of codes](../../model/field/point-code-properties.md)
 
 ## Sources

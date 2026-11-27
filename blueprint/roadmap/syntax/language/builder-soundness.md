@@ -33,7 +33,7 @@ variables, and the polynomial of $E_i$ has the single variable $c_i<v$.
 ## Depends on
 
 - [Formulas and their polynomial compilation](formula-compilation.md)
-- [Semantics of templates and recipes](../template-semantics.md)
+- [Semantics of templates and recipes](template-semantics.md)
 
 ## Sources
 

@@ -23,7 +23,7 @@ gives the implication without it.
 ## Depends on
 
 - [The certified rank hypothesis in positive-rank form](certified-rank-rk.md)
-- [The certified rank hypothesis](../main/certified-rank.md)
+- [The certified rank hypothesis](../route-k/certified-rank.md)
 
 ## Proof depends on
 

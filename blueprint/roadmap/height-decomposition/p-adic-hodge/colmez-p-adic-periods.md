@@ -29,11 +29,16 @@ $G_F$, and the pairing is non-degenerate on the side of $T_pA$ once the scalars 
 $B_{\rm dR}$. The extension to $V_pA$ uses the linearity in $u$, which the readings take from
 "bilinéaire" and from the proof on p. 640. The statement drops the identification of $H$ with de
 Rham cohomology, the linearity in $\omega$, the compatibility with the filtrations, part (iii) and
-the functoriality. Colmez works with a proper model of $A$ over the integers of $F$, which exists,
-and the periods do not depend on it. He builds $T_pA$ from the points of $A$ over $\mathbb C_p$; on
-$p$-power torsion these are the points over $\overline F$, since $A[p^n]$ is finite over $F$, a
-standard identification that the readings take and that no Lean theorem states. It is a hypothesis,
-not proved here.
+the functoriality. Colmez works with a proper model $\mathcal X$ of $A$ over the integers
+$\mathcal O_F$ of $F$, and the periods do not depend on it. He builds $T_pA$ from
+$\mathcal X(\mathcal O_{\mathbb C_p})$, which he identifies with the points of $A$ over
+$\mathbb C_p$; for every proper model this identification, compatible with the action of $G_F$, is
+proved here, and so is the identification of the Tate module built from
+$\mathcal X(\mathcal O_{\mathbb C_p})$ with the one built from the points of $A$ over $\mathbb C_p$.
+On $p$-power torsion these points are the points over $\overline F$, since $A[p^n]$ is finite over
+$F$, and this identification, compatible with the action of $G_F$, is also proved here. The model
+step therefore reduces to the existence of a proper model of $A$ over $\mathcal O_F$, which is
+proved neither here nor in Mathlib. It is a hypothesis, not proved here.
 
 ## Depends on
 

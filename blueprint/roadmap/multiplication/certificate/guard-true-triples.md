@@ -26,7 +26,7 @@ such a false triple.
 ## Depends on
 
 - [The guard template](../../syntax/templates/template-guard.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 - [Prime sets and clearing exponents of the multiplication certificate](constants.md)
 
 ## Proof depends on

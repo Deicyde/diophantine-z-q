@@ -25,7 +25,7 @@ This is a definition (template index $5$).
 ## Depends on
 
 - [Formulas and their polynomial compilation](../language/formula-compilation.md)
-- [Pole completeness](../../main/pole-completeness.md)
+- [Pole completeness](../../statements/pole-completeness.md)
 
 ## Sources
 

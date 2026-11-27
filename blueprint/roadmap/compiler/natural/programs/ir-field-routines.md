@@ -42,7 +42,7 @@ own slot of temporaries.
 ## Depends on
 
 - [Signed integer routines](ir-integer-routines.md)
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../../model/field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../../curve/quadratic-field.md)
 
 ## Sources
 

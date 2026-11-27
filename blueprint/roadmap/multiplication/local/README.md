@@ -37,6 +37,7 @@ below works with the integral equation of $E$ itself.
 
 - [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](formal-group.md)
 - [The chord estimate in a formal neighbourhood](chord-estimate.md)
+- [Multiplication in a formal neighbourhood](formal-multiplication.md)
 - [The formal group law of $y^2=x^3+Ax$](formal-group-law.md)
 - [The formal logarithm](formal-logarithm.md)
 - [The isometry range of the formal logarithm](logarithm-isometry.md)

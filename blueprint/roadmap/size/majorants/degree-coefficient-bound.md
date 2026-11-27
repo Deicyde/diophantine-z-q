@@ -20,15 +20,15 @@ and coefficients. Each coefficient is bounded by the $\ell^1$ norm.
 
 ## Depends on
 
-- [The specified polynomial](../../syntax/literal-polynomial.md)
+- [The specified polynomial](../../recipe-translation/literal-polynomial.md)
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)
-- [The catalogue bound](../../main/catalogue-bound.md)
+- [The catalogue bound](../../statements/catalogue-bound.md)
 
 ## Proof depends on
 
 - [The cutoff is an admissible bound](admissible-cutoff.md)
 - [Recipe heights](recipe-heights.md)
-- [Witness accounting of the specified polynomial](../../syntax/recipes/witness-accounting.md)
+- [Witness accounting of the specified polynomial](../../recipe-translation/witness-accounting.md)
 - [Elementary estimates for the coefficient norm](../norms/l1-norm-estimates.md)
 
 ## Sources

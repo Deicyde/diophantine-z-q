@@ -18,6 +18,8 @@ $\operatorname{Gal}(\Omega/K)$ that map $w$ to itself and act trivially on its r
 prime $\ell$ invertible in $\mathcal O$, $\operatorname{Gal}(\Omega/K)$ acts on the Tate module
 $T_\ell A=\varprojlim_nA(\Omega)[\ell^n]$.
 
-It is not proved here.
+Of these two statements, one is a published statement and one is a consequence of published
+theorems; none is proved here.
 
 - [Grothendieck's semistable reduction theorem](semistable-reduction-theorem.md)
+- [The locus of geometrically connected fibres](ega-geometrically-connected-fibres.md)

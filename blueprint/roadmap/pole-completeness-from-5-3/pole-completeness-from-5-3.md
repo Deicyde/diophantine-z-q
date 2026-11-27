@@ -23,7 +23,7 @@ $\mathrm{CR}_M$ with the simultaneous construction gives Theorem 5.2.
 
 ## Depends on
 
-- [Pole completeness](../main/pole-completeness.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [Theorem 5.3: the restricted converse](../restricted-converse/restricted-converse.md)
 - [The cited inputs: the Cassels–Tate pairing and Silverman's rank-one implication](cited-inputs.md)
 

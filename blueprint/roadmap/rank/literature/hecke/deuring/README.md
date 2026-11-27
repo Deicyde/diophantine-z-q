@@ -20,8 +20,11 @@ Throughout, $c_d(n)$ are the coefficients of
 [the standard Euler product](../../l-function-cd/l-series.md) and $\lambda_d(n)$ the
 [Hecke coefficients](../gaussian/hecke-coefficients.md).
 
-- [Deuring's identity for $C_d$](deuring-identity.md)
-- [Deuring's identity at the primes $2$, $p\mid d$ and $p\equiv3\pmod4$](deuring-small-primes.md)
+The statement of Deuring's identity and its proof at the primes $2$, $p\mid d$ and $p\equiv3\pmod4$
+are with the Hecke coefficients, which use them
+([Deuring's identity for $C_d$](../gaussian/deuring-identity.md),
+[at the small primes](../gaussian/deuring-small-primes.md)).
+
 - [Deuring's identity from the Euler product and the split primes](deuring-of-euler-product.md)
 - [The split primes for $C_d$ from the curve $y^2=x^3-x$](gauss-split-twist.md)
 - [Deuring's identity for $d\equiv1\pmod4$ from Gauss's point count](deuring-from-gauss-count.md)

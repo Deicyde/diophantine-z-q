@@ -27,13 +27,13 @@ $T<2^{2^{2^{9013}}}$, so the tower comparison applies.
 
 ## Depends on
 
-- [The specified polynomial](../syntax/literal-polynomial.md)
+- [The specified polynomial](../recipe-translation/literal-polynomial.md)
 - [The prescribed fixed constants](../syntax/constants/fixed-constants.md)
-- [The catalogue bound](../main/catalogue-bound.md)
+- [The catalogue bound](../statements/catalogue-bound.md)
 
 ## Proof depends on
 
-- [Witness accounting of the specified polynomial](../syntax/recipes/witness-accounting.md)
+- [Witness accounting of the specified polynomial](../recipe-translation/witness-accounting.md)
 - [Degree and coefficient bounds for the specified polynomial](majorants/degree-coefficient-bound.md)
 - [The literal cutoff](cutoff.md)
 - [Comparison with the towers](majorants/tower-comparison.md)

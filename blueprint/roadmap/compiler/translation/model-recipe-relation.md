@@ -47,16 +47,16 @@ negative references are the point-reference lemma.
 
 ## Depends on
 
-- [Semantics of templates and recipes](../../syntax/template-semantics.md)
+- [Semantics of templates and recipes](../../syntax/language/template-semantics.md)
 - [Translation of a natural circuit into a model-evaluation recipe](../../syntax/recipes/model-evaluation-translation.md)
 - [Point references](../../syntax/language/point-references.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 
-- [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Witness scope of constructed templates and recipes](../../syntax/recipes/builder-well-formed.md)
 - [Evaluation of a template call](../../syntax/language/call-semantics.md)
-- [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../../syntax/language/sum-of-squares-semantics.md)
 - [Values of the point references](../../syntax/language/generator-references.md)
 
 ## Sources

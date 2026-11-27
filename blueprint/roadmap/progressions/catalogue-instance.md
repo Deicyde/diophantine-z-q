@@ -24,7 +24,7 @@ remainder $r$ on division by $W$. The constant $W$ is never evaluated beyond the
 
 ## Depends on
 
-- [The catalogue bound](../main/catalogue-bound.md)
+- [The catalogue bound](../statements/catalogue-bound.md)
 
 ## Proof depends on
 

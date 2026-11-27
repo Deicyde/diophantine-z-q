@@ -41,7 +41,7 @@ $C_d:y^2=x^3-d^2x$: the rows E1, E2 are the local conditions at the primes of $d
 real place and (D) the place $2$. Proposition 0 is formalized in its own chapter
 ([Proposition 0](../selmer/proposition-0.md)); the descent of this chapter does not use it, and it
 connects the system to rational points only through the
-[certified rank hypothesis](../main/certified-rank.md) and its Selmer form.
+[certified rank hypothesis](certified-rank.md) and its Selmer form.
 
 ## Depends on
 

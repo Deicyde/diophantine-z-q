@@ -13,7 +13,7 @@ complexes. The congruent-number route changes the polynomial to the congruent nu
 $C_\ell:y^2=x(x-\ell)(x+\ell)$; the elementary direction, Lemma 5.1, is unchanged
 ([the one-sided pole obstruction](../multiplication/pole-obstruction.md)). This chapter proves
 pole completeness for the new polynomial from one narrow hypothesis on congruent number curves,
-the [certified rank hypothesis](../main/certified-rank.md) CR₃, by an explicit descent: for every
+the [certified rank hypothesis](certified-rank.md) CR₃, by an explicit descent: for every
 admissible input $B$ it produces two curves $C_n$ and $C_{n\theta}$ whose 2-Selmer groups, written
 as an $\mathbb F_2$-linear system in Legendre symbols, have dimension $3$ and contain the class
 $\beta$. CR₃ turns these certificates into rational points, and two such points give a zero of
@@ -46,6 +46,7 @@ directly.
 - [Residue bits](residue-bits.md)
 - [Quadratic reciprocity in residue bits](reciprocity-bits.md)
 - [The configuration of an odd number and Selmer certificates](prime-configuration.md)
+- [The certified rank hypothesis](certified-rank.md)
 
 ## The inputs $\beta$ and $\theta$
 

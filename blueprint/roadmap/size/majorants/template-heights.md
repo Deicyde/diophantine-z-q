@@ -47,7 +47,7 @@ tabulated heights follow by monotonicity.
 
 ## Depends on
 
-- [The template library](../../syntax/templates/template-library.md)
+- [The template library](../../syntax/recipes/template-library.md)
 - [Syntax heights](syntax-height.md)
 - [Uniform bounds for the finite constructors](../norms/constructor-bounds.md)
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)

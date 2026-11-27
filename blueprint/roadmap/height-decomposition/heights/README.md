@@ -16,12 +16,20 @@ every maximal ideal of $\mathcal O_L$: the identity component of each special fi
 of an abelian variety by a torus, over the residue field, over its algebraic closure or over both,
 as each statement that uses it says. This is Faltings' normalization $h_F$; Deligne's is
 $h_D=h_F+\frac g2\log\pi$. The height and semistable reduction enter through the project's own
-definitions; that these agree with the published ones is a judgement of AI reviews.
+definitions; that these agree with the published ones is a judgement of AI reviews. Two statements
+below take instead the height of Gaudron and Rémond. For a number field $L\supseteq K$, a
+*semi-abelian model* of $A_L$ is a smooth separated group scheme of finite type over $\mathcal O_L$,
+with an isomorphism of group schemes from its generic fibre to $A_L$, whose fibre at every maximal
+ideal is connected and an extension of an abelian variety by a torus, over the residue field and
+over its algebraic closure; its height is built in the same way from its invariant differentials of
+top degree along the zero section. By the constructibility statement of EGA IV (9.7.7) and a proof
+in Lean, every stable Faltings height in the sense above is such a height; the converse is not
+proved here.
 
 Of these four statements, one is a published statement and three are consequences of published
 theorems; none is proved here.
 
 - [Pazuki's comparison of the theta height with the Faltings height](pazuki-bound.md)
-- [The lower bound for the Faltings height](bost-lower-bound.md)
 - [Javanpeykar's bound for curves with a Belyi map](javanpeykar-bound.md)
+- [The lower bound for the Faltings height](bost-lower-bound.md)
 - [The isogeny theorem of Gaudron and Rémond](gaudron-remond-isogeny-bound.md)

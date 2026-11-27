@@ -2,14 +2,13 @@
 
 The lead's LEAF path for the open hypothesis `colmez1992DeRhamAbVar`
 (`HDec.HSyn.OpenAddedLeaves30.colmez1992DeRhamAbVar`, statement
-`DeRhamScholze.TatePrints.Colmez1992DeRhamAbVar` in `TatePrints/Rows.lean`), from the row ruling in
-`docs/one-proof/kinds.tsv`: "a named Lean theorem identifying A[p^n](F̄) with A[p^n](C_p),
-G_F-equivariantly, with the model step ruled". This is the readers' non-blocking point (1) in
-`docs/research/tate-prints-adversarial-readings.md`, now a Lean theorem.
+`DeRhamScholze.TatePrints.Colmez1992DeRhamAbVar` in `TatePrints/Rows.lean`), from the row flag (as
+it stood at #228) in `docs/one-proof/kinds.tsv`: "a named Lean theorem identifying A[p^n](F̄) with
+A[p^n](C_p), G_F-equivariantly, with the model step ruled". This is the readers' non-blocking point
+(1) in `docs/research/tate-prints-adversarial-readings.md`, now a Lean theorem.
 
 Add-only. Imports: `G9/Galois.lean`, `AbVarBC/Main.lean` (`Basic`, `Shape`), and
-`TatePrints/Rows.lean` (`Row` only). No new hypothesis; every theorem uses only `propext`,
-`Classical.choice`, `Quot.sound`.
+`TatePrints/Rows.lean` (`Row` only). No new hypothesis; its axioms are not separately recorded.
 
 ## The setting in the tree
 
@@ -23,13 +22,15 @@ Add-only. Imports: `G9/Galois.lean`, `AbVarBC/Main.lean` (`Basic`, `Shape`), and
   `embF : ℚ̄_p ≃ F̄` (`G9.embF_gfToGqp`, `G9.embF_bijective`); `phiF : F → ℚ̄_p` and
   `F' = fieldF p F` are the corresponding copy of `F` in `ℚ̄_p`.
 
-## The model step, ruled
+## The model step, proposed for a ruling by Jack or the maintainer
 
 * Colmez's `K` is `F` and his `X` is `A`. His identification `𝒳(O_{C_p}) = X(C_p)` for a proper
-  model `𝒳` over `O_K` (p. 638, "Par construction") is taken as given: the statement of
-  Théorème 5.2 uses only the group `X(C_p)` and its Galois action, both read off `A` over `F`. The
-  model enters Colmez's construction of the periods, not the statement (and the periods do not
-  depend on it, p. 640).
+  model `𝒳` over `O_K` (p. 638, "Par construction") is a Lean theorem since #239
+  (`ColmezProperModel.modelPtsEquiv`, `modelPtsEquiv_gal`). The model step reduces to the existence
+  of such a model for every `A` (`ColmezProperModel.ProperModelExists`), which is in neither the
+  tree nor Mathlib and is proposed for a ruling by Jack or the maintainer (see What remains). The
+  row's Lean form uses only `X(C_p)` and its Galois action, both read off `A` over `F`; as printed,
+  5.2(i) builds the limit from `F_ω(a_n)`, which goes through the model.
 * `C_p` is an `F`-algebra through `F → ℚ̄_p ⊂ C_p`, `y ↦ phiF y` (`algCp`, a local instance only),
   whose image is the tree's `F'`. The embedding `F̄ → C_p` is `x ↦ embF⁻¹ x` (`iotaFbar`), the
   same isomorphism `ℚ̄_p ≃ F̄` that defines `gfToGqp`; it is an `F`-algebra map.
@@ -76,9 +77,14 @@ isomorphism), `colmezShape_iff_cp`.
   `T_p(X)`, and the row follows from it by `colmez1992DeRhamAbVar_of_cp`. If the lead accepts
   this, the row can be re-rated against `Colmez1992DeRhamAbVarCp` (a fidelity reading of the new
   statement against p. 639 is needed; it differs from the read row only in `T_p` and its action).
-* Not formalized, ruled as above: Colmez's `𝒳(O_{C_p}) = X(C_p)` for a proper model over `O_K`
-  (valuative criterion; the tree has no integral model). The statement in Colmez's terms is about
-  `X(C_p)`, so no model enters it.
+* A ruling by Jack or the maintainer on the model step, proposed and not given
+  (`docs/one-proof/kinds.tsv` lists it as open, and `docs/one-proof/STATEMENT-CHECKS.md` leaves
+  count verdicts to them). Since #239 Colmez's `𝒳(O_{C_p}) = X(C_p)` for a proper model over
+  `O_K` (p. 638) is a Lean theorem (`ColmezProperModel.modelPtsEquiv`, `modelPtsEquiv_gal`, through
+  Mathlib's valuative criterion), and the step reduces to `ProperModelExists`, a proper model with
+  generic fibre `A` for every `A` (`properModelPoints_iff`). That is in neither the tree nor
+  Mathlib: it needs the projectivity of abelian varieties (`ColmezProperModel/README.md`); the print
+  takes a model as given, pp. 629 and 638. The ruling, or a Lean proof, is on `ProperModelExists`.
 * The readers' non-blocking points (2) (`ℤ_p`-linearity in `u`) and (3) (dropped clauses) are
   unchanged.
 * The ledgers (`kinds.tsv`, `reviews.tsv`, the open list) are not edited here (add-only).

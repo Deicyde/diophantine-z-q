@@ -28,11 +28,11 @@ distinct. (3) A totally positive unit has sign vector $(+,+)$, so lies in the cl
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 
 ## Proof depends on
 
-- [Explicit identities in $K_0$](explicit-identities.md)
+- [Explicit identities in $K_0$](../../curve/explicit-identities.md)
 
 ## Sources
 

@@ -28,13 +28,13 @@ of $m$ works too. For a finite set $\Pi$, take $\kappa=\prod_{\pi\in\Pi}m_\pi$.
 ## Depends on
 
 - [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../../multiplication/local/formal-group.md)
-- [Multiplication in a formal neighbourhood](formal-multiplication.md)
-- [The point $P_0$](../../model/field/generator-point.md)
+- [Multiplication in a formal neighbourhood](../../multiplication/local/formal-multiplication.md)
+- [The point $P_0$](../../curve/generator-point.md)
 
 ## Proof depends on
 
 - [The generator lies in the dyadic formal group](../../multiplication/local/dyadic-generator.md)
-- [Reduction orders of $P_0$](../../size/formal-multiple/reduction-orders.md)
+- [Reduction orders of $P_0$](../../multiplication/formal-multiple/reduction-orders.md)
 
 ## Sources
 

@@ -62,3 +62,4 @@ The good slope primes have positive relative density
 progressions ([Szemerédi's theorem in the primes](../green-tao/README.md)).
 
 - [22P_AP from Green–Tao and Proposition D](good-prime-ap-from-green-tao.md)
+- [Progressions of good slope primes from Szemerédi's theorem in the primes alone](good-prime-ap-from-dense-form.md)

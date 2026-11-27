@@ -23,7 +23,7 @@ Let $\lambda_d(n)$ be the [Hecke coefficients](hecke-coefficients.md).
 (2) For $\alpha\in A_{p^m}$, $p^m$ and $d$ have the common factor $p$, so
 $\left(\frac{N(\alpha)}d\right)=\left(\frac{p^m}d\right)=0$.
 
-(3) By [Deuring's identity at the small primes](../deuring/deuring-small-primes.md) (5) and (6),
+(3) By [Deuring's identity at the small primes](deuring-small-primes.md) (5) and (6),
 $\lambda_d(p)$ equals the coefficient $c_d(p)$ of $L(C_d,s)$ at $p$, which is $0$ for $p\mid2d$
 ([the coefficients at primes](../../l-function-cd/prime-coefficients.md)).
 
@@ -41,7 +41,7 @@ symbol is $1$ as $p\nmid d$, and $u(p)=u(3,0)=-1$ as $p\equiv3\pmod4$.
 - [The primary unit of a Gaussian integer modulo 4](primary-unit.md)
 - [The Hecke character $\psi_d$](hecke-character.md)
 - [Gaussian integers whose norm is a prime power](norm-fibres-primes.md)
-- [Deuring's identity at the primes $2$, $p\mid d$ and $p\equiv3\pmod4$](../deuring/deuring-small-primes.md)
+- [Deuring's identity at the primes $2$, $p\mid d$ and $p\equiv3\pmod4$](deuring-small-primes.md)
 - [The coefficients of $L(C_d,s)$ at primes as point counts](../../l-function-cd/prime-coefficients.md)
 
 ## Sources

@@ -29,10 +29,10 @@ contradicting soundness of Close. Hence $t=n$. No numerical value of $A^{(0)}_{\
 - [The precision height constant](../compiler/natural/precision/precision-height-constant.md)
 - [The precision constant is the six-contact constant](../compiler/natural/precision/precision-height-constant-value.md)
 - [The six local tests](value-templates/six-local-tests.md)
-- [The outer composition recipes](../syntax/recipes/outer-recipes.md)
-- [Point codes](../model/point-codes.md)
-- [The minimal height hypothesis](../main/six-contact-min.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [The outer composition recipes](../recipe-translation/outer-recipes.md)
+- [Point codes](../curve/point-codes.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [The slope representation](../multiplication/completeness/slope-representation.md)
 
 ## Proof depends on

@@ -40,12 +40,12 @@ and all prime divisors of $c_*$ and of $\ell_0$.
 ## Depends on
 
 - [Prime sets and clearing exponents of the multiplication certificate](constants.md)
-- [The six-contact height estimate](../../main/six-contact-estimate.md)
-- [The minimal height hypothesis](../../main/six-contact-min.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
+- [The minimal height hypothesis](six-contact-min.md)
 
 ## Proof depends on
 
-- [A successful formal multiple](../../size/formal-multiple/formal-multiple-existence.md)
+- [A successful formal multiple](../formal-multiple/formal-multiple-existence.md)
 - [The clearing inequalities](clearing-arithmetic.md)
 - [The least formal multiple](../../syntax/constants/least-formal-multiple.md)
 

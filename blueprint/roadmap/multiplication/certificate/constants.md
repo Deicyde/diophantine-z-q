@@ -34,7 +34,7 @@ primes at which the fixed normalization $\ell_0$ clears denominators.
 
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)
 - [The prime catalogue](../../syntax/constants/prime-catalogue.md)
-- [The six-contact height estimate](../../main/six-contact-estimate.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
 
 ## Sources
 

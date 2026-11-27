@@ -32,7 +32,7 @@ natural circuit and the power-value recipe.
 ## Depends on
 
 - [Natural constructions and their macros](natural-constructions.md)
-- [Semantics of templates and recipes](../../../syntax/template-semantics.md)
+- [Semantics of templates and recipes](../../../syntax/language/template-semantics.md)
 
 ## Sources
 

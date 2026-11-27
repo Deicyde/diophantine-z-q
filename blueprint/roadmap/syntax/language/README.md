@@ -11,7 +11,9 @@ every construction keeps its private blocks apart.
 
 - [Formulas and their polynomial compilation](formula-compilation.md)
 - [Template construction from formulas](builder-soundness.md)
-- [Witness scope of constructed templates and recipes](builder-well-formed.md)
+- [Semantics of templates and recipes](template-semantics.md)
+- [Sums of squares and products over the rationals](sum-of-squares-semantics.md)
+- [The absolute-value template](template-abs.md)
 
 A call evaluates its callee at the parameter values and its private block. Disjoint
 private blocks can be moved to the front, and the block of an inactive branch may take any

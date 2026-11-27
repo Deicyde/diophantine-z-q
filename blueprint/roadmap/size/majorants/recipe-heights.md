@@ -45,10 +45,10 @@ recipes come from the translation and the shape of the natural circuit.
 ## Depends on
 
 - [Syntax heights](syntax-height.md)
-- [The power-value recipe](../../syntax/recipes/recipe-power-value.md)
-- [The precision recipe](../../syntax/recipes/recipe-precision.md)
-- [The outer composition recipes](../../syntax/recipes/outer-recipes.md)
-- [The template library](../../syntax/templates/template-library.md)
+- [The power-value recipe](../../recipe-translation/recipe-power-value.md)
+- [The precision recipe](../../recipe-translation/recipe-precision.md)
+- [The outer composition recipes](../../recipe-translation/outer-recipes.md)
+- [The template library](../../syntax/recipes/template-library.md)
 
 ## Proof depends on
 

@@ -32,7 +32,7 @@ $139\log10<417\le450$.
 ## Depends on
 
 - [The Hauptmodul value $J(u)$](hauptmodul-value.md)
-- [The six-contact height estimate](../six-contact-estimate.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
 
 ## Proof depends on
 

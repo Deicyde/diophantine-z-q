@@ -30,7 +30,7 @@ This is the conclusion of CR₃.
 ## Depends on
 
 - [The certified rank hypothesis in Selmer form](certified-rank-sel.md)
-- [The certified rank hypothesis](../main/certified-rank.md)
+- [The certified rank hypothesis](../route-k/certified-rank.md)
 
 ## Proof depends on
 

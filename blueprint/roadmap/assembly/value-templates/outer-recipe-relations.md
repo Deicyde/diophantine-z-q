@@ -34,16 +34,16 @@ fixed equation of the active factor.
 
 ## Depends on
 
-- [The outer composition recipes](../../syntax/recipes/outer-recipes.md)
-- [Semantics of templates and recipes](../../syntax/template-semantics.md)
+- [The outer composition recipes](../../recipe-translation/outer-recipes.md)
+- [Semantics of templates and recipes](../../syntax/language/template-semantics.md)
 
 ## Proof depends on
 
-- [Witness accounting of the specified polynomial](../../syntax/recipes/witness-accounting.md)
-- [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Witness accounting of the specified polynomial](../../recipe-translation/witness-accounting.md)
+- [Witness scope of constructed templates and recipes](../../syntax/recipes/builder-well-formed.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Evaluation of a template call](../../syntax/language/call-semantics.md)
-- [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../../syntax/language/sum-of-squares-semantics.md)
 
 ## Sources
 

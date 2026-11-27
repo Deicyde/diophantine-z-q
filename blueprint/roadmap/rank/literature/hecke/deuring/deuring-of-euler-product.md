@@ -19,11 +19,11 @@ holds for $d$ if $c_d(p)=\lambda_d(p)$ for every prime $p\equiv1\pmod4$ with $p\
    point at infinity included.
 2. If $d$ is odd and squarefree, the Hecke coefficients have the
    [Euler product](../gaussian/hecke-euler-product.md) for $d$, and $c_d(p)=\lambda_d(p)$ for every
-   prime $p$, then [Deuring's identity](deuring-identity.md) holds for $d$.
+   prime $p$, then [Deuring's identity](../gaussian/deuring-identity.md) holds for $d$.
 3. If $d$ is odd and squarefree, the Hecke coefficients have the Euler product for $d$, and Gauss's
    theorem at the split primes holds for $d$, then Deuring's identity holds for $d$.
 
-**Proof sketch.** (1) [Deuring's identity for $C_d$](deuring-identity.md) identifies $c_d(p)$ with
+**Proof sketch.** (1) [Deuring's identity for $C_d$](../gaussian/deuring-identity.md) identifies $c_d(p)$ with
 the Dirichlet coefficient $a_p(C_d)$, which
 [the coefficients at primes](../../l-function-cd/prime-coefficients.md) computes for $p\nmid2d$.
 
@@ -35,7 +35,7 @@ hypothesis and (1). Reading the coefficients in $\mathbb C$ commutes with invers
 ([quadratic power series](../gaussian/quadratic-power-series.md) (2)).
 
 (3) The hypothesis of (2) at every prime $p$: if $p\mid d$, by
-[the small primes](deuring-small-primes.md) (5); if $p=2$, by the small primes (6); if
+[the small primes](../gaussian/deuring-small-primes.md) (5); if $p=2$, by the small primes (6); if
 $p\equiv1\pmod4$ and $p\nmid d$, by Gauss's theorem at the split primes; if $p\equiv3\pmod4$ and
 $p\nmid d$, by the small primes (4).
 
@@ -45,13 +45,13 @@ $p\nmid d$, by the small primes (4).
 - [The Euler polynomial of $C_d$ at $p$](../../l-function-cd/cd-euler-polynomial.md)
 - [The coefficients of the Hecke L-series $L(\psi_d,s)$](../gaussian/hecke-coefficients.md)
 - [The Euler product of $L(\psi_d,s)$](../gaussian/hecke-euler-product.md)
-- [Deuring's identity for $C_d$](deuring-identity.md)
+- [Deuring's identity for $C_d$](../gaussian/deuring-identity.md)
 
 ## Proof depends on
 
 - [The coefficients of $L(C_d,s)$ at primes as point counts](../../l-function-cd/prime-coefficients.md)
 - [Inverses of quadratic power series](../gaussian/quadratic-power-series.md)
-- [Deuring's identity at the primes $2$, $p\mid d$ and $p\equiv3\pmod4$](deuring-small-primes.md)
+- [Deuring's identity at the primes $2$, $p\mid d$ and $p\equiv3\pmod4$](../gaussian/deuring-small-primes.md)
 
 ## Sources
 

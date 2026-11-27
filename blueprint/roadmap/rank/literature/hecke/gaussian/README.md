@@ -33,6 +33,8 @@ the Jacobi symbol as in [the Hecke character](hecke-character.md).
 - [The primary unit of a Gaussian integer modulo 4](primary-unit.md)
 - [The Hecke character $\psi_d$](hecke-character.md)
 - [The coefficients of the Hecke L-series $L(\psi_d,s)$](hecke-coefficients.md)
+- [Deuring's identity for $C_d$](deuring-identity.md)
+- [Deuring's identity at the primes $2$, $p\mid d$ and $p\equiv3\pmod4$](deuring-small-primes.md)
 - [The Hecke coefficients at the primes that do not split](hecke-coefficients-non-split.md)
 - [The Hecke coefficients are multiplicative](hecke-multiplicative.md)
 - [The Hecke relation at prime powers](hecke-split-recursion.md)

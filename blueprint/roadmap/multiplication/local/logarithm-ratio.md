@@ -26,10 +26,10 @@ $u\lambda(H)=\lambda([u]H)=\lambda([h]U)=h\lambda(U)$.
 
 ## Depends on
 
-- [The point $P_0$](../../model/field/generator-point.md)
+- [The point $P_0$](../../curve/generator-point.md)
 - [The formal logarithm](formal-logarithm.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](primes-above-p.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
+- [Mordell–Weil for the generator curve](../../statements/mordell-weil.md)
 
 ## Proof depends on
 

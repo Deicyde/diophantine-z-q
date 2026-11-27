@@ -33,7 +33,7 @@ so $\ell\equiv1\pmod 4$.
 
 ## Depends on
 
-- [The two-slope prime pattern](../main/two-slope-pattern.md)
+- [The two-slope prime pattern](../statements/two-slope-pattern.md)
 - [Character sums for the curves $y^2=x^3+ax$](character-sums.md)
 
 ## Proof depends on

@@ -23,7 +23,7 @@ here.
 
 ## Depends on
 
-- [The two-slope prime pattern](../main/two-slope-pattern.md)
+- [The two-slope prime pattern](../statements/two-slope-pattern.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../multiplication/certificate/constants.md)
 
 ## Sources

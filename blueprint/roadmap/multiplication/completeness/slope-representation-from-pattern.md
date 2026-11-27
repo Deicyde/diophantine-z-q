@@ -19,7 +19,7 @@ are exactly the conditions of a good slope.
 ## Depends on
 
 - [The slope representation](slope-representation.md)
-- [The twenty-two-prime pattern](../../main/prime-pattern.md)
+- [The twenty-two-prime pattern](../../statements/prime-pattern.md)
 
 ## Proof depends on
 

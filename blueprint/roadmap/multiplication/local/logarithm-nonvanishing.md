@@ -26,7 +26,7 @@ $L(z(Q))=16575\,z(Q)(1+\eta)$ with $v_s(\eta)\ge2$, which is nonzero.
 
 ## Depends on
 
-- [The point $P_0$](../../model/field/generator-point.md)
+- [The point $P_0$](../../curve/generator-point.md)
 - [The truncated logarithm template](../../syntax/templates/template-log25.md)
 
 ## Proof depends on

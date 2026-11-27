@@ -24,7 +24,7 @@ of $-P_0=(x,-y)$ negates the last two coordinates; the identity has code $(1,0,0
 ## Depends on
 
 - [Point references](point-references.md)
-- [The codes of multiples of the generator](../../model/point-codes.md)
+- [The codes of multiples of the generator](../../curve/point-codes.md)
 
 ## Sources
 

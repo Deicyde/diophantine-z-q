@@ -29,7 +29,7 @@ $v_s(z([n]P))\ge v_s(z(P))$ in the formal group.
 
 ## Depends on
 
-- [The point $P_0$](../../model/field/generator-point.md)
+- [The point $P_0$](../../curve/generator-point.md)
 - [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](formal-group.md)
 
 ## Proof depends on

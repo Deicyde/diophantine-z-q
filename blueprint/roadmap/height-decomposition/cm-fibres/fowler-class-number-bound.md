@@ -3,7 +3,7 @@ article_id: af_f7d75f9670b327ccf5726c0c
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves79.fowlerProp27PrintCanonical
+lean: HDec.HSyn.OpenResearchLeaves82.fowlerProp27PrintCanonical
 ---
 
 # Fowler's bound for discriminants of bounded class number

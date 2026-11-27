@@ -37,7 +37,7 @@ $v_p(Az^2)=k+2v_p(z)$ even. Both contradict $k$ odd.
 
 ## Depends on
 
-- [Pole completeness](../main/pole-completeness.md)
+- [Pole completeness](../statements/pole-completeness.md)
 
 ## Proof depends on
 

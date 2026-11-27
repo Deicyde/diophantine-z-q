@@ -37,8 +37,8 @@ three cases then follow from
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [The slot conditions](../route-k/slot-conditions.md)
 - [The certified rank hypothesis in infinitely-many-points form](../rank/infinitely-many-points/certified-rank-inf.md)
 - [The Tian–Yuan–Zhang hypothesis in infinitely-many-points form](../rank/infinitely-many-points/certified-rank-tyz-inf.md)

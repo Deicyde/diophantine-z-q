@@ -17,7 +17,7 @@ $\Lambda_N(s)=N^{s/2}(2\pi)^{-s}\Gamma(s)F(s)$ for a given $F$.
 3. For $d>0$, with $N=32d^2$ and $M=4d$, and every complex $s$,
    $$N^{(2-s)/2}\,2^{-(2-s)}\,M\,(M^2)^{-(2-s)}\cdot(-8d)\cdot2^{-s}\,M\,(M^2)^{-s}
    =-N^{s/2}\,2^{-s}\,M\,(M^2)^{-s}.$$
-4. Let $d\equiv5\pmod8$ be squarefree, and suppose that [Deuring's identity](deuring/deuring-identity.md)
+4. Let $d\equiv5\pmod8$ be squarefree, and suppose that [Deuring's identity](gaussian/deuring-identity.md)
    and [the Fourier identity](fourier/fourier-identity.md) hold for $d$. Then for every entire
    continuation $F$ of $L(C_d,s)$ and every $s$ with $0<\operatorname{Re}s<2$,
    $\Lambda_{32d^2}(2-s)=-\Lambda_{32d^2}(s)$.
@@ -53,7 +53,7 @@ $\Lambda_N(2-s)=-\Lambda_N(s)$.
 
 - [The functional equation of $L(C_d,s)$ on the strip $0<\operatorname{Re}s<2$](../functional-equation.md)
 - [Entire continuations of the L-series of an elliptic curve](../l-series-continuation.md)
-- [Deuring's identity for $C_d$](deuring/deuring-identity.md)
+- [Deuring's identity for $C_d$](gaussian/deuring-identity.md)
 - [The Fourier identity for $\omega_d$](fourier/fourier-identity.md)
 
 ## Proof depends on

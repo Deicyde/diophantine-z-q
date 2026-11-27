@@ -19,6 +19,7 @@ $B_p$, $C_p=14B_p$, $D_p=51C_p$, $E_p=52C_p+v_p(12)+4$. No constant is evaluated
 numerical facts are a handful of small identities.
 
 - [Prime sets and clearing exponents of the multiplication certificate](constants.md)
+- [The minimal height hypothesis](six-contact-min.md), the six-contact estimate at $S=S_{\rm mul}$ and $R=D$
 - [The clearing inequalities](clearing-arithmetic.md)
 - [Properties of the multiplication constants](constants-properties.md)
 

@@ -39,13 +39,13 @@ numerators and denominators at most $2^K$; the first code coordinate is $0$.
 
 ## Depends on
 
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 
 - [Closed numerical comparisons](../constants/closed-comparisons.md)
-- [Fixed point codes by division polynomials](../../model/field/fixed-point-codes.md)
-- [The point $P_0$](../../model/field/generator-point.md)
+- [Fixed point codes by division polynomials](../../model/descent/fixed-point-codes.md)
+- [The point $P_0$](../../curve/generator-point.md)
 - [Size of the division polynomials](division-polynomial-size.md)
 - [Sizes under quadratic-field operations](quadratic-heights.md)
 

@@ -20,8 +20,8 @@ under field 2′.
 
 ## Depends on
 
-- [The minimal height hypothesis](../main/six-contact-min.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [The slope representation under field 2′](slope-representation-ap.md)
 
 ## Proof depends on

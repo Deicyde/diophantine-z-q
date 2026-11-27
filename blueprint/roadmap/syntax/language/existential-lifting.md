@@ -42,11 +42,11 @@ callee are part of that callee's relation and are not discarded.
 ## Depends on
 
 - [Formulas and their polynomial compilation](formula-compilation.md)
-- [Semantics of templates and recipes](../template-semantics.md)
+- [Semantics of templates and recipes](template-semantics.md)
 
 ## Proof depends on
 
-- [Sums of squares and products over the rationals](../sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](sum-of-squares-semantics.md)
 - [Evaluation of a template call](call-semantics.md)
 
 ## Sources

@@ -28,7 +28,7 @@ statement holds because the six factors $t-c$ of $F(t)$ are all positive, or all
 ## Depends on
 
 - [Slopes with poles at the old primes: field 2′](good-slope-ap.md)
-- [The two-slope prime pattern](../main/two-slope-pattern.md)
+- [The two-slope prime pattern](../statements/two-slope-pattern.md)
 
 ## Proof depends on
 

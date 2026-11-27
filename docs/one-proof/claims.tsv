@@ -8,6 +8,7 @@ hCT		claimed	2026-11-20	Deicyde/diophantine-z-q#14	outside	mccorvie	https://gith
 modularHTCoeff		#191 landed as additive code without a fold. Its premise `NewformGeometricComparison` is stronger than `ModularHTCoeff` (it fixes one of the row's two normalizations and adds algebraic coefficients...	2026-11-24	Deicyde/diophantine-z-q#191	project	project	https://github.com/Deicyde/diophantine-z-q/pull/191	released
 fowlerProp27PrintCanonical		no fold. Oesterlé's Théorème 1 implies Fowler's Proposition 2·7, so putting it in place of the Fowler row at the same count would make `frozenTarget`'s hypothesis stronger (review on #184). #184 st...	2026-11-24	Deicyde/diophantine-z-q#184	project	project	https://github.com/Deicyde/diophantine-z-q/pull/184	released
 hRank		claimed	2026-11-25	Deicyde/diophantine-z-q#198	project	project	https://github.com/Deicyde/diophantine-z-q/pull/198	held
-y3FullThreeRepZ30		claimed	2026-11-26	Deicyde/diophantine-z-q#211	project	project	https://github.com/Deicyde/diophantine-z-q/pull/211	held
 silverbergZarhinThm34		claimed	2026-11-27	Deicyde/diophantine-z-q#223	project	project	https://github.com/Deicyde/diophantine-z-q/pull/223	held
-gaudronRemondSec9LowerAnSS		claimed	2026-11-27	Deicyde/diophantine-z-q#14	project	project	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7209358329	held
+bergerSurveyF		claimed	2026-11-27	Deicyde/diophantine-z-q#231	project	project	https://github.com/Deicyde/diophantine-z-q/pull/231	held
+gaudronRemondSec9LowerGR1Weak		claimed	2026-11-27	Deicyde/diophantine-z-q#232	project	project	https://github.com/Deicyde/diophantine-z-q/pull/232	held
+deligneCanonicalModelY3EveryPrint		claimed	2026-11-27	Deicyde/diophantine-z-q#14	project	project	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-7219588708	held

@@ -38,7 +38,7 @@ represents $-P$. The last claim: for $Z\ne0$, $y=Y/Z^3$.
 ## Depends on
 
 - [Jacobian formulas on the weighted model](jacobian-formulas.md)
-- [The point $P_0$](../../../model/field/generator-point.md)
+- [The point $P_0$](../../../curve/generator-point.md)
 
 ## Proof depends on
 

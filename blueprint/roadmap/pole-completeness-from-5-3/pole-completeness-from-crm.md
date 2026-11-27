@@ -20,7 +20,7 @@ abscissas $A$ and $Az^2$, they give the witnesses of the pole polynomial.
 
 ## Depends on
 
-- [Pole completeness](../main/pole-completeness.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [CR_M from Theorem 5.3, Lemma 5.4 and Lemma 5.5](crm.md)
 - [The simultaneous construction](simultaneous-construction.md)
 

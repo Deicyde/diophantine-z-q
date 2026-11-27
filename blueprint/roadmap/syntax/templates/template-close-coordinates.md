@@ -36,7 +36,7 @@ This is a definition (template index $15$).
 - [Formulas and their polynomial compilation](../language/formula-compilation.md)
 - [Quadratic-field pairs and point-code formulas](../language/field-pair-gadgets.md)
 - [The membership template](../template-member.md)
-- [The absolute-value template](template-abs.md)
+- [The absolute-value template](../language/template-abs.md)
 
 ## Sources
 

@@ -27,7 +27,7 @@ follow from the principal ideal property in the usual way.
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 
 ## Proof depends on
 

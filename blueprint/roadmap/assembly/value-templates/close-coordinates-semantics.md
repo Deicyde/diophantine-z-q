@@ -40,20 +40,20 @@ Conversely, for $a,l\ne0$ and the strict window, all these witnesses exist.
 
 - [The coordinate-window template](../../syntax/templates/template-close-coordinates.md)
 - [The local parameter z on multiples of the generator](../../compiler/natural/precision/z-coordinate.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
 - [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 - [Pair arithmetic represents the quadratic field](../../syntax/field-pair-arithmetic.md)
-- [The absolute-value template](../../syntax/templates/template-abs.md)
+- [The absolute-value template](../../syntax/language/template-abs.md)
 - [Absolute value by four squares](../../syntax/language/absolute-value-gadget.md)
 - [Strict positivity by four squares](../../syntax/language/positivity-gadget.md)
 - [Inverse witnesses](../../syntax/nonzero-gadgets.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Template construction from formulas](../../syntax/language/builder-soundness.md)
-- [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Witness scope of constructed templates and recipes](../../syntax/recipes/builder-well-formed.md)
 - [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources

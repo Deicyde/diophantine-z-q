@@ -39,7 +39,7 @@ the four hypotheses and are never computed.
 ## Depends on
 
 - [Syntax heights](syntax-height.md)
-- [Semantics of templates and recipes](../../syntax/template-semantics.md)
+- [Semantics of templates and recipes](../../syntax/language/template-semantics.md)
 
 ## Proof depends on
 

@@ -25,12 +25,12 @@ four witnesses are the $z_i$.
 ## Depends on
 
 - [Formulas and their polynomial compilation](formula-compilation.md)
-- [The absolute-value template](../templates/template-abs.md)
+- [The absolute-value template](template-abs.md)
 
 ## Proof depends on
 
 - [Template construction from formulas](builder-soundness.md)
-- [Sums of squares and products over the rationals](../sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](sum-of-squares-semantics.md)
 
 ## Sources
 

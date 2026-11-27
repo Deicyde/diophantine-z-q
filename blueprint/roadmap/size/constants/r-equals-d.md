@@ -19,7 +19,7 @@ $10^{12}<2^{40}<D$. A maximum whose first entry dominates the others equals that
 ## Depends on
 
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)
-- [The catalogue bound](../../main/catalogue-bound.md)
+- [The catalogue bound](../../statements/catalogue-bound.md)
 
 ## Proof depends on
 

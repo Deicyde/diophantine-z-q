@@ -59,8 +59,10 @@ assert count['project glue'] == sum(1 for f in fields if LEAVES[f]['group'] is N
 for f in fields:
     if kind[f] != 'published':
         assert kinds[f]['strict'] != 'LEAF', (f, kinds[f]['strict'])
-strict = sum(1 for f in fields if kinds[f]['strict'] == 'LEAF')
-pending = [f for f in fields if kind[f] == 'published' and kinds[f]['strict'] != 'LEAF']
+# the strict count is the strictest flagged reading, as in OPEN.md; strict_loose leaves out the strictest-reading flags
+strict = sum(1 for f in fields if kinds[f]['strictest'] == 'LEAF')
+strict_loose = sum(1 for f in fields if kinds[f]['strict'] == 'LEAF')
+pending = [f for f in fields if kind[f] == 'published' and kinds[f]['strictest'] != 'LEAF']
 # published rows that a completed review rated glue (kinds.tsv flag 'glue (rated): ...'), not rows awaiting a step
 rated_glue = [f for f in pending if kinds[f]['flag'].startswith('glue (rated)')]
 assert len({LEAVES[f]['slug'] for f in fields}) == len(fields)
@@ -89,8 +91,7 @@ KIND_SENTENCE = {
 
 # Statement dependencies inside the chapter (an article whose statement uses another's objects).
 DEPS = {
-    'gaudronRemondThm14Printed': ['gaudronRemondSec9LowerAnSS'],
-    'javanpeykarThm111An': ['gaudronRemondSec9LowerAnSS'],
+    'gaudronRemondThm14GR1': ['gaudronRemondSec9LowerGR1Weak'],
 }
 
 
@@ -257,7 +258,9 @@ glue = [f for f in fields if LEAVES[f]['group'] is None]
 assert len(glue) <= 1, glue
 strict_sentence = (f"The project's strict convention, which counts a published statement only once its reading "
                    f"against the print and its review are complete and find it in its printed form, counts {w(strict)} of the {w(len(fields))} as "
-                   f"published." if pending else '')
+                   f"published" + (f" ({w(strict_loose)} without the strictest reading of {w(strict_loose - strict)} flagged "
+                                   f"statement{'s' if strict_loose - strict != 1 else ''})" if strict_loose != strict else '')
+                   + "." if pending else '')
 
 
 def kinds_list(published, consequence, composite):
@@ -279,7 +282,7 @@ group_links = ', '.join(f"[{g['title'][0].lower() + g['title'][1:] if not g['tit
 body = [front(top, declaration='theorem', origin='bridged', statement='formalized', proof='formalized', lean=TOP_LEAN),
         f'# The minimal height hypothesis from {w(len(fields))} statements', '',
         para(f"""
-The [minimal height hypothesis](../main/six-contact-min.md) follows from the {w(len(fields))} statements
+The [minimal height hypothesis](../multiplication/certificate/six-contact-min.md) follows from the {w(len(fields))} statements
 of this chapter taken together: {w(nlit) + ' statements' if glue else 'theorems'} from the literature, grouped by
 the theory they come from ({group_links}){f", and one step of the project's own argument, {glue_links}" if glue else ''}.
 Of the {w(nlit)} statements from the literature, {kinds_list(count['published'], count['consequence'], count['composite'])}.
@@ -296,7 +299,7 @@ the Galois representation of a newform as a subrepresentation of the Tate module
 semisimplicity and its conductor; and the last stretch, from the level bound, the theta point and the
 height inequalities to the minimal height hypothesis.
 """), '',
-        '## Depends on', '', '- [The minimal height hypothesis](../main/six-contact-min.md)', '',
+        '## Depends on', '', '- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)', '',
         '## Proof depends on', '']
 body += [f"- [{LEAVES[f]['title']}]({rel(f, top)})" for f in fields]
 body += ['', '## Sources', '', f"- [The decomposition](../../sources/height-decomposition-locators.md#the-decomposition)"]
@@ -306,7 +309,7 @@ write(top, '\n'.join(body))
 readme = os.path.join(CH, 'README.md')
 body = [front(readme), '# The minimal height hypothesis from the literature', '',
         para(f"""
-This chapter proves the [minimal height hypothesis](../main/six-contact-min.md) from {w(len(fields))}
+This chapter proves the [minimal height hypothesis](../multiplication/certificate/six-contact-min.md) from {w(len(fields))}
 statements: {f'{w(nlit)} ' if glue else ''}theorems from the literature, some of them specialized, weakened or
 combined{", and one step of the project's own argument" if glue else ''}. The manuscript's route to the hypothesis uses
 twenty-three research-level theorems, thirty-five textbook theorems and twenty glue steps; the project

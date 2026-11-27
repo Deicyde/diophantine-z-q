@@ -10,7 +10,7 @@ lean: ZInQ.Contrib.HeckeFE.deuringCd_of_gaussPointCount
 # Deuring's identity for $d\equiv1\pmod4$ from Gauss's point count
 
 If [Gauss's point count](../gauss/gauss-point-count.md) holds, then
-[Deuring's identity](deuring-identity.md) holds for every squarefree natural number
+[Deuring's identity](../gaussian/deuring-identity.md) holds for every squarefree natural number
 $d\equiv1\pmod4$.
 
 **Proof sketch.** Such $d$ is odd. The Hecke coefficients have the Euler product for $d$
@@ -22,7 +22,7 @@ theorem at the split primes for $1$, hence for $d$
 ## Depends on
 
 - [Gauss's point count on $y^2=x^3-x$](../gauss/gauss-point-count.md)
-- [Deuring's identity for $C_d$](deuring-identity.md)
+- [Deuring's identity for $C_d$](../gaussian/deuring-identity.md)
 
 ## Proof depends on
 

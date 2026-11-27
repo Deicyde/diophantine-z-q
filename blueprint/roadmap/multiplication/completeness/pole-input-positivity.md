@@ -32,7 +32,7 @@ $\ell^2\varepsilon^2R_0<\min(1/K,\,72\cdot2^{-24})$.
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 
 ## Sources
 

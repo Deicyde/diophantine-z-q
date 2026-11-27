@@ -38,8 +38,8 @@ CR₃^TYZ_Cl,Rk gives CR₃^TYZ_Cl, and
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [The certified rank hypothesis in positive-rank form](../rank/certified-rank-rk.md)
 - [The Tian–Yuan–Zhang hypothesis in positive-rank form](../rank/certified-rank-tyz-rk.md)
 - [The class-number hypothesis in positive-rank form](../rank/certified-rank-tyz-cl-rk.md)

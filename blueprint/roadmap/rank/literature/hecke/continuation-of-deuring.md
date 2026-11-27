@@ -13,7 +13,7 @@ lean: ZInQ.Contrib.HeckeFE.isLContinuation_of_deuring, ZInQ.Contrib.HeckeFE.Heck
 natural number $d\equiv5\pmod8$, $L(C_d,s)$ has an [entire continuation](../l-series-continuation.md).
 It is the case of [Hecke's continuation](../hecke-continuation.md) used by row 5b.
 
-1. If $d$ is odd and squarefree and [Deuring's identity](deuring/deuring-identity.md) holds for $d$,
+1. If $d$ is odd and squarefree and [Deuring's identity](gaussian/deuring-identity.md) holds for $d$,
    then $L(C_d,s)$ has an entire continuation.
 2. If Deuring's identity holds for every squarefree $d\equiv5\pmod8$, then Hecke's continuation for
    $d\equiv5\pmod8$ holds.
@@ -39,7 +39,7 @@ $c_d(n)=\lambda_d(n)=\sum_{\alpha\in A_n}c(\alpha\bmod4d)\,\alpha$ for $n\ge1$. 
 ## Depends on
 
 - [Entire continuations of the L-series of an elliptic curve](../l-series-continuation.md)
-- [Deuring's identity for $C_d$](deuring/deuring-identity.md)
+- [Deuring's identity for $C_d$](gaussian/deuring-identity.md)
 - [The Euler product of $L(\psi_d,s)$](gaussian/hecke-euler-product.md)
 - [Deuring's identity from the Euler product and the split primes](deuring/deuring-of-euler-product.md)
 

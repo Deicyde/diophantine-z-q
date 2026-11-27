@@ -34,7 +34,7 @@ the effective Dirichlet theorem, and the catalogue bound states the needed count
 
 ## Depends on
 
-- [The catalogue bound](../../main/catalogue-bound.md)
+- [The catalogue bound](../../statements/catalogue-bound.md)
 - [The prime catalogue](../../syntax/constants/prime-catalogue.md)
 - [The prescribed fixed constants](../../syntax/constants/fixed-constants.md)
 

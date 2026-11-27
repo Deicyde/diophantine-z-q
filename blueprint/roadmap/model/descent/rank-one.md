@@ -24,7 +24,7 @@ because $\mathbb ZS$ is torsion-free.
 
 ## Depends on
 
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
+- [Mordell–Weil for the generator curve](../../statements/mordell-weil.md)
 - [The change of variables to $C$](coordinate-change.md)
 
 ## Proof depends on

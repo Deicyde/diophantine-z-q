@@ -33,3 +33,7 @@ conradAppB	proof	project	yes		https://github.com/Deicyde/diophantine-z-q/commit/
 dsThm965AtPrimes	reduction	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/197	ds965-reroute-fold	175afaaff9ad02e23ecc0ad2a2ec9df99c2bf9ec
 gaudronRemondThm14AnSS	reduction	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/209	gr14-printed	fc265aec4f19255353bc7a46fca69e4f1af15c31
 afShimura supplied by AfTateLam.afShimura_proof; shimuraThm1Af no longer needed	proof	project	yes		https://github.com/Deicyde/diophantine-z-q/commit/484c399c1b9158cbe6c38c21515622d81ab43d78	m1-afshimura	1320587e0e58c5ec8c04e6fd774c38b8ff9a985a
+gaudronRemondSec9LowerAnSS, gaudronRemondThm14Printed	reduction	project	yes		https://github.com/Deicyde/diophantine-z-q/pull/219	item-m-fold	96f3a26b70770167ba4e9005a601a737dc618133
+egaIV_9_7_7_OL	statement-check	project	yes			item-m-adversarial-readings	
+gaudronRemondSec9LowerGR1Weak	statement-check	project	yes			item-m-adversarial-readings	
+gaudronRemondThm14GR1	statement-check	project	yes			item-m-adversarial-readings	

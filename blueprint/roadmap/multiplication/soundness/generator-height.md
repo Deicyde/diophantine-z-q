@@ -32,7 +32,7 @@ $T=\theta(Q)$, whose abscissa is $\epsilon^4x(Q)$.
 
 - [The change of variables to $C$](../../model/descent/coordinate-change.md)
 - [The canonical height on $C(K_0)$](../../model/heights/canonical-height.md)
-- [The point $P_0$](../../model/field/generator-point.md)
+- [The point $P_0$](../../curve/generator-point.md)
 
 ## Proof depends on
 

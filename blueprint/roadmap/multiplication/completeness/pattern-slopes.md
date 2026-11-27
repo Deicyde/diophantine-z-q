@@ -18,7 +18,7 @@ $t_1,t_2,t_3\in\mathbb Q$ with $t_1+t_2+t_3=A$ such that each $t=t_j$ satisfies:
 3. every odd contact prime $p\notin S_b$ of $t$ satisfies $p>B_0$, is a good slope prime
    (it splits in $K_0$, both reductions of $E$ above it are good, and their orders $d_1,d_2$
    satisfy $\gcd(d_1,d_2)=4$; the good primes of the
-   [pattern hypothesis](../../main/prime-pattern.md) satisfy moreover $p\nmid d_1d_2$, which
+   [pattern hypothesis](../../statements/prime-pattern.md) satisfy moreover $p\nmid d_1d_2$, which
    is not needed here), and has $v_p(t-c)=1$ for every $c\in\mathcal C$ with
    $v_p(t-c)>0$ (there is only one such $c$, because $p>324$ divides no difference of two
    elements of $\mathcal C$);
@@ -43,7 +43,7 @@ and $q=p>B_0'\ge B_0$ is a good pattern prime, hence a good slope prime, which i
 ## Depends on
 
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
-- [The twenty-two-prime pattern](../../main/prime-pattern.md)
+- [The twenty-two-prime pattern](../../statements/prime-pattern.md)
 
 ## Proof depends on
 

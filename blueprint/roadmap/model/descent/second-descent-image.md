@@ -29,7 +29,7 @@ $\alpha'(Q)=1$.
 ## Depends on
 
 - [Two-isogenies and the Kummer map](kummer-map.md)
-- [The generator curve $E$](../field/generator-curve.md)
+- [The generator curve $E$](../../curve/generator-curve.md)
 
 ## Proof depends on
 

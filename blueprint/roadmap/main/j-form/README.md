@@ -30,7 +30,7 @@ the minimal height hypothesis
 ([the $j$-form implies the minimal height hypothesis](six-contact-min-of-j-height-bound.md)).
 
 Notation ($\mathcal C$, $M_S$, $D$, $E_0$, $Q_R$, $C_{\rm cm}$) is as in
-[the six-contact height estimate](../six-contact-estimate.md), and $h(a/b)=\log\max(|a|,b)$ for a
+[the six-contact height estimate](../../statements/six-contact-estimate.md), and $h(a/b)=\log\max(|a|,b)$ for a
 reduced fraction $a/b$ with $b>0$.
 
 ## The Hauptmodul value

@@ -35,7 +35,7 @@ This is a definition.
 
 - [The twelve local tests](twelve-tests.md)
 - [Prime sets and clearing exponents of the multiplication certificate](constants.md)
-- [Pole completeness](../../main/pole-completeness.md)
+- [Pole completeness](../../statements/pole-completeness.md)
 
 ## Sources
 

@@ -43,7 +43,7 @@ even power.
 
 - [The six local tests](../value-templates/six-local-tests.md)
 - [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../../multiplication/local/formal-group.md)
-- [Multiplication in a formal neighbourhood](formal-multiplication.md)
+- [Multiplication in a formal neighbourhood](../../multiplication/local/formal-multiplication.md)
 
 ## Proof depends on
 

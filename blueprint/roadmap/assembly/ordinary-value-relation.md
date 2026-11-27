@@ -43,10 +43,10 @@ exceptional integers are given exactly by their displayed branches.
 
 ## Depends on
 
-- [The outer composition recipes](../syntax/recipes/outer-recipes.md)
-- [Point codes](../model/point-codes.md)
-- [The minimal height hypothesis](../main/six-contact-min.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [The outer composition recipes](../recipe-translation/outer-recipes.md)
+- [Point codes](../curve/point-codes.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [The slope representation](../multiplication/completeness/slope-representation.md)
 
 ## Proof depends on

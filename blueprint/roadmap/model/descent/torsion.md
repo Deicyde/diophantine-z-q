@@ -30,15 +30,15 @@ Finally $y(P_0)\ne0$, while every point of $E(K_0)[2]$ is $O$ or has ordinate $0
 
 ## Depends on
 
-- [The generator curve $E$](../field/generator-curve.md)
+- [The generator curve $E$](../../curve/generator-curve.md)
 - [The change of variables to $C$](coordinate-change.md)
-- [The point $P_0$](../field/generator-point.md)
+- [The point $P_0$](../../curve/generator-point.md)
 
 ## Proof depends on
 
 - [Reduction is injective on prime-to-$p$ torsion](reduction-torsion.md)
 - [Point counts at $(17,s-6)$ and $(23,s-5)$](reduction-point-counts.md)
-- [The coordinates of $P_0$ satisfy the curve equation](../field/generator-point-equation.md)
+- [The coordinates of $P_0$ satisfy the curve equation](../../curve/generator-point-equation.md)
 
 ## Sources
 

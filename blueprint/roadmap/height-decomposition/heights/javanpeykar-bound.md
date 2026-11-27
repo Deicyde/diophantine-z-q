@@ -3,7 +3,7 @@ article_id: af_9795dfc6482d108fba24362b
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves79.javanpeykarThm111An
+lean: HDec.HSyn.OpenResearchLeaves82.javanpeykarThm111An
 ---
 
 # Javanpeykar's bound for curves with a Belyi map
@@ -16,9 +16,9 @@ $\mathbf P^1\setminus\{0,1,\infty\}$; let $\deg_B(X)$ be the least degree of a B
 $W$ be an abelian variety over $\overline{\mathbb Q}$ that represents the degree-zero part of the
 Picard functor of $X$, with the group law given by the tensor product of line bundles. Then every
 stable Faltings height $h$ of $W$ satisfies $h\le13\cdot10^6\,g\,\deg_B(X)^5$; here a stable
-Faltings height of $W$ is a stable Faltings height, built as for the
-[lower bound](bost-lower-bound.md), of an abelian variety $V$ over a number field
-$L\subset\overline{\mathbb Q}$ whose base change to $\overline{\mathbb Q}$ is isomorphic to $W$.
+Faltings height of $W$ is a stable Faltings height, in the sense of the [introduction](README.md),
+of an abelian variety $V$ over a number field $L\subset\overline{\mathbb Q}$ whose base change to
+$\overline{\mathbb Q}$ is isomorphic to $W$.
 
 It is not printed in this form but follows from published theorems; reaching it from the print takes
 further theorems, which are not proved here. Javanpeykar's Theorem 1.1.1 bounds the Faltings height
@@ -32,7 +32,7 @@ stable Faltings height of the Jacobian. It is a hypothesis, not proved here.
 
 ## Depends on
 
-- [The lower bound for the Faltings height](bost-lower-bound.md)
+None.
 
 ## Sources
 

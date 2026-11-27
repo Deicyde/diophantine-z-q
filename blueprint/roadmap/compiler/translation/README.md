@@ -39,7 +39,7 @@ signed generator; the fixed generator equations are conjuncts outside the intern
 of the templates that use them, and an inactive product branch is never assumed true.
 
 - [Lagrange's four-square theorem](lagrange-four-squares.md)
-- [The natural-code predicate](natural-code-semantics.md)
+- [The natural-code predicate](../../recipe-translation/natural-code-semantics.md)
 
 ## Natural circuits and their translation
 
@@ -64,9 +64,9 @@ the products; the generator equations and the scalar templates supply the consta
 call contributes the code of the power template's value at some private natural witnesses.
 Conversely, a natural solution provides rational witnesses for every call.
 
-- [Every node point is the code of the node's value](translation-soundness.md)
-- [Natural solutions give rational witnesses](translation-completeness.md)
-- [Semantics of the model-evaluation translation](model-evaluation-semantics.md)
+- [Every node point is the code of the node's value](../../recipe-translation/translation-soundness.md)
+- [Natural solutions give rational witnesses](../../recipe-translation/translation-completeness.md)
+- [Semantics of the model-evaluation translation](../../recipe-translation/model-evaluation-semantics.md)
 
 ## The power-value and precision recipes
 
@@ -84,13 +84,13 @@ scope condition $c_3\ge2$ here and the size chapter's literal bound.
 The power-value recipe has three signed code inputs, seventy-nine private natural witnesses and
 an output code for the value of the power-template polynomial.
 
-- [Semantics of the power-value recipe](power-value-semantics.md)
+- [Semantics of the power-value recipe](../../recipe-translation/power-value-semantics.md)
 
 The precision parent has $54056$ explicit variables and $15845$ disjoint private blocks;
 replacing each block by its private power-value call preserves the existential assignment, and
 only the final root is equated to the identity. This is input C on the rational side.
 
-- [Semantics of the rational translation](rational-translation.md)
+- [Semantics of the rational translation](../../recipe-translation/rational-translation.md)
 
 With equation (C.4), the precision recipe therefore holds at codes $\iota(c_0),\dots,\iota(c_4)$
 exactly when the [precision relation](../natural/precision/precision-relation.md) accepts $c$;
@@ -99,5 +99,5 @@ the assembly chapter's relation Close uses it in this form.
 At each primitive formula, equality is a difference, conjunction a sum of squares and
 disjunction a product; the specification chapter proves that these compilations, including the
 globally conjoined fixed equations, give equality of polynomial values under substitution
-([Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md),
+([Sums of squares and products over the rationals](../../syntax/language/sum-of-squares-semantics.md),
 [Private witness blocks](../../syntax/language/existential-lifting.md)).

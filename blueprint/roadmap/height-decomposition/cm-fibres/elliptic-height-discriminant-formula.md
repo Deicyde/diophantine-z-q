@@ -3,7 +3,7 @@ article_id: af_42ae9e5c84d2ded23483e64e
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves79.cmHeight62
+lean: HDec.HSyn.OpenResearchLeaves82.cmHeight62
 ---
 
 # The discriminant formula for the Faltings height of an elliptic curve
@@ -36,11 +36,15 @@ published article, in Faltings' original metric and with $\Delta(\tau)=(2\pi)^{1
 The statement is its case of good reduction everywhere, where the term of the minimal discriminant
 vanishes, and keeps only the inequality $\le$, the half the manuscript uses; it is not restricted to
 curves with complex multiplication. The manuscript's remark that the extension to $L$ does not
-change the stable height is built into the definition above, an infimum over all extensions.
-Reaching the statement from the print takes the comparison of the height in the paper with the
-height of $\mathcal G$ in that definition, which is not proved here. The display of (6.2) has not
-been re-read for this statement, and a review of the statement is pending. It is a hypothesis, not
-proved here.
+change the stable height is built into the definition above, an infimum over all extensions. An
+exact formula is proved here for every smooth group scheme $\mathcal G$ as above, proper or not: if
+$D$ is the discriminant of a short Weierstrass equation of $E$ over $K$, $\eta$ its invariant
+differential and $J$ the fractional ideal of $\mathcal O_L$ of the $a\in L$ with
+$a\eta\in\omega_{\mathcal G}$, then the height $h(\mathcal G)$ of $\mathcal G$ satisfies
+$[L:\mathbb Q]\,h(\mathcal G)=\sum_\sigma-\frac1{12}\log\bigl(|\Delta(\tau_\sigma)|(\operatorname{Im}\tau_\sigma)^6\bigr)+\frac1{12}\bigl(\log|N_{L/\mathbb Q}D|-12\log N(J)\bigr)$.
+The statement follows from this formula and the inequality $|N_{L/\mathbb Q}D|\le N(J)^{12}$ for
+proper $\mathcal G$, which is not proved here. The display of (6.2) has not been re-read for this
+statement, and a review of the statement is pending. It is a hypothesis, not proved here.
 
 ## Depends on
 

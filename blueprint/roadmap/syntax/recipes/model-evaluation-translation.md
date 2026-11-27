@@ -59,7 +59,7 @@ signed integer value) is the compiler chapter's rational translation statement.
 
 ## Depends on
 
-- [Semantics of templates and recipes](../template-semantics.md)
+- [Semantics of templates and recipes](../language/template-semantics.md)
 - [Point references](../language/point-references.md)
 - [The fixed-scalar templates](../templates/template-fixed-scalar.md)
 - [The natural-code template](../templates/template-natural.md)

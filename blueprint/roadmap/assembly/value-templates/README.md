@@ -20,7 +20,7 @@ chapter); this makes every local parameter and inverse abscissa below well-defin
 
 The natural-code template types four untyped tuples by multiplication before adding their
 squares, so it accepts exactly $\iota(\mathbb N)$ by Lagrange's theorem; this is
-[the natural-code predicate](../../compiler/translation/natural-code-semantics.md) of the
+[the natural-code predicate](../../recipe-translation/natural-code-semantics.md) of the
 compiler chapter, with M supplied by the multiplication template. The signed encoding links
 a signed code $\iota(m)$ to the natural code $\iota(\operatorname{enc}m)$, in which form the integer
 enters the precision relation.

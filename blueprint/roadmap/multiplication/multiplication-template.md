@@ -40,10 +40,10 @@ certificate).
 ## Depends on
 
 - [The multiplication template](../syntax/templates/template-multiply.md)
-- [Point codes](../model/point-codes.md)
-- [Semantics of templates and recipes](../syntax/template-semantics.md)
-- [The minimal height hypothesis](../main/six-contact-min.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [Point codes](../curve/point-codes.md)
+- [Semantics of templates and recipes](../syntax/language/template-semantics.md)
+- [The minimal height hypothesis](certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [The slope representation](completeness/slope-representation.md)
 
 ## Proof depends on

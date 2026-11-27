@@ -25,7 +25,7 @@ beyond lying on $E$ is used.
 ## Depends on
 
 - [The raw addition template](../syntax/template-raw-add.md)
-- [Point codes](point-codes.md)
+- [Point codes](../curve/point-codes.md)
 
 ## Proof depends on
 

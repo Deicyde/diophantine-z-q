@@ -42,7 +42,7 @@ holds with the $j$-form in place of the minimal height hypothesis.
 ## Depends on
 
 - [The Hauptmodul value $J(u)$](hauptmodul-value.md)
-- [The six-contact height estimate](../six-contact-estimate.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
 
 ## Sources
 

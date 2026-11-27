@@ -27,7 +27,7 @@ $v=0$ and $u=2y_1^2$.
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 
 ## Sources
 

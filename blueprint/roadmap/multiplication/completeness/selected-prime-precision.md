@@ -37,7 +37,7 @@ $\tau_{12}=A_1A_2-A_3\equiv n_1n_2-n_3=0$ have valuation at least $28$.
 
 - [The twelve local tests](../certificate/twelve-tests.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../local/primes-above-p.md)
-- [The twenty-two-prime pattern](../../main/prime-pattern.md)
+- [The twenty-two-prime pattern](../../statements/prime-pattern.md)
 
 ## Proof depends on
 

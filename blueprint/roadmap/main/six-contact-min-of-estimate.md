@@ -22,8 +22,8 @@ is the minimal height hypothesis.
 
 ## Depends on
 
-- [The six-contact height estimate](six-contact-estimate.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The six-contact height estimate](../statements/six-contact-estimate.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../multiplication/certificate/constants.md)
 
 ## Proof depends on

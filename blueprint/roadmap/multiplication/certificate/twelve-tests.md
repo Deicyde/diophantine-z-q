@@ -34,7 +34,7 @@ convention for a zero denominator may be used.
 
 ## Depends on
 
-- [The point $P_0$](../../model/field/generator-point.md)
+- [The point $P_0$](../../curve/generator-point.md)
 - [The truncated logarithm template](../../syntax/templates/template-log25.md)
 
 ## Sources

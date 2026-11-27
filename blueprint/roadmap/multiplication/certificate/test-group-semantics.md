@@ -35,7 +35,7 @@ $1/N(\lambda_0)$ and $1/N(\lambda_4)$, which exist by the nonvanishing lemma, an
 
 - [The test-group template](../../syntax/templates/template-test-group.md)
 - [The twelve local tests](twelve-tests.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 

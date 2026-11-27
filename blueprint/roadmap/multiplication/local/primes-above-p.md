@@ -38,7 +38,7 @@ $v_{\mathfrak p}(\operatorname{Tr}y)\ge m$, and $v_{\mathfrak p}=v_p$ on $\mathb
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 
 ## Proof depends on
 

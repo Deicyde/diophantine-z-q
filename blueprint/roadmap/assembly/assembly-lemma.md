@@ -45,19 +45,19 @@ shape required by the target statement.
 
 ## Depends on
 
-- [The target statement](../main/frozen-target.md)
-- [The specified polynomial](../syntax/literal-polynomial.md)
-- [The minimal height hypothesis](../main/six-contact-min.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [The target statement](../statements/frozen-target.md)
+- [The specified polynomial](../recipe-translation/literal-polynomial.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [The slope representation](../multiplication/completeness/slope-representation.md)
 
 ## Proof depends on
 
 - [The catalogue bound holds](../progressions/catalogue-instance.md)
-- [The rational zero projection of the specified polynomial](../syntax/recipes/fin-variable-form.md)
+- [The rational zero projection of the specified polynomial](../recipe-translation/fin-variable-form.md)
 - [The exact ordinary-value relation](ordinary-value-relation.md)
 - [Variable, degree and coefficient bounds](../size/syntax-bounds.md)
-- [Witness accounting of the specified polynomial](../syntax/recipes/witness-accounting.md)
+- [Witness accounting of the specified polynomial](../recipe-translation/witness-accounting.md)
 - [Mordell-Weil for $E/K_0$ from the descent](../model/descent/mordell-weil-from-descent.md)
 
 ## Informally uses
@@ -66,7 +66,7 @@ shape required by the target statement.
 - [Polynomial membership in the doubled group](../model/membership.md)
 - [Raw addition](../model/raw-addition.md)
 - [Correctness of the multiplication template](../multiplication/multiplication-template.md)
-- [Semantics of the rational translation](../compiler/translation/rational-translation.md)
+- [Semantics of the rational translation](../recipe-translation/rational-translation.md)
 
 ## Sources
 

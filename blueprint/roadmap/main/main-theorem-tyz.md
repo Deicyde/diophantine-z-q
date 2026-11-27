@@ -30,8 +30,8 @@ equivalent to CR₃^TYZ, and the first form applies.
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [The certified rank hypothesis in Tian–Yuan–Zhang form](../rank-5b/certified-rank-tyz.md)
 - [The certified rank hypothesis with class numbers](../redei/certified-rank-tyz-cl.md)
 

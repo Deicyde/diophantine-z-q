@@ -38,7 +38,7 @@ not from the descent lemma; of the descent lemma only the facts about admissible
 ## Depends on
 
 - [The positive-rank hypothesis on the two curves of a slot choice](certified-rank-dl-rk.md)
-- [Pole completeness](../../main/pole-completeness.md)
+- [Pole completeness](../../statements/pole-completeness.md)
 - [Admissible inputs, the squarefree part, $\beta$ and $\theta$](../../route-k/squarefree-part.md)
 - [The slot conditions](../../route-k/slot-conditions.md)
 - [The realization: both curves reduce to the base configuration](../../route-k/realization.md)

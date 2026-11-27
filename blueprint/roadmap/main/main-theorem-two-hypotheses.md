@@ -34,9 +34,9 @@ theorem.
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
-- [The certified rank hypothesis](certified-rank.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [The certified rank hypothesis](../route-k/certified-rank.md)
 
 ## Proof depends on
 

@@ -12,7 +12,7 @@ For a reduced fraction $a/b$ with $b>0$, $h(a/b)=\log\max(|a|,b)$.
 The target is the manuscript's Theorem 1.1, in the exact form frozen by the upstream
 project.
 
-- [The target statement](frozen-target.md)
+- [The target statement](../statements/frozen-target.md)
 
 ## The two headlines
 
@@ -48,12 +48,12 @@ The manuscript proves the target from six inputs. Three of them depend on deep a
 conclusions are nonetheless elementary statements. The six-contact height estimate bounds
 the height of a rational number by its odd contact support.
 
-- [The six-contact height estimate](six-contact-estimate.md)
+- [The six-contact height estimate](../statements/six-contact-estimate.md)
 
 The proof uses the estimate at a single prime set and radius, $S=S_{\rm mul}$ and $R=D$, and
 the main theorem assumes only this instance.
 
-- [The minimal height hypothesis](six-contact-min.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
 - [The six-contact estimate implies its minimal form](six-contact-min-of-estimate.md)
 
 The trust statement for H follows the manuscript's proof of the six-contact estimate up to its
@@ -73,19 +73,19 @@ manuscript's Theorem 5.2 and a hypothesis of the main theorem; the manuscript de
 restricted converse theorem by a simultaneous 2-descent (Section 5.1). That descent is formalized here,
 from Theorem 5.3 and two cited inputs ([its chapter](../pole-completeness-from-5-3/README.md)).
 
-- [Pole completeness](pole-completeness.md)
+- [Pole completeness](../statements/pole-completeness.md)
 
 The generator argument uses the Mordell–Weil theorem for $E$ over $K_0$. It was a
 hypothesis until the two-isogeny descent of the model chapter proved it.
 
-- [Mordell–Weil for the generator curve](mordell-weil.md)
+- [Mordell–Weil for the generator curve](../statements/mordell-weil.md)
 
 The multiplication certificate needs twenty-two simultaneous prime values of linear forms
 with prescribed reduction behaviour, and the size bounds need every unit class modulo the
 catalogue modulus to contain twenty-two primes below the explicit cutoff $2^{W^8}$.
 
-- [The twenty-two-prime pattern](prime-pattern.md)
-- [The catalogue bound](catalogue-bound.md)
+- [The twenty-two-prime pattern](../statements/prime-pattern.md)
+- [The catalogue bound](../statements/catalogue-bound.md)
 
 The multiplication proof uses the prime pattern only to write every integer as a sum of three
 slopes with controlled contact primes, the
@@ -93,7 +93,7 @@ slopes with controlled contact primes, the
 pattern in primes, with two slopes and twelve linear forms, also gives it, so it can replace
 the twenty-two-prime pattern.
 
-- [The two-slope prime pattern](two-slope-pattern.md)
+- [The two-slope prime pattern](../statements/two-slope-pattern.md)
 
 Neither pattern is needed any more. [Route AP](../route-ap/README.md) proves the completeness of
 the multiplication template, for the same polynomial, from long arithmetic progressions of good
@@ -118,7 +118,7 @@ with Hecke's continuation and the functional equation, which are proved. The pro
 until fork issue #77. Its Lean is kept at the tag `route-k-final` and pinned upstream in
 elliotglazer/diophantine-z-q, and nasqret/z-in-q-lean builds on it; the project note
 `docs/research/rs-pole.md` records why it was adopted. Its pages are:
-- [the certified rank hypothesis](certified-rank.md);
+- [the certified rank hypothesis](../route-k/certified-rank.md);
 - the [chapter on pole completeness from certified rank](../route-k/README.md), and the chapters on
   [Proposition 0](../selmer/README.md), [the row-5b determinant](../rank-5b/README.md),
   [Rédei's formula](../redei/README.md) and [positive rank](../rank/README.md);

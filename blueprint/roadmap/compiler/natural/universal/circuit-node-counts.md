@@ -19,7 +19,7 @@ The five-input natural precision circuit $\mathcal N$ has:
 3. at most $125{,}327$ additions and at most $98{,}382$ multiplications, and $15{,}845$ calls;
 4. constants among $0,1,-1,c_3,2,4,1399$, where $c_3,2,4,1399$ are distinct.
 
-The specification chapter's [witness accounting](../../../syntax/recipes/witness-accounting.md)
+The specification chapter's [witness accounting](../../../recipe-translation/witness-accounting.md)
 uses items 2 to 4 for the recipe translation; this statement proves them from the node
 statistics of $\mathcal H$ and the size of the program literal. The constant $c_3$ is never
 evaluated.

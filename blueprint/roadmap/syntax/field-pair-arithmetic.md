@@ -36,7 +36,7 @@ in the second.
 ## Proof depends on
 
 - [Inverse witnesses](nonzero-gadgets.md)
-- [Sums of squares and products over the rationals](sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](language/sum-of-squares-semantics.md)
 
 ## Sources
 

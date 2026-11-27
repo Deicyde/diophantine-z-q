@@ -35,7 +35,7 @@ of $P_0$ are affine with nonzero coordinates.
 ## Depends on
 
 - [The six local tests](../value-templates/six-local-tests.md)
-- [Pole completeness](../../main/pole-completeness.md)
+- [Pole completeness](../../statements/pole-completeness.md)
 
 ## Proof depends on
 

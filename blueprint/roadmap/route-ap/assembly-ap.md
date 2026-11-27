@@ -22,10 +22,10 @@ involve the slope representation.
 
 ## Depends on
 
-- [The target statement](../main/frozen-target.md)
-- [The specified polynomial](../syntax/literal-polynomial.md)
-- [The minimal height hypothesis](../main/six-contact-min.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [The target statement](../statements/frozen-target.md)
+- [The specified polynomial](../recipe-translation/literal-polynomial.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
 - [The slope representation under field 2′](slope-representation-ap.md)
 - [Node statistics of the halting circuit and the power template](../compiler/natural/universal/halting-node-check.md)
 

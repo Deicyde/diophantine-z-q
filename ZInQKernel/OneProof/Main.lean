@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailZ107
+import ZInQKernel.OneProof.H.TailZ110
 import ZInQKernel.MainGreenTao
 import ZInQKernel.Contrib.OneProof.DeRhamRange
 import ZInQKernel.Contrib.OneProof.PoleCompletenessFromRCGenuineFinal
@@ -321,13 +321,13 @@ namespace ZInQ.OneProof
 its genuine Selmer condition, the Cassels–Tate pairing on the curves `E_ℓ`, and Silverman's rank-one forward
 implication (Appendix C, Evidence 16.5.5). Pole completeness (Theorem 5.2) uses only these last three inputs. -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves79) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves30)
+    (r : HDec.HSyn.OpenResearchLeaves82) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves30)
     (hRC : ZInQ.Manuscript.SelmerTwoPower.RestrictedConverseGenuine)
     (hCT : ZInQ.Manuscript.PoleS12.CasselsTatePairingCurves)
     (hRank : ZInQ.Manuscript.PoleS12.SilvermanRank.SilvermanAEC_C_16_5_5_RankOne) :
     ZInQ.FrozenTarget :=
   ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
-    (HDec.HSyn.sixContactMin_of_open100 r t l)
+    (HDec.HSyn.sixContactMin_of_open103 r t l)
     (ZInQ.Manuscript.PoleS12.SilvermanRank.poleCompleteness_of_rankOne hRC hCT
       (ZInQ.Manuscript.PoleS12.SilvermanRank.rankOne_of_aec hRank))
 

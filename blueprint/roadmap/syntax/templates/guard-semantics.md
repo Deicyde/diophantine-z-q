@@ -25,12 +25,12 @@ $(X_1,\dots,X_{15})=(\iota(a),\iota(b),\iota(c))$.
 ## Depends on
 
 - [The guard template](template-guard.md)
-- [The codes of multiples of the generator](../../model/point-codes.md)
+- [The codes of multiples of the generator](../../curve/point-codes.md)
 
 ## Proof depends on
 
 - [Inverse witnesses](../nonzero-gadgets.md)
-- [Sums of squares and products over the rationals](../sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../language/sum-of-squares-semantics.md)
 
 ## Sources
 

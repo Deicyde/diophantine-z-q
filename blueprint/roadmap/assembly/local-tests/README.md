@@ -25,7 +25,8 @@ which $z=-x/y$ is additive up to terms of five times the depth. The manuscript u
 logarithm; the following elementary statement gives what is needed, including
 $z([m]Q)=m\,z(Q)\cdot(\text{unit}\equiv1)$ at an odd prime.
 
-- [Multiplication in a formal neighbourhood](formal-multiplication.md)
+Multiplication in a formal neighbourhood is proved with the multiplication chapter's local
+conventions ([multiplication in a formal neighbourhood](../../multiplication/local/formal-multiplication.md)).
 
 ## Soundness
 
@@ -40,7 +41,7 @@ estimate, give $s_0/h\equiv t$ and $(s_0-\kappa n)/(h-\kappa)\equiv t$, hence $p
 
 Some multiple of $P_0$ lies in any given formal neighbourhood: at the primes above an odd
 prime by the reduction orders of the size chapter
-([reduction orders of $P_0$](../../size/formal-multiple/reduction-orders.md)), including the bad
+([reduction orders of $P_0$](../../multiplication/formal-multiple/reduction-orders.md)), including the bad
 prime $d$, and at $s$ because $P_0$ already lies in the dyadic formal group
 ([the generator in the dyadic formal group](../../multiplication/local/dyadic-generator.md)).
 

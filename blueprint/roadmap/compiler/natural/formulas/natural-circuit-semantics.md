@@ -34,7 +34,7 @@ the subject of the next section.
 ## Depends on
 
 - [Translation of a natural circuit into a model-evaluation recipe](../../../syntax/recipes/model-evaluation-translation.md)
-- [Semantics of templates and recipes](../../../syntax/template-semantics.md)
+- [Semantics of templates and recipes](../../../syntax/language/template-semantics.md)
 - [The power template](power-template.md)
 
 ## Sources

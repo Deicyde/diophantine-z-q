@@ -48,10 +48,10 @@ relations.
 
 - [The value-test template](../../syntax/templates/template-value-test.md)
 - [The six local tests](six-local-tests.md)
-- [Point codes](../../model/point-codes.md)
-- [The six-contact height estimate](../../main/six-contact-estimate.md)
-- [Pole completeness](../../main/pole-completeness.md)
-- [The twenty-two-prime pattern](../../main/prime-pattern.md)
+- [Point codes](../../curve/point-codes.md)
+- [The six-contact height estimate](../../statements/six-contact-estimate.md)
+- [Pole completeness](../../statements/pole-completeness.md)
+- [The twenty-two-prime pattern](../../statements/prime-pattern.md)
 
 ## Proof depends on
 
@@ -65,7 +65,7 @@ relations.
 - [The pole template](../../syntax/templates/template-pole.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Template construction from formulas](../../syntax/language/builder-soundness.md)
-- [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Witness scope of constructed templates and recipes](../../syntax/recipes/builder-well-formed.md)
 - [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources

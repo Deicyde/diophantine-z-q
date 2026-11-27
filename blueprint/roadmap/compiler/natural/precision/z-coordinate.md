@@ -26,9 +26,9 @@ and its computation do not depend on the generator theorem.
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../../model/field/quadratic-field.md)
-- [The generator curve $E$](../../../model/field/generator-curve.md)
-- [The point $P_0$](../../../model/field/generator-point.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../../curve/quadratic-field.md)
+- [The generator curve $E$](../../../curve/generator-curve.md)
+- [The point $P_0$](../../../curve/generator-point.md)
 
 ## Sources
 

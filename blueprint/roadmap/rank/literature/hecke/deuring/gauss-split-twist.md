@@ -27,7 +27,7 @@ value $0$ at $0$). *Gauss's theorem at the split primes* for $d$ is as in
 (2) Substitute $x=dt$: $(dt)^3-d^2(dt)=d^2\cdot d(t^3-t)$, and $\left(\frac{d^2}p\right)=1$.
 
 (3) Let $p\equiv1\pmod4$ be prime with $p\nmid d$; then $p\nmid2d$ and $p\nmid2$. By
-[Deuring's identity for $C_d$](deuring-identity.md),
+[Deuring's identity for $C_d$](../gaussian/deuring-identity.md),
 [the coefficients at primes](../../l-function-cd/prime-coefficients.md) and (1),
 $c_d(p)=-\sum_x\left(\frac{x^3-d^2x}p\right)$ and $c_1(p)=-\sum_x\left(\frac{x^3-x}p\right)$, so
 $c_d(p)=\left(\frac dp\right)c_1(p)$ by (2). Since $p\equiv1\pmod4$ and $d$ is odd, quadratic
@@ -47,7 +47,7 @@ $\left(\frac{\cdot}1\right)=1$; Gauss's point count says these are equal.
 
 ## Proof depends on
 
-- [Deuring's identity for $C_d$](deuring-identity.md)
+- [Deuring's identity for $C_d$](../gaussian/deuring-identity.md)
 - [The coefficients of $L(C_d,s)$ at primes as point counts](../../l-function-cd/prime-coefficients.md)
 - [The coefficients of the Hecke L-series $L(\psi_d,s)$](../gaussian/hecke-coefficients.md)
 

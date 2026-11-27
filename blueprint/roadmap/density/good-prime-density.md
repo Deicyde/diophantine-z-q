@@ -20,7 +20,7 @@ progressions of good slope primes. It is proved in this chapter
 
 ## Depends on
 
-- [The two-slope prime pattern](../main/two-slope-pattern.md)
+- [The two-slope prime pattern](../statements/two-slope-pattern.md)
 - [Szemerédi's theorem in the primes](../green-tao/dense-form.md)
 
 ## Sources

@@ -25,8 +25,8 @@ $\Phi$, in the same order.
 ## Depends on
 
 - [The pole template](template-pole.md)
-- [Pole completeness](../../main/pole-completeness.md)
-- [Semantics of templates and recipes](../template-semantics.md)
+- [Pole completeness](../../statements/pole-completeness.md)
+- [Semantics of templates and recipes](../language/template-semantics.md)
 
 ## Proof depends on
 

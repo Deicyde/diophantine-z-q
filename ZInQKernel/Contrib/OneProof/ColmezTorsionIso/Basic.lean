@@ -12,12 +12,16 @@ built from the `F̄`-points (the row's `A.T p`, `G9/I4Layer.lean`) is isomorphic
 `ℤ_p[G_F]`-module, to the Tate module built from the `ℂ_p`-points (Colmez's `T_p(X)`, built from
 `u_n ∈ X(C_p)`), and likewise for `V_p`.
 
-## The model step, ruled
+## The model step, proposed for a ruling by Jack or the maintainer
 
-* **Base field and variety.** Colmez's `K` is the row's `F` and his `X` is the row's `A` (an
-  abelian variety over `F`, with no integral model). His identification `𝒳(O_{C_p}) = X(C_p)`
-  for a proper model `𝒳` over `O_K` (p. 638, "Par construction") is taken as given: the statement
-  of Théorème 5.2 only uses the group `X(C_p)` and its Galois action, and both are read off `A`.
+* **Base field and variety.** Colmez's `K` is the row's `F` and his `X` is the row's `A` (an abelian
+  variety over `F`, with no integral model). His identification `𝒳(O_{C_p}) = X(C_p)` for a proper
+  model `𝒳` over `O_K` (p. 638, "Par construction") is a Lean theorem since #239
+  (`ColmezProperModel.modelPtsEquiv`, `modelPtsEquiv_gal`). The model step reduces to the existence
+  of such a model for every `A` (`ColmezProperModel.ProperModelExists`, `properModelPoints_iff`),
+  which is in neither the tree nor Mathlib and is proposed for a ruling by Jack or the maintainer.
+  The row's Lean form uses only `X(C_p)` and its Galois action, both read off `A`; as
+  printed, 5.2(i) builds the limit from `F_ω(a_n)`, which goes through the model.
 * **The embedding `F̄ → ℂ_p`.** The tree's `G_F → G_{ℚ_p}` (`gfToGqp`) is restriction along the
   isomorphism `embF : ℚ̄_p ≃ F̄` (`G9.embF_gfToGqp`, `G9.embF_bijective`). We use the same
   isomorphism: `ℂ_p` is an `F`-algebra through `F → ℚ̄_p ⊂ ℂ_p`, `y ↦ phiF y` (`algCp`; its image
@@ -299,7 +303,7 @@ theorem torsion_iso (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) (N : ℕ) (hN : N ≠
         extCp p A (A.galAct (galF F σ) x) = A.galAct (cpGal p F σ) (extCp p A x) :=
   ⟨torsMap_bijective A N hN, fun x y => map_add _ x y, fun σ x => extCp_galAct (p := p) A σ x⟩
 
-/-- The case the row needs: `A[pⁿ](F̄) ≃+ A[pⁿ](ℂ_p)`. -/
+/-- `A[pⁿ](F̄) ≃+ A[pⁿ](ℂ_p)`. -/
 theorem torsion_iso_pow (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) (n : ℕ) :
     Function.Bijective (torsMap p A (p ^ n)) :=
   torsMap_bijective (p := p) A (p ^ n) (pow_ne_zero n (Fact.out : p.Prime).ne_zero)

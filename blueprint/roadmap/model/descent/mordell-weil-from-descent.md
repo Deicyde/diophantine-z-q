@@ -28,7 +28,7 @@ $[E(K_0):2E(K_0)]=8$ is finite by the descent index.
 
 ## Depends on
 
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
+- [Mordell–Weil for the generator curve](../../statements/mordell-weil.md)
 
 ## Proof depends on
 

@@ -30,7 +30,7 @@ these values.
 
 - [The slope template](../../syntax/templates/template-slope.md)
 - [The slope predicate](slope-predicate.md)
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Proof depends on
 
@@ -38,7 +38,7 @@ these values.
 - [The pole template](../../syntax/templates/template-pole.md)
 - [Inverse witnesses](../../syntax/nonzero-gadgets.md)
 - [Pair arithmetic represents the quadratic field](../../syntax/field-pair-arithmetic.md)
-- [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../../syntax/language/sum-of-squares-semantics.md)
 - [Evaluation of a template call](../../syntax/language/call-semantics.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 

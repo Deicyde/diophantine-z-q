@@ -38,7 +38,7 @@ closed form is below $2^{D^8}<2^{2^{2^{9013}}}$.
 
 - [The prescribed fixed constants](../syntax/constants/fixed-constants.md)
 - [The least formal multiple](../syntax/constants/least-formal-multiple.md)
-- [The catalogue bound](../main/catalogue-bound.md)
+- [The catalogue bound](../statements/catalogue-bound.md)
 
 ## Proof depends on
 
@@ -47,7 +47,7 @@ closed form is below $2^{D^8}<2^{2^{2^{9013}}}$.
 - [The cutoff is below a triple tower](constants/t-bound.md)
 - [Size of $N_s$ and $\ell$](constants/catalogue-size.md)
 - [Size of the formal multiple constant](constants/formal-multiple-size.md)
-- [A successful formal multiple](formal-multiple/formal-multiple-existence.md)
+- [A successful formal multiple](../multiplication/formal-multiple/formal-multiple-existence.md)
 
 ## Sources
 

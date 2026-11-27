@@ -71,6 +71,15 @@ of an abelian variety by a torus, over the residue field, over its algebraic clo
 as each statement that uses it says. This is Faltings' normalization $h_F$; Deligne's is
 $h_D=h_F+\frac g2\log\pi$. The height and semistable reduction enter through the project's own
 definitions; that these agree with the published ones is a judgement of AI reviews.
+
+Two statements below take instead the height of Gaudron and Rémond. For a number field $L\supseteq K$,
+a *semi-abelian model* of $A_L$ is a smooth separated group scheme of finite type over
+$\mathcal O_L$, with an isomorphism of group schemes from its generic fibre to $A_L$, whose fibre at
+every maximal ideal is connected and an extension of an abelian variety by a torus, over the residue
+field and over its algebraic closure; its height is built in the same way from its invariant
+differentials of top degree along the zero section. By the constructibility statement of EGA IV
+(9.7.7) and a proof in Lean, every stable Faltings height in the sense above is such a height; the
+converse is not proved here.
 """),
     dict(dir='p-adic-hodge', title='p-adic Hodge theory', intro=r"""
 Let $p$ be a prime, $\overline{\mathbb Q}_p$ an algebraic closure of $\mathbb Q_p$, $\mathbb C_p$ its
@@ -141,18 +150,116 @@ It is Shimura's Main Theorem I in Deligne's adelic form, at $B=\left(\frac{2,-3}
 G. Shimura, Ann. of Math. 85 (1967), Main Theorem I; P. Deligne, *Travaux de Shimura*, Sém. Bourbaki 389 (1971), §§4–5 (Corollaire 5.7, Exemple 5.8); J. Milne, *Introduction to Shimura varieties* (2005), §§5–8 and 12–14. Numbers unverified.
 """,
     ),
-    'y3FullThreeRepZ30': dict(
-        group='shimura-curves', slug='y3-integral-model',
-        title='The integral model of Y₃ over ℤ[1/30]',
-        anchor='Y3 over Z[1/30]',
+    'buzzardXDV15Lit': dict(
+        group='shimura-curves', slug='buzzard-v15-moduli-problem',
+        title="Buzzard's moduli problem at level V₁(5) is a projective curve over ℤ[1/30]",
+        anchor='Buzzard Thm 2.1 and Cor 2.3 at V1(5), literal',
         statement=r"""
-The *integral model statement* is the following assertion. Over a scheme $S$, consider abelian schemes $\mathcal A$ of relative dimension $2$ with a ring homomorphism $\mathcal O\to\operatorname{End}_S(\mathcal A)$ and a full $\mathcal O$-linear level-$3$ structure: an $\mathcal O$-linear homomorphism $\mathcal O/3\mathcal O\to\mathcal A(S)$ that is a bijection onto $\mathcal A_s[3]$ at every geometric point $s$ of $S$. There are a proper smooth curve $\mathcal Y$ over $\mathbb Z[1/30]$ and such an abelian scheme $\mathcal A$ over $\mathcal Y$ that is universal on locally noetherian schemes over $\mathbb Z[1/30]$: for every locally noetherian $\mathbb Z[1/30]$-scheme $S$ and every such $\mathcal A'$ over $S$ there is exactly one morphism $g:S\to\mathcal Y$ over $\mathbb Z[1/30]$ for which $\mathcal A'$ is isomorphic to $g^*\mathcal A$ compatibly with the actions of $\mathcal O$ and the level structures.
+Fix the isomorphism $\kappa:\mathcal O/5\mathcal O\to\mathrm M_2(\mathbb F_5)$ sending the classes of $e=3+2ij$, $X$, $Y$, $1-e$ to the four matrix units, and let $H\subset(\mathcal O/5\mathcal O)^\times$ be the group of units $\delta$ with $\kappa(\delta)=\left(\begin{smallmatrix}a&b\\0&1\end{smallmatrix}\right)$. For a scheme $S$ over $\mathbb Z[1/30]$ and an abelian scheme $\mathcal A$ of relative dimension $2$ over $S$ with a ring homomorphism $\iota:\mathcal O\to\operatorname{End}_S(\mathcal A)$, a *full level-$5$ structure* over an $S$-scheme $T$ is an isomorphism of $T$-schemes $(\mathcal O/5\mathcal O)_T\to\mathcal A[5]_T$ commuting with the left actions of $\mathcal O$; $\delta$ acts by $\alpha\mapsto\alpha\circ r_\delta$; and a *level-$V_1(5)$ structure* on $\mathcal A$ is a section over $S$ of the étale sheafification, on $S$-schemes, of $T\mapsto H\backslash\{\text{full level-5 structures over }T\}$. There are a scheme $X$ over $\mathbb Z[1/30]$, proper and smooth of relative dimension $1$, with a closed immersion into some $\mathbb P^N_{\mathbb Z[1/30]}$ over $\mathbb Z[1/30]$, and such an $(\mathcal A,\iota)$ over $X$ with a level-$V_1(5)$ structure, such that for every scheme $S$ over $\mathbb Z[1/30]$ and every such $(\mathcal A',\iota')$ over $S$ with a level-$V_1(5)$ structure there is exactly one $g:S\to X$ over which $(\mathcal A',\iota')$ maps to $(\mathcal A,\iota)$ (a cartesian square commuting with $\mathcal O$ and carrying the one level structure to the other), and that map is unique.
 """,
         caveat=r"""
-This is the manuscript's own claim, which it derives from Buzzard's Theorem 2.1 and Corollary 2.3 at the level $V_1(5)$ over $\mathbb Z[1/30]$, the finite étale sheaf of $\mathcal O$-linear isomorphisms $\mathcal O/3\mathcal O\cong A[3]$, the free action of $(\mathcal O/5\mathcal O)^\times$ and descent. No print states it at level $3$: Buzzard excludes level structure at the primes dividing the discriminant. The statement asks for a proper curve where the manuscript has a projective one, tests the universal property only on locally noetherian bases, and omits the polarization; the two forms of the moduli problem agree through the canonical principal polarization, an argument made on the spot and not proved here. That the generic fibre of $\mathcal Y$ represents the same problem over $\mathbb Q$, and so is the curve $Y_3$ of this chapter, is proved here.
+It is Buzzard's Theorem 2.1 with Corollary 2.3 at the level $U=V_1(5)$, for which $\mathbb Z[1/M_Ud]=\mathbb Z[1/30]$, with his own definitions of level structures (Definitions 1.1 and 1.2) and of the morphisms of $X^D(U)$. Buzzard fixes $\kappa$ once and for all; every isomorphism $\mathcal O/5\mathcal O\cong\mathrm M_2(\mathbb F_5)$ is the reduction of an admissible one, so his results hold for the $\kappa$ above. "Algebraic stack" and "regular" are dropped, and projectivity over the affine base is stated as the closed immersion (EGA II (5.5.4)(ii)). Buzzard asks that $\mathcal A'\to\mathcal A_S$ be an isomorphism compatible with $\iota$; the statement asks for a cartesian square commuting with $\mathcal O$, which carries zero to zero and so is a homomorphism (Milne, Corollary 20.2(a)). Over the empty base, which Buzzard's injectivity of $\iota$ excludes, every clause holds trivially. The concrete form of level-$V_1(5)$ structures used elsewhere in the proof (a section $Q$ with $5Q=0$ and $\iota(e)Q=0$, nonzero at every geometric point) is derived from this one in the Lean proof, with Milne's Proposition 20.7 and Remark 8.4 at $n=5$.
 """,
         src=r"""
-The 11/5 manuscript (`diophantine_zq.tex`, lines 443–477), the construction of the integral model of $Y_3$; K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), Theorem 2.1 and Corollary 2.3, read in the author's preprint (Theorem 2.1, p. 5; Corollary 2.3, p. 7; the moduli problem, without a polarization, p. 2; the canonical principal polarization, p. 3). The journal pages are unverified.
+K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1, Theorem 2.1, Lemma 2.2 and Corollary 2.3, read in the author's preprint (pp. 2–7; Theorem 2.1, p. 5; Corollary 2.3, p. 7). The journal pages are unverified.
+""",
+    ),
+    'buzzardLemma22Full5': dict(
+        group='shimura-curves', slug='buzzard-lemma-2-2-level-5',
+        title="An automorphism fixing a full level-5 structure is the identity",
+        anchor='Buzzard Lemma 2.2 at N = 5',
+        statement=r"""
+Let $k$ be an algebraically closed field whose characteristic is not $2$, $3$ or $5$, $\mathcal A$ an abelian surface over $k$ with an injective ring homomorphism $\iota:\mathcal O\to\operatorname{End}(\mathcal A)$, and $\theta$ an automorphism of $\mathcal A$ commuting with $\iota(a)$ for every $a\in\mathcal O$. If $\theta$ fixes a point $P\in\mathcal A(k)$ such that $a\mapsto\iota(a)P$ is a bijection from $\mathcal O/5\mathcal O$ onto the $5$-torsion of $\mathcal A(k)$, then $\theta$ is the identity.
+""",
+        caveat=r"""
+It is Buzzard's Lemma 2.2 at $N=5$, which is at least $4$ and prime to $d=6$. The map $x\mapsto\iota(x)P$ is a full level-$5$ structure in his sense (Definition 1.1): $\mathcal A[5]$ is finite étale because $5$ is invertible (Milne, Proposition 20.7), hence constant over $k$. Its orbit under Buzzard's group $H$ is a $V_1(5)$-structure, for any choice of his $\kappa$, and an automorphism fixing $P$ fixes it. The order $\mathcal O$ meets Buzzard's standing hypotheses: it is a maximal order (reduced discriminant $6$; Voight, Theorem 15.5.5) in the indefinite quaternion algebra $(2,-3)_{\mathbb Q}$, which is ramified exactly at $2$ and $3$.
+""",
+        src=r"""
+K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), Definition 1.1 and Lemma 2.2, read in the author's preprint (pp. 3 and 6); J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Proposition 20.7, read in the author's retyped edition (p. 44 there); J. Voight, *Quaternion algebras*, Graduate Texts in Mathematics 288, Springer (2021), Theorem 15.5.5. The journal pages and those of the 1986 printing are unverified.
+""",
+    ),
+    'milneThm125Pts': dict(
+        group='abelian-varieties', slug='milne-tate-module-injectivity',
+        title="Endomorphisms agreeing on l-power torsion are equal",
+        anchor='Milne Thm 12.5',
+        statement=r"""
+Let $k$ be an algebraically closed field, $\mathcal A$ an abelian surface over $k$ with a ring homomorphism $\iota:\mathcal O\to\operatorname{End}(\mathcal A)$, and $\ell$ a prime different from the characteristic of $k$. If two endomorphisms of $\mathcal A$ agree on every point of $\mathcal A(k)$ of $\ell$-power order, they are equal.
+""",
+        caveat=r"""
+It follows from Milne's Theorem 12.5 by the printed parts only: if $f$ and $g$ agree on every $\mathcal A_{\ell^n}(k)$, then $T_\ell(f-g)=0$ (Remark 8.4 describes $T_\ell\mathcal A$ as the limit of the $\mathcal A_{\ell^n}(k)$); the map $\mathbb Z_\ell\otimes\operatorname{End}(\mathcal A)\to\operatorname{End}(T_\ell\mathcal A)$ is injective, so $1\otimes(f-g)=0$; and $\operatorname{End}(\mathcal A)$ is a free $\mathbb Z$-module, so $f=g$. The difference is taken in the commutative group $\operatorname{End}(\mathcal A)$ (Corollary 2.4). The action of $\mathcal O$ plays no part.
+""",
+        src=r"""
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Corollary 2.4, Remark 8.4 and Theorem 12.5, read in the author's retyped edition (pp. 3, 14 and 21 there). The pages of the 1986 printing are unverified.
+""",
+    ),
+    'milneProp207At3': dict(
+        group='abelian-varieties', slug='milne-multiplication-by-3',
+        title="Multiplication by 3 on an abelian scheme is finite étale",
+        anchor='Milne Prop 20.7 at n = 3',
+        statement=r"""
+For every scheme $S$ over $\mathbb Z[1/30]$ and every abelian scheme $\mathcal A$ of relative dimension $2$ over $S$ with a ring homomorphism $\iota:\mathcal O\to\operatorname{End}_S(\mathcal A)$, the endomorphism $\iota(3)$ of $\mathcal A$ is finite and étale.
+""",
+        caveat=r"""
+It is the case $g=2$, $n=3$ of Milne's Proposition 20.7, which states for an abelian scheme of relative dimension $g$ that multiplication by $n$ is flat, surjective and finite, and étale exactly when $n$ is divisible by no residue characteristic of the base; no residue characteristic of a $\mathbb Z[1/30]$-scheme divides $3$. That $\iota(3)$ is multiplication by $3$ is proved here, and the action of $\mathcal O$ plays no other part.
+""",
+        src=r"""
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Proposition 20.7, read in the author's retyped edition (p. 44 there; abelian schemes are defined on p. 42). The pages of the 1986 printing are unverified.
+""",
+    ),
+    'milneTorsionCount': dict(
+        group='abelian-varieties', slug='milne-torsion-count',
+        title="The n-torsion of an abelian surface has n⁴ points",
+        anchor='Milne Rem 8.4',
+        statement=r"""
+For every scheme $S$ over $\mathbb Z[1/30]$, every abelian scheme $\mathcal A$ of relative dimension $2$ over $S$ with a ring homomorphism $\iota:\mathcal O\to\operatorname{End}_S(\mathcal A)$, every geometric point $s:\operatorname{Spec}k\to S$ and every positive integer $n$ not divisible by the characteristic of $k$, exactly $n^4$ points of $\mathcal A_s(k)$ are killed by $n$.
+""",
+        caveat=r"""
+It is Milne's Remark 8.4 at $g=2$: over a separably closed field whose characteristic does not divide $n$, the $n$-torsion of an abelian variety of dimension $g$ has $n^{2g}$ elements. The fibre $\mathcal A_s$ is an abelian surface over $k$ (Milne, §20, and the relative dimension). The action of $\mathcal O$ plays no part. The counts at $n=3$ and $n=5$ are proved from it here, and with Milne's Proposition 20.7 at $n=5$ they give the representability of full level-$5$ structures by an étale torsor, which Buzzard prints without proof.
+""",
+        src=r"""
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Theorem 8.2, Remark 8.4 and §20, read in the author's retyped edition (pp. 13, 14 and 42 there); the same statement is Remark 7.3 of Milne's course notes *Abelian varieties*, v2.0 (2008). The pages of the 1986 printing are unverified.
+""",
+    ),
+    'milneZeroPreservingHomLN': dict(
+        group='abelian-varieties', slug='milne-zero-preserving-homomorphism',
+        title="Morphisms of abelian schemes fixing zero are homomorphisms",
+        anchor='Milne Cor 20.2(a)',
+        statement=r"""
+For every locally noetherian scheme $S$, abelian schemes $\mathcal A$ and $\mathcal A'$ of relative dimension $2$ over $S$ with ring homomorphisms from $\mathcal O$ to their endomorphism rings, and every morphism $f:\mathcal A\to\mathcal A'$ over $S$ carrying the zero section of $\mathcal A$ to that of $\mathcal A'$, $f$ is a homomorphism.
+""",
+        caveat=r"""
+It is Milne's Corollary 20.2(a), which is stated for abelian schemes over any base, restricted to locally noetherian bases and relative dimension $2$; the actions of $\mathcal O$ play no part. Milne's proof applies his rigidity lemma, Proposition 20.1, which is stated for a connected base. Lan states the corollary over any base, citing Mumford's *Geometric invariant theory*, Corollary 6.4.
+""",
+        src=r"""
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Corollary 20.2(a) and Proposition 20.1, read in the author's retyped edition (p. 43 there); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*, Harvard thesis (2008), Corollary 1.3.1.6. The pages of the 1986 printing are unverified, and Mumford's corollary was not read.
+""",
+    ),
+    'projectiveFalseEllipticCurve': dict(
+        group='shimura-curves', slug='false-elliptic-curves-projective',
+        title="False elliptic curves over a projective base are projective",
+        anchor='False elliptic curves are projective',
+        statement=r"""
+Let $X$ be a scheme over $\mathbb Z[1/30]$ with a closed immersion into some $\mathbb P^N_{\mathbb Z[1/30]}$ over $\mathbb Z[1/30]$, and $\mathcal A$ an abelian scheme of relative dimension $2$ over $X$ with a ring homomorphism $\mathcal O\to\operatorname{End}_X(\mathcal A)$. Then $\mathcal A$ has a closed immersion into some $\mathbb P^{N'}_{\mathbb Z[1/30]}$.
+""",
+        caveat=r"""
+A consequence of printed statements, not a single print, and weaker than what they give: the closed immersion is not asked to lie over $\mathbb Z[1/30]$. Buzzard's canonical principal polarization $\lambda$ of $\mathcal A$ is read in Milne's sense, as $\varphi_L$ with $L$ ample at every geometric point; Buzzard does not define a polarization over a base. It is symmetric by Lan's Lemma 1.3.2.16 and rigidity on the connected components of the noetherian $X$, so it is a polarization in Lan's sense, and $(\mathrm{Id},\lambda)^*\mathcal P$ is relatively ample over $X$ (Lan, Proposition 1.3.2.18). Since $\mathcal O_X(1)$ is ample, twisting by a power of its pull-back gives a sheaf ample relative to $\mathbb Z[1/30]$, and a proper scheme over an affine base with a relatively ample sheaf has a closed immersion into projective space (Stacks Project). The symmetry step is written out in the notes accompanying the Lean proof.
+""",
+        src=r"""
+K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1, read in the author's preprint (p. 3); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*, Harvard thesis (2008), Theorem 1.3.2.6, Lemma 1.3.2.16, Corollary 1.3.1.5, Proposition 1.3.2.18 and Definition 1.3.2.20 (Proposition 1.3.2.15 and Definition 1.3.2.16 of the 2021 revision); J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), §20 (p. 46 of the author's retyped edition); The Stacks Project, tags 01VT, 0C4K and 0B45. The journal and 1986 pages are unverified.
+""",
+    ),
+    'milneProp207At5': dict(
+        group='abelian-varieties', slug='milne-multiplication-by-5',
+        title="Multiplication by 5 on an abelian scheme is finite étale",
+        anchor='Milne Prop 20.7 at n = 5',
+        statement=r"""
+For every scheme $S$ over $\mathbb Z[1/30]$ and every abelian scheme $\mathcal A$ of relative dimension $2$ over $S$ with a ring homomorphism $\iota:\mathcal O\to\operatorname{End}_S(\mathcal A)$, the endomorphism $\iota(5)$ of $\mathcal A$ is finite and étale.
+""",
+        caveat=r"""
+It is the case $g=2$, $n=5$ of Milne's Proposition 20.7, which states for an abelian scheme of relative dimension $g$ that multiplication by $n$ is flat, surjective and finite, and étale exactly when $n$ is divisible by no residue characteristic of the base; no residue characteristic of a $\mathbb Z[1/30]$-scheme divides $5$. That $\iota(5)$ is multiplication by $5$ is proved here, and the action of $\mathcal O$ plays no other part.
+""",
+        src=r"""
+J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Proposition 20.7, read in the author's retyped edition (p. 44 there; abelian schemes are defined on p. 42). The pages of the 1986 printing are unverified.
 """,
     ),
     'cmHeight62': dict(
@@ -165,7 +272,7 @@ $$h_F(E)\le\frac1{[L:\mathbb Q]}\sum_{\sigma:L\to\mathbb C}-\frac1{12}\log\Bigl(
 Here $h_F(E)$ is the stable Faltings height of $E$: the infimum in $[-\infty,+\infty]$, over all number fields $L'\supseteq K$ and all smooth separated group schemes $\mathcal N$ of finite type over $\mathcal O_{L'}$ whose generic fibre is isomorphic to $E_{L'}$ as a group scheme, of the height of $\mathcal N$, which is the Arakelov degree of the $\mathcal O_{L'}$-module $\omega_{\mathcal N}$ of invariant differentials of $\mathcal N$, with the metric $\|\omega\|_{\sigma'}^2=\frac i2\int_{E_{\sigma'}(\mathbb C)}\omega\wedge\overline\omega$ at each embedding $\sigma':L'\to\mathbb C$, divided by $[L':\mathbb Q]$.
 """,
         caveat=r"""
-Equation (6.2) of Barquero-Sanchez, Cadwallader, Cannon, Genao and Masri is the general formula for the Faltings height of an elliptic curve over a number field through its minimal discriminant and the modular discriminant at its periods, which the paper attributes to Silverman; the upstream review of the manuscript's CM argument read it in the published article, in Faltings' original metric and with $\Delta(\tau)=(2\pi)^{12}\eta(\tau)^{24}$. The statement is its case of good reduction everywhere, where the term of the minimal discriminant vanishes, and keeps only the inequality $\le$, the half the manuscript uses; it is not restricted to curves with complex multiplication. The manuscript's remark that the extension to $L$ does not change the stable height is built into the definition above, an infimum over all extensions. Reaching the statement from the print takes the comparison of the height in the paper with the height of $\mathcal G$ in that definition, which is not proved here. The display of (6.2) has not been re-read for this statement, and a review of the statement is pending.
+Equation (6.2) of Barquero-Sanchez, Cadwallader, Cannon, Genao and Masri is the general formula for the Faltings height of an elliptic curve over a number field through its minimal discriminant and the modular discriminant at its periods, which the paper attributes to Silverman; the upstream review of the manuscript's CM argument read it in the published article, in Faltings' original metric and with $\Delta(\tau)=(2\pi)^{12}\eta(\tau)^{24}$. The statement is its case of good reduction everywhere, where the term of the minimal discriminant vanishes, and keeps only the inequality $\le$, the half the manuscript uses; it is not restricted to curves with complex multiplication. The manuscript's remark that the extension to $L$ does not change the stable height is built into the definition above, an infimum over all extensions. An exact formula is proved here for every smooth group scheme $\mathcal G$ as above, proper or not: if $D$ is the discriminant of a short Weierstrass equation of $E$ over $K$, $\eta$ its invariant differential and $J$ the fractional ideal of $\mathcal O_L$ of the $a\in L$ with $a\eta\in\omega_{\mathcal G}$, then the height $h(\mathcal G)$ of $\mathcal G$ satisfies $[L:\mathbb Q]\,h(\mathcal G)=\sum_\sigma-\frac1{12}\log\bigl(|\Delta(\tau_\sigma)|(\operatorname{Im}\tau_\sigma)^6\bigr)+\frac1{12}\bigl(\log|N_{L/\mathbb Q}D|-12\log N(J)\bigr)$. The statement follows from this formula and the inequality $|N_{L/\mathbb Q}D|\le N(J)^{12}$ for proper $\mathcal G$, which is not proved here. The display of (6.2) has not been re-read for this statement, and a review of the statement is pending.
 """,
         src=r"""
 A. Barquero-Sanchez, L. Cadwallader, O. Cannon, T. Genao and R. Masri, *Faltings heights of CM elliptic curves and special Gamma values*, Res. Number Theory 3 (2017), art. 13, §6, Eq. (6.2), pp. 13–14, with the metric on p. 1, read in the published article by the upstream review of the manuscript's CM argument (project note `docs/reviews/height-replacement/height/AUDIT.md`, item 2); the manuscript's citation (`diophantine_zq.tex`, lines 595–605). The paper attributes the formula to Silverman, Proposition 1.1 (not read).
@@ -241,59 +348,114 @@ Ann. Inst. Fourier 45 (1995), 403–420, Theorem 3.4, pp. 405–406 (proof: SGA 
 Théorème 3.6, p. 351), with semistable reduction as defined in §3, p. 405.
 """,
     ),
-    'gaudronRemondSec9LowerAnSS': dict(
-        group='heights', slug='bost-lower-bound',
-        title='The lower bound for the Faltings height',
-        anchor='Bost lower bound',
+    'egaIV_9_7_7_OL': dict(
+        group='neron-models', slug='ega-geometrically-connected-fibres',
+        title='The locus of geometrically connected fibres',
+        anchor='EGA IV 9.7.7',
         statement=r"""
-The *lower bound statement* is the following assertion. Let $A$ be an abelian variety of dimension
-$g$ over a number field $K$. Then every stable Faltings height $h_F(A)$ of $A$, in Faltings'
-normalization, satisfies $h_F(A)\ge-\tfrac32\,g$. Here a *stable Faltings height* of $A$ is a real
-number of the form
-$$h_F(A)=\frac1{[L:\mathbb Q]}\Bigl(\log\#\bigl(\omega/\mathcal O_L\eta\bigr)-\frac12\sum_{\tau:L\to\mathbb C}\log\|\eta\|_\tau^2\Bigr),$$
-where $L\supseteq K$ is a number field, $\mathcal N$ is a Néron model of $A_L$ over $\mathcal O_L$
-with semistable reduction at every maximal ideal of $\mathcal O_L$ (the identity component of the
-special fibre is an extension of an abelian variety by a torus, both over the residue field and over
-its algebraic closure), $\omega$ is the lattice of invariant differentials of top degree on
-$\mathcal N$, $\eta\in\omega$ is nonzero with $\omega/\mathcal O_L\eta$ finite, and
-$\|\eta\|_\tau^2=(i/2)^g\int_{A_\tau(\mathbb C)}\eta\wedge\overline\eta$, integrated over the
-complex manifold $A_\tau(\mathbb C)$.
+The *constructibility statement* is the following assertion. Let $L$ be a number field,
+$S=\operatorname{Spec}\mathcal O_L$, and $f:X\to S$ a smooth, quasi-compact and quasi-separated
+morphism of schemes. Let $E$ be the set of points $s\in S$ whose fibre
+$X_s=X\times_S\operatorname{Spec}k(s)$ is geometrically connected, in the sense that
+$X_s\otimes_{k(s)}F$ is empty or connected for every field extension $F$ of $k(s)$. Then $E$ is
+locally constructible in $S$: every point of $S$ has an open neighbourhood $V$ such that $E\cap V$
+belongs to the smallest family of subsets of $V$ that contains the retrocompact open subsets and is
+stable under finite intersections and complements.
 """,
         caveat=r"""
-Gaudron and Rémond use the inequality in the proof of their Lemme 9.1, citing Bost through Corollary 8.4
-of their 2014 paper in *Commentarii*; an AI reading of both papers found the inequality in Faltings'
-original normalization, as here. That corollary states $h(A)\ge-\frac g2\log(2\pi)$ for their height
-$h=h_F+\frac g2\log\pi$, which gives the stronger $h_F(A)\ge-\frac g2\log(2\pi^2)$.
+It is Théorème (9.7.7)(ii) of EGA IV for $S=\operatorname{Spec}\mathcal O_L$ and smooth morphisms,
+which are of finite presentation when quasi-compact and quasi-separated (EGA IV (1.6.1)). EGA defines
+geometric connectedness by the number of connected components over an algebraic closure, at most
+one; its equivalence with the form above is printed in EGA IV (4.5.1)–(4.5.2) and is not a Lean
+theorem. The proof uses the statement only to show that a stable Faltings height built from a Néron
+model is a height of a semi-abelian model in the sense of Gaudron and Rémond.
+""",
+        src=r"""
+A. Grothendieck and J. Dieudonné, *Éléments de géométrie algébrique IV, troisième partie*, Publ.
+Math. IHÉS 28 (1966), Théorème (9.7.7), p. 79; with EGA IV₁, Publ. Math. IHÉS 20 (1964), (1.6.1),
+p. 234; EGA IV₂, Publ. Math. IHÉS 24 (1965), (4.5.1)–(4.5.2), p. 61; and EGA 0_III, Publ. Math.
+IHÉS 11 (1961), (9.1.1), (9.1.2) and (9.1.11), pp. 12–14. AI-read: a three-lens adversarial reading
+of page images of the numdam scans, 2026-11-27 (docs/research/item-m-adversarial-readings.md); no
+person has read these pages.
+""",
+    ),
+    'gaudronRemondSec9LowerGR1Weak': dict(
+        group='heights', slug='bost-lower-bound',
+        title='The lower bound for the Faltings height',
+        anchor='Gaudron-Remond lower bound',
+        statement=r"""
+The *lower bound statement* is the following assertion. Let $A$ be an abelian variety of dimension
+$g$ over a number field $K$. Then every height $h_F(A)$ of a semi-abelian model of $A$, in
+Faltings' normalization, satisfies $h_F(A)\ge-\tfrac32\,g$. Here such a height is a real number of
+the form
+$$h_F(A)=\frac1{[L:\mathbb Q]}\Bigl(\log\#\bigl(\omega/\mathcal O_L\eta\bigr)-\frac12\sum_{\tau:L\to\mathbb C}\log\|\eta\|_\tau^2\Bigr),$$
+where $L\supseteq K$ is a number field, $\mathcal A$ is a semi-abelian model of $A_L$ over
+$\mathcal O_L$ (a smooth separated group scheme of finite type over $\mathcal O_L$, with an
+isomorphism of group schemes from its generic fibre to $A_L$, whose fibre at every maximal ideal is
+connected and an extension of an abelian variety by a torus, over the residue field and over its
+algebraic closure), $\omega$ is the lattice of invariant differentials of top degree on
+$\mathcal A$ along its zero section, $\eta\in\omega$ is nonzero with $\omega/\mathcal O_L\eta$
+finite, and $\|\eta\|_\tau^2=2^{-g}\int_{A_\tau(\mathbb C)}|\eta\wedge\overline\eta|$, integrated
+over the complex manifold $A_\tau(\mathbb C)$.
+""",
+        caveat=r"""
+Here, unlike the general case, the one further step is proved in Lean
+(`ZInQ.HeightModelM.gaudronRemondSec9LowerGR1Weak_of_GR1`): Gaudron and Rémond's Corollaire 8.4
+states $h(A)\ge-\frac g2\log(2\pi)$ for their height $h=h_F+\frac g2\log\pi$ of a semi-abelian
+model, that is $h_F(A)\ge-\frac g2\log(2\pi^2)$, and since $\frac12\log(2\pi^2)<\frac32$ this gives
+the statement, a weakening they make themselves on p. 352. That step is still an argument, so the
+statement is not the printed form and the strict count does not count it as published; the corollary itself over this height passed a three-lens AI reading, and the project
+declined to carry it instead, as it is stronger (ruling of 2026-11-24).
+They print no formula for the normalized Arakelov degree, and the standard one is used here. The
+model is not required to be commutative; that it is, is proved in Lean, and so are the passage from
+stalks to global sections and one identity of wedges in the Hodge line; what remains a reading is
+that the stalk formula and the global sections used here are those of the sheaf of differentials,
+which Mathlib does not yet have. With the constructibility statement of EGA IV (9.7.7),
+the statement implies the same bound for the stable Faltings heights of this section, built from
+Néron models, and this implication is proved in Lean; the converse is not proved here.
 """,
         src=r"""
 É. Gaudron and G. Rémond, *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math.
-Helv. 89 (2014), 343–403, Corollaire 8.4, p. 400, attributed there to Bost, with the normalization
-of §2.3, p. 352. É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014),
-2057–2108, §9, proof of Lemme 9.1, p. 2098, with the normalization of $h_F$ on p. 2058; the
-manuscript's citation, a citation only of Corollaire 8.4.
+Helv. 89 (2014), 343–403, Corollaire 8.4, p. 400, attributed there to Bost, with the height of §2.3,
+p. 351, and the normalization and the weakening on p. 352. The manuscript cites É. Gaudron and
+G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057–2108, §9, proof of
+Lemme 9.1, p. 2098, which cites Corollaire 8.4. AI-read: a three-lens adversarial reading of page
+images of the journal file, 2026-11-27 (docs/research/item-m-adversarial-readings.md); no person has
+read these pages.
 """,
     ),
-    'gaudronRemondThm14Printed': dict(
+    'gaudronRemondThm14GR1': dict(
         group='heights', slug='gaudron-remond-isogeny-bound',
         title='The isogeny theorem of Gaudron and Rémond',
         anchor='Gaudron-Remond isogeny bound',
         statement=r"""
 The *isogeny statement* is the following assertion. Let $A$ and $B$ be abelian varieties over a number
-field $K$ of degree $d$ that are isogenous over $K$, with $\dim A=g\geq1$, and let $h_F(A)$ be a stable
-Faltings height of $A$, built as for the [lower bound](bost-lower-bound.md). Then there are isogenies
-$A\to B$ and $B\to A$ over $K$ of degree at most
+field $K$ of degree $d$ that are isogenous over $K$, with $\dim A=g\geq1$, and let $h_F(A)$ be a
+height of a semi-abelian model of $A$, built as for the [lower bound](bost-lower-bound.md). Then
+there are isogenies $A\to B$ and $B\to A$ over $K$ of degree at most
 $$\kappa=\Bigl((14g)^{64g^2}\,d\,\max\bigl(h_F(A),\log d,1\bigr)^2\Bigr)^{1024g^3}.$$
 """,
         caveat=r"""
-It is Theorem 1.4 of Gaudron and Rémond for isogenies over the base field, with the stable height in
-Faltings' original normalization and semistable reduction in its printed form: the identity
-component of the special fibre is semi-abelian over the residue field and over its algebraic
-closure. A further reading of semistability, as the absence of $\mathbb G_a$ (SGA 7 IX 2.1.5), is
-still to be matched.
+It is Theorem 1.4 of Gaudron and Rémond for isogenies over the base field, with their stable height
+$h_F$ in Faltings' original normalization, which they take from §2.3 of their paper in
+*Commentarii*; the printed couple of isogenies is split into two isogenies, each of degree at most
+$\kappa$. It was read in Duke's typeset version of record, as posted on the first author's page
+(its first-page footer gives the volume, issue and DOI, and its pages 2057–2108 match the journal's
+record), so the reading is against the journal text. Three steps of the height that the reading took
+as arguments, the commutativity of the model, the passage from stalks to global sections and one
+identity of wedges in the Hodge line, are now proved in Lean; what remains a reading is that the
+stalk formula and the global sections used here are those of the sheaf of differentials, which
+Mathlib does not yet have. The published rating still waits on the lead's confirmation. With the
+constructibility statement of EGA IV (9.7.7), the statement implies the
+same theorem for the stable Faltings heights of this section, built from Néron models, and this
+implication is proved in Lean; the converse is not proved here.
 """,
         src=r"""
 É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), 2057–2108,
-Théorème 1.4, p. 2060, with $\kappa$ on p. 2058.
+Théorème 1.4, p. 2060, with $\kappa$ and $g\ge1$ on p. 2058 and isogenies and their degree on
+p. 2062. AI-read: a three-lens adversarial reading of page images of Duke's version of record, posted
+on the first author's page, 2026-11-27 (docs/research/item-m-adversarial-readings.md,
+docs/research/duke163-version-of-record.md); no person has read these pages.
 """,
     ),
     'javanpeykarThm111An': dict(
@@ -309,8 +471,8 @@ $\mathbf P^1\setminus\{0,1,\infty\}$; let $\deg_B(X)$ be the least degree of a B
 $W$ be an abelian variety over $\overline{\mathbb Q}$ that represents the degree-zero part of the
 Picard functor of $X$, with the group law given by the tensor product of line bundles. Then every
 stable Faltings height $h$ of $W$ satisfies $h\le13\cdot10^6\,g\,\deg_B(X)^5$; here a stable
-Faltings height of $W$ is a stable Faltings height, built as for the
-[lower bound](bost-lower-bound.md), of an abelian variety $V$ over a number field
+Faltings height of $W$ is a stable Faltings height, in the sense of the
+[introduction](README.md), of an abelian variety $V$ over a number field
 $L\subset\overline{\mathbb Q}$ whose base change to $\overline{\mathbb Q}$ is isomorphic to $W$.
 """,
         caveat=r"""
@@ -378,7 +540,7 @@ read by the locator audit. The level-$2$ coordinates are a risk (project note he
 The *Berger statement* is the following assertion. Let $E$ be a finite extension of $\mathbb Q_p$ inside $\overline{\mathbb Q}_p$ and $\rho:G_{\mathbb Q_p}\to\mathrm{GL}_n(E)$ a continuous representation, and let $V=E^n$, viewed as a representation of $G_{\mathbb Q_p}$ over $\mathbb Q_p$ of dimension $d=\dim_{\mathbb Q_p}V$. If $V$ is de Rham, that is, $\dim_{\mathbb Q_p}(B_{\rm dR}\otimes_{\mathbb Q_p}V)^{G_{\mathbb Q_p}}=d$, then $V$ is potentially semistable: there is a finite extension $K$ of $\mathbb Q_p$ inside $\overline{\mathbb Q}_p$ with $\dim_{B_{\rm st}^{G_K}}(B_{\rm st}\otimes_{\mathbb Q_p}V)^{G_K}=d$. Here $B_{\rm st}$ is the $\mathbb Q_p$-subalgebra of $B_{\rm dR}$ generated by $A_{\rm cris}$, $1/t$ and $\log[\tilde p]$: $A_{\rm cris}$ is the set of sums $\sum_{m\ge0}a_m\omega^m/m!$ in $B_{\rm dR}^+$ with $a_m\in A_{\rm inf}=W(\mathcal O_{\mathbb C_p}^\flat)$ tending to $0$ $p$-adically, where $\omega$ generates the kernel of $\theta:A_{\rm inf}\to\mathcal O_{\mathbb C_p}$; $t=\log[\varepsilon]$, where $\varepsilon=(1,\zeta_p,\zeta_{p^2},\dots)\in\mathcal O_{\mathbb C_p}^\flat$ is a compatible system of primitive $p$-power roots of unity; and $\log[\tilde p]=-\sum_{m\ge1}(1-[\tilde p]/p)^m/m$ for $\tilde p=(p,p^{1/p},\dots)$, Fontaine's $\log[\tilde p]$ with $\log_p(p)=0$. The assertion is made for every such $\omega$ and $\varepsilon$.
 """,
         caveat=r"""
-It is Berger's theorem, from his Inventiones paper (Théorème 0.6 in the arXiv version; the journal's theorem number is unverified), at the base field $\mathbb Q_p$ for representations of the form $E^n$, with potential semistability in Fontaine's sense: the representation becomes $B_{\rm st}$-admissible over a finite extension, admissibility meaning the equality of dimensions, with $B_{\rm st}$ taken as its image in $B_{\rm dR}$, as Fontaine describes it. Berger works over his own variant of $B_{\rm st}$ and states that it has the same $D_{\rm st}$ as Fontaine's; reaching Fontaine's ring from his is a step of the reading, not a theorem proved here, so the statement counts as a consequence of the print. Its de Rham condition is the one above because $B_{\rm dR}^{G_{\mathbb Q_p}}=\mathbb Q_p$, which is proved here. Colmez prints the conclusion in the stronger form of a basis (Théorème 0.1 of his 2008 paper); that form implies this statement, which is proved here, but the converse needs the $G_K$-regularity of $B_{\rm st}$, which is not.
+It is Berger's theorem, from his Inventiones paper (Théorème 0.6 in the arXiv version; the journal's theorem number is unverified), at the base field $\mathbb Q_p$ for representations of the form $E^n$, with potential semistability in Fontaine's sense: the representation becomes $B_{\rm st}$-admissible over a finite extension, admissibility meaning the equality of dimensions, with $B_{\rm st}$ taken as its image in $B_{\rm dR}$, as Fontaine describes it. Berger works over his own variant of $B_{\rm st}$ and states that it has the same $D_{\rm st}$ as Fontaine's; reaching Fontaine's ring from his is a step of the reading, not a theorem proved here, so the statement counts as a consequence of the print. Its de Rham condition is the one above because $B_{\rm dR}^{G_{\mathbb Q_p}}=\mathbb Q_p$, which is proved here. Colmez prints the conclusion in the stronger form of a basis (Théorème 0.1 of his 2008 paper); that form implies this statement, which is proved here, and the converse is proved here from two properties of $B_{\rm st}$ that make it $G_K$-regular, for every finite extension $K$ of $\mathbb Q_p$ in $\overline{\mathbb Q}_p$: the $G_K$-invariants of its field of fractions lie in $B_{\rm st}$, and a nonzero element $b$ of $B_{\rm st}$ with $\sigma(b)\in\mathbb Q_pb$ for every $\sigma\in G_K$ is a unit of $B_{\rm st}$. Both are in Fontaine's account of $B_{\rm st}$ (the locator is unverified); neither is proved here.
 """,
         src=r"""
 L. Berger, *Représentations $p$-adiques et équations différentielles*, Invent. Math. 148 (2002), 219–284, the manuscript's citation; its theorem number in the journal is unverified. In arXiv math/0102179v3 it is Théorème 0.6 = Théorème 5.19, pp. 6 and 56. An earlier AI reading of the author copy, with no recorded hash or quote, gives Théorème 0.7, p. 6, proved as Corollaire 5.22, with Théorème 0.8 there Sen's theorem. The typeset journal pages are unread. Potential semistability in the sense of J.-M. Fontaine, *Représentations $p$-adiques semi-stables*, Astérisque 223 (1994), Exp. III: potential $B_{\rm st}$-admissibility, 5.6.1, p. 166; admissibility by dimension, 1.8.5, pp. 134–135; $B_{\rm st}$ inside $B_{\rm dR}$ as in J.-M. Fontaine, *Le corps des périodes $p$-adiques*, Astérisque 223 (1994), Exp. II, 4.2.4–4.2.5, p. 86. The basis form: P. Colmez, Astérisque 319 (2008), 117–186, Théorème 0.1, p. 118 (a corroborating record, not this row's source).
@@ -406,7 +568,7 @@ L. Pan, *The Fontaine–Mazur conjecture in the residually reducible case*, J. A
 The *period statement* is the following assertion. Let $F$ be a finite extension of $\mathbb Q_p$, $\overline F$ an algebraic closure of $F$, $G_F=\operatorname{Gal}(\overline F/F)$, $A$ an abelian variety over $F$, $T_pA=\varprojlim_nA(\overline F)[p^n]$ its Tate module and $V_pA=\mathbb Q_p\otimes_{\mathbb Z_p}T_pA$, on which $G_F$ acts through its action on the points of $A$, and let $G_F$ act on $B_{\rm dR}$ through the restriction map $G_F\to G_{\mathbb Q_p}$ along an embedding of $\overline{\mathbb Q}_p$ in $\overline F$. Then there are a set $H$ and, for each $\omega\in H$, a $\mathbb Q_p$-linear map $P_\omega:V_pA\to B_{\rm dR}$ with the following properties: every value $P_\omega(u)$ lies in $B_{\rm dR}^+$; $P_\omega(\sigma u)=\sigma\bigl(P_\omega(u)\bigr)$ for every $\sigma\in G_F$ and $u\in V_pA$; and if $x\in B_{\rm dR}\otimes_{\mathbb Q_p}V_pA$ is sent to $0$ by the $B_{\rm dR}$-linear extension $b\otimes u\mapsto b\,P_\omega(u)$ of every $P_\omega$, then $x=0$.
 """,
         caveat=r"""
-It is Théorème 5.2 (i)–(ii) of Colmez with $H$ the de Rham cohomology $H^1_{\rm dR}(A/F)$ and $P_\omega(u)=\int_u\omega$, the $p$-adic period of $\omega$ along $u$, extended $\mathbb Q_p$-linearly from $T_pA$ to $V_pA$. Of the printed theorem the statement keeps three clauses: the periods lie in $B_{\rm dR}^+$, they commute with the action of $G_F$, and the pairing is non-degenerate on the side of $T_pA$ once the scalars are extended to $B_{\rm dR}$. The extension to $V_pA$ uses the linearity in $u$, which the readings take from "bilinéaire" and from the proof on p. 640. The statement drops the identification of $H$ with de Rham cohomology, the linearity in $\omega$, the compatibility with the filtrations, part (iii) and the functoriality. Colmez works with a proper model of $A$ over the integers of $F$, which exists, and the periods do not depend on it. He builds $T_pA$ from the points of $A$ over $\mathbb C_p$; on $p$-power torsion these are the points over $\overline F$, since $A[p^n]$ is finite over $F$, a standard identification that the readings take and that no Lean theorem states.
+It is Théorème 5.2 (i)–(ii) of Colmez with $H$ the de Rham cohomology $H^1_{\rm dR}(A/F)$ and $P_\omega(u)=\int_u\omega$, the $p$-adic period of $\omega$ along $u$, extended $\mathbb Q_p$-linearly from $T_pA$ to $V_pA$. Of the printed theorem the statement keeps three clauses: the periods lie in $B_{\rm dR}^+$, they commute with the action of $G_F$, and the pairing is non-degenerate on the side of $T_pA$ once the scalars are extended to $B_{\rm dR}$. The extension to $V_pA$ uses the linearity in $u$, which the readings take from "bilinéaire" and from the proof on p. 640. The statement drops the identification of $H$ with de Rham cohomology, the linearity in $\omega$, the compatibility with the filtrations, part (iii) and the functoriality. Colmez works with a proper model $\mathcal X$ of $A$ over the integers $\mathcal O_F$ of $F$, and the periods do not depend on it. He builds $T_pA$ from $\mathcal X(\mathcal O_{\mathbb C_p})$, which he identifies with the points of $A$ over $\mathbb C_p$; for every proper model this identification, compatible with the action of $G_F$, is proved here, and so is the identification of the Tate module built from $\mathcal X(\mathcal O_{\mathbb C_p})$ with the one built from the points of $A$ over $\mathbb C_p$. On $p$-power torsion these points are the points over $\overline F$, since $A[p^n]$ is finite over $F$, and this identification, compatible with the action of $G_F$, is also proved here. The model step therefore reduces to the existence of a proper model of $A$ over $\mathcal O_F$, which is proved neither here nor in Mathlib.
 """,
         src=r"""
 P. Colmez, *Périodes $p$-adiques des variétés abéliennes*, Math. Ann. 292 (1992), 629–644, Théorème 5.2 (i)–(ii), p. 639, with the standing hypotheses on pp. 629 and 638 and $B_{\rm dR}$ as in §2, p. 632; the proof is on pp. 639–641. AI-read: a three-lens adversarial reading of page images, 2026-11-26 (docs/research/tate-prints-adversarial-readings.md); no person has read these pages. For this step the manuscript's lemma on de Rham comparison and finite descent (`diophantine_zq.tex`, lines 10939–10973) cites Scholze's Corollary 1.8 and Milne's Theorem 12.1(a); this statement and the Hodge–Tate theorem of Tate and Raynaud (Fontaine's Théorème 2) replace those two citations.

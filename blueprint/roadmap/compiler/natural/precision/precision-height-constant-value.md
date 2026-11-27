@@ -26,7 +26,7 @@ equals the natural power, so $Q_D=Q_0$, and the remaining expressions agree term
 ## Depends on
 
 - [The precision height constant](precision-height-constant.md)
-- [The six-contact height estimate](../../../main/six-contact-estimate.md)
+- [The six-contact height estimate](../../../statements/six-contact-estimate.md)
 
 ## Sources
 

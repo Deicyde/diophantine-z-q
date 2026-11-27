@@ -23,8 +23,8 @@ $Z_0^2=16$, $Z_0^3=64$). It does not use the generator theorem.
 
 ## Depends on
 
-- [The generator curve $E$](../../../model/field/generator-curve.md)
-- [The point $P_0$](../../../model/field/generator-point.md)
+- [The generator curve $E$](../../../curve/generator-curve.md)
+- [The point $P_0$](../../../curve/generator-point.md)
 
 ## Sources
 

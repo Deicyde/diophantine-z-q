@@ -36,10 +36,10 @@ completeness alone ([the main theorem](main-theorem.md)).
 
 ## Depends on
 
-- [The target statement](frozen-target.md)
-- [The minimal height hypothesis](six-contact-min.md)
-- [Pole completeness](pole-completeness.md)
-- [The twenty-two-prime pattern](prime-pattern.md)
+- [The target statement](../statements/frozen-target.md)
+- [The minimal height hypothesis](../multiplication/certificate/six-contact-min.md)
+- [Pole completeness](../statements/pole-completeness.md)
+- [The twenty-two-prime pattern](../statements/prime-pattern.md)
 - [Node statistics of the halting circuit and the power template](../compiler/natural/universal/halting-node-check.md)
 - [Exact node statistics of the halting circuit](../compiler/natural/universal/halting-node-exact.md)
 

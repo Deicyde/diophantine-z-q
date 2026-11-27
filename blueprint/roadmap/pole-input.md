@@ -7,7 +7,7 @@ article_id: af_91c0ceba51fd419ca2adadf7
 The multiplication template and the six local tests of the construction need, for completeness, that a
 certain explicit polynomial
 $Q_{\rm pole}$ has a rational zero for every suitably prepared input $B$
-([pole completeness](main/pole-completeness.md)). A zero is a pair of rational points, with
+([pole completeness](statements/pole-completeness.md)). A zero is a pair of rational points, with
 prescribed abscissas, on two elliptic curves built from $B$; both routes get them from rank statements
 through a 2-descent. There are two routes to it, and each
 gives a headline theorem.
@@ -25,7 +25,7 @@ points on curves $E_\ell:y^2=x(x-\ell)(x+3\ell)$.
 
 **The congruent-number route.** A variant of the pole polynomial, for the congruent number curves
 $C_\ell:y^2=x(x-\ell)(x+\ell)$, keeps the elementary direction (Lemma 5.1) and replaces the restricted
-converse by the [certified rank hypothesis](main/certified-rank.md).
+converse by the [certified rank hypothesis](route-k/certified-rank.md).
 - [Pole completeness from certified rank](route-k/README.md): an explicit descent, with the 2-Selmer groups
   written as linear systems in Legendre symbols ([Proposition 0](selmer/README.md)), reduces pole completeness
   to certified rank.

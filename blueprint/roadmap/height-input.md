@@ -5,7 +5,7 @@ article_id: af_28ee2b89c71b8f992d7ca972
 # The height input
 
 The construction uses one instance of the manuscript's six-contact height estimate (its Theorem 4.1), the
-[minimal height hypothesis](main/six-contact-min.md): for every rational $u$ outside the six contact values,
+[minimal height hypothesis](multiplication/certificate/six-contact-min.md): for every rational $u$ outside the six contact values,
 $h(u)\le H_6(D)\,M_{S_{\rm mul}}(u)^{24}$, with an explicit constant. Both headlines assume it. It is not a
 published theorem: its proof combines refereed theorems and exact computations with new arguments, the
 manuscript's and this project's, reviewed only by AI models.

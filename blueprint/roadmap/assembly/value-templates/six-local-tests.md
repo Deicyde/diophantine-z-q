@@ -36,10 +36,10 @@ This is a definition.
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 - [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
-- [Pole completeness](../../main/pole-completeness.md)
-- [Point codes](../../model/point-codes.md)
+- [Pole completeness](../../statements/pole-completeness.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Sources
 

@@ -25,7 +25,7 @@ $123720/32=15465/4$. (4) $[a]P_0+[b]P_0=[a+b]P_0$ in the group $E(K_0)$.
 
 ## Depends on
 
-- [Point codes](../point-codes.md)
+- [Point codes](../../curve/point-codes.md)
 
 ## Sources
 

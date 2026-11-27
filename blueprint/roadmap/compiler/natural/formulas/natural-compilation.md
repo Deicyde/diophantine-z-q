@@ -42,7 +42,7 @@ block of each call treated as the interval of a one-atom construction.
 
 ## Proof depends on
 
-- [Sums of squares and products over the rationals](../../../syntax/sum-of-squares-semantics.md)
+- [Sums of squares and products over the rationals](../../../syntax/language/sum-of-squares-semantics.md)
 
 ## Informally uses
 

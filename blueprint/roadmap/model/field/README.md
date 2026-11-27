@@ -11,20 +11,8 @@ arithmetic and the inverse witnesses are set up in the specification chapter
 ([pair arithmetic](../../syntax/field-pair-arithmetic.md),
 [inverse witnesses](../../syntax/nonzero-gadgets.md)).
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
-
-The handful of explicit identities and sign facts used throughout (the square of $d$, powers of
-$\epsilon=1+s$, $\delta=\epsilon^4d$, norms, total positivity of $d$ and $\delta$) are collected in one
-closed statement.
-
-- [Explicit identities in $K_0$](explicit-identities.md)
-
-The curve is $E:y^2=x^3-d^2x$ with $d=75-53s$, and the base point is $P_0$; that its
-coordinates satisfy the curve equation is a closed identity in $K_0$.
-
-- [The generator curve $E$](generator-curve.md)
-- [The coordinates of $P_0$ satisfy the curve equation](generator-point-equation.md)
-- [The point $P_0$](generator-point.md)
+The field, the curve $E:y^2=x^3-d^2x$ with $d=75-53s$, the base point $P_0$ and the point codes
+are defined in [the generator curve chapter](../../curve/README.md).
 
 Codes are injective, negation flips the two ordinate coordinates, and the code of a sum of
 multiples of $P_0$ is the code of the summed index.
@@ -37,17 +25,17 @@ Fixed multiples $[n]Q$, for fixed integers $n$ that may have millions of digits,
 expressed by the normalized division polynomials of the specification
 ([their definition](../../syntax/division-polynomials.md)). The specification chapter states
 their classical multiplication formulas as a proposition
-([the multiplication-by-n formulas](../../syntax/division-polynomial-multiplication.md)) and
-derives from it the semantics of the fixed-scalar templates
-([fixed-scalar semantics](../../syntax/fixed-scalar-semantics.md)). Here the proposition is
-proved as a background theorem, and it gives the fixed point codes $\iota(n)$. The recursion is
+([the multiplication-by-n formulas](../../syntax/division-polynomial-multiplication.md)). Here the
+proposition is proved as a background theorem; it gives the semantics of the fixed-scalar templates
+([fixed-scalar semantics](../fixed-scalar-semantics.md)) and, with the nonzero multiples of the
+generator, the fixed point codes $\iota(n)$
+([fixed point codes by division polynomials](../descent/fixed-point-codes.md)). The recursion is
 only ever used symbolically. The proof goes through Jacobian coordinates: the triples
 $(\phi_n,\omega_n,\psi_n)$ satisfy exact doubling and adding identities, first at the generic point
 of the curve, where no division polynomial vanishes, and an induction on $n$ shows that these
 triples represent the multiples $[n]P$.
 
 - [Division polynomials compute multiples](division-polynomial-multiples.md)
-- [Fixed point codes by division polynomials](fixed-point-codes.md)
 
 ## Arithmetic of $\mathbb Z[\sqrt2]$
 

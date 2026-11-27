@@ -30,7 +30,7 @@ $h(t)\le A_{\rm ht}M_{S_{\rm mul}}(t)^{24}\le A_{\rm ht}|f|^{24/25}$.
 
 - [The slope predicate](../certificate/slope-predicate.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
-- [The minimal height hypothesis](../../main/six-contact-min.md)
+- [The minimal height hypothesis](../certificate/six-contact-min.md)
 
 ## Proof depends on
 

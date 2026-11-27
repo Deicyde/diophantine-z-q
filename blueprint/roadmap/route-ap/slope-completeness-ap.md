@@ -33,7 +33,7 @@ gives $\Phi(B)$.
 
 - [The slope predicate](../multiplication/certificate/slope-predicate.md)
 - [Slopes with poles at the old primes: field 2′](good-slope-ap.md)
-- [Pole completeness](../main/pole-completeness.md)
+- [Pole completeness](../statements/pole-completeness.md)
 
 ## Proof depends on
 

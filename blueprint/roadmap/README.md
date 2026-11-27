@@ -78,15 +78,18 @@ hand-written prose.
 
 ### Target and headlines
 
+- [The statements of the main theorem](statements/README.md)
 - [The main theorem and its hypotheses](main/README.md)
 
 ### The construction
 
 - [Overview: the polynomial and why its zeros project to ℤ](construction.md)
+- [The generator curve and its point codes](curve/README.md)
 - [The finite specification of the polynomial](syntax/README.md)
 - [The elliptic model of integer indices](model/README.md)
 - [Multiplication and the finite false-triple guard](multiplication/README.md)
 - [Exact precision computation and polynomial compilation](compiler/README.md)
+- [The outer recipes and their translation](recipe-translation/README.md)
 - [Assembly and the ordinary-value relation](assembly/README.md)
 - [The cutoff and polynomial size](size/README.md)
 - [Primes in arithmetic progressions](progressions/README.md)

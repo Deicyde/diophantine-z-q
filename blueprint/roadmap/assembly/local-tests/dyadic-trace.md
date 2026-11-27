@@ -25,7 +25,7 @@ $v_s(x)=\min(2v_2(a),2v_2(b)+1)\ge2k$ gives $v_2(a)\ge k$, so $v_2(\operatorname
 
 ## Depends on
 
-- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../curve/quadratic-field.md)
 - [The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$](../../model/field/special-primes.md)
 
 ## Sources

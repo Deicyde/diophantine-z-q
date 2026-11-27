@@ -26,9 +26,9 @@ fails, a contradiction. Hence $n_3=n_1n_2$; take $a=n_1$, $b=n_2$.
 ## Depends on
 
 - [The multiplication template](../../syntax/templates/template-multiply.md)
-- [Point codes](../../model/point-codes.md)
-- [Semantics of templates and recipes](../../syntax/template-semantics.md)
-- [The minimal height hypothesis](../../main/six-contact-min.md)
+- [Point codes](../../curve/point-codes.md)
+- [Semantics of templates and recipes](../../syntax/language/template-semantics.md)
+- [The minimal height hypothesis](../certificate/six-contact-min.md)
 
 ## Proof depends on
 

@@ -45,7 +45,8 @@ are in their own section.
 The existence of a successful formal multiple, with the reduction and filtration facts it
 needs, forms the next section.
 
-- [The least formal multiple](formal-multiple/README.md)
+The least formal multiple is defined and bounded in the multiplication chapter
+([the least formal multiple](../multiplication/formal-multiple/README.md)).
 
 Together these give the proposition.
 
