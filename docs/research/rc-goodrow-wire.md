@@ -41,10 +41,10 @@ Here `p := (s.q.stage i).p`, `N := StageKummer.level ℓ`, `h₅ := stagePrime_f
 | `readComplex`, `readComplex_eq` | target lane: `readComplexCubic`, `readComplexCubic_eq` |
 | `read`, `read_frob` | target lane: `ModelTarget.read`, `ModelTarget.read_frob` |
 | `extension` | generic5 lane: `ModelGeneric5.goodRow_extension h₅ htame h₂` (witness `Wint`). `stageRow_W`: the row's `W q hq he` is `Wint` (`eq_Wint_of_extendsAtkin`) |
-| `point` | same-place lane: `S.point` (`stageRow_point`) |
-| `point_W` | same-place lane (the hCM lane): `S.point_W`, converted to the `GoodRow` form by `SamePlaceData.point_W_choose`; also needs the special-fibre action of `Wint` (generic5 item 4, not started) |
-| `point_frob` | same-place lane: `S.point_frob` |
-| `frobenius_sq` | same-place lane: `S.frobenius_sq` |
+| `point` | same-place lane (rc-same-place1): `S.point` (`stageRow_point`) |
+| `point_W` | the point_W assembly (a small brief after rc-same-place1, SP2, rc-model-generic7 and rc-model-generic8): `S.point_W`, converted to the `GoodRow` form by `SamePlaceData.point_W_choose`. It proves `PointW` (rc-model-generic7's named Prop of the `point_W` field) for the same-place lane's point map, from the special-fibre action of `Wint` (rc-model-generic8's `atkinLevel_moduli_special`), rc-model-generic7's `atkinLevelAlg` and `Wint` lemma, SP2's `X.W` comparison for every separable seam and rc-same-place1's `point`, point form, φ lemma and `sigmaQ` |
+| `point_frob` | SP2: `S.point_frob` |
+| `frobenius_sq` | same-place lane (rc-same-place1): `S.frobenius_sq` |
 
 Every type equality in the assembly holds by definitional unfolding, so no bridge or cast was needed:
 
@@ -71,7 +71,10 @@ The file uses `open scoped Classical`, as `Assembly.lean:11` does, so the `Decid
   exactly the fields `point`, `point_W`, `point_frob` and `frobenius_sq` of `GoodRow`, on
   `Pinned.Y0Level h₅ htame h₂` with `closed := ModelNeron.closed ell`. They have the `GoodRow` types,
   except that `point_W` uses `ModelGeneric5.Wint h₅ htame h₂ (isExactDivisor_primePow (N := N) (p := q))`
-  in place of `(extension q hq he).choose`. Owner: the same-place lane in the hCM lane (tex 8479–8492).
+  in place of `(extension q hq he).choose`. Owners, one per field (tex 8479–8492): `point` and
+  `frobenius_sq`, the same-place lane (rc-same-place1); `point_frob`, SP2; `point_W`, the point_W
+  assembly (after rc-same-place1, SP2, rc-model-generic7 and rc-model-generic8). SP2 also owns Hecke
+  (`X.T` and the `HeckePacket` agreement).
   It is an input, never a leaf.
 * `SamePlaceData.point_W_choose` turns `point_W` into the exact `GoodRow.point_W` form for any family
   `ext` of extensions. The proof rewrites by `eq_Wint_of_extendsAtkin` (`PMWire.extendsAtkin_unique`).
@@ -104,7 +107,7 @@ The file uses `open scoped Classical`, as `Assembly.lean:11` does, so the `Decid
 
 | Hypothesis of `oddStagedOfSamePlace` | Owner lane |
 | --- | --- |
-| `sp` (`point`, `point_W`, `point_frob`, `frobenius_sq` at each stage) | same-place lane (hCM lane) |
+| `sp` (`point`, `point_W`, `point_frob`, `frobenius_sq` at each stage) | `point` and `frobenius_sq`: the same-place lane (rc-same-place1); `point_frob`: SP2; `point_W` and the final `sp`: the point_W assembly (after rc-same-place1, SP2, rc-model-generic7 and rc-model-generic8); SP2 states the `SamePlaceData` assembly and the `CMDiagram` and `HeckePacket` agreements with `PointW` as a hypothesis; Hecke (`X.T` and the `HeckePacket` agreement, with `lift`, `source_eq`, `target_eq` and `divisor_eq` through `X.T`): SP2 |
 | `hB : (N φ(N)).primeFactors ⊆ s.B` | stage lane (choice of exclusion set; satisfiable, see below) |
 | `J` (`PMAdelic.JetchevKane`) | hCM lane (the class correspondence, GLUE) |
 | `O` (`PMAdelic.OperatorComparison`: Hecke, Atkin–Lehner and Frobenius compatibilities read through `J.classes`) | hCM lane (ELLIOT, to be proved in Lean) |
@@ -117,7 +120,7 @@ The file uses `open scoped Classical`, as `Assembly.lean:11` does, so the `Decid
 | `π`, `hQ` (the fixed parametrization `X0Model3.model N ⟶ Proj` of `(EcurveZ ℓ)⁄ℚ` over `ℚ`) and `han` (its complex points are `phiAn` of the newform; a substantive input) | the fixed parametrization, unchanged from `oddStagedOfGoodRows` |
 | `F` (`ConsumerNewform`), `hN : 0 < N` | newform data, as in `oddStagedOfGoodRows` |
 | instance arguments `[NeZero (CST.newformLevel (Ecurve ℓ))]`, `[NeZero (StageKummer.level ℓ)]`, `[((EcurveZ ℓ)⁄ℚ).IsElliptic]` | as in `oddStagedOfGoodRows` |
-| `X : ℕ → PMAdelic.CoarseFibre` | fixed by `J`'s owner (hCM lane); `sp` must be supplied for the same `X` |
+| `X : ℕ → PMAdelic.CoarseFibre` | built by the same-place lane (rc-same-place1 onward; assembled by SP2): the moduli-side coarse special fibre at `K = ResidueAt v`, with `X.Point` the supersingular pair classes and `X.ss = univ`; `J` and `O` are stated against it. The hCM-class → `ssPoint` bridge (from `levelDeuringClass` on `EnhancedClasses` to `X.Point = ssPoint`) is open, owned by SP2 |
 
 `hB` is satisfiable. When the setup comes from `Stages.exists_detector_stages`, `s.B` is
 `stageExclusions ℓ Dw hstar B'` (`RC/Stages/DetectorStages.lean:48–49`, `RC/Stages/Actual.lean:99`).
@@ -130,7 +133,7 @@ support of D_w h_* and any other finite set". No `Setup` is built here.
 | Field | Type (on `M := Pinned.Y0Level h₅ htame h₂`, `K := ResidueAt (StageKummer.place s i)`) | Manuscript |
 | --- | --- | --- |
 | `point` | `(X i).Point → (residueSource p K ⟶ (Over.pullback (Spec.map (ofHom (ModelNeron.closed p)))).obj M)` | tex 8479–8492 (supersingular points as special-fibre points) |
-| `point_W` | `∀ q hq he x, point (W q x) = point x ≫ (pullback).map (Wint h₅ htame h₂ (q ^ v_q(N) ∥ N))` | tex 8486–8488 (Atkin–Lehner `W_{p^e}`); needs the special-fibre action of `Wint` (generic5 item 4, not started) |
+| `point_W` | `∀ q hq he x, point (W q x) = point x ≫ (pullback).map (Wint h₅ htame h₂ (q ^ v_q(N) ∥ N))` | tex 8486–8488 (Atkin–Lehner `W_{p^e}`); the point_W assembly proves it (`PointW`) from rc-model-generic8's `atkinLevel_moduli_special`, rc-model-generic7's `atkinLevelAlg` and `Wint` lemma, SP2's `X.W` comparison and rc-same-place1's `point`, point form, φ lemma and `sigmaQ` |
 | `point_frob` | `∀ x, point (frobenius x) = residueFrob p K ≫ point x` | tex 8489–8490 ("Frobenius acts on the supersingular set as the right division-uniformizer operation") |
 | `frobenius_sq` | `Function.Involutive (X i).frobenius` | tex 8489–8492 (uniformizer eigenvalue `+1`) |
 

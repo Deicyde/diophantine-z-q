@@ -177,7 +177,7 @@ Estimated size: 600–900 lines of Lean. No new statement is needed beyond the c
 | Order lemma | `levelEndEquivRight` (`HCMV21/LevelOrderLemma.lean:537`), `levelDeuringClass_order` (`HCMV21/LevelDeuringOrder.lean:93`) | level-N proved from `hInv`, `hT` and `hV` only. |
 | Injectivity | `orderSpan_levelLattice`, `mem_levelHom_of_comp`, `levelDeuringClass_injective` (`HCMV21/LevelDeuringInjective.lean:282`) | level-N proved from `hEt` (étale, with its five inputs), `hInv` and `hR : SeparableReach E₀`. |
 | Surjectivity / `Equiv` | not built | **open**, this lane (see "What remains"). |
-| `JetchevKane.classes` | `PMAdelic/Comparison.lean:88` | GLUE, open: a Lean proof in this lane (the present construction once surjective), then the bridge to the consumer's coarse fibre, owned by the O.7 integral-model lane. |
+| `JetchevKane.classes` | `PMAdelic/Comparison.lean:88` | GLUE, open: a Lean proof in this lane (the present construction once surjective), then the hCM-class → `ssPoint` bridge (from `levelDeuringClass` on `EnhancedClasses` to `X.Point = ssPoint`), owned by SP2. The consumer's coarse fibre `X` is built by the same-place lane (rc-same-place1 onward): the moduli-side coarse special fibre at `K = ResidueAt v`, with `X.Point` the supersingular pair classes and `X.ss = univ`, and `J` and `O` stated against it. |
 | `OperatorComparison` (`hecke`, `atkin`, `frobenius`) | `PMAdelic/Comparison.lean:95` | ELLIOT, open: the next run in this lane. |
 
 None of the hD-taking lemmas (`end_basis_of_deuring`, `span_homT_eq_top_of_deuring`, `exists_rationalTate_coordinates_of_deuring`, `exists_referenceEndOrder`, `detector_referenceCoordinates_of_cyclic`, `exists_detectorEndOrder`) is used in part (2). The GLUE bridge of part (0) does not enter part (2).

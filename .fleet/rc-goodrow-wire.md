@@ -15,8 +15,10 @@ assembles `PMWire.GoodRow` at every stage prime from:
   (target lane);
 * `ModelGeneric5.goodRow_extension`, with witness `Wint` (generic5 lane);
 * one explicit input, `SamePlaceData` (`RC/GoodRowWire/SamePlace.lean`), which holds `point`, `point_W`
-  (stated with `Wint`), `point_frob` and `frobenius_sq`. Its owner is the same-place lane in the hCM
-  lane (tex 8479–8492). It fixes `point` only up to an equivariant choice on each orbit, and faithfulness
+  (stated with `Wint`), `point_frob` and `frobenius_sq` (tex 8479–8492). Owners: `point` and
+  `frobenius_sq`, the same-place lane (rc-same-place1); `point_frob` and Hecke (`X.T`, `HeckePacket`),
+  SP2; `point_W` and the final `sp`, the point_W assembly (after rc-same-place1, SP2,
+  rc-model-generic7 and rc-model-generic8). It fixes `point` only up to an equivariant choice on each orbit, and faithfulness
   is carried by `refs` and `relations` over the same `stageRows … sp`, so `sp`, `refs` and `relations`
   must come from one construction of `point` (report, Known issues). `X.frobenius` is pinned on `X.ss`
   by `O.frobenius` (ELLIOT; `RC/PMAdelic/Comparison.lean:103–104`), read through `J.classes` (GLUE).
@@ -37,8 +39,10 @@ Classical.choice and Quot.sound. The item-1 doc fixes to the target and neron re
 
 **What remains.**
 
-* `sp` per stage, from the same-place lane. `point_W` also needs the special-fibre action of `Wint`
-  (generic5 item 4, not started).
+* `sp` per stage. `point` and `frobenius_sq`: the same-place lane (rc-same-place1); `point_frob` and
+  Hecke: SP2 (which states the assembly with `PointW` as a hypothesis); `point_W` and the final `sp`:
+  the point_W assembly, from rc-model-generic8's `atkinLevel_moduli_special`, rc-model-generic7's
+  `atkinLevelAlg` and `Wint` lemma, SP2's `X.W` comparison and rc-same-place1's pieces.
 * `hB`, from the stage lane. It is satisfiable by choosing `B' ⊇ (N φ(N)).primeFactors` in
   `exists_detector_stages` (`subset_stageExclusions`).
 * `J`, `O` (`PMAdelic.OperatorComparison`, ELLIOT) and `refs` (hCM lane), `relations` (detector specialization), `cusps` (J0Cusps), `H` and `hm`,
@@ -46,7 +50,9 @@ Classical.choice and Quot.sound. The item-1 doc fixes to the target and neron re
 * `π`, `hQ` and `han` (the fixed parametrization and its complex reading `phiAn`; `han` is a
   substantive input), `F` and `hN`, and the three instance arguments (`NeZero` of the newform level
   and of `StageKummer.level ℓ`, and `IsElliptic` of `(EcurveZ ℓ)⁄ℚ`), as in `oddStagedOfGoodRows`.
-* `X`, the coarse fibres: fixed by `J`'s owner (hCM lane); `sp` must be supplied for the same `X`.
+* `X`, the coarse fibres: built by the same-place lane (rc-same-place1 onward; assembled by SP2), the
+  moduli-side coarse special fibre at `K = ResidueAt v` with `X.Point` the supersingular pair classes
+  and `X.ss = univ`; `J` and `O` are stated against it. The hCM-class → `ssPoint` bridge is open (SP2).
 
 Report: `docs/research/rc-goodrow-wire.md`. Log: `scratch/rc-goodrow-wire/log.md`.
 
