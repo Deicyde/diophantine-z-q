@@ -63,6 +63,104 @@ theorem cpGalF_apply (σ : Field.absoluteGaloisGroup F) (z : ℂ_[p]) :
 theorem coe_oAct_gfToGqp (σ : Field.absoluteGaloisGroup F) (z : 𝓞_ℂ_[p]) :
     ((oAct p (gfToGqp p F σ) z : 𝓞_ℂ_[p]) : ℂ_[p]) = cpGalF p F σ (z : ℂ_[p]) := rfl
 
+/-- `A(F̄) → A(ℂ_p)`, `P ↦ P ∘ Spec κ`. -/
+def ptFbarToCp (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) :
+    A.Pt (AlgebraicClosure F) →* A.Pt ℂ_[p] :=
+  ZInQ.Contrib.AbVarBC.extPt (DeRhamPrint.toKer A) (fbarToCp p F)
+
+theorem ptFbarToCp_injective (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) :
+    Function.Injective (ptFbarToCp p F A) :=
+  ZInQ.Contrib.AbVarBC.extPt_injective (DeRhamPrint.toKer A) (fbarToCp p F)
+
+theorem ptFbarToCp_galAct (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F)
+    (σ : Field.absoluteGaloisGroup F) (P : A.Pt (AlgebraicClosure F)) :
+    ptFbarToCp p F A (A.galAct σ P) = A.galAct (cpGalF p F σ) (ptFbarToCp p F A P) :=
+  ZInQ.Contrib.AbVarBC.extPt_galAct (DeRhamPrint.toKer A) (fbarToCp p F) σ (cpGalF p F σ)
+    (fun y => fbarToCp_galF p F σ y) P
+
+theorem ptFbarToCp_torsion (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) (n : ℕ) (q : A.Pt ℂ_[p])
+    (hq : q ^ (p ^ n) = 1) : ∃ P, ptFbarToCp p F A P = q := by
+  have : CharZero F := charZero_of_injective_algebraMap (algebraMap ℚ_[p] F).injective
+  have h : (((p ^ n : ℕ)) : ℤ) ≠ 0 := by
+    exact_mod_cast (pow_pos (Fact.out : p.Prime).pos n).ne'
+  exact T5Torsion.exists_extPt_eq (DeRhamPrint.toKer A) (fbarToCp p F) (p ^ n)
+    (ZInQ.Contrib.AbVarBC.mulIsogeny F (DeRhamPrint.toKer A) _ h).1 q hq
+
+theorem ptFbarToCp_tate_bijective (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) :
+    Function.Bijective
+      (ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p) (MonoidHom.toAdditive (ptFbarToCp p F A))) :=
+  ZInQ.Contrib.AbVarBC.tate_map_bijective_of_torsion _ (ptFbarToCp_injective p F A)
+    fun n q hq => ptFbarToCp_torsion p F A n (Additive.toMul q) hq
+
+theorem ptFbarToCp_tate_galT (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F)
+    (σ : Field.absoluteGaloisGroup F) (x : A.T p) :
+    ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p) (MonoidHom.toAdditive (ptFbarToCp p F A))
+        (A.galT (ℓ := p) σ x) =
+      ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p)
+          (MonoidHom.toAdditive (A.galAct (cpGalF p F σ)))
+        (ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p)
+          (MonoidHom.toAdditive (ptFbarToCp p F A)) x) := by
+  apply Subtype.ext
+  funext n
+  exact congrArg Additive.ofMul (ptFbarToCp_galAct p F A σ (Additive.toMul (x.1 n)))
+
+/-- `T_p` from `F̄`-points equals `T_p` from `ℂ_p`-points, `G_F`-equivariantly, for the actions
+the row uses. -/
+theorem colmezTateFbarCp (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) :
+    -- (a) the `F`-structure of `ℂ_p` is `F ≅ F' ⊆ ℚ̄_p ⊆ ℂ_p`
+    (∀ y : F, algebraMap F ℂ_[p] y = iotaCp p F (equivFieldF p F y)) ∧
+    -- (b) `κ ∘ embF` is the inclusion `ℚ̄_p ⊆ ℂ_p`
+    (∀ x : PadicAlgCl p, fbarToCp p F (embF p F x) = (x : ℂ_[p])) ∧
+    -- (c) `κ ∘ σ = cpAct (gfToGqp σ) ∘ κ`
+    (∀ (σ : Field.absoluteGaloisGroup F) (y : AlgebraicClosure F),
+      fbarToCp p F (galF F σ y) = cpAct p (gfToGqp p F σ) (fbarToCp p F y)) ∧
+    -- (d) on `𝓞_ℂ_p`, `cpGalF σ` is `oAct (gfToGqp σ)`, from which `bdrAct (gfToGqp σ)` is built
+    (∀ (σ : Field.absoluteGaloisGroup F) (z : 𝓞_ℂ_[p]),
+      ((oAct p (gfToGqp p F σ) z : 𝓞_ℂ_[p]) : ℂ_[p]) = cpGalF p F σ (z : ℂ_[p])) ∧
+    -- (e) `G_F`-equivariance on points
+    (∀ (σ : Field.absoluteGaloisGroup F) (P : A.Pt (AlgebraicClosure F)),
+      ptFbarToCp p F A (A.galAct σ P) = A.galAct (cpGalF p F σ) (ptFbarToCp p F A P)) ∧
+    -- (f) injective
+    Function.Injective (ptFbarToCp p F A) ∧
+    -- (g) onto the `pⁿ`-torsion, for every `n`
+    (∀ (n : ℕ) (q : A.Pt ℂ_[p]), q ^ (p ^ n) = 1 → ∃ P, ptFbarToCp p F A P = q) ∧
+    -- (h) bijective from the row's `A.T p` to `T_p(A(ℂ_p))`
+    Function.Bijective
+      (ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p) (MonoidHom.toAdditive (ptFbarToCp p F A))) ∧
+    -- (i) `G_F`-equivariant on `T_p`
+    (∀ (σ : Field.absoluteGaloisGroup F) (x : A.T p),
+      ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p) (MonoidHom.toAdditive (ptFbarToCp p F A))
+          (A.galT (ℓ := p) σ x) =
+        ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p)
+            (MonoidHom.toAdditive (A.galAct (cpGalF p F σ)))
+          (ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p)
+            (MonoidHom.toAdditive (ptFbarToCp p F A)) x)) :=
+  ⟨cpAlgF_algebraMap p F, fbarToCp_embF p F, fbarToCp_galF p F, coe_oAct_gfToGqp p F,
+    ptFbarToCp_galAct p F A, ptFbarToCp_injective p F A, ptFbarToCp_torsion p F A,
+    ptFbarToCp_tate_bijective p F A, ptFbarToCp_tate_galT p F A⟩
+
+/-- The `V_p` form, stated against the row's `A.galRep p`. -/
+theorem colmezVpFbarCp (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F) :
+    ∃ Ψ : A.V p ≃ₗ[ℚ_[p]]
+        ℚ_[p] ⊗[ℤ_[p]] ZInQ.Contrib.G9.PkgI4.I3.Tate.T p (Additive (A.Pt ℂ_[p])),
+      (∀ t : A.T p, Ψ ((1 : ℚ_[p]) ⊗ₜ[ℤ_[p]] t) =
+        (1 : ℚ_[p]) ⊗ₜ[ℤ_[p]]
+          ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p) (MonoidHom.toAdditive (ptFbarToCp p F A)) t) ∧
+      ∀ (σ : Field.absoluteGaloisGroup F) (v : A.V p),
+        Ψ (A.galRep p σ v) =
+          (ZInQ.Contrib.G9.PkgI4.I3.Tate.map (ℓ := p)
+            (MonoidHom.toAdditive (A.galAct (cpGalF p F σ)))).baseChange ℚ_[p] (Ψ v) := by
+  let e := LinearEquiv.ofBijective _ (ptFbarToCp_tate_bijective p F A)
+  refine ⟨e.baseChange ℤ_[p] ℚ_[p] _ _, fun t => ?_, fun σ v => ?_⟩
+  · rw [LinearEquiv.baseChange_tmul, LinearEquiv.ofBijective_apply]
+  · induction v using TensorProduct.inductionOn with
+    | tmul a t =>
+      change e.baseChange ℤ_[p] ℚ_[p] _ _ ((A.galT (ℓ := p) σ).baseChange ℚ_[p] (a ⊗ₜ t)) = _
+      rw [LinearMap.baseChange_tmul, LinearEquiv.baseChange_tmul, LinearEquiv.baseChange_tmul,
+        LinearMap.baseChange_tmul, LinearEquiv.ofBijective_apply, LinearEquiv.ofBijective_apply,
+        ptFbarToCp_tate_galT p F A σ t]
+    | add v₁ v₂ h₁ h₂ => rw [map_add, map_add, h₁, h₂, map_add, map_add]
+
 end
 
 end DeRhamScholze.TatePrints
