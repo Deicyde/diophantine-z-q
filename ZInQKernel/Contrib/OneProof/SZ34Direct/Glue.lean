@@ -30,7 +30,7 @@ theorem silverbergZarhinThm34_of_given (h : SilverbergZarhinThm34Given) :
   intro K _ O _ A
   obtain ⟨E, hfin, hgal, hs⟩ := h K O A
   refine ⟨E, hfin, hgal, fun V hV => ?_⟩
-  haveI : IsDiscreteValuationRing V :=
+  have : IsDiscreteValuationRing V :=
     SZRaynaud.isDiscreteValuationRing_of_finite_separable O V hV
   obtain ⟨𝒩, h𝒩⟩ := exists_neron_groupModelO V (A.baseChange E)
   exact ⟨𝒩, h𝒩, hs V hV 𝒩 h𝒩⟩
