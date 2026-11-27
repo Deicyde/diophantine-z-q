@@ -37,10 +37,10 @@ in the Glossary at the end):
   line of Silverman's *The Arithmetic of Elliptic Curves*, 2nd ed., Appendix C, Evidence 16.5.5, p. 453.
   The construction is the manuscript's; the textbook citation replaces the two previous forward-rank inputs.
 - **Reduced in Lean:** H follows from 18 statements that are still open, and Lean proves every step from them to H
-  (`HDec.HSyn.sixContactMin_of_open100`, the H part of `ZInQ.OneProof.frozenTarget`). By the project's ratings, 7 of
-  them are published theorems (some specialized or weakened) and 11 are consequences of published theorems or of the
+  (`HDec.HSyn.sixContactMin_of_open100`, the H part of `ZInQ.OneProof.frozenTarget`). By the project's ratings, 6 of
+  them are published theorems (some specialized or weakened) and 12 are consequences of published theorems or of the
   manuscript's own text. Under the strict count, which also requires that a reader has checked the statement against
-  the printed page, 5 of the 18 count as published statements in their printed form and 13 do not. Since 2026-11-26,
+  the printed page, 4 of the 18 count as published statements in their printed form and 14 do not. Since 2026-11-26,
   with no human reader available, an adversarial AI reading stands in for the human one (docs/DECISIONS.md).
 - **Open:** the 18 statements behind H and the three inputs of pole completeness: the manuscript's Theorem 5.3,
   the Cassels–Tate pairing, and Silverman's rank-one implication.
