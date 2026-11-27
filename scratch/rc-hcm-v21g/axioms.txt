@@ -1,0 +1,54 @@
+'ZInQ.Manuscript.RC.HCMV21.deuringSupersingularEndOrder_of_rankFour' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.exists_referenceEndOrder_of_rankFour' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+PMAdelic.JetchevKane : (ell : ℕ) →
+  [Fact (Nat.Prime ell)] → ell % 4 = 3 → (N : ℕ) → 0 < N → N.Coprime ell → PMAdelic.CoarseFibre → Type
+PMAdelic.OperatorComparison : (ell : ℕ) →
+  [inst : Fact (Nat.Prime ell)] →
+    (h : ell % 4 = 3) →
+      (N : ℕ) →
+        (hN : 0 < N) →
+          (hcop : N.Coprime ell) → (X : PMAdelic.CoarseFibre) → PMAdelic.JetchevKane ell h N hN hcop X → Prop
+'ZInQ.Manuscript.RC.PMAdelic.JetchevKane.idealClasses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PMAdelic.OperatorComparison.hecke_compare' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PMAdelic.OperatorComparison.atkin_compare' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PMAdelic.OperatorComparison.frobenius_compare' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.PMAdelic.OperatorComparison.frobenius_ss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PMAdelic.geometricInput' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PMAdelic.geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PMWire.adaptComparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.PMWire.adaptOperators' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.enhancedSetoid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.SupersingularEnhanced.exists_generator' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.exists_referenceFrame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.leftClassSetEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.order_star_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.LeftIdeal.exists_integral_primeTo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.classSetEquivOfReference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.classSetEquivOfReference_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.leftRing_classSetEquivOfReference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.exists_levelReferenceCoordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.HomPlacement.exists_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.levelIdeal_locallyPrincipal_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.placedLevelIdeal_locallyPrincipal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.levelDeuringClass' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.levelDeuringClass_reference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.endRight_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.mem_levelHom_of_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.exists_endRight_eq_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.levelEndEquivRight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.levelDeuringClass_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.levelDeuringClass_reference_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.orderSpan_levelLattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.RC.HCMV21.levelDeuringClass_injective' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -46,27 +46,29 @@ variable {m : ℕ} (hN : 0 < StageKummer.level ℓ)
   (hm : (m : ℤ) = -W.hstar) {ap : ℕ → ℤ} {X : PMAdelic.CoarseFibre}
   (J : PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
     (StageKummer.level ℓ) hN hcop X)
+  (O : PMAdelic.OperatorComparison (s.q.stage i).p (StageKummer.stage_mod_four s i)
+    (StageKummer.level ℓ) hN hcop X J)
   (G : PMAdelic.SpecialFibre (s.q.stage i).p (StageKummer.level ℓ)
     (ResidueAt (StageKummer.place s i)) (ReducedEquation (EcurveZ ℓ) (s.q.stage i).p) ap X)
 
 variable {n : ℕ}
-  (A : AdmissibleD (actualStage s i hN hcop H w hm J G) (n : ℤ))
+  (A : AdmissibleD (actualStage s i hN hcop H w hm J O G) (n : ℤ))
   (t : HeegnerDatum (Ecurve ℓ) I.f I.Lat I.κ ((n : ℤ) * W.hstar) 1 W.hstar)
 
 variable
     (ι : letI := (StageKummer.chosenDatum t).field; letI := (StageKummer.chosenDatum t).nf; (StageKummer.chosenDatum t).K →ₐ[ℚ] B (-1) (-((s.q.stage i).p : ℚ)))
     (T : letI := (StageKummer.chosenDatum t).field; letI := (StageKummer.chosenDatum t).nf
-      ∀ p, Nonempty (LocalTorusChart (O7Orbits.ActualOrder (actualStage s i hN hcop H w hm J G)) ι
-        (referenceUnit _ A (selectedBasis s i hN hcop H w hm J G A t) ι)
-        (referenceAffine _ (selectedBasis s i hN hcop H w hm J G A t) ι) p))
+      ∀ p, Nonempty (LocalTorusChart (O7Orbits.ActualOrder (actualStage s i hN hcop H w hm J O G)) ι
+        (referenceUnit _ A (selectedBasis s i hN hcop H w hm J O G A t) ι)
+        (referenceAffine _ (selectedBasis s i hN hcop H w hm J O G A t) ι) p))
     (R : letI := (StageKummer.chosenDatum t).field; letI := (StageKummer.chosenDatum t).nf
-      ∀ b, HasLocalRealizations (actualStage s i hN hcop H w hm J G)
-        (referenceAffine _ (selectedBasis s i hN hcop H w hm J G A t) ι) b)
+      ∀ b, HasLocalRealizations (actualStage s i hN hcop H w hm J O G)
+        (referenceAffine _ (selectedBasis s i hN hcop H w hm J O G A t) ι) b)
 
 variable
     (P : letI := (StageKummer.chosenDatum t).field; letI := (StageKummer.chosenDatum t).nf
-      TorusWeights.TorusParametrization (actualStage s i hN hcop H w hm J G) (n : ℤ)
-        (selectedBasis s i hN hcop H w hm J G A t) (orbitsAt s i hN hcop H w hm J G A t ι T R))
+      TorusWeights.TorusParametrization (actualStage s i hN hcop H w hm J O G) (n : ℤ)
+        (selectedBasis s i hN hcop H w hm J O G A t) (orbitsAt s i hN hcop H w hm J O G A t ι T R))
     (J' : letI := (StageKummer.chosenDatum t).field; letI := (StageKummer.chosenDatum t).nf
       TorusWeights.TorusIdealRead P)
 
@@ -75,8 +77,8 @@ theorem actual_character_projection :
     letI := (StageKummer.chosenDatum t).field
     letI := (StageKummer.chosenDatum t).nf
     ∀ c : ClassGroup (𝓞 (StageKummer.chosenDatum t).K),
-      (weightsAt s i hN hcop H w hm J G A t ι T R P J').character c =
-        (((descentAt s i hN hcop H w hm J G A t).choose (J'.pic c) : ℤ) : Coefficients hN H w) :=
+      (weightsAt s i hN hcop H w hm J O G A t ι T R P J').character c =
+        (((descentAt s i hN hcop H w hm J O G A t).choose (J'.pic c) : ℤ) : Coefficients hN H w) :=
   fun _ => rfl
 
 /-- Cancellation through a composed class label. -/
@@ -93,7 +95,7 @@ theorem actual_artin_projection :
     letI := (StageKummer.chosenDatum t).nz
     ∀ c : ClassGroup (𝓞 (StageKummer.chosenDatum t).K),
       (ringClassArtinEquiv (CST.conductorOrder (StageKummer.chosenDatum t).K 1)).symm
-        (artinAt s i hN hcop H w hm J G A t ι T R P J' c) = J'.pic c := by
+        (artinAt s i hN hcop H w hm J O G A t ι T R P J' c) = J'.pic c := by
   letI := (StageKummer.chosenDatum t).field
   letI := (StageKummer.chosenDatum t).nf
   letI := (StageKummer.chosenDatum t).nz
@@ -109,14 +111,14 @@ set_option linter.style.haveILetI false in
 under the actual Artin labelling. -/
 theorem artinMatchAt :
     StageKummer.ArtinMatch (StageKummer.chosenDatum t)
-      (artinAt s i hN hcop H w hm J G A t ι T R P J')
-      (weightsAt s i hN hcop H w hm J G A t ι T R P J').character := by
+      (artinAt s i hN hcop H w hm J O G A t ι T R P J')
+      (weightsAt s i hN hcop H w hm J O G A t ι T R P J').character := by
   letI := (StageKummer.chosenDatum t).field
   letI := (StageKummer.chosenDatum t).nf
   letI := (StageKummer.chosenDatum t).nz
   let F := (StageKummer.chosenDatum t).K
   let χ := (StageKummer.chosenDatum t).χ
-  let C := descentAt s i hN hcop H w hm J G A t
+  let C := descentAt s i hN hcop H w hm J O G A t
   have hχ : IsQuadRingClassChar F 1 (-(m : ℤ)) χ := by
     rw [hm, neg_neg]
     exact (StageKummer.chosenDatum t).quad
@@ -125,8 +127,8 @@ theorem artinMatchAt :
   have hc : (C.choose (J'.pic c) : ℤ) = chiSign χ (J'.pic c) :=
     character_eq_on_class C hχ J'.pic c (J'.ideal c)
       (by simpa only [Int.natAbs_neg, Int.natAbs_natCast] using hcopJ) (J'.pic_eq c)
-  rw [actual_character_projection s i hN hcop H w hm J G A t ι T R P J' c,
-    actual_artin_projection s i hN hcop H w hm J G A t ι T R P J' c]
+  rw [actual_character_projection s i hN hcop H w hm J O G A t ι T R P J' c,
+    actual_artin_projection s i hN hcop H w hm J O G A t ι T R P J' c]
   exact congrArg (fun x : ℤ => (x : Coefficients hN H w)) hc
 
 end Row

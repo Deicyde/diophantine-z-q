@@ -3,8 +3,9 @@ import ZInQKernel.Contrib.OneProof.RC.PMAdelic.Comparison
 /-!
 # Appendix F geometry for the proved level order
 
-After the named comparison, only ELLIOT's modular special-fibre statements
-are needed for the supersingular stage. The divisor identities and the
+After the class-set comparison (GLUE, `JetchevKane`) and the operator
+comparison (ELLIOT, `OperatorComparison`), only ELLIOT's modular special-fibre
+statements are needed for the supersingular stage. The divisor identities and the
 affine cusp term are handled by the imported `PMGeometry.Geometry`.
 -/
 
@@ -17,8 +18,9 @@ namespace ZInQ.Manuscript.RC.PMAdelic
 open Eichler Adelic Stages
 open PMGeometry (DivZero center)
 
-/-- The remaining ELLIOT inputs for the coarse model `X`. All operator
-comparisons on supersingular points are supplied separately by `JetchevKane`. -/
+/-- The remaining ELLIOT inputs for the coarse model `X`. The class-set
+comparison is supplied by `JetchevKane` (GLUE) and all operator comparisons on
+supersingular points by `OperatorComparison` (ELLIOT). -/
 structure SpecialFibre (ell N : ℕ) [Fact ell.Prime]
     (K : Type*) [Field K] [Algebra (ZMod ell) K] [DecidableEq K]
     (Ebar : WeierstrassCurve (ZMod ell)) (ap : ℕ → ℤ) (X : CoarseFibre) where
@@ -58,7 +60,8 @@ variable {ell N : ℕ} [Fact ell.Prime] {h : ell % 4 = 3} {hN : 0 < N} {hcop : N
 
 /-- The special-fibre model with its comparison fields discharged on the
 proved level order. -/
-def geometricInput (C : JetchevKane ell h N hN hcop X) (S : SpecialFibre ell N K Ebar ap X) :
+def geometricInput (C : JetchevKane ell h N hN hcop X)
+    (O : OperatorComparison ell h N hN hcop X C) (S : SpecialFibre ell N K Ebar ap X) :
     PMGeometry.GeometricInput (adelic ell h N hN hcop) K Ebar ap where
   Point := X.Point
   ss := X.ss
@@ -68,10 +71,10 @@ def geometricInput (C : JetchevKane ell h N hN hcop X) (S : SpecialFibre ell N K
   W := X.W
   frobenius := X.frobenius
   frobenius_sq := S.frobenius_sq
-  frobenius_ss := C.frobenius_ss
-  hecke_compare := C.hecke_compare
-  atkin_compare := C.atkin_compare
-  frobenius_compare := C.frobenius_compare
+  frobenius_ss := O.frobenius_ss
+  hecke_compare := O.hecke_compare
+  atkin_compare := O.atkin_compare
+  frobenius_compare := O.frobenius_compare
   T_infinity := S.T_infinity
   frobenius_infinity := S.frobenius_infinity
   J := S.J
@@ -85,10 +88,12 @@ def geometricInput (C : JetchevKane ell h N hN hcop X) (S : SpecialFibre ell N K
   frobenius_quotient := S.frobenius_quotient
 
 /-- Appendix F's geometry at the constructed level order, conditional on
-the named comparison and the indicated modular special-fibre statements. -/
-def geometry (C : JetchevKane ell h N hN hcop X) (S : SpecialFibre ell N K Ebar ap X) :
+the class-set comparison (GLUE), the operator comparison (ELLIOT) and the
+indicated modular special-fibre statements. -/
+def geometry (C : JetchevKane ell h N hN hcop X)
+    (O : OperatorComparison ell h N hN hcop X C) (S : SpecialFibre ell N K Ebar ap X) :
     PM.Geometry K (levelOrder ell h N hN) N Ebar ap :=
-  (geometricInput C S).geometry
+  (geometricInput C O S).geometry
 
 
 end ZInQ.Manuscript.RC.PMAdelic

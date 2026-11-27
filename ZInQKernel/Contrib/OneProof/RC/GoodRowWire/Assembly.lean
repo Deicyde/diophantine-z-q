@@ -3,7 +3,7 @@ import ZInQKernel.Contrib.OneProof.RC.PMWire.Assembly
 
 /-! **The odd staged instance from the same-place data** (tex 9101–9113, 8366–8368, 8476–8492).
 
-`oddStagedOfSamePlace` is `PMWire.oddStagedOfGoodRows` (`RC/PMWire/Assembly.lean:220`) with its
+`oddStagedOfSamePlace` is `PMWire.oddStagedOfGoodRows` (`RC/PMWire/Assembly.lean:222`) with its
 hypotheses `G` and `hcop` replaced by
 
 * `hB : (N φ(N)).primeFactors ⊆ s.B` (`N := StageKummer.level ℓ`), and
@@ -11,7 +11,7 @@ hypotheses `G` and `hcop` replaced by
 
 under the substitution `R i := LocalIntegers (s.q.stage i).p`, `G := stageRows a s π hQ hN hB sp`
 (`G i = stageRow s hN hB π hQ i (sp i)`) and `hcop := stage_coprime s hN hB`. The hypotheses
-`J`, `relations`, `cusps`, `refs` and `ha` mention `G`, `hcop` or `R` and are restated with
+`J`, `O`, `relations`, `cusps`, `refs` and `ha` mention `G`, `hcop` or `R` and are restated with
 exactly the same content after this substitution. `htame` and `hcop` are derived from `hB`
 (`ModelGeneric5.stagePrime_not_dvd_tame`, `stage_coprime`), `h₂` from `ModelGeneric5.two_le_level
 hN` and `h₅` from `ModelGeneric5.stagePrime_five_le`. Provenance: wiring only, on the spot (c). -/
@@ -72,8 +72,9 @@ Remaining hypotheses and their owners:
   `ModelGeneric5.stagePrime_not_dvd_tame`).
 * `sp` (the same-place lane in the hCM lane; tex 8479–8492): `point`, `point_W`, `point_frob`,
   `frobenius_sq` at every stage.
-* `J` (the hCM lane: Jetchev–Kane class correspondence GLUE and its three compatibilities;
-  tex 8468–8474), `relations` (the detector-specialization lane: `Relations` of
+* `J` (the hCM lane: the Jetchev–Kane class correspondence, GLUE; tex 8468–8474), `O` (the
+  hCM lane: `PMAdelic.OperatorComparison`, the Hecke, Atkin–Lehner and Frobenius
+  compatibilities read through `J`, ELLIOT, to be proved in Lean), `relations` (the detector-specialization lane: `Relations` of
   `RC/PMWire/Operators.lean`), `cusps` (Manin–Drinfeld torsion and `KillsTranslation`; the
   J0Cusps lane), `H`, `hm` (discriminant data of the stage, the stage lane), `refs` (the CM
   points and the selected-row reference comparisons; the hCM lane), `ha` (the aθ definition
@@ -85,6 +86,8 @@ theorem oddStagedOfSamePlace
     (sp : ∀ i, StageSamePlace s hN hB (X i) i)
     (J : ∀ i, PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
       (StageKummer.level ℓ) hN (stage_coprime s hN hB i) (X i))
+    (O : ∀ i, PMAdelic.OperatorComparison (s.q.stage i).p (StageKummer.stage_mod_four s i)
+      (StageKummer.level ℓ) hN (stage_coprime s hN hB i) (X i) (J i))
     (relations : ∀ i, (stageRows a s π hQ hN hB sp i).Relations ap)
     (cusps : ElkikPrint.ManinDrinfeldTorsion (StageKummer.level ℓ)
         (J0Cusps.algebraicCuspClass (StageKummer.level ℓ)) ∧
@@ -92,34 +95,35 @@ theorem oddStagedOfSamePlace
     (H : ∀ i, DiscriminantData m (StageKummer.level ℓ) (s.q.stage i).p)
     (hm : (m : ℤ) = -(withParamIndices a).hstar)
     (refs : ∀ i D (hD : (withParamIndices a).admissible i D),
-      Reference a s F π hQ han hN (stage_coprime s hN hB) H hm J (stageRows a s π hQ hN hB sp)
+      Reference a s F π hQ han hN (stage_coprime s hN hB) H hm J O (stageRows a s π hQ hN hB sp)
         relations i D hD)
     (ha : ∀ i D (hD : (withParamIndices a).admissible i D),
       let row := actualRows s hN (stage_coprime s hN hB) H F.signs hm
-        (fun i => adaptComparison (J i))
+        (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i))
         (fibreFamily a s F π hQ han (stageRows a s π hQ hN hB sp) relations)
         (AtkinSign.actualRowFamily s hN (stage_coprime s hN hB) H F.signs hm
-          (fun i => adaptComparison (J i))
+          (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i))
           (signedFamily a s F π hQ han (stageRows a s π hQ hN hB sp) relations)
           (hCuspAt (a := a) (s := s) (F := F) (π := π) (hQ := hQ) (han := han) (hN := hN)
-            (hcop := stage_coprime s hN hB) (J := J) (G := stageRows a s π hQ hN hB sp)
+            (hcop := stage_coprime s hN hB) (J := J) (O := O) (G := stageRows a s π hQ hN hB sp)
             (relations := relations) (cusps := cusps))
           (pointInputs a s hN (stage_coprime s hN hB) H F.signs hm
-            (fun i => adaptComparison (J i))
+            (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i))
             (fibreFamily a s F π hQ han (stageRows a s π hQ hN hB sp) relations)
-            (fun i D hD => referenceComparisons a s F π hQ han hN (stage_coprime s hN hB) H hm J
+            (fun i D hD => referenceComparisons a s F π hQ han hN (stage_coprime s hN hB) H hm J O
               (stageRows a s π hQ hN hB sp) relations i D hD (refs i D hD)))) i D hD
       (2 : Coefficients hN (H 0) F.signs) ^ (withParamIndices a).Mθ i ∣
         row.weights.phase row.reference * ((withParamIndices a).aθ i D : Coefficients hN (H 0) F.signs) -
           Visibility.thetaCoeff
             (actualFamily s hN (stage_coprime s hN hB) H F.signs hm (fun i => adaptComparison (J i))
+              (fun i => adaptOperators (O i))
               (fibreFamily a s F π hQ han (stageRows a s π hQ hN hB sp) relations) i).visibility
             ((m : ℤ) * D : ℤ))
     (hL : MultiplierKillsNativeTorsion (Ecurve ℓ) a.f a.Lat a.κ (withParamIndices a).hstar L)
     (hsign : AdmissibleOddSign (withParamIndices a).toRCData) :
     Nonempty (OddStagedInstance (withParamIndices a)) :=
   oddStagedOfGoodRows (a := a) (s := s) (F := F) (π := π) (hQ := hQ) (han := han) (hN := hN)
-    (hcop := stage_coprime s hN hB) (H := H) (hm := hm) (J := J)
+    (hcop := stage_coprime s hN hB) (H := H) (hm := hm) (J := J) (O := O)
     (G := stageRows a s π hQ hN hB sp) (relations := relations) (cusps := cusps) (refs := refs)
     ha hL hsign
 

@@ -117,6 +117,8 @@ variable {R : ℕ → Type} [∀ i, CommRing (R i)] [∀ i, Algebra (R i) ℚ]
   (hm : (m : ℤ) = -(withParamIndices a).hstar) {ap : ℕ → ℤ} {X : ℕ → PMAdelic.CoarseFibre}
   (J : ∀ i, PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
     (StageKummer.level ℓ) hN (hcop i) (X i))
+  (O : ∀ i, PMAdelic.OperatorComparison (s.q.stage i).p (StageKummer.stage_mod_four s i)
+    (StageKummer.level ℓ) hN (hcop i) (X i) (J i))
   (G : ∀ i, GoodRow (R i) (s.q.stage i).p (StageKummer.level ℓ)
     (ResidueAt (StageKummer.place s i)) (ReducedEquation (EcurveZ ℓ) (s.q.stage i).p)
     (X i) (fixedMap (C := EcurveZ ℓ) π hQ))
@@ -135,9 +137,9 @@ abbrev fibreFamily (i : ℕ) := (signedFamily a s F π hQ han G relations i).toS
 include cusps in
 /-- The translation is killed in exactly the geometry used by the actual family. -/
 theorem hCuspAt (i : ℕ) (j : Fin (StageKummer.level ℓ).primeFactors.card) :
-    L • (PMAdelic.geometry (adaptComparison (J i)) (fibreFamily a s F π hQ han G relations i)).cusp (levelPrime _ j).val = 0 :=
+    L • (PMAdelic.geometry (adaptComparison (J i)) (adaptOperators (O i)) (fibreFamily a s F π hQ han G relations i)).cusp (levelPrime _ j).val = 0 :=
   by
-    rw [(G i).cusp_eq_translation (J i) (normalized a F π hQ han)
+    rw [(G i).cusp_eq_translation (J i) (O i) (normalized a F π hQ han)
       (stageForm a F).2.property.2 (relations i)]
     exact (G i).translation_killed (cusps.2 i) ((G i).based (stageZero a π hQ han))
       (movingCusps _) cusps.1 _
@@ -161,83 +163,83 @@ structure Reference where
   ref : Orientations (StageKummer.level ℓ).primeFactors.card
   /-- The actual coarse CM reductions (before reading the parametrization). -/
   r : let t := (selectedDatum a s i D hD).val
-    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations) i D hD
-    (supportAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (fibreFamily a s F π hQ han G relations i) A t).classGroup →
+    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations) i D hD
+    (supportAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (adaptOperators (O i)) (fibreFamily a s F π hQ han G relations i) A t).classGroup →
       (X i).Point
   /-- Geometric conductor-one reduction compared with the reference orbit. -/
   hCM : let t := (selectedDatum a s i D hD).val
     let S := fibreFamily a s F π hQ han G relations i
-    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations) i D hD
+    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations) i D hD
     ∀ c, r c = ((J i).idealClasses (Visibility.ThetaStage.zc
-      (orbitsAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) S A t embedding
-        (chartAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) S A t embedding)
-        (realizationsAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) S A t embedding)).param (ref, c))).val
+      (orbitsAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (adaptOperators (O i)) S A t embedding
+        (chartAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (adaptOperators (O i)) S A t embedding)
+        (realizationsAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (adaptOperators (O i)) S A t embedding)).param (ref, c))).val
   /-- Comparison with the actual geometric source and elliptic lifts. -/
   diagram : let t := (selectedDatum a s i D hD).val
     let S := fibreFamily a s F π hQ han G relations i
-    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations) i D hD
+    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations) i D hD
     CMDiagram (C := EcurveZ ℓ) (StageKummer.chosenDatum (I := genusInstance a) (D := (D.toNat : ℤ)) t)
       (StageKummer.place s i)
       (StageKummer.chosenDatumPlace s i t
         (show stageTest s.q i (D.toNat : ℤ) from A.detecting))
       (StageKummer.goodAt s i) π hQ (G i) r
-      (artinLabelAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) S A t)
+      (artinLabelAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (adaptOperators (O i)) S A t)
 
 /-- The exact `O7Residual.At` pointwise premise, for the actual selector,
 Artin label and `StageKummer.reduceDatum`. -/
-theorem hpiAt (P : Reference a s F π hQ han hN hcop H hm J G relations i D hD) :
+theorem hpiAt (P : Reference a s F π hQ han hN hcop H hm J O G relations i D hD) :
     let t := (selectedDatum a s i D hD).val
     let S := fibreFamily a s F π hQ han G relations i
-    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations) i D hD
-    ∀ c, (PMAdelic.geometricInput (adaptComparison (J i)) S).specialize (.inl (P.r c)) =
+    let A := admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations) i D hD
+    ∀ c, (PMAdelic.geometricInput (adaptComparison (J i)) (adaptOperators (O i)) S).specialize (.inl (P.r c)) =
       StageKummer.reduceDatum s i t (show stageTest s.q i (D.toNat : ℤ) from A.detecting)
         (conjugate (StageKummer.chosenDatum (I := genusInstance a) (D := (D.toNat : ℤ)) t)
-          (artinLabelAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) S A t c)) :=
+          (artinLabelAt s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (adaptOperators (O i)) S A t c)) :=
   fun c => by
-    rw [(G i).specialize_eq_value (J i) (normalized a F π hQ han)
+    rw [(G i).specialize_eq_value (J i) (O i) (normalized a F π hQ han)
       (stageForm a F).2.property.2 (relations i)]
     exact hpi_of_cmDiagram (C := EcurveZ ℓ) _ _ _ _ π hQ (G i) P.r _ P.diagram han c
 
 /-- Fill the selector's point input using the proved specialization square. -/
-def referenceComparisons (P : Reference a s F π hQ han hN hcop H hm J G relations i D hD) :
-    PointComparisons s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (fibreFamily a s F π hQ han G relations i)
-      (admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations) i D hD)
+def referenceComparisons (P : Reference a s F π hQ han hN hcop H hm J O G relations i D hD) :
+    PointComparisons s i hN (hcop i) (H i) F.signs hm (adaptComparison (J i)) (adaptOperators (O i)) (fibreFamily a s F π hQ han G relations i)
+      (admissibleNatAt s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations) i D hD)
       (selectedDatum a s i D hD).val where
   embedding := P.embedding
   ref := P.ref
   r := fun c => .inl (P.r c)
   hCM := fun c => congrArg Sum.inl (P.hCM c)
-  hπ := hpiAt a s F π hQ han hN hcop H hm J G relations i D hD P
+  hπ := hpiAt a s F π hQ han hN hcop H hm J O G relations i D hD P
 
 end Reference
 
 variable (refs : ∀ i D (hD : (withParamIndices a).admissible i D),
-  Reference a s F π hQ han hN hcop H hm J G relations i D hD)
+  Reference a s F π hQ han hN hcop H hm J O G relations i D hD)
 
 /-- The odd staged instance for (O.7), with the fixed parametrization
 determining the quotient, `hπ`, the special-fibre Atkin equation and
 the specialization of the cusp annihilation. -/
 theorem oddStagedOfGoodRows
     (ha : ∀ i D (hD : (withParamIndices a).admissible i D),
-      let row := actualRows s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations)
-        (AtkinSign.actualRowFamily s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (signedFamily a s F π hQ han G relations)
+      let row := actualRows s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations)
+        (AtkinSign.actualRowFamily s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (signedFamily a s F π hQ han G relations)
           (hCuspAt (a := a) (s := s) (F := F) (π := π) (hQ := hQ) (han := han) (hN := hN) (hcop := hcop)
-            (J := J) (G := G) (relations := relations) (cusps := cusps))
-          (pointInputs a s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations)
-            (fun i D hD => referenceComparisons a s F π hQ han hN hcop H hm J G relations
+            (J := J) (O := O) (G := G) (relations := relations) (cusps := cusps))
+          (pointInputs a s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations)
+            (fun i D hD => referenceComparisons a s F π hQ han hN hcop H hm J O G relations
               i D hD (refs i D hD)))) i D hD
       (2 : Coefficients hN (H 0) F.signs) ^ (withParamIndices a).Mθ i ∣
         row.weights.phase row.reference * ((withParamIndices a).aθ i D : Coefficients hN (H 0) F.signs) -
           Visibility.thetaCoeff
-            (actualFamily s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fibreFamily a s F π hQ han G relations) i).visibility
+            (actualFamily s hN hcop H F.signs hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (fibreFamily a s F π hQ han G relations) i).visibility
             ((m : ℤ) * D : ℤ))
     (hL : MultiplierKillsNativeTorsion (Ecurve ℓ) a.f a.Lat a.κ (withParamIndices a).hstar L)
     (hsign : AdmissibleOddSign (withParamIndices a).toRCData) :
     Nonempty (OddStagedInstance (withParamIndices a)) :=
-  oddStagedOfPinnedParamValues a s F hN hcop H hm (fun i => adaptComparison (J i)) (signedFamily a s F π hQ han G relations)
-    (fun i D hD => referenceComparisons a s F π hQ han hN hcop H hm J G relations i D hD (refs i D hD))
+  oddStagedOfPinnedParamValues a s F hN hcop H hm (fun i => adaptComparison (J i)) (fun i => adaptOperators (O i)) (signedFamily a s F π hQ han G relations)
+    (fun i D hD => referenceComparisons a s F π hQ han hN hcop H hm J O G relations i D hD (refs i D hD))
     (hCuspAt (a := a) (s := s) (F := F) (π := π) (hQ := hQ) (han := han) (hN := hN) (hcop := hcop)
-      (J := J) (G := G) (relations := relations) (cusps := cusps)) ha hL hsign
+      (J := J) (O := O) (G := G) (relations := relations) (cusps := cusps)) ha hL hsign
 
 
 end ZInQ.Manuscript.RC.PMWire

@@ -57,15 +57,17 @@ variable {m : ℕ} (hN : 0 < StageKummer.level ℓ)
   (hm : (m : ℤ) = -(withParamIndices a).hstar) {ap : ℕ → ℤ} {X : ℕ → PMAdelic.CoarseFibre}
   (J : ∀ i, PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
     (StageKummer.level ℓ) hN (hcop i) (X i))
+  (O : ∀ i, PMAdelic.OperatorComparison (s.q.stage i).p (StageKummer.stage_mod_four s i)
+    (StageKummer.level ℓ) hN (hcop i) (X i) (J i))
   (S : ∀ i, AtkinSign.SpecialFibreAtSigns (s.q.stage i).p (StageKummer.level ℓ)
     (ResidueAt (StageKummer.place s i)) (ReducedEquation (EcurveZ ℓ) (s.q.stage i).p) ap (X i) F.signs)
 
 variable (comparisons : ∀ i D (hD : (withParamIndices a).admissible i D),
-  PointComparisons s i hN (hcop i) (H i) F.signs hm (J i) (S i).toSpecialFibre
-    (admissibleNatAt s hN hcop H F.signs hm J (fun i => (S i).toSpecialFibre) i D hD)
+  PointComparisons s i hN (hcop i) (H i) F.signs hm (J i) (O i) (S i).toSpecialFibre
+    (admissibleNatAt s hN hcop H F.signs hm J O (fun i => (S i).toSpecialFibre) i D hD)
     (selectedDatum a s i D hD).val)
   (hCusp : ∀ i (j : Fin (StageKummer.level ℓ).primeFactors.card),
-    L • (PMAdelic.geometry (J i) (S i).toSpecialFibre).cusp
+    L • (PMAdelic.geometry (J i) (O i) (S i).toSpecialFibre).cusp
       (levelPrime (StageKummer.level ℓ) j).val = 0)
 
 set_option maxHeartbeats 1600000 in
@@ -75,21 +77,21 @@ with the same pinned sign in the coefficient ring, rows and geometry. The
 remaining `ha` reads the fixed integer `aθ` on these very rows. -/
 theorem oddStagedOfPinnedParamValues
     (ha : ∀ i D (hD : (withParamIndices a).admissible i D),
-      let row := actualRows s hN hcop H F.signs hm J (fun i => (S i).toSpecialFibre)
-        (AtkinSign.actualRowFamily s hN hcop H F.signs hm J S hCusp
-          (pointInputs a s hN hcop H F.signs hm J (fun i => (S i).toSpecialFibre) comparisons))
+      let row := actualRows s hN hcop H F.signs hm J O (fun i => (S i).toSpecialFibre)
+        (AtkinSign.actualRowFamily s hN hcop H F.signs hm J O S hCusp
+          (pointInputs a s hN hcop H F.signs hm J O (fun i => (S i).toSpecialFibre) comparisons))
         i D hD
       (2 : Coefficients hN (H 0) F.signs) ^ (withParamIndices a).Mθ i ∣
         row.weights.phase row.reference *
             ((withParamIndices a).aθ i D : Coefficients hN (H 0) F.signs) -
           Visibility.thetaCoeff
-            (actualFamily s hN hcop H F.signs hm J (fun i => (S i).toSpecialFibre) i).visibility
+            (actualFamily s hN hcop H F.signs hm J O (fun i => (S i).toSpecialFibre) i).visibility
             ((m : ℤ) * D : ℤ))
     (hL : MultiplierKillsNativeTorsion (Ecurve ℓ) a.f a.Lat a.κ (withParamIndices a).hstar L)
     (hsign : AdmissibleOddSign (withParamIndices a).toRCData) :
     Nonempty (OddStagedInstance (withParamIndices a)) :=
-  AtkinSign.oddStagedActual s hN hcop H F.signs hm J S hCusp
-    (pointInputs a s hN hcop H F.signs hm J (fun i => (S i).toSpecialFibre) comparisons) ha hL hsign
+  AtkinSign.oddStagedActual s hN hcop H F.signs hm J O S hCusp
+    (pointInputs a s hN hcop H F.signs hm J O (fun i => (S i).toSpecialFibre) comparisons) ha hL hsign
 
 end Selector
 

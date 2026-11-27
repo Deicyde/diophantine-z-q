@@ -62,8 +62,9 @@ annihilation is additive since it is the reading of a group section. -/
 theorem hCusp {L : ℕ} (C : G.CuspInput L) {ap : ℕ → ℤ} {w : ℕ → ℤˣ}
     (H : G.Relations ap w) {hell : ell % 4 = 3} {hN : 0 < N} {hcop : N.Coprime ell}
     (J : PMAdelic.JetchevKane ell hell N hN hcop X)
+    (O : PMAdelic.OperatorComparison ell hell N hN hcop X J)
     (q : ℕ) (hq : q.Prime) (he : 0 < N.factorization q) :
-    L • (PMAdelic.geometry J (G.specialFibre H).toSpecialFibre).cusp q = 0 := by
+    L • (PMAdelic.geometry J O (G.specialFibre H).toSpecialFibre).cusp q = 0 := by
   have ht : IsOfFinAddOrder (G.rationalCusp hq he) := by
     rw [← C.image q hq he]
     obtain ⟨n, hn, h⟩ := isOfFinAddOrder_iff_nsmul_eq_zero.mp (C.torsion q hq he)
@@ -79,9 +80,9 @@ theorem hCusp {L : ℕ} (C : G.CuspInput L) {ap : ℕ → ℤ} {w : ℕ → ℤ�
     change f ((G.movedCusp hq he) ^ L) = f 1
     rw [map_pow, map_one]
     exact hg
-  change L • (PMAdelic.geometricInput J (G.specialFibre H).toSpecialFibre).specialize
+  change L • (PMAdelic.geometricInput J O (G.specialFibre H).toSpecialFibre).specialize
     (X.W q G.infinity) = 0
-  rw [G.specialize_eq_value H J]
+  rw [G.specialize_eq_value H J O]
   apply Subtype.ext
   change L • G.evaluate (G.point (X.W q G.infinity)) = 0
   rw [G.point_W q hq he, G.point_infinity, evaluate]

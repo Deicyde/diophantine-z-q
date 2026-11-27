@@ -28,11 +28,13 @@ variable {m : ℕ} (hN : 0 < StageKummer.level ℓ)
   (hm : (m : ℤ) = -W.hstar) {ap : ℕ → ℤ} {X : PMAdelic.CoarseFibre}
   (J : PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
     (StageKummer.level ℓ) hN hcop X)
+  (O : PMAdelic.OperatorComparison (s.q.stage i).p (StageKummer.stage_mod_four s i)
+    (StageKummer.level ℓ) hN hcop X J)
   (G : PMAdelic.SpecialFibre (s.q.stage i).p (StageKummer.level ℓ)
     (ResidueAt (StageKummer.place s i)) (ReducedEquation (EcurveZ ℓ) (s.q.stage i).p) ap X)
 
 variable {n : ℕ}
-  (A : AdmissibleD (actualStage s i hN hcop H w hm J G) (n : ℤ))
+  (A : AdmissibleD (actualStage s i hN hcop H w hm J O G) (n : ℤ))
   (t : HeegnerDatum (Ecurve ℓ) I.f I.Lat I.κ ((n : ℤ) * W.hstar) 1 W.hstar)
 
 /-- The reference embedding, the actual selector value and the two
@@ -42,16 +44,16 @@ structure PointInputs where
   embedding : letI := (StageKummer.chosenDatum t).field; letI := (StageKummer.chosenDatum t).nf
     (StageKummer.chosenDatum t).K →ₐ[ℚ] B (-1) (-((s.q.stage i).p : ℚ))
   ref : Orientations (StageKummer.level ℓ).primeFactors.card
-  r : (supportAt s i hN hcop H w hm J G A t).classGroup → X.Point
+  r : (supportAt s i hN hcop H w hm J O G A t).classGroup → X.Point
   ht : I.selG (n : ℤ) = some t
   hCM : ∀ c, r c =
     (J.idealClasses (Visibility.ThetaStage.zc
-      (orbitsAt s i hN hcop H w hm J G A t embedding
-        (chartAt s i hN hcop H w hm J G A t embedding)
-        (realizationsAt s i hN hcop H w hm J G A t embedding)).param (ref, c))).val
-  hπ : ∀ c, (PMAdelic.geometricInput J G).specialize (r c) =
+      (orbitsAt s i hN hcop H w hm J O G A t embedding
+        (chartAt s i hN hcop H w hm J O G A t embedding)
+        (realizationsAt s i hN hcop H w hm J O G A t embedding)).param (ref, c))).val
+  hπ : ∀ c, (PMAdelic.geometricInput J O G).specialize (r c) =
     StageKummer.reduceDatum s i t (show stageTest s.q i (n : ℤ) from A.detecting)
-      (conjugate (StageKummer.chosenDatum t) (artinLabelAt s i hN hcop H w hm J G A t c))
+      (conjugate (StageKummer.chosenDatum t) (artinLabelAt s i hN hcop H w hm J O G A t c))
 
 end Row
 
@@ -68,14 +70,16 @@ variable {m : ℕ} (hN : 0 < StageKummer.level ℓ)
   (hm : (m : ℤ) = -W.hstar) {ap : ℕ → ℤ} {X : ℕ → PMAdelic.CoarseFibre}
   (J : ∀ i, PMAdelic.JetchevKane (s.q.stage i).p (StageKummer.stage_mod_four s i)
     (StageKummer.level ℓ) hN (hcop i) (X i))
+  (O : ∀ i, PMAdelic.OperatorComparison (s.q.stage i).p (StageKummer.stage_mod_four s i)
+    (StageKummer.level ℓ) hN (hcop i) (X i) (J i))
   (G : ∀ i, PMAdelic.SpecialFibre (s.q.stage i).p (StageKummer.level ℓ)
     (ResidueAt (StageKummer.place s i)) (ReducedEquation (EcurveZ ℓ) (s.q.stage i).p) ap (X i))
 
 /-- The admissible integer index is positive and has the same odd filter
 when read as a natural index. -/
 theorem admissibleNatAt (i : ℕ) (D : ℤ) (hD : W.admissible i D) :
-    AdmissibleD (actualStage s i hN (hcop i) (H i) w hm (J i) (G i)) (D.toNat : ℤ) := by
-  have h := admissibleAt s i hN (hcop i) (H i) w hm (J i) (G i) hD
+    AdmissibleD (actualStage s i hN (hcop i) (H i) w hm (J i) (O i) (G i)) (D.toNat : ℤ) := by
+  have h := admissibleAt s i hN (hcop i) (H i) w hm (J i) (O i) (G i) hD
   rw [Int.toNat_of_nonneg h.positive.le]
   exact h
 
@@ -84,30 +88,30 @@ variable
     (w (levelPrime (StageKummer.level ℓ) j).val : ℤ) =
       (G i).atkinSign (levelPrime (StageKummer.level ℓ) j).val)
   (hCusp : ∀ i (j : Fin (StageKummer.level ℓ).primeFactors.card),
-    L • (PMAdelic.geometry (J i) (G i)).cusp (levelPrime (StageKummer.level ℓ) j).val = 0)
+    L • (PMAdelic.geometry (J i) (O i) (G i)).cusp (levelPrime (StageKummer.level ℓ) j).val = 0)
   (points : ∀ i D (hD : W.admissible i D),
-    PointInputs s i hN (hcop i) (H i) w hm (J i) (G i)
-      (admissibleNatAt s hN hcop H w hm J G i D hD))
+    PointInputs s i hN (hcop i) (H i) w hm (J i) (O i) (G i)
+      (admissibleNatAt s hN hcop H w hm J O G i D hD))
 
 set_option maxHeartbeats 450000 in
 set_option maxRecDepth 1600 in
 /-- Actual comparison rows at every admissible index, with no
 coefficient reading. `actualRows` transports the result back to D. -/
 def actualRowFamily (i : ℕ) (D : ℤ) (hD : W.admissible i D) :
-    DatumAt (actualFamily s hN hcop H w hm J G i) (D.toNat : ℤ)
+    DatumAt (actualFamily s hN hcop H w hm J O G i) (D.toNat : ℤ)
       (lamOf W.Mθ L I.selG s.ev i (D.toNat : ℤ)) := by
-  change DatumAt (actualStage s i hN (hcop i) (H i) w hm (J i) (G i)) _ _
+  change DatumAt (actualStage s i hN (hcop i) (H i) w hm (J i) (O i) (G i)) _ _
   obtain ⟨t, ι, ref, r, ht, hCM, hπ⟩ := points i D hD
-  exact datumAtActual s i hN (hcop i) (H i) w hm (J i) (G i)
-    (admissibleNatAt s hN hcop H w hm J G i D hD)
+  exact datumAtActual s i hN (hcop i) (H i) w hm (J i) (O i) (G i)
+    (admissibleNatAt s hN hcop H w hm J O G i D hD)
     t ι (hSign i) (hCusp i) ref r ht hCM hπ
 
 variable (ha : ∀ i D (hD : W.admissible i D),
-  let row := actualRows s hN hcop H w hm J G
-    (actualRowFamily s hN hcop H w hm J G hSign hCusp points) i D hD
+  let row := actualRows s hN hcop H w hm J O G
+    (actualRowFamily s hN hcop H w hm J O G hSign hCusp points) i D hD
   (2 : Coefficients hN (H 0) w) ^ W.Mθ i ∣
     row.weights.phase row.reference * (W.aθ i D : Coefficients hN (H 0) w) -
-      Visibility.thetaCoeff (actualFamily s hN hcop H w hm J G i).visibility
+      Visibility.thetaCoeff (actualFamily s hN hcop H w hm J O G i).visibility
         ((m : ℤ) * D : ℤ))
 
 include ha in
@@ -117,8 +121,8 @@ The independent reading of the fixed coefficient `W.aθ` is unchanged. -/
 theorem oddStagedActual
     (hL : MultiplierKillsNativeTorsion (Ecurve ℓ) I.f I.Lat I.κ W.hstar L)
     (hsign : AdmissibleOddSign W.toRCData) : Nonempty (OddStagedInstance W) :=
-  ⟨actualOddStagedInstance s hN hcop H w hm J G
-    (actualRowFamily s hN hcop H w hm J G hSign hCusp points) ha hL hsign⟩
+  ⟨actualOddStagedInstance s hN hcop H w hm J O G
+    (actualRowFamily s hN hcop H w hm J O G hSign hCusp points) ha hL hsign⟩
 
 end Family
 

@@ -4,8 +4,10 @@ import ZInQKernel.Contrib.OneProof.RC.PM.Stage
 # Modular special fibre for the supersingular function (tex 8462–8492)
 
 The modular curve and Jacobian are used through their point and divisor interfaces.
-The class-set comparison is Jetchev–Kane §§1.1–1.2 and 2.5 as cited (locators
-UNVERIFIED), with ELLIOT's comparison of the operators used in Appendix F.
+The class-set comparison is GLUE: cited as Jetchev–Kane §§1.1–1.2 and 2.5 (arXiv v1;
+journal version unread); Ribet 1990 Prop. 3.3 reports it without proof, and a Lean proof is
+in progress. The comparison of the operators used in Appendix F is ELLIOT: asserted in the
+manuscript; to be proved in Lean.
 -/
 
 noncomputable section
@@ -45,7 +47,8 @@ def center {X : Type} (infinity : X) : FreeAbelianGroup X →+ DivZero X :=
         change degree X (D - degree X D • of infinity) = 0
         simp [degree])
 
-/-- ELLIOT's special-fibre parametrization and the comparison with supersingular pairs.
+/-- ELLIOT's special-fibre parametrization, the class-set comparison with supersingular
+pairs (GLUE) and the operator comparisons (ELLIOT).
 `Point` is the coarse point set of the good special fibre of `X₀(N)` over
 the quadratic residue field; `ss` is its supersingular locus (tex 8465–8479).
 `J` is the group of points of the specialized Jacobian. Only the divisor
@@ -57,7 +60,9 @@ structure GeometricInput {a b : ℚ} {R : Order a b} {ell N : ℕ} [Fact ell.Pri
   Point : Type
   ss : Set Point
   infinity : Point
-  /-- Jetchev–Kane, as cited at tex 8474: class set versus coarse supersingular pairs. -/
+  /-- GLUE (tex 8465–8474): class set versus coarse supersingular pairs. Cited as
+  Jetchev–Kane §§1.1–1.2 and 2.5 (arXiv v1; journal version unread); Ribet 1990 Prop. 3.3
+  reports it without proof; a Lean proof is in progress. -/
   classes : ClassSet R ≃ ss
   /-- The geometric good Hecke correspondence, as a divisor with multiplicities. -/
   T : ℕ → Point → FreeAbelianGroup Point
@@ -67,11 +72,13 @@ structure GeometricInput {a b : ℚ} {R : Order a b} {ell N : ℕ} [Fact ell.Pri
   /-- All points in this model are over the quadratic residue field. -/
   frobenius_sq : Function.Involutive frobenius
   frobenius_ss : ∀ x ∈ ss, frobenius x ∈ ss
-  /-- Geometric / adelic comparison for the good Hecke correspondence. -/
+  /-- ELLIOT: geometric / adelic comparison for the good Hecke correspondence
+  (tex 8480–8487, 9042, 9067–9078); asserted in the manuscript; to be proved in Lean. -/
   hecke_compare : ∀ p (hp : p.Prime), ¬ p ∣ N * ell → ∀ lines : LineIndex R p hp.ne_zero,
     letI : NeZero p := ⟨hp.ne_zero⟩
     ∀ z, T p (classes z).val = ∑ i, of (classes (nbAt lines z i)).val
-  /-- Geometric / adelic comparison for Atkin–Lehner (tex 8487–8489, 9331–9338). -/
+  /-- ELLIOT: geometric / adelic comparison for Atkin–Lehner (tex 8487–8489, 9331–9341);
+  asserted in the manuscript; to be proved in Lean. -/
   atkin_compare : ∀ p hp he z, W p (classes z).val = (classes (A.atkin p hp he z)).val
   /-- ELLIOT: geometric / adelic comparison for Frobenius (tex 8489–8490, 9347–9355). -/
   frobenius_compare : ∀ z, frobenius (classes z).val = (classes (A.uniformizer z)).val
