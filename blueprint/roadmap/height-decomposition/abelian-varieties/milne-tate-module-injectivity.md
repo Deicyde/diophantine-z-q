@@ -3,7 +3,7 @@ article_id: af_8c346f471c1d8c65360ceeef
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves82.milneThm125Pts
+lean: HDec.HSyn.OpenResearchLeaves83.milneThm125Pts
 ---
 
 # Endomorphisms agreeing on l-power torsion are equal

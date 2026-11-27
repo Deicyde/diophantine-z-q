@@ -22,10 +22,10 @@ curve with the moduli properties that it lists, and asserts nothing about the ex
 curve; the lists differ from one statement to another. A *proper smooth curve* over a base is a
 scheme over it that is proper and smooth of relative dimension $1$; it need not be connected.
 
-Of these four statements, two are published statements and two are consequences of published
+Of these four statements, three are published statements and one is a consequence of published
 theorems; none is proved here.
 
 - [Shimura's Main Theorem I on Y₃ in Deligne's form](shimura-main-theorem-y3.md)
 - [Buzzard's moduli problem at level V₁(5) is a projective curve over ℤ[1/30]](buzzard-v15-moduli-problem.md)
 - [An automorphism fixing a full level-5 structure is the identity](buzzard-lemma-2-2-level-5.md)
-- [False elliptic curves over a projective base are projective](false-elliptic-curves-projective.md)
+- [A scheme smooth over a normal base is normal](smooth-over-normal-is-normal.md)

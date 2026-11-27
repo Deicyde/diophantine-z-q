@@ -3,7 +3,7 @@ article_id: af_7de3b9de810a60c7eab687c0
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves82.buzzardXDV15Lit
+lean: HDec.HSyn.OpenResearchLeaves83.buzzardXDV15Lit
 ---
 
 # Buzzard's moduli problem at level V₁(5) is a projective curve over ℤ[1/30]

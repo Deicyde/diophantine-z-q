@@ -10,7 +10,7 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the twenty-six statements of the chapter in the
+The minimal height hypothesis is proved from the twenty-seven statements of the chapter in the
 project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
 is the project-authored note `docs/research/h-trust.md`.
 
@@ -187,15 +187,19 @@ there); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*,
 (2008), Corollary 1.3.1.6. The pages of the 1986 printing are unverified, and Mumford's corollary
 was not read.
 
-## False elliptic curves are projective
+## EGA IV 17.5.7
 
-K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1, read in the
-author's preprint (p. 3); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*,
-Harvard thesis (2008), Theorem 1.3.2.6, Lemma 1.3.2.16, Corollary 1.3.1.5, Proposition 1.3.2.18 and
-Definition 1.3.2.20 (Proposition 1.3.2.15 and Definition 1.3.2.16 of the 2021 revision); J. S.
-Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*,
-Springer (1986), §20 (p. 46 of the author's retyped edition); The Stacks Project, tags 01VT, 0C4K
-and 0B45. The journal and 1986 pages are unverified.
+A. Grothendieck, *Éléments de géométrie algébrique IV, Étude locale des schémas et des morphismes de
+schémas (quatrième partie)*, Publ. Math. IHÉS 32 (1967), Proposition (17.5.7), p. 70, with (17.1.1),
+(17.1.2), (17.1.6), (17.3.1) and (17.3.7), pp. 56–62; EGA I, Publ. Math. IHÉS 4 (1960), (4.1.4), p.
+37; EGA IV₂, Publ. Math. IHÉS 24 (1965), (5.8.6) and (5.13.5), pp. 108 and 133.
+
+## Raynaud LNM 119 XI 1.4
+
+M. Raynaud, *Faisceaux amples sur les schémas en groupes et les espaces homogènes*, Lecture Notes in
+Mathematics 119, Springer (1970), Chapter XI, §1, p. 159, and Chapter XII, p. 185, read in the
+publisher's preview; A. Grothendieck, EGA II, Publ. Math. IHÉS 8 (1961), (4.1.1), (5.1.1)–(5.1.2)
+and (5.5.1)–(5.5.6), pp. 71, 94 and 103–105; EGA IV₂, Publ. Math. IHÉS 24 (1965), (5.13.5), p. 133.
 
 ## Milne Prop 20.7 at n = 5
 

@@ -28,3 +28,11 @@ from buzzardLemma22Full5 (Buzzard's Lemma 2.2) and milneThm125Pts (Milne's Thm 1
 milneTorsionCount and milneZeroPreservingHomLN. With them
 y3FullThreeRepZ30 is Y3Buzzard.y3FullThreeRepZ30_of_printed_xdv15 of eight rows. The readings of the old rows were of
 the old statements; those of the new rows are sections 8 and 9 of docs/research/y3-adversarial-readings.md.
+
+Later (y3-f3-1127, the rows of #226 and #243): the row of projectiveFalseEllipticCurve moved here. It was a
+consequence row of the y3FullThreeRepZ30 fold (#212), resting on Buzzard's polarization, Lan's thesis and the Stacks
+Project through step B-6. #243 replaces it by raynaudLNM119Normal, the statement printed in Raynaud, LNM 119 (1970),
+Ch. XI, p. 159 (an abelian scheme over a normal base is projective, attributed there to Grothendieck), and proves in
+Lean the form the construction uses, with the normality of the moduli curve from egaIV1757SmoothNormal (EGA IV (17.5.7),
+#226). The reading of the old row was of the old statement; those of the new rows are sections 10 and 11 of
+docs/research/y3-adversarial-readings.md.

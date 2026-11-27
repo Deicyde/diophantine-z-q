@@ -234,18 +234,32 @@ It is Milne's Corollary 20.2(a), which is stated for abelian schemes over any ba
 J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), Corollary 20.2(a) and Proposition 20.1, read in the author's retyped edition (p. 43 there); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*, Harvard thesis (2008), Corollary 1.3.1.6. The pages of the 1986 printing are unverified, and Mumford's corollary was not read.
 """,
     ),
-    'projectiveFalseEllipticCurve': dict(
-        group='shimura-curves', slug='false-elliptic-curves-projective',
-        title="False elliptic curves over a projective base are projective",
-        anchor='False elliptic curves are projective',
+    'egaIV1757SmoothNormal': dict(
+        group='shimura-curves', slug='smooth-over-normal-is-normal',
+        title="A scheme smooth over a normal base is normal",
+        anchor='EGA IV 17.5.7',
         statement=r"""
-Let $X$ be a scheme over $\mathbb Z[1/30]$ with a closed immersion into some $\mathbb P^N_{\mathbb Z[1/30]}$ over $\mathbb Z[1/30]$, and $\mathcal A$ an abelian scheme of relative dimension $2$ over $X$ with a ring homomorphism $\mathcal O\to\operatorname{End}_X(\mathcal A)$. Then $\mathcal A$ has a closed immersion into some $\mathbb P^{N'}_{\mathbb Z[1/30]}$.
+For every smooth morphism of schemes $f:X\to Y$ and every point $x$ of $X$, if the local ring of $Y$ at $f(x)$ is an integrally closed domain, then so is the local ring of $X$ at $x$.
 """,
         caveat=r"""
-A consequence of printed statements, not a single print, and weaker than what they give: the closed immersion is not asked to lie over $\mathbb Z[1/30]$. Buzzard's canonical principal polarization $\lambda$ of $\mathcal A$ is read in Milne's sense, as $\varphi_L$ with $L$ ample at every geometric point; Buzzard does not define a polarization over a base. It is symmetric by Lan's Lemma 1.3.2.16 and rigidity on the connected components of the noetherian $X$, so it is a polarization in Lan's sense, and $(\mathrm{Id},\lambda)^*\mathcal P$ is relatively ample over $X$ (Lan, Proposition 1.3.2.18). Since $\mathcal O_X(1)$ is ample, twisting by a power of its pull-back gives a sheaf ample relative to $\mathbb Z[1/30]$, and a proper scheme over an affine base with a relatively ample sheaf has a closed immersion into projective space (Stacks Project). The symmetry step is written out in the notes accompanying the Lean proof.
+It is Grothendieck's Proposition (17.5.7) of EGA IV, in its "intégralement clos" case, in the direction from the base to the source, for a morphism smooth at every point. A smooth morphism is locally of finite presentation and formally smooth, which are EGA's hypotheses: formal smoothness in EGA's sense is the lifting property along nilpotent ideals, which smooth ring maps have. In EGA's usage "intégralement clos" for a local ring includes "intègre". It shows that the moduli curve at level $V_1(5)$, smooth over $\mathbb Z[1/30]$, has integrally closed local rings, which the projectivity statement below needs.
 """,
         src=r"""
-K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1, read in the author's preprint (p. 3); K.-W. Lan, *Arithmetic compactifications of PEL-type Shimura varieties*, Harvard thesis (2008), Theorem 1.3.2.6, Lemma 1.3.2.16, Corollary 1.3.1.5, Proposition 1.3.2.18 and Definition 1.3.2.20 (Proposition 1.3.2.15 and Definition 1.3.2.16 of the 2021 revision); J. S. Milne, *Abelian varieties*, in G. Cornell and J. H. Silverman (eds.), *Arithmetic Geometry*, Springer (1986), §20 (p. 46 of the author's retyped edition); The Stacks Project, tags 01VT, 0C4K and 0B45. The journal and 1986 pages are unverified.
+A. Grothendieck, *Éléments de géométrie algébrique IV, Étude locale des schémas et des morphismes de schémas (quatrième partie)*, Publ. Math. IHÉS 32 (1967), Proposition (17.5.7), p. 70, with (17.1.1), (17.1.2), (17.1.6), (17.3.1) and (17.3.7), pp. 56–62; EGA I, Publ. Math. IHÉS 4 (1960), (4.1.4), p. 37; EGA IV₂, Publ. Math. IHÉS 24 (1965), (5.8.6) and (5.13.5), pp. 108 and 133.
+""",
+    ),
+    'raynaudLNM119Normal': dict(
+        group='abelian-varieties', slug='abelian-schemes-over-normal-bases-are-projective',
+        title="Abelian schemes over a normal base are projective",
+        anchor='Raynaud LNM 119 XI 1.4',
+        statement=r"""
+For every noetherian ring $R$ all of whose localizations at primes are integrally closed domains, and every abelian scheme $\mathcal A$ of relative dimension $2$ over $\operatorname{Spec}R$ with a ring homomorphism $\iota:\mathcal O\to\operatorname{End}(\mathcal A)$, there is a closed immersion of $\mathcal A$ into some $\mathbb P^N_R$ over $R$.
+""",
+        caveat=r"""
+Raynaud prints, at the opening of Chapter XI of his Lecture Notes, that an abelian scheme over a normal base is projective over it, a theorem of Grothendieck proved in that chapter (Théorème XI 1.4); Chapter XII recalls it for an integral, geometrically unibranch base, which covers the noetherian normal case one component at a time. "Projectif" is read in the sense of EGA II (5.5.2); over the affine base it gives the closed immersion into $\mathbb P^N_R$ (EGA II (5.5.4)(ii)), and the other usual readings give the same (EGA II (5.5.3)(ii) and (5.5.4)(i)). The action of $\mathcal O$ plays no part. Restricted to affine opens of the moduli curve, it gives the projectivity of the universal false elliptic curve that the level-three construction uses, in place of the earlier argument through Buzzard's polarization. The page of Théorème XI 1.4 itself was not read.
+""",
+        src=r"""
+M. Raynaud, *Faisceaux amples sur les schémas en groupes et les espaces homogènes*, Lecture Notes in Mathematics 119, Springer (1970), Chapter XI, §1, p. 159, and Chapter XII, p. 185, read in the publisher's preview; A. Grothendieck, EGA II, Publ. Math. IHÉS 8 (1961), (4.1.1), (5.1.1)–(5.1.2) and (5.5.1)–(5.5.6), pp. 71, 94 and 103–105; EGA IV₂, Publ. Math. IHÉS 24 (1965), (5.13.5), p. 133.
 """,
     ),
     'milneProp207At5': dict(

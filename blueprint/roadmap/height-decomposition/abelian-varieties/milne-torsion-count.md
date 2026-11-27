@@ -3,7 +3,7 @@ article_id: af_f4017126e765a2997d058b31
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves82.milneTorsionCount
+lean: HDec.HSyn.OpenResearchLeaves83.milneTorsionCount
 ---
 
 # The n-torsion of an abelian surface has n⁴ points

@@ -14,10 +14,11 @@ functions, and $G_K$ acts on it through its action on $\overline K$. The duality
 cohomology group and the Tate module carries the comparison theorems of $p$-adic Hodge theory, which
 are stated for cohomology, over to Tate modules.
 
-All five are published statements; none is proved here.
+All six are published statements; none is proved here.
 
 - [Multiplication by 3 on an abelian scheme is finite étale](milne-multiplication-by-3.md)
 - [The n-torsion of an abelian surface has n⁴ points](milne-torsion-count.md)
 - [Endomorphisms agreeing on l-power torsion are equal](milne-tate-module-injectivity.md)
 - [Morphisms of abelian schemes fixing zero are homomorphisms](milne-zero-preserving-homomorphism.md)
+- [Abelian schemes over a normal base are projective](abelian-schemes-over-normal-bases-are-projective.md)
 - [Multiplication by 5 on an abelian scheme is finite étale](milne-multiplication-by-5.md)

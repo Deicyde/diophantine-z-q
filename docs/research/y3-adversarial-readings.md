@@ -381,3 +381,137 @@ hand.
 Effect, if folded: `buzzardThm21Cor23V15` (a consequence row) is replaced by
 `buzzardXDV15Lit`, a direct instance of Buzzard's Thm 2.1 with Cor. 2.3 after the stated
 identifications, with no new inputs and the count unchanged.
+
+## 10. Addendum: unit U12, `EGAIV17_5_7`
+
+A further contribution (#226) proves, in Lean, that every local ring of the level-V₁(5) moduli
+scheme is an integrally closed domain, and that the ring of every affine open is a finite product
+of integrally closed domains, from one printed statement: EGA IV₄, Prop. (17.5.7), in its
+"intégralement clos" case, in the direction from the base to the source, for a smooth morphism.
+The base Spec ℤ[1/30] is handled in Lean (localizations of ℤ). It is the normality input for the
+route to the projectivity of the universal false elliptic curve through Raynaud, *Faisceaux amples
+sur les schémas en groupes*, Thm XI 1.4, whose text has not been read yet.
+
+Sources read: EGA IV₄, Publ. Math. IHÉS 32 (1967), open-access copy, SHA-256
+b4277fb99c6edf8feec5b01f54368e4b8521bcd52871316c0edf6ff4ae69389e, pp. 56-59, 61, 62, 70; EGA IV₂,
+Publ. Math. IHÉS 24 (1965), SHA-256 c3e960aa1c5c37046e8892d8a3cac098e2738164136b5cdaa5d5d893f89931da,
+pp. 108, 133, 143; EGA I, Publ. Math. IHÉS 4 (1960), SHA-256
+9aba23020217535977e279bdd06a0413f48da703086865ba4c00766c85df4ae6, p. 37; and kernel printouts, at
+the pinned Mathlib, of `Smooth`, `Algebra.Smooth`, `Algebra.FormallySmooth` with its lifting
+criterion, and `IsIntegrallyClosed`.
+
+| Unit | Fidelity | Skeptic | Red team |
+| --- | --- | --- | --- |
+| U12 `EGAIV17_5_7` | FWC, MINOR | FAITHFUL, MINOR | FWC, MINOR |
+
+Lean as read: `SmoothNormal/Normal.lean` at `b11a545b20832b0ff2dd9153aa3762be2e841011` (SHA-256
+`f824c485f79e8d6f2d42b13c342e6e1020ea8e1f1d545581e515fe860af19e2a`).
+
+Prop. (17.5.7), p. 70: "Soit f : X → Y un morphisme localement de présentation finie, lisse en un
+point x ∈ X; posons y = f(x). Alors, pour que l'anneau 𝒪_{X,x} soit réduit (resp. intégralement
+clos, resp. géométriquement unibranche), il faut et il suffit que 𝒪_{Y,y} le soit." The Lean
+statement: for f smooth (Mathlib's `Smooth`) and every point x, if the local ring at f(x) is an
+integrally closed domain, so is the local ring at x. All three readers found it a direct
+instance, weaker than the print: one of three cases, one of two directions, smoothness at every
+point instead of at x. Mathlib's `Smooth` gives EGA's hypotheses: locally of finite presentation
+by instance, and formally smooth because on affine opens the ring maps are smooth, hence have the
+lifting property along nilpotent ideals (a theorem in Mathlib, whose definition of formal
+smoothness is cotangent-theoretic), which is EGA's (17.1.1) for affine schemes by Remark
+(17.1.2)(i), and formal smoothness is local (17.1.6); so f is lisse (17.3.1) at every point
+(17.3.7). "Intégralement clos" for a local ring includes "intègre" in EGA's usage, Bourbaki's
+convention: EGA 0_I (4.1.4) defines normal ring sheaves by "un anneau intègre et intégralement
+clos", (5.13.5) defines normal rings the same way, and the proof of (5.8.6), p. 108, reads "X
+normal" as "𝒪_x est un anneau local noethérien intégralement clos" and then uses that 𝒪_x is
+intègre. The Lean asks for `IsDomain` and `IsIntegrallyClosed` together, which is needed since
+Mathlib's `IsIntegrallyClosed` alone does not imply domain.
+
+The MINOR findings were all in the docstring: the quotation was not verbatim (O_x for 𝒪_{X,x},
+a comma for the semicolon), the formal-smoothness step was not argued, and Bourbaki's definition
+itself is not in the kit. The first two were fixed, comments only, at
+`8a45b60031f9e6cdaac0ca2ee5bfd42c3013455a` (`Normal.lean` SHA-256
+`3f037a1ad46d80750e4e0bd46cbb340ea76a77485b0dd208a862d3531d4e933f`; the code is identical after
+stripping comments).
+
+All 84 source quotes and 64 Lean quotes were found; three quotes that the skeptic took from pages
+of the EGA IV₄ copy outside the kit's page list (p. 140 and the errata, pp. 352 and 355) were found
+by an exact search of the whole copy.
+
+## 11. Addendum: unit U13, `RaynaudLNM119Normal`
+
+A further contribution (stacked on #226) replaces the input `ProjectiveFEC` (a consequence row resting
+on Buzzard's polarization, Lan's thesis and the Stacks Project through step B-6) by a statement printed
+in M. Raynaud, *Faisceaux amples sur les schémas en groupes et les espaces homogènes*, Lecture Notes in
+Math. 119, Springer (1970), and proves in Lean (`locProjNormal_of_raynaud`) the form the construction
+uses: finite subsets of the universal false elliptic curve lie in affine opens, through closed
+immersions into projective space over the affine opens of the moduli curve, whose rings are noetherian
+and normal by unit U12. The leaf, `SmoothNormal.RaynaudLNM119Normal`: for every noetherian ring R whose
+localizations at primes are integrally closed domains, every false elliptic curve over Spec R has a
+closed immersion into some P^N_R over R.
+
+Sources read: the publisher's free preview of Ch. XI (pp. 159-160; SHA-256
+3263d919ad13c3a777a2b0ffeb8b73ceafdc2a4ae109339170afa564f0fd9960) and of Ch. XII (pp. 185-186; SHA-256
+4d4926d534b86997d761054c0f7d03d9656fe7d63bb6aaa9f3f57b64f618423a); the chapter-opening pages carry no
+printed number, which is read from "- 160 -" and "- 186 -" on the following pages. The page on which
+Théorème XI 1.4 itself is printed was not available and was not read. Also EGA II (Publ. Math. IHÉS 8,
+1961; SHA-256 111834efffe9e90d068389d418f08925a82b4a54ae2957f080712d4180e032eb), pp. 71, 94, 103-105;
+EGA I, p. 37; EGA IV₂, p. 133; Milne 1986, p. 42 (copies as in sections 1 and 10).
+
+p. 159, the opening of Ch. XI, §1: "Soient S un schéma normal, G un S-schéma en groupes lisse, à fibres
+connexes. Nous savons que G est localement quasi-projectif sur S (VI 2.4), mais dans deux cas
+importants on peut même affirmer que G est globalement quasi-projectif sur S : en effet, si les fibres
+maximales de G sont affines, on a vu que G était quasi-affine sur S (VII 2.2) ; d'autre part, si G est
+un S-schéma abélien, Grothendieck a montré que G était projectif sur S (cf. XI 1.4 ci-dessous)". p. 185
+recalls it: "on a vu également (XI 1.4) que A est projectif sur S si S est intègre et géométriquement
+unibranche".
+
+| Unit | Fidelity | Skeptic | Red team |
+| --- | --- | --- | --- |
+| U13 `RaynaudLNM119Normal` | FWC, MINOR | FWC, MINOR | FWC, MAJOR |
+
+Lean as read: `SmoothNormal/Raynaud.lean`, SHA-256
+`f8082b5d0198b1438b5f5f2eb9134e57ea37317a41fe2c242c63ad6e23aabe9f`, with `IsNormalNoeth`
+(`SmoothNormal/Normal.lean`), `PNR` and `PNR.toSpec` (`SmoothNormal/ProjectiveGlue.lean`),
+`LocProjNormal` (`SmoothNormal/Projective.lean`) and `FEC`. No reader found a mismatch.
+
+The points the readers settled:
+- **Global, not local.** p. 159 sets the global statement against the local quasi-projectivity of
+  VI 2.4; "projectif sur S" is the global notion, which is what the leaf asks.
+- **Normal.** `IsNormalNoeth` is EGA's normality of Spec R (0_I (4.1.4), IV₂ (5.13.5)) plus
+  noetherian, which only weakens the leaf. Spec R may be disconnected: p. 159 has no integrality
+  hypothesis; p. 185's form (integral, geometrically unibranch) covers the leaf component by component,
+  since a noetherian normal ring is a finite product of normal domains (IV₂ (5.13.5)), a normal local
+  domain is geometrically unibranch (background), and immersions over the components glue
+  (EGA II (5.5.5)-(5.5.6)).
+- **Abelian scheme.** `FEC` (proper, smooth of relative dimension 2, a group, geometrically connected,
+  with an O-action that plays no part) is an abelian scheme in Milne's sense (p. 42).
+- **"Projectif".** In EGA II's sense ((5.5.1)-(5.5.2)), over the affine base, (5.1.1)-(5.1.2) c') and
+  (5.5.4)(ii) give a closed subscheme of some P^r over the base, and P^r = P(O^{r+1}) = Proj of the
+  polynomial ring in total degree ((4.1.1)) is `PNR`. The red team's first MAJOR was that Raynaud's
+  "projectif" is not defined on the pages read and p. 185 passes from an S-ample sheaf to "projectif":
+  under that reading the conclusion still follows, through (5.5.3)(ii) (proper and quasi-projective over
+  a quasi-compact base is projective) or (5.5.4)(i) (proper with a relatively very ample sheaf, over a
+  locally noetherian base). Its second MAJOR was the disconnected base and the unread XI 1.4, as above.
+  Both were docstring bridges.
+- **Nothing stronger.** One closed immersion over the whole base, for each given family; the empty base
+  is trivial.
+
+The MINOR findings were wording: "proved there as XI 1.4" for "attributed to Grothendieck, cf. XI 1.4";
+"connected fibres" for Milne's "geometric fibres … connected"; the missing page-number and edition
+notes; and the uncited identification of P^r with `PNR`. All were addressed, comments only, in the
+edition with SHA-256 `050fae3d9619b753385bc8ec016293f2ce9a030099d153033efe90bd85153621` (the code is
+identical after stripping comments).
+
+All 100 source quotes and 62 Lean quotes were found; the Raynaud quotes are matched against a poor OCR
+text layer, and the three that fell below the matching threshold ("Alors L est S-ample dans chacun des
+cas suivants", twice, and the heading "2.- Exemple d'un schéma abélien sur une base locale intègre de
+dimension 1, qui n'est pas projectif") were confirmed by hand on the page images. One red-team run
+stopped before finishing its quote list (it quoted long passages) and was rerun with short quotes; the
+rerun is the reading recorded here.
+
+Whether a statement printed in a Lecture Notes monograph, in the volume that proves it, counts as a
+published source is the maintainer's ruling.
+
+Effect, if folded: `projectiveFalseEllipticCurve` (consequence) leaves; `egaIV1757SmoothNormal`
+(unit U12) and `raynaudLNM119Normal` (this unit) enter; count +1; y3FullThreeRepZ30 is then
+`Y3Buzzard.SmoothNormal.y3FullThreeRepZ30_of_printed_raynaud` of nine rows, each a printed statement or
+a direct instance of one.
