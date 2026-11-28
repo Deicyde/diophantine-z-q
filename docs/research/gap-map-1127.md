@@ -189,3 +189,31 @@ conclusion-shaped, so the bulk of Theorem 5.3 is still the manuscript's argument
 5. On `hRC`: companion and stage_support, both of which first need a fixed genuine `data`.
 
 None of these needs a new manuscript argument; `hRC`'s big fields do, and they are where the remaining work is.
+
+## Quote checks of 2026-11-27 (ruling 1)
+
+Real-text checks of the recorded quotes in `reviews.tsv`, for the rows ruling 1 covers. Both copies were
+downloaded fresh and hashed; the hashes match the records: Milne, *Abelian varieties*, author's retyped
+edition (2022), sha256 bffdf81c…79fc7c; EGA IV₄, Publ. Math. IHÉS 32, numdam scan, sha256 b4277fb9…69389e.
+The text layers were extracted with PDFKit and checked with `quotegrep.py`; every NEAR was then read on a
+150-dpi render of the page.
+
+| row | page | quotegrep | render |
+|---|---|---|---|
+| milneProp207At3, milneProp207At5 | Prop. 20.7, p. 44 | NEAR 0.95 (script n_𝒜) | verbatim |
+| milneTorsionCount | Rem. 8.4, p. 14 | NEAR 0.87 (subscripts, n^{2g}) | verbatim |
+| milneZeroPreservingHomLN | Cor. 20.2(a), p. 43 | FOUND | n/a |
+| milneThm125Pts | Thm 12.5, p. 21 | NEAR 0.85 (ℤ_l ⊗, T_l) | verbatim |
+| egaIV1757SmoothNormal | (17.5.7), p. 70 | NOT FOUND 0.80 (OCR noise: 𝒪_{X,x}, x∈X) | verbatim |
+
+Every quote is the printed text. What the quotes do not settle, for the rater:
+- **milneThm125Pts** is not the printed statement. The Lean row (two endomorphisms of a false elliptic curve
+  that agree on all l-power torsion points are equal) is derived from Thm 12.5 in four steps that its
+  docstring spells out: Rem. 8.4, the injectivity, the freeness of End(A), and Cor. 2.4. That makes it a
+  consequence, not a word-for-word instance.
+- **egaIV1757SmoothNormal** states one case (intégralement clos), one direction, for a morphism smooth
+  everywhere. That smoothness in Mathlib's sense gives EGA's "lisse en x" is argued in the docstring through
+  (17.1.1), (17.1.2), (17.1.6), (17.3.1) and (17.3.7). EGA prints (17.5.7) as a recall ("que nous rappelons")
+  whose proof is (11.3.13) and (11.3.14), completed by Err_IV 30.
+- **milneTorsionCount** reads Rem. 8.4 at the geometric fibre of an abelian scheme, which is an abelian
+  variety by the definition on p. 42; that is a dictionary step, and the docstring states it.
