@@ -1,0 +1,17 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:320:0: 'ZInQ.Manuscript.RC.ModelGeneric7.ptMap_eq_pointMapAlong' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:321:0: 'ZInQ.Manuscript.RC.ModelGeneric7.pairClassesMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:322:0: 'ZInQ.Manuscript.RC.ModelGeneric7.pairClassesMap_id' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:323:0: 'ZInQ.Manuscript.RC.ModelGeneric7.pairClassesMap_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:324:0: 'ZInQ.Manuscript.RC.ModelGeneric7.pairClassesMap_symm_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:325:0: 'ZInQ.Manuscript.RC.ModelGeneric7.pairClassesMap_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:326:0: 'ZInQ.Manuscript.RC.ModelGeneric7.cyclicQuotientCurve_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:327:0: 'ZInQ.Manuscript.RC.ModelGeneric7.shortCoverPair_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:328:0: 'ZInQ.Manuscript.RC.ModelGeneric7.rationalPoints_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/PairMap.lean:329:0: 'ZInQ.Manuscript.RC.ModelGeneric7.rationalPoints_ringEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Y0Points.lean:201:0: 'ZInQ.Manuscript.RC.ModelGeneric7.coverLevel_isUnit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Y0Points.lean:202:0: 'ZInQ.Manuscript.RC.ModelGeneric7.Y0LevelPoints_comp_inclusion' depends on axioms: [propext,
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Y0Points.lean:203:0: 'ZInQ.Manuscript.RC.ModelGeneric7.exists_comp_inclusion' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Y0Points.lean:204:0: 'ZInQ.Manuscript.RC.ModelGeneric7.Y0LevelPoints_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Y0Points.lean:205:0: 'ZInQ.Manuscript.RC.ModelGeneric7.Y0LevelPoints_algEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9146 jobs).
+EXIT 0
