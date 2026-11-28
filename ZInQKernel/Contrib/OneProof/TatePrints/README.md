@@ -113,7 +113,9 @@ Whichever fold lands second regenerates on the new main:
 1. **R1, points.** Colmez builds `T_p(X)` from `u_n ∈ 𝒳(O_{C_p}) = X(C_p)` (p. 639); the row's
    `V_p(A)` is built from the `F̄`-points of `A`. A reading needs the identification
    `A[pⁿ](F̄) ≅ A[pⁿ](ℂ_p)`, `G_F`-equivariantly (torsion points are algebraic over `F̄`). This
-   PR does not prove it in Lean; the Lean chain does not need it.
+   PR does not prove it in Lean; `../ColmezTorsionIso/` does (`torsion_iso`,
+   `vCp_galRep`), and since y3-colmez-1127 the Lean chain uses it to derive R1 from
+   `milneThm71Projective` and `colmez1992DeRhamAbVarModel`.
 2. **R1, weakenings.** `H¹_dR(X)` becomes an existential type; bilinearity in `ω`, the `Fil¹`
    clause and (iii) are dropped. The kept non-degeneracy is the `T_p` side of "non-dégénérée
    quand on étend les scalaires à B_dR". The row is not vacuous: for `g > 0` an empty `H` makes

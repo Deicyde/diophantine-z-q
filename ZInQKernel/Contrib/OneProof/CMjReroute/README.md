@@ -32,16 +32,23 @@ of the matrix-unit curve `E/L` of a CM fibre, then Fowler's Prop. 2·7 at `n = D
   `BranchBL.lean`: `cmBranchOut_of_bl` (no `CMjDegree`) and `CMInputs3BL`.
 
 Statements read: `Y3RouteA.Y3FullThreeRepZ30` and `Y3Hodge.DeligneCanonicalModelY3EveryPrint`, both derived
-fields of the chain (filled by the conversions of `TailZ111` and `TailZ112` from their rows; the map `Y₃ → P¹_j` is
-derived from these two), and the row `fowlerProp27PrintCanonical`; the live CM split already reads all of them.
+fields of the chain (filled by the conversions of `TailZ111` and, since y3-milne-1128, `TailZ116` from their rows;
+the map `Y₃ → P¹_j` is derived from these two), and the row `fowlerProp27PrintCanonical`; the live CM split already
+reads all of them.
 
 ## What the reroute reads from `Y3Hodge.DeligneCanonicalModelY3EveryPrint`
 
 Since the Deligne fold the statement is not a row: `TailZ112`'s conversion proves it by
 `DelignePS.deligneCanonicalModelY3EveryPrint_of_prints` from `voightQMComplexModuliPrint`,
 `cornutVatsalCMReciprocityPrint` and `fineModuliCanonicalModelGlue`, and the copy of that conversion in `Chain4.lean`
-applies the same term. One call site, `exists_deligneCore` (`WitnessMatch.lean`), takes the statement at the printed
-witness of `y3FullThreeRepZ30` and transports to the CM branch's witness the clauses it then uses:
+applies the same term. Since y3-milne-1128 (`TailZ116`) the live route passes through neither: that fold's top
+`sixContactMin_of_open109` enters the copy chain at `sixContactMin_of_open104_cmj` (`Chain3.lean`), and its
+conversion `openResearchLeaves83CMJ_of_OpenResearchLeaves87` fills the field by
+`DelignePSMilne.deligneCanonicalModelY3EveryPrint_of_milne` from `voightQMComplexModuliPrint`,
+`boutotCarayolPolarizationPrint`, `boutotCarayolRepresentabilityPrint`, `milneShimuraFamilyPrint` and
+`milneCanonicalModelPrint`; the same fold removed `cornutVatsalCMReciprocityPrint` and `fineModuliCanonicalModelGlue`
+from the rows. One call site, `exists_deligneCore` (`WitnessMatch.lean`), takes the statement at the printed witness
+of `y3FullThreeRepZ30` and transports to the CM branch's witness the clauses it then uses:
 
 | clause of `Y3Hodge.DeligneBodyAtPM` / `ModuliAtUnitsHP` | where | how |
 | --- | --- | --- |

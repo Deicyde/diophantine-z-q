@@ -57,8 +57,10 @@ The row inherits the weakenings of `Colmez1992DeRhamAbVarCp`:
 
 Since #239 (`ColmezProperModel/`) the points identification below is a Lean theorem
 (`modelPtsEquiv`, `modelPtsEquiv_gal`), and `properModelPoints_iff` proves
-`ProperModelPoints ↔ ProperModelExists`; only the existence of a proper model remains
-(`ColmezProperModel/README.md`). The rest of this section is the note as written at #235.
+`ProperModelPoints ↔ ProperModelExists`; #247 derives the existence of a proper model from
+Milne's Theorem 7.1 (`properModelExists_of_milne`, `ColmezProperModel/MilneModel.lean`), the row
+`milneThm71Projective` since y3-colmez-1127 (`ZInQKernel/OneProof/H/TailZ113.lean`). The rest of
+this section is the note as written at #235.
 
 Colmez fixes a proper model `𝒳` of `X` over `O_K` and writes `u_n ∈ 𝒳(O_{C_p})`, using "Par
 construction, 𝒳(O_{C_p}) s'identifie à X(C_p)" (p. 638). The theorem's statement depends only on

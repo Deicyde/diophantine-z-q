@@ -54,8 +54,10 @@ made on 26 November 2026. The quotations in the Lean docstrings were compared wi
 mechanically. The judgement that each print implies its Lean statement was made by AI readers: a
 primary reading, three or more independent readers per source, and three independent referees of
 steps B-1 to B-6, none of whom found a step wrong. No human has compared these statements with the
-prints. Under this repository's rules the published rows therefore enter unread, and the
-consequence rows enter pending review.
+prints. At the y3-fold-1126 fold (`ZInQKernel/OneProof/H/TailZ109.lean`) the four
+Milne rows that entered (`milneTorsionCount : MilneRem84` in place of `milneTorsionCount3`) were
+rated LEAF on the adversarial AI readings of `docs/research/y3-adversarial-readings.md`
+(`docs/one-proof/kinds.tsv`), and the three consequence rows that entered were rated GLUE.
 
 ## Definitions (`BuzzardLeaves.lean`)
 

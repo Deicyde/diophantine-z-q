@@ -17,6 +17,10 @@ model.
 | `ModelTate.lean` | `Colmez` | the group `𝒳(O_{C_p})`, `T_p` from it, `≃ TCp`, shape transport |
 | `ModelRow.lean` | `ModelTate`, `ColmezTiltIso.RowPrinted` | the row with `T_p = lim 𝒳(O_{C_p})[pⁿ]` |
 | `Check.lean` | `ModelRow` | `#print axioms` for the main declarations |
+| `MilneLeaf.lean` | `G9.I4Layer` | `ℙᴺ_ℤ` (`projSpaceZ`), the printed leaf `MilneThm71Projective` (Milne, Thm 7.1) |
+| `MilneModel.lean` | `MilneLeaf`, `Colmez` | the closure of `A` in `ℙᴺ_{O_F}`, `properModelExists_of_milne` |
+| `MilneRow.lean` | `MilneModel`, `ModelRow` | `Colmez1992DeRhamAbVar` from `MilneThm71Projective` and `Colmez1992DeRhamAbVarModel` (`colmez1992DeRhamAbVar_of_model_milne`) |
+| `MilneCheck.lean` | `MilneRow` | `#print axioms` for the route from Milne's Theorem 7.1 |
 
 ## Main statements
 
@@ -67,4 +71,6 @@ It has no projective embedding and no ample line bundle. The model through a pro
 (the scheme-theoretic closure of `A ⊂ ℙⁿ_F` in `ℙⁿ_{O_F}`) therefore needs the projectivity of
 abelian varieties first. That uses ample line bundles and the theorem of the square, and neither is
 in Mathlib. The other route, Nagata compactification of `A → Spec F ⟶ Spec O_F`, is not in Mathlib
-either. `ProperModelExists` is the precise remaining lemma.
+either. `MilneModel.lean` takes the first route, with projectivity as an input
+(`MilneThm71Projective`, Milne's Theorem 7.1), and proves `ProperModelExists` from it
+(`properModelExists_of_milne`); since y3-colmez-1127 that input is the row `milneThm71Projective`.

@@ -1,6 +1,7 @@
 # ColmezTorsionIso: `A[p^n](F̄) ≅ A[p^n](C_p)`, `G_F`-equivariantly
 
-The lead's LEAF path for the open hypothesis `colmez1992DeRhamAbVar`
+The lead's LEAF path for what was, until y3-colmez-1127 (`ZInQKernel/OneProof/H/TailZ113.lean`),
+the open hypothesis `colmez1992DeRhamAbVar`
 (`HDec.HSyn.OpenAddedLeaves30.colmez1992DeRhamAbVar`, statement
 `DeRhamScholze.TatePrints.Colmez1992DeRhamAbVar` in `TatePrints/Rows.lean`), from the row flag (as
 it stood at #228) in `docs/one-proof/kinds.tsv`: "a named Lean theorem identifying A[p^n](F̄) with
@@ -22,13 +23,14 @@ Add-only. Imports: `G9/Galois.lean`, `AbVarBC/Main.lean` (`Basic`, `Shape`), and
   `embF : ℚ̄_p ≃ F̄` (`G9.embF_gfToGqp`, `G9.embF_bijective`); `phiF : F → ℚ̄_p` and
   `F' = fieldF p F` are the corresponding copy of `F` in `ℚ̄_p`.
 
-## The model step, proposed for a ruling by Jack or the maintainer
+## The model step
 
 * Colmez's `K` is `F` and his `X` is `A`. His identification `𝒳(O_{C_p}) = X(C_p)` for a proper
   model `𝒳` over `O_K` (p. 638, "Par construction") is a Lean theorem since #239
   (`ColmezProperModel.modelPtsEquiv`, `modelPtsEquiv_gal`). The model step reduces to the existence
-  of such a model for every `A` (`ColmezProperModel.ProperModelExists`), which is in neither the
-  tree nor Mathlib and is proposed for a ruling by Jack or the maintainer (see What remains). The
+  of such a model for every `A` (`ColmezProperModel.ProperModelExists`), which the tree derives
+  from Milne's Theorem 7.1 (`ColmezProperModel.properModelExists_of_milne`), the row
+  `milneThm71Projective` since y3-colmez-1127 (see What remains). The
   row's Lean form uses only `X(C_p)` and its Galois action, both read off `A` over `F`; as printed,
   5.2(i) builds the limit from `F_ω(a_n)`, which goes through the model.
 * `C_p` is an `F`-algebra through `F → ℚ̄_p ⊂ C_p`, `y ↦ phiF y` (`algCp`, a local instance only),
@@ -71,6 +73,12 @@ isomorphism), `colmezShape_iff_cp`.
   `colmez1992DeRhamAbVar_of_cp : Colmez1992DeRhamAbVarCp → Colmez1992DeRhamAbVar`.
 
 ## What remains for the lead
+
+y3-colmez-1127 (`ZInQKernel/OneProof/H/TailZ113.lean`) replaced the row by `milneThm71Projective`
+(Milne's Theorem 7.1; `properModelExists_of_milne` gives `ProperModelExists` from it) and
+`colmez1992DeRhamAbVarModel` (Théorème 5.2 with `T_p(X) = lim 𝒳(O_{C_p})[pⁿ]`);
+`ColmezProperModel.colmez1992DeRhamAbVar_of_model_milne` proves the row from them, through
+`colmez1992DeRhamAbVar_iff_cp`. The points below are as written after #239.
 
 * The identification of the two Tate modules is now a Lean theorem, so the reading step of the
   ruling is gone: `Colmez1992DeRhamAbVarCp` states Théorème 5.2 (i)-(ii) with Colmez's own

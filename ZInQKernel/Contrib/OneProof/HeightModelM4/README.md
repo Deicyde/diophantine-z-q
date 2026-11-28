@@ -25,8 +25,11 @@ wedge identity in the Hodge line, as Lean theorems (`Wedge.lean`).
 `GR1Rows.lean` restates the implications from the GR1 rows over `IsGR1StableHeightGlobal` to the
 bundle's fields. `Check.lean` prints the axioms.
 
-Remaining reading (not a Lean theorem), the only one left from `HeightModelM3/README.md`: Mathlib
+Reading not proved here, the only one left from `HeightModelM3/README.md`: Mathlib
 has no sheaf of relative differentials. `stalkOmega s` is defined by the stalk formula
 `(e*Ω¹)_s = 𝒪_{S,s} ⊗_{𝒪_{𝒢,e(s)}} Ω[𝒪_{𝒢,e(s)}/𝓞_L]`, and `globalOmega` stands in for
 `Γ(S, e*Ω¹)`. That these are the stalk and the global sections of the sheaf `e*Ω¹_{𝒢/S}` is a
-definitional reading.
+definitional reading here; `HeightModelM5` proves it for the sheaf it builds from Mathlib's
+presheaf of relative differentials, sheafification and pullback: `GG.pullStalkEquiv` and
+`BS.stalkOmegaBaseEquiv` (the stalks), `genericGermPullOmega_injective` and
+`range_genericGermPullOmega` (`Γ(S, e*Ω¹)` is `globalOmega`).

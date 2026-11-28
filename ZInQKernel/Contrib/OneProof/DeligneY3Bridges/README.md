@@ -12,9 +12,9 @@ by three rows, and y3-milne-1128 (`TailZ116.lean`) now fills it by
 **What this directory is.** Proved identifications between the objects in the Lean statement and
 the objects of the print, plus the leaf restated with the print's objects and proved equivalent
 to it (`DeligneY3Bridges.PEL.print_iff_PEL`). It does **not** prove the hypothesis: the
-discharge check lists `print_of_PEL` because its conclusion is the hypothesis, and it still
-assumes `DeligneCanonicalModelY3EveryPEL`, which is the same statement in the print's notation.
-No field is discharged and nothing is folded.
+discharge check listed `print_of_PEL` while the field was open, because its conclusion is the
+hypothesis, and it still assumes `DeligneCanonicalModelY3EveryPEL`, which is the same statement in
+the print's notation. No field is discharged and nothing is folded.
 
 ## Source
 
@@ -37,15 +37,15 @@ Locators used (printed pages):
 | 1.7 | 128–129 | "Soit K_n le sous-groupe compact ouvert de G(𝔸^f) formé des k = (k_p) tels que k_p · V_ℤ ⊗ ℤ_p = V_ℤ ⊗ ℤ_p et que k_p ≡ 1 (mod n) pour p \| n" |
 | 1.8 | 129 | "Soit K un sous-groupe compact ouvert de G(𝔸^f). L'espace K_∞ × K\G(𝔸)/G(ℚ) = K\X × G(𝔸^f)/G(ℚ) = X × (K\G(𝔸^f))/G(ℚ) […] On le notera _K M_ℂ(G, h₀)" |
 | 4.9 | 147 | the PEL datum `(L, V, ψ)`; `G` = the `L`-linear symplectic similitudes of `(V, ψ)` |
-| Thm 4.7 (Riemann) | 146 | polarized abelian varieties ↔ `(V, ψ, V_ℤ, h)` (UNVERIFIED) |
+| Thm 4.7 (Riemann) | 146 | polarized abelian varieties ↔ `(V, ψ, V_ℤ, h)` (verified on the page image, `docs/research/deligne-print-shaped-records.md`; the exposé gives no proof) |
 | Scholie 4.11 | 148 | "Les points de `_K M_ℂ(G, h₀)` correspondent bijectivement aux classes d'isomorphie de variétés abéliennes à isogénie près A, munies de (a) ρ : L → End(A) tel que Tr(ρ(ℓ), Lie(A)) = t(ℓ), (b) une polarisation homogène p̄ qui induise l'involution donnée de L, (c) une classe mod K, k̄, de similitudes symplectiques L-linéaires k : V̂(A) ≅ V ⊗ 𝔸^f, et telles que (*) les conditions (4.10.1) (4.10.2) soient vérifiées." |
 | 4.12 | 148–149 | "Soient K un sous-groupe compact ouvert de G(𝔸^f), V_ℤ un réseau entier dans V tel que V̂_ℤ = V_ℤ ⊗ Ẑ soit K-invariant, L_ℤ un ordre de L tel que L_ℤ V_ℤ ⊂ V_ℤ, ψ_ℤ un multiple rationnel positif de la forme alternée de V, à valeurs entières sur V_ℤ […] Soient n un entier, et K_n = {g ∈ G(𝔸^f) \| (g−1) V̂_ℤ ⊂ n V̂_ℤ}. On suppose n assez grand pour que K ⊃ K_n." Then `T̂(B) = k⁻¹(V̂_ℤ)` and the points as `(B, p, ρ, k̄_n)` |
 | 4.16–Prop. 4.17 | 150 | Mumford's moduli scheme of principally polarized abelian schemes with symplectic level `n ≥ 3` is a model |
-| Thm 4.19 | 151 | Shimura–Taniyama; "On renvoie à [16] pour la démonstration" (locator and quote UNVERIFIED) |
-| Thm 4.21 | 152 | the model of 4.17 is canonical (proof: "oubli de la multiplication complexe" and Mumford [8]; the proof paraphrase is UNVERIFIED) |
+| Thm 4.19 | 151 | Shimura–Taniyama; "On renvoie à [16] pour la démonstration" (locator and quote verified on the page image, `docs/research/deligne-print-shaped-records.md`) |
+| Thm 4.21 | 152 | the model of 4.17 is canonical (proof: "oubli de la multiplication complexe" and Mumford [8]; the last sentence of the proof, citing [8], is verified on the page image, `docs/research/deligne-print-shaped-records.md`; the rest of the paraphrase is UNVERIFIED) |
 | Cor. 5.7 | 156 | canonical models for sub-data, proof via 5.1–5.3 |
 | Ex. 5.8 | 157 | "Pour (G, h₀) comme en 4.9, on construit par 5.7 et 4.21 un modèle canonique M(G°, h₀) ⊂ M(Gp(V, ψ), h₀) ⊗_ℚ E(G°, h°)" |
-| 6.3–Thm 6.4 | 160–161 | the quaternionic case over a totally real `F`; for `F = ℚ`, `E(G, h₀) = ℚ` (UNVERIFIED) |
+| 6.3–Thm 6.4 | 160–161 | the quaternionic case over a totally real `F`; for `F = ℚ`, `E(G, h₀) = ℚ` (6.3 and Thm 6.4 verified on the page image of p. 161, `docs/research/deligne-print-shaped-records.md`) |
 
 ## The PEL datum of the kernel
 
@@ -90,7 +90,7 @@ proves that the two agree after `g ↦ g⁻¹`.
 | 3 | `τ ↦ Ψ(τ, g)` holomorphic on `ℍ` for every `g` | 1.8 p.129: `_K M_ℂ` is a complex-analytic quotient | none needed | weaker than the print (it gives a biholomorphism) |
 | 4 | at `g = 1`: `IsShimuraHolFamilyHP` (fibres in `IsHodgeH1Print` form) | Scholie 4.11 p.148 and 4.12 p.148–149: `H₁(A, ℚ) ≅ V` as `L`-module with `h`; `T̂(B) = k⁻¹(V̂_ℤ)` | `Y3Hodge.print_iff_hodge`, `Y3Hodge.lemmaP_H1`, `Y3Hodge.F0_iff` (already proved) | match on `H₁`; polarization and level dropped (weaker) |
 | 5 | reciprocity at CM points, `ε`, `δ` existential | Def. 3.13 (canonical model) and Thm 4.19 p.151 | `toGAf` is a group isomorphism (`map_mul` in `PEL.print_of_PEL`) | weaker (existential conventions, CM points of `ℍ` only); **D2 open**: 4.19 is cited, not proved, in the print, and Shimura–Taniyama [16] must be read in the original |
-| U | `ModuliAtUnitsHP`: at `u ∈ OhatU`, `IsHodgeH1Print` | 4.12 p.148–149: `T̂(B) = k⁻¹(V̂_ℤ)`, i.e. `H₁ = L_g = B ∩ 𝒪̂ g⁻¹` | `PEL.mem_OhatU_iff` (`OhatU ↔ G(Ẑ)`); `Y3Lattice412.latticeAt_eq_deligne` (`L_g = B ∩ k⁻¹(V̂_ℤ)` for Deligne's `k = toGAf g⁻¹`); `Y3Lattice412.latticeAt_of_mem_OhatU` (`L_u = 𝒪` for `u ∈ 𝒪̂^×`); `Y3Lattice412.latticeAt_dc` (`L_{γgk} = L_g γ⁻¹`); `Y3Lattice412.latticeAt_basis` (full `𝒪`-lattice); `Y3Lattice412.moduliAtUnitsHP_of_lattice` (the print's description in `L_g` form, `ModuliAtLattice`, implies the clause; `isHodgeH1PrintAt_O_iff` checks the generalization at `L = 𝒪`) | match on `H₁`; polarization and level dropped (weaker); the existence of `B` with `T̂(B) = k⁻¹(V̂_ℤ)` in each isogeny class is asserted in 4.12, not proved in Lean (`docs/research/y3-412-lattice.md`, part C) |
+| U | `ModuliAtUnitsHP`: at `u ∈ OhatU`, `IsHodgeH1Print` | 4.12 p.148–149: `T̂(B) = k⁻¹(V̂_ℤ)`, i.e. `H₁ = L_g = B ∩ 𝒪̂ g⁻¹` | `PEL.mem_OhatU_iff` (`OhatU ↔ G(Ẑ)`); `Y3Lattice412.latticeAt_eq_deligne` (`L_g = B ∩ k⁻¹(V̂_ℤ)` for Deligne's `k = toGAf g⁻¹`); `Y3Lattice412.latticeAt_of_mem_OhatU` (`L_u = 𝒪` for `u ∈ 𝒪̂^×`); `Y3Lattice412.latticeAt_dc` (`L_{γgk} = L_g γ⁻¹`); `Y3Lattice412.latticeAt_basis` (full `ℤ`-lattice; a left `𝒪`-module by `Y3Lattice412.latticeAt_mul_left`); `Y3Lattice412.moduliAtUnitsHP_of_lattice` (the print's description in `L_g` form, `ModuliAtLattice`, implies the clause; `isHodgeH1PrintAt_O_iff` checks the generalization at `L = 𝒪`) | match on `H₁`; polarization and level dropped (weaker); the existence of `B` with `T̂(B) = k⁻¹(V̂_ℤ)` in each isogeny class is asserted in 4.12, not proved in Lean (`docs/research/y3-412-lattice.md`, part C) |
 
 No clause is stronger than the print once the identifications are applied: `print_iff_PEL` is an
 equivalence, and clauses 3, 4, 5 and U are weakenings of the print's statements.
@@ -119,10 +119,14 @@ equivalence, and clauses 3, 4, 5 and U are weakenings of the print's statements.
   algebraic half (at each `ℓ`, a `B`-linear isomorphism respects the forms up to one scalar);
   that the Weil pairing of the canonical polarization has adjoint `†` is a reading step.
 * **D2 (open).** The print does not prove Thm 4.19: it refers it to Shimura–Taniyama [16]
-  ("On renvoie à [16] pour la démonstration"; quote UNVERIFIED, see the locator table), and the
-  last step of Thm 4.21 rests on Mumford [8] (UNVERIFIED).
+  ("On renvoie à [16] pour la démonstration"; quote verified on the page image, see the
+  locator table), and the last step of Thm 4.21 rests on Mumford [8] (verified on the page image
+  of p. 152).
   A statement that a paper only cites must be read in the original source, so Shimura–Taniyama
-  [16] (for Thm 4.19) and Mumford [8] (for the last step of 4.21) must be read in the original.
+  [16] (for Thm 4.19) must be read in the original. Mumford [8] (for the last step of 4.21) has
+  been read in full (`docs/research/deligne-print-shaped-records.md`), but it does not show that
+  the commutative subalgebra `R′` it uses can be chosen stable under the `ψ`-adjoint involution,
+  which Deligne needs for the algebra `L` of 4.9; that point must be settled too.
   D2 stays open until then.
 
 ## Files

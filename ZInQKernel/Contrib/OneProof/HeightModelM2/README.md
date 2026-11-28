@@ -25,7 +25,7 @@ recorded two steps as non-blocking but not Lean theorems. Both are proved here.
 
 Readings left here (not Lean theorems in this directory; `HeightModelM3` and `HeightModelM4` have
 since proved them, item 2 for `g ≥ 1`, up to the one definitional reading in
-`HeightModelM4/README.md`):
+`HeightModelM4/README.md`, which `HeightModelM5` proves for the sheaf `e*Ω¹` it builds):
 1. The sections are taken in the generic fibre, i.e. of the image of `e*Ω¹` there. For a smooth
    model `e*Ω¹` is locally free, so this is `e*Ω¹` itself.
 2. `secOmega`, `detSec` and `printedOmegaAt` are `𝓞_L`-spans. The sections of the sheaf are
