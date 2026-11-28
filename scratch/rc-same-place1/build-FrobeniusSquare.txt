@@ -1,0 +1,6 @@
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusSquare.lean:139:0: 'ZInQ.Manuscript.RC.SamePlace.neg_one_mem_localUnits' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusSquare.lean:140:0: 'ZInQ.Manuscript.RC.SamePlace.divisionUnit_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusSquare.lean:141:0: 'ZInQ.Manuscript.RC.SamePlace.uniformizer_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusSquare.lean:142:0: 'ZInQ.Manuscript.RC.SamePlace.uniformizerOnDoubleCosets_involutive' depends on axioms: [propext,
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusSquare.lean:143:0: 'ZInQ.Manuscript.RC.SamePlace.frobenius_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9420 jobs).
