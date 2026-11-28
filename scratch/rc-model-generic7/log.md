@@ -15,3 +15,9 @@ Base: aba99b7b2e3eea8804ebeffd1834ba5f31fa9c7e.
 - SeamFormula.lean (R0): OddStepFormula, TwoStepFormula, StepFormula, FormulaSeam (inductive), exists_oddStep_formula, exists_twoStep_formula, exists_formulaSeam, exists_quotientSeam_of_formulaSeam.
 - FormulaTransport.lean: formula maps, PtRel, stepRel, formulaSeam_rel, rationalPoints_atkinRat_formulaSeam (item 2 for R0 seams, no T3), atkinClass_independent_formulaSeam.
 - Finding: item 2 for R0 seams needs no function-field transport (T3): R0 seams are determined by Vélu formulas, which commute with ring maps.
+
+## Build outcomes (all lake build OK, axioms propext/Classical.choice/Quot.sound only)
+- Interface (c0957a756), PairMap (531defa32), Y0Points (5ae4bbc21), Lift (043f8d255), SeamFormula (751036e06), FormulaTransport (ce0dcb660), Reduction R1' (54e8f8c9d), ReductionTwo R2 (1088397f2).
+- Fix notes: instance search fails for Algebra (LocalIntegers ell) on ExactOrderAlgebra at a re-proved IsUnit -> coverPair with inferInstanceAs; `b̄` identifiers are not valid Lean tokens; `subst n` picked hc instead of h₁.
+- Open: R3 (composite reduction), item 2 for every seam (needs T3 or uniqueness; generic8 does not need it).
+- Report: docs/research/rc-model-generic7.md.
