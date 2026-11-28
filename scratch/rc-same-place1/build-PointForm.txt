@@ -1,0 +1,12 @@
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:96:0: 'ZInQ.Manuscript.RC.SamePlace.torsionBy_eq_bot_congr' depends on axioms: [propext, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:97:0: 'ZInQ.Manuscript.RC.SamePlace.isSupersingular_variableChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:98:0: 'ZInQ.Manuscript.RC.SamePlace.PairClasses.IsSupersingular' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:99:0: 'ZInQ.Manuscript.RC.SamePlace.ssPoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/PointForm.lean:218:0: 'ZInQ.Manuscript.RC.SamePlace.pointForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/PointForm.lean:219:0: 'ZInQ.Manuscript.RC.SamePlace.spec_pointForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/PointForm.lean:220:0: 'ZInQ.Manuscript.RC.SamePlace.pointForm_comp_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/PointForm.lean:221:0: 'ZInQ.Manuscript.RC.SamePlace.frobeniusAlgHom_eq_frobenius' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/PointForm.lean:222:0: 'ZInQ.Manuscript.RC.SamePlace.pointForm_residueFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/PointForm.lean:223:0: 'ZInQ.Manuscript.RC.SamePlace.point' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/PointForm.lean:224:0: 'ZInQ.Manuscript.RC.SamePlace.point_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (13596 jobs).
