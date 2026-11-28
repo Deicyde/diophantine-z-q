@@ -1,0 +1,10 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:438:0: 'ZInQ.Manuscript.RC.ModelGeneric7.pointCast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:439:0: 'ZInQ.Manuscript.RC.ModelGeneric7.seam_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:440:0: 'ZInQ.Manuscript.RC.ModelGeneric7.stepEq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:441:0: 'ZInQ.Manuscript.RC.ModelGeneric7.FormulaSeam' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:442:0: 'ZInQ.Manuscript.RC.ModelGeneric7.exists_oddStep_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:443:0: 'ZInQ.Manuscript.RC.ModelGeneric7.exists_twoStep_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:444:0: 'ZInQ.Manuscript.RC.ModelGeneric7.exists_formulaSeam' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/SeamFormula.lean:445:0: 'ZInQ.Manuscript.RC.ModelGeneric7.exists_quotientSeam_of_formulaSeam' depends on axioms: [propext,
+Build completed successfully (9713 jobs).
+EXIT 0
