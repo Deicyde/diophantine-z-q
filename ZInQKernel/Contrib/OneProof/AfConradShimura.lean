@@ -13,6 +13,8 @@ polynomial of an arithmetic Frobenius at `p ∤ Nℓ` is `X² − (1 ⊗ a_p(f))
 * `charpoly_eq_of_finrank_eq_two`, `eq_of_quadratic_eq`: on a free module of rank 2 over a nontrivial commutative
   ring, the characteristic polynomial is `X² − tr X + det`, and its coefficients determine the trace and the
   determinant.
+* `nontrivial_tensor`, `finite_of_free_finrank`, `charpoly_esPoly_iff`: the same on `V_ℓ(A)` over `ℚ_ℓ ⊗ K` for a
+  number field `K`.
 * `afConradThm514_iff_tensor`, `afCharpolyDS965_iff_conrad`, `afCharpolyDS965_of_conrad`: Theorem 5.14 is
   equivalent to the trace-and-determinant form `Ribet80.AfRibet80Tensor`, hence to the row `AfCharpolyDS965`.
 
@@ -59,9 +61,12 @@ moduli curve of pairs (E, P) (`X1Igusa.Weber`: `ℚ(j, f₁) = ℚ(j)(x(P))`); `
 `⟨d⟩ ↦ χ(d)`), which is the quotient by `p_f`; `θ` is the action of `K_f` (`IsAfAction`); `V_ℓ(A)` is a
 `ℚ_ℓ ⊗_ℚ K_f`-module through `θ` (`R16Used.tensorModule`), `galR ℓ A θ σ` is the action of `σ ∈ G_ℚ`, and
 `IsFrobAt σ p` says that `σ` is an arithmetic Frobenius at `p`; `χ_f(p)` is the element `c` of `K_f` with
-`c = χ(p)` in `ℂ`. Reading steps: the first clause `dim A_f = [K_f : ℚ]` is dropped; `2 ≤ N` (no newform of
-weight 2 exists for `N < 5`, p. 63); the model, the Jacobian with a rational base point, the operators, the
-quotient, the action and the number-field instance are inputs. -/
+`c = χ(p)` in `ℂ`. The characteristic polynomial is Mathlib's `LinearMap.charpoly` over `ℚ_ℓ ⊗_ℚ K_f`, defined for
+finite free modules (hence the instance binders; `V_ℓ(A_f)` is finite since it is free of rank 2), and
+`R16Used.esPoly ℓ a d` is the polynomial `X² − (1 ⊗ a) X + (1 ⊗ d)` over `ℚ_ℓ ⊗_ℚ K_f`. Reading steps: the first
+clause `dim A_f = [K_f : ℚ]` is dropped; `2 ≤ N` (no newform of weight 2 exists for `N < 5`, p. 63); the model,
+the Jacobian with a rational base point, the operators, the quotient, the action and the number-field instance
+are inputs. -/
 def AfConradThm514 : Prop :=
   ∀ (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2), 2 ≤ N → IsNewform f χ →
     ∀ (X : Over SpecQ) [IsIntegral X.left] (jX tX : X.left.functionField),
@@ -74,16 +79,14 @@ def AfConradThm514 : Prop :=
       IsAfQuotient χ f tp δ A π → IsAfAction χ f tp δ π θ →
     ∀ [NumberField (coeffField f)] (ℓ : ℕ) [Fact ℓ.Prime],
       letI := R16Used.tensorModule ℓ A θ
-      ∃ (_ : Module.Free (ℚ_[ℓ] ⊗[ℚ] coeffField f) (A.V ℓ))
-        (_ : Module.Finite (ℚ_[ℓ] ⊗[ℚ] coeffField f) (A.V ℓ)),
-        Module.finrank (ℚ_[ℓ] ⊗[ℚ] coeffField f) (A.V ℓ) = 2 ∧
-        ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
-          ∃ c : coeffField f, (c : ℂ) = χ (p : ZMod N) ∧
-            LinearMap.charpoly (galR ℓ A θ σ) =
-              (Polynomial.X : Polynomial (ℚ_[ℓ] ⊗[ℚ] coeffField f)) ^ 2 -
-                Polynomial.C ((1 : ℚ_[ℓ]) ⊗ₜ[ℚ]
-                  (⟨coeff f p, coeff_mem_coeffField f p⟩ : coeffField f)) * Polynomial.X +
-                Polynomial.C ((1 : ℚ_[ℓ]) ⊗ₜ[ℚ] ((p : coeffField f) * c))
+      Module.Free (ℚ_[ℓ] ⊗[ℚ] coeffField f) (A.V ℓ) ∧
+      Module.finrank (ℚ_[ℓ] ⊗[ℚ] coeffField f) (A.V ℓ) = 2 ∧
+      ∀ [Module.Free (ℚ_[ℓ] ⊗[ℚ] coeffField f) (A.V ℓ)]
+        [Module.Finite (ℚ_[ℓ] ⊗[ℚ] coeffField f) (A.V ℓ)],
+      ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+        ∃ c : coeffField f, (c : ℂ) = χ (p : ZMod N) ∧
+          LinearMap.charpoly (galR ℓ A θ σ) =
+            R16Used.esPoly ℓ (⟨coeff f p, coeff_mem_coeffField f p⟩ : coeffField f) ((p : coeffField f) * c)
 
 /-! ## Free modules of rank 2 -/
 
@@ -91,8 +94,9 @@ section RankTwo
 
 /-- On a free module of rank 2 over a nontrivial commutative ring, the characteristic polynomial is
 `X² − tr X + det`. -/
-theorem charpoly_eq_of_finrank_eq_two {R M : Type*} [CommRing R] [Nontrivial R] [AddCommGroup M]
-    [Module R M] [Module.Free R M] [Module.Finite R M] (h : Module.finrank R M = 2) (g : M →ₗ[R] M) :
+theorem charpoly_eq_of_finrank_eq_two {R M : Type*} [CommRing R] [iN : Nontrivial R] [AddCommGroup M]
+    [iM : Module R M] [iF : Module.Free R M] [iFin : Module.Finite R M] (h : Module.finrank R M = 2)
+    (g : M →ₗ[R] M) :
     g.charpoly = Polynomial.X ^ 2 - Polynomial.C (LinearMap.trace R M g) * Polynomial.X +
       Polynomial.C (LinearMap.det g) := by
   let b := Module.finBasisOfFinrankEq R M h
@@ -103,26 +107,63 @@ theorem charpoly_eq_of_finrank_eq_two {R M : Type*} [CommRing R] [Nontrivial R] 
 theorem eq_of_quadratic_eq {R : Type*} [CommRing R] {t d t' d' : R}
     (h : (Polynomial.X ^ 2 - Polynomial.C t * Polynomial.X + Polynomial.C d : Polynomial R) =
       Polynomial.X ^ 2 - Polynomial.C t' * Polynomial.X + Polynomial.C d') : t = t' ∧ d = d' := by
-  have h1 := congrArg (fun q => Polynomial.coeff q 1) h
-  have h0 := congrArg (fun q => Polynomial.coeff q 0) h
-  simp only [Polynomial.coeff_add, Polynomial.coeff_sub, Polynomial.coeff_X_pow,
-    Polynomial.coeff_C_mul_X, Polynomial.coeff_C] at h1 h0
-  norm_num at h1 h0
-  exact ⟨h1, h0⟩
+  refine ⟨?_, ?_⟩
+  · have h1 := congrArg (fun q => Polynomial.coeff q 1) h
+    simpa [Polynomial.coeff_X_pow, Polynomial.coeff_C, Polynomial.coeff_X] using h1
+  · have h0 := congrArg (fun q => Polynomial.coeff q 0) h
+    simpa [Polynomial.coeff_X_pow, Polynomial.coeff_C, Polynomial.coeff_X] using h0
 
-/-- A module of finite rank 2 over a ring has a nontrivial base ring. -/
-theorem nontrivial_of_finrank_eq_two {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M]
-    (h : Module.finrank R M = 2) : Nontrivial R := by
-  have : Nontrivial M := Module.nontrivial_of_finrank_pos (by omega)
-  exact Module.nontrivial R M
-
-/-- A free module of finite rank 2 is finite. -/
-theorem finite_of_finrank_eq_two {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M]
-    [Module.Free R M] (h : Module.finrank R M = 2) : Module.Finite R M := by
-  have := nontrivial_of_finrank_eq_two (R := R) (M := M) h
-  exact Module.finite_of_finrank_pos (by omega)
+/-- `X² − t X + d` depends only on `t` and `d`. -/
+theorem quadratic_congr {R : Type*} [CommRing R] {t d t' d' : R} (ht : t = t') (hd : d = d') :
+    (Polynomial.X ^ 2 - Polynomial.C t * Polynomial.X + Polynomial.C d : Polynomial R) =
+      Polynomial.X ^ 2 - Polynomial.C t' * Polynomial.X + Polynomial.C d' := by
+  rw [ht, hd]
 
 end RankTwo
+
+/-! ## `V_ℓ(A)` over `ℚ_ℓ ⊗ K` -/
+
+section Generic
+
+variable {K : Type} [Field K] [NumberField K] (ℓ : ℕ) [Fact ℓ.Prime] (A : AbVar ℚ) (θ : K →+* A.End0)
+
+/-- `ℚ_ℓ ⊗_ℚ K` is a nontrivial ring: it maps to the completion of `K` at a place above `ℓ`. -/
+theorem nontrivial_tensor : Nontrivial (ℚ_[ℓ] ⊗[ℚ] K) := by
+  obtain ⟨w₀⟩ := Ribet80.nonempty_placesAbove ℓ K
+  have := w₀.2
+  exact RingHom.domain_nontrivial (rhoLam ℓ w₀.1)
+
+/-- A free `ℚ_ℓ ⊗ K`-module structure of rank 2 on `V_ℓ(A)` is finite. -/
+theorem finite_of_free_finrank
+    (hfree : letI := R16Used.tensorModule ℓ A θ; Module.Free (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ))
+    (hrk : letI := R16Used.tensorModule ℓ A θ; Module.finrank (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ) = 2) :
+    letI := R16Used.tensorModule ℓ A θ
+    Module.Finite (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ) := by
+  let := R16Used.tensorModule ℓ A θ
+  have := hfree
+  have := nontrivial_tensor ℓ (K := K)
+  exact Module.finite_of_finrank_pos (by rw [hrk]; norm_num)
+
+/-- **On `V_ℓ(A)`, free of rank 2 over `ℚ_ℓ ⊗ K`, the characteristic polynomial of `σ` is
+`X² − (1 ⊗ a) X + (1 ⊗ d)` if and only if its trace is `1 ⊗ a` and its determinant is `1 ⊗ d`.** -/
+theorem charpoly_esPoly_iff
+    (hfree : letI := R16Used.tensorModule ℓ A θ; Module.Free (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ))
+    (hfin : letI := R16Used.tensorModule ℓ A θ; Module.Finite (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ))
+    (hrk : letI := R16Used.tensorModule ℓ A θ; Module.finrank (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ) = 2)
+    (σ : GQ) (a d : K) :
+    letI := R16Used.tensorModule ℓ A θ
+    letI : Module.Free (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ) := hfree
+    letI : Module.Finite (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ) := hfin
+    (LinearMap.charpoly (galR ℓ A θ σ) = R16Used.esPoly ℓ a d ↔
+      (LinearMap.trace (ℚ_[ℓ] ⊗[ℚ] K) (A.V ℓ) (galR ℓ A θ σ) = (1 : ℚ_[ℓ]) ⊗ₜ a ∧
+        LinearMap.det (galR ℓ A θ σ) = (1 : ℚ_[ℓ]) ⊗ₜ d)) := by
+  have key := charpoly_eq_of_finrank_eq_two (R := ℚ_[ℓ] ⊗[ℚ] K) (M := A.V ℓ)
+    (iN := nontrivial_tensor ℓ) (iM := R16Used.tensorModule ℓ A θ) (iF := hfree) (iFin := hfin) hrk
+    (galR ℓ A θ σ)
+  refine ⟨fun h => eq_of_quadratic_eq (key.symm.trans h), fun ⟨h1, h2⟩ => ?_⟩
+  exact key.trans (quadratic_congr h1 h2)
+
+end Generic
 
 /-! ## Equivalences -/
 
@@ -130,25 +171,21 @@ end RankTwo
 theorem afConradThm514_iff_tensor : AfConradThm514 ↔ Ribet80.AfRibet80Tensor := by
   constructor
   · intro h N χ f hN hf X _ jX tX hC hG P₀ J aj hJ tp δ htp hδ A π θ hQ hAct _ ℓ _
-    letI := R16Used.tensorModule ℓ A θ
-    obtain ⟨hFree, hFin, hrk, hfrob⟩ :=
-      h N χ f hN hf X jX tX hC hG P₀ J aj hJ tp δ htp hδ A π θ hQ hAct ℓ
-    have := nontrivial_of_finrank_eq_two hrk
-    refine ⟨hFree, hrk, fun p hp hpN σ hσ => ?_⟩
-    obtain ⟨c, hc, hch⟩ := hfrob p hp hpN σ hσ
-    rw [charpoly_eq_of_finrank_eq_two hrk] at hch
-    obtain ⟨htr, hdet⟩ := eq_of_quadratic_eq hch
-    exact ⟨c, hc, htr, by rw [hdet, mul_comm]⟩
-  · intro h N χ f hN hf X _ jX tX hC hG P₀ J aj hJ tp δ htp hδ A π θ hQ hAct _ ℓ _
-    letI := R16Used.tensorModule ℓ A θ
     obtain ⟨hFree, hrk, hfrob⟩ :=
       h N χ f hN hf X jX tX hC hG P₀ J aj hJ tp δ htp hδ A π θ hQ hAct ℓ
-    have := nontrivial_of_finrank_eq_two hrk
-    have hFin := finite_of_finrank_eq_two hrk
-    refine ⟨hFree, hFin, hrk, fun p hp hpN σ hσ => ?_⟩
+    have hFin := finite_of_free_finrank ℓ A θ hFree hrk
+    refine ⟨hFree, hrk, fun p hp hpN σ hσ => ?_⟩
+    obtain ⟨c, hc, hch⟩ := @hfrob hFree hFin p hp hpN σ hσ
+    obtain ⟨htr, hdet⟩ := (charpoly_esPoly_iff ℓ A θ hFree hFin hrk σ _ _).1 hch
+    exact ⟨c, hc, htr, hdet.trans (congrArg (fun x => (1 : ℚ_[ℓ]) ⊗ₜ[ℚ] x) (mul_comm _ _))⟩
+  · intro h N χ f hN hf X _ jX tX hC hG P₀ J aj hJ tp δ htp hδ A π θ hQ hAct _ ℓ _
+    obtain ⟨hFree, hrk, hfrob⟩ :=
+      h N χ f hN hf X jX tX hC hG P₀ J aj hJ tp δ htp hδ A π θ hQ hAct ℓ
+    refine ⟨hFree, hrk, fun p hp hpN σ hσ => ?_⟩
     obtain ⟨c, hc, htr, hdet⟩ := hfrob p hp hpN σ hσ
-    refine ⟨c, hc, ?_⟩
-    rw [charpoly_eq_of_finrank_eq_two hrk, htr, hdet, mul_comm]
+    have hFin := finite_of_free_finrank ℓ A θ hFree hrk
+    exact ⟨c, hc, (charpoly_esPoly_iff ℓ A θ hFree hFin hrk σ _ _).2
+      ⟨htr, hdet.trans (congrArg (fun x => (1 : ℚ_[ℓ]) ⊗ₜ[ℚ] x) (mul_comm _ _))⟩⟩
 
 /-- **The row `afCharpolyDS965` is Conrad's Theorem 5.14 (without its dimension clause).** -/
 theorem afCharpolyDS965_iff_conrad : AfCharpolyDS965 ↔ AfConradThm514 :=
