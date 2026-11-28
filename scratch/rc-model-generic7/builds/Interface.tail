@@ -1,0 +1,7 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Interface.lean:130:0: 'ZInQ.Manuscript.RC.ModelGeneric7.atkinLevelAlg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Interface.lean:131:0: 'ZInQ.Manuscript.RC.ModelGeneric7.PointW' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Interface.lean:132:0: 'ZInQ.Manuscript.RC.ModelGeneric7.Wint_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Interface.lean:133:0: 'ZInQ.Manuscript.RC.ModelGeneric7.atkinLevelAlg_toRingHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Interface.lean:134:0: 'ZInQ.Manuscript.RC.ModelGeneric7.smulSubgroup_cyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Interface.lean:135:0: 'ZInQ.Manuscript.RC.ModelGeneric7.smulSubgroup_div_cyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (13534 jobs).
