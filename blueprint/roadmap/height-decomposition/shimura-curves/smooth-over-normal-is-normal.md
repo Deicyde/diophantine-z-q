@@ -3,7 +3,7 @@ article_id: af_f79086806a088696b615ebb1
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.egaIV1757SmoothNormal
+lean: HDec.HSyn.OpenResearchLeaves87.egaIV1757SmoothNormal
 ---
 
 # A scheme smooth over a normal base is normal

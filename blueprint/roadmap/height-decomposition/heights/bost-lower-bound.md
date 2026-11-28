@@ -3,7 +3,7 @@ article_id: af_c8b49eabbe55128e11c3f65c
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.gaudronRemondSec9LowerGR1Weak
+lean: HDec.HSyn.OpenResearchLeaves87.gaudronRemondSec9LowerGR1Weak
 ---
 
 # The lower bound for the Faltings height

@@ -3,7 +3,7 @@ article_id: af_36bc44a9d53a247992646d02
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.buzzardLemma22Full5
+lean: HDec.HSyn.OpenResearchLeaves87.buzzardLemma22Full5
 ---
 
 # An automorphism fixing a full level-5 structure is the identity

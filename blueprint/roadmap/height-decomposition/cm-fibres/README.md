@@ -23,8 +23,6 @@ quaternionic multiplication whose geometric endomorphism algebra is $\mathrm M_2
 quaternion algebra, which the manuscript splits, up to isogeny, as the square of an elliptic curve
 with complex multiplication by an order of $k$.
 
-Of these two statements, one is a published statement and one is a consequence of published
-theorems; none is proved here.
+It is not proved here.
 
-- [The discriminant formula for the Faltings height of an elliptic curve](elliptic-height-discriminant-formula.md)
 - [Fowler's bound for discriminants of bounded class number](fowler-class-number-bound.md)

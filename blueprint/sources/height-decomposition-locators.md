@@ -10,9 +10,9 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the twenty-nine statements of the chapter in the
-project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
-is the project-authored note `docs/research/h-trust.md`.
+The minimal height hypothesis is proved from the thirty statements of the chapter in the project's
+assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof is the
+project-authored note `docs/research/h-trust.md`.
 
 ## Pazuki bound
 
@@ -57,15 +57,6 @@ H. Carayol, Ann. Sci. ÉNS (4) 19 (1986), 409–468, Théorème (A), pp. 409–4
 citation, with §0.8, p. 411 (read in the numdam copy); W. Casselman, Math. Ann. 201 (1973), Theorem
 1; K. Ribet, LNM 601 (1977), Theorem 2.3. The numbers of Casselman's and Ribet's theorems are
 unverified.
-
-## Barquero-Sanchez et al. Eq. (6.2)
-
-A. Barquero-Sanchez, L. Cadwallader, O. Cannon, T. Genao and R. Masri, *Faltings heights of CM
-elliptic curves and special Gamma values*, Res. Number Theory 3 (2017), art. 13, §6, Eq. (6.2), pp.
-13–14, with the metric on p. 1, read in the published article by the upstream review of the
-manuscript's CM argument (project note `docs/reviews/height-replacement/height/AUDIT.md`, item 2);
-the manuscript's citation (`diophantine_zq.tex`, lines 595–605). The paper attributes the formula to
-Silverman, Proposition 1.1 (not read).
 
 ## Fowler Proposition 2.7
 
@@ -199,17 +190,27 @@ schemes are defined on p. 42). The pages of the 1986 printing are unverified.
 J. Voight, *Quaternion Algebras*, Graduate Texts in Mathematics 288, Springer (2021), §43.4 and
 §43.6: 43.4.6, 43.6.12, Main Theorem 43.6.14, Proposition 43.6.28.
 
-## Cornut–Vatsal Lemma 3.11
+## Boutot–Carayol III 1.5
 
-C. Cornut, V. Vatsal, *CM points and quaternion algebras*, Documenta Math. 10 (2005), 263–309,
-§3.1.1 (p. 291), Lemma 3.7 (p. 296), §3.2.4 and Lemma 3.11 (pp. 298–299), §3.2.5 (p. 300), Remark
-3.15 (p. 301).
+J.-F. Boutot, H. Carayol, *Uniformisation $p$-adique des courbes de Shimura : les théorèmes de
+Čerednik et de Drinfeld*, Astérisque 196–197 (1991), 45–158, Ch. III, 0.5 (p. 127) and 1.5 (p. 129).
 
-## glue
+## Boutot–Carayol III 1.4
 
-G. Shimura, *Construction of class fields and zeta functions of algebraic curves*, Ann. of Math. 85
-(1967), Main Theorem I (not read); P. Deligne, *Travaux de Shimura*, Sém. Bourbaki 389 (1971),
-4.11–4.21, 5.5, 5.7–5.8; C. Cornut, V. Vatsal, Documenta Math. 10 (2005), §3.1.2, p. 292.
+J.-F. Boutot, H. Carayol, Astérisque 196–197 (1991), Ch. III, 1.1–1.4 (pp. 127–129).
+
+## Milne 14.8, Deligne Hodge II 4.4.3
+
+J. S. Milne, *Introduction to Shimura varieties*, in *Harmonic Analysis, the Trace Formula, and
+Shimura Varieties*, Clay Math. Proc. 4 (2005), 265–378, Theorem 14.8 (p. 352) and its use on p. 354,
+Theorem 3.12 (pp. 291–292), Proposition 3.8 (p. 290), Theorem 6.8 (p. 319); P. Deligne, *Théorie de
+Hodge II*, Publ. Math. IHÉS 40 (1971), Rappel (4.4.3), p. 51.
+
+## Milne §14, Def. 12.8
+
+J. S. Milne, *Introduction to Shimura varieties*, Clay Math. Proc. 4 (2005), §14, pp. 353–355 (the
+PEL case), Definition 12.8 and (54), p. 346, (52), p. 345, (51), p. 341, and "Models of varieties",
+p. 343.
 
 ## Fontaine Theorem 2
 

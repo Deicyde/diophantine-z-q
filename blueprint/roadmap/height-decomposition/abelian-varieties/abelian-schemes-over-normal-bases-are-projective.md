@@ -3,7 +3,7 @@ article_id: af_0d4313da0b4be6281787099c
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.raynaudLNM119Normal
+lean: HDec.HSyn.OpenResearchLeaves87.raynaudLNM119Normal
 ---
 
 # Abelian schemes over a normal base are projective

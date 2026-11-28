@@ -3,7 +3,7 @@ article_id: af_a0886a01fa5ed91ae90d6d39
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.voightQMComplexModuliPrint
+lean: HDec.HSyn.OpenResearchLeaves87.voightQMComplexModuliPrint
 ---
 
 # Complex abelian surfaces with quaternionic multiplication, in lattice form

@@ -3,7 +3,7 @@ article_id: af_8e3831f30bd24cc15d990643
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.egaIV_9_7_7_OL
+lean: HDec.HSyn.OpenResearchLeaves87.egaIV_9_7_7_OL
 ---
 
 # The locus of geometrically connected fibres

@@ -3,7 +3,7 @@ article_id: af_6385092d64ac688111cfe743
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.milneProp207At3
+lean: HDec.HSyn.OpenResearchLeaves87.milneProp207At3
 ---
 
 # Multiplication by 3 on an abelian scheme is finite étale

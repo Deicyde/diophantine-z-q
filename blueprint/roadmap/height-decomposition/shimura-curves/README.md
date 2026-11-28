@@ -22,12 +22,14 @@ curve with the moduli properties that it lists, and asserts nothing about the ex
 curve; the lists differ from one statement to another. A *proper smooth curve* over a base is a
 scheme over it that is proper and smooth of relative dimension $1$; it need not be connected.
 
-Of these six statements, five are published statements and one is a consequence of published
+Of these eight statements, seven are published statements and one is a consequence of published
 theorems; none is proved here.
 
 - [Buzzard's moduli problem at level V₁(5) is a projective curve over ℤ[1/30]](buzzard-v15-moduli-problem.md)
 - [An automorphism fixing a full level-5 structure is the identity](buzzard-lemma-2-2-level-5.md)
 - [A scheme smooth over a normal base is normal](smooth-over-normal-is-normal.md)
 - [Complex abelian surfaces with quaternionic multiplication, in lattice form](complex-qm-abelian-surfaces-voight.md)
-- [Shimura's canonical model at level three and the reciprocity law at CM points](canonical-model-level-three-reciprocity.md)
-- [The fine moduli scheme at level three is Shimura's canonical model](fine-moduli-scheme-is-canonical-model.md)
+- [Complex QM abelian surfaces carry a compatible principal polarization](principal-polarization-qm-surfaces.md)
+- [The level-three QM moduli problem is representable over the rationals](qm-moduli-representable-over-q.md)
+- [The complex Shimura curve at level three carries its family of QM surfaces](family-over-complex-shimura-curve.md)
+- [A model on which Galois acts as on the moduli objects is canonical](moduli-model-is-canonical.md)

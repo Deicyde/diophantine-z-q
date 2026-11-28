@@ -3,7 +3,7 @@ article_id: af_29be0c693e46a1937c8bf9e8
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves85.milneProp207At5
+lean: HDec.HSyn.OpenResearchLeaves87.milneProp207At5
 ---
 
 # Multiplication by 5 on an abelian scheme is finite étale
