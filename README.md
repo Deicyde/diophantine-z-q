@@ -146,7 +146,8 @@ Start at [issue #14](https://github.com/Deicyde/diophantine-z-q/issues/14); a co
 - **Check a statement against its printed source** (no Lean needed): follow
   [STATEMENT-CHECKS.md](docs/one-proof/STATEMENT-CHECKS.md); [pages-wanted.md](docs/one-proof/pages-wanted.md) lists
   the pages to read. A person's reading counts for more than an AI's: apart from `unread`, only a person's reading
-  clears a statement's flags.
+  clears a statement's flags, except a three-lens adversarial AI reading made from a named copy of the print (sha256
+  recorded, every quote checked against that file) when no human reader is available.
 
 ## Check it yourself
 

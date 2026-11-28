@@ -58,11 +58,11 @@ theorem CloudB3W17LocalExp.mumfordComplexTorus_comm (g : ℕ) (X : Type) [Topolo
       (e : BPAnalytic.Torus Λ ≃ₘ^ω⟮𝓘(ℂ, Fin g → ℂ), 𝓘(ℂ, Fin g → ℂ)⟯ X), ∀ a b, e (a + b) = e a * e b
 ```
 
-is the conclusion of the H103 printed leaf `UnifPrinted.MumfordComplexTorus` in the commutative case,
-with `T2Space` dropped (not needed). It is **not** a discharge of that leaf: the leaf quantifies over
-all `Group` structures, and commutativity of a general compact connected complex Lie group is not
-proved here. For abelian varieties it is not needed — `A.Pt ℂ` is commutative
-(`ZInQKernel/HDecomp/Objects.lean:177`).
+is the conclusion of `UnifPrinted.MumfordComplexTorus`, a printed leaf of an H103 reduction on the
+unmerged branch `wip/unif-printed`, in the commutative case, with `T2Space` dropped (not needed). It
+is **not** a discharge of that leaf: the leaf quantifies over all `Group` structures, and
+commutativity of a general compact connected complex Lie group is not proved here. For abelian
+varieties it is not needed — `A.Pt ℂ` is commutative (`ZInQKernel/HDecomp/Objects.lean:177`).
 
 ## Inputs
 
@@ -78,7 +78,10 @@ proved here. For abelian varieties it is not needed — `A.Pt ℂ` is commutativ
 
 ## Not done
 
-* No in-tree instance of the hypotheses is exhibited (the natural witness,
-  `Multiplicative (BPAnalytic.Torus Λ)`, needs `ChartedSpace`/`LieGroup` instances transported along
-  the `Multiplicative` type synonym, which Mathlib does not provide).
+* No instance of the hypotheses is exhibited in this directory; `CloudB3W17Uniformization` exhibits
+  one, `A.Pt ℂ` for every `A : PkgI3.AbVar ℂ` (`uniformizationLeaf_of_canonicalAtlas` builds its
+  `LieGroup` structure and applies `exists_torus_diffeo` through
+  `uniformizationLeaf_of_analyticPoints`). The torus itself is not exhibited as one (the natural
+  witness, `Multiplicative (BPAnalytic.Torus Λ)`, needs `ChartedSpace`/`LieGroup` instances
+  transported along the `Multiplicative` type synonym, which Mathlib does not provide).
 * Commutativity of a general compact connected complex Lie group (Mumford §1's first half).

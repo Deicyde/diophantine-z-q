@@ -27,5 +27,5 @@ full theorem-type and axiom output. All thirteen supplier constants and both
 compactness donors use only `propext`, `Classical.choice`, and `Quot.sound`.
 
 This is a restricted compactness supplier. General nonreduced/component cases and
-the separate dictionary to `UnifPrinted.CPt` / `A.Pt ℂ` are not claimed here.
+the separate dictionary to `CloudB3W17Hodge.CPt` / `A.Pt ℂ` are not claimed here.
 Neither H103 nor `ProperCompactAn` is claimed discharged by these files alone.

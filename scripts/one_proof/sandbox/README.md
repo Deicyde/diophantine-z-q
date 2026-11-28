@@ -76,8 +76,9 @@ parent.
 ## Security model
 
 - The job runs on a GitHub-hosted runner: a fresh virtual machine per job, with no access to project machines. Its only state from earlier runs is the build of `main` restored from the Actions cache, which only pushes to `main` write (`main-build-cache.yml`); a cache saved under the pull request's own ref is refused.
-- The workflow's only permission is `contents: read`, so its `GITHUB_TOKEN` can only read, and checkout runs
-  with `persist-credentials: false`, so the token is not left in `.git/config`.
+- The workflow's permissions are `contents: read` and `actions: read` (only to list this pull request's own
+  caches), so its `GITHUB_TOKEN` can only read, and checkout runs with `persist-credentials: false`, so the token is
+  not left in `.git/config`.
 - The workflow uses no secrets, variables or environments. A pull request from a fork gets no secrets and a
   read-only token in any case.
 - Whether an outside contributor's run waits for a maintainer's approval depends on the repository setting
@@ -88,8 +89,8 @@ parent.
 - The trigger is `pull_request`, never `pull_request_target`, which would run with the base repository's
   secrets and a write token.
 - No field of the event that a contributor controls (title, body, branch names, file names) is interpolated into
-  a script; the scripts get only the head SHA, through an environment variable, and the merge commit's
-  parents from git.
+  a script; the scripts get only the head SHA and the pull request's number, through environment variables, and the
+  merge commit's parents from git.
 
 ## Limits
 

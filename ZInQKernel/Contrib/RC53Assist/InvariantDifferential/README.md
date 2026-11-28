@@ -2,7 +2,7 @@
 
 ## Result
 
-**S2b over `ℚ` and the function-field statement of S2c are proved. S2a remains a scheme-level translation.** No printed theorem is a Lean hypothesis in the two proof files.
+**S2b over `ℚ` and the function-field statement of S2c are proved. Scheme-level S2a is proved separately, in `GroupDifferentials/S2a.lean` (`abVar_projectiveWeierstrassModel_unconditional`).** No printed theorem is a Lean hypothesis in the two proof files.
 
 The supplied integration base is `3b0ffbb9`. The original `ModularWeil/DifferentialLine.lean` is unchanged. It already proved the dimension of holomorphic Weil differentials and the function-field span of the Kähler invariant differential; the new files supply the missing divisor computation and the forward Weierstrass-model construction.
 
@@ -10,7 +10,6 @@ The supplied integration base is `3b0ffbb9`. The original `ModularWeil/Different
 - `WeierstrassModel.lean`: Riemann–Roch construction of coordinates with pole divisors `2P` and `3P`; generation of the function field; nonsingularity over perfect constants; an actual constant-field algebra isomorphism with the Weierstrass function field.
 - `Statements.md`: exact source signatures, with their declaration contexts and locators, for every explicit declaration.
 - `DivisorZeroAxioms.txt` and `WeierstrassModelAxioms.txt`: compiler-produced type and axiom reports, obtained in separate temporary copies of the final sources.
-- `Verification.md`: source hashes, sizes, compilation evidence, restrictions audit, and source provenance.
 
 Namespace: `ZInQ.Contrib.RC53Assist.InvariantDifferential`.
 
@@ -89,7 +88,7 @@ At a place where `x` is regular, the monic equation for `y` bounds the different
 
 No residue calculation at an arbitrary point and no hypothesis that `ω` is already regular enters this argument. Independence of the general comparison from the separating parameter is not asserted; the result uses the specified parameter `x` throughout.
 
-## Precise remaining S2a reduction
+## Precise S2a reduction
 
 Let `A/ℚ` be the one-dimensional abelian variety in Shimura's quotient construction, understood as a proper smooth geometrically connected group scheme, and let `e` be its identity.
 
@@ -100,7 +99,7 @@ The general printed statements needed for the differential part can be taken fro
 
 These are general statements about arbitrary dimension and arbitrary free sheaves, not the conclusion that a one-dimensional abelian variety has genus one. Neither statement is introduced as an axiom or an assumed conclusion in the Lean files.
 
-They give `dimℚ Γ(A, Ω¹_A/ℚ) = 1`. What remains to turn this into a Lean discharge is the following precise geometric dictionary:
+They give `dimℚ Γ(A, Ω¹_A/ℚ) = 1`. Turning this into a Lean discharge needs the following precise geometric dictionary; items 1–5 are now proved in `AbelianCurve/`, `AbelianCurveInputs/` and `GroupDifferentials/`:
 
 1. From `dim A = 1`, properness, smoothness, and geometric connectedness, construct the integral-curve/function-field interpretation of `A`, with its inherited `ℚ`-algebra structure on `A.functionField`. Prove `TauCeti.IsFunctionField ℚ A.functionField` and `IsIntegrallyClosedIn ℚ A.functionField`.
 2. Turn the rational identity `e` into a place `P_e : TauCeti.Place ℚ A.functionField` of degree one. This requires the one-dimensional local-ring/valuation-ring dictionary at `e`, not just a point in the carrier of a scheme.

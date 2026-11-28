@@ -78,8 +78,9 @@ A reviewer replies in the same thread with what the Lean says, in plain words, i
 
 ## Reading a Lean Prop
 
-Each OPEN.md entry shows the hypothesis as a Lean name or term. Here is `sga7_IX_3_3`, in packet R1 with the
-label long-pole and a pending-reading flag. Its OPEN.md entry gives the source and the Lean block:
+Each OPEN.md entry shows the hypothesis as a Lean name or term. Here is `sga7_IX_3_3`, a former entry: it was in packet
+R1 with the label long-pole and a pending-reading flag until leaf-fold20 (`ZInQKernel/OneProof/H/TailZ33.lean`) replaced
+it by a proof from other leaves. Its OPEN.md entry gave the source and the Lean block:
 
 * Source: SGA 7 IX 3.3 (may be stated over a strictly henselian trait; used at number-field DVRs)
 
@@ -160,7 +161,7 @@ fibres maps the union of the identity components of the fibres of `𝒩 ×_O O'`
 open immersion onto the union of the identity components of the fibres of `𝒩'`.
 
 A check compares this with the print, clause by clause: the kind of extension of discrete valuation rings the
-print allows (OPEN.md's source line notes it may be stated over a strictly henselian trait), whether it speaks
+print allows (OPEN.md's source line noted it may be stated over a strictly henselian trait), whether it speaks
 of the canonical morphism or of any such `c`, the meaning of semistable reduction, and whether its conclusion
 is this open immersion onto the identity component. If the print is more general and the Lean is a direct
 instance of it, the verdict is YES. If OPEN.md's entry for this field changes after a fold, the method is the

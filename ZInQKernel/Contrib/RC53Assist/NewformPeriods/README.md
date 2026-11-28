@@ -3,7 +3,7 @@
 
 ## Update (2026-11-18)
 
-G1 `ParametrizationPeriodsGlue` is now proved outright, with no hypotheses and no printed input: `ZInQ.Contrib.RC53Assist.NewformPeriodsG1.parametrizationPeriodsGlue_holds` in `NewformPeriodsG1/ParametrizationPeriods.lean`. The reduction without G1 as a hypothesis is `newformPeriodsRational_of_prints_G0_G2`. The proof uses only Mathlib facts about the Weierstrass function (it takes every value off the lattice; a local period is a lattice vector), a local inverse, the identity theorem on the upper half-plane, q-expansion calculus proved there, and j built from the Eisenstein series E4 and E6. The statements below that list G1 as unproved glue are superseded by this note.
+G1 `ParametrizationPeriodsGlue` is now proved outright, with no hypotheses and no printed input: `ZInQ.Contrib.RC53Assist.NewformPeriodsG1.parametrizationPeriodsGlue_holds` in `NewformPeriodsG1/ParametrizationPeriods.lean`. The reduction without G1 as a hypothesis is `newformPeriodsRational_of_prints_G0_G2`. The proof uses only Mathlib facts about the Weierstrass function (it takes every value off the lattice; a local period is a lattice vector), a local inverse, the identity theorem on the upper half-plane, q-expansion calculus proved there, and j built from the Eisenstein series E4 and E6. G2 `IsogenyLatticeGlue` is proved as well (`ZInQ.Contrib.RC53Assist.NewformGlues.isogenyLatticeGlue_proved` in `NewformGlues/G1G2.lean`), and `newformPeriodsRational_of_prints_G0` there needs only the two printed leaves and G0. The statements below that list G1 or G2 as unproved glue are superseded by this note.
 
 This directory reduces the period statement `NewformPeriodsRational`
 (`ZInQ.Contrib.CloudB3RC53.ModularWeil.NewformPeriodsRational`, module
@@ -126,10 +126,11 @@ Translations inside the leaves (CONSEQUENCE GLUE, part of reading the prints in 
 
 1. The prints themselves: `Shimura1973Thm1RationalGamma0` and `Faltings1983Kor2EllipticQ` stay
    hypotheses.
-2. The consequence translations S1–S5 and F1–F2 (a scheme-level `X₀(M)`, `J₀(M)` and Shimura's
+2. The consequence translations S1–S4 and F2 (a scheme-level `X₀(M)`, `J₀(M)` and Shimura's
    quotient, the `q`-expansion principle at `∞`, pull-backs of differentials, Euler factors of
-   abelian varieties against `WeierstrassCurve.LFunction`, Hecke operator comparison, isogenies of
-   abelian varieties against `TauCeti.Isogeny`).
+   abelian varieties against `WeierstrassCurve.LFunction`, isogenies of abelian varieties against
+   `TauCeti.Isogeny`). S5 and F1 are proved (`NewformPeriodsDictionary/README.md`;
+   `FrobeniusTraceDictionary/Proved.lean`, `goodReductionFrobeniusTraceDictionaryQ_proved`).
 3. Proofs of G0, G1, G2.
 4. Outside this target: conductor equality for `newformLevel` and the passage from the analytic
    stand-in `HasWeakWeilParametrization` to Kolyvagin's algebraic premise (documented with

@@ -67,6 +67,11 @@ dimension `dim ℙ¹ = 1` (integral surjective map, `ZInQ.Contrib.Dim`), and fun
   because the vendored Stacks files of `Contrib/CloudW01Spread` declare different constants with the
   same names. The references were located from Lean's own `.ilean` reference data (local binders
   named `baseChangeMap` are left alone).
+* Renaming (1 file): `MvPolynomial.IsHomogeneous.eval₂_const_mul` in
+  `RingTheory/MvPolynomial/HomogeneousCharts.lean` is renamed
+  `MvPolynomial.IsHomogeneous.eval₂_const_mul_chart` (it has no uses), because the vendored
+  Tau Ceti module `ZInQKernel.Contrib.TauCeti.RingTheory.MvPolynomial.Homogeneous` declares the
+  same name.
 * Proof edits for the newer Mathlib (5 files, each marked `-- CloudW07 edit:`; Mathlib PR #43759
   made `CategoryTheory.End` a one-field structure, so endomorphisms are wrapped with `End.of` and
   applied with `.asHom`): `Algebra/Category/ModuleCat/Presheaf/InternalHom.lean`

@@ -9,7 +9,7 @@
 > one pole polynomial. It is kept at the tag `route-k-final`, nasqret/z-in-q-lean builds on it,
 > and fork issue #104 plans bringing the two together upstream; `docs/research/rs-pole.md`
 > records why it was adopted. `main` carries **Elliot's route**, which follows the manuscript,
-> apart from route AP and the catalogue bound CAT₈ described below.
+> apart from route AP, the catalogue bound CAT₈ and the other deviations listed below.
 > `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`
 > (`ZInQKernel/MainGreenTao.lean`) proves the target from the minimal height hypothesis
 > `SixContactMin` and pole completeness `PoleCompleteness`, the manuscript's Theorem 5.2 for its
@@ -43,7 +43,7 @@ example because a step is wrong or cannot be formalized as written. A later upst
 that corrects a step is a reason to look at it, not a new reference text.
 
 Every deviation is listed here with what the manuscript says, what the Lean does instead, and
-why. The three below predate the rule and have not yet been reviewed against it.
+why. The first three below predate the rule and have not yet been reviewed against it.
 
 | Step | The manuscript | The Lean | Why |
 | --- | --- | --- | --- |

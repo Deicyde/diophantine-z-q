@@ -1,9 +1,12 @@
 # tate-module-prints
 
 Two single-print rows on the Tate module `V_p(A) = ℚ_p ⊗ T_p(A)`, and the Lean glue from them to
-`DeRhamScholze.HTMerge.VpDualDeRhamAbVar` (vpdual-merge, `VpDualMerge/Row.lean`). In a later fold
-they replace the added rows `scholzeH1AbVar` and `t10TateDuality` of `ZInQ.OneProof.frozenTarget`,
-one print per row, with the glue derived in Lean. The count stays at 22.
+`DeRhamScholze.HTMerge.VpDualDeRhamAbVar` (vpdual-merge, `VpDualMerge/Row.lean`). tate-prints-fold
+(`ZInQKernel/OneProof/H/TailZ106.lean`) made them the added rows of `ZInQ.OneProof.frozenTarget` in
+place of `scholzeH1AbVar` and `t10TateDuality`, one print per row, with the glue derived in Lean;
+that fold kept the count at 22. Since y3-colmez-1127 (`TailZ113.lean`) the Colmez row is proved
+from two rows, `milneThm71Projective` and `colmez1992DeRhamAbVarModel` (`../ColmezProperModel/`),
+and `fontaine1982HTAbVar` is still a row.
 
 This directory is add-only and changes no count. It claims no row.
 
@@ -54,7 +57,9 @@ This directory is add-only and changes no count. It claims no row.
 
 ## Fold plan (not part of this PR)
 
-Generation numbers below are for current main (top `sixContactMin_of_open98`, 22 statements).
+The fold landed as tate-prints-fold (`ZInQKernel/OneProof/H/TailZ106.lean`, top
+`sixContactMin_of_open99`, 22 → 22), before the `y3FullThreeRepZ30` fold (`TailZ109`). Generation
+numbers below are for main before this fold (top `sixContactMin_of_open98`, 22 statements).
 Draft #212 (the `y3FullThreeRepZ30` fold, 22 → 29) takes the same next generation
 (`ZInQKernel/OneProof/H/TailZ106.lean`, `OpenResearchLeaves79`, `sixContactMin_of_open99`).
 Whichever fold lands second regenerates on the new main:
@@ -97,7 +102,7 @@ Whichever fold lands second regenerates on the new main:
    `OPEN.md` (`scripts/one_proof/render_open.py`); also regenerate
    `docs/one-proof/open-statements.json` and the `Main.lean` narrative paragraph, as the fold
    tooling does.
-5. Count: 17 research + 2 added + 3 `frozenTarget` hypotheses = 22: 22 → 22 on current main;
+5. Count: 17 research + 2 added + 3 `frozenTarget` hypotheses = 22: 22 → 22 on main before the fold;
    29 → 29 if #212 lands first.
    The GLUE tally is unchanged at the fold; if both readings pass, both rows become LEAF
    (published single prints). `ScholzeH1AbVar`, `T10_TateDuality` and the `HTMerge` theorems stay

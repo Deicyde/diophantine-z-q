@@ -64,7 +64,7 @@ coordinate functions have their sole poles there, of orders two and three. The s
 function field is the existing `IsogenyScheme.projFunctionFieldEquiv`, not an assumed model
 identification.
 
-## Precisely remaining mathematical inputs
+## Mathematical inputs of these reductions (both now proved)
 
 ### `InvariantDifferentialTrivialization`
 
@@ -102,7 +102,12 @@ of that book.
 
 Neither input asserts an elliptic function field, a Weierstrass model, or a scheme
 isomorphism. Both are definitions of propositions used as hypotheses, **not axioms**.
-Until they are proved, the genus-one assertion and full S2a conclusion remain conditional.
+Both are now proved, by `ZInQ.Contrib.RC53Assist.GroupDifferentials.invariantDifferentialTrivialization`
+(`ZInQKernel/Contrib/RC53Assist/GroupDifferentials/Trivialization.lean`) and
+`ZInQ.Contrib.RC53Assist.AbelianCurveInputs.LocalFacts.regularDifferentialComparison`
+(`ZInQKernel/Contrib/RC53Assist/AbelianCurveInputs/LocalFacts.lean`);
+`ZInQKernel/Contrib/RC53Assist/GroupDifferentials/S2a.lean` states the genus-one assertion and the
+full S2a conclusion without hypotheses.
 No extra normal-model, projective-model, rational-place, or birational-extension input remains
 in these reductions.
 
@@ -112,7 +117,7 @@ in these reductions.
 * `IdentityPlace.lean`: the actual identity section, residue field, and normalized local place.
 * `SmoothCurve.lean`: relative dimension, regular/DVR/valuation local rings, rational place.
 * `DifferentialLine.lean`: the actual differential sheaf, constant global functions, trivial-line
-  dimension, the two precise remaining inputs, and the genus-one reduction.
+  dimension, the two precise inputs, and the genus-one reduction.
 * `WeierstrassReduction.lean`: the proved S2b and its identity-based coordinate construction.
 * `BirationalComparison.lean`: the proved extension and faithful scheme comparison.
 * `ProjectiveComparison.lean`: the actual proper projective model, its valuation local rings,

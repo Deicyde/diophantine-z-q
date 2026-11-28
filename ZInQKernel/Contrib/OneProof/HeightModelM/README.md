@@ -18,14 +18,15 @@ semi-abelian model. This directory supplies it, from one printed leaf, EGA IV₃
   `GaudronRemondSec9LowerGR1Weak` is the same at the current field's strength, `-(3/2) g`.
   `gaudronRemondSec9LowerGR1Weak_of_GR1` proves the print implies the weak form (the weakening
   GR make on p. 352), and `gaudronRemondSec9LowerAnSS_of_GR1Weak : EGAIV_9_7_7_OL →
-  GaudronRemondSec9LowerGR1Weak → ZInQ.BostGR9.GaudronRemondSec9LowerAnSS` gives the current row.
-  The fold carries the weak form, so the restatement is not stronger than the current field.
+  GaudronRemondSec9LowerGR1Weak → ZInQ.BostGR9.GaudronRemondSec9LowerAnSS` gives the old row
+  (the field until item-m-fold). The fold carries the weak form, so the restatement is not stronger
+  than the old field.
 * `gaudronRemondThm14Printed_of_GR1 : EGAIV_9_7_7_OL → GaudronRemondThm14GR1 →
-  ZInQ.GR14Printed.GaudronRemondThm14Printed` gives the current Duke row
+  ZInQ.GR14Printed.GaudronRemondThm14Printed` gives the old Duke row
   (`gaudronRemondThm14AnSS_of_GR1` gives the older `AnSS` form too).
-* `frozenTargetM`: `ZInQ.OneProof.frozenTarget` with the research bundle
-  `OpenResearchLeaves79M`. Its proof term is current `Main`'s, with `r` passed through
-  `openResearchLeaves79_of_M` and nothing else changed.
+* `frozenTargetM`: `ZInQ.OneProof.frozenTarget` with the research bundle `OpenResearchLeaves79M`.
+  Its proof term is `Main`'s before item-m-fold (top `sixContactMin_of_open100`), with `r` passed
+  through `openResearchLeaves79_of_M` and nothing else changed.
 * **Direction.** The new rows imply the old fields (proved). The converse, from the GR1 height to
   the Néron-model height (a semi-abelian model's height is computed on some semistable Néron
   model), is not proved in the tree, so the GR1 rows are not shown equivalent to the old fields.
@@ -53,9 +54,9 @@ no `axiom`, no build-time code.
 * `GR1Height.lean`: `IsGR1StableHeightOriginal` (GR1 §2.3, original normalization) and the
   identification.
 * `Rows.lean`: the printed rows `GaudronRemondSec9LowerGR1` (and its weak form) and
-  `GaudronRemondThm14GR1`, and their implications to the current rows.
+  `GaudronRemondThm14GR1`, and their implications to the old rows.
 * `FoldCheck.lean`: `OpenResearchLeaves79M`, `openResearchLeaves79_of_M`, `frozenTargetM`. It
-  imports the chain top (`TailZ107`) and the headline modules, not `Main`.
+  imports `TailZ107` (the chain top when it was written) and the headline modules, not `Main`.
 * `Check.lean`: `#print axioms` for the theorems above.
 
 ## Reading notes
@@ -94,6 +95,13 @@ clear no flag.
   mathematically. It is noted because GR1 does not spell out the definition.
 
 ## Count and fold plan
+
+The fold landed as item-m-fold: `OpenResearchLeaves80` in `ZInQKernel/OneProof/H/TailZ108.lean` (the
+fields of `OpenResearchLeaves79M`), `openResearchLeaves79_of_OpenResearchLeaves80` (the terms of
+`openResearchLeaves79_of_M`) and the top `sixContactMin_of_open101`, 21 → 22. Ratings as of
+2026-11-28 (`docs/one-proof/kinds.tsv`): `egaIV_9_7_7_OL` LEAF; `gaudronRemondSec9LowerGR1Weak`
+consequence, GLUE; `gaudronRemondThm14GR1` published, LEAF strict and GLUE strictest, read in Duke's
+version of record. The plan as written follows.
 
 The fold is a copy reroute with no change to existing declarations.
 

@@ -22,8 +22,10 @@ page images rendered at 150 dpi.
     CasselsTatePairingCurvesPS`.
   - `PoleS12.SilvermanRank.poleCompleteness_of_rankOne_casselsIV`: the consumer
     `poleCompleteness_of_rankOne_PS` fed by it.
-- `FoldCheck.lean`: `ZInQ.OneProof.CasselsIV.frozenTarget_with_casselsIV`, the body of the current
-  `frozenTarget` with `hCT : CasselsIVThm11Elliptic`. It imports `Main`'s import list, not `Main`.
+- `FoldCheck.lean`: `ZInQ.OneProof.CasselsIV.frozenTarget_with_casselsIV`, the body of
+  `frozenTarget` at its base (`TailZ106`, bundle `OpenResearchLeaves78`, top
+  `sixContactMin_of_open99`) with `hCT : CasselsIVThm11Elliptic`. It imports `Main`'s import list
+  at that base, not `Main`.
 
 Every declaration has a `#print axioms` line. Expected axioms: `propext`, `Classical.choice`,
 `Quot.sound`.

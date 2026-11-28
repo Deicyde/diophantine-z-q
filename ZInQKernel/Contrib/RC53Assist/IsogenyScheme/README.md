@@ -51,6 +51,8 @@ I.1–I.2, II.1–II.2, III.1, III.4.
 ## What this does not cover
 
 The source isogeny of abelian varieties still has to be presented as a dominant morphism between
-these projective models. That is the identification of a one-dimensional abelian variety with its
-Weierstrass model (item S2 of `NewformPeriodsDictionary/README.md`). Once that is done, the morphism
+these projective models. That uses the identification of a one-dimensional abelian variety with its
+Weierstrass model (item S2 of `NewformPeriodsDictionary/README.md`), now proved in
+`GroupDifferentials/S2a.lean` (`abVar_projectiveWeierstrassModel_unconditional`, which sends the
+identity to `pointO E`). Once that is done, the morphism
 is dominant and sends `O₁` to `O₂`, and this file applies.

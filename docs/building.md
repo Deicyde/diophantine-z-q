@@ -51,7 +51,7 @@ Read [the Lean README](../lean/README.md) for the trust boundary and allowed axi
 
 ## Continuous integration
 
-[Research checks](../.github/workflows/research-checks.yml) runs three separate jobs for construction, 11/5 manuscript compilation, and accepted Lean helpers. It runs on pushes, pull requests, and manual dispatch. GitHub Actions dependencies are pinned to commit hashes, and the elan installer and Tectonic archives are pinned by SHA-256. TeX resources are cached between runs. Each Lean job fetches the pinned upstream dependency cache directly; it does not archive the toolchain and Mathlib tree again, which can exhaust the runner's disk during cache saving. Project Lean artifacts are rebuilt in a new directory.
+[Research checks](../.github/workflows/research-checks.yml) runs three separate jobs for construction, 11/5 manuscript compilation, and accepted Lean helpers. It runs on pushes to `main`, pull requests, and manual dispatch. GitHub Actions dependencies are pinned to commit hashes, and the elan installer and Tectonic archives are pinned by SHA-256. TeX resources are cached between runs. Each Lean job fetches the pinned upstream dependency cache directly; it does not archive the toolchain and Mathlib tree again, which can exhaust the runner's disk during cache saving. Project Lean artifacts are rebuilt in a new directory.
 
 The workflow uploads reports and logs as CI artifacts. A green run means the named checks passed on that commit. It does not certify the 11/5 manuscript's global arithmetic inputs or complete the main Lean proof.
 

@@ -7,9 +7,10 @@ A lane is one unit of project work: one issue (template "Lane"), one owner, one 
 - **New files, one directory.** New Lean goes in new files under the lane's own directory (outside contributors:
   `ZInQKernel/Contrib/OneProof/`). Existing modules change only in folds.
 - **One writer per shared file.** [OWNERS.tsv](../../OWNERS.tsv) names the single writer of each shared or generated
-  file. Generated files (OPEN.md, open-statements.json, pages-wanted.md) are written only by the integrator with
-  render_open.py: in folds, and OPEN.md also after a volatile.tsv edit. claims.tsv is written only by the claims sync.
-  A change to someone else's file goes through its owner.
+  file. Generated files (OPEN.md, open-statements.json, pages-wanted.md) are written only by the integrator,
+  open-statements.json with `scripts/one_proof/OpenStatements.lean` and the other two with render_open.py: in folds,
+  and OPEN.md also after a volatile.tsv edit. claims.tsv is written only by the claims sync. A change to someone else's
+  file goes through its owner.
 - **See what is coming.** [fold-queue.tsv](fold-queue.tsv) lists what is about to land, and
   `volatile.tsv` (in this directory, once the integrator first uses it) lists board rows that a queued fold will remove
   or rename: do not start work on those. After editing volatile.tsv, the integrator re-renders OPEN.md in the same
@@ -34,5 +35,4 @@ still claimed in public (on #14 or #83) before it starts.
 | Lane | Owner | Writes | Board rows | Depends on | Done when |
 |---|---|---|---|---|---|
 | Contributor agents working from #14 | project | One new file per claimed field under `ZInQKernel/Contrib/OneProof/`, named after the field. Statement checks are reported as comments on #14, with no files. | The one field each agent has claimed on #14. | A `Claiming <field> at <commit>` comment on #14 for a row that is `open` and not held. Never a row or lane of #83. | The fold shows the field discharged, or the check is recorded in reviews.tsv. |
-| Theorem 5.3 (#83) | project | `ZInQKernel/Contrib/OneProof/RC/` and `ZInQKernel/Contrib/CloudB3RC53/` | `hPC` until #90 lands, then `hRC` | #90 | `hRC` rests only on printed results, through pull requests to `main`. |
-| Appendix F piece: the Eichler order and its class set at one stage, tex 8462–8473, with the p-neighbours of 8476–8493 and 9039–9076 (branch `wip/rc-eichler`; [claim on #83](https://github.com/Deicyde/diophantine-z-q/issues/83#issuecomment-6968250894)) | project | `ZInQKernel/Contrib/OneProof/RC/Eichler/`, `docs/research/rc-eichler.md`, `scratch/rc-eichler/` | none of its own; it supplies the theta side of (O.7), fields of `Visibility.ThetaStage` and `AppF.ThetaStage`, to `hRC` | the Theorem 5.3 lane's integration branch `rc/thm53-proof-20261117` at `7c8dc74b` | The class set, its unit groups and the p-neighbours land on that integration branch with only the standard axioms, or a scoped report names what is missing and what to adjust in `ThetaSide`. |
+| Theorem 5.3 (#83) | project | `ZInQKernel/Contrib/OneProof/RC/` and `ZInQKernel/Contrib/CloudB3RC53/` | `hRC` (since #90 landed) | none | `hRC` rests only on printed results, through pull requests to `main`. |

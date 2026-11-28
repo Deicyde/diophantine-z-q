@@ -26,4 +26,5 @@ Remaining readings (not Lean theorems):
    stalk and the global sections of the sheaf `e*Ω¹_{𝒢/S}` is a reading.
 2. `smul_wedge_mem_detSec` shows that multiplying one factor of a wedge by a lift `x` of
    `c ∈ 𝒪_S(V)` stays in `detSec`. That this element is `c|_η · (v₁ ∧ ⋯ ∧ v_g)` in the Hodge line
-   (`𝒪_{S,η} ≅ L`, compatible with the action of `𝒪_{𝒢,ξ}` on `𝔪_ξ/𝔪_ξ²`) is not proved.
+   (`𝒪_{S,η} ≅ L`, compatible with the action of `𝒪_{𝒢,ξ}` on `𝔪_ξ/𝔪_ξ²`) is not proved here;
+   `HeightModelM4` proves it (`germEtaField_smul_wedge`, `hodgeAction_smul_wedge`).

@@ -10,9 +10,9 @@ This collection preserves the original conditional package, its propositions, an
 - **S5: the weight-two Hecke normalization.** The existing full Hecke-ring action is transported to the actual cusp-form space on `Gamma0 M`. Its divisor-sum coefficient formula holds at every positive index, including the bad indices. At `p` prime to `M`, it gives `a_m(T_p g) = a_{mp}(g) + p a_{m/p}(g)`, where the last coefficient is zero if `p` does not divide `m`. The normalization determines the operator on actual cusp forms. The original normalized-full-eigenform predicate is equivalent to the normalized common-eigenfunction predicate in this normalization.
 - **F2: the function-field portion.** A pointed embedding of the actual Weierstrass function fields gives a genuine `TauCeti.Isogeny`, and conversely. Pointedness means that restricting the source infinity valuation gives a valuation equivalent to target infinity. The constructed isogeny induces exactly the supplied field map.
 
-## Explicit remaining Frobenius proposition
+## Explicit Frobenius proposition
 
-`GoodReductionFrobeniusTraceDictionaryQ` is defined as a proposition and is **not proved**. It states that, at good reduction and for every auxiliary prime different from `p`, arithmetic Frobenius on the actual local elliptic-curve Tate module has trace `p + 1 - #E(F_p)` and determinant `p`, in every basis. Its valuation-extension and arithmetic-Frobenius congruence hypotheses are explicit. The Tate-module basis is proved to exist.
+`GoodReductionFrobeniusTraceDictionaryQ` is defined as a proposition here and is proved in `FrobeniusTraceDictionary/Proved.lean` (`goodReductionFrobeniusTraceDictionaryQ_proved`). It states that, at good reduction and for every auxiliary prime different from `p`, arithmetic Frobenius on the actual local elliptic-curve Tate module has trace `p + 1 - #E(F_p)` and determinant `p`, in every basis. Its valuation-extension and arithmetic-Frobenius congruence hypotheses are explicit. The Tate-module basis is proved to exist.
 
 Sources: Silverman, *The Arithmetic of Elliptic Curves*, second edition, V.2 and VII.7: the finite-field Frobenius polynomial and good-reduction Tate specialization.
 
@@ -32,12 +32,12 @@ Sources: Shimura 1973, Theorem 1, pp. 525–526; Faltings 1983, section 5, Korol
 ## What remains precisely
 
 - **S1:** the standard scheme model of `X0(M)` over the rationals, its rational cusp at infinity, and the identification of its function field with `Q(j, j_M)` and its cusp expansion.
-- **S2:** the scheme-level identification of a one-dimensional abelian variety with a Weierstrass elliptic curve, and identification of its invariant differential line.
+- **S2:** the scheme-level identification of a one-dimensional abelian variety with a Weierstrass elliptic curve (now proved: `GroupDifferentials/S2a.lean`, `abVar_projectiveWeierstrassModel_unconditional`), and identification of its invariant differential line.
 - **S3:** the canonical modular map and quotient map in those scheme models, their rational coordinate expansions, and the geometric differential pullback yielding the stated theta identity.
 - **S4 beyond the arithmetic model:** the interpretation of the one-dimensional zeta factor of the abelian quotient. No abelian-variety zeta functor is constructed here.
-- **F1 beyond the arithmetic model:** proof of `GoodReductionFrobeniusTraceDictionaryQ`, including Frobenius trace and determinant and good-reduction specialization. No canonical Frobenius lift is constructed here.
+- **F1 beyond the arithmetic model:** nothing remains; `GoodReductionFrobeniusTraceDictionaryQ`, including Frobenius trace and determinant and good-reduction specialization, is proved in `FrobeniusTraceDictionary/Proved.lean`. No canonical Frobenius lift is constructed here.
 - **F2 beyond function fields:** obtaining the pointed function-field embedding from the source's scheme-level abelian-variety isogeny. No scheme-to-function-field functor is asserted.
-- The original two printed leaves and **G0, G1, G2** remain hypotheses. No conductor equality or new geometric modular parametrization is proved.
+- The original two printed leaves and **G0** remain hypotheses; **G1** and **G2** are proved (`NewformPeriodsG1.parametrizationPeriodsGlue_holds`, `NewformGlues.isogenyLatticeGlue_proved`), though the three `*_of_dictionaryLeaves` theorems still take them as arguments. No conductor equality or new geometric modular parametrization is proved.
 
 ## Verification
 

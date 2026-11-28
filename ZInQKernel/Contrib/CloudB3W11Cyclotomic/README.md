@@ -83,7 +83,10 @@ tateTwistInvariants_algebraic              : H-120 for x in the image of ℚ̄_p
 
 Proved: the target for every `x ∈ ℂ_p` that is algebraic, i.e. in the image of `ℚ̄_p`.
 
-Not proved: the target itself. The gap is exactly
+Not proved here: the target itself, which is proved elsewhere in the repository
+(`ZInQ.Contrib.CloudB3W11.tateTwistInvariants_proof` in
+`ZInQKernel/Contrib/OneProof/TateTwistInvariants.lean`, through `CloudB3W11TateTrace` and
+`CloudB3W11TwistDescent`). The gap is exactly
 
 ```
 ∀ p K i, i ≠ 0 → ∀ x : ℂ_[p],

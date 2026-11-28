@@ -79,6 +79,7 @@ the lattice points.
 ## What remains
 
 Nothing remains for `G1`. The reduction of `NewformPeriodsRational` still has the printed leaves
-(Shimura 1973, Theorem 1; Faltings 1983, Korollar 2) with their consequence translations, plus
-`G0` and `G2`. The table and the "Remaining formalization obligations" list in
-`../NewformPeriods/README.md` still describe `G1` as GLUE and were left unchanged.
+(Shimura 1973, Theorem 1; Faltings 1983, Korollar 2) with their consequence translations, plus `G0`;
+`G2` is proved as well (`NewformGlues.isogenyLatticeGlue_proved`). The table and the "Remaining
+formalization obligations" list in `../NewformPeriods/README.md` still describe `G1` as GLUE and
+were left unchanged.

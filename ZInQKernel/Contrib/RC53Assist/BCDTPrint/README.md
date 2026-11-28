@@ -2,7 +2,8 @@
 
 ## Status
 
-The main row's leaf hB, `ZInQ.Manuscript.PoleS12.BCDTThmA`, follows from the printed statement:
+`ZInQ.Manuscript.PoleS12.BCDTThmA`, formerly the main row's leaf hB (`ZInQ.OneProof.frozenTarget`
+no longer takes hB), follows from the printed statement:
 
 ```lean
 theorem bcdtThmA_of_printed (hB : BCDTThmAPrinted) : ZInQ.Manuscript.PoleS12.BCDTThmA

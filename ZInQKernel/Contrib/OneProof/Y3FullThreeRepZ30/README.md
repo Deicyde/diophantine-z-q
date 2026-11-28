@@ -1,10 +1,15 @@
 # `y3FullThreeRepZ30` from eight printed statements
 
-`Y3Buzzard.y3FullThreeRepZ30_of_printed_min5`, in `../Y3FullThreeRepZ30.lean`, proves the open
-statement `Y3RouteA.Y3FullThreeRepZ30` from eight hypotheses. Its axioms are `propext`,
+`Y3Buzzard.y3FullThreeRepZ30_of_printed_min5`, in `../Y3FullThreeRepZ30.lean`, proves the formerly
+open statement `Y3RouteA.Y3FullThreeRepZ30` from eight hypotheses. Its axioms are `propext`,
 `Classical.choice` and `Quot.sound`. Each hypothesis is a `def ... : Prop` that states a printed
 theorem, or a short consequence of printed theorems, over the definitions in `BuzzardLeaves.lean`.
 This note quotes the prints and writes out the steps they do not contain, for the statement check.
+After the folds of `ZInQKernel/OneProof/H/TailZ109.lean` to `TailZ111.lean`, only `milneProp207At3`,
+`milneProp207At5` and `milneZeroPreservingHomLN` are fields of the frozen theorem as listed here:
+`GeomCard3` and `BuzzardFrameRepTorsor 5` are proved from Milne (`../BuzzardFrameRepTorsor5.lean`,
+field `milneTorsionCount : MilneRem84`), and `docs/one-proof/OPEN.md` lists the leaves that replaced
+the other three.
 
 ## The eight hypotheses
 

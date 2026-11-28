@@ -1,8 +1,13 @@
 # `deligneCanonicalModelY3EveryPrint`: identifications with Deligne's PEL datum
 
-Reading packet for the three-lens reading of the open hypothesis
+Reading packet for the three-lens reading of the hypothesis
 `HDec.HSyn.OpenResearchLeaves78.deligneCanonicalModelY3EveryPrint`, Lean statement
 `Y3Hodge.DeligneCanonicalModelY3EveryPrint` (`ZInQKernel/Contrib/OneProof/Y3HodgePrint.lean`).
+It is no longer open: y3-deligne-1127 (`ZInQKernel/OneProof/H/TailZ112.lean`) replaced the field
+by three rows, and y3-milne-1128 (`TailZ116.lean`) now fills it by
+`DelignePSMilne.deligneCanonicalModelY3EveryPrint_of_milne` from the five rows
+`voightQMComplexModuliPrint`, `boutotCarayolPolarizationPrint`,
+`boutotCarayolRepresentabilityPrint`, `milneShimuraFamilyPrint` and `milneCanonicalModelPrint`.
 
 **What this directory is.** Proved identifications between the objects in the Lean statement and
 the objects of the print, plus the leaf restated with the print's objects and proved equivalent
@@ -20,8 +25,8 @@ Lecture Notes in Math. 244, pp. 123–165. Legal copy: numdam, `SB_1970-1971__13
 The text layer is degraded: read the page images. Pages 148 and 149 were re-read as images for
 this packet, and page 129 for 1.7–1.8. The other locators follow the statement-check sweep of
 2026-11-18 (AI-READ, same copy and SHA-256; commit b1a8d27e7,
-`docs/one-proof/statement-checks/deligneCanonicalModelY3EveryPrint-sweep-20261118.md`, not on
-`main`), which read §1.2, §§1.5–1.12, §§3.13–3.15, §§4.9–4.12, §§4.15–4.17, Thm 4.21, Cor.
+`docs/one-proof/statement-checks/deligneCanonicalModelY3EveryPrint-sweep-20261118.md`),
+which read §1.2, §§1.5–1.12, §§3.13–3.15, §§4.9–4.12, §§4.15–4.17, Thm 4.21, Cor.
 5.5–5.7 and Ex. 5.8. Rows below marked UNVERIFIED are outside that list and outside the pages
 re-read here. All readings here are AI-READ evidence.
 
@@ -85,7 +90,7 @@ proves that the two agree after `g ↦ g⁻¹`.
 | 3 | `τ ↦ Ψ(τ, g)` holomorphic on `ℍ` for every `g` | 1.8 p.129: `_K M_ℂ` is a complex-analytic quotient | none needed | weaker than the print (it gives a biholomorphism) |
 | 4 | at `g = 1`: `IsShimuraHolFamilyHP` (fibres in `IsHodgeH1Print` form) | Scholie 4.11 p.148 and 4.12 p.148–149: `H₁(A, ℚ) ≅ V` as `L`-module with `h`; `T̂(B) = k⁻¹(V̂_ℤ)` | `Y3Hodge.print_iff_hodge`, `Y3Hodge.lemmaP_H1`, `Y3Hodge.F0_iff` (already proved) | match on `H₁`; polarization and level dropped (weaker) |
 | 5 | reciprocity at CM points, `ε`, `δ` existential | Def. 3.13 (canonical model) and Thm 4.19 p.151 | `toGAf` is a group isomorphism (`map_mul` in `PEL.print_of_PEL`) | weaker (existential conventions, CM points of `ℍ` only); **D2 open**: 4.19 is cited, not proved, in the print, and Shimura–Taniyama [16] must be read in the original |
-| U | `ModuliAtUnitsHP`: at `u ∈ OhatU`, `IsHodgeH1Print` | 4.12: `T̂(B) = k⁻¹(V̂_ℤ)`, `L_g = B ∩ 𝒪̂ g⁻¹`; for `u ∈ G(Ẑ)` the lattice is `𝒪` | `PEL.mem_OhatU_iff` (`OhatU ↔ G(Ẑ)`) | match on `H₁`; polarization and level dropped (weaker) |
+| U | `ModuliAtUnitsHP`: at `u ∈ OhatU`, `IsHodgeH1Print` | 4.12 p.148–149: `T̂(B) = k⁻¹(V̂_ℤ)`, i.e. `H₁ = L_g = B ∩ 𝒪̂ g⁻¹` | `PEL.mem_OhatU_iff` (`OhatU ↔ G(Ẑ)`); `Y3Lattice412.latticeAt_eq_deligne` (`L_g = B ∩ k⁻¹(V̂_ℤ)` for Deligne's `k = toGAf g⁻¹`); `Y3Lattice412.latticeAt_of_mem_OhatU` (`L_u = 𝒪` for `u ∈ 𝒪̂^×`); `Y3Lattice412.latticeAt_dc` (`L_{γgk} = L_g γ⁻¹`); `Y3Lattice412.latticeAt_basis` (full `𝒪`-lattice); `Y3Lattice412.moduliAtUnitsHP_of_lattice` (the print's description in `L_g` form, `ModuliAtLattice`, implies the clause; `isHodgeH1PrintAt_O_iff` checks the generalization at `L = 𝒪`) | match on `H₁`; polarization and level dropped (weaker); the existence of `B` with `T̂(B) = k⁻¹(V̂_ℤ)` in each isogeny class is asserted in 4.12, not proved in Lean (`docs/research/y3-412-lattice.md`, part C) |
 
 No clause is stronger than the print once the identifications are applied: `print_iff_PEL` is an
 equivalence, and clauses 3, 4, 5 and U are weakenings of the print's statements.

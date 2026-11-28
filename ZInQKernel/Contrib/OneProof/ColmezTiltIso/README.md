@@ -20,6 +20,9 @@ as named Lean theorems.
 | `TpShape.lean` | `G9.I4Layer` | the period pairing on `T_p` versus on `V_p = ℚ_p ⊗ T_p` |
 | `RowTp.lean` | `TpShape`, `ColmezTorsionIso.Row` | the Colmez row stated on `T_p` |
 | `Check.lean` | `Action`, `RowTp` | `#print axioms` for the main declarations |
+| `Algebra.lean` | `Action`, `TpShape` | `ℤ_p`-algebra structures on Colmez's rings, `colmezBdRPlusAlgEquiv`, `colmezBdRAlgEquiv`, `shapeB_iff` (see `PRINTED.md`) |
+| `RowPrinted.lean` | `Algebra`, `RowTp` | the row over Colmez's own `B_dR` (`Colmez1992DeRhamAbVarPrinted`), `colmez1992DeRhamAbVar_iff_printed` (see `PRINTED.md`) |
+| `Check2.lean` | `RowPrinted` | `#print axioms` for `Algebra.lean` and `RowPrinted.lean` |
 
 `Ring.lean` and `Theta.lean` work for any commutative ring `O` that is `p`-adically complete with
 `p` not a unit (Mathlib's standing hypotheses for `PreTilt.untilt` and `fontaineTheta`).

@@ -83,7 +83,12 @@ not be counted as discharged arithmetic.
 * `FrobeniusMatchesLabel` (`Conjugation.lean`; the field `frobMatch` of
   `CompatibleArithmeticLabel`): the Frobenius of the label at `q_i` is a `G_{K,S}`-conjugate of
   the restriction of `e⁻¹ Fr_i² e`. Also the field `character` (the character constraint in the
-  finite quotient of the Chebotarev selection).
+  finite quotient of the Chebotarev selection). For a continuous `α`, a finite `S`, a quadratic `K`
+  and a conjugation nontrivial on `K`, both are now proved for the label built from finite-stage
+  kernel elements by `compatibleArithmeticLabelFromStageKernel`
+  (`ZInQKernel/Contrib/RC53Assist/StagePrimes/Arithmetic.lean`), through
+  `frobeniusMatchesLabel_of_inert` and `selectedDerivativePrimes_character`
+  (`ZInQKernel/Contrib/RC53Assist/FrobeniusMatch/Arithmetic.lean`).
 * `ResidualCohomologyFinite` for the stage Selmer complexes: the base-change comparison
   `k ⊗ C_cont(G, M) ≅ C_cont(G, k ⊗ M)` for discrete `M`, compatible with the Selmer cone and the
   local conditions, and finiteness of the residual cohomology of the local-condition complexes.
@@ -93,4 +98,9 @@ not be counted as discharged arithmetic.
   truncated isotropy data, the input of `stageSelmerDuality`.
 * The reverse maps and both homotopies of the stage duality exist on the bounded finite free
   models (a quasi-isomorphism of bounded complexes of finite free modules is a homotopy
-  equivalence); they are not asserted on the unbounded cochain complexes.
+  equivalence); they are not asserted on the unbounded cochain complexes. On those bounded models
+  they are now constructed from the stage duality quasi-isomorphism (`exists_stageMatrixDiagram`,
+  `ZInQKernel/Contrib/OneProof/RC/FibreDuality/StageGlobal.lean`) and assembled over all stages
+  from the stagewise inputs, among them `ResidualCohomologyFinite` and a uniform bound on the
+  residual ranks (`exists_retained_of_stageInputs`,
+  `ZInQKernel/Contrib/OneProof/RC/FibreDuality/StageArith.lean`).

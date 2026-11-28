@@ -6,7 +6,7 @@ There is no `CITATION.cff` because the [CFF 1.2 schema](https://github.com/citat
 
 ## DOI status
 
-No DOI has been minted or claimed. The repository remains private while the research package is being completed. The release tag, commit hash, source manifests, and SHA-256 checksums currently identify the materials.
+No DOI has been minted or claimed. The repository is public. The release tag, commit hash, source manifests, and SHA-256 checksums currently identify the materials.
 
 For the eventual public release:
 

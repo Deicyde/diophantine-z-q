@@ -22,7 +22,8 @@ Its declaration text is preserved in
 `Completion.localTatePolynomial` remains a definition with that warning.
 
 The source modules are `HeckeBridge.lean`, `BrauerNesbitt.lean`,
-`FrobeniusLocal.lean`, `PrintedInputs.lean`, `GaloisCompletion.lean`, and
+`FrobeniusLocal.lean`, `PrintedInputs.lean`, `GaloisCompletion.lean`,
+`VerifiedInputs.lean`, and
 `GlobalTrace/{CoinvariantReadings,GoodReductionReading,CoinvariantAssembly}.lean`.
 `CompletionNotes.md` describes the two retained routes and their source
 boundaries. `Scratch/` holds historical verification records, not current
@@ -148,7 +149,9 @@ W.-C. W. Li, *Newforms and Functional Equations*, Math. Ann. **212**
    quoted in its docstring. It is used in conditional uniqueness and in
    `Descent.embedding_fixes_coefficients`, not in divisor-level extraction.
 
-These printed propositions are not proved here and are not new axioms.
+These printed propositions are not new axioms. `VerifiedInputs.lean` proves both
+(`li1975BadPrimeWeightTwo_proved`, `li1975StrongMultiplicityOneWeightTwo_proved`)
+from `NewformArithmetic/`.
 `newform_bad_prime_sign`, `newform_bad_prime_values`, and
 `newform_bad_operator_values` prove their algebraic consequences from the
 first proposition. `elliptic_bad_prime_values` proves the same three value
@@ -236,7 +239,11 @@ four input proposition bodies and supporting declarations unchanged.
 
 * `Shimura1973ConjugateEigenforms` and
   `Li1975StrongMultiplicityOneWeightTwo` remain PRINT specializations. The
-  complete printed quotations are placed in their docstrings.
+  complete printed quotations are placed in their docstrings. `VerifiedInputs.lean`
+  proves the Li input (`li1975StrongMultiplicityOneWeightTwo_proved`) and the
+  finite-dimensionality clause of the Shimura input
+  (`Descent.Shimura1973ConjugateEigenforms.of_embedded`), so of these two only
+  `Descent.Shimura1973EmbeddedEigenforms` remains open.
 * `Carayol1986RationalNewformEulerFactors` is GLUE: joint reading of Shimura
   1973, Thm 1, and Carayol 1986, §0.8 Corollaire; GLUE until a two-lens skeptic
   pass clears it.
@@ -265,7 +272,8 @@ assembly. The existing local, coinvariant, additive and multiplicative proofs
 are preserved.
 
 The corrected bad-prime assembly remains conditional on
-`TateCurveTateModulePrint`, `DecompositionGroupLocalGlobalGlue` and
+`TateCurveTateModulePrint`, `DecompositionGroupLocalGlobalGlue` (since proved:
+`DecompositionGlue.decompositionGroupLocalGlobalGlue`) and
 `AdditiveReductionCoinvariantsVanish`. The duality proof identifies arithmetic
 Frobenius on homological coinvariants with geometric Frobenius on cohomological
 invariants. The assembly always chooses a different auxiliary prime.
@@ -308,8 +316,8 @@ precede the present declaration inventory.
 
 `Scratch/TheoremStatements.md` contains the exact printed statement and
 axiom report for every one of the 52 source theorems, plus the integrated
-comparison. `Scratch/StatementsAxioms.txt` is the raw output, and
-`Scratch/AuditSummary.json` records all 64 audited declarations and the source
-checksums. The unfolded Brauer–Nesbitt and Li propositions are included.
+comparison. The raw output (`StatementsAxioms.txt`) and the audit summary
+(`AuditSummary.json`: all 64 audited declarations and the source checksums)
+were not committed to the repository. The unfolded Brauer–Nesbitt and Li propositions are included.
 Every audited axiom set is a subset of
 `[propext, Classical.choice, Quot.sound]`; no additional axiom is used.

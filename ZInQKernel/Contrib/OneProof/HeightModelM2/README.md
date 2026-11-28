@@ -23,12 +23,15 @@ recorded two steps as non-blocking but not Lean theorems. Both are proved here.
 
 `Check.lean` prints the axioms of the main theorems.
 
-Remaining readings (not Lean theorems):
+Readings left here (not Lean theorems in this directory; `HeightModelM3` and `HeightModelM4` have
+since proved them, item 2 for `g ≥ 1`, up to the one definitional reading in
+`HeightModelM4/README.md`):
 1. The sections are taken in the generic fibre, i.e. of the image of `e*Ω¹` there. For a smooth
    model `e*Ω¹` is locally free, so this is `e*Ω¹` itself.
 2. `secOmega`, `detSec` and `printedOmegaAt` are `𝓞_L`-spans. The sections of the sheaf are
    `𝒪_S(V)`-modules. The two agree because the generators `c|_η·(1⊗d(b|_ξ))` already range over
    all `c ∈ 𝒪_S(V)`, so the span is `𝒪_S(V)`-stable, and `c·(v₁∧…∧v_g) = (c v₁)∧…∧v_g`.
-3. `detSec` wedges sections of `e*Ω¹` lying in the image of `θ : 𝔪_ξ/𝔪_ξ² → (e*Ω¹)_η`. This is
-   all of `(e*Ω¹)_η` because `θ` is also surjective (conormal sequence; `Ω_{L/𝓞_L} = 0`). The tree
-   proves only `theta_injective`.
+3. `detSec` wedges sections of `e*Ω¹` lying in the image of `θ : 𝔪_ξ/𝔪_ξ² → (e*Ω¹)_η`. This is all
+   of `(e*Ω¹)_η` because `θ` is also surjective (conormal sequence; `Ω_{L/𝓞_L} = 0`). The tree
+   proves `theta_injective`, and `HeightModelM3` proves `theta_surjective`
+   (`HeightModelM3/Theta.lean`).

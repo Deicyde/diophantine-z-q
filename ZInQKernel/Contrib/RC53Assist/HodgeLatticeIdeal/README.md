@@ -171,5 +171,6 @@ The frozen `TargetStatement.md` is **7,612 bytes**, with SHA-256
 ## Scope boundary
 
 The contribution is algebraic only. No minimal-discriminant, delta, archimedean, period,
-metric, or height claim is made. It has been built and axiom-audited, but has not been
-committed, integrated, or independently reviewed.
+metric, or height claim is made. It has been built, axiom-audited and committed; an
+independent AI review approved it with notes (`docs/research/rc53assist-contributions-20261119.md`),
+and `ZInQKernel/Contrib/OneProof/CMHeight62/Archimedean.lean` imports it.

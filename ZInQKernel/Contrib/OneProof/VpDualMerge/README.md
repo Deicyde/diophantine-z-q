@@ -2,20 +2,21 @@
 
 Glue for a later fold that replaces the added-bundle rows `scholzeH1AbVar`
 (`DeRhamScholze.HTMerge.ScholzeH1AbVar`) and `t10TateDuality` (`T10Etale.T10_TateDuality`) of
-`ZInQ.OneProof.frozenTarget` by two single-print rows on `V_p(A)` (in progress, in a separate lane).
+`ZInQ.OneProof.frozenTarget` by two single-print rows on `V_p(A)` (landed as tate-prints-fold,
+`ZInQKernel/OneProof/H/TailZ106.lean`, with the rows of `TatePrints/Rows.lean`).
 
-Both current rows are read on the live route only through one statement about the dual Tate module,
+Both rows were read on the live route only through one statement about the dual Tate module,
 `DeRhamScholze.HTMerge.VpDualDeRhamAbVar`: `V_p(A)^∨` is de Rham, its Hodge jumps lie in `[0, 1]`,
 and `dim_{ℚ_p} Fil¹ D_dR = [F:ℚ_p] · g`. This statement is **not a row**: each row is one printed
 theorem, with the glue derived in Lean. (An earlier version cited an "owner's ruling" for this,
 which no record contains. The lead ruled it on 2026-11-26: the two prints are kept rather than a
-single `vpDual` row (#206's 21-field form), since each print is a literature citation with a path
-to LEAF and a composite field never is one, following the maintainer's direction to reduce the
-argument to known literature citations.) It is a derived `Prop`: the
-single-print rows are to imply it in Lean, and this directory carries everything above it, namely
-the conversions to the three `HTMerge` outputs and a copy of the live chain whose added bundle has
-the one field `vpDual` in place of the pair. The current pair implies the statement
-(`vpDual_of_pair`), so nothing here is stronger than `main`.
+single `vpDual` row (#206's 21-field form), since each print is a literature citation with a path to
+LEAF and a composite field never is one, following the maintainer's direction to reduce the argument
+to known literature citations.) It is a derived `Prop`: the single-print rows imply it in Lean
+(`DeRhamScholze.TatePrints.vpDual_of_colmezFontaine`), and this directory carries everything above
+it, namely the conversions to the three `HTMerge` outputs and a copy of the live chain whose added
+bundle has the one field `vpDual` in place of the pair. The added rows on `main` imply the
+statement, as does the former pair (`vpDual_of_pair`), so nothing here is stronger than `main`.
 
 This PR is add-only and changes no count. It claims no row. Draft PR #204 (`t10TateDuality` via
 Milne 1986) touches the same row; the later fold settles how the two fit together.
@@ -26,7 +27,7 @@ Base: `main` at `c05342735cf71fe001e0dcf8c617743f62d135ba` (the run also built o
 ## Files
 
 * `Row.lean`: the statement and its conversions, in `DeRhamScholze.HTMerge` (the file name
-  predates the owner's ruling; `VpDualDeRhamAbVar` is not a row).
+  predates the lead's ruling of 2026-11-26; `VpDualDeRhamAbVar` is not a row).
   * `VpDualDeRhamAbVar`, with its three clauses `VpDualIsDeRham`, `VpDualHodgeRange`,
     `VpDualFilOneDim` (each with its sources); `vpDualDeRhamAbVar_iff` unfolds them (`Iff.rfl`).
     `V_p(A) = ℚ_p ⊗ T_p(A)` is `A.V p` with `A.galRep p`, built from the `F̄`-points of `A`.
@@ -47,14 +48,15 @@ Base: `main` at `c05342735cf71fe001e0dcf8c617743f62d135ba` (the run also built o
 
 ## Where the two fields are read
 
-On the live route (`sixContactMin_of_open98` → `DS965Reroute/Chain5`…`Chain3`), the pair is read
-in three places, each passing both fields together into one `HTMerge` theorem:
+On the live route before tate-prints-fold (`sixContactMin_of_open98` →
+`DS965Reroute/Chain5`…`Chain3`), the pair was read in three places, each passing both fields
+together into one `HTMerge` theorem:
 
 | Declaration (live copy) | File | Reader |
 |---|---|---|
-| `openResearchLeaves60_y3x6_of_OpenResearchLeaves63_nos_ds` | `DS965Reroute/Chain3.lean` L1666 | `hodgeTateDecompOr_of_scholzeH1Milne` |
-| `sixContactMin_of_open82_nos_ds` | `DS965Reroute/Chain3.lean` L1711 | `hodgeTateDecompAbVar_of_scholzeH1` |
-| `openResearchLeaves65_of_OpenResearchLeaves66_ds` | `DS965Reroute/Chain4.lean` L520 | `deRhamVpAbVarDirect_of_scholzeH1Milne` |
+| `openResearchLeaves60_y3x6_of_OpenResearchLeaves63_nos_ds` | `DS965Reroute/Chain3.lean` L1645 | `hodgeTateDecompOr_of_scholzeH1Milne` |
+| `sixContactMin_of_open82_nos_ds` | `DS965Reroute/Chain3.lean` L1689 | `hodgeTateDecompAbVar_of_scholzeH1` |
+| `openResearchLeaves65_of_OpenResearchLeaves66_ds` | `DS965Reroute/Chain4.lean` L494 | `deRhamVpAbVarDirect_of_scholzeH1Milne` |
 
 Everything else on the route only passes the bundle on (`sixContactMin_of_open83_nos_ds`, the
 copies of `TailZ91`–`TailZ103` in `Chain4`/`Chain5`, `openAddedLeaves28_of_OpenAddedLeaves29`,
@@ -96,7 +98,12 @@ declarations:
   `sixContactMin_of_open98_vp` (through `openResearchLeaves77DS_of_OpenResearchLeaves78`, reused).
 * The research and textbook bundles are unchanged and reused.
 
-## Plan for the later fold (in progress; not part of this PR)
+## Plan for the later fold (not part of this PR)
+
+The fold has landed as tate-prints-fold (`ZInQKernel/OneProof/H/TailZ106.lean`, with the rows of
+`TatePrints/Rows.lean`). Step 1 is `DeRhamScholze.TatePrints.vpDual_of_colmezFontaine`
+(`TatePrints/Glue.lean`), which takes the weight-1 count from `HTAbVar.finrank_fil1_bounds` and does
+not use the general equality of Hodge and Hodge-Tate numbers. The plan below is kept as written.
 
 The fold that removes `scholzeH1AbVar` and `t10TateDuality` needs two single-print rows on `V_p(A)`
 and one Lean theorem from them to `VpDualDeRhamAbVar`. The candidates being worked out in a separate
@@ -131,8 +138,8 @@ Then, in order:
 No existing constant changes. `ScholzeH1AbVar`, `T10_TateDuality` and the `HTMerge` theorems stay
 for the superseded tops.
 
-Sources of the current pair, recorded in the clause docstrings of `Row.lean` (they cover the
-current rows only and are not a reading of the statement):
+Sources of the former pair, recorded in the clause docstrings of `Row.lean` (they cover the
+former rows only and are not a reading of the statement):
 
 * Scholze, Forum Math. Pi 1 (2013) e1, Cor. 1.8, pp. 5-6, Thm 9.1(ii), p. 74, and Thm 9.3, p. 75.
 * Milne, *Abelian Varieties* v2.0 (March 16, 2008), Part I, Thm 12.1(a), p. 55, with Rem. 12.5,
@@ -143,6 +150,9 @@ current rows only and are not a reading of the statement):
 
 ## Open points
 
-* The Lean theorem from the two single-print rows to `VpDualDeRhamAbVar` (step 1) is the remaining
-  glue. The equality of Hodge and Hodge-Tate numbers for de Rham representations is the likely gap.
-* If `main` gains a `TailZ106` first, re-run `gen_vp.txt` with its top in `SOURCES` and `TOP_OLD`.
+* The Lean theorem from the two single-print rows to `VpDualDeRhamAbVar` (step 1) is
+  `DeRhamScholze.TatePrints.vpDual_of_colmezFontaine` (`TatePrints/Glue.lean`), proved without the
+  general equality of Hodge and Hodge-Tate numbers for de Rham representations.
+* `main`'s `TailZ106` is the tate-prints fold itself, which runs through this `Chain.lean`
+  (`sixContactMin_of_open99` calls `sixContactMin_of_open98_vp`); no re-run of `gen_vp.txt` was
+  needed.

@@ -28,10 +28,11 @@ This folder sits in [F]. Its verdicts are about [F] at the pin above, not at the
 
 ## Viewing it
 
-On the project's site: <https://deicyde.github.io/diophantine-z-q/companion/pdf-overlay/viewer/index.html>. The
-site holds no copy of the manuscript. The page fetches the PDF from `raw.githubusercontent.com` at [M]'s pin, in
-your browser, and checks its sha256 before showing it (`"remote": true` in `pdf-overlay/overlay.config.json`). The
-site is rebuilt when a Lean change on `main` passes its hosted build, so a change here shows up with the next one.
+On the project's site: <https://deicyde.github.io/diophantine-z-q/companion/pdf-overlay/viewer/index.html>. The site
+holds no copy of the manuscript. The page fetches the PDF from `raw.githubusercontent.com` at [M]'s pin, in your
+browser, and checks its sha256 before showing it (`"remote": true` in `pdf-overlay/overlay.config.json`). The site
+is rebuilt when a push to `main` that changes Lean or this folder passes its hosted build, so a change here shows up
+once that build passes.
 
 On your own machine:
 

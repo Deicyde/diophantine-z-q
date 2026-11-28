@@ -34,12 +34,12 @@ field name exactly as OPEN.md shows it and the commit you start from, or open a 
    theorem neronLocalizesDVR_of_printed (h : BLR_1_2_4) : ReductGlue.NeronLocalizesDVR := ...
    ```
 
-   This helps when the hypothesis is GLUE (a consequence, a composite, or project glue) and the new statements
-   are published leaves. Each new printed leaf enters OPEN.md flagged unread: it counts as published, and a
-   statement check ([STATEMENT-CHECKS.md](STATEMENT-CHECKS.md)) compares it with the print. A leaf whose print may
-   say something weaker is flagged pending reading and counts as glue until a check clears it. A new statement must be
-   the published theorem or a consequence of it, never stronger, and never over a structure invented for the
-   purpose.
+   This helps when the hypothesis is GLUE (a consequence, a composite, or project glue) and the new statements are
+   published leaves. Each new printed leaf enters OPEN.md flagged unread: it counts as glue until a reader has
+   checked it against the printed page (ruling 2026-11-17), and a statement check
+   ([STATEMENT-CHECKS.md](STATEMENT-CHECKS.md)) compares it with the print. A leaf whose print may say something
+   weaker is flagged pending reading and counts as glue until a check clears it. A new statement must be the
+   published theorem or a consequence of it, never stronger, and never over a structure invented for the purpose.
 
    Published means refereed. An unrefereed source (an arXiv-only paper, a preprint series such as an MPIM
    preprint, or lecture notes) is never a published leaf: a statement taken from one counts as glue until it is
@@ -52,13 +52,14 @@ Never change a hypothesis's statement. If you find one false, vacuous, or strong
 
 ## Where it goes
 
-A new file `ZInQKernel/Contrib/OneProof/<StatementName>.lean`, importing the module that declares the statement
-you prove and whatever else you need. OPEN.md gives the statement's Lean constant, for example
-`CToPrinted.SGA7_IX_3_3`; searching the tree for its declaration (`git grep -n "def SGA7_IX_3_3"`) finds the file,
-here `ZInQKernel/OneProof/H/TailZ19.lean`, so the import is `ZInQKernel.OneProof.H.TailZ19`.
-Do not import `ZInQKernel.OneProof.Main`: once your file is folded, `Main` imports it, and the import would be
-a cycle. Proofs only in new files: do not edit existing
-modules. Keep a file under about 150 KB. Open a pull request against this fork's `main`.
+A new file `ZInQKernel/Contrib/OneProof/<StatementName>.lean`, importing the module that declares the statement you
+prove and whatever else you need. OPEN.md gives the statement's Lean constant, for example
+`JavanpeykarAnRetype.JavanpeykarThm111An`; searching the tree for its declaration
+(`git grep -n "def JavanpeykarThm111An"`) finds the file, here
+`ZInQKernel/Contrib/OneProof/JavanpeykarAnRetype.lean`, so the import is
+`ZInQKernel.Contrib.OneProof.JavanpeykarAnRetype`. Do not import `ZInQKernel.OneProof.Main`: once your file is
+folded, `Main` imports it, and the import would be a cycle. Proofs only in new files: do not edit existing modules.
+Keep a file under about 150 KB. Open a pull request against this fork's `main`.
 
 ## How to check it
 
@@ -140,12 +141,15 @@ wall-clock) is welcome and credited.
 
 `scripts/one_proof/autofold.py SPEC.json` writes the fold of a checked contribution: a new module
 `ZInQKernel/OneProof/H/TailZ<k+1>.lean` with the next generation of each affected bundle (the discharged fields
-removed, the new leaves added), a theorem filling each discharged field with its proof, and the next top theorem;
-it switches `Main.lean` to it and updates `kinds.tsv` and `claims.tsv`. It refuses a fold that raises either GLUE
-count (the strict or the strictest column) unless given `--allow-rise`. The spec format is in the script's docstring; `scratch/contrib-kit/autofold-test.json` exercises the
-mechanics (with `sorry`, so it is a test, not a fold). Then build, check the axioms, compare hashes with
-`scratch/one-proof/DumpCompact.lean` and `cmp_hashes.py` (no existing constant may change except `frozenTarget`),
-and regenerate OPEN.md (`scripts/one_proof/OpenStatements.lean`, then `render_open.py`, then `render_open.py --check`).
+removed, the new leaves added), a theorem filling each discharged field with its proof, and the next top theorem; it
+switches `Main.lean` to it and updates `kinds.tsv` and `claims.tsv`. It refuses a fold that raises either GLUE count
+(the strict or the strictest column) unless given `--allow-rise`. The spec format is in the script's docstring;
+`scratch/contrib-kit/autofold-test.json` exercised the mechanics (with `sorry`, so it is a test, not a fold) while
+the two fields it names, `quotientP1Coordinate` and `cartierSmooth`, were open; folds have since removed both, and
+on the current bundles autofold.py stops on it with "not a field of the current bundles". Then build, check the
+axioms, compare hashes with `scratch/one-proof/DumpCompact.lean` and `cmp_hashes.py` (no existing constant may
+change except `frozenTarget`), and regenerate OPEN.md (`scripts/one_proof/OpenStatements.lean`, then
+`render_open.py`, then `render_open.py --check`).
 
 ## A worked example
 
@@ -1582,11 +1586,13 @@ DISCHARGES [OpenResearchLeaves87.pazukiCor13Upper] by ZInQ.SemiAbDescend.pazukiC
 ```
 <!-- worked-example:end -->
 
-`t1` assumes the hypothesis it proves (`quotientP1Coordinate`), so it reduces nothing; `t2 : True` matches
-nothing; `t3` matches an open hypothesis but uses `sorry`, so it is flagged. The count of theorems checked also
-includes the theorems of the contributions already folded in (`#discharges` checks the current file and every
-imported module under `ZInQKernel.Contrib.OneProof`); they discharge nothing, since their hypotheses are no
-longer open.
+`t1` assumes the hypothesis it proves (`nvLocalInertia`), so it reduces nothing; `t2 : True` matches nothing; `t3`
+proves `cartierSmooth` with `sorry`. Folds have since removed both fields, so neither `t1` nor `t3` matches an open
+hypothesis in this run, and only Lean's own warning (the first line) flags `t3`'s `sorry`. The count of theorems
+checked also includes the theorems of the contributions already folded in (`#discharges` checks the current file and
+every imported module under `ZInQKernel.Contrib.OneProof`); most discharge nothing, since their hypotheses are no
+longer open; every DISCHARGES line above is one of the others, a theorem that proves an open hypothesis while it
+still assumes other statements.
 
 A real contribution in this shape: cm24-value (`docs/research/cm24-value.md`) proved
 `IgusaCMValue24`, Lin–Yang's Igusa vector at the CM point of discriminant −24, from Mathlib's Jacobi theta
