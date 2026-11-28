@@ -1,0 +1,23 @@
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:83:0: 'WeierstrassCurve.ModelLevels.cyclicSubgroupsEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:84:0: 'WeierstrassCurve.ModelLevels.reduceTorsionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:85:0: 'WeierstrassCurve.ModelLevels.reduceCyclicKernels' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:86:0: 'WeierstrassCurve.ModelLevels.reduceGenerator_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/Reduction.lean:87:0: 'WeierstrassCurve.ModelLevels.oddVelu_equations_reduce' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/ShortIsomorphisms.lean:134:0: 'WeierstrassCurve.ModelLevels.short_change_parameters' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/ShortIsomorphisms.lean:135:0: 'WeierstrassCurve.ModelLevels.short_scaling_fixes_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/ShortIsomorphisms.lean:136:0: 'WeierstrassCurve.ModelLevels.short_exceptional_j' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/ShortIsomorphisms.lean:137:0: 'WeierstrassCurve.ModelLevels.short_stabilizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels/ShortIsomorphisms.lean:138:0: 'WeierstrassCurve.ModelLevels.PairClasses' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:118:0: '_private.ZInQKernel.Contrib.OneProof.RC.ModelLevels3.PairIsomorphisms.0.WeierstrassCurve.ModelLevels.cast_mapAddSubgroup' depends on axioms: [propext,
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:119:0: 'WeierstrassCurve.ModelLevels.changePoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:120:0: '_private.ZInQKernel.Contrib.OneProof.RC.ModelLevels3.PairIsomorphisms.0.WeierstrassCurve.ModelLevels.mapAddSubgroup_trans' depends on axioms: [propext,
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:121:0: 'WeierstrassCurve.ModelLevels.changePoints_mapAddSubgroup_iff' depends on axioms: [propext,
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:122:0: 'WeierstrassCurve.ModelLevels.changePoints_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:123:0: 'WeierstrassCurve.ModelLevels.changePoints_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:124:0: '_private.ZInQKernel.Contrib.OneProof.RC.ModelLevels3.PairIsomorphisms.0.WeierstrassCurve.ModelLevels.changePoints_inv' depends on axioms: [propext,
+ZInQKernel/Contrib/OneProof/RC/ModelLevels3/PairIsomorphisms.lean:125:0: 'WeierstrassCurve.ModelLevels.pairClasses_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:96:0: 'ZInQ.Manuscript.RC.SamePlace.torsionBy_eq_bot_congr' depends on axioms: [propext, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:97:0: 'ZInQ.Manuscript.RC.SamePlace.isSupersingular_variableChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:98:0: 'ZInQ.Manuscript.RC.SamePlace.PairClasses.IsSupersingular' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/Supersingular.lean:99:0: 'ZInQ.Manuscript.RC.SamePlace.ssPoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+EXIT 0
