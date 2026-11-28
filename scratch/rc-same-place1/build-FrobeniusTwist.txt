@@ -1,0 +1,8 @@
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusTwist.lean:143:0: 'ZInQ.Manuscript.RC.SamePlace.mapAlong_changePoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusTwist.lean:144:0: 'ZInQ.Manuscript.RC.SamePlace.twistPoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusTwist.lean:145:0: 'ZInQ.Manuscript.RC.SamePlace.pairTwist' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusTwist.lean:146:0: 'ZInQ.Manuscript.RC.SamePlace.isSupersingular_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusTwist.lean:147:0: 'ZInQ.Manuscript.RC.SamePlace.pairTwist_isSupersingular' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusTwist.lean:148:0: 'ZInQ.Manuscript.RC.SamePlace.frobTwist' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/FrobeniusTwist.lean:149:0: 'ZInQ.Manuscript.RC.SamePlace.frobTwistSS' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9079 jobs).
