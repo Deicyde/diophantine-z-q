@@ -1,0 +1,7 @@
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Lift.lean:109:0: 'ZInQ.Manuscript.RC.ModelGeneric7.localIntegers_ringHom_ext' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Lift.lean:110:0: 'ZInQ.Manuscript.RC.ModelGeneric7.wittVector_isUnit_intCast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Lift.lean:111:0: 'ZInQ.Manuscript.RC.ModelGeneric7.wittLocalAlgebra' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Lift.lean:112:0: 'ZInQ.Manuscript.RC.ModelGeneric7.constantCoeff_comp_algebraMap' depends on axioms: [propext,
+info: ZInQKernel/Contrib/OneProof/RC/ModelGeneric7/Lift.lean:113:0: 'ZInQ.Manuscript.RC.ModelGeneric7.exists_wittLift' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9129 jobs).
+EXIT 0
