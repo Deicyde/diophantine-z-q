@@ -2,12 +2,16 @@ import ZInQKernel.Contrib.OneProof.DelignePrintShapedMilne.Bridges
 
 /-! # The row `deligneCanonicalModelY3EveryPrint`: the PEL modular variety at level `K₃` (Milne, §8)
 
-This file states M1′, the complex input of the Milne route, as an instance of one print: Milne's PEL modular variety
-`M_{K₃}` over `ℂ`, which for the simple type C datum `(B, *, V = B, ψ)` coincides with `Sh_{K₃}(G, X)`
+This file states M1′, a variant of the complex input M1 of the Milne route, drawn from one print: Milne's PEL modular
+variety `M_{K₃}` over `ℂ`, which for the simple type C datum `(B, *, V = B, ψ)` coincides with `Sh_{K₃}(G, X)`
 (*Introduction to Shimura varieties*, pp. 327–329), with the algebraic and analytic structure of `Sh_{K₃}(G, X)`
-(§§3 and 5 of the same article). Its Lean form is `DelignePSMilne.MilneShimuraFamilyPrint` together with the fibres of
-the uniformization, so M1′ gives M1 (`milneShimuraFamilyPrint_of_pelModular`), and the row follows from T2a, T2c′,
-T2c″, M1′ and M2 (`deligneCanonicalModelY3EveryPrint_of_milnePEL`).
+(§§3 and 5 of the same article). Like M1, it is a consequence of the print, not a direct instance: in Milne's usage
+"classifies" is a bijection on complex points (p. 320: "The set ShK(G, X) classifies the triples … modulo
+isomorphism, i.e., there is a canonical bijection"), with isomorphisms in the category of abelian varieties up to
+isogeny, so the universal family, the integral structures, properness and smoothness are reading steps. Its Lean form
+is `DelignePSMilne.MilneShimuraFamilyPrint` together with the fibres of the uniformization, so M1′ gives M1
+(`milneShimuraFamilyPrint_of_pelModular`), and the row follows from T2a, T2c′, T2c″, M1′ and M2
+(`deligneCanonicalModelY3EveryPrint_of_milnePEL`).
 -/
 
 set_option autoImplicit false
@@ -22,8 +26,8 @@ open ShimuraCFT RayClassCFT
 open Y3Hodge (HPM DCRelPM toPM)
 open DelignePS
 
-/-- **M1′ (print-shaped): the PEL modular variety at level `K₃` over `ℂ` is `Sh_{K₃}(G, X)`; with its universal family
-and its uniformization by `ℍ^± × (B ⊗ 𝔸_f)^×`.**
+/-- **M1′ (a consequence of printed statements, like M1): the PEL modular variety at level `K₃` over `ℂ` is
+`Sh_{K₃}(G, X)`; with its universal family and its uniformization by `ℍ^± × (B ⊗ 𝔸_f)^×`.**
 
 *Print.* J. S. Milne, *Introduction to Shimura varieties*, in: *Harmonic analysis, the trace formula, and Shimura
 varieties*, Clay Mathematics Proceedings 4, American Mathematical Society, 2005, pp. 265–378 (page numbers of the
@@ -38,8 +42,9 @@ volume).
   subsection, and let K be a compact open subgroup of G(Af). Then ShK(G, X)(C) classifies the isomorphism classes of
   quadruples (A, s, i, ηK) in which ◦ A is a complex abelian variety, ◦ ±s is a polarization of the hodge structure
   H1(A, Q), ◦ i is a homomorphism B → End(A) ⊗ Q, and ◦ ηK is a K-orbit of B⊗Af-linear isomorphisms
-  η: V(Af) → H1(A, Q)⊗Af sending ψ to an A×f-multiple of s, satisfying the following condition: (**) there exists a
-  B-linear isomorphism a: H1(A, Q) → V sending s to a Q×-multiple of ψ." Its proof applies Theorem 7.4, the form for
+  η: V(Af) → H¹(A, Q)⊗Af sending ψ to an A×f-multiple of s, satisfying the following condition: (**) there exists a
+  B-linear isomorphism a: H1(A, Q) → V sending s to a Q×-multiple of ψ." (The target of `η` is printed `H¹`; it is
+  read as `H₁`, as in the rest of the theorem and in Proposition 7.3.) Its proof applies Theorem 7.4, the form for
   abelian varieties of Proposition 7.3, whose proof gives the map (p. 321): "The proof that (W, . . .) ↦ [ah, a ◦ η]K
   gives a bijection from the set of isomorphism classes of triples in HK onto ShK(G, X)(C) is now routine (cf. the proof
   of 6.3)."
@@ -77,17 +82,18 @@ double cosets (`DelignePS.DCRelPM`), and is holomorphic in `τ ∈ ℍ` for ever
    the point `[x, a]_K` classifies the quadruple `(W, …)` with `[ah, a ∘ η]_K = [x, a]_K` (Proposition 7.3). So `ψ` is
    onto with fibres the double cosets.
 3. "K sufficiently small" holds for `K₃`: `Γg = B^× ∩ g K₃ g⁻¹` acts freely on `ℍ`. For `γ = g k g⁻¹ ∈ Γg`
-   (`k ∈ K₃`) one has `nrd γ ∈ ℚ^× ∩ (1 + 3ℤ̂) = {1}`, `γ` lies in the maximal order `B ∩ g 𝒪̂ g⁻¹` (so `trd γ ∈ ℤ`), and
-   `nrd(γ − 1) = nrd(k − 1) ∈ 9ℤ`; while an element `γ ≠ 1` of `B` with `nrd γ = 1` and `trd γ ∈ ℤ` fixing a point of
-   `ℍ` is `−1` or elliptic with `trd γ ∈ {−1, 0, 1}`, so `nrd(γ − 1) = 2 − trd γ ∈ {1, 2, 3, 4}`. So `T` is smooth of
-   dimension 1; it is proper because each `Γg\ℍ` is compact (`B` is a division algebra; the same complex points are
-   printed as "une surface de Riemann compacte" in Boutot–Carayol III.0.1, p. 125).
+   (`k ∈ K₃`), `nrd γ = nrd k` lies in `ℚ^× ∩ ℤ̂^× = {±1}` (`k` and `k⁻¹` are integral) and in `1 + 3ℤ̂`, so `nrd γ = 1`;
+   `γ` lies in the maximal order `B ∩ g 𝒪̂ g⁻¹` (so `trd γ ∈ ℤ`), and `nrd(γ − 1) = nrd(k − 1) ∈ 9ℤ`; while an element
+   `γ ≠ 1` of `B` with `nrd γ = 1` and `trd γ ∈ ℤ` fixing a point of `ℍ` is `−1` or elliptic with `trd γ ∈ {−1, 0, 1}`,
+   so `nrd(γ − 1) = 2 − trd γ ∈ {1, 2, 3, 4}`. So `T` is smooth of dimension 1; it is proper because each `Γg\ℍ` is
+   compact (`B` is a division algebra: Example 3.4, p. 288; the same complex points are printed as "une surface de
+   Riemann compacte" in Boutot–Carayol III.0.1, p. 125).
 4. Holomorphy: the analytic space of `Sh_{K₃}(G, X)` is `⊔ Γg\X⁺` (Lemma 5.13 with Theorem 3.12), on which regular
    functions are holomorphic (Proposition 3.8(a)); `X⁺ → Γg\X⁺` is holomorphic, so `ψ(·, g)` is a holomorphic family
    (`ShimuraSplit.IsHolFamily`).
 5. The kernel's objects: a family of quadruples `(A, s, i, ηK₃)` gives the family of abelian surfaces with
    `T̂ = η(𝒪̂)` (well defined since `K₃` stabilizes `𝒪̂`), the `𝒪`-action induced by `i` (it preserves `η(𝒪̂)`), the
-   level-3 sections `η mod 3` (`a ↦ η(a)/3` on `T̂/3T̂`), and `s` forgotten (it is determined: Boutot–Carayol 1.5); this
+   level-3 sections `η mod 3` (`a ↦ η(a)/3` on `T̂/3T̂`), and `s` forgotten; this
    is a `Y3Fix.QMAbSchemeP`. The quadruple at `[z, g]` (Proposition 7.3: `W = V`, `h = h_z`, `η = g`) gives
    `ℂ² / ι(L_g)(z, 1)ᵀ` with `L_g = B ∩ 𝒪̂ g⁻¹`, i.e. the moduli object of `[z, g]` (`DelignePS.IsLevelPoint`, the
    lattice form of `H₁ = L_g` with the Hodge structure `h_z`). That every `[z, g]` has a representative `(τ, u)`,
