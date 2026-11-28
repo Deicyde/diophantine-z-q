@@ -397,7 +397,10 @@ theorem omegaEquiv_structMap (𝒢 : GroupModel E L) (Ω : Type*) [Field Ω]
     [Algebra 𝒢.genStalk Ω] [IsFractionRing 𝒢.genStalk Ω] (c : 𝓞 L) :
     omegaEquiv 𝒢 Ω (algebraMap 𝒢.genStalk Ω (𝒢.structMap c)) =
       algebraMap L (AbVarFunctionField (E.baseChange L)) (algebraMap (𝓞 L) L c) := by
-  rw [omegaEquiv_algebraMap, originEquiv_eq_originStalkEquivAt, originStalkEquivAt_structMap]
+  rw [omegaEquiv_algebraMap]
+  refine (congrArg (algebraMap _ (AbVarFunctionField (E.baseChange L)))
+    (originStalkEquivAt_structMap 𝒢 (abVarIdentity (E.baseChange L))
+      (gen_genericFibreUnit_eq 𝒢) c)).trans ?_
   open P2MW.S_AlgebraicCurve_exists_place_range_stalk_eq in
   exact (AlgebraicCurve.baseToFunctionField_apply_eq_algebraMap_stalk (E.baseChange L).X.hom
     (abVarIdentity (E.baseChange L)) (algebraMap (𝓞 L) L c)).symm
