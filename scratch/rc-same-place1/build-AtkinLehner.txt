@@ -1,0 +1,11 @@
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:264:0: 'ZInQ.Manuscript.RC.SamePlace.smulSubgroup_cyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:265:0: 'ZInQ.Manuscript.RC.SamePlace.torsionBy_eq_bot_of_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:266:0: 'ZInQ.Manuscript.RC.SamePlace.separableAlong_of_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:267:0: 'ZInQ.Manuscript.RC.SamePlace.surjective_of_isSeam' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:268:0: 'ZInQ.Manuscript.RC.SamePlace.SepSeam.choose' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:269:0: 'ZInQ.Manuscript.RC.SamePlace.SepSeam.surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:270:0: 'ZInQ.Manuscript.RC.SamePlace.sigmaAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:271:0: 'ZInQ.Manuscript.RC.SamePlace.sigmaQ' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:272:0: 'ZInQ.Manuscript.RC.SamePlace.sigmaAt_isSupersingular' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQKernel/Contrib/OneProof/RC/SamePlace/AtkinLehner.lean:273:0: 'ZInQ.Manuscript.RC.SamePlace.sigmaQSS' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9724 jobs).
