@@ -25,8 +25,8 @@ Remaining readings (not Lean theorems in this directory):
    sections near every point, `HeightModelM2`) stands in for `Γ(S, e*Ω¹)`. That these are the
    stalk and the global sections of the sheaf `e*Ω¹_{𝒢/S}` is a reading here; `HeightModelM5`
    proves it for the sheaf it builds from Mathlib's presheaf of relative differentials,
-   sheafification and pullback (`GG.pullStalkEquiv` and `BS.stalkOmegaBaseEquiv` for the stalk,
-   `genericGermPullOmega_injective` and `range_genericGermPullOmega` for the global sections).
+   sheafification and pullback (`GG.pullStalkEquiv` for the stalk, `genericGermPullOmega_injective`
+   and `range_genericGermPullOmega` for the global sections).
 2. `smul_wedge_mem_detSec` shows that multiplying one factor of a wedge by a lift `x` of
    `c ∈ 𝒪_S(V)` stays in `detSec`. That this element is `c|_η · (v₁ ∧ ⋯ ∧ v_g)` in the Hodge line
    (`𝒪_{S,η} ≅ L`, compatible with the action of `𝒪_{𝒢,ξ}` on `𝔪_ξ/𝔪_ξ²`) is not proved here;

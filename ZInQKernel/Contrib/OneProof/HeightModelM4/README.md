@@ -30,6 +30,6 @@ has no sheaf of relative differentials. `stalkOmega s` is defined by the stalk f
 `(e*Ω¹)_s = 𝒪_{S,s} ⊗_{𝒪_{𝒢,e(s)}} Ω[𝒪_{𝒢,e(s)}/𝓞_L]`, and `globalOmega` stands in for
 `Γ(S, e*Ω¹)`. That these are the stalk and the global sections of the sheaf `e*Ω¹_{𝒢/S}` is a
 definitional reading here; `HeightModelM5` proves it for the sheaf it builds from Mathlib's
-presheaf of relative differentials, sheafification and pullback: `GG.pullStalkEquiv` and
-`BS.stalkOmegaBaseEquiv` (the stalks), `genericGermPullOmega_injective` and
-`range_genericGermPullOmega` (`Γ(S, e*Ω¹)` is `globalOmega`).
+presheaf of relative differentials, sheafification and pullback: `GG.pullStalkEquiv` (the
+stalks), `genericGermPullOmega_injective` and `range_genericGermPullOmega` (`Γ(S, e*Ω¹)` maps
+injectively onto `globalOmega`).
